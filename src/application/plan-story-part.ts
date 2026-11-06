@@ -3,6 +3,7 @@ import { prop } from '@/application/plan/ids';
 import type { Deciding } from '@/application/plan-viz-decision';
 import { plainLine } from '@/application/plan-viz-text';
 import { criticalSet, wiState, workOrdered, type WorkState } from '@/application/plan-viz-work';
+import { hasChildPath, hasPrefix, rootId } from '@/domain/ids';
 import type { Question, Risk, WorkItem } from '@/domain/plan/plan.generated';
 
 import { gatesOf, heldUp, planStage, type Stage } from './plan-story-cover-standing';
@@ -70,7 +71,7 @@ const endpoint = (step: unknown, key: string): string | null => {
 };
 
 const isOutsideService = (id: string | null, mine: ReadonlySet<string>): id is string =>
-  id !== null && id.startsWith('svc:') && !mine.has(id);
+  id !== null && hasPrefix(id, 'svc') && !mine.has(id);
 
 function stepOf(model: Model, mine: ReadonlySet<string>, id: string): StepChange | null {
   const status = model.status(id);
@@ -84,7 +85,7 @@ function stepOf(model: Model, mine: ReadonlySet<string>, id: string): StepChange
   const reachesUs = to !== null && mine.has(to);
   const sameCall = kind === 'differently' && caller !== null && reachesUs && via !== null;
   const action = plainLine(endpoint(step, 'action') ?? id, model);
-  return { flow: id.split('#')[0] ?? id, id, kind, action, from, to, via, caller, sameCall };
+  return { flow: rootId(id), id, kind, action, from, to, via, caller, sameCall };
 }
 
 /** The team's steps the plan touches. A step into the team's service whose route is unchanged but whose logic changed is "works differently". */
@@ -112,11 +113,11 @@ const ownsChange =
 function owner(model: Model, team: string, cut: ReturnType<Model['teamCut']>) {
   const change = ownsChange(model, team, cut.changes);
   return (id: string): boolean => {
-    if (id.startsWith('wi:')) return prop(model.get(id), 'team') === team;
-    if (id.startsWith('chg:')) return change(id);
+    if (hasPrefix(id, 'wi')) return prop(model.get(id), 'team') === team;
+    if (hasPrefix(id, 'chg')) return change(id);
     return (
-      id.startsWith('flow:') &&
-      id.includes('#') &&
+      hasPrefix(id, 'flow') &&
+      hasChildPath(id) &&
       cut.steps.includes(id) &&
       model.teamsOf(id).includes(team)
     );

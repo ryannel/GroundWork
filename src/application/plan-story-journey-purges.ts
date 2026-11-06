@@ -1,4 +1,5 @@
 import type { Model } from '@/application/plan/derive';
+import { rootId } from '@/domain/ids';
 
 // What empties each cache an operation passes through: the events that purge it, or else a timer.
 
@@ -37,5 +38,5 @@ export function purgesOf(model: Model, opId: string): Purges {
   });
   const steps = layers.flatMap((layer) => layer.purgedIn);
   const [first] = steps;
-  return { rows, flow: first === undefined ? null : (first.split('#')[0] ?? null) };
+  return { rows, flow: first === undefined ? null : rootId(first) };
 }

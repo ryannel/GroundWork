@@ -11,6 +11,7 @@ import type {
 } from '@/application/plan-viz-system-map-types';
 import { teamIndex, teamOf } from '@/application/plan-viz-teams';
 import { plainLine } from '@/application/plan-viz-text';
+import { hasPrefix, rootId } from '@/domain/ids';
 
 const text = (value: unknown): string => (typeof value === 'string' ? value.trim() : '');
 const orNull = (value: string): string | null => (value === '' ? null : value);
@@ -58,8 +59,8 @@ function interfaceOf(model: Model, via: string): string {
 /** The data a call answers with, the event a message is, or the store read; else the interface it belongs to. */
 function carriedBy(model: Model, via: string): string {
   const response = text(prop(model.asIs.get(via), 'response'));
-  if (response !== '') return model.label(response.split('#')[0] ?? response);
-  return model.label(via.startsWith('api:') ? interfaceOf(model, via) : via);
+  if (response !== '') return model.label(rootId(response));
+  return model.label(hasPrefix(via, 'api') ? interfaceOf(model, via) : via);
 }
 
 function stagesIn(model: Model): MapStageIn[] {

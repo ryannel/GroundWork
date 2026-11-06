@@ -3,6 +3,7 @@
 import { Suspense, useEffect, useId, useRef, useState, type ReactNode } from 'react';
 
 import { DEFAULT_SHOW, SHOWS, SHOW_WORD, type Show, showOf } from '@/application/reference/model';
+import { buildId } from '@/domain/ids';
 import { setParam, useLens, useParam, useSetLens } from '@/features/plan/lens.client';
 import { Legend } from '@/ui/legend';
 
@@ -63,7 +64,7 @@ function Live({ noun, bodies, teams, search = true }: CatalogueProps) {
   const param = useLens();
   const setLens = useSetLens();
   const lens =
-    Object.keys(teams).find((id) => id === param || id === `team:${param ?? ''}`) ?? null;
+    Object.keys(teams).find((id) => id === param || id === buildId('team', param ?? '')) ?? null;
   const [query, setQuery] = useState('');
   const root = useRef<HTMLDivElement>(null);
   const count = useRef<HTMLSpanElement>(null);

@@ -1,5 +1,6 @@
 import type { Report } from '@/application/plan/check-context';
 import { isRecord, walkStrings } from '@/application/plan/ids';
+import { parseGitHostUrl } from '@/domain/code-links';
 import type { PathSegment } from '@/domain/plan/plan-ids';
 import type { Plan } from '@/domain/plan/plan.generated';
 
@@ -161,7 +162,8 @@ function walkSources(
 function checkSources(plan: Plan, rep: Report): void {
   walkSources(plan, (src, segs) => {
     const url = typeof src.url === 'string' ? src.url : '';
-    const ref = /^https?:\/\/github\.com\/[^/]+\/[^/]+\/blob\/([^/]+)\//u.exec(url)?.[1];
+    const link = parseGitHostUrl(url);
+    const ref = link?.host === 'github.com' && link.kind === 'blob' ? link.commit : undefined;
     if (ref !== undefined && !/^[0-9a-f]{40}$/u.test(ref)) {
       rep.warn(
         [...segs, 'url'],

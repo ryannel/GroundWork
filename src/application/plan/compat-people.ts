@@ -2,6 +2,7 @@ import { sameJson } from '@/application/plan/compat-rules';
 import { consumersIn } from '@/application/plan/derive-edges';
 import { actingService } from '@/application/plan/graph-queries';
 import { prop } from '@/application/plan/ids';
+import { childId } from '@/domain/ids';
 import type { OpRecord, SchemaNode, StepNode, SystemGraph } from '@/domain/plan/plan-graph';
 
 export type Kind = 'reader' | 'writer' | 'caller' | 'consumer' | 'operation';
@@ -69,8 +70,8 @@ function touched(ctx: Ctx, fieldName: string | undefined): Set<string> {
   if (sch === null) return new Set();
   const own =
     fieldName === undefined
-      ? sch.fields.map((f) => `${sch.id}#${f.name}`)
-      : [`${sch.id}#${fieldName}`];
+      ? sch.fields.map((f) => childId(sch.id, f.name))
+      : [childId(sch.id, fieldName)];
   return new Set([sch.id, ...own]);
 }
 
@@ -140,7 +141,7 @@ export function affected(env: PeopleEnv, q: Query): Affected[] {
   if (kind === 'caller') callersOf(s, ctx.requests, 'caller');
   if (kind === 'consumer') consumerPeople(s);
   if (kind === 'operation' && q.field !== undefined && ctx.sch !== null) {
-    for (const o of env.operationsSelecting(`${ctx.sch.id}#${q.field}`, 'asIs')) {
+    for (const o of env.operationsSelecting(childId(ctx.sch.id, q.field), 'asIs')) {
       put(o, 'reader', o);
     }
   }

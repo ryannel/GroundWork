@@ -5,6 +5,7 @@ import type {
   AreaResourceView,
   AreaSystemView,
 } from '@/application/workspace-area';
+import { stripPrefix } from '@/domain/ids';
 
 interface ResourceIndex {
   readonly access: readonly Edge[];
@@ -187,7 +188,7 @@ export function withAreaResources(
     if (known.has(store.id)) continue;
     const owner = systems.find(
       (system) =>
-        system.id === store.owner?.replace(/^sys:/u, '') ||
+        system.id === stripPrefix(store.owner, 'sys') ||
         system.components.some((component) => component.id === store.owner),
     );
     const user = systems.find((system) =>

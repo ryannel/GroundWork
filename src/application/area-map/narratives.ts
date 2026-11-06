@@ -1,4 +1,5 @@
 import type { Model } from '@/application/plan/derive';
+import { buildId } from '@/domain/ids';
 import type { SystemNarratives } from '@/domain/system-narrative';
 import type { System } from '@/domain/workspace';
 
@@ -22,7 +23,9 @@ export function areaNarratives(system: System, model?: Model): AreaNarratives {
           (id) => model?.asIs.get(id) === undefined,
         ),
       ) ||
-      (story.relatedSystems ?? []).some((id) => model?.asIs.get(`sys:${id}`) === undefined) ||
+      (story.relatedSystems ?? []).some(
+        (id) => model?.asIs.get(buildId('sys', id)) === undefined,
+      ) ||
       story.stages.some(
         (stage) =>
           [stage.component, ...stage.supporting].some((id) => !components.has(id)) ||

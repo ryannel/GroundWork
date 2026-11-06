@@ -13,6 +13,7 @@ import {
   type Sequencing,
 } from '@/application/plan-viz-ladder-order';
 import { numWord } from '@/application/plan-viz-text';
+import { lastSlugPart, hasPrefix } from '@/domain/ids';
 
 // A migration ladder in words: what happens to the contract, who has to move and by when.
 
@@ -56,7 +57,7 @@ interface Ctx {
 }
 
 function retireBreaks({ id, who, w }: Ctx): string {
-  if (id.startsWith('api:')) return `calls to ${w.oldQ} then fail`;
+  if (hasPrefix(id, 'api')) return `calls to ${w.oldQ} then fail`;
   const thing = `\`${w.name ?? w.old}\``;
   return `${who.length === 1 ? 'it' : 'any that has not'} stops receiving ${thing}`;
 }
@@ -163,7 +164,7 @@ export interface VersionPair {
 const verOf = (model: Model, id: string, same: boolean): string => {
   const version = prop(model.get(id), 'version');
   const name = model.get(id) === undefined ? id : model.label(id);
-  if (same) return typeof version === 'string' ? version : (id.split('-').pop() ?? id);
+  if (same) return typeof version === 'string' ? version : lastSlugPart(id);
   return typeof version === 'string' ? `${name} ${version}` : name;
 };
 

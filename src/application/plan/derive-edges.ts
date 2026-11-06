@@ -12,6 +12,7 @@ import type {
 } from '@/application/plan/derive-edge-types';
 import { putHandlerEdges } from '@/application/plan/derive-handler-edges';
 import { memo } from '@/application/plan/derive-values';
+import { hasAnyPrefix } from '@/domain/ids';
 import type { StepNode, SystemGraph } from '@/domain/plan/plan-graph';
 
 export type { Consumer, Edge, EdgeQueries } from '@/application/plan/derive-edge-types';
@@ -243,7 +244,7 @@ export function createEdges(core: Core): EdgeQueries {
 function apiEdges(core: Core, g: SystemGraph, put: Put): void {
   for (const s of g.steps) {
     for (const c of core.fanout(g, s).calls) {
-      if (c.kind === 'api' && /^(?:api|gql):/u.test(c.via ?? '')) {
+      if (c.kind === 'api' && hasAnyPrefix(c.via, ['api', 'gql'])) {
         put({ from: c.from, to: c.to, via: c.via, kind: 'api', fanout: c.fanout }, s.id);
       }
     }

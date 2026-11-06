@@ -1,7 +1,8 @@
 import type { Model } from '@/application/plan/derive';
 import { journeyGroups } from '@/application/plan-story-journey-groups';
 import { firstSentence } from '@/application/plan-viz-text';
-import { plain } from '@/shared/plain-text';
+import { firstFlowReference } from '@/domain/ids';
+import { plain } from '@/domain/plain-text';
 
 // How the plan plays out, in the plan's own words: each path as a list of steps, and where a step cites a flow,
 // the page of the journey chapter that walks it.
@@ -24,14 +25,12 @@ export interface ExecutionStory {
   readonly paths: readonly ExecutionPath[];
 }
 
-const FLOW_CITATION = /\[\[(flow:[^\]]+)\]\]/u;
-
 export function executionStory(model: Model): ExecutionStory | null {
   const { execution } = model.plan;
   if (execution === undefined) return null;
   const groups = journeyGroups(model);
   const pageOf = (detail: string): string | null => {
-    const flow = FLOW_CITATION.exec(detail)?.[1];
+    const flow = firstFlowReference(detail);
     return groups.find((g) => flow !== undefined && g.flows.includes(flow))?.key ?? null;
   };
   const headline = firstSentence(plain(execution.summary, (id) => model.label(id)));

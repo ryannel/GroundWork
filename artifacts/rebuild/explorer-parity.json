@@ -21,7 +21,7 @@
       "file": "src/features/service-explorer/explorer-corpus.client.tsx",
       "token": "service",
       "replacement": "Component/repository navigation backed by homes and evidence (PR 8).",
-      "line": 6,
+      "line": 7,
       "status": "planned; parity unproven"
     },
     {

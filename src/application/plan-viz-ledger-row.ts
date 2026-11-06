@@ -1,6 +1,7 @@
 import type { Model } from '@/application/plan/derive';
 import { teamOf } from '@/application/plan-viz-teams';
 import { plainLine, countOf } from '@/application/plan-viz-text';
+import { rootId } from '@/domain/ids';
 import type { OpKind, OpRecord } from '@/domain/plan/plan-graph';
 
 // The change ledger: one row per change, with what it does, what it touches and how it is proved and built.
@@ -42,7 +43,7 @@ function changeRecords(model: Model, id: string): OpRecord[] {
   return model.records.filter((r) => r.changeId === id);
 }
 
-const topOf = (id: string): string => id.split('#')[0] ?? id;
+const topOf = (id: string): string => rootId(id);
 
 function targetOf(r: OpRecord): string {
   const folds = r.kind === 'add' && (r.type === 'field' || r.type === 'step');

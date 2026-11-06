@@ -1,3 +1,5 @@
+import { qualifyId } from '@/domain/ids';
+
 import {
   byNewest,
   type CardsByMilestone,
@@ -55,7 +57,7 @@ function historyOf(index: WorkspacePlanIndex, mine: readonly IndexedWork[]): Eve
   return [...index.plans.values()]
     .flatMap((plan) =>
       plan.events
-        .filter((event) => subjects.has(`${plan.slug}/${event.subject}`))
+        .filter((event) => subjects.has(qualifyId(plan.slug, event.subject)))
         .map((event) => eventVM(index, plan.slug, event)),
     )
     .toSorted(byNewest);

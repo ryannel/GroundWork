@@ -6,6 +6,7 @@ import {
   todayJourneysOf,
 } from '@/application/today-journeys';
 import { journeyHref } from '@/application/today-reader';
+import { buildId } from '@/domain/ids';
 import type { Workspace } from '@/domain/workspace';
 
 /** One journey or flow as a line in the index. */
@@ -42,7 +43,7 @@ export interface JourneyIndex {
 // domains it touches so a long list can be narrowed to one.
 export function journeyIndexOf(workspace: Workspace, model: Model): JourneyIndex {
   const domainOf = new Map<string, string>(
-    workspace.domains.flatMap((d) => d.systems.map((s) => [`sys:${s.id}`, d.id] as const)),
+    workspace.domains.flatMap((d) => d.systems.map((s) => [buildId('sys', s.id), d.id] as const)),
   );
   const rowOf = (j: TodayJourney): JourneyRow => {
     const through = j.systems.map((id) => model.label(id));
@@ -67,7 +68,7 @@ export function journeyIndexOf(workspace: Workspace, model: Model): JourneyIndex
       ? []
       : [{ id: 'people', title: 'User journeys', rows: people.map(rowOf) }]),
     ...flowsByStage(model, journeys).map((stage) => ({
-      id: `stage:${stage.stage}`,
+      id: buildId('stage', stage.stage),
       title: stage.title,
       rows: stage.journeys.map(rowOf),
     })),

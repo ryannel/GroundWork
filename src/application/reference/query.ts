@@ -3,6 +3,7 @@ import { prop } from '@/application/plan/ids';
 import { teamOf } from '@/application/plan-viz-teams';
 import { plainLine } from '@/application/plan-viz-text';
 import { poolOf, showOf, type Show } from '@/application/reference/model';
+import { buildId } from '@/domain/ids';
 import { firstParam, type SearchParams } from '@/shared/search-params';
 
 // This query depends only on reading records, labels and ownership, not on delivery or diagram machinery.
@@ -96,7 +97,7 @@ export function referencePage(
 ): ReferencePage {
   const query = queryOf(input.params, input.today);
   const team = model.plan.teams.find(
-    (each) => each.id === query.team || each.id === `team:${query.team}`,
+    (each) => each.id === query.team || each.id === buildId('team', query.team),
   );
   const cut = team === undefined ? null : model.teamCut(team.id);
   const words = query.q.toLowerCase().split(/\s+/u).filter(Boolean);

@@ -195,12 +195,3 @@ export interface WorkspaceModel {
   readonly attribution: Readonly<Record<string, Attribution>>;
   readonly scans: readonly Scan[];
 }
-
-/** A GitHub permalink for a code source: blob/<commit>/<path>#L<from>-L<to>. */
-export function permalinkOf(source: CodeSource): string {
-  const host = source.repo.split('/').length > 2 ? source.repo : `github.com/${source.repo}`;
-  const base = `https://${host}/blob/${source.commit}/${encodeURI(source.path)}`;
-  if (source.lines === undefined) return base;
-  const [from, to] = source.lines;
-  return from === to ? `${base}#L${String(from)}` : `${base}#L${String(from)}-L${String(to)}`;
-}

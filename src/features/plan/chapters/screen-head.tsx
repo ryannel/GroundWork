@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 
 import type { Outline, Page } from '@/application/plan-pages';
+import { isAuthoredReference } from '@/domain/ids';
 import { InlineMarkdown } from '@/ui/markdown';
 import { PageHeader } from '@/ui/page-header';
 import { SectionHeading } from '@/ui/section-heading';
@@ -23,7 +24,7 @@ export function ScreenHead({ outline, page, headline, item, children }: ScreenHe
       <SectionHeading title={item}>
         {headline === undefined ? null : (
           <p>
-            <InlineMarkdown text={headline} />
+            <InlineMarkdown isReference={isAuthoredReference} text={headline} />
           </p>
         )}
         {children}
@@ -32,7 +33,11 @@ export function ScreenHead({ outline, page, headline, item, children }: ScreenHe
   }
   return (
     <PageHeader
-      description={headline === undefined ? undefined : <InlineMarkdown text={headline} />}
+      description={
+        headline === undefined ? undefined : (
+          <InlineMarkdown isReference={isAuthoredReference} text={headline} />
+        )
+      }
       title={page.title}
       trail={trailOf(outline, page)}
     >

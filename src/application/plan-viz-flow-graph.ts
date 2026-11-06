@@ -2,6 +2,7 @@ import type { Model } from '@/application/plan/derive';
 import { type FlowMode, type FlowStep, flowSteps, isNewLink } from '@/application/plan/flow-steps';
 import { prop, typeOf } from '@/application/plan/ids';
 import { type Rect, wrapText } from '@/application/plan-viz-flow-geometry';
+import { hasAnyPrefix, hasPrefix, rootId } from '@/domain/ids';
 
 export type NodeKind = 'service' | 'topic' | 'store';
 export type HopKind = 'api' | 'msg' | 'data';
@@ -105,19 +106,19 @@ export const actionOf = (s: FlowStep): string => (s.action === '' ? s.id : s.act
 function nodeKind(model: Model, id: string): NodeKind {
   const entity = model.get(id);
   if (entity === undefined) return 'service';
-  if (typeOf(id) !== 'store' && !id.startsWith('st:')) return 'service';
+  if (typeOf(id) !== 'store' && !hasPrefix(id, 'st')) return 'service';
   const kind = prop(entity, 'kind');
   return kind === 'topic' || kind === 'queue' ? 'topic' : 'store';
 }
 
 const hopKind = (via: string): HopKind => {
-  if (/^(?:api|gql):/u.test(via)) return 'api';
-  return via.startsWith('msg:') ? 'msg' : 'data';
+  if (hasAnyPrefix(via, ['api', 'gql'])) return 'api';
+  return hasPrefix(via, 'msg') ? 'msg' : 'data';
 };
 
 /** The store a record (`sch:order#id`) lives in. */
 export function storeOf(model: Model, ref: string): string | null {
-  const store = prop(model.get(ref.split('#')[0] ?? ''), 'store');
+  const store = prop(model.get(rootId(ref)), 'store');
   return typeof store === 'string' ? store : null;
 }
 
@@ -240,7 +241,7 @@ function hopTouches(ctx: Ctx, { s, i, kind }: Hop): readonly Touch[] {
     ...endpoint,
     ...event,
     { t: 'edge', ends, item: { i, s, text: actionOf(s) } },
-    ...(s.via.startsWith('gql:') ? fanTouches(ctx, s, i) : []),
+    ...(hasPrefix(s.via, 'gql') ? fanTouches(ctx, s, i) : []),
   ];
 }
 
@@ -269,7 +270,7 @@ function recordTouches(ctx: Ctx, { s, i, kind }: Hop): readonly Touch[] {
   const actor = kind === 'api' || (isSvc(s.to) && !isSvc(s.from)) ? s.to : s.from;
   const { writes, reads } = accesses(ctx.model, s);
   return [...writes, ...reads].flatMap(([store, refs]): readonly Touch[] => {
-    const names = [...new Set(refs.map((r) => ctx.model.label(r.split('#')[0] ?? r)))];
+    const names = [...new Set(refs.map((r) => ctx.model.label(rootId(r))))];
     const text = `${writes.has(store) ? 'writes' : 'reads'} ${names.join(', ')}`;
     return [
       { t: 'node', id: store },

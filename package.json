@@ -160,5 +160,8 @@
     ],
     "reportUnusedIgnore": true,
     "showRelativePath": true
+  },
+  "imports": {
+    "#domain/*": "./src/domain/*.ts"
   }
 }

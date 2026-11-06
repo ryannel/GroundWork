@@ -14,13 +14,14 @@ import {
   type FlowStep,
 } from '@/application/plan/flow-steps';
 import { prop } from '@/application/plan/ids';
+import { lastIdPart, hasPrefix, rootId } from '@/domain/ids';
 
 const ENTITY: Record<string, string> = { '#': '#35;', ';': '#59;', '<': '#lt;', '>': '#gt;' };
 
 /** Text for a Mermaid label: markdown and line breaks gone, `;` `#` `<` `>` as entity codes. */
 export function mmText(text?: string): string {
   return (text ?? '')
-    .replaceAll(/\[\[([^\]]{1,200})\]\]/gu, (_, id: string) => id.split(/[:#]/u).pop() ?? id)
+    .replaceAll(/\[\[([^\]]{1,200})\]\]/gu, (_, id: string) => lastIdPart(id))
     .replaceAll(/\[([^\]]{1,200})\]\([^)]{0,200}\)/gu, '$1')
     .replaceAll(/`([^`]*)`/gu, '$1')
     .replaceAll(/(\*{1,3}|__)(?=\S)([^*_\n]*?\S)\1/gu, '$2')
@@ -40,14 +41,14 @@ const nameOf = (model: FlowModel, id: string): string =>
 function viaText(model: FlowModel, via: string): string {
   const e = model.get(via);
   if (e === undefined) return '';
-  if (via.startsWith('msg:')) {
+  if (hasPrefix(via, 'msg')) {
     return [strProp(e, 'name'), strProp(e, 'version')].filter((x) => x !== undefined).join(' ');
   }
   return strProp(e, 'sig') ?? strProp(e, 'name') ?? via;
 }
 
 const recNames = (model: FlowModel, refs: readonly string[]): string =>
-  [...new Set(refs.map((r) => nameOf(model, r.split('#')[0] ?? r)))].join(', ');
+  [...new Set(refs.map((r) => nameOf(model, rootId(r))))].join(', ');
 
 const storeLetter = (kind: unknown): 'T' | 'D' =>
   kind === 'topic' || kind === 'queue' ? 'T' : 'D';
@@ -58,7 +59,7 @@ function participantIds(model: FlowModel, parts: readonly string[]): Map<string,
   return new Map(
     parts.map((p) => {
       const e = model.get(p);
-      const store = prop(e, '$type') === 'store' || p.startsWith('st:');
+      const store = prop(e, '$type') === 'store' || hasPrefix(p, 'st');
       const kind = prop(e, 'kind');
       const k = store ? storeLetter(kind) : 'S';
       counts[k] += 1;
@@ -121,7 +122,7 @@ function drawNote(ctx: Ctx, row: Extract<SequenceRow, { readonly kind: 'note' }>
     return;
   }
   if (ctx.seq.actor !== null) {
-    ctx.pen.note('P', mmText(`sees ${nameOf(ctx.model, row.screen.split('#')[0] ?? row.screen)}`));
+    ctx.pen.note('P', mmText(`sees ${nameOf(ctx.model, rootId(row.screen))}`));
   }
 }
 

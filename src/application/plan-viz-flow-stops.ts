@@ -1,6 +1,7 @@
 import type { Model } from '@/application/plan/derive';
 import { type FlowMode, type FlowStep, flowSteps, isTopic } from '@/application/plan/flow-steps';
 import { prop } from '@/application/plan/ids';
+import { hasPrefix } from '@/domain/ids';
 
 // The stops of a flow: the places a viewer pauses at as the reader walks it, and the changes ahead that mark its steps.
 
@@ -26,7 +27,7 @@ export interface StopOptions {
 }
 
 const isService = (model: Model, id: string): boolean =>
-  model.get(id) !== undefined && prop(model.get(id), '$type') !== 'store' && !id.startsWith('st:');
+  model.get(id) !== undefined && prop(model.get(id), '$type') !== 'store' && !hasPrefix(id, 'st');
 
 /** A step that stays inside one service, or touches only its own store. */
 function isInternal(model: Model, s: FlowStep): boolean {

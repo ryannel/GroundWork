@@ -1,4 +1,5 @@
 import type { Model } from '@/application/plan/derive';
+import { childPathOf } from '@/domain/ids';
 import type { FieldNode, SchemaNode, SubgraphNode, SystemGraph } from '@/domain/plan/plan-graph';
 
 // What the three graph pictures share: which graph a mode reads, its types in the order they are drawn, and the
@@ -31,7 +32,7 @@ export const subgraphLabel = (model: Model, id: string): string =>
 export const isPrivateField = (field: FieldNode | undefined): boolean =>
   field !== undefined && (field.auth !== undefined || field.cache_control?.scope === 'private');
 
-export const fieldName = (id: string): string => id.split('#')[1] ?? '';
+export const fieldName = (id: string): string => childPathOf(id) ?? '';
 
 export const fieldsOf = (graph: SystemGraph, typeId: string): readonly FieldNode[] => {
   const node = graph.get(typeId);

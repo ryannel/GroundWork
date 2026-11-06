@@ -667,6 +667,7 @@ export default defineConfig([
     plugins: { groundwork },
     files: [SRC],
     rules: {
+      'groundwork/identity-boundary': 'error',
       'groundwork/client-file-naming': 'error',
       'groundwork/app-route-files-only': 'error',
       'groundwork/drawn-on-request': 'error',

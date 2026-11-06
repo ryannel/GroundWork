@@ -5,6 +5,7 @@ import { outlineOf } from '@/application/plan-pages';
 import { idToToken } from '@/application/plan-pages-hash';
 import { journeyIndexOf } from '@/application/today-journey-index';
 import { referenceOf } from '@/application/today-reference';
+import { stripPrefix } from '@/domain/ids';
 import type { AuthoredLandscape } from '@/domain/landscape';
 import type { Workspace } from '@/domain/workspace';
 import { listRevisions } from '@/infrastructure/plan-store';
@@ -52,7 +53,7 @@ async function catalogueRoutes(
     routes.add(`${base}programmes/${programme.id}/`);
   }
   for (const team of workspace.teams.filter((item) => item.partner === true)) {
-    routes.add(`${base}partners/${team.id.replace(/^team:/u, '')}/`);
+    routes.add(`${base}partners/${stripPrefix(team.id, 'team')}/`);
   }
   for (const entry of referenceOf(model)) routes.add(`${base}reference/${entry.kind}/`);
   return [...routes];

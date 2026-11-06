@@ -4,6 +4,7 @@ import type { LadderOp } from '@/application/plan/derive-ladder';
 import type { Owners } from '@/application/plan/derive-owners';
 import { memo, textOf, uniq } from '@/application/plan/derive-values';
 import { formatPath, isRecord, prop, strings } from '@/application/plan/ids';
+import { childPathOf } from '@/domain/ids';
 import type { OpRecord, PropChange } from '@/domain/plan/plan-graph';
 
 type FieldKind = 'expand' | 'migrate' | 'retire';
@@ -179,7 +180,7 @@ function rungOf(
 }
 
 function ladderOf(core: Core, parts: FieldLadderParts, id: string): FieldLadder {
-  const name = textOf(prop(core.sys(id), 'name')) ?? id.split('#')[1] ?? id;
+  const name = textOf(prop(core.sys(id), 'name')) ?? childPathOf(id) ?? id;
   const rungs: FieldRung[] = [];
   let ends: Ends = { from: null, to: null };
   for (const r of core.records.filter((x) => x.kind === 'modify' && x.target === id)) {

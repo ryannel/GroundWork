@@ -7,6 +7,7 @@ import {
   type StepCode,
   type StepView,
 } from '@/application/today-handler';
+import { prefixOf } from '@/domain/ids';
 import { ModelText } from '@/features/plan/common/model-text';
 import { Badge } from '@/ui/badge';
 import { Cluster } from '@/ui/stack';
@@ -164,7 +165,7 @@ export function HandlerStory({ model, id }: HandlerStoryProps) {
   const story = handlerStoryOf(model, id);
   if (story === null) return null;
   return (
-    <Section title={TITLES[id.split(':')[0] ?? ''] ?? 'What runs'}>
+    <Section title={TITLES[prefixOf(id)] ?? 'What runs'}>
       {story.systems.length + story.stores.length === 0 ? null : (
         <dl className={styles.reach}>
           {story.systems.length === 0 ? null : (

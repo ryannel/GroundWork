@@ -1,0 +1,23 @@
+{
+  "purpose": "Completed local diagnostic; the complete CI aggregate is still required.",
+  "files": [
+    {
+      "file": "src/application/plan-viz-compat.ts",
+      "statuses": {
+        "Ignored": 23,
+        "Killed": 128,
+        "Survived": 15,
+        "NoCoverage": 1
+      }
+    },
+    {
+      "file": "src/application/plan-viz-flow-draw-nodes.ts",
+      "statuses": {
+        "Ignored": 18,
+        "Killed": 137,
+        "NoCoverage": 4,
+        "Survived": 13
+      }
+    }
+  ]
+}

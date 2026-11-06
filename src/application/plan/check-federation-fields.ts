@@ -9,6 +9,7 @@ import {
   keysOf,
 } from '@/application/plan/federation-index';
 import { parseTypeRef } from '@/application/plan/federation-parse';
+import { rootId } from '@/domain/ids';
 import type { FieldNode, SchemaNode } from '@/domain/plan/plan-graph';
 
 /** A graph-type field, with what its checks share. */
@@ -111,7 +112,7 @@ export function checkRequires({ s, f, name, subs }: FieldAt): void {
 export function checkProvides({ s, f, name, subs, returned }: FieldAt): void {
   for (const [j, pid] of (f.provides ?? []).entries()) {
     const where = s.at(f, 'provides', ['provides', j]);
-    if (returned === null || pid.split('#')[0] !== returned.id) {
+    if (rootId(pid) !== returned?.id) {
       s.error(
         where,
         `${name} provides ${pid}, which is not a field of ${returned?.name ?? parseTypeRef(f.type).name}; @provides names fields of the type the field returns`,
@@ -150,7 +151,7 @@ export function checkValueType({ s, f, name, subs, returned }: FieldAt): void {
 /** reads names record fields; a cache layer names a cache store. */
 export function checkReadsAndCaches({ s, f, name }: FieldAt): void {
   for (const [j, rid] of (f.reads ?? []).entries()) {
-    const rs = s.g.get(rid.split('#')[0]);
+    const rs = s.g.get(rootId(rid));
     if (rs?.$type === 'schema' && rs.kind === 'graph-type') {
       s.error(
         s.at(f, 'reads', ['reads', j]),

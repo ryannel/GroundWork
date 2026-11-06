@@ -2,6 +2,7 @@
 import path from 'node:path';
 
 import { cssModules } from './css-modules-rule.mjs';
+import { identityBoundary } from './identity-rules.mjs';
 import { barrelExportsOnly, noJunkDrawerNames, routeExports, serverOnly } from './layer-rules.mjs';
 import { readonlyTypes } from './readonly-types-rule.mjs';
 import { linkPrefetch, onePerChoice } from './speed-rules.mjs';
@@ -127,6 +128,7 @@ const drawnOnRequest = {
 export default {
   meta: { name: 'groundwork' },
   rules: {
+    'identity-boundary': identityBoundary,
     'client-file-naming': clientFileNaming,
     'app-route-files-only': appRouteFilesOnly,
     'drawn-on-request': drawnOnRequest,

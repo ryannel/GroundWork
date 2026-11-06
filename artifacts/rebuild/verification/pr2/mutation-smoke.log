@@ -1,0 +1,23 @@
+[32m00:35:06 (92849) INFO ProjectReader[39m No incremental result file found at reports/stryker-incremental.json, a full mutation testing run will be performed.
+[32m00:35:06 (92849) INFO ProjectReader[39m Found 1 of 1872 file(s) to be mutated.
+[32m00:35:07 (92849) INFO Instrumenter[39m Instrumented 1 source file(s) with 2 mutant(s)
+[32m00:35:07 (92849) INFO ConcurrencyTokenProvider[39m Creating 8 test runner process(es).
+[32m00:35:09 (92849) INFO BroadcastReporter[39m Detected that current console does not support the "progress" reporter, downgrading to "progress-append-only" reporter
+[32m00:35:10 (92849) INFO DryRunExecutor[39m Starting initial test run (vitest test runner with "perTest" coverage analysis). This may take a while.
+[32m00:35:11 (92849) INFO DryRunExecutor[39m Initial test run succeeded. Ran 1 tests in 1 second (net 46.76274999999987 ms, overhead 1407.2372500000001 ms).
+
+All tests/in-turn.test.ts
+  ✓ inTurn > runs each step after the one before has finished (killed 2)
+
+Ran 1.00 tests per mutant on average.
+------------|------------------|----------|-----------|------------|----------|----------|
+            | % Mutation score |          |           |            |          |          |
+File        |  total | covered | # killed | # timeout | # survived | # no cov | # errors |
+------------|--------|---------|----------|-----------|------------|----------|----------|
+All files   | 100.00 |  100.00 |        2 |         0 |          0 |        0 |        0 |
+ in-turn.ts | 100.00 |  100.00 |        2 |         0 |          0 |        0 |        0 |
+------------|--------|---------|----------|-----------|------------|----------|----------|
+[32m00:35:11 (92849) INFO MutationTestReportHelper[39m Final mutation score of 100.00 is greater than or equal to break threshold 75
+[32m00:35:11 (92849) INFO JsonReporter[39m Your report can be found at: file:///Users/RNEL/.codex/worktrees/rebuild-pr2/groundWork/reports/mutation.json
+[32m00:35:11 (92849) INFO HtmlReporter[39m Your report can be found at: file:///Users/RNEL/.codex/worktrees/rebuild-pr2/groundWork/reports/mutation.html
+[32m00:35:11 (92849) INFO MutationTestExecutor[39m Done in 5 seconds.

@@ -1,0 +1,125 @@
+{
+  "purpose": "Completed local diagnostic; the complete CI aggregate is still required.",
+  "files": [
+    {
+      "file": "src/application/plan/derive-edges.ts",
+      "statuses": {
+        "NoCoverage": 7,
+        "Ignored": 4,
+        "Killed": 353,
+        "Survived": 137
+      }
+    },
+    {
+      "file": "src/application/plan/derive-words.ts",
+      "statuses": {
+        "NoCoverage": 3,
+        "Ignored": 18,
+        "Killed": 284,
+        "Survived": 45
+      }
+    },
+    {
+      "file": "src/application/plan-index.ts",
+      "statuses": {
+        "NoCoverage": 1,
+        "Ignored": 6,
+        "Killed": 83,
+        "Survived": 7
+      }
+    },
+    {
+      "file": "src/application/plan-pages-entity-card.ts",
+      "statuses": {
+        "NoCoverage": 19,
+        "Ignored": 12,
+        "Survived": 43,
+        "Killed": 12
+      }
+    },
+    {
+      "file": "src/application/plan-story-journey-execution.ts",
+      "statuses": {
+        "NoCoverage": 1,
+        "Killed": 18,
+        "Survived": 7
+      }
+    },
+    {
+      "file": "src/application/plan-story-journey-flow.ts",
+      "statuses": {
+        "NoCoverage": 13,
+        "Ignored": 5,
+        "Survived": 29,
+        "Killed": 84
+      }
+    },
+    {
+      "file": "src/application/plan-story-prove-flows.ts",
+      "statuses": {
+        "NoCoverage": 10,
+        "Ignored": 4,
+        "Killed": 59,
+        "Survived": 25
+      }
+    },
+    {
+      "file": "src/application/plan-viz-compat.ts",
+      "statuses": {
+        "NoCoverage": 144,
+        "Ignored": 23
+      }
+    },
+    {
+      "file": "src/application/plan-viz-flow-draw-nodes.ts",
+      "statuses": {
+        "NoCoverage": 10,
+        "Ignored": 18,
+        "Survived": 116,
+        "Killed": 28
+      }
+    },
+    {
+      "file": "src/shared/markdown.ts",
+      "statuses": {
+        "NoCoverage": 3,
+        "Ignored": 15,
+        "Survived": 45,
+        "Killed": 281,
+        "Timeout": 12
+      }
+    },
+    {
+      "file": "src/shared/plain-text.ts",
+      "statuses": {
+        "NoCoverage": 1,
+        "Ignored": 10,
+        "Killed": 43,
+        "Survived": 12,
+        "Timeout": 1
+      }
+    },
+    {
+      "file": "src/application/plan-bar.ts",
+      "statuses": {
+        "Ignored": 16,
+        "Killed": 41,
+        "Survived": 4
+      }
+    },
+    {
+      "file": "src/application/plan-viz-sequence-text.ts",
+      "statuses": {
+        "Ignored": 28,
+        "Survived": 3,
+        "Killed": 51
+      }
+    },
+    {
+      "file": "src/domain/plain-text.ts",
+      "statuses": {
+        "Killed": 3
+      }
+    }
+  ]
+}

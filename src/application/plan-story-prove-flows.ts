@@ -3,9 +3,9 @@ import { flowSteps } from '@/application/plan/flow-steps';
 import { labelsOf, refLabel } from '@/application/plan/ref-label';
 import { andList } from '@/application/plan-viz-ladder-order';
 import { numWord } from '@/application/plan-viz-text';
+import { plainTitle } from '@/domain/plain-text';
 import type { FlowNode } from '@/domain/plan/plan-graph';
 import type { Test } from '@/domain/plan/plan.generated';
-import { plainTitle } from '@/shared/plain-text';
 
 // Which journeys the end-to-end tests walk, and how much of each. Chapter 6 says what they reach of the flows the plan
 // changes, so a flow is "changed" when it is new or one of its steps is.

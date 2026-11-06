@@ -7,6 +7,7 @@ import {
   type RoleRule,
   worse,
 } from '@/application/plan/compat-rules';
+import { childId } from '@/domain/ids';
 import type { SchemaNode, SystemGraph } from '@/domain/plan/plan-graph';
 
 export type Versions = (id: string) => {
@@ -78,7 +79,7 @@ function hitsOf(id: string, name: string, rules: readonly RoleRule[]): Hit[] {
       key,
       prior === undefined
         ? {
-            target: `${id}#${name}`,
+            target: childId(id, name),
             field: name,
             verdict: r.verdict,
             rule: r.rule,

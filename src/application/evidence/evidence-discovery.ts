@@ -5,6 +5,7 @@ import {
   listOf,
   textOf,
 } from '@/domain/evidence/evidence';
+import { childId } from '@/domain/ids';
 
 /** What the discovery pass concluded about a repository, beside its claims. */
 export interface DiscoverySummary {
@@ -54,7 +55,7 @@ export function targetedClaims(detail: EvidenceFields): EvidenceRecord[] {
 export function schemaRecords(catalogue: EvidenceFields): EvidenceRecord[] {
   const seen = new Map<string, number>();
   return listOf(catalogue.rows).map((row) => {
-    const fallback = `${textOf(row.path)}#${textOf(row.fq_name)}`;
+    const fallback = childId(textOf(row.path), textOf(row.fq_name));
     const base = textOf(fieldsOf(row.declaration).id, fallback);
     const count = seen.get(base) ?? 0;
     seen.set(base, count + 1);

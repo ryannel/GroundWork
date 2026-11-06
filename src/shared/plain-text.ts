@@ -1,4 +1,4 @@
-import { inlineText, parseInline, parseMarkdown } from './markdown';
+import { inlineText, parseInline, parseMarkdown, type ReferenceSyntax } from './markdown';
 
 // Plan prose flattened to plain words, for titles, summaries and search. A citation [[id]] becomes whatever
 // `label` says it is called.
@@ -14,9 +14,13 @@ const unmarked = (text: string): string =>
   text.replaceAll('`', '').replaceAll('**', '').replaceAll('__', '');
 
 /** Markdown and citations off, whitespace folded: for search and summaries. */
-export function plain(text: string | null | undefined, label: Label): string {
+export function plain(
+  text: string | null | undefined,
+  label: Label,
+  isReference: ReferenceSyntax,
+): string {
   const lines = (text ?? '').split('\n').map((line) => line.replace(/^#+ ?/u, ''));
-  const words = parseMarkdown(lines.join('\n')).map((block) =>
+  const words = parseMarkdown(lines.join('\n'), isReference).map((block) =>
     block.kind === 'list'
       ? block.items.map((item) => inlineText(item.inlines, label)).join(' ')
       : inlineText(block.inlines, label),
@@ -25,8 +29,12 @@ export function plain(text: string | null | undefined, label: Label): string {
 }
 
 /** A title as text: emphasis, code and link marks off, citations as labels, nothing else touched. */
-export function plainTitle(text: string | null | undefined, label: Label): string {
-  return folded(unmarked(inlineText(parseInline(folded(text ?? '')), label)));
+export function plainTitle(
+  text: string | null | undefined,
+  label: Label,
+  isReference: ReferenceSyntax,
+): string {
+  return folded(unmarked(inlineText(parseInline(folded(text ?? ''), isReference), label)));
 }
 
 /** Cut at n characters, at a word break when one is near, so text never ends mid-word. */
@@ -40,6 +48,11 @@ export function cutAtWord(text: string, n: number): string {
 }
 
 /** Prose as at most n plain characters. */
-export function clip(text: string | null | undefined, label: Label, n = 140): string {
-  return cutAtWord(plain(text, label), n);
+export function clip(
+  text: string | null | undefined,
+  label: Label,
+  isReference: ReferenceSyntax,
+  n = 140,
+): string {
+  return cutAtWord(plain(text, label, isReference), n);
 }

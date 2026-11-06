@@ -3,13 +3,14 @@ import { labelsOf, refLabel } from '@/application/plan/ref-label';
 import { chipInfo, questionTitle } from '@/application/plan-chips';
 import { isoDay, shortDate } from '@/application/plan-viz-state';
 import { plainLine } from '@/application/plan-viz-text';
+import { hasPrefix } from '@/domain/ids';
 import type { Decision, Question } from '@/domain/plan/plan.generated';
 
 // A decision or a question as one card: what it is, when it stands, what hangs on it.
 
 export type Deciding = Decision | Question;
 
-export const isDecision = (e: Deciding): e is Decision => e.id.startsWith('dec:');
+export const isDecision = (e: Deciding): e is Decision => hasPrefix(e.id, 'dec');
 
 const DOOR: Readonly<Record<string, string>> = {
   'one-way': 'hard to reverse',

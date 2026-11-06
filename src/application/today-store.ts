@@ -1,5 +1,6 @@
 import type { Model } from '@/application/plan/derive';
 import { type ChipRef, chipRefOf } from '@/application/today-scope';
+import { rootId } from '@/domain/ids';
 import type { FieldNode } from '@/domain/plan/plan-graph';
 
 // What a store holds, as its page lists it: a database's tables and their columns, a topic's messages with who
@@ -42,7 +43,7 @@ function columnOf(model: Model, field: FieldNode): ColumnView {
     field.required === true ? 'required' : null,
     field.unique === true ? 'unique' : null,
   ].filter((m) => m !== null);
-  return { name: field.name, type: field.type, marks, ref: known(model, field.ref?.split('#')[0]) };
+  return { name: field.name, type: field.type, marks, ref: known(model, rootId(field.ref)) };
 }
 
 /** The tables kept in a store and the messages carried on it; null when it holds neither, or is no store. */

@@ -7,6 +7,8 @@ import type { PlanStanding, WorkStanding } from '@/application/plan/work-standin
 import { planHref } from '@/application/plan-pages';
 import { thingHref } from '@/application/plan-pages-things';
 import { programmeHref } from '@/application/workspace-paths';
+import { issueUrlOf } from '@/domain/code-links';
+import { inIdScope, withoutIdScope, scopedId, qualifyId, hasPrefix, rootId } from '@/domain/ids';
 import type { IssueStatus } from '@/domain/plan/plan-status';
 import type {
   Decision,
@@ -122,9 +124,9 @@ export interface WorkspacePlanIndex {
   readonly teams: ReadonlyMap<string, IndexTeam>;
 }
 
-const keyOf = (plan: string, id: string): string => (id.includes('/') ? id : `${plan}/${id}`);
+const keyOf = (plan: string, id: string): string => scopedId(plan, id);
 
-const rootOf = (id: string): string => id.split('#', 1)[0] ?? id;
+const rootOf = (id: string): string => rootId(id);
 
 /** Every plan, each after the plans it builds on; plans in a circle keep name order. */
 function planOrder(inputs: readonly IndexPlanInput[]): readonly string[] {
@@ -174,7 +176,7 @@ function systemOfOp(
   }
   const target = op.modify ?? op.remove ?? op.deprecate;
   if (typeof target !== 'string') return '';
-  return target.startsWith('sys:') ? target : (systemOf(rootOf(target)) ?? '');
+  return hasPrefix(target, 'sys') ? target : (systemOf(rootOf(target)) ?? '');
 }
 
 /** The systems a change touches: what its ops add (a system, or a component's system) and what they target. */
@@ -211,7 +213,7 @@ function changesOf(
 ): IndexedChange[] {
   const at = { workspace, slug: input.slug };
   return (input.plan.changes ?? []).map((change) => ({
-    key: `${input.slug}/${change.id}`,
+    key: qualifyId(input.slug, change.id),
     plan: input.slug,
     id: change.id,
     title: change.title,
@@ -256,7 +258,7 @@ const REPO = /^[\w.-]+\/[\w.-]+$/u;
 
 function defaultIssueUrl(repo: string | undefined, issue: number | undefined): string | null {
   if (repo === undefined || issue === undefined || !REPO.test(repo)) return null;
-  return `https://github.com/${repo}/issues/${String(issue)}`;
+  return issueUrlOf(repo, issue);
 }
 
 /** Every string a plan's changes use: the ids it reads are among them. */
@@ -277,11 +279,11 @@ function throughOf(input: IndexPlanInput, base: IndexPlanInput): readonly string
     .map((touch) => touch.change);
   const waitedOn = (input.plan.work_items ?? [])
     .flatMap((w) => w.depends_on ?? [])
-    .filter((id) => id.startsWith(`${base.slug}/`))
-    .map((id) => id.slice(base.slug.length + 1))
+    .filter((id) => inIdScope(id, base.slug))
+    .map((id) => withoutIdScope(id, base.slug))
     .flatMap((id) => (base.plan.work_items ?? []).find((w) => w.id === id)?.implements ?? []);
   return [...new Set([...touched, ...waitedOn])]
-    .map((change) => `${base.slug}/${change}`)
+    .map((change) => qualifyId(base.slug, change))
     .toSorted((a, b) => a.localeCompare(b));
 }
 
@@ -369,7 +371,7 @@ export function workspacePlanIndexOf(input: PlanIndexInput): WorkspacePlanIndex 
         milestones: each.plan.milestones ?? [],
         standing: each.standing,
         events: each.events,
-        work: (each.plan.work_items ?? []).map((w) => `${each.slug}/${w.id}`),
+        work: (each.plan.work_items ?? []).map((w) => qualifyId(each.slug, w.id)),
       },
     ]),
   );

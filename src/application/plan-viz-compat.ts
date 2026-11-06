@@ -1,6 +1,7 @@
 import type { Compat, Person } from '@/application/plan/compat-judge';
 import type { Verdict } from '@/application/plan/compat-rules';
 import type { Model } from '@/application/plan/derive';
+import { hasChildPrefix } from '@/domain/ids';
 
 // What the compatibility verdict says in the plan's words: does this plan break anyone, and who moves.
 
@@ -87,7 +88,7 @@ export interface WhoView {
   readonly noReader: boolean;
 }
 
-const isStep = (id: string): boolean => /^flow:[^#]+#/u.test(id);
+const isStep = (id: string): boolean => hasChildPrefix(id, 'flow');
 
 function placeOf(w: Person): WhoEntry['where'] {
   if (w.via === '') return null;

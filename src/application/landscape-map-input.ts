@@ -2,6 +2,7 @@ import type { Model } from '@/application/plan/derive';
 import { prop } from '@/application/plan/ids';
 import { teamIndex } from '@/application/plan-viz-teams';
 import { domainHref, systemHref } from '@/application/workspace-paths';
+import { buildId, hasPrefix, stripPrefix } from '@/domain/ids';
 import { systemDoes, type Actor, type Domain, type Workspace } from '@/domain/workspace';
 
 // The workspace at component level: who uses the systems, the domains and their systems, the outside services, and
@@ -66,9 +67,9 @@ const slug = (name: string): string => name.toLowerCase().replaceAll(/[^a-z0-9]+
 /** The actor a flow names, by `actor:` id or matched to a listed actor by name, else made up from the name. */
 export function actorIdOf(actors: readonly Actor[], name: string): string | null {
   if (name === '' || name === 'System') return null;
-  if (name.startsWith('actor:')) return name;
+  if (hasPrefix(name, 'actor')) return name;
   const known = actors.find((a) => a.name.toLowerCase() === name.toLowerCase());
-  return known?.id ?? `actor:${slug(name)}`;
+  return known?.id ?? buildId('actor', slug(name));
 }
 
 function actorsOf(workspace: Workspace, model: Model): MapActor[] {
@@ -84,7 +85,7 @@ function actorsOf(workspace: Workspace, model: Model): MapActor[] {
     const id = actorIdOf(workspace.actors, name);
     if (id === null || known.has(id)) return [];
     known.add(id);
-    return [{ id, name: name.replace(/^actor:/u, ''), summary: null, customer: false }];
+    return [{ id, name: stripPrefix(name, 'actor'), summary: null, customer: false }];
   });
   return [...listed, ...extra];
 }
@@ -136,7 +137,7 @@ function domainOf(workspace: Workspace, model: Model, domain: Domain): MapDomain
     purpose: domain.purpose,
     href: domainHref(workspace.id, domain.id),
     systems: domain.systems.map((system) => ({
-      id: `sys:${system.id}`,
+      id: buildId('sys', system.id),
       name: system.name,
       does: systemDoes(system),
       href: systemHref({ workspace: workspace.id, domain: domain.id, system: system.id }),
@@ -155,12 +156,12 @@ export function landscapeMapInput(workspace: Workspace, model: Model): Landscape
     .map(({ domain }) => domainOf(workspace, model, domain));
   const systems = workspace.domains.flatMap((d) => d.systems);
   const homes = Object.fromEntries(
-    systems.flatMap((s) => s.components.map((c) => [c.id, `sys:${s.id}`])),
+    systems.flatMap((s) => s.components.map((c) => [c.id, buildId('sys', s.id)])),
   );
   const externals = systems.flatMap((s) =>
     s.components
       .filter((c) => c.type === 'external')
-      .map((c) => ({ id: c.id, name: c.name, does: c.does, system: `sys:${s.id}` })),
+      .map((c) => ({ id: c.id, name: c.name, does: c.does, system: buildId('sys', s.id) })),
   );
   return {
     actors: actorsOf(workspace, model),

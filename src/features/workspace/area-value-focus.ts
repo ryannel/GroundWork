@@ -1,5 +1,6 @@
 import type { ValueFlowRoute } from '@/application/area-map/value-flow-routing';
 import type { ValueFlowDrawing } from '@/application/area-map/value-flow-system';
+import { buildId } from '@/domain/ids';
 import type { ConnectedCanvasFocus } from '@/ui/connected-canvas-types';
 
 /** Frame all participants and their exact exchanges, including dispersed and independent contributions. */
@@ -22,7 +23,7 @@ export function selectedFlowFrame(
   const x = Math.max(0, Math.min(...boxes.map((box) => box.x), ...points.map((p) => p.x)) - 32);
   const y = Math.max(0, Math.min(...boxes.map((box) => box.y), ...points.map((p) => p.y)) - 32);
   return {
-    id: `flow:${selection.flow}:${selection.opened ?? ''}`,
+    id: buildId('flow', `${selection.flow}:${selection.opened ?? ''}`),
     x,
     y,
     width: Math.max(

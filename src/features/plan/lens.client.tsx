@@ -3,6 +3,7 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useRef, type ReactNode } from 'react';
 
+import { buildId } from '@/domain/ids';
 import { replaceAddress } from '@/ui/address-bar';
 
 // The team lens and the catalogue mode live in the address as `?team=` and `?show=`, so a cut can be shared. A
@@ -50,7 +51,7 @@ interface DimProps {
 
 /** Dims the rows of every team but the lens's: by the owner a row names, else by the slot it is coloured in. */
 export function dimTo(root: HTMLElement, lens: string | null, slots: DimProps['slots']): void {
-  const team = lens === null ? undefined : [lens, `team:${lens}`].find((id) => id in slots);
+  const team = lens === null ? undefined : [lens, buildId('team', lens)].find((id) => id in slots);
   for (const el of root.querySelectorAll<HTMLElement>(
     '[data-facts-of^="own:"], article[data-slot]',
   )) {

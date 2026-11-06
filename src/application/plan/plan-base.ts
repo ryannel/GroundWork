@@ -1,9 +1,9 @@
 // A plan stores what it changes; its today is a base it is put onto when read. An open plan reads the workspace's
 // live model of today, so a change to today reaches every open plan; a landed plan keeps a frozen copy. The plan
 // is checked against the whole base, and drawn with the part of it the plan names and what that part needs.
-
 import type { Issue } from '@/application/plan/check-context';
 import { isRecord } from '@/application/plan/ids';
+import { appendChild, isQualifiedId, hasChildPath, childPathOf, rootId } from '@/domain/ids';
 import { SYSTEM_COLLECTIONS } from '@/domain/plan/plan-ids';
 
 export type Collection = keyof typeof SYSTEM_COLLECTIONS;
@@ -57,7 +57,7 @@ const isCollection = (key: string): key is Collection => key in SYSTEM_COLLECTIO
 const COLLECTIONS: readonly Collection[] = Object.keys(SYSTEM_COLLECTIONS).filter(isCollection);
 const MENTION = /\[\[([^\]|#]+)/gu;
 
-const rootOf = (id: string): string => id.split('#', 1)[0] ?? id;
+const rootOf = (id: string): string => rootId(id);
 
 const listOf = (value: unknown): readonly Entity[] =>
   Array.isArray(value) ? value.filter((item): item is Entity => isRecord(item)) : [];
@@ -248,9 +248,8 @@ function nodeIndex(base: PlanBase): ReadonlyMap<string, Entity> {
     }
     if (!isRecord(value)) return;
     const own = idOf(value);
-    const separator = parent?.includes('#') === true ? '/' : '#';
-    const local = own !== null && !own.includes(':') && parent !== null;
-    const id = local ? `${parent}${separator}${own}` : own;
+    const local = own !== null && !isQualifiedId(own) && parent !== null;
+    const id = local ? appendChild(parent, own) : own;
     if (id !== null) index.set(id, value);
     for (const child of Object.values(value)) walk(child, id ?? parent);
   };
@@ -262,8 +261,8 @@ function indexedNode(index: ReadonlyMap<string, Entity>, id: string): Entity | n
   const exact = index.get(id);
   if (exact !== undefined) return exact;
   const parent = index.get(rootOf(id));
-  if (parent === undefined || !id.includes('#')) return null;
-  return namedPart(Object.values(parent), id.slice(id.indexOf('#') + 1));
+  if (parent === undefined || !hasChildPath(id)) return null;
+  return namedPart(Object.values(parent), childPathOf(id) ?? '');
 }
 
 /** A thing in the base by id, including independently prefixed children and legacy `parent#name` parts. */

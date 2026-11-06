@@ -2,6 +2,7 @@ import type { Model } from '@/application/plan/derive';
 import type { Outline, Page } from '@/application/plan-pages';
 import { type ChangeBody, changesLayout } from '@/application/plan-pages-screens-changes';
 import { journeyGroups } from '@/application/plan-story-journey-groups';
+import { buildId } from '@/domain/ids';
 
 // The pages a team lens keeps in the rail: those about something the team owns, changes, tests, builds or decides.
 // The cover, the why, the reference and the versions stay for everyone; so does each chapter's opening screen,
@@ -141,5 +142,5 @@ export function crumbOf(outline: Outline, page: Page): string[] {
 export function lensTeam(model: Model, lens: string | null | undefined): string | null {
   if (lens === null || lens === undefined || lens === '') return null;
   const ids = new Set(model.plan.teams.map((team) => team.id));
-  return [lens, `team:${lens}`].find((id) => ids.has(id)) ?? null;
+  return [lens, buildId('team', lens)].find((id) => ids.has(id)) ?? null;
 }

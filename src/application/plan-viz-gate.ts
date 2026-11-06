@@ -3,6 +3,7 @@ import { numberOf, titleOf, deciding, isDecision } from '@/application/plan-viz-
 import { isoDay, shortDate } from '@/application/plan-viz-state';
 import { teamName } from '@/application/plan-viz-teams';
 import { short } from '@/application/plan-viz-text';
+import { hasPrefix } from '@/domain/ids';
 
 // What holds work up: an open question, or a proposed decision. Drawn as one chip.
 
@@ -34,7 +35,7 @@ export function gateOf(model: Model, id: string, today: Date): Gate | null {
   if (e === undefined) return null;
   const decision = isDecision(e);
   const date = e.decide_by ?? null;
-  const decider = e.decider?.startsWith('team:') === true ? e.decider : null;
+  const decider = hasPrefix(e.decider, 'team') ? e.decider : null;
   const open = e.status === 'open';
   const part = {
     id,

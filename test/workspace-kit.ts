@@ -6,14 +6,10 @@ import path from 'node:path';
 import { stringify } from 'yaml';
 
 import { type SystemModel, systemModelOf } from '@/application/workspace-model';
+import { permalinkOf } from '@/domain/code-links';
 import type { Source } from '@/domain/plan/plan.generated';
 import type { Workspace } from '@/domain/workspace';
-import {
-  type CodeSource,
-  permalinkOf,
-  type SystemContracts,
-  type WorkspaceModel,
-} from '@/domain/workspace-model';
+import type { CodeSource, SystemContracts, WorkspaceModel } from '@/domain/workspace-model';
 
 import { acmeModel } from './fixtures/acme/model';
 import { acmeWorkspace } from './fixtures/acme/workspace';

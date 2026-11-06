@@ -1,6 +1,7 @@
 import { graphIndex, type GraphIndex } from '@/application/plan/federation-index';
 import { parseTypeRef } from '@/application/plan/federation-parse';
 import { parentOf } from '@/application/plan/ids';
+import { childPathOf, stripPrefix } from '@/domain/ids';
 import type { FieldNode, SchemaNode, SystemGraph } from '@/domain/plan/plan-graph';
 
 export interface SdlLine {
@@ -15,7 +16,7 @@ export interface SdlOptions {
   readonly only?: string | null;
 }
 
-const slugOf = (id: string): string => id.replace(/^sg:/u, '');
+const slugOf = (id: string): string => stripPrefix(id, 'sg');
 const ESCAPED_QUOTE = String.raw`\"`;
 const quoted = (s: string): string => `"${s.replaceAll('"', ESCAPED_QUOTE)}"`;
 
@@ -38,7 +39,7 @@ function selectionText(g: SystemGraph, type: SchemaNode, ids: readonly string[])
   };
   for (const id of ids) {
     const owner = parentOf(id);
-    const name = id.split('#')[1];
+    const name = childPathOf(id);
     if (owner !== null && name !== undefined && name !== '') place(owner, name);
   }
   const nested = [...below].map(([n, kids]) => `${n} { ${kids.join(' ')} }`);
@@ -91,7 +92,7 @@ function directives({ g, idx, only }: Printing, t: SchemaNode, f: FieldNode): st
     const returned = idx?.types.get(parseTypeRef(f.type).name);
     const text =
       returned === undefined
-        ? provides.map((x) => x.split('#')[1] ?? '').join(' ')
+        ? provides.map((x) => childPathOf(x) ?? '').join(' ')
         : selectionText(g, returned, provides);
     out.push(`@provides(fields: ${quoted(text)})`);
   }

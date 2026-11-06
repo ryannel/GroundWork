@@ -1,6 +1,7 @@
 import { createCompat } from '@/application/plan/compat';
 import type { Verdict } from '@/application/plan/compat-rules';
 import { baseId, changedKeys, type Planned, typeName } from '@/application/plan/impact-planned';
+import { childId } from '@/domain/ids';
 import type { Field, Schema, Step } from '@/domain/plan/plan.generated';
 
 /** A field the revision adds, edits or removes, with its verdict from the one compatibility rule. */
@@ -49,7 +50,7 @@ function deltasOf(before: Schema, after: Schema, verdictOf: VerdictOf): FieldDel
     was: Field | undefined,
     now: Field | undefined,
   ): FieldDelta | null => {
-    const verdict = verdictOf(`${after.id}#${name}`);
+    const verdict = verdictOf(childId(after.id, name));
     const base = { schema: after.id, name, verdict, breaking: verdict === 'breaking', stored };
     if (was === undefined && now !== undefined) {
       return { ...base, kind: 'added', before: null, after: now, keys: [], cosmetic: false };

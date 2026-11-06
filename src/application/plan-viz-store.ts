@@ -1,6 +1,7 @@
 import type { Model } from '@/application/plan/derive';
 import type { GraphMode, Mode } from '@/application/plan/derive-core';
 import { prop } from '@/application/plan/ids';
+import { splitChildId, childId } from '@/domain/ids';
 import type { SchemaNode, StoreNode } from '@/domain/plan/plan-graph';
 
 // What a store holds and who uses it: its records, how they refer to each other, and which services read and write it.
@@ -53,7 +54,7 @@ export function relationships(model: Model, storeId: string, mode: Mode = 'diff'
   return recordsOf(model, storeId, mode).flatMap((s) =>
     s.fields.flatMap((f): Reference[] => {
       if (f.ref === undefined) return [];
-      const [schemaId = '', field] = f.ref.split('#');
+      const [schemaId, field] = splitChildId(f.ref);
       const target = model.get(f.ref);
       const home = [...model.asIs.schemas, ...model.toBe.schemas].find(
         (x) => x.id === schemaId,
@@ -61,8 +62,8 @@ export function relationships(model: Model, storeId: string, mode: Mode = 'diff'
       const suffix = field === undefined ? '' : `.${field}`;
       return [
         {
-          key: `${s.id}#${f.name}`,
-          from: { id: `${s.id}#${f.name}`, text: `${s.name}.${f.name}` },
+          key: childId(s.id, f.name),
+          from: { id: childId(s.id, f.name), text: `${s.name}.${f.name}` },
           to: {
             id: target === undefined ? null : f.ref,
             text: `${nameOf(model, schemaId)}${suffix}`,

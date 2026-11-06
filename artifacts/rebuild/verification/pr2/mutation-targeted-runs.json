@@ -1,0 +1,275 @@
+{
+  "purpose": "Completed local targeted runs. Diagnostic only: these do not replace the expanded 148-file CI aggregate.",
+  "runs": [
+    {
+      "run": "view",
+      "file": "src/application/plan-viz-flow-key.ts",
+      "statuses": {
+        "NoCoverage": 1,
+        "Ignored": 2,
+        "Survived": 29,
+        "Killed": 183
+      },
+      "sourceSHA256": "ca3b8cd9b7a5415f8425373772c112564b39736717b28c36d20db5bc9441aebc"
+    },
+    {
+      "run": "view",
+      "file": "src/application/plan-viz-store.ts",
+      "statuses": {
+        "NoCoverage": 2,
+        "Ignored": 19,
+        "Killed": 167,
+        "Survived": 8
+      },
+      "sourceSHA256": "c3fe6d134732dfc53f1ba31c336bec7db7e3e9d28b503167b5ff4232037334fd"
+    },
+    {
+      "run": "view",
+      "file": "src/application/workspace-area.ts",
+      "statuses": {
+        "NoCoverage": 13,
+        "Ignored": 5,
+        "Killed": 269,
+        "Survived": 76
+      },
+      "sourceSHA256": "3bbec0060b039cd460a68a77bc904041bc1c01bf32a80d7bafe3109d0711b0df"
+    },
+    {
+      "run": "view",
+      "file": "src/application/workspace-domain.ts",
+      "statuses": {
+        "Ignored": 2,
+        "Killed": 76,
+        "Survived": 9
+      },
+      "sourceSHA256": "ee96a11c2b73475df57cfff8c688fa1b1ba478199b23d88d2fb4bd858870fa57"
+    },
+    {
+      "run": "tip",
+      "file": "src/application/plan-viz-system-map-tips.ts",
+      "statuses": {
+        "NoCoverage": 1,
+        "Ignored": 9,
+        "Killed": 269,
+        "Survived": 10
+      },
+      "sourceSHA256": "e1218053cbf2e605d2d8d14f1e57e065dbc44e11ef081e4e8fb652bcf2dc9b26"
+    },
+    {
+      "run": "link",
+      "file": "src/application/plan-viz-system-map-links.ts",
+      "statuses": {
+        "Ignored": 4,
+        "Killed": 309,
+        "Survived": 36
+      },
+      "sourceSHA256": "f60bc460c0d03c24abcdab060cfdfef9e16b9e010a6c872c8dd138781250e369"
+    },
+    {
+      "run": "rung",
+      "file": "src/application/plan-viz-ladder-order.ts",
+      "statuses": {
+        "NoCoverage": 21,
+        "Ignored": 9,
+        "Killed": 193,
+        "Survived": 175
+      },
+      "sourceSHA256": "831714cb8247e3a3673019816f28da7cd0be69afbe8412cef6b9d5ac79d708e3"
+    },
+    {
+      "run": "rung",
+      "file": "src/application/plan-viz-ladder-rungs.ts",
+      "statuses": {
+        "NoCoverage": 12,
+        "Ignored": 15,
+        "Killed": 222,
+        "Survived": 100
+      },
+      "sourceSHA256": "e6d84843be4a2d2c30c460047c57f478ad815e5cd0e40cc3e824a1e017180b9e"
+    },
+    {
+      "run": "edge",
+      "file": "src/application/plan-viz-flow-draw-edges.ts",
+      "statuses": {
+        "NoCoverage": 2,
+        "Ignored": 4,
+        "Survived": 16,
+        "Killed": 201
+      },
+      "sourceSHA256": "57721ed75df825a73ccbd12cd9252a4d451cc136a02e06a701c3e7097d84ca16"
+    },
+    {
+      "run": "graph",
+      "file": "src/application/plan-viz-flow-graph.ts",
+      "statuses": {
+        "NoCoverage": 2,
+        "Ignored": 3,
+        "Killed": 329,
+        "Survived": 60
+      },
+      "sourceSHA256": "c3a357f8dea3417ba535e47c743954497daf9d40512c4b5fe46b7cd250ab66be"
+    },
+    {
+      "run": "decision",
+      "file": "src/application/plan-story-versions-words.ts",
+      "statuses": {
+        "NoCoverage": 2,
+        "Ignored": 31,
+        "Killed": 167,
+        "Survived": 8
+      },
+      "sourceSHA256": "5f744bca3a64b045b783141348266c4e51ab20b390afec8d00056a5503108e27"
+    },
+    {
+      "run": "decision",
+      "file": "src/application/plan-viz-decision.ts",
+      "statuses": {
+        "NoCoverage": 2,
+        "Ignored": 28,
+        "Survived": 7,
+        "Killed": 102
+      },
+      "sourceSHA256": "51d28f689a92822e2e21a4616f0c1fb94f2fd66c57081dd707a0c5133561c30b"
+    },
+    {
+      "run": "part",
+      "file": "src/application/plan-story-part.ts",
+      "statuses": {
+        "NoCoverage": 6,
+        "Ignored": 17,
+        "Killed": 165,
+        "Survived": 43
+      },
+      "sourceSHA256": "ba1c7056332f0fd68527d9fe8cc58e65f0269a919fa429757ec697009a2db00c"
+    },
+    {
+      "run": "caller",
+      "file": "src/application/scan-explorer/current-callers.ts",
+      "statuses": {
+        "Killed": 131,
+        "Survived": 12
+      },
+      "sourceSHA256": "14215d54f7e07e2bcfc7ee3362f66e2452b6002b873e0cc8a2b43c52560d5604"
+    },
+    {
+      "run": "handler",
+      "file": "src/application/today-handler.ts",
+      "statuses": {
+        "NoCoverage": 11,
+        "Ignored": 1,
+        "Killed": 296,
+        "Survived": 16
+      },
+      "sourceSHA256": "9f84288d4618ea52b81c3ccffe13c4aa1acd4df0605769c4359e7a1307f5c3a9"
+    },
+    {
+      "run": "mermaid",
+      "file": "src/application/plan/mermaid.ts",
+      "statuses": {
+        "NoCoverage": 3,
+        "Ignored": 12,
+        "Survived": 41,
+        "Killed": 275
+      },
+      "sourceSHA256": "4e9f7d97c24090565ba2da3d873546f417811a91af2469f760c390eaed1cc55f"
+    },
+    {
+      "run": "input",
+      "file": "src/application/plan-viz-system-map-input.ts",
+      "statuses": {
+        "NoCoverage": 3,
+        "Ignored": 5,
+        "Killed": 133,
+        "Survived": 36
+      },
+      "sourceSHA256": "2031005a621ac2deda6b468cafcd2229cc33c1fc47ec0e2c53d2487d4276ccfd"
+    },
+    {
+      "run": "narration",
+      "file": "src/application/plan-story-changes-touched.ts",
+      "statuses": {
+        "NoCoverage": 5,
+        "Ignored": 10,
+        "Killed": 127,
+        "Survived": 36
+      },
+      "sourceSHA256": "df55b3a15f991515b79ca64b9c81c7bb89392a704e44647b734896377474ce57"
+    },
+    {
+      "run": "narration",
+      "file": "src/application/plan-viz-flow-narration.ts",
+      "statuses": {
+        "Ignored": 16,
+        "Killed": 166,
+        "Survived": 19
+      },
+      "sourceSHA256": "0a7998b4ecf3446c7c690a0ba89d33493595e1b218563a56ef22f4143ed67228"
+    },
+    {
+      "run": "owner",
+      "file": "src/application/plan/derive-owners.ts",
+      "statuses": {
+        "NoCoverage": 3,
+        "Ignored": 10,
+        "Killed": 290,
+        "Survived": 32
+      },
+      "sourceSHA256": "902b777695216440bc8e9922ddac9a62115c3ab7b610448813b6a0b7d7fda317"
+    },
+    {
+      "run": "stops",
+      "file": "src/application/plan-viz-flow-stops.ts",
+      "statuses": {
+        "NoCoverage": 2,
+        "Ignored": 4,
+        "Survived": 26,
+        "Killed": 146
+      },
+      "sourceSHA256": "e112938d24ad1987d4f69590525c1a4e42db2c9fb38aafd22ce753c400cbf6b5"
+    },
+    {
+      "run": "order",
+      "file": "src/application/plan-viz-flow-changes.ts",
+      "statuses": {
+        "NoCoverage": 4,
+        "Ignored": 12,
+        "Killed": 117,
+        "Survived": 49
+      },
+      "sourceSHA256": "99726f3f25a3baa971ee992dac7e1b850ea680ad0f44c994b77a492568cab67f"
+    },
+    {
+      "run": "order",
+      "file": "src/application/plan-viz-ladder-order.ts",
+      "statuses": {
+        "NoCoverage": 15,
+        "Ignored": 9,
+        "Killed": 274,
+        "Survived": 100
+      },
+      "sourceSHA256": "831714cb8247e3a3673019816f28da7cd0be69afbe8412cef6b9d5ac79d708e3"
+    },
+    {
+      "run": "query",
+      "file": "src/application/plan/graph-queries.ts",
+      "statuses": {
+        "NoCoverage": 2,
+        "Ignored": 8,
+        "Survived": 38,
+        "Killed": 198
+      },
+      "sourceSHA256": "a4a056a3a7f2accf094a00acd9541443890776a3316a551f4d1114d413adc768"
+    },
+    {
+      "run": "landscape",
+      "file": "src/application/landscape-map-input.ts",
+      "statuses": {
+        "NoCoverage": 2,
+        "Ignored": 1,
+        "Survived": 21,
+        "Killed": 124
+      },
+      "sourceSHA256": "9695c62666c0e21a48631a64f932fc0220ec4ea690065e735c00c72f7d852584"
+    }
+  ]
+}

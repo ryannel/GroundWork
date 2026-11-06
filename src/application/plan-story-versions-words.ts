@@ -1,6 +1,7 @@
 import type { RevisionEntry } from '@/application/plan/revision-ledger';
 import type { Revision, RevisionStep } from '@/application/plan/revision-types';
 import { andList } from '@/application/plan-viz-ladder-order';
+import { hasPrefix } from '@/domain/ids';
 
 // The words of the Versions chapter: the ledger's three (proposed, approved, rejected), dates, and who decided.
 
@@ -19,7 +20,7 @@ export function dayText(date: string | null | undefined, withYear = true): strin
 /** The GitHub handle of whoever merged or closed the pull request, with its @. */
 function handleOf(value: string | undefined): string {
   if (value === undefined || value === '') return '';
-  return value.startsWith('@') || value.startsWith('team:') ? value : `@${value}`;
+  return value.startsWith('@') || hasPrefix(value, 'team') ? value : `@${value}`;
 }
 
 const prText = (n: number | undefined): string =>

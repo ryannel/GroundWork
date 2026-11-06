@@ -1,6 +1,8 @@
 import type { Model } from '@/application/plan/derive';
 import { labelsOf, refLabel } from '@/application/plan/ref-label';
-import { cutAtWord, plain } from '@/shared/plain-text';
+import { isDisplayId } from '@/domain/ids';
+import { plain } from '@/domain/plain-text';
+import { cutAtWord } from '@/shared/plain-text';
 
 // The small wordings the data and decision vizzes share: numbers as words, counts, first sentences, enum values.
 
@@ -59,8 +61,6 @@ export function short(text: unknown, n = 40): string {
   return cutAtWord(flat, n);
 }
 
-const ID = /^[a-z]+:[a-z0-9-]+(?:#[a-z0-9-]+)?$/u;
-
 /** A "was" value as words: ids become labels, lists join, objects read "from: Pricing · percent: 10". */
 export function wasText(model: Model, value: unknown): string {
   if (value === null || value === undefined || value === '') return '(none)';
@@ -73,7 +73,7 @@ export function wasText(model: Model, value: unknown): string {
       .join(' · ');
   }
   const s = typeof value === 'string' ? value : JSON.stringify(value);
-  return ID.test(s) && model.get(s) !== undefined ? model.label(s) : s;
+  return isDisplayId(s) && model.get(s) !== undefined ? model.label(s) : s;
 }
 
 /** Prose as one plain line, its citations read as labels. */

@@ -1,5 +1,6 @@
 import type { Model } from '@/application/plan/derive';
 import { ladderIds } from '@/application/plan-viz-ladder-order';
+import { rootId } from '@/domain/ids';
 import type { PlanNode } from '@/domain/plan/plan-graph';
 
 // What the plan touches, grouped by the kind of thing that changes, and who is behind each change. Chapter 4 draws
@@ -12,7 +13,7 @@ const RETIRED = new Set(['deprecated', 'removed']);
 
 const uniq = <T>(xs: readonly T[]): T[] => [...new Set(xs)];
 
-export const topOf = (id: string | null | undefined): string => (id ?? '').split('#')[0] ?? '';
+export const topOf = (id: string | null | undefined): string => rootId(id ?? '');
 
 const retiredIn = (model: Model, id: string): boolean => RETIRED.has(model.status(id) ?? '');
 

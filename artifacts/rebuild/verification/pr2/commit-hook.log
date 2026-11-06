@@ -1,0 +1,57 @@
+╭──────────────────────────────────────╮
+│ lefthook  v2.2.2   hook:  pre-commit │
+╰──────────────────────────────────────╯
+│  styles (skip) no files for inspection
+│  workspaces (skip) no matching staged files
+┃  format ❯
+Checking formatting...
+All matched files use Prettier code style!
+
+┃  types ❯
+
+┃  tests ❯
+
+ RUN  v5.0.4 /Users/RNEL/.codex/worktrees/rebuild-pr2/groundWork
+
+fixture/repo · 1/2 scopes · 0 pages
+fixture/repo · complete · 8 pages · 1 entries
+
+ Test Files  297 passed (297)
+   Affected  297 of 522 test files (related to 163 files)
+      Tests  2622 passed (2622)
+   Start at  22:42:27
+   Duration  41.12s (tests 42%, import 40%, environment 15%, setup 1%, worker 1%)
+
+
+┃  lint ❯
+
+  ────────────────────────────────────
+summary: (done in 109.92 seconds)
+✓ format (1.05 seconds)
+✓ types (3.77 seconds)
+✓ tests (42.45 seconds)
+✓ lint (109.92 seconds)
+[codex/rebuild-pr2 2ce23ccb] Centralise model identities and Git code links
+ 193 files changed, 36578 insertions(+), 41481 deletions(-)
+ create mode 100644 artifacts/rebuild/ids-and-urls-candidates.json
+ create mode 100644 artifacts/rebuild/pr2-handoff.md
+ create mode 100644 artifacts/rebuild/verification/pr2/acme/comparison.json
+ create mode 100644 artifacts/rebuild/verification/pr2/baseline-integrity.json
+ create mode 100644 artifacts/rebuild/verification/pr2/budget.log
+ create mode 100644 artifacts/rebuild/verification/pr2/build.log
+ create mode 100644 artifacts/rebuild/verification/pr2/check.log
+ create mode 100644 artifacts/rebuild/verification/pr2/focused.log
+ create mode 100644 artifacts/rebuild/verification/pr2/inventory.log
+ create mode 100644 artifacts/rebuild/verification/pr2/personal-initial-comparison.json
+ create mode 100644 artifacts/rebuild/verification/pr2/personal-streaming-25932.html.txt
+ create mode 100644 artifacts/rebuild/verification/pr2/personal-streaming-25975.html.txt
+ create mode 100644 artifacts/rebuild/verification/pr2/personal-streaming-responses.json
+ create mode 100644 artifacts/rebuild/verification/pr2/personal/comparison.json
+ create mode 100644 artifacts/rebuild/verification/pr2/quick.log
+ create mode 100644 artifacts/rebuild/verification/pr2/volvo-cars/comparison.json
+ create mode 100644 eslint/identity-rules.mjs
+ create mode 100644 src/domain/code-links.test.ts
+ create mode 100644 src/domain/code-links.ts
+ create mode 100644 src/domain/ids.test.ts
+ create mode 100644 src/domain/ids.ts
+ create mode 100644 tools/rebuild/identity-inventory.ts

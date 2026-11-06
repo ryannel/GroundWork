@@ -1,6 +1,7 @@
 import { applyOps } from '@/application/plan/apply-ops';
 import { systemOf } from '@/application/plan/graph';
 import { collectionsOf, fingerprintOf, type PlanBase } from '@/application/plan/plan-base';
+import { rootId } from '@/domain/ids';
 import type { OpKind, OpRecord, SystemSource } from '@/domain/plan/plan-graph';
 import type { Plan } from '@/domain/plan/plan.generated';
 
@@ -128,7 +129,7 @@ export function stackedBase(stacked: Stacked): PlanBase {
   return { collections: collectionsOf(stacked.system), mode: 'live', landedOn: null };
 }
 
-const rootOf = (id: string): string => id.split('#', 1)[0] ?? id;
+const rootOf = (id: string): string => rootId(id);
 
 /** A short hash of what the stack added and changed, as it stands in the composed base. */
 export function composedHashOf(base: PlanBase, inherited: Inherited): string {

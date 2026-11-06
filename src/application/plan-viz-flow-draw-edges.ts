@@ -11,7 +11,8 @@ import {
 } from '@/application/plan-viz-flow-graph';
 import type { Routed } from '@/application/plan-viz-flow-route';
 import { LINE } from '@/application/plan-viz-flow-size';
-import { plainTitle } from '@/shared/plain-text';
+import { rootId } from '@/domain/ids';
+import { plainTitle } from '@/domain/plain-text';
 
 /** What the drawing needs besides the graph. */
 export interface DrawCtx {
@@ -27,7 +28,7 @@ const label = (ctx: DrawCtx) => (id: string) => ctx.model.label(id);
 /** ` · writes order · reads cart`: the records a step touches. */
 export function recordNote(model: Model, s: FlowStep): string {
   const named = (list: readonly string[] | undefined): string =>
-    [...new Set((list ?? []).map((r) => model.label(r.split('#')[0] ?? '')))].join(', ');
+    [...new Set((list ?? []).map((r) => model.label(rootId(r))))].join(', ');
   return [
     ['writes', named(s.writes)],
     ['reads', named(s.reads)],

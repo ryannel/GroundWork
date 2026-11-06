@@ -3,6 +3,7 @@ import type { Moment, MomentKind } from '@/application/plan/flow-experience';
 import type { FlowStep } from '@/application/plan/flow-steps';
 import { chipInfo } from '@/application/plan-chips';
 import { type ScreenMode, screenIn } from '@/application/plan-viz-screens';
+import { hasPrefix } from '@/domain/ids';
 
 // A flow walked as what the person sees: moments on screens, and the system work that follows each.
 
@@ -100,7 +101,7 @@ function systemStep(
     action: step.action === '' ? step.id : step.action,
     from: chipInfo(model, step.from).label,
     to: chipInfo(model, step.to).label,
-    event: step.via.startsWith('msg:'),
+    event: hasPrefix(step.via, 'msg'),
     logic: step.logic ?? '',
     fails: step.fails ?? '',
   };

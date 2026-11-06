@@ -16,6 +16,7 @@ import {
   walkStrings,
   type EntityRef,
 } from '@/application/plan/ids';
+import { isWithinId } from '@/domain/ids';
 import type { OpRecord, PlanNode } from '@/domain/plan/plan-graph';
 import type { EntityType } from '@/domain/plan/plan-ids';
 
@@ -47,7 +48,7 @@ export function checkUniqueIds(ctx: CheckContext, rep: Report): void {
   }
   for (const step of ctx.asIs.steps) {
     const flow = step.$parent ?? '';
-    if (!step.id.startsWith(`${flow}#`)) {
+    if (!isWithinId(step.id, flow)) {
       rep.error(
         [...step.$path, 'id'],
         `step id must start with ${flow}# (rename it, or move the step into the flow its id names)`,

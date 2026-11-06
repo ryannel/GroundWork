@@ -1,3 +1,4 @@
+import { permalinkOf } from '@/domain/code-links';
 import type {
   CurrentBounds,
   CurrentRecord,
@@ -24,7 +25,7 @@ function links(
           {
             id: source.id,
             snapshot: input.snapshot,
-            url: `https://github.com/${source.repo}/blob/${source.commit}/${source.path.split('/').map(encodeURIComponent).join('/')}#L${String(source.lines[0])}-L${String(source.lines[1])}`,
+            url: permalinkOf(source, { encoding: 'segments', range: 'always' }),
           },
         ]),
     ).values(),

@@ -6,6 +6,7 @@ import { type FlowEntry, flowEntriesOf } from '@/application/today-flow-list';
 import { type Neighbours, neighboursOf } from '@/application/today-neighbours';
 import { journeysHref } from '@/application/today-reader';
 import { type JourneyCard, journeyCardsOf } from '@/application/today-scope';
+import { buildId } from '@/domain/ids';
 import { type Domain, homeLabel, systemDoes, type Workspace } from '@/domain/workspace';
 import { plural } from '@/shared/text';
 
@@ -100,7 +101,7 @@ export function domainViewOf(workspace: Workspace, model: Model, id: string): Do
   const journeys = journeyCardsOf(model, workspace.id, scope);
   const homes = new Map(
     domain.systems.flatMap((system) => [
-      [`sys:${system.id}`, system.name] as const,
+      [buildId('sys', system.id), system.name] as const,
       ...system.components.map((c) => [c.id, system.name] as const),
     ]),
   );

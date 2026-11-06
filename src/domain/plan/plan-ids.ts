@@ -3,40 +3,10 @@
 // inside changes but carry top-level `req:*` ids. Another plan's or the programme's id is qualified with its
 // folder: `<plan or programme>/<prefix>:<kebab-slug>`.
 
-export const ID_PREFIXES = {
-  team: 'team',
-  sys: 'system',
-  svc: 'service',
-  st: 'store',
-  sch: 'schema',
-  if: 'interface',
-  api: 'endpoint',
-  msg: 'message',
-  flow: 'flow',
-  chg: 'change',
-  tst: 'test',
-  wi: 'workItem',
-  ms: 'milestone',
-  dec: 'decision',
-  risk: 'risk',
-  q: 'question',
-  sc: 'scenario',
-  con: 'concept',
-  stage: 'stage',
-  scr: 'screen',
-  graph: 'graph',
-  sg: 'subgraph',
-  gql: 'operation',
-  ui: 'interaction',
-  uj: 'userJourney',
-  h: 'handler',
-  req: 'requirement',
-} as const;
+import type { EntityType } from '@/domain/ids';
 
-export type IdPrefix = keyof typeof ID_PREFIXES;
-export type BaseType = (typeof ID_PREFIXES)[IdPrefix];
-export type ChildType = 'field' | 'step' | 'region';
-export type EntityType = BaseType | ChildType;
+export { type EntityType } from '@/domain/ids';
+
 export type PathSegment = string | number;
 
 /** Types that hold a child collection, with the collection prop and the child type. */

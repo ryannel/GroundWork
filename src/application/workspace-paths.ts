@@ -1,3 +1,4 @@
+import { buildId, stripPrefix } from '@/domain/ids';
 import type { Team, Workspace } from '@/domain/workspace';
 
 export function workspaceHref(workspace: string): string {
@@ -20,7 +21,7 @@ export const programmeHref = (workspace: string, programme: string): string =>
 export const partnersHref = (workspace: string): string => `/${workspace}/partners/`;
 
 /** A team's part of a partner's address: its id without `team:`. */
-const teamSlug = (id: string): string => id.replace(/^team:/u, '');
+const teamSlug = (id: string): string => stripPrefix(id, 'team');
 
 export const partnerHref = (workspace: string, team: string): string =>
   `${partnersHref(workspace)}${teamSlug(team)}/`;
@@ -39,7 +40,7 @@ export function systemHref(options: {
 
 /** A flow's part of its address: its id without the `flow:` every flow id starts with. */
 export function flowSlug(id: string): string {
-  return id.replace(/^flow:/u, '');
+  return stripPrefix(id, 'flow');
 }
 
 export function systemFlowHref(
@@ -66,7 +67,7 @@ export function systemPagesOf(workspace: Workspace): Record<string, string> {
   return Object.fromEntries(
     workspace.domains.flatMap((domain) =>
       domain.systems.map((system) => [
-        `sys:${system.id}`,
+        buildId('sys', system.id),
         systemHref({ workspace: workspace.id, domain: domain.id, system: system.id }),
       ]),
     ),

@@ -8,6 +8,7 @@ import { coreShop } from '@/../test/fixtures/core-shop';
 import { modelOf } from '@/../test/plan-kit';
 import { flowSteps } from '@/application/plan/flow-steps';
 import { flowToMermaid, mmText } from '@/application/plan/mermaid';
+import type { Flow, Plan, Step } from '@/domain/plan/plan.generated';
 
 const MODES = ['toBe', 'asIs', 'diff'] as const;
 const ENTITY = /#(?:35|59|lt|gt);/gu;
@@ -152,5 +153,222 @@ describe('flowToMermaid', () => {
     expect(flowToMermaid(checkout, 'flow:place-order')).toBe(
       flowToMermaid(checkout, 'flow:place-order'),
     );
+  });
+});
+
+function sequencePlan(steps: Step[], extra: Partial<Flow> = {}): Plan {
+  return {
+    meta: { id: 'sequence', title: 'Read a product' },
+    problem: { summary: 'Export the recorded sequence.' },
+    teams: [],
+    services: [
+      { id: 'svc:web', name: 'Store **front**', kind: 'ui' },
+      { id: 'svc:products', name: 'Products', kind: 'service' },
+      { id: 'svc:worker', name: 'Worker', kind: 'job' },
+    ],
+    stores: [
+      { id: 'st:events', name: 'Product events', kind: 'topic' },
+      { id: 'st:db', name: 'Orders', kind: 'database' },
+      { id: 'st:queue', name: 'Queue', kind: 'queue' },
+    ],
+    schemas: [
+      { id: 'sch:product', name: 'Product', kind: 'dto' },
+      {
+        id: 'sch:order',
+        name: 'Order',
+        kind: 'record',
+        store: 'st:db',
+        fields: [{ name: 'id', type: 'string' }],
+      },
+    ],
+    interfaces: [
+      {
+        id: 'if:products',
+        service: 'svc:products',
+        protocol: 'rest',
+        endpoints: [{ id: 'api:get', sig: 'GET /products', response: 'sch:product' }],
+      },
+    ],
+    messages: [
+      {
+        id: 'msg:changed',
+        name: 'changed',
+        version: 'v1',
+        topic: 'st:events',
+        producer: 'svc:products',
+        consumers: ['svc:worker'],
+      },
+    ],
+    screens: [
+      { id: 'scr:page', name: 'Product page', service: 'svc:web' },
+      { id: 'scr:done', name: 'Receipt', service: 'svc:web' },
+    ],
+    flows: [{ id: 'flow:sequence', name: 'Sequence', steps, ...extra }],
+  };
+}
+const sequenceStep = (name: string, extra: Partial<Step> = {}): Step => ({
+  id: `flow:sequence#${name}`,
+  from: 'svc:web',
+  to: 'svc:products',
+  via: 'api:get',
+  action: 'Fetch **items**',
+  ...extra,
+});
+
+describe('the Mermaid export contract', () => {
+  it('exports an actor, recorded screen and trigger, a call and its typed reply as valid Mermaid lines', () => {
+    const m = modelOf(
+      sequencePlan([sequenceStep('fetch', { screen: 'scr:page', logic: 'Only if needed.' })], {
+        actor: 'Customer',
+        trigger: 'Press **Buy**.',
+      }),
+    );
+    expect(flowToMermaid(m, 'flow:sequence', { mode: 'asIs' })).toBe(
+      [
+        'sequenceDiagram',
+        '  autonumber',
+        '  actor P as Customer',
+        '  participant S1 as Store front',
+        '  participant S2 as Products',
+        '  P->>S1: Product page',
+        '  Note over S1: Press Buy.',
+        '  Note over S1,S2: Only if needed.',
+        '  S1->>S2: Fetch items · GET /products',
+        '  S2-->>S1: Product',
+      ].join('\n'),
+    );
+  });
+  it('distinguishes event hand-offs, store writes and internal work without inventing a person', () => {
+    const m = modelOf(
+      sequencePlan([
+        sequenceStep('publish', {
+          from: 'svc:products',
+          to: 'st:events',
+          via: 'msg:changed',
+          action: 'Announce',
+        }),
+        sequenceStep('consume', {
+          from: 'st:events',
+          to: 'svc:worker',
+          via: 'msg:changed',
+          action: 'Copy',
+        }),
+        sequenceStep('write', {
+          from: 'svc:worker',
+          to: 'st:db',
+          via: 'internal',
+          action: 'Keep order',
+          writes: ['sch:order#id', 'sch:order'],
+        }),
+        sequenceStep('finish', {
+          from: 'svc:worker',
+          to: 'svc:worker',
+          via: 'internal',
+          action: 'Finish',
+        }),
+      ]),
+    );
+    expect(flowToMermaid(m, 'flow:sequence')).toBe(
+      [
+        'sequenceDiagram',
+        '  autonumber',
+        '  participant S1 as Products',
+        '  participant T1 as Product events',
+        '  participant S2 as Worker',
+        '  participant D1 as Orders',
+        '  S1-)T1: Announce · changed v1',
+        '  T1-)S2: Copy · changed v1',
+        '  S2->>D1: Keep order · writes Order',
+        '  Note over S2: Finish',
+      ].join('\n'),
+    );
+  });
+  it('keeps failure branches and recorded grouping distinct, and does not relabel grouping as parallelism', () => {
+    const m = modelOf(
+      sequencePlan([
+        sequenceStep('one', { fails: 'Unavailable', beat: 'Load' }),
+        sequenceStep('two', { beat: 'Load' }),
+      ]),
+    );
+    expect(flowToMermaid(m, 'flow:sequence')).toBe(
+      [
+        'sequenceDiagram',
+        '  autonumber',
+        '  participant S1 as Store front',
+        '  participant S2 as Products',
+        '  rect rgba(128, 128, 128, 0.12)',
+        '    Note over S1,S2: Load',
+        '    alt Fetch items',
+        '      S1->>S2: Fetch items · GET /products',
+        '      S2-->>S1: Product',
+        '    else if it fails',
+        '      Note over S1,S2: Unavailable',
+        '    end',
+        '    S1->>S2: Fetch items · GET /products',
+        '    S2-->>S1: Product',
+        '  end',
+      ].join('\n'),
+    );
+  });
+  it('shows a removed step as a note, leaves an unread call detail blank, and uses a visible id for a missing action', () => {
+    const value = sequencePlan(
+      [sequenceStep('one'), sequenceStep('two', { action: '', via: 'api:unread' })],
+      { actor: 'Customer' },
+    );
+    value.changes = [
+      { id: 'chg:remove', title: 'Stop fetching', ops: [{ remove: 'flow:sequence#one' }] },
+    ];
+    const out = flowToMermaid(modelOf(value), 'flow:sequence', { mode: 'diff' });
+    expect(out).toContain('  P->>S1: Starts');
+    expect(out).toContain('  Note over S1,S2: removed · Fetch items');
+    expect(out).toContain('  S1->>S2: flow:sequence#35;two');
+    expect(out).not.toContain('api:unread');
+    expect(flowToMermaid(modelOf(value), 'flow:missing')).toBe('sequenceDiagram\n  autonumber');
+  });
+  it('keeps data reads, queue participant identities and changes of screen in the export', () => {
+    const m = modelOf(
+      sequencePlan(
+        [
+          sequenceStep('read', {
+            from: 'svc:web',
+            to: 'st:db',
+            via: 'internal',
+            action: 'Read order',
+            reads: ['sch:order', 'sch:order#id'],
+            screen: 'scr:page',
+          }),
+          sequenceStep('move', {
+            from: 'svc:web',
+            to: 'st:queue',
+            via: 'internal',
+            action: 'Queue work',
+            screen: 'scr:done',
+          }),
+        ],
+        { actor: 'Customer' },
+      ),
+    );
+    expect(flowToMermaid(m, 'flow:sequence')).toBe(
+      [
+        'sequenceDiagram',
+        '  autonumber',
+        '  actor P as Customer',
+        '  participant S1 as Store front',
+        '  participant D1 as Orders',
+        '  participant T1 as Queue',
+        '  P->>S1: Product page',
+        '  S1->>D1: Read order · reads Order',
+        '  S1->>T1: Queue work',
+        '  Note over P: sees Receipt',
+      ].join('\n'),
+    );
+  });
+  it('exports plain labels with reserved characters escaped and leaves absent text blank', () => {
+    expect(
+      mmText(
+        ' **Bold** *light* __under__ ***strong*** `code` [label](https://example.com) [[sch:item#field]] <tag>;#\n  more ',
+      ),
+    ).toBe('Bold light under strong code label field #lt;tag#gt;#59;#35; more');
+    expect(mmText()).toBe('');
   });
 });

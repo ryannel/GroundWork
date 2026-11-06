@@ -1,7 +1,7 @@
 'use client';
-
 import { Suspense, useSyncExternalStore } from 'react';
 
+import { buildId } from '@/domain/ids';
 import { useLens, useSetLens } from '@/features/plan/lens.client';
 import { walkHere, watchWalk } from '@/features/plan/walk-keys';
 
@@ -26,7 +26,9 @@ const possessive = (name: string): string => (name.endsWith('s') ? `${name}’` 
 
 /** The team the lens names, by its id with or without the `team:` prefix. */
 export const teamOf = (teams: readonly TeamPlace[], lens: string | null): TeamPlace | null =>
-  lens === null ? null : (teams.find((t) => t.id === lens || t.id === `team:${lens}`) ?? null);
+  lens === null
+    ? null
+    : (teams.find((t) => t.id === lens || t.id === buildId('team', lens)) ?? null);
 
 function TeamWords({ team }: { readonly team: TeamPlace }) {
   const name = possessive(team.name);

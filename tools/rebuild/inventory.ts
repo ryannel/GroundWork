@@ -5,6 +5,7 @@ import { readFile } from 'node:fs/promises';
 import { writeExplorerParity } from '@/../tools/explorer-parity';
 import { isRecord } from '@/application/plan/ids';
 
+import { identitySites } from './identity-inventory';
 import { writeSnapshot } from './snapshots';
 
 const OLD = [
@@ -15,7 +16,7 @@ const OLD = [
 ];
 const IDS = [
   /\b(?:sys|svc|app|st|top|ext|lib|dom|api|sub|job|ui|msg|sch|if|h):/u,
-  /\b(?:graph|sg|gql|scr|team|actor|area|flow|jny|uj|plan|prog|ev|con):/u,
+  /\b(?:graph|sg|gql|scr|team|actor|area|flow|jny|uj|plan|prog|ev|con|term):/u,
   /(?:split|replace|replaceAll|startsWith|slice|indexOf|includes)\([^\n]*(?:['"`]#|['"`]:)/u,
   /idToToken|tokenToId|ID_PREFIXES|SYSTEM_COLLECTIONS|rootOf|typeOf\(/u,
 ];
@@ -121,17 +122,22 @@ for (const [name, command] of Object.entries(scripts)) {
   });
 }
 await writeSnapshot('artifacts/rebuild', 'consumers.json', consumers);
-await writeSnapshot('artifacts/rebuild', 'ids-and-urls.json', identities);
+const outstanding = identitySites();
+await writeSnapshot('artifacts/rebuild', 'ids-and-urls-candidates.json', identities);
+await writeSnapshot('artifacts/rebuild', 'ids-and-urls.json', outstanding);
 const { writeFile } = await import('node:fs/promises');
 await writeFile('artifacts/rebuild/consumers.md', table('Model consumer inventory', consumers));
+const identityRows = outstanding
+  .map((site) => `| ${site.file}:${String(site.line)} | ${cell(site.message)} |`)
+  .join('\n');
+const identityBody = identityRows === '' ? '' : `${identityRows}\n`;
 await writeFile(
   'artifacts/rebuild/ids-and-urls.md',
-  table(
-    'Id and Git-host URL inventory',
-    identities.flatMap((row) => row.hits.map((hit) => ({ ...row, hits: [hit] }))),
-  ),
+  `# Uncentralised id and Git-host URL operations\n\n${String(outstanding.length)} runtime operations remain outside src/domain/ids.ts and src/domain/code-links.ts. The enforced architecture inventory checks construction, prefix stripping, child-path parsing and Git-host paths. Literal fixtures, examples, comments and shared-helper references remain in ids-and-urls-candidates.json for inspection; the PR 1 commit preserves the original inventory.\n\n| File and line | Finding |\n|---|---|\n${identityBody}`,
 );
 await writeExplorerParity();
 console.log(
-  `${String(consumers.length)} consumer rows; ${String(identities.reduce((sum, row) => sum + row.hits.length, 0))} id/URL sites. No migration or retirement is claimed.`,
+  `${String(consumers.length)} consumer rows; ${String(identities.reduce((sum, row) => sum + row.hits.length, 0))} literal/helper candidates; ${String(outstanding.length)} uncentralised runtime operations. Consumer migration and explorer retirement remain unproven.`,
 );
+
+if (outstanding.length > 0) process.exitCode = 1;

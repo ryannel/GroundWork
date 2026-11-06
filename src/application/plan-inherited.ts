@@ -1,4 +1,5 @@
 import type { Provenance } from '@/application/plan/stack-base';
+import { rootId } from '@/domain/ids';
 
 // What a stacked plan reads that the plans below it added or changed and that is not live yet, labelled once per group:
 // "Added by Sales tool · not live yet". A landed plan is part of today, so what it did carries no label.
@@ -49,7 +50,7 @@ export interface InheritedReader {
 export function inheritedNotesOf(model: InheritedReader, ids: readonly string[]): InheritedGroup[] {
   const wanted = new Set(ids);
   const parts = [...model.asIs.byId.keys(), ...model.toBe.byId.keys()].filter((key) =>
-    wanted.has(key.split('#', 1)[0] ?? key),
+    wanted.has(rootId(key)),
   );
   return inheritedGroups(model.inheritedFrom, [...ids, ...parts]);
 }

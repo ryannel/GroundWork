@@ -1,0 +1,116 @@
+{
+  "route": "/personal/side-projects/plans/",
+  "rows": [
+    {
+      "bytes": 25975,
+      "scripts": 10,
+      "html": "ed7058463ee0d5f3a8e80a6e0d48cb165bf14905b44770f4315464935c974691",
+      "flight": "cb16d002ce4ea84061dea47adfd7447e9974dff275609f1eb395fb262c1aece4",
+      "fields": "f5886dc8a98a4be9f83f1f6e1a48c73c856ab2087a0510f83fbd661949a3e8cb",
+      "flightWithImportReferencesNormalised": "164caaa380aa8cb18ad76ae14224bc8b734654bc407ab10dab7176bf5e9b0eef",
+      "responseSha256": "adcd7e07271ae0ce042be28d7e2f87737dc52787064d5872cc09bd044102f3a8",
+      "retainedResponse": "personal-streaming-25975.html.txt"
+    },
+    {
+      "bytes": 25975,
+      "scripts": 10,
+      "html": "ed7058463ee0d5f3a8e80a6e0d48cb165bf14905b44770f4315464935c974691",
+      "flight": "cb16d002ce4ea84061dea47adfd7447e9974dff275609f1eb395fb262c1aece4",
+      "fields": "f5886dc8a98a4be9f83f1f6e1a48c73c856ab2087a0510f83fbd661949a3e8cb",
+      "flightWithImportReferencesNormalised": "164caaa380aa8cb18ad76ae14224bc8b734654bc407ab10dab7176bf5e9b0eef",
+      "responseSha256": "adcd7e07271ae0ce042be28d7e2f87737dc52787064d5872cc09bd044102f3a8"
+    },
+    {
+      "bytes": 25975,
+      "scripts": 10,
+      "html": "ed7058463ee0d5f3a8e80a6e0d48cb165bf14905b44770f4315464935c974691",
+      "flight": "cb16d002ce4ea84061dea47adfd7447e9974dff275609f1eb395fb262c1aece4",
+      "fields": "f5886dc8a98a4be9f83f1f6e1a48c73c856ab2087a0510f83fbd661949a3e8cb",
+      "flightWithImportReferencesNormalised": "164caaa380aa8cb18ad76ae14224bc8b734654bc407ab10dab7176bf5e9b0eef",
+      "responseSha256": "adcd7e07271ae0ce042be28d7e2f87737dc52787064d5872cc09bd044102f3a8"
+    },
+    {
+      "bytes": 25975,
+      "scripts": 10,
+      "html": "ed7058463ee0d5f3a8e80a6e0d48cb165bf14905b44770f4315464935c974691",
+      "flight": "cb16d002ce4ea84061dea47adfd7447e9974dff275609f1eb395fb262c1aece4",
+      "fields": "f5886dc8a98a4be9f83f1f6e1a48c73c856ab2087a0510f83fbd661949a3e8cb",
+      "flightWithImportReferencesNormalised": "164caaa380aa8cb18ad76ae14224bc8b734654bc407ab10dab7176bf5e9b0eef",
+      "responseSha256": "adcd7e07271ae0ce042be28d7e2f87737dc52787064d5872cc09bd044102f3a8"
+    },
+    {
+      "bytes": 25975,
+      "scripts": 10,
+      "html": "ed7058463ee0d5f3a8e80a6e0d48cb165bf14905b44770f4315464935c974691",
+      "flight": "cb16d002ce4ea84061dea47adfd7447e9974dff275609f1eb395fb262c1aece4",
+      "fields": "f5886dc8a98a4be9f83f1f6e1a48c73c856ab2087a0510f83fbd661949a3e8cb",
+      "flightWithImportReferencesNormalised": "164caaa380aa8cb18ad76ae14224bc8b734654bc407ab10dab7176bf5e9b0eef",
+      "responseSha256": "adcd7e07271ae0ce042be28d7e2f87737dc52787064d5872cc09bd044102f3a8"
+    },
+    {
+      "bytes": 25975,
+      "scripts": 10,
+      "html": "ed7058463ee0d5f3a8e80a6e0d48cb165bf14905b44770f4315464935c974691",
+      "flight": "b45030e264dec2f9f15ca168546b9cdfb75fd51bb57bd7f1a554deb454e077c1",
+      "fields": "f5886dc8a98a4be9f83f1f6e1a48c73c856ab2087a0510f83fbd661949a3e8cb",
+      "flightWithImportReferencesNormalised": "164caaa380aa8cb18ad76ae14224bc8b734654bc407ab10dab7176bf5e9b0eef",
+      "responseSha256": "a5d3b7be128a7a457b86da4b8f60b855dcde28df44804451471c0ee8f9f72567"
+    },
+    {
+      "bytes": 25975,
+      "scripts": 10,
+      "html": "ed7058463ee0d5f3a8e80a6e0d48cb165bf14905b44770f4315464935c974691",
+      "flight": "cb16d002ce4ea84061dea47adfd7447e9974dff275609f1eb395fb262c1aece4",
+      "fields": "f5886dc8a98a4be9f83f1f6e1a48c73c856ab2087a0510f83fbd661949a3e8cb",
+      "flightWithImportReferencesNormalised": "164caaa380aa8cb18ad76ae14224bc8b734654bc407ab10dab7176bf5e9b0eef",
+      "responseSha256": "adcd7e07271ae0ce042be28d7e2f87737dc52787064d5872cc09bd044102f3a8"
+    },
+    {
+      "bytes": 25932,
+      "scripts": 9,
+      "html": "ed7058463ee0d5f3a8e80a6e0d48cb165bf14905b44770f4315464935c974691",
+      "flight": "44ebcbc54cfba0463127abd46b80d57f4e6f0d51e3cb2e886e30849a536ad90d",
+      "fields": "f5886dc8a98a4be9f83f1f6e1a48c73c856ab2087a0510f83fbd661949a3e8cb",
+      "flightWithImportReferencesNormalised": "164caaa380aa8cb18ad76ae14224bc8b734654bc407ab10dab7176bf5e9b0eef",
+      "responseSha256": "e966d0bf3933da8329028dfaadc943c8027dd7752fa99744963658fb7ce47cd3",
+      "retainedResponse": "personal-streaming-25932.html.txt"
+    },
+    {
+      "bytes": 25975,
+      "scripts": 10,
+      "html": "ed7058463ee0d5f3a8e80a6e0d48cb165bf14905b44770f4315464935c974691",
+      "flight": "cb16d002ce4ea84061dea47adfd7447e9974dff275609f1eb395fb262c1aece4",
+      "fields": "f5886dc8a98a4be9f83f1f6e1a48c73c856ab2087a0510f83fbd661949a3e8cb",
+      "flightWithImportReferencesNormalised": "164caaa380aa8cb18ad76ae14224bc8b734654bc407ab10dab7176bf5e9b0eef",
+      "responseSha256": "adcd7e07271ae0ce042be28d7e2f87737dc52787064d5872cc09bd044102f3a8"
+    },
+    {
+      "bytes": 25975,
+      "scripts": 10,
+      "html": "ed7058463ee0d5f3a8e80a6e0d48cb165bf14905b44770f4315464935c974691",
+      "flight": "cb16d002ce4ea84061dea47adfd7447e9974dff275609f1eb395fb262c1aece4",
+      "fields": "f5886dc8a98a4be9f83f1f6e1a48c73c856ab2087a0510f83fbd661949a3e8cb",
+      "flightWithImportReferencesNormalised": "164caaa380aa8cb18ad76ae14224bc8b734654bc407ab10dab7176bf5e9b0eef",
+      "responseSha256": "adcd7e07271ae0ce042be28d7e2f87737dc52787064d5872cc09bd044102f3a8"
+    },
+    {
+      "bytes": 25975,
+      "scripts": 10,
+      "html": "ed7058463ee0d5f3a8e80a6e0d48cb165bf14905b44770f4315464935c974691",
+      "flight": "cb16d002ce4ea84061dea47adfd7447e9974dff275609f1eb395fb262c1aece4",
+      "fields": "f5886dc8a98a4be9f83f1f6e1a48c73c856ab2087a0510f83fbd661949a3e8cb",
+      "flightWithImportReferencesNormalised": "164caaa380aa8cb18ad76ae14224bc8b734654bc407ab10dab7176bf5e9b0eef",
+      "responseSha256": "adcd7e07271ae0ce042be28d7e2f87737dc52787064d5872cc09bd044102f3a8"
+    },
+    {
+      "bytes": 25975,
+      "scripts": 10,
+      "html": "ed7058463ee0d5f3a8e80a6e0d48cb165bf14905b44770f4315464935c974691",
+      "flight": "b45030e264dec2f9f15ca168546b9cdfb75fd51bb57bd7f1a554deb454e077c1",
+      "fields": "f5886dc8a98a4be9f83f1f6e1a48c73c856ab2087a0510f83fbd661949a3e8cb",
+      "flightWithImportReferencesNormalised": "164caaa380aa8cb18ad76ae14224bc8b734654bc407ab10dab7176bf5e9b0eef",
+      "responseSha256": "a5d3b7be128a7a457b86da4b8f60b855dcde28df44804451471c0ee8f9f72567"
+    }
+  ],
+  "normalisation": "Concatenate Flight type-1 chunks, replace module-import record ids and their $/$L references with the SHA-256 of the import definition, then sort records. No model values or HTML fields are removed."
+}

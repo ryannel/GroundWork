@@ -1,5 +1,6 @@
 import type { Core } from '@/application/plan/derive-core';
 import { memo } from '@/application/plan/derive-values';
+import { hasAnyPrefix, hasPrefix } from '@/domain/ids';
 import type { FanoutCall, StepNode, SystemGraph } from '@/domain/plan/plan-graph';
 import type { Test } from '@/domain/plan/plan.generated';
 
@@ -100,7 +101,7 @@ const runsToday = (core: Core, s: StepNode, [from, to]: readonly [string, string
 /** A new or re-routed cross-service api or msg step. */
 function connectionLink(sc: Scope, s: StepNode): Keyed[] {
   const { core } = sc;
-  if (!/^(?:api|msg):/u.test(s.via)) return [];
+  if (!hasAnyPrefix(s.via, ['api', 'msg'])) return [];
   const added = core.status(s.id) === 'added';
   if (!added && !sc.viaChanged.has(s.id)) return [];
   const from = endService(core, core.toBe, s.from);
@@ -140,7 +141,7 @@ export function createContracts(core: Core): ContractQueries {
   const connectionsWithoutContract = memo((): UncontractedLink[] =>
     mergeLinks(
       core.toBe.steps.flatMap((s) =>
-        s.via.startsWith('gql:') ? operationLinks(sc, s) : connectionLink(sc, s),
+        hasPrefix(s.via, 'gql') ? operationLinks(sc, s) : connectionLink(sc, s),
       ),
     ),
   );

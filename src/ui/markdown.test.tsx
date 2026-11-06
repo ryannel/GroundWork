@@ -12,6 +12,7 @@ describe('Markdown', () => {
   it('renders blocks and runs as elements, never as HTML', () => {
     const { container } = render(
       <Markdown
+        isReference={(id) => id === 'svc:a'}
         text={
           '**Bold** *em* `code` [[svc:a]] <b>raw</b>\n\n- one\n1. two\n> said [x](https://x.org)'
         }
@@ -30,10 +31,16 @@ describe('Markdown', () => {
   });
 
   it('draws citations with renderRef and titles a shortened URL', () => {
-    render(<InlineMarkdown renderRef={(id) => <i>{id}!</i>} text="[[svc:a]] https://e.com/x/y" />);
+    render(
+      <InlineMarkdown
+        isReference={(id) => id === 'svc:a'}
+        renderRef={(id) => <i>{id}!</i>}
+        text="[[svc:a]] https://e.com/x/y"
+      />,
+    );
     expect(screen.getByText('svc:a!')).toBeTruthy();
     expect(screen.getByRole('link').getAttribute('title')).toBe('https://e.com/x/y');
-    render(<InlineMarkdown text={null} />);
+    render(<InlineMarkdown isReference={(id) => id === 'svc:a'} text={null} />);
   });
 });
 

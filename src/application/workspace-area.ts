@@ -3,6 +3,8 @@ import { resourcesOf, withAreaResources } from '@/application/area-map/resources
 import { explorerComponentLinks } from '@/application/explorer-component-links';
 import { serviceExplorerHref } from '@/application/explorer-location';
 import type { Model } from '@/application/plan/derive';
+import { homeUrlOf } from '@/domain/code-links';
+import { stripPrefix } from '@/domain/ids';
 import type {
   AuthoredLandscape,
   LandscapeArea,
@@ -127,13 +129,13 @@ function componentRepository(
   if (sources.size > 1) return null;
   const published =
     join.manifest?.services.filter(
-      (service) => service.id === component.id || service.id === component.id.replace(/^svc:/u, ''),
+      (service) => service.id === component.id || service.id === stripPrefix(component.id, 'svc'),
     ) ?? [];
   const name = [...sources][0] ?? (published.length === 1 ? published[0]?.repo : undefined);
   if (name === undefined) return null;
   return {
     name,
-    href: name.split('/').length === 2 ? `https://github.com/${name}` : `https://${name}`,
+    href: homeUrlOf({ repo: name }),
   };
 }
 
@@ -155,7 +157,7 @@ function componentView(component: Component, join: AreaJoin): AreaComponentView 
 
 function systemNameOf(workspace: Workspace, id: string | null | undefined): string | null {
   if (id === undefined || id === null) return null;
-  const key = id.replace(/^sys:/u, '');
+  const key = stripPrefix(id, 'sys');
   return (
     workspace.domains.flatMap((domain) => domain.systems).find((system) => system.id === key)
       ?.name ?? null
@@ -169,7 +171,7 @@ function callerLookup(workspace: Workspace, model?: Model): (id: string) => Area
     if (known !== undefined) return known;
     const component = model?.asIs.get(id);
     const system =
-      component?.$type === 'service' ? (component.system?.replace(/^sys:/u, '') ?? null) : null;
+      component?.$type === 'service' ? (stripPrefix(component.system, 'sys') ?? null) : null;
     const caller = {
       id,
       name: model?.label(id) ?? id,
@@ -192,7 +194,7 @@ function endpointExplorer(
   signature: string,
 ): string | null {
   if (manifest === null) return null;
-  const id = component.replace(/^svc:/u, '');
+  const id = stripPrefix(component, 'svc');
   const service = manifest.services.find((item) => item.id === id || item.id === component);
   const entry = service?.entries.find((item) => endpointKey(item.label) === endpointKey(signature));
   if (service === undefined || entry === undefined) return null;

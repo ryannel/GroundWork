@@ -11,6 +11,7 @@ import {
   versionNames,
 } from '@/application/plan-viz-ladder-order';
 import { countOf, plainLine, short } from '@/application/plan-viz-text';
+import { hasChildPath, hasPrefix } from '@/domain/ids';
 
 // The rungs of a migration ladder as the page draws them: what happens, when, the edits and who does the work.
 
@@ -76,7 +77,7 @@ function providerName(model: Model, { from, to, isApi }: Ends): string {
 
 function whatOf(model: Model, r: Rung, ends: Ends): Seg[] {
   const { from, to, isApi } = ends;
-  if (from === to && r.label !== '' && from.includes('#')) return [{ text: r.label }];
+  if (from === to && r.label !== '' && hasChildPath(from)) return [{ text: r.label }];
   const n = versionNames(model, from, to);
   const p = providerName(model, ends);
   const serve = isApi ? 'serving' : 'publishing';
@@ -126,7 +127,7 @@ function changeOf(p: string): OpLineView['change'] {
 function stepOf(model: Model, o: Op): string {
   const op = (model.plan.changes ?? []).find((c) => c.id === o.changeId)?.ops?.[o.opIndex];
   const target = textOf(prop(op, 'modify'));
-  return target?.includes('#') === true ? short(model.label(target), 36) : '';
+  return hasChildPath(target) ? short(model.label(target), 36) : '';
 }
 
 function opLines(model: Model, r: Rung): OpLineView[] {
@@ -228,7 +229,7 @@ export function ladderView(model: Model, id: string): LadderView | null {
   const from = l.chain[0];
   const to = l.chain.at(-1);
   if (from === undefined || to === undefined || l.rungs.length === 0) return null;
-  const ends: Ends = { from, to, isApi: id.startsWith('api:') };
+  const ends: Ends = { from, to, isApi: hasPrefix(id, 'api') };
   const retirement = retireMilestone(model, id);
   const expand = l.rungs.find((r) => r.rung === 'expand');
   const timing: Timing = {

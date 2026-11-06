@@ -1,5 +1,6 @@
 import type { Model } from '@/application/plan/derive';
 import type { Added, Fetch, QueryPlan } from '@/application/plan/federation-plan-types';
+import { stripPrefix } from '@/domain/ids';
 
 // The query plan as a tree: how the gateway resolves one operation, in the words a query plan uses. Rounds of fetches
 // run one after another (Sequence); fetches in one round run together (Parallel); a fetch below the root says where
@@ -20,7 +21,7 @@ export interface SelNode {
   readonly router: Added['reason'] | null;
 }
 
-const slug = (id: string): string => id.replace(/^sg:/u, '');
+const slug = (id: string): string => stripPrefix(id, 'sg');
 
 /** The plan to draw, or null when the document does not parse or no fetch is derived. */
 export function planOf(model: Model, opId: string, mode: PlanMode = 'toBe'): QueryPlan | null {

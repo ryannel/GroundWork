@@ -1,13 +1,15 @@
 name: Mutation
 
-# Plants small bugs in the pure-layer files a pull request changes and fails if too many go unnoticed by the tests
-# (stryker.config.mjs holds the threshold). Only changed files: a full run is tens of thousands of mutants.
+# Every touched pure-layer file is tested in full. Parallel batches feed one weighted score;
+# stryker.config.mjs owns the unchanged threshold. Missing or incomplete reports fail the gate.
 on:
   pull_request:
     paths:
       - 'src/domain/**'
       - 'src/application/**'
       - 'src/shared/**'
+      - 'tools/mutate-changed*'
+      - '.github/workflows/mutation.yml'
       - stryker.config.mjs
       - vitest.mutation.config.ts
 
@@ -19,21 +21,72 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  mutate:
+  plan:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    outputs:
+      matrix: ${{ steps.scope.outputs.matrix }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
           persist-credentials: false
-      - uses: ./.github/actions/setup
-      - run: npm run mutate:changed -- --base "origin/$BASE_REF"
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+      - id: scope
+        run: |
+          mutation_matrix=$(node tools/mutate-changed.ts --matrix --base "$BASE_SHA")
+          echo "matrix=$mutation_matrix" >> "$GITHUB_OUTPUT"
         env:
-          BASE_REF: ${{ github.base_ref }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+  batch:
+    name: batch (${{ matrix.index }})
+    needs: plan
+    if: needs.plan.outputs.matrix != '{"include":[]}'
+    strategy:
+      fail-fast: false
+      max-parallel: 20
+      matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup
+      # A batch's score may be below the overall floor. Only the weighted aggregate decides the score;
+      # failures that produce no completed JSON report still fail here and at the final gate.
+      - run: npm run mutate:changed -- --files-json "$FILES_JSON"
+        continue-on-error: true
+        env:
+          FILES_JSON: ${{ toJSON(matrix.files) }}
+      - run: test -s reports/mutation.json
       - if: always()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          name: mutation-report
-          path: reports/mutation.html
-          if-no-files-found: ignore
+          name: mutation-${{ matrix.index }}
+          path: |
+            reports/mutation.json
+            reports/mutation.html
+          if-no-files-found: error
+  mutate:
+    if: always()
+    needs: [plan, batch]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+      - run: mkdir -p reports/batches
+      - if: needs.batch.result != 'skipped'
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        with:
+          pattern: mutation-*
+          path: reports/batches
+      - run: node tools/mutate-changed.ts --aggregate reports/batches --base "$BASE_SHA"
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}

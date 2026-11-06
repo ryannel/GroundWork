@@ -4,6 +4,7 @@ import { findEntity } from '@/application/plan/revision-view';
 import { type EditItem, plainOf } from '@/application/plan-story-versions-edit-item';
 import { refText, type View } from '@/application/plan-story-versions-pair';
 import { unmark } from '@/application/plan-story-versions-words';
+import { rootId } from '@/domain/ids';
 
 // The edits to the changes in a plan: new, dropped, and what their ops add, remove and alter.
 
@@ -50,7 +51,7 @@ function targetOf(view: View, op: unknown): string {
   const value = prop(op, 'value');
   const ids = [prop(value, 'id'), ...TARGETS.slice(1).map((k) => prop(op, k))];
   const id = ids.find((x): x is string => typeof x === 'string');
-  if (id !== undefined) return refText(view, id.split('#')[0] ?? id);
+  if (id !== undefined) return refText(view, rootId(id));
   const name = prop(value, 'name');
   return `**${typeof name === 'string' ? name : ''}**`;
 }
@@ -85,7 +86,7 @@ function addedWhat(view: View, op: unknown, summary: string): string {
   if (add === 'field') {
     const into = prop(op, 'into');
     const name = prop(prop(op, 'value'), 'name');
-    const where = typeof into === 'string' ? refText(view, into.split('#')[0] ?? into) : '';
+    const where = typeof into === 'string' ? refText(view, rootId(into)) : '';
     return `Adds the field \`${typeof name === 'string' ? name : ''}\` to ${where}`;
   }
   if (add === 'step') {

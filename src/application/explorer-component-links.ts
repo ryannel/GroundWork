@@ -1,3 +1,4 @@
+import { stripPrefix } from '@/domain/ids';
 import type { ExplorerManifest } from '@/domain/service-explorer';
 
 import { serviceExplorerHref } from './explorer-location';
@@ -10,7 +11,7 @@ export function explorerComponentLinks(
   if (manifest === null) return {};
   const links = components.flatMap((id): readonly (readonly [string, string])[] => {
     const matches = manifest.services.filter(
-      (service) => service.id === id || service.id === id.replace(/^svc:/u, ''),
+      (service) => service.id === id || service.id === stripPrefix(id, 'svc'),
     );
     const match = matches.length === 1 ? matches[0] : undefined;
     return match === undefined ? [] : [[id, serviceExplorerHref(manifest.workspace, match.id)]];

@@ -1,0 +1,36 @@
+
+> groundwork@0.0.0 build
+> next build
+
+▲ Next.js 16.4.3 (Turbopack)
+✓ Running next.config.ts took 96ms
+
+  Creating an optimized production build ...
+
+> Build error occurred
+Error: Turbopack build failed with 1 error:
+./src/features/plan/viz/row-detail/row-detail.client.tsx:11:1
+Error: The "use client" directive must be placed before other expressions. Move it to the top of the file to resolve this issue.
+  [90m 9 |[0m [36mimport[0m styles [36mfrom[0m [32m'./row-detail.module.css'[0m;
+  [90m10 |[0m
+[31m[1m>[0m [90m11 |[0m ([32m'use client'[0m);
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^[0m
+  [90m12 |[0m
+  [90m13 |[0m [36mexport[0m [36minterface[0m [33mDetailButton[0m {
+  [90m14 |[0m   [90m/** What the cell shows. */[0m
+
+Ecmascript file had an error
+
+Import trace:
+  Server Component:
+    ./src/features/plan/viz/row-detail/row-detail.client.tsx
+    ./src/features/plan/viz/owners/ownership-table.tsx
+    ./src/features/plan/chapters/ref/teams-cat.tsx
+    ./src/features/plan/chapters/ref/ref-catalogues.ts
+    ./src/features/plan/chapters/ref/ref-chapter.tsx
+    ./src/features/plan/screen-bodies.tsx
+    ./src/features/plan/plan-pages.tsx
+    ./src/app/[workspace]/plans/[plan]/[chapter]/[screen]/page.tsx
+
+
+    at ignore-listed frames

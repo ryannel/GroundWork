@@ -1,7 +1,7 @@
 import type { Model } from '@/application/plan/derive';
 import { journeyComparison, type JourneyComparison } from '@/application/plan/journey';
 import { numWord } from '@/application/plan-viz-text';
-import { plain } from '@/shared/plain-text';
+import { plain } from '@/domain/plain-text';
 
 // What a page of the journey chapter says about one flow before the steps begin: what the plan does to it, where it
 // starts and what it comes to.

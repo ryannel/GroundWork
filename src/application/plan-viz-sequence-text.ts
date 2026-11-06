@@ -1,7 +1,7 @@
 import type { Model } from '@/application/plan/derive';
 import type { ElementStatus } from '@/application/plan/derive-core';
 import { chipInfo } from '@/application/plan-chips';
-import { plain } from '@/shared/plain-text';
+import { plain } from '@/domain/plain-text';
 
 // The words and the column geometry a sequence drawing shares: how wide a column must be, where an arrow sits
 // on the lane strip, what a status pill says.

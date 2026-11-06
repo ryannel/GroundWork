@@ -1,3 +1,5 @@
+import { permalinkOf } from '@/domain/code-links';
+
 import type { Anchor, CanonicalProtobufContracts } from './protobuf-contracts.generated';
 
 export interface ProtobufSource {
@@ -9,7 +11,7 @@ export function protobufSourceUrl(
   document: Pick<CanonicalProtobufContracts, 'repo' | 'commit'>,
   anchor: Anchor,
 ): string {
-  return `https://github.com/${document.repo}/blob/${document.commit}/${anchor.path}#L${String(anchor.lines[0])}-L${String(anchor.lines[1])}`;
+  return permalinkOf({ ...document, ...anchor }, { encoding: 'raw', range: 'always' });
 }
 
 export function safeProtobufPath(path: string): boolean {

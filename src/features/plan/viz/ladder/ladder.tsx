@@ -1,5 +1,6 @@
 import type { Model } from '@/application/plan/derive';
 import { ladderView } from '@/application/plan-viz-ladder-rungs';
+import { hasPrefix } from '@/domain/ids';
 import { EndpointSig } from '@/features/plan/viz/endpoint/endpoint-parts';
 import { EventLine } from '@/features/plan/viz/event-line/event-line';
 import { Legend } from '@/ui/legend';
@@ -15,7 +16,7 @@ interface LadderProps {
 }
 
 function Version({ model, id }: LadderProps) {
-  if (id.startsWith('msg:')) return <EventLine bare id={id} mode="diff" model={model} />;
+  if (hasPrefix(id, 'msg')) return <EventLine bare id={id} mode="diff" model={model} />;
   const ep = [...model.toBe.endpoints, ...model.asIs.endpoints].find((e) => e.id === id);
   return (
     <div className={styles.version}>

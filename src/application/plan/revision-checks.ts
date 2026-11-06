@@ -5,6 +5,7 @@ import {
   ledgerOf,
   type RevisionEntry,
 } from '@/application/plan/revision-ledger';
+import { hasPrefix } from '@/domain/ids';
 
 interface Entry {
   readonly list: readonly RevisionEntry[];
@@ -93,7 +94,7 @@ function checkProposal(entry: Entry, ctx: CheckContext, rep: Report): void {
   checkWhy(entry, rep);
   checkWork(entry, ctx, rep);
   for (const [j, who] of (r.by ?? []).entries()) {
-    if (who.startsWith('team:') && !ctx.known(who)) {
+    if (hasPrefix(who, 'team') && !ctx.known(who)) {
       rep.error(
         at(i, 'by', j),
         `${who} is not a team in this plan; use one of its team ids or a plain name`,

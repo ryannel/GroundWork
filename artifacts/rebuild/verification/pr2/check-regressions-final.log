@@ -1,0 +1,69 @@
+
+> groundwork@0.0.0 check
+> run-s --print-label check:static lint coverage
+
+[check:static]
+[check:static] > groundwork@0.0.0 check:static
+[check:static] > run-p --aggregate-output --print-label typecheck typecoverage lint:css design:drift format:check cycles duplication knip
+[check:static]
+[check:static] [cycles      ] - Start analyzing dependencies...
+[check:static] [design:drift]
+[check:static] [design:drift] > groundwork@0.0.0 design:drift
+[check:static] [design:drift] > node --import ./tools/register.ts tools/design-drift.ts
+[check:static] [design:drift]
+[check:static] [design:drift] No new design drift.
+[check:static] [lint:css    ]
+[check:static] [lint:css    ] > groundwork@0.0.0 lint:css
+[check:static] [lint:css    ] > stylelint --cache --cache-location node_modules/.cache/stylelint/ "src/**/*.css"
+[check:static] [lint:css    ]
+[check:static] [knip        ] Configuration hints (1)
+[check:static] [knip        ] tools/scan-python-rust-setup.ts    knip.json  Remove redundant entry pattern
+[check:static] [knip        ]
+[check:static] [knip        ] > groundwork@0.0.0 knip
+[check:static] [knip        ] > knip
+[check:static] [knip        ]
+[check:static] [typecheck   ]
+[check:static] [typecheck   ] > groundwork@0.0.0 typecheck
+[check:static] [typecheck   ] > tsc --noEmit
+[check:static] [typecheck   ]
+[check:static] [typecoverage]
+[check:static] [typecoverage] > groundwork@0.0.0 typecoverage
+[check:static] [typecoverage] > type-coverage
+[check:static] [typecoverage]
+[check:static] [typecoverage] (348466 / 348466) 100.00%
+[check:static] [typecoverage] type-coverage success.
+[check:static] [format:check]
+[check:static] [format:check] > groundwork@0.0.0 format:check
+[check:static] [format:check] > prettier --check --cache --cache-location node_modules/.cache/prettier.json .
+[check:static] [format:check]
+[check:static] [format:check] Checking formatting...
+[check:static] [format:check] All matched files use Prettier code style!
+[check:static] [cycles      ] ✔ [2097/2097] Analyze done!
+[check:static] [cycles      ]
+[check:static] [cycles      ] > groundwork@0.0.0 cycles
+[check:static] [cycles      ] > dpdm --no-warning --no-tree -T --exit-code circular:1 'src/**/*.{ts,tsx}' 'tools/**/*.ts'
+[check:static] [cycles      ]
+[check:static] [cycles      ] • Circular Dependencies
+[check:static] [cycles      ]   ✅ Congratulations, no circular dependency was found in your project.
+[check:static] [cycles      ]
+[check:static] [duplication ]
+[check:static] [duplication ] > groundwork@0.0.0 duplication
+[check:static] [duplication ] > jscpd
+[check:static] [duplication ]
+[check:static] [duplication ] Duplications detection: Found 53 exact clones with 689(0.38%) duplicated lines in 1965 (3 formats) files.
+[lint        ]
+[lint        ] > groundwork@0.0.0 lint
+[lint        ] > eslint --concurrency off --max-warnings 0 .
+[lint        ]
+[lint        ]
+[lint        ] /Users/RNEL/.codex/worktrees/rebuild-pr2/groundWork/src/application/plan-viz-ladder-order.test.ts
+[lint        ]   157:53  error  Unnecessary conditional, comparison is always false, since `"message" !== "message"` is false  @typescript-eslint/no-unnecessary-condition
+[lint        ]   158:7   error  Expected { after 'if' condition                                                                curly
+[lint        ]
+[lint        ] /Users/RNEL/.codex/worktrees/rebuild-pr2/groundWork/src/shared/markdown.ts
+[lint        ]   30:12  error  Use src/domain/ids.ts to build or parse a model id  groundwork/identity-boundary
+[lint        ]
+[lint        ] ✖ 3 problems (3 errors, 0 warnings)
+[lint        ]   1 error and 0 warnings potentially fixable with the `--fix` option.
+[lint        ]
+ERROR: "lint" exited with 1.

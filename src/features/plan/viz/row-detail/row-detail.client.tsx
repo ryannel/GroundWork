@@ -2,6 +2,7 @@
 
 import { useId, useState, type ReactNode } from 'react';
 
+import { isAuthoredReference } from '@/domain/ids';
 import { Glyph } from '@/ui/icon';
 import { InlineMarkdown } from '@/ui/markdown';
 
@@ -56,7 +57,7 @@ function NamesCard({
       <b>{title}</b>
       {list.slice(0, MAX_NAMES).map((n) => (
         <span key={n}>
-          <InlineMarkdown text={n} />
+          <InlineMarkdown isReference={isAuthoredReference} text={n} />
         </span>
       ))}
       {list.length > MAX_NAMES ? (

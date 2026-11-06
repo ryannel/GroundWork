@@ -1,5 +1,6 @@
 import type { Model } from '@/application/plan/derive';
 import { typeOf } from '@/application/plan/ids';
+import { parentOf } from '@/domain/ids';
 import { TYPE_WORDS } from '@/domain/plan/plan-vocab';
 
 import { planHref, type Neighbours, type Outline, type Page, type PlanAddress } from './plan-pages';
@@ -43,11 +44,6 @@ function thingIds(model: Model): string[] {
  * palette leaves out too. */
 export const topThingIds = (model: Model): string[] =>
   thingIds(model).filter((id) => !CHILD_TYPES.has(typeOf(id) ?? ''));
-
-const parentOf = (id: string): string | null => {
-  const hash = id.indexOf('#');
-  return hash === -1 ? null : id.slice(0, hash);
-};
 
 /** The things of the same kind, in plan order, the thing among them; a part's siblings share its parent. */
 export function siblingsOf(model: Model, id: string): string[] {

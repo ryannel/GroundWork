@@ -21,6 +21,82 @@ const component = (body: string) =>
   `import styles from './pair.module.css';\n\nexport function Pair() {\n  return ${body};\n}\n`;
 
 const CASES: readonly Case[] = [
+  {
+    name: 'non-capturing regex groups are not model prefixes',
+    file: 'src/application/ordinal-suffix.ts',
+    code: 'export const isOrdinal = (text: string): boolean => /^(?:st|nd)$/u.test(text);\n',
+    rule: null,
+  },
+  {
+    name: 'regular-expression prefix tests use the shared parser',
+    file: 'src/application/bad-regex-prefix.ts',
+    code: 'export const isCall = (id: string): boolean => /^(?:api|gql):/u.test(id);\n',
+    rule: 'groundwork/identity-boundary',
+  },
+  {
+    name: 'regular-expression child matching uses the shared parser',
+    file: 'src/application/bad-regex-child.ts',
+    code: 'export const step = (id: string): boolean => /^flow:[^#]+#/u.exec(id) !== null;\n',
+    rule: 'groundwork/identity-boundary',
+  },
+  {
+    name: 'flow-reference extraction uses the shared parser',
+    file: 'src/application/bad-regex-reference.ts',
+    code: 'export const flow = (text: string): unknown => /\\[\\[(flow:[^\\]]+)\\]\\]/u.exec(text);\n',
+    rule: 'groundwork/identity-boundary',
+  },
+  {
+    name: 'shared prefix classification is allowed',
+    file: 'src/application/shared-prefix.ts',
+    code: "import { hasAnyPrefix } from '@/domain/ids';\n\nexport const isCall = (id: string): boolean => hasAnyPrefix(id, ['api', 'gql']);\n",
+    rule: null,
+  },
+  {
+    name: 'native package imports preserve the domain boundary',
+    file: 'src/ui/bad-native-id.ts',
+    code: "import { buildId } from '#domain/ids';\n\nexport const systemId = (slug: string): string => buildId('sys', slug);\n",
+    rule: 'boundaries/dependencies',
+  },
+
+  {
+    name: 'repository homes use the shared builder',
+    file: 'src/application/bad-home.ts',
+    code: 'export const home = (repo: string): string => `https://github.com/${repo}`;\n',
+    rule: 'groundwork/identity-boundary',
+  },
+
+  {
+    name: 'child ids use the shared builder',
+    file: 'src/application/bad-child-build.ts',
+    code: 'export const child = (parentId: string, name: string): string => `${parentId}#${name}`;\n',
+    rule: 'groundwork/identity-boundary',
+  },
+
+  {
+    name: 'model ids use the shared builder',
+    file: 'src/application/bad-id.ts',
+    code: 'export const systemId = (slug: string): string => `sys:${slug}`;\n',
+    rule: 'groundwork/identity-boundary',
+  },
+  {
+    name: 'model prefixes use the shared parser',
+    file: 'src/application/bad-prefix.ts',
+    code: "export const slugOf = (id: string): string => id.replace(/^svc:/u, '');\n",
+    rule: 'groundwork/identity-boundary',
+  },
+  {
+    name: 'Git-host links use the shared builder',
+    file: 'src/application/bad-link.ts',
+    code: 'export const issue = (repo: string): string => `https://github.com/${repo}/issues/1`;\n',
+    rule: 'groundwork/identity-boundary',
+  },
+  {
+    name: 'child paths use the shared parser',
+    file: 'src/application/bad-child.ts',
+    code: "export const root = (id: string): string => id.split('#')[0] ?? '';\n",
+    rule: 'groundwork/identity-boundary',
+  },
+
   // layers
   {
     name: 'scan infrastructure may inspect TypeScript source',

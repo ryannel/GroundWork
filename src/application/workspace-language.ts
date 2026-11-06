@@ -1,7 +1,7 @@
 // A domain's language lives in domains/<domain>/language.yaml. A word belongs to the domain where it is born:
 // the domain of the system whose component mints its id.
-
 import { domainHref } from '@/application/workspace-paths';
+import { buildId } from '@/domain/ids';
 import type { Workspace } from '@/domain/workspace';
 import type { DomainLanguage, WorkspaceModel } from '@/domain/workspace-model';
 
@@ -20,7 +20,10 @@ function domainsByComponent(workspace: Workspace): Map<string, string> {
 function anchorWarnings(workspace: Workspace, model: WorkspaceModel): string[] {
   const known = new Set([
     ...model.languages.flatMap(({ concepts }) => concepts.map((c) => c.id)),
-    ...workspace.domains.flatMap((d) => [`dom:${d.id}`, ...d.systems.map((s) => `sys:${s.id}`)]),
+    ...workspace.domains.flatMap((d) => [
+      buildId('dom', d.id),
+      ...d.systems.map((s) => buildId('sys', s.id)),
+    ]),
     ...domainsByComponent(workspace).keys(),
   ]);
   const terms = new Set(model.keyTerms.terms.map((t) => t.id));

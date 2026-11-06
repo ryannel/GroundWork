@@ -5,6 +5,7 @@ import { type Purges, purgesOf } from '@/application/plan-story-journey-purges';
 import { countOf, plainLine } from '@/application/plan-viz-text';
 import { type WaterfallFacts, waterfallFacts } from '@/application/plan-viz-waterfall-facts';
 import { keyText } from '@/application/plan-viz-waterfall-text';
+import { hasChildPath, rootId } from '@/domain/ids';
 import type { Operation } from '@/domain/plan/plan.generated';
 
 // Behind the button: for each operation the front end sends today, what it costs and whom to call when it is slow.
@@ -108,7 +109,7 @@ function behindOp(model: Model, op: Operation): BehindOp | null {
   const { plan } = facts;
   if (plan === null) return null;
   const refs = op.screens ?? [];
-  const screen = refs[0]?.split('#')[0];
+  const screen = rootId(refs[0]);
   const fields = plan.selected.filter((x) => x.addedByRouter === null).length;
   const subgraphs = new Set(plan.fetches.map((f) => f.subgraph)).size;
   const teams = [...new Set(plan.teams)];
@@ -120,7 +121,7 @@ function behindOp(model: Model, op: Operation): BehindOp | null {
     headline: behindHeadline(model, op, facts),
     lede: own === '' ? counts : `${own} ${counts}`,
     screen:
-      screen === undefined ? null : { id: screen, focus: refs.filter((r) => r.includes('#')) },
+      screen === undefined ? null : { id: screen, focus: refs.filter((r) => hasChildPath(r)) },
     when: (op.trigger === undefined ? undefined : WHEN[op.trigger]) ?? 'by the front end',
     hasDocument: op.document.trim() !== '',
     teams,

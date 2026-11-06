@@ -1,5 +1,6 @@
 import type { Model } from '@/application/plan/derive';
 import type { Edge } from '@/application/plan/derive-edges';
+import { hasPrefix } from '@/domain/ids';
 
 // What the inspector says about a system that no field on it says: the systems it leans on and that lean on it,
 // what is inside it, and the flows it takes part in.
@@ -46,7 +47,7 @@ const counted = (label: string, ids: readonly string[]): Group => ({
 
 /** A system's neighbours, parts, stores and flows, as labelled lists of ids; empty for anything else. */
 export function systemGroups(model: Model, id: string): Group[] {
-  if (!id.startsWith('sys:')) return [];
+  if (!hasPrefix(id, 'sys')) return [];
   const of = systemsOf(model);
   const { on, by } = neighbours(model, id, of);
   const parts = model.plan.services.filter((s) => s.system === id).map((s) => s.id);

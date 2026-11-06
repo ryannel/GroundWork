@@ -1,4 +1,5 @@
 import type { LineKind, MapShow, SystemMapInput } from '@/application/plan-viz-system-map-types';
+import { hasPrefix, rootId } from '@/domain/ids';
 
 // Every call, event and data access between the systems, gathered into one line per pair of things drawn.
 
@@ -43,7 +44,7 @@ interface Spec {
   readonly hand?: boolean;
 }
 
-const flowOf = (stepId: string): string => stepId.split('#')[0] ?? stepId;
+const flowOf = (stepId: string): string => rootId(stepId);
 
 /** Which service card each topic and store hangs under: its owner, else the first thing that uses it. */
 function hostsOf(input: SystemMapInput): Map<string, string> {
@@ -213,7 +214,7 @@ function fromEdges(acc: Acc): void {
 // call over HTTP) is still a call.
 function fromSteps(acc: Acc): void {
   for (const step of acc.input.steps) {
-    const modelled = step.via.startsWith('api:') || step.via.startsWith('msg:');
+    const modelled = hasPrefix(step.via, 'api') || hasPrefix(step.via, 'msg');
     if (
       acc.svcIds.has(step.from) &&
       acc.svcIds.has(step.to) &&

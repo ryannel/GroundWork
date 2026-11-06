@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 
 import type { TargetShiftView, TargetStageView, TargetView } from '@/application/workspace-target';
+import { isAuthoredReference } from '@/domain/ids';
 import { Callout } from '@/ui/callout';
 import { List, ListItem } from '@/ui/list';
 import { Markdown } from '@/ui/markdown';
@@ -18,7 +19,7 @@ function Prose({ text, refs }: { readonly text: string | null; readonly refs: Re
     const chip = refs[id];
     return chip === undefined ? <code>{id}</code> : <RefChip chip={chip} />;
   };
-  return <Markdown renderRef={renderRef} text={text} />;
+  return <Markdown isReference={isAuthoredReference} renderRef={renderRef} text={text} />;
 }
 
 function Shift({ shift, refs }: { readonly shift: TargetShiftView; readonly refs: Refs }) {

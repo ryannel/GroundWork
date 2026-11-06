@@ -12,6 +12,7 @@ import { changedSteps } from '@/application/plan/compat-people';
 import { propRows } from '@/application/plan/compat-rules';
 import { createSchemaCompat, type Env } from '@/application/plan/compat-schema';
 import { memo } from '@/application/plan/derive-values';
+import { rootId } from '@/domain/ids';
 
 export type { Compat } from '@/application/plan/compat-judge';
 export type { NetRow } from '@/application/plan/compat-net';
@@ -31,7 +32,7 @@ function ofSchemaId({ env, ofSchema, net }: Kit, id: string): Compat | null {
 
 function ofField(kit: Kit, id: string): Compat | null {
   const { env, ofSchema } = kit;
-  const sid = id.split('#')[0] ?? id;
+  const sid = rootId(id);
   if (!env.asIs.has(sid) || !env.toBe.has(sid)) return kit.compat(sid);
   const r = ofSchema(sid);
   const mine = r.reasons.filter((x) => x.target === id);

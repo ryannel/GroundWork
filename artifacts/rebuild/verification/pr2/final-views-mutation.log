@@ -1,0 +1,1188 @@
+[32m03:06:21 (48217) INFO ProjectReader[39m Found 2 of 1897 file(s) to be mutated using incremental report with 339 mutant(s), and 782 test(s).
+[32m03:06:22 (48217) INFO Instrumenter[39m Instrumented 2 source file(s) with 339 mutant(s)
+[32m03:06:22 (48217) INFO ConcurrencyTokenProvider[39m Creating 8 test runner process(es).
+[32m03:06:23 (48217) INFO BroadcastReporter[39m Detected that current console does not support the "progress" reporter, downgrading to "progress-append-only" reporter
+[32m03:06:23 (48217) INFO DryRunExecutor[39m Starting initial test run (vitest test runner with "perTest" coverage analysis). This may take a while.
+[32m03:06:42 (48217) INFO DryRunExecutor[39m Initial test run succeeded. Ran 782 tests in 18 seconds (net 3530.8177529999807 ms, overhead 15095.182247000019 ms).
+[32m03:06:42 (48217) INFO IncrementalDiffer[39m Incremental report:
+	Mutants:	0 files changed (+0 -0)
+	Tests:		1 files changed (+5 -5)
+	Result:		178 of 339 mutant result(s) are reused.
+
+All tests
+  plan
+    check-text.test.ts
+      ✘ weekdayProblems > knows 9 Oct 2026 is a Friday and 4 Oct 2026 a Sunday (covered 0)
+      ✘ weekdayProblems > reads every written form: ordinals, "of", month first, ISO, an explicit year (covered 0)
+      ✘ weekdayProblems > leaves a weekday without a date, or a date without a weekday, alone (covered 0)
+      ✘ validate: weekdays > reports a wrong weekday at the prose that says it (covered 0)
+      ✘ validate: weekdays > takes the year of meta.date for dates without one (covered 0)
+      ✘ validate: weekdays > passes a right weekday (covered 0)
+      ✘ team colours > takes a palette slot from 1 to 13 (covered 0)
+      ✘ team colours > warns when two teams share a slot while the palette has a free one (covered 0)
+      ✘ team colours > stays quiet once there are more teams than slots (covered 0)
+      ✘ the fixture plans > gift-wrap: no weekday disagrees with its date (covered 0)
+      ✘ the fixture plans > pause-orders: no weekday disagrees with its date (covered 0)
+      ✘ the fixture plans > order-event-v2: no weekday disagrees with its date (covered 0)
+      ✘ the fixture plans > shop: no weekday disagrees with its date (covered 0)
+      ✘ the fixture plans > gives every team the slot the workspace gives it, the same across plans (covered 0)
+    compat.test.ts
+      ✘ the field rule: who is broken by what > a new required field breaks callers, informs readers, and needs a backfill in a store (covered 0)
+      ✘ the field rule: who is broken by what > removals, type changes and narrowing break readers (covered 0)
+      ✘ the field rule: who is broken by what > gaining an enum value needs a migration; a note changes nobody (covered 0)
+      ✘ the field rule: who is broken by what > a graph field changes no stored or sent shape by itself (covered 0)
+      ✘ compat on a plan > breaking means a reader this plan does not move; otherwise needs migration (covered 0)
+      ✘ compat on a plan > netDiff compares today with the plan, not the op log (covered 0)
+      ✘ compat across every plan > judges every thing a plan touches without throwing, and only unsafe verdicts name who (covered 0)
+      ✘ compat across every plan > the shop graph: a field moved between subgraphs changes no sent or stored shape (covered 0)
+    derive-plans.test.ts
+      ✘ the fixture plans > gift-wrap: derives and answers every question (covered 0)
+      ✘ the fixture plans > pause-orders: derives and answers every question (covered 0)
+      ✘ the fixture plans > order-event-v2: derives and answers every question (covered 0)
+      ✘ the fixture plans > shop: derives and answers every question (covered 0)
+      ✘ the fixture plans > gift-wrap 1.2: derives and answers every question (covered 0)
+      ✘ the fixture plans > order-event-v2 1.1: derives and answers every question (covered 0)
+      ✘ the fixture plans > gift-wrap: derives from every revision (covered 0)
+      ✘ the fixture plans > order-event-v2: derives from every revision (covered 0)
+      ✘ a plan with only the required sections > validates, derives and answers every question (covered 0)
+    flow-experience.test.ts
+      ✘ flowExperience > classifies direction and output kind without guessing from action words (covered 0)
+      ✘ flowExperience > keeps each screen moment and every intervening step once, including branches (covered 0)
+      ✘ flowExperience > does not fabricate a user journey for screenless and empty flows (covered 0)
+      ✘ flowExperience > classifies against the selected snapshot and keeps removed screen moments in a diff (covered 0)
+      ✘ flowExperience in a plan on Acme > separates paying on the basket, receiving the email and seeing the confirmation (covered 0)
+      ✘ flowExperience in a plan on Acme > starts adding a line on the product page and moves on when the basket is shown (covered 0)
+    flow-sequence.test.ts
+      ✘ sequenceRows: replies > answers a call back to its caller, naming what it returns (covered 0)
+      ✘ sequenceRows: replies > unwinds innermost first: nested calls answer before the call that made them (covered 0)
+      ✘ sequenceRows: replies > gives an internal step, or a call with no response, no reply (covered 0)
+      ✘ sequenceRows: replies > answers a publisher before its event consumers run (covered 0)
+      ✘ sequenceRows: frames > wraps a step that fails in a frame that holds its reply and the calls inside it (covered 0)
+      ✘ sequenceRows: frames > closes every frame it opens, in order, for every flow of every plan (covered 0)
+      ✘ sequenceRows: frames > groups steps from one event source and names the source without inferring timing (covered 0)
+      ✘ sequenceRows: frames > groups steps that share a beat, with no shared source when they leave several (covered 0)
+      ✘ sequenceRows: frames > records a shared source only when every grouped step leaves that topic (covered 0)
+      ✘ sequenceModel: the person > starts a flow someone triggers with an enter row and the person as actor (covered 0)
+      ✘ sequenceModel: the person > gives a job no person row (covered 0)
+      ✘ sequenceModel: the person > never gives a System actor a person lifeline (covered 0)
+      ✘ sequenceModel: the person > keeps a human role that contains System a person (covered 0)
+      ✘ sequenceModel: the person > notes the screen the person sees when it changes, not on every step (covered 0)
+      ✘ sequenceModel: the person > is pure: the same flow gives the same rows (covered 0)
+      ✘ sequenceModel: the person > draws a flow the plan removes from the as-is steps, and one it adds from the to-be (covered 0)
+      ✘ flowSteps > strikes a removed step into the diff, after the step it followed (covered 0)
+      ✘ flowSteps > reads a flow only the plan adds, or only today has, from the graph that has it (covered 0)
+      ✘ what a step is > is an api call, an event, data or internal (covered 0)
+      ✘ what a step is > knows a path today already joins, and one that stays inside a service (covered 0)
+      ✘ what a step is > finds a new link where no step goes today, never inside one service or in a removed step (covered 0)
+    journey.test.ts
+      ✘ journeyComparison: whole flows > flow:refund-order is added, with no fallback steps in the other graph (covered 0)
+      ✘ journeyComparison: whole flows > flow:cancel-order is removed, with no fallback steps in the other graph (covered 0)
+      ✘ journeyComparison: whole flows > says a missing flow is unknown, with nulls rather than undefined (covered 0)
+      ✘ journeyComparison: whole flows > does not treat a flow whose every step is replaced as absent (covered 0)
+      ✘ journeyComparison: order > keeps the actual gap of chained added steps in today (covered 0)
+      ✘ journeyComparison: order > keeps removed runs beside baseline neighbours without disturbing the resulting order (covered 0)
+      ✘ journeyComparison: order > reports a reordered step with its identity intact, and navigates by the selected graph (covered 0)
+      ✘ journeyComparison: evidence > keeps a deprecated step executable and names the change that deprecated it (covered 0)
+      ✘ journeyComparison: evidence > keeps exact region layout apart from the context of the parent screen (covered 0)
+      ✘ journeyComparison: evidence > treats a changed whole record as indirect evidence, not a behavioural change (covered 0)
+      ✘ journeyComparison: evidence > includes local old and new values without graph metadata noise (covered 0)
+      ✘ journeyStep > keeps an unknown step unavailable rather than selecting the first (covered 0)
+      ✘ journeyStep > follows the selected graph for neighbours (covered 0)
+    mermaid.test.ts
+      ✘ flowToMermaid > draws something for every plan (covered 0)
+      ✘ flowToMermaid > starts as a numbered sequence diagram (covered 0)
+      ✘ flowToMermaid > gives participants short ids, with the person first in a flow someone starts (covered 0)
+      ✘ flowToMermaid > shows every step once, in order (covered 0)
+      ✘ flowToMermaid > keeps authored conditions and recovery as notes, never inferred branches (covered 0)
+      ✘ flowToMermaid > groups a shared event source or a beat neutrally, never as parallel execution (covered 0)
+      ✘ flowToMermaid > balances alt and rect blocks, and puts every else in an alt (covered 0)
+      ✘ flowToMermaid > carries no markup Mermaid would misread (covered 0)
+      ✘ flowToMermaid > draws a failure as alt … else if it fails … end, and each removed step as a removed note (covered 0)
+      ✘ flowToMermaid > is pure: the same flow gives the same text (covered 0)
+      ✘ the Mermaid export contract > exports an actor, recorded screen and trigger, a call and its typed reply as valid Mermaid lines (covered 0)
+      ✘ the Mermaid export contract > distinguishes event hand-offs, store writes and internal work without inventing a person (covered 0)
+      ✘ the Mermaid export contract > keeps failure branches and recorded grouping distinct, and does not relabel grouping as parallelism (covered 0)
+      ✘ the Mermaid export contract > shows a removed step as a note, leaves an unread call detail blank, and uses a visible id for a missing action (covered 0)
+      ✘ the Mermaid export contract > keeps data reads, queue participant identities and changes of screen in the export (covered 0)
+      ✘ the Mermaid export contract > exports plain labels with reserved characters escaped and leaves absent text blank (covered 0)
+    proposed.test.ts
+      ✘ proposedMarks > words each mark with the proposed version (covered 0)
+      ✘ proposedMarks > marks the changes the diff adds, removes or edits (covered 0)
+      ✘ proposedMarks > keeps the first reason for an id, and reads one id (covered 0)
+      ✘ proposedMarks > asks for the impact once per revision and delivery state (covered 0)
+      ✘ proposedMarks > falls back to the diff alone when the impact cannot be worked out (covered 0)
+      ✘ proposedMarks > has no marks without a live proposal, or when an earlier version shows (covered 0)
+    revision.test.ts
+      ✘ buildRevision > a proposed head with a snapshot: head view, diff approved → head (covered 0)
+      ✘ buildRevision > viewing the approved version keeps the diff; an unknown version falls back to the head (covered 0)
+      ✘ buildRevision > no snapshot: no diff, no switch to the approved version (covered 0)
+      ✘ buildRevision > an approved head has no diff and nothing to fetch unless asked (covered 0)
+      ✘ buildRevision > a plan without a ledger has no status and no approved revision (covered 0)
+      ✘ buildRevision > diffEntry names the collection and kind (covered 0)
+      ✘ buildRevision > the pill, and which snapshots to read (covered 0)
+      ✘ buildRevision > findEntity looks through collections, scenarios and concepts (covered 0)
+      ✘ an earlier revision > reads as it was, without the proposal diff; the history says what can be opened (covered 0)
+      ✘ an earlier revision > without its snapshot the head is shown, and the caller learns what to read (covered 0)
+      ✘ an earlier revision > a rejected revision compares with the approved one it was proposed on (covered 0)
+      ✘ a plan with revisions on Acme > gift-wrap: reads its snapshots and builds (covered 0)
+      ✘ a plan with revisions on Acme > pause-orders: reads its snapshots and builds (covered 0)
+    ui-journeys-map.test.ts
+      ✘ todayScreenMap: recorded order > gives every baseline screen of quick-checkout one identity across journeys (covered 0)
+      ✘ todayScreenMap: recorded order > gives every baseline screen of gift-wrap one identity across journeys (covered 0)
+      ✘ todayScreenMap: recorded order > gives every baseline screen of pause-orders one identity across journeys (covered 0)
+      ✘ todayScreenMap: recorded order > gives every baseline screen of shop one identity across journeys (covered 0)
+      ✘ todayScreenMap: recorded order > lists a screen shared by journeys once, and an unlinked one with no journey (covered 0)
+      ✘ todayScreenMap: recorded order > keeps edges as exact within-flow evidence, with authored labels and no claimed clicks (covered 0)
+      ✘ todayScreenMap: recorded order > distinguishes explicit initiating controls, unknown controls and recorded outputs (covered 0)
+      ✘ todayScreenMap: recorded order > does not label a control from the trigger “The customer reaches the product page.” (covered 0)
+      ✘ todayScreenMap: recorded order > does not label a control from the trigger “The customer presses **Continue**.” (covered 0)
+      ✘ todayScreenMap: recorded order > does not label a control from the trigger “The customer sees **Add to basket**.” (covered 0)
+      ✘ todayScreenMap: recorded order > does not label a control from the trigger “The customer presses **Add to basket** and checks out.” (covered 0)
+      ✘ todayScreenMap: recorded order > does not label a control from the trigger “If the customer presses **Add to basket**.” (covered 0)
+      ✘ todayScreenMap: recorded order > does not label a control from the trigger “The merchandiser presses **Add to basket**.” (covered 0)
+      ✘ todayScreenMap: recorded order > does not label a control from the trigger “The customer presses **Add to basket later**.” (covered 0)
+      ✘ todayScreenMap: recorded order > labels the control from the complete trigger “The customer clicks the **Add to basket** button.” (covered 0)
+      ✘ todayScreenMap: recorded order > labels the control from the complete trigger “Customer taps “Add to basket”.” (covered 0)
+      ✘ todayScreenMap: recorded order > does not label a later source or screen connection as a clicked control (covered 0)
+      ✘ todayScreenMap: recorded order > groups journeys by actor without connecting adjacent tasks (covered 0)
+      ✘ todayScreenMap: recorded order > keeps repeated visits as one node and same-screen actions without self-navigation (covered 0)
+      ✘ todayScreenMap: recorded order > ignores proposal scenarios, screen pictures, names and newly linked steps (covered 0)
+      ✘ todayScreenMap: authored interactions > draws navigation independently of backend flows, one node per screen (covered 0)
+      ✘ todayScreenMap: authored interactions > records each shared entrance once and keeps an ordered journey through a return (covered 0)
+      ✘ todayScreenMap: authored interactions > retains conditions, results and exact supporting steps (covered 0)
+      ✘ todayScreenMap: authored interactions > keeps proposed navigation out of the current network (covered 0)
+      ✘ todayScreenMap: authored interactions > keeps a same-screen update as its explicit effect (covered 0)
+      ✘ todayScreenMap: authored interactions > gives a journey that begins at shared navigation every entrance, without inventing order (covered 0)
+      ✘ todayScreenMap: authored interactions > skips an interaction whose screens are not baseline screens (covered 0)
+    ui-journeys.test.ts
+      ✘ todayJourneys > keeps viewing, adding and ordering apart, with each flow’s background work intact (covered 0)
+      ✘ todayJourneys > numbers stops across routes with an offset (covered 0)
+      ✘ todayJourneys > is not changed by proposal scenarios (covered 0)
+      ✘ todayJourneys > does not turn background work into a second stop on the same visible screen (covered 0)
+      ✘ todayJourneys > keeps a revisit as its own stop (covered 0)
+      ✘ todayJourneys > keeps a screen with no recorded step visible, without a journey position (covered 0)
+      ✘ todayJourneys > keeps a proposed screen link out of today (covered 0)
+      ✘ todayScreenCatalogue > groups every baseline screen of quick-checkout by serving app, keeping order (covered 0)
+      ✘ todayScreenCatalogue > groups every baseline screen of gift-wrap by serving app, keeping order (covered 0)
+      ✘ todayScreenCatalogue > groups every baseline screen of pause-orders by serving app, keeping order (covered 0)
+      ✘ todayScreenCatalogue > groups every baseline screen of shop by serving app, keeping order (covered 0)
+      ✘ todayScreenCatalogue > leaves out the new refund email (covered 0)
+      ✘ todayScreenCatalogue > is empty for a plan without recorded screens (covered 0)
+      ✘ todayWireflows > keeps every screen-linked step selectable, including same-screen updates (covered 0)
+      ✘ todayWireflows > expresses exact recorded boundaries and keeps intervening prose (covered 0)
+      ✘ todayWireflows > is baseline-only and does not turn inferred UI actions into proven controls (covered 0)
+      ✘ todayWireflows > keeps repeated visits and unlinked screens (covered 0)
+      ✘ todayWireflows > is empty for a plan without recorded screens (covered 0)
+  workspace-work
+    impact.test.ts
+      ✘ impactRowsOf > words each pending item on a system: who owns it, the plan it is in, and how it stands (covered 0)
+      ✘ impactRowsOf > says what holds blocked work up, and words a promise with no progress yet (covered 0)
+      ✘ impactRowsOf > falls back to the work’s state when a blocked item names no blocker (covered 0)
+      ✘ ownerWords > names the owning team, and says we depend on a partner (covered 0)
+      ✘ ownerWords > heads each group with what it means (covered 0)
+      ✘ ownerWords > reads a system’s rows straight from the index, and none without one (covered 0)
+    partner-page.test.ts
+      ✘ partnerPageVM > names the partner and who to talk to, and when we last heard (covered 0)
+      ✘ partnerPageVM > lists its open milestones with what we need, what they promised and the gap, and its items (covered 0)
+      ✘ partnerPageVM > keeps the evidence with a link, and the whole history newest first (covered 0)
+      ✘ partnerPageVM > is null for a team the workspace does not have (covered 0)
+      ✘ partnerPageVM > gives our own team its work too, soonest needed first and loose items last (covered 0)
+      ✘ milestone words > rolls commitments up in words (covered 0)
+      ✘ milestone words > picks the first or last date, ignoring missing ones (covered 0)
+      ✘ milestone words > orders by the first comparison that tells two apart (covered 0)
+      ✘ milestone words > takes a milestone’s dates from its items when it has none of its own (covered 0)
+    partners.test.ts
+      ✘ partnersVM > lists only partners, with their systems, their work across plans and when we last heard (covered 0)
+      ✘ partnersVM > counts held-up and finished work apart, sorts by name, and says when nothing was heard (covered 0)
+      ✘ ageText > says how long ago a day was, in words (covered 0)
+      ✘ ageText > moves to the next unit at its edges, and is careful with the future and nonsense (covered 0)
+    programme-page.test.ts
+      ✘ programmePageVM > names the programme and says where it stands (covered 0)
+      ✘ programmePageVM > lists its plans in landing order, each with what it builds on and how its work stands (covered 0)
+      ✘ programmePageVM > rolls each programme milestone up from the plan milestones that serve it (covered 0)
+      ✘ programmePageVM > lists the partner work it depends on, with its gap and the plan it holds up first (covered 0)
+      ✘ programmePageVM > says nothing is held up once nothing is, and is null for an unknown programme (covered 0)
+      ✘ programme decisions and questions > lists the decisions and questions it holds, with what is still to settle (covered 0)
+      ✘ programme decisions and questions > names a cited milestone, and leaves an unknown citation as its id (covered 0)
+      ✘ programmeRowsOf > gives each programme as a row with its plan count, how many are held up and the next (covered 0)
+      ✘ planStandingWords > says how a plan stands, the most pressing first (covered 0)
+      ✘ planStandingWords > words each health of a plan built on (covered 0)
+      ✘ landingOf > counts the programme’s plans in each domain, most first, leaving out domains none reach (covered 0)
+      ✘ datesWords > puts the need, the promise and the gap in one line (covered 0)
+      ✘ impactVM > puts a team’s pending work in the order it can happen, held-up work apart (covered 0)
+      ✘ impactVM > counts the waves of unfinished work before each item (covered 0)
+      ✘ impactVM > finds the work on a system through the changes it builds (covered 0)
+      ✘ impactVM > is null for an unknown team, and puts work three waves deep under then (covered 0)
+    stack-cover.test.ts
+      ✘ stackCoverVM > says what a stacked plan reads after, what is not delivered there, its overlaps and how to re-check (covered 0)
+      ✘ stackCoverVM > sees each overlap from the plan being read (covered 0)
+      ✘ stackCoverVM > says a base that changed since the check, and leaves out a base whose work is all done (covered 0)
+      ✘ stackCoverVM > is null for a plan on its own, and names a base or programme the index lacks by its id (covered 0)
+    work-card.test.ts
+      ✘ workCardVM > words a partner’s item: we depend on it, it has no issue, and its promise is later than we need (covered 0)
+      ✘ workCardVM > gives our item its GitHub issue and says the team owns it (covered 0)
+      ✘ workCardVM > has no issue for our item that was never filed, and no url or state when none is known (covered 0)
+      ✘ workCardVM > says nothing promised, heard or done when nothing was recorded (covered 0)
+      ✘ workCardVM > is done when its latest work event says so (covered 0)
+      ✘ workCardVM > words each blocker and links it where it is read (covered 0)
+      ✘ words > says how late a promise is only when it is later than we need (covered 0)
+      ✘ words > words states, sources and owners (covered 0)
+      ✘ words > links a qualified id to its plan unless it names a programme (covered 0)
+    workspace-plan-index.test.ts
+      ✘ workspacePlanIndexOf > orders every plan after the plans it builds on, names first otherwise (covered 0)
+      ✘ workspacePlanIndexOf > gathers a programme’s plans in landing order (covered 0)
+      ✘ workspacePlanIndexOf > keys changes by plan, with the systems each touches (covered 0)
+      ✘ workspacePlanIndexOf > finds the system of what an earlier plan adds, and of what is added into a thing of today (covered 0)
+      ✘ workspacePlanIndexOf > keys work by plan, with what it waits on and builds as keys, and a card (covered 0)
+      ✘ workspacePlanIndexOf > builds an issue link from the repo when the sync gave none (covered 0)
+      ✘ workspacePlanIndexOf > reads why a plan builds on another from the ids it uses there and the work it waits on (covered 0)
+      ✘ workspacePlanIndexOf > keeps each overlap once (covered 0)
+      ✘ workspacePlanIndexOf > knows its teams, partners and contacts (covered 0)
+      ✘ workspacePlanIndexOf > says done and held up from where the work stands (covered 0)
+      ✘ dependency health > is ready once the base has landed, or all its work is done (covered 0)
+      ✘ dependency health > is stale when the base changed since the plan was checked (covered 0)
+      ✘ dependency health > is a conflict when two plans it reads overlap (covered 0)
+      ✘ dependency health > skips a base the workspace does not have, and plans in a circle keep name order (covered 0)
+      ✘ what the index reads closely > reads through the ids a plan uses, a part’s root, and the work it waits on, in order (covered 0)
+      ✘ what the index reads closely > finds the system of a change from a system it adds, a component’s system, or today (covered 0)
+      ✘ what the index reads closely > only builds an issue link from a repo with an owner and an issue (covered 0)
+      ✘ what the index reads closely > keeps each change’s realisation, labels a card with its own milestone, and skips unknown work (covered 0)
+      ✘ what the index reads closely > is held up when the promise was taken back, and links a blocker to its programme (covered 0)
+      ✘ what the index reads closely > keeps each overlap once by its target and changes, in order (covered 0)
+      ✘ what the index reads closely > is stale only for the base that changed, and waiting on a base with no work (covered 0)
+      ✘ what the index reads closely > is a conflict only when the plan reads every plan of the overlap (covered 0)
+  acme-fixture.test.ts
+    ✘ the Acme fixture > is a workspace with no problems (covered 0)
+    ✘ the Acme fixture > gives every component its own id (covered 0)
+    ✘ the Acme fixture > draws a today the plan checks accept (covered 0)
+    ✘ the Acme fixture > links domains to each other (covered 0)
+    ✘ the pause-orders example plan > goes onto Acme with no problems (covered 0)
+    ✘ the pause-orders example plan > has pages (covered 0)
+  plan-bar.test.ts
+    ✘ the plan bar > names the stage, the teams and the version of a plan without a ledger (covered 0)
+    ✘ the plan bar > lists the ledger newest first, with the one in force approved (covered 0)
+    ✘ the plan bar > reads the old word committed as approved (covered 0)
+  plan-changes-ahead.test.ts
+    ✘ where a pinned thing changes > finds the screen of chapter 4 that draws it, and its place in the story (covered 0)
+    ✘ where a pinned thing changes > finds a field by its exact id, and one the screen holds only by its parent (covered 0)
+    ✘ where a pinned thing changes > falls back to the ledger of all changes (covered 0)
+  plan-index.branches.test.ts
+    ✘ the plans index, for plans that say little > calls a plan delivered once every work item is closed (covered 0)
+    ✘ the plans index, for plans that say little > reads a plan with no status, date or work as an undated draft that lands nowhere (covered 0)
+    ✘ the plans index, for plans that say little > puts dated plans before undated ones, and undated ones by title (covered 0)
+  plan-index.test.ts
+    ✘ the plans index > reads a plan as a row: where it lands, its stage and how far its work has got (covered 0)
+    ✘ the plans index > reaches a domain through the repo its work goes to (covered 0)
+    ✘ the plans index > takes the stage from the plan until its work starts (covered 0)
+    ✘ the plans index > lists the newest first, then by title (covered 0)
+    ✘ domainPlanRowsOf > keeps the plans that reach the domain (covered 0)
+    ✘ checkStateOf > flags an open plan never checked, or edited since its check (covered 0)
+    ✘ checkStateOf > does not flag a landed plan, or one read without a base (covered 0)
+  plan-pages-entity.test.ts
+    ✘ readEntries > says levels and handling in words, not codes (covered 0)
+    ✘ readEntries > keeps the picture and sources out of the facts and names a Figma link (covered 0)
+    ✘ readEntries > gives long prose a heading of its own (covered 0)
+    ✘ entityView > names the owner once, not again among what it uses (covered 0)
+    ✘ entityView > marks plan-level things, which have no today (covered 0)
+    ✘ where a thing appears > lists the chapters that tell it by number and title, with a page to go to (covered 0)
+    ✘ where a thing appears > finds the things whose prose cites it (covered 0)
+    ✘ entityCard > says what a thing is at a glance (covered 0)
+  plan-pages-team.test.ts
+    ✘ team pages > lists every team, keeping the reading order (covered 0)
+    ✘ team pages > keeps the cover, the why and the reference for every team (covered 0)
+    ✘ team pages > leaves no chapter empty (covered 0)
+    ✘ team pages > drops the changes ledger, which no team reads by itself (covered 0)
+    ✘ team pages > cuts a team that touches little to fewer pages than the whole plan (covered 0)
+    ✘ team pages > places a screen among a team’s pages, or says it is not one of them (covered 0)
+    ✘ team pages > names the chapter, then the screen (covered 0)
+    ✘ the lens team > names a plan team with or without its prefix, and nobody otherwise (covered 0)
+  plan-pages-things.test.ts
+    ✘ thing pages > gives a page to today’s things, the plan’s new ones and plan-level things, once each (covered 0)
+    ✘ thing pages > gives none to the parts of a thing (covered 0)
+    ✘ thing pages > puts a thing beside the others of its kind, and a part beside its parent’s parts (covered 0)
+    ✘ thing pages > gives each thing an address under things/ (covered 0)
+    ✘ thing pages > files a thing under its Reference catalogue, else the cover (covered 0)
+    ✘ thing pages > steps to the thing before and after among its siblings (covered 0)
+    ✘ thing pages > names each thing by a token that leads back to it (covered 0)
+  plan-pages.test.ts
+    ✘ addresses > puts the cover at the plan and every screen under its chapter (covered 0)
+    ✘ addresses > turns ids into URL-safe keys (covered 0)
+    ✘ the outline > lists the story in order, with reference and versions beside it (covered 0)
+    ✘ the outline > gives each screen a unique address (covered 0)
+    ✘ the outline > draws a journey screen for the plan’s scenario and a page for its other flows (covered 0)
+    ✘ the outline > keeps every chapter reachable and never empty (covered 0)
+    ✘ the outline > finds a page and its neighbours (covered 0)
+    ✘ the outline > has no neighbour before the cover or after the last screen (covered 0)
+    ✘ the outline > names the chapter the next screen opens, and closes the plan on the story's last screen (covered 0)
+    ✘ the inspector address > round-trips ids through the hash (covered 0)
+    ✘ the inspector address > ignores anything that is not a known id (covered 0)
+    ✘ entityView > describes a service with its owner and what uses it (covered 0)
+    ✘ entityView > says what the plan does to a changed thing (covered 0)
+    ✘ entityView > knows a thing the plan adds (covered 0)
+    ✘ entityView > is null for an id the plan does not have (covered 0)
+    ✘ entityView > lists the ids a thing points at as groups of chips (covered 0)
+    ✘ searchPalette > offers screens before anything is typed (covered 0)
+    ✘ searchPalette > finds things and screens by words in their names (covered 0)
+    ✘ searchPalette > puts the exact name first and says when nothing matches (covered 0)
+    ✘ searchPalette > finds steps and fields by name, saying whose they are (covered 0)
+    ✘ searchPalette > filters by type, and offers a filter for each type but not for parts (covered 0)
+    ✘ footprints > finds the plans whose changes land on a system’s components (covered 0)
+    ✘ footprints > counts work items sent to the system’s repos (covered 0)
+    ✘ footprints > leaves out plans that do not reach the system (covered 0)
+    ✘ footprints > shows a plan on the landscape with its stage (covered 0)
+    ✘ kind words > names a component by its kind and a topic as a topic (covered 0)
+  plan-story-build.test.ts
+    ✘ build headlines > says one claim for the order and one for the work in a draft (covered 0)
+    ✘ build headlines > says one claim for the order and one for the work in an approved plan not started (covered 0)
+    ✘ build headlines > says one claim for the order and one for the work in a plan in delivery (covered 0)
+    ✘ build headlines > says one claim for the order and one for the work in a delivered plan (covered 0)
+    ✘ build headlines > puts every work item in one wave and completes each milestone once before delivery (covered 0)
+    ✘ build headlines > says a wave can start now once the plan is approved (covered 0)
+    ✘ build headlines > folds a finished wave (covered 0)
+  plan-story-changes-flows.branches.test.ts
+    ✘ a flow’s headline > reads the flow’s own props when no step changes (covered 0)
+    ✘ a flow’s headline > counts rewrites, removals and deprecations, keeping removed steps in place (covered 0)
+    ✘ a flow’s headline > counts via switches to different places as plain changes (covered 0)
+    ✘ a flow’s headline > names what several steps switch to, and what else changes (covered 0)
+    ✘ a flow’s headline > says nothing changes for a flow no change touches, or one it cannot find (covered 0)
+    ✘ a flow’s headline > says one step is added or removed in the singular (covered 0)
+    ✘ a screen’s claim > counts regions that come and go on a screen with a new look (covered 0)
+    ✘ a screen’s claim > lists the regions of a screen whose picture stays (covered 0)
+    ✘ a screen’s claim > says a removed screen goes away (covered 0)
+    ✘ a screen’s claim > says a screen with only a new picture gets a new look, and an untouched one changes (covered 0)
+  plan-story-changes-graph-ops.branches.test.ts
+    ✘ seconds and routes > says whole minutes of two or more in minutes, else seconds (covered 0)
+    ✘ seconds and routes > says the same route once, in the singular or plural (covered 0)
+    ✘ seconds and routes > shows only the number that moves as a before and after (covered 0)
+    ✘ seconds and routes > counts operations and how many take a new route (covered 0)
+    ✘ rows of operations > puts lost caching first, then most trips added, new, saved and the same, in order (covered 0)
+    ✘ rows of operations > keeps operations that stay cached out of the lost row (covered 0)
+    ✘ the edge > reads the edge cache’s own lifetime when the plan sets one (covered 0)
+    ✘ the edge > falls back to the max-age, and says when nothing is cached (covered 0)
+    ✘ a split operation > pairs a new operation with a changed one on the same screen (covered 0)
+    ✘ a split operation > says a private answer is why (covered 0)
+    ✘ a split operation > names the variable the key varies by and the trips it adds (covered 0)
+    ✘ a split operation > falls back to the cache override’s reason, else nothing (covered 0)
+    ✘ the graph claim > names a single new operation cached at the edge, per the variables it splits on (covered 0)
+    ✘ the graph claim > caps the claim at two clauses, losses first (covered 0)
+    ✘ the graph claim > names two new operations without a count of more (covered 0)
+    ✘ the graph claim > marks saved trips as estimated when the registry has no evidence (covered 0)
+  plan-story-changes-graph-shapes.test.ts
+    ✘ graph claim > has operations to work with (covered 0)
+    ✘ graph claim > names what stops being cached at the edge (covered 0)
+    ✘ graph claim > pairs operations that add the same trips, and spells out the ones that differ (covered 0)
+    ✘ graph claim > names new operations, one or several, with what the edge keeps (covered 0)
+    ✘ graph claim > says what saves trips only when nothing else is felt (covered 0)
+    ✘ graph claim > keeps the same route in the same place (covered 0)
+    ✘ what the owners do > says a removed field in the headline (covered 0)
+    ✘ what the owners do > says two removed fields in the headline (covered 0)
+    ✘ what the owners do > says a moved field in the headline (covered 0)
+    ✘ what the owners do > says a subgraph that joins in the headline (covered 0)
+    ✘ what the owners do > says subgraphs that join in the headline (covered 0)
+    ✘ what the owners do > says a route changes when only operations do (covered 0)
+    ✘ what the owners do > names new operations when nothing else moves and nothing is felt (covered 0)
+    ✘ what the owners do > says the graph changes shape when it cannot say more (covered 0)
+  plan-story-changes-graph.test.ts
+    ✘ graph change > exists only for the plan that changes a graph (covered 0)
+    ✘ graph change > says what the reader feels, in one sentence ending in a full stop (covered 0)
+    ✘ operation impact > has a row for every operation the plan changes, worst first (covered 0)
+    ✘ operation impact > claims the new and slower operations in the graph claim (covered 0)
+    ✘ operation impact > says where a new operation was split from, and why (covered 0)
+    ✘ operation impact > words the edge for each side of every operation (covered 0)
+    ✘ words > counts seconds and whole minutes (covered 0)
+    ✘ words > counts the operations that change and how many take a different route (covered 0)
+    ✘ words > summarises a route that changes (covered 0)
+  plan-story-changes-records.branches.test.ts
+    ✘ a record whose edits are all safe > says an enum that only reorders becomes its new type (covered 0)
+    ✘ a record whose edits are all safe > says a field changes when its type does not (covered 0)
+    ✘ a record whose edits are all safe > says a deprecated field still works (covered 0)
+    ✘ a record whose edits are all safe > counts several new optional fields (covered 0)
+    ✘ a record whose edits are all safe > names a lone new field and what else moves (covered 0)
+    ✘ a record whose edits are all safe > says a record nobody knows changes, under its label (covered 0)
+    ✘ a record that breaks someone > says no service reader is recorded for a breaking edit (covered 0)
+    ✘ a record that breaks someone > gives the rule’s reason when an enum gains values readers must handle (covered 0)
+    ✘ a record that breaks someone > names the reader no change moves (covered 0)
+    ✘ a record that breaks someone > says who must move first when the plan moves them (covered 0)
+    ✘ teams and order of records > puts the owner first and the record that breaks someone first (covered 0)
+  plan-story-changes-records.test.ts
+    ✘ fitting a headline > keeps a short headline whole (covered 0)
+    ✘ fitting a headline > splits a long headline at the last break and capitalises the rest (covered 0)
+    ✘ fitting a headline > drops the closing bracket of a bracketed tail (covered 0)
+    ✘ fitting a headline > keeps a long headline whole when no break falls late enough (covered 0)
+    ✘ what a record costs > says which unmoved readers a removal breaks (covered 0)
+    ✘ what a record costs > says a new required field breaks a reader nobody moves (covered 0)
+    ✘ what a record costs > says who must move first, by name (covered 0)
+    ✘ what a record costs > says when no service reader is recorded (covered 0)
+    ✘ what a record costs > reads a safe record as what it gains or loses (covered 0)
+    ✘ records in order > names the store owner first, then the teams that touch it (covered 0)
+    ✘ records in order > puts the record that breaks someone first and keeps ties in order (covered 0)
+  plan-story-changes-touched.test.ts
+    ✘ what a plan changes and where its flows reach > classifies changed records, flows, version chains, retired payloads and screens without duplicating a retired contract (covered 0)
+    ✘ what a plan changes and where its flows reach > reaches records only through marked changed steps, while following versioned contracts through any recorded step (covered 0)
+    ✘ what a plan changes and where its flows reach > keeps a changed screen with each flow that shows it until another flow has claimed it (covered 0)
+    ✘ what a plan changes and where its flows reach > retains every unclaimed category, with addressable child references reduced only to their root (covered 0)
+    ✘ what a plan changes and where its flows reach > keeps a non-empty records reach visible (covered 0)
+    ✘ what a plan changes and where its flows reach > keeps a non-empty screens reach visible (covered 0)
+    ✘ what a plan changes and where its flows reach > keeps a non-empty ladders reach visible (covered 0)
+    ✘ what a plan changes and where its flows reach > keeps a non-empty retired reach visible (covered 0)
+    ✘ what a plan changes and where its flows reach > keeps a non-empty shapes reach visible (covered 0)
+    ✘ what a plan changes and where its flows reach > uses the small-plan boundary at 0 changes (covered 0)
+    ✘ what a plan changes and where its flows reach > uses the small-plan boundary at 3 changes (covered 0)
+    ✘ what a plan changes and where its flows reach > uses the small-plan boundary at 4 changes (covered 0)
+  plan-story-commit-branches.test.ts
+    ✘ the choices headline > says when no decision is recorded (covered 0)
+    ✘ the choices headline > turns a lone accepted choice that opens with a verb into what was decided (covered 0)
+    ✘ the choices headline > quotes the decision when the title does not open with a verb (covered 0)
+    ✘ the choices headline > gives the date when the decision only repeats the title (covered 0)
+    ✘ the choices headline > says every choice is accepted, naming none when all can be undone (covered 0)
+    ✘ the choices headline > counts unowned proposals without naming a team (covered 0)
+    ✘ the choices headline > says how many accepted choices are hard to undo (covered 0)
+    ✘ the risks headline > says when no risk is recorded (covered 0)
+    ✘ the risks headline > gives the only risk’s handling and owner (covered 0)
+    ✘ the risks headline > says when every risk is resolved (covered 0)
+    ✘ the rest of the register > fills in empty groups and says nothing is left to track (covered 0)
+    ✘ the rest of the register > names a group it has no word for by its key (covered 0)
+  plan-story-commit.test.ts
+    ✘ commit headlines > names who still has to accept, not a card title (covered 0)
+    ✘ commit headlines > says every choice is accepted once nothing is proposed (covered 0)
+    ✘ commit headlines > counts risks by how they are handled (covered 0)
+    ✘ commit headlines > says what is kept apart from the choices (covered 0)
+    ✘ commit headlines > counts what each team owes while the plan is a draft (covered 0)
+    ✘ commit headlines > gives the approval date, then the delivery date (covered 0)
+    ✘ commit headlines > says what else is open while the plan is a draft (covered 0)
+    ✘ commit headlines > gives every other open item a reason in a draft (covered 0)
+    ✘ commit headlines > gives every other open item a reason in an approved plan (covered 0)
+    ✘ commit headlines > gives every other open item a reason in a plan in delivery (covered 0)
+  plan-story-journey-walk.test.ts
+    ✘ the walk through a scenario > lines up every step of every flow in the scenario, in order (covered 0)
+    ✘ the walk through a scenario > stops only where the view has the step (covered 0)
+    ✘ the walk through a scenario > steps across flows, and stops at the ends of the line (covered 0)
+    ✘ the walk through a scenario > counts the steps of the view across the scenario (covered 0)
+    ✘ the walk through a scenario > counts no steps today in a flow the plan adds (covered 0)
+    ✘ the walk through a scenario > finds a position by step id, or by flow id at the flow’s start (covered 0)
+    ✘ the walk through a scenario > has nothing to walk when the scenario has no flows (covered 0)
+  plan-story-journey.test.ts
+    ✘ journey groups > gives a page to each scenario with flows, then to each flow no scenario covers (covered 0)
+    ✘ journey groups > gift-wrap: the chapter lists a screen for each group (covered 0)
+    ✘ journey groups > pause-orders: the chapter lists a screen for each group (covered 0)
+    ✘ journey groups > order-event-v2: the chapter lists a screen for each group (covered 0)
+    ✘ journey groups > shop: the chapter lists a screen for each group (covered 0)
+    ✘ flow view > says what the plan does to a flow (covered 0)
+    ✘ flow view > calls a flow more than one scenario walks shared (covered 0)
+    ✘ flow view > says so when nothing changes (covered 0)
+    ✘ execution > leads with the first sentence of the summary and links a cited flow to its page (covered 0)
+    ✘ behind the button > has nothing to say for a plan with no operations (covered 0)
+    ✘ behind the button > costs each operation in time, round trips and teams, and names whom to call (covered 0)
+    ✘ behind the button > keeps an override’s note only when it says something (covered 0)
+    ✘ behind the button > puts operations in the order of the screens that send them (covered 0)
+    ✘ purges > says how long a layer keeps what no event purges (covered 0)
+    ✘ purges > names the events that purge each layer and the way they do it (covered 0)
+    ✘ execution of every plan > gift-wrap: a step links to a page of the journey chapter or to none (covered 0)
+    ✘ execution of every plan > shop: a step links to a page of the journey chapter or to none (covered 0)
+    ✘ an operation the plan says little about > is placed on the page, sent by the front end, and costed from its fields alone (covered 0)
+    ✘ what a place on a screen costs > gives the measured time of a hit and a miss, of a miss alone, or the round trips (covered 0)
+    ✘ what a place on a screen costs > says a private response is never kept at the edge, and a mutation never cached (covered 0)
+  plan-story-part.test.ts
+    ✘ a team’s part in a plan > keeps Catalogue services, changes, proofs and work in authored order, with the critical path distinguished (covered 0)
+    ✘ a team’s part in a plan > keeps an outside caller visible when its route is unchanged but the work inside changes (covered 0)
+    ✘ a team’s part in a plan > distinguishes another team’s blocking choice from its own decisions and unrelated work (covered 0)
+    ✘ a team’s part in a plan > shows work as started only when progress is known and keeps completed work out of what remains (covered 0)
+  plan-story-prove.test.ts
+    ✘ fitParts > joins parts to two lines and leaves the rest for the lede (covered 0)
+    ✘ fitParts > keeps short parts together (covered 0)
+    ✘ namesOf > names two and counts the rest (covered 0)
+    ✘ e2eHeadline > says which flows no end-to-end test covers and which only in part (covered 0)
+    ✘ e2eHeadline > counts when more than two flows are named (covered 0)
+    ✘ contractHeadline > names the one re-routed link that has no contract test (covered 0)
+    ✘ contractHeadline > names the one new link that has no contract test (covered 0)
+    ✘ contractHeadline > is content when every link has a test, and counts the links (covered 0)
+    ✘ coverageHeadline > names the change with unit tests only (covered 0)
+    ✘ coverageHeadline > says the thin spot in the flows when every change has an end-to-end test (covered 0)
+    ✘ coverageHeadline > adds the tests that never run what they prove (covered 0)
+  plan-story-today.test.ts
+    ✘ system stops > gift-wrap: four stops, each saying what is true (covered 0)
+    ✘ system stops > pause-orders: four stops, each saying what is true (covered 0)
+    ✘ system stops > order-event-v2: four stops, each saying what is true (covered 0)
+    ✘ system stops > shop: four stops, each saying what is true (covered 0)
+    ✘ system stops > mini: four stops, each saying what is true (covered 0)
+    ✘ domain head > gift-wrap: says where the words are created (covered 0)
+    ✘ domain head > pause-orders: says where the words are created (covered 0)
+    ✘ domain head > order-event-v2: says where the words are created (covered 0)
+    ✘ domain head > shop: says where the words are created (covered 0)
+    ✘ domain head > mini: says where the words are created (covered 0)
+    ✘ graph story > has three stops for a plan with a graph (covered 0)
+    ✘ graph story > is absent when there is no graph (covered 0)
+    ✘ graph story > says so when nothing is cached on the way (covered 0)
+    ✘ graph story > counts the subgraphs when the graph has no types (covered 0)
+    ✘ what each stop claims > names the team that runs the most, or says none does (covered 0)
+    ✘ what each stop claims > finds the hub topic and the most shared store (covered 0)
+    ✘ what each stop claims > says a graph picks the busiest type (covered 0)
+    ✘ what each stop claims > lists the words a plan adds for the journeys (covered 0)
+  plan-story-versions-checks.branches.test.ts
+    ✘ a new edge > warns that a direct call replaces events, in each tense (covered 0)
+    ✘ a new edge > says the caller waits on a call that had no events before (covered 0)
+    ✘ a new edge > says a team starts listening to events (covered 0)
+    ✘ a breaking field > says how the field changes and who breaks (covered 0)
+    ✘ who sets a field > says no step writes the record (covered 0)
+    ✘ who sets a field > quotes the field note without its trailing stop (covered 0)
+    ✘ who sets a field > keeps the note sentence when it has no stop to strip (covered 0)
+    ✘ a contract > says one reader breaks (covered 0)
+    ✘ a contract > says several readers keep working with an optional field (covered 0)
+    ✘ a contract > names no readers when there are none (covered 0)
+    ✘ reopened work > lists each item’s size and milestone, with the due day when there is one (covered 0)
+    ✘ reopened work > falls back to the milestone id and to nothing at all (covered 0)
+    ✘ reopened work > says only that work is reopened when no item is known (covered 0)
+    ✘ a moved milestone > says where it moves from and to (covered 0)
+    ✘ a moved milestone > says only that it moves when the day is the same (covered 0)
+    ✘ what is untested > names a step no test runs, in each tense (covered 0)
+    ✘ what is untested > points at the nearest test, or where the value is set (covered 0)
+    ✘ the plain checks > says nobody uses a field (covered 0)
+    ✘ the plain checks > says a picture is stale (covered 0)
+    ✘ the plain checks > points at the question and decision below (covered 0)
+  plan-story-versions-edit-ops.branches.test.ts
+    ✘ edits to a changed change > says which fields an edited op adds, removes and alters, with their notes (covered 0)
+    ✘ edits to a changed change > says the target changes when no field moves (covered 0)
+    ✘ edits to a changed change > names nothing for an op the plans do not hold (covered 0)
+    ✘ edits to a changed change > says what each new op adds, by its kind (covered 0)
+    ✘ new and dropped changes > folds a new change’s decision, test and work item into one edit (covered 0)
+    ✘ new and dropped changes > reads a new change on its own when the diff adds no kin (covered 0)
+    ✘ new and dropped changes > says a change is dropped (covered 0)
+  plan-story-versions.test.ts
+    ✘ versions page across plans > reads every version of gift-wrap becoming pause-orders (covered 0)
+    ✘ versions page across plans > reads every version of gift-wrap becoming order-event-v2 (covered 0)
+    ✘ versions page across plans > reads every version of gift-wrap becoming shop (covered 0)
+    ✘ versions page across plans > reads every version of pause-orders becoming gift-wrap (covered 0)
+    ✘ versions page across plans > reads every version of pause-orders becoming order-event-v2 (covered 0)
+    ✘ versions page across plans > reads every version of pause-orders becoming shop (covered 0)
+    ✘ versions page across plans > reads every version of order-event-v2 becoming gift-wrap (covered 0)
+    ✘ versions page across plans > reads every version of order-event-v2 becoming pause-orders (covered 0)
+    ✘ versions page across plans > reads every version of order-event-v2 becoming shop (covered 0)
+    ✘ versions page across plans > reads every version of shop becoming gift-wrap (covered 0)
+    ✘ versions page across plans > reads every version of shop becoming pause-orders (covered 0)
+    ✘ versions page across plans > reads every version of shop becoming order-event-v2 (covered 0)
+    ✘ versions page across plans > puts the live version first and tells a rejected one in the past (covered 0)
+    ✘ versions page across plans > says nobody recorded why for a rejection without a reason (covered 0)
+    ✘ version screens > lists the history, then every version newest first (covered 0)
+    ✘ words > marks what changed between two lines (covered 0)
+    ✘ words > counts, dates and tenses (covered 0)
+  plan-viz-board.test.ts
+    ✘ work items > lists them dependencies first (covered 0)
+    ✘ work items > has no state before delivery begins (covered 0)
+    ✘ work items > reads done, open and not started from the issues (covered 0)
+    ✘ work items > links an issue from the status file, else from the repo (covered 0)
+    ✘ work items > finds what depends on an item, and the critical path (covered 0)
+    ✘ work items > orders teams by lane, each once (covered 0)
+    ✘ work items > words what a proposal does to an item (covered 0)
+    ✘ milestones > says "When M1 is done" before delivery, with a due date (covered 0)
+    ✘ milestones > counts done items in delivery (covered 0)
+    ✘ milestones > says when every item is done and when it finished (covered 0)
+    ✘ milestones > sums the build (covered 0)
+    ✘ gates > draws a question or a proposed decision, and nothing else (covered 0)
+    ✘ gates > flags an open question past its date (covered 0)
+  plan-viz-compat.test.ts
+    ✓ compatibility presentation > leaves unknown verdicts absent and suppresses only safe quiet badges (killed 21)
+    ✓ compatibility presentation > names only unmoved readers for breaking changes and preserves a visible missing-reader gap (killed 34)
+    ✓ compatibility presentation > counts several readers without erasing their role (killed 18)
+    ~ compatibility presentation > counts several writers without erasing their role (covered 50)
+    ~ compatibility presentation > counts several callers without erasing their role (covered 50)
+    ~ compatibility presentation > counts several consumers without erasing their role (covered 50)
+    ✓ compatibility presentation > names one migrating service, counts mixed roles as services, and caps distinct explanations at eight (killed 10)
+    ✓ compatibility presentation > keeps proof locations, distinguishes steps from contracts, and deduplicates the same service and proof (killed 45)
+  plan-viz-dag.test.ts
+    ✘ title wrapping > breaks at words, three lines at most, with an ellipsis where it overflows (covered 0)
+    ✘ title wrapping > breaks a long word after a slash or a dash (covered 0)
+    ✘ the dependency graph > puts each item one column right of its latest dependency (covered 0)
+    ✘ the dependency graph > marks the critical path and draws one edge for each dependency (covered 0)
+    ✘ the dependency graph > groups the columns into a band for each milestone when asked (covered 0)
+    ✘ the dependency graph > fades the cards that are not the lens team’s (covered 0)
+    ✘ the dependency graph > is null for a plan with no work (covered 0)
+  plan-viz-decision.test.ts
+    ✘ decision and question cards > uses a plain decision title and the actual question, with or without a model (covered 0)
+    ✘ decision and question cards > shows proposed only when the group heading does not already say it (covered 0)
+    ✘ decision and question cards > shows accepted only when the group heading does not already say it (covered 0)
+    ✘ decision and question cards > shows deferred only when the group heading does not already say it (covered 0)
+    ✘ decision and question cards > shows rejected only when the group heading does not already say it (covered 0)
+    ✘ decision and question cards > shows superseded only when the group heading does not already say it (covered 0)
+    ✘ decision and question cards > does not repeat the open question group state (covered 0)
+    ✘ decision and question cards > does not repeat the resolved question group state (covered 0)
+    ✘ decision and question cards > keeps markdown and references in the first sentence while normalising whitespace (covered 0)
+    ✘ decision and question cards > distinguishes a due date, deferred revisit, past closed date and actual decision date (covered 0)
+    ✘ decision and question cards > marks only overdue pending dates, retaining missing deciders and unknown reversibility (covered 0)
+    ✘ decision and question cards > shows the chosen option first and retains a visible empty reason on an undocumented alternative (covered 0)
+    ✘ decision and question cards > separates accepted risks from other waiting work and includes questions answered by the decision (covered 0)
+  plan-viz-domain.branches.test.ts
+    ✘ domainView > gives every concept as the plan tells it, with no summary when it has none (covered 0)
+    ✘ domainView > keeps to what runs today: no new concepts, and no names or births in what the plan adds (covered 0)
+    ✘ domainView > reads an empty domain when the plan has none (covered 0)
+    ✘ narrowedTo > keeps only the concepts named, or all of them when none are (covered 0)
+    ✘ conceptCards > relates a concept to the whole it is part of, what it relates to, and its parts (covered 0)
+    ✘ conceptCards > drops relations to concepts left out, but keeps those to other kinds of thing (covered 0)
+    ✘ namesPlan > says nothing when no concept has a second name (covered 0)
+    ✘ namesPlan > writes a line per concept with a second name, folding the same name in several systems (covered 0)
+    ✘ namesPlan > draws a table when two or more concepts have names in several systems and it is mostly full (covered 0)
+    ✘ namesPlan > falls back to lines when a table would be mostly empty (covered 0)
+  plan-viz-endpoint.test.ts
+    ✘ signatures > splits several signatures and shared verbs (covered 0)
+    ✘ signatures > keeps a verb written twice once, so each badge has its own key (covered 0)
+    ✘ signatures > picks out path params and a dimmed query (covered 0)
+    ✘ signatures > copies a path for a verb but not for a GraphQL word (covered 0)
+    ✘ an interface in the plan > lists endpoints, says what they share, types params and finds callers (covered 0)
+  plan-viz-field-cells.branches.test.ts
+    ✘ typeCell > drops a trailing ? and strikes the old type of a modified field (covered 0)
+    ✘ typeCell > has no old type unless the field was modified (covered 0)
+    ✘ typeCell > finds a schema of the plan held in a list, an array or a set (covered 0)
+    ✘ typeCell > does not nest a schema in itself, nor below the first level (covered 0)
+    ✘ requiredCell > says what a modified field was before (covered 0)
+    ✘ requiredCell > says nothing of the past for a field that was not modified (covered 0)
+    ✘ noteCell > lists the other props a modified field changed, but not those shown elsewhere or newly added (covered 0)
+    ✘ noteCell > has no note when it is empty, and no others unless modified (covered 0)
+    ✘ keyContext > knows the fields an event is keyed by (covered 0)
+    ✘ keyContext > knows a graph type and its key fields (covered 0)
+    ✘ keyBadges > marks a stored field as key, pointer, unique, defaulted and message key (covered 0)
+    ✘ keyBadges > points at a whole schema, or at something the plan does not know, without a link (covered 0)
+    ✘ keyBadges > marks a graph field as key, by the subgraphs that serve it, and private (covered 0)
+    ✘ keyBadges > calls a field private by its cache scope alone (covered 0)
+    ✘ rollouts > gives the rollout words of a deprecated or removed field once each, in a diff only (covered 0)
+    ✘ rollouts > has none when no change says how (covered 0)
+  plan-viz-fields.test.ts
+    ✘ fieldRows > lists the to-be fields in a diff with what changed on each (covered 0)
+    ✘ fieldRows > shows the as-is fields without marks in as-is mode (covered 0)
+    ✘ fieldRows > has no rows for something that is not a schema (covered 0)
+    ✘ schemaCounts and worstFields > counts what changed and ranks the field that breaks readers first (covered 0)
+    ✘ foldGroups > folds a long run of unchanged rows once the table is long and has marks (covered 0)
+    ✘ foldGroups > keeps short tables open and folds all but the new in chapter 4 (covered 0)
+    ✘ field cells > reads the key names of an event (covered 0)
+    ✘ field cells > builds cells for every row (covered 0)
+  plan-viz-flow-diagram.test.ts
+    ✓ a flow diagram of the shop > draws every flow with the systems it touches (killed 5)
+    ✓ a flow diagram of the shop > keeps cards clear of one another (killed 2)
+    ~ a flow diagram of the shop > draws an arrow between known systems for each hop (covered 117)
+    ~ a flow diagram of the shop > puts every label inside the drawing (covered 117)
+    ~ a flow diagram of the shop > numbers steps from one and letters a gateway fan-out (covered 92)
+    ~ a flow diagram of the shop > leaves out the teams that take no part (covered 88)
+    ✓ walking through a flow > calls the shown step current, earlier ones walked, later ones to come (killed 3)
+    ~ walking through a flow > frames the shown step (covered 88)
+    ✓ walking through a flow > frames any step on a drawing made for another, as a drawing made for it would (killed 1)
+    ~ walking through a flow > says which steps light each row and touch each node (covered 88)
+    ~ walking through a flow > draws plain when no step is shown (covered 88)
+    ~ walking through a flow > takes several steps at once (covered 88)
+    ✓ walking through a flow > carries markers and fades teams outside the lens (killed 7)
+    ~ walking through a flow > draws just the steps asked for, numbered as in the whole flow (covered 88)
+    ✓ the plan on top of today > marks new systems and links (killed 7)
+    ✓ the plan on top of today > shows no plan marks of today (killed 3)
+    ✘ the plan on top of today > has nothing to draw for a flow it does not know (covered 0)
+    ~ the plan on top of today > draws the mini plan (covered 122)
+    ~ whole plans > lays out every flow of pause-orders without crossing cards (covered 122)
+    ~ whole plans > lays out every flow of delivery-time without crossing cards (covered 122)
+    ~ whole plans > lays out every flow of rework-checkout without crossing cards (covered 141)
+    ~ whole plans > lays out every flow of shop without crossing cards (covered 117)
+    ✘ seqWalk > calls the shown steps current and those before the first walked (covered 0)
+  plan-viz-flow-draw-nodes.test.ts
+    ✓ flow node drawing data > retains placement, ownership, plan state, lens state and inspector markers (killed 18)
+    ✓ flow node drawing data > uses component glyphs and store vocabulary without guessing an unknown kind (killed 14)
+    ✓ flow node drawing data > draws endpoint rows and internal steps with readable summaries, geometry and walk states (killed 49)
+    ✓ flow node drawing data > keeps topic event labels and positions, and only marks additions in the planned state (killed 19)
+    ✓ flow node drawing data > collects only evidenced record stores alongside each step’s explicit ends (killed 9)
+  plan-viz-flow-size.branches.test.ts
+    ✘ sigOf > reads an endpoint by its signature, and anything else by its name (covered 0)
+    ✘ sizeNodes > draws an empty card as its head alone (covered 0)
+    ✘ sizeNodes > adds a row per endpoint and per own step, with room under them (covered 0)
+    ✘ sizeNodes > widens a card for a long signature, but no wider than 300 (covered 0)
+    ✘ sizeNodes > draws a topic as a pipe, taller for each event it carries (covered 0)
+    ✘ sizeNodes > draws a store as a fixed cylinder (covered 0)
+    ✘ labelEdges > folds reads of the same records into one label, whatever order the refs come in (covered 0)
+    ✘ labelEdges > carries every step between the same two ends on the first arrow, and none on the rest (covered 0)
+    ✘ labelEdges > marks a hop to the same or an earlier column as back, unless it goes to a satellite (covered 0)
+    ✘ labelEdges > wraps a long label onto two lines (covered 0)
+  plan-viz-go.test.ts
+    ✘ ladderPage > points at the contracts page of the changes chapter, numbered as the rail numbers it (covered 0)
+    ✘ ladderPage > is null when nothing is retired (covered 0)
+  plan-viz-graph.test.ts
+    ✘ graph picture > reads left to right: clients, edge, gateway, gateway cache, subgraphs (covered 0)
+    ✘ graph picture > is nothing for a graph it does not know (covered 0)
+    ✘ graph picture > shows the plan side when asked (covered 0)
+    ✘ ownership grid > has a column per subgraph and a row per type, roots last (covered 0)
+    ✘ ownership grid > marks what the plan adds and retires when given the diff (covered 0)
+    ✘ ownership grid > is nothing for a graph it does not know (covered 0)
+    ✘ cache table > lists the caches outermost first (covered 0)
+    ✘ cache table > marks what changes when given the diff (covered 0)
+    ✘ base helpers > trims the subgraph word and spots private fields (covered 0)
+  plan-viz-journey.test.ts
+    ✘ the words of a journey > reads any name for the plan as the plan (covered 0)
+    ✘ the words of a journey > marks a layout-only change as the screen, not as different behaviour (covered 0)
+    ✘ the words of a journey > says a deprecated step is deprecated with the plan, today, and still works, in the plan (covered 0)
+    ✘ the words of a journey > says nothing for a step that runs as today (covered 0)
+    ✘ the words of a journey > names a step by its action in the chosen view, else the other (covered 0)
+    ✘ sideContent > compares the recorded value of changed behaviour (covered 0)
+    ✘ sideContent > does not borrow a step the view lacks (covered 0)
+    ✘ sideContent > says where a step sits in the flow before and after (covered 0)
+    ✘ sideContent > keeps a field list to the fields that differ (covered 0)
+    ✘ comparisonOf > puts the changed behaviour first, as the two sides (covered 0)
+    ✘ comparisonOf > shows only the other side when the step view already says one (covered 0)
+    ✘ comparisonOf > leaves out the change that is already the headline, but keeps its decisions (covered 0)
+    ✘ comparisonOf > says a deprecated step still works, and why (covered 0)
+    ✘ comparisonOf > infers an unchanged step from related data without asserting different behaviour (covered 0)
+    ✘ comparisonOf > gives an added step seen today the plan’s side (covered 0)
+    ✘ outlineOf > lists the steps of the view in order, marked (covered 0)
+    ✘ outlineOf > shows the steps today lacks beside the step they follow (covered 0)
+    ✘ outlineOf > has no steps for a flow the view lacks (covered 0)
+    ✘ absenceOf > says a new flow does not exist today, and removed ones are removed (covered 0)
+    ✘ absenceOf > keeps an added step its own, with the steps that survive around it (covered 0)
+    ✘ absenceOf > never picks the first step for one it does not know (covered 0)
+    ✘ rolloutNotes > has none for a step the plan does not remove or deprecate (covered 0)
+    ✘ rolloutNotes > collects the notes of the changes that remove or deprecate it (covered 0)
+  plan-viz-ladder-order.test.ts
+    ✘ migration sequencing > uses plan milestone order and leaves missing work dates unknown (covered 0)
+    ✘ migration sequencing > reports a safe retirement and no sequencing warning for ordered work (covered 0)
+    ✘ migration sequencing > explains early switches and early retirement on each responsible work item (covered 0)
+    ✘ migration sequencing > distinguishes consumers moving in different milestones and a deprecation from removal (covered 0)
+    ✘ migration sequencing > names a single early consumer and quotes contracts whose names differ (covered 0)
+  plan-viz-ladder-plans.test.ts
+    ✘ a field that moves between subgraphs > says where it moves and when the old subgraph stops, with no deadline (covered 0)
+    ✘ a second versioned event > names both consumers that migrate and badges each version (covered 0)
+  plan-viz-ladder-rungs.test.ts
+    ✘ migration rung descriptions > states what expands, which consumers move, what stays published and what is removed (covered 0)
+    ✘ migration rung descriptions > shows meaningful edits, explains a pure switch once, and associates each work item once (covered 0)
+    ✘ migration rung descriptions > keeps the planned milestones and flags switching or removing before prerequisites (covered 0)
+    ✘ migration rung descriptions > does not invent dates or work for a rung, and includes issue numbers when recorded (covered 0)
+    ✘ migration rung descriptions > uses API language for serving, caller migration and deprecation, retaining an old version until removal (covered 0)
+  plan-viz-ladder.test.ts
+    ✘ ladder words > lists names the way a sentence does (covered 0)
+    ✘ ladder words > summarises a versioned event (covered 0)
+    ✘ ladder words > badges both ends of a pair (covered 0)
+    ✘ ladder words > says nothing of an unversioned id (covered 0)
+    ✘ ladder rungs > walks expand, migrate, remove with the work each rung builds once (covered 0)
+    ✘ ladder rungs > draws a graph field moving between subgraphs by the model label (covered 0)
+    ✘ sequencing > is quiet when the plan is in order (covered 0)
+    ✘ sequencing > names a consumer that switches before the new version exists (covered 0)
+    ✘ sequencing > flags removing the old version before the last consumer moves (covered 0)
+    ✘ event data > reads an event in each mode (covered 0)
+    ✘ event data > sorts by topic, name and version (covered 0)
+  plan-viz-ledger.test.ts
+    ✘ ledger rows > describes a change by what it touches, proves and builds (covered 0)
+    ✘ ledger rows > is null for a change that is not in the plan (covered 0)
+    ✘ ledger rows > spells the proof out (covered 0)
+    ✘ ledger groups > numbers every change once whichever way it is grouped (covered 0)
+    ✘ ledger groups > keeps one team’s changes behind a lens (covered 0)
+    ✘ ledger groups > names the teams whose lens keeps each change, as the lens itself does (covered 0)
+    ✘ health tiles > shows all seven, or only the ones asked for, in that order (covered 0)
+  plan-viz-owners.test.ts
+    ✘ owner lists > has the columns in a fixed order (covered 0)
+    ✘ owner lists > lists what a team’s services own and what it builds (covered 0)
+    ✘ owner lists > drops what the plan adds when asked (covered 0)
+    ✘ owner lists > lists the proposed decisions and open questions a team decides (covered 0)
+    ✘ owner text > counts work, and says how much is done once delivery has begun (covered 0)
+    ✘ owner text > reads a row as plain text in column order (covered 0)
+    ✘ owner text > names a thing in plain words (covered 0)
+    ✘ owner text > gives a team’s channel, but not a placeholder (covered 0)
+  plan-viz-protocol.test.ts
+    ✘ protocolOf > names a GraphQL operation and a REST endpoint by how they travel (covered 0)
+    ✘ protocolOf > says nothing of an event or an unknown id (covered 0)
+    ✘ callWords > says query or mutation for an operation, and call for an endpoint (covered 0)
+    ✘ an operation on a card and in the inspector > reads as its kind and name on its row (covered 0)
+    ✘ an operation on a card and in the inspector > carries its query to show and copy (covered 0)
+  plan-viz-query-plan.test.ts
+    ✘ the query plan of an operation > lists the fetches in rounds (covered 0)
+    ✘ the query plan of an operation > is empty for an unknown operation (covered 0)
+    ✘ the query plan of an operation > nests each fetch selection below where it folds in (covered 0)
+  plan-viz-screen-catalogue.branches.test.ts
+    ✘ a catalogue joined by recorded order > says arrows show the recorded order, and that people can be followed (covered 0)
+    ✘ a catalogue joined by recorded order > gives a journey with no actor a placeholder (covered 0)
+    ✘ a catalogue joined by recorded order > groups screens by who uses them, and notes a second unjoined sequence (covered 0)
+    ✘ a catalogue joined by recorded order > puts screens with no link between them in one cluster, and names an app it cannot find (covered 0)
+    ✘ a catalogue joined by recorded order > lists the cards by serving app once there are more than three (covered 0)
+    ✘ a catalogue with no journeys > says the screens are not linked, and lists them as unlinked with their apps (covered 0)
+    ✘ a catalogue joined by interactions > labels arrows by their actions and draws no caption (covered 0)
+    ✘ a catalogue joined by interactions > marks a control several regions share, and a screen reached only through it (covered 0)
+  plan-viz-screen-catalogue.test.ts
+    ✘ screen catalogue > draws every current screen of pause-orders once, with its lines inside the drawing (covered 0)
+    ✘ screen catalogue > draws every current screen of delivery-time once, with its lines inside the drawing (covered 0)
+    ✘ screen catalogue > draws every current screen of rework-checkout once, with its lines inside the drawing (covered 0)
+    ✘ screen catalogue > draws every current screen of shop once, with its lines inside the drawing (covered 0)
+    ✘ screen catalogue > follows the journey through the screens it shows (covered 0)
+    ✘ screen catalogue > draws nothing, and says so, when no screens are recorded (covered 0)
+  plan-viz-sequence-cells.branches.test.ts
+    ✘ cellOf for frames and links > passes a group tab through and puts an else in plain words (covered 0)
+    ✘ cellOf for frames and links > starts a trigger from the first lifeline after the person (covered 0)
+    ✘ cellOf for frames and links > draws the entry from the person to the first participant it reaches (covered 0)
+    ✘ cellOf for frames and links > draws a reply back to the left, its label overhanging when the columns run out (covered 0)
+    ✘ cellOf for a step > draws a call as an arrow with its signature, and opens the endpoint (covered 0)
+    ✘ cellOf for a step > draws an unnamed step to a store as a write or a read, and one between services as a plain arrow (covered 0)
+    ✘ cellOf for a step > draws a step inside one service as a box with the stores it writes, else those it reads (covered 0)
+    ✘ cellOf for a step > keeps a box right of its lifeline when there are only two columns (covered 0)
+    ✘ cellOf for a step > says how a step changed, with a pill only when asked (covered 0)
+    ✘ cellOf for a step > marks a step that goes over an endpoint the plan adds as new, but not in today (covered 0)
+    ✘ cellOf for a step > carries the screen, the marker, the logic and how far the walk has got (covered 0)
+  plan-viz-system-map-structure.test.ts
+    ✘ system structure arrangement > groups components that were split across stages while preserving the model and scope (covered 0)
+    ✘ system structure arrangement > reveals internal connections and keeps resources within their expanded system (covered 0)
+    ✘ system structure arrangement > retains unassigned components and shared external components without inventing a system (covered 0)
+    ✘ system structure arrangement > accepts an empty scope (covered 0)
+  plan-viz-system-map.test.ts
+    ✘ system map layout > draws every system of pause-orders inside its drawing, in both layouts (covered 0)
+    ✘ system map layout > draws every system of delivery-time inside its drawing, in both layouts (covered 0)
+    ✘ system map layout > draws every system of rework-checkout inside its drawing, in both layouts (covered 0)
+    ✘ system map layout > draws every system of shop inside its drawing, in both layouts (covered 0)
+    ✘ system map layout > draws every system of staged delivery-time inside its drawing, in both layouts (covered 0)
+    ✘ system map layout > hides topics, stores and interfaces in the overview of pause-orders (covered 0)
+    ✘ system map layout > hides topics, stores and interfaces in the overview of delivery-time (covered 0)
+    ✘ system map layout > hides topics, stores and interfaces in the overview of rework-checkout (covered 0)
+    ✘ system map layout > hides topics, stores and interfaces in the overview of shop (covered 0)
+    ✘ system map layout > hides topics, stores and interfaces in the overview of staged delivery-time (covered 0)
+    ✘ system map layout > folds one system when asked (covered 0)
+    ✘ system map layout > dims everything outside a team lens (covered 0)
+    ✘ system map trace > lights a card with its lines and neighbours in pause-orders (covered 0)
+    ✘ system map trace > lights a card with its lines and neighbours in delivery-time (covered 0)
+    ✘ system map trace > lights a card with its lines and neighbours in rework-checkout (covered 0)
+    ✘ system map trace > lights a card with its lines and neighbours in shop (covered 0)
+    ✘ system map trace > lights a card with its lines and neighbours in staged delivery-time (covered 0)
+    ✘ system map trace > lights the parts of a system and their partners (covered 0)
+  plan-viz-tests.test.ts
+    ✘ the test levels > counts tests and changes per level, and shows the pyramid end-to-end first (covered 0)
+    ✘ the test levels > notes the gaps each plan leaves (covered 0)
+    ✘ the test levels > narrows to a team (covered 0)
+    ✘ the test levels > describes a planned test and the places tests run (covered 0)
+    ✘ the contracts > pairs every contract test with the services it checks (covered 0)
+    ✘ the contracts > finds the providers, the test that checks no call and the new link with no test (covered 0)
+    ✘ the contracts > says whether a link is a call or an event (covered 0)
+    ✘ the contracts > dims what is outside a team (covered 0)
+  plan-work-cards.test.ts
+    ✘ workCardOf > draws a partner’s item from where it stands, with no issue (covered 0)
+    ✘ workCardOf > gives our item its issue and its state from the GitHub sync (covered 0)
+    ✘ workCardOf > still draws a card when there is no progress record, and none for an unknown item (covered 0)
+    ✘ workCardOf > knows which teams are partners only from where the work stands (covered 0)
+  today-thing.test.ts
+    ✘ todayPlaceOf > places a system, a component and a thing a component holds (covered 0)
+    ✘ todayPlaceOf > gives nothing for a thing no component holds (covered 0)
+    ✘ codeEvidenceOf > lists the thing’s own code first, then its parts, with permalinks (covered 0)
+    ✘ codeEvidenceOf > gives nothing when no code is cited (covered 0)
+    ✘ today’s pages > links things under the workspace and offers its pages in the palette (covered 0)
+  workspace-library-plans.test.ts
+    ✘ planBriefOf > says who decides next and by when for a plan in review (covered 0)
+    ✘ planBriefOf > flags a decision whose day has gone (covered 0)
+    ✘ planBriefOf > counts the work done on a plan in delivery (covered 0)
+    ✘ planBriefOf > calls a plan nobody has proposed a draft (covered 0)
+    ✘ briefsOf > puts what needs a decision first, then what is moving, then drafts (covered 0)
+  workspace-library.test.ts
+    ✘ libraryOf > puts shared workspaces before private ones (covered 0)
+    ✘ libraryOf > orders workspaces of the same kind by name (covered 0)
+    ✘ libraryOf > counts domains, systems, components and plans in plain words (covered 0)
+    ✘ libraryOf > links each domain with its size (covered 0)
+    ✘ libraryOf > labels examples from registration, not from names or privacy (covered 0)
+    ✘ libraryOf > never exposes local paths or repository URLs by default (covered 0)
+    ✘ libraryOf > includes actionable registration details when explicitly enabled locally (covered 0)
+
+[Survived] ConditionalExpression
+src/application/plan-viz-compat.ts:23:17
+-     const words = role === null ? undefined : ROLE[role];
++     const words = false ? undefined : ROLE[role];
+Tests ran:
+    compatibility presentation > counts several readers without erasing their role
+    compatibility presentation > counts several writers without erasing their role
+    compatibility presentation > counts several callers without erasing their role
+  and 2 more tests!
+
+
+[Survived] ConditionalExpression
+src/application/plan-viz-compat.ts:24:34
+-     return `${String(n)} ${words?.[n === 1 ? 0 : 1] ?? (n === 1 ? 'service' : 'services')}`;
++     return `${String(n)} ${words?.[false ? 0 : 1] ?? (n === 1 ? 'service' : 'services')}`;
+Tests ran:
+    compatibility presentation > counts several readers without erasing their role
+    compatibility presentation > counts several writers without erasing their role
+    compatibility presentation > counts several callers without erasing their role
+  and 1 more test!
+
+
+[Survived] ConditionalExpression
+src/application/plan-viz-compat.ts:24:55
+-     return `${String(n)} ${words?.[n === 1 ? 0 : 1] ?? (n === 1 ? 'service' : 'services')}`;
++     return `${String(n)} ${words?.[n === 1 ? 0 : 1] ?? (false ? 'service' : 'services')}`;
+Tests ran:
+    compatibility presentation > names one migrating service, counts mixed roles as services, and caps distinct explanations at eight
+
+
+[NoCoverage] StringLiteral
+src/application/plan-viz-compat.ts:24:65
+-     return `${String(n)} ${words?.[n === 1 ? 0 : 1] ?? (n === 1 ? 'service' : 'services')}`;
++     return `${String(n)} ${words?.[n === 1 ? 0 : 1] ?? (n === 1 ? "" : 'services')}`;
+
+[Survived] ConditionalExpression
+src/application/plan-viz-compat.ts:28:64
+-   const noReader = (c: Compat): boolean => c.reasons.some((r) => r.rule === 'no-reader');
++   const noReader = (c: Compat): boolean => c.reasons.some((r) => true);
+Tests ran:
+    compatibility presentation > names only unmoved readers for breaking changes and preserves a visible missing-reader gap
+
+
+[Survived] EqualityOperator
+src/application/plan-viz-compat.ts:28:64
+-   const noReader = (c: Compat): boolean => c.reasons.some((r) => r.rule === 'no-reader');
++   const noReader = (c: Compat): boolean => c.reasons.some((r) => r.rule !== 'no-reader');
+Tests ran:
+    compatibility presentation > names only unmoved readers for breaking changes and preserves a visible missing-reader gap
+
+
+[Survived] ConditionalExpression
+src/application/plan-viz-compat.ts:33:28
+-     if (list.length === 1 && only !== undefined) return model.label(only.svc);
++     if (list.length === 1 && true) return model.label(only.svc);
+Tests ran:
+    compatibility presentation > names only unmoved readers for breaking changes and preserves a visible missing-reader gap
+    compatibility presentation > names one migrating service, counts mixed roles as services, and caps distinct explanations at eight
+
+
+[Survived] ConditionalExpression
+src/application/plan-viz-compat.ts:51:7
+-     if (c.verdict === 'breaking') {
++     if (true) {
+Tests ran:
+    compatibility presentation > leaves unknown verdicts absent and suppresses only safe quiet badges
+    compatibility presentation > names only unmoved readers for breaking changes and preserves a visible missing-reader gap
+    compatibility presentation > counts several readers without erasing their role
+  and 4 more tests!
+
+
+[Survived] ConditionalExpression
+src/application/plan-viz-compat.ts:56:10
+-     return c.verdict === 'migration' && c.who.length > 0 ? whoWords(model, c.who) : '';
++     return true && c.who.length > 0 ? whoWords(model, c.who) : '';
+Tests ran:
+    compatibility presentation > leaves unknown verdicts absent and suppresses only safe quiet badges
+    compatibility presentation > counts several readers without erasing their role
+    compatibility presentation > counts several writers without erasing their role
+  and 3 more tests!
+
+
+[Survived] ConditionalExpression
+src/application/plan-viz-compat.ts:70:9
+-           r.rule === 'no-reader' ? r.text.replace(/^no reader\b/u, 'no service reader') : r.text,
++           true ? r.text.replace(/^no reader\b/u, 'no service reader') : r.text,
+Tests ran:
+    compatibility presentation > names only unmoved readers for breaking changes and preserves a visible missing-reader gap
+    compatibility presentation > names one migrating service, counts mixed roles as services, and caps distinct explanations at eight
+
+
+[Survived] Regex
+src/application/plan-viz-compat.ts:70:49
+-           r.rule === 'no-reader' ? r.text.replace(/^no reader\b/u, 'no service reader') : r.text,
++           r.rule === 'no-reader' ? r.text.replace(/no reader\b/u, 'no service reader') : r.text,
+Tests ran:
+    compatibility presentation > names only unmoved readers for breaking changes and preserves a visible missing-reader gap
+
+
+[Survived] OptionalChaining
+src/application/plan-viz-compat.ts:100:7
+-     if (by?.step !== null && by?.step !== undefined) return { word: 'in', id: by.step };
++     if (by.step !== null && by?.step !== undefined) return { word: 'in', id: by.step };
+Tests ran:
+    compatibility presentation > keeps proof locations, distinguishes steps from contracts, and deduplicates the same service and proof
+
+
+[Survived] ConditionalExpression
+src/application/plan-viz-compat.ts:100:28
+-     if (by?.step !== null && by?.step !== undefined) return { word: 'in', id: by.step };
++     if (by?.step !== null && true) return { word: 'in', id: by.step };
+Tests ran:
+    compatibility presentation > keeps proof locations, distinguishes steps from contracts, and deduplicates the same service and proof
+
+
+[Survived] OptionalChaining
+src/application/plan-viz-compat.ts:100:28
+-     if (by?.step !== null && by?.step !== undefined) return { word: 'in', id: by.step };
++     if (by?.step !== null && by.step !== undefined) return { word: 'in', id: by.step };
+Tests ran:
+    compatibility presentation > keeps proof locations, distinguishes steps from contracts, and deduplicates the same service and proof
+
+
+[Survived] OptionalChaining
+src/application/plan-viz-compat.ts:101:10
+-     return by?.rung === undefined ? placeOf(w) : { word: 'to', id: by.rung };
++     return by.rung === undefined ? placeOf(w) : { word: 'to', id: by.rung };
+Tests ran:
+    compatibility presentation > keeps proof locations, distinguishes steps from contracts, and deduplicates the same service and proof
+
+
+[Survived] ConditionalExpression
+src/application/plan-viz-compat.ts:123:15
+-       noReader: c.verdict === 'breaking' && noReader(c),
++       noReader: true && noReader(c),
+Tests ran:
+    compatibility presentation > leaves unknown verdicts absent and suppresses only safe quiet badges
+    compatibility presentation > names only unmoved readers for breaking changes and preserves a visible missing-reader gap
+    compatibility presentation > keeps proof locations, distinguishes steps from contracts, and deduplicates the same service and proof
+
+
+[NoCoverage] StringLiteral
+src/application/plan-viz-flow-draw-nodes.ts:44:50
+-       const head = callWords(ctx.model, ep.via) ?? 'API';
++       const head = callWords(ctx.model, ep.via) ?? "";
+
+[NoCoverage] ArrayDeclaration
+src/application/plan-viz-flow-draw-nodes.ts:110:57
+-     const [glyph, word] = GLYPH[what] ?? GLYPH.service ?? ['▣', 'SERVICE'];
++     const [glyph, word] = GLYPH[what] ?? GLYPH.service ?? [];
+
+[NoCoverage] StringLiteral
+src/application/plan-viz-flow-draw-nodes.ts:110:58
+-     const [glyph, word] = GLYPH[what] ?? GLYPH.service ?? ['▣', 'SERVICE'];
++     const [glyph, word] = GLYPH[what] ?? GLYPH.service ?? ["", 'SERVICE'];
+
+[NoCoverage] StringLiteral
+src/application/plan-viz-flow-draw-nodes.ts:110:63
+-     const [glyph, word] = GLYPH[what] ?? GLYPH.service ?? ['▣', 'SERVICE'];
++     const [glyph, word] = GLYPH[what] ?? GLYPH.service ?? ['▣', ""];
+
+[Survived] ArrayDeclaration
+src/application/plan-viz-flow-draw-nodes.ts:128:37
+-       for (const r of [...(s.reads ?? []), ...(s.writes ?? [])]) {
++       for (const r of [...(s.reads ?? ["Stryker was here"]), ...(s.writes ?? [])]) {
+Tests ran:
+    a flow diagram of the shop > draws every flow with the systems it touches
+    a flow diagram of the shop > keeps cards clear of one another
+    a flow diagram of the shop > draws an arrow between known systems for each hop
+  and 18 more tests!
+
+
+[Survived] ArrayDeclaration
+src/application/plan-viz-flow-draw-nodes.ts:128:58
+-       for (const r of [...(s.reads ?? []), ...(s.writes ?? [])]) {
++       for (const r of [...(s.reads ?? []), ...(s.writes ?? ["Stryker was here"])]) {
+Tests ran:
+    a flow diagram of the shop > draws every flow with the systems it touches
+    a flow diagram of the shop > keeps cards clear of one another
+    a flow diagram of the shop > draws an arrow between known systems for each hop
+  and 18 more tests!
+
+
+[Survived] ConditionalExpression
+src/application/plan-viz-flow-draw-nodes.ts:34:10
+-     return typeof kind === 'string' ? kind : '';
++     return true ? kind : '';
+Tests ran:
+    a flow diagram of the shop > draws every flow with the systems it touches
+    a flow diagram of the shop > keeps cards clear of one another
+    a flow diagram of the shop > draws an arrow between known systems for each hop
+  and 21 more tests!
+
+
+[Survived] StringLiteral
+src/application/plan-viz-flow-draw-nodes.ts:34:44
+-     return typeof kind === 'string' ? kind : '';
++     return typeof kind === 'string' ? kind : "Stryker was here!";
+Tests ran:
+    flow node drawing data > retains placement, ownership, plan state, lens state and inspector markers
+
+
+[Survived] ConditionalExpression
+src/application/plan-viz-flow-draw-nodes.ts:42:7
+-         typeof summary === 'string' ? plainTitle(summary, (id) => ctx.model.label(id)) : '';
++         true ? plainTitle(summary, (id) => ctx.model.label(id)) : '';
+Tests ran:
+    a flow diagram of the shop > draws every flow with the systems it touches
+    a flow diagram of the shop > keeps cards clear of one another
+    a flow diagram of the shop > draws an arrow between known systems for each hop
+  and 11 more tests!
+
+
+[Survived] ArithmeticOperator
+src/application/plan-viz-flow-draw-nodes.ts:50:39
+-         text: clipText(sig, Math.floor((n.w - 30 - tag) / MONO)),
++         text: clipText(sig, Math.floor((n.w + 30 - tag) / MONO)),
+Tests ran:
+    a flow diagram of the shop > draws every flow with the systems it touches
+    a flow diagram of the shop > keeps cards clear of one another
+    a flow diagram of the shop > draws an arrow between known systems for each hop
+  and 11 more tests!
+
+
+[Survived] ArithmeticOperator
+src/application/plan-viz-flow-draw-nodes.ts:50:39
+-         text: clipText(sig, Math.floor((n.w - 30 - tag) / MONO)),
++         text: clipText(sig, Math.floor((n.w - 30 + tag) / MONO)),
+Tests ran:
+    a flow diagram of the shop > draws every flow with the systems it touches
+    a flow diagram of the shop > keeps cards clear of one another
+    a flow diagram of the shop > draws an arrow between known systems for each hop
+  and 11 more tests!
+
+
+[Survived] ArithmeticOperator
+src/application/plan-viz-flow-draw-nodes.ts:50:38
+-         text: clipText(sig, Math.floor((n.w - 30 - tag) / MONO)),
++         text: clipText(sig, Math.floor((n.w - 30 - tag) * MONO)),
+Tests ran:
+    a flow diagram of the shop > draws every flow with the systems it touches
+    a flow diagram of the shop > keeps cards clear of one another
+    a flow diagram of the shop > draws an arrow between known systems for each hop
+  and 11 more tests!
+
+
+[Survived] ArithmeticOperator
+src/application/plan-viz-flow-draw-nodes.ts:92:14
+-         iconX: textX - (text.length * CHAR) / 2 - 14,
++         iconX: textX + text.length * CHAR / 2 - 14,
+Tests ran:
+    a flow diagram of the shop > draws every flow with the systems it touches
+    a flow diagram of the shop > keeps cards clear of one another
+    a flow diagram of the shop > draws an arrow between known systems for each hop
+  and 17 more tests!
+
+
+[Survived] ArithmeticOperator
+src/application/plan-viz-flow-draw-nodes.ts:92:22
+-         iconX: textX - (text.length * CHAR) / 2 - 14,
++         iconX: textX - text.length * CHAR * 2 - 14,
+Tests ran:
+    a flow diagram of the shop > draws every flow with the systems it touches
+    a flow diagram of the shop > keeps cards clear of one another
+    a flow diagram of the shop > draws an arrow between known systems for each hop
+  and 17 more tests!
+
+
+[Survived] ArithmeticOperator
+src/application/plan-viz-flow-draw-nodes.ts:92:14
+-         iconX: textX - (text.length * CHAR) / 2 - 14,
++         iconX: textX - text.length * CHAR / 2 + 14,
+Tests ran:
+    a flow diagram of the shop > draws every flow with the systems it touches
+    a flow diagram of the shop > keeps cards clear of one another
+    a flow diagram of the shop > draws an arrow between known systems for each hop
+  and 17 more tests!
+
+
+[Survived] ArithmeticOperator
+src/application/plan-viz-flow-draw-nodes.ts:92:23
+-         iconX: textX - (text.length * CHAR) / 2 - 14,
++         iconX: textX - (text.length / CHAR) / 2 - 14,
+Tests ran:
+    a flow diagram of the shop > draws every flow with the systems it touches
+    a flow diagram of the shop > keeps cards clear of one another
+    a flow diagram of the shop > draws an arrow between known systems for each hop
+  and 17 more tests!
+
+
+[Survived] ConditionalExpression
+src/application/plan-viz-flow-draw-nodes.ts:164:13
+-         team: team === null ? UNKNOWN_TEAM : teamIndex(ctx.model, team),
++         team: false ? UNKNOWN_TEAM : teamIndex(ctx.model, team),
+Tests ran:
+    a flow diagram of the shop > draws every flow with the systems it touches
+    a flow diagram of the shop > keeps cards clear of one another
+    a flow diagram of the shop > draws an arrow between known systems for each hop
+  and 22 more tests!
+
+
+Ran 2.93 tests per mutant on average.
+-----------------------------|------------------|----------|-----------|------------|----------|----------|
+                             | % Mutation score |          |           |            |          |          |
+File                         |  total | covered | # killed | # timeout | # survived | # no cov | # errors |
+-----------------------------|--------|---------|----------|-----------|------------|----------|----------|
+All files                    |  88.93 |   90.44 |      265 |         0 |         28 |        5 |        0 |
+ plan-viz-compat.ts          |  88.89 |   89.51 |      128 |         0 |         15 |        1 |        0 |
+ plan-viz-flow-draw-nodes.ts |  88.96 |   91.33 |      137 |         0 |         13 |        4 |        0 |
+-----------------------------|--------|---------|----------|-----------|------------|----------|----------|
+[32m03:06:46 (48217) INFO MutationTestReportHelper[39m Final mutation score of 88.93 is greater than or equal to break threshold 75
+[32m03:06:46 (48217) INFO JsonReporter[39m Your report can be found at: file:///Users/RNEL/.codex/worktrees/rebuild-pr2/groundWork/reports/mutation.json
+[32m03:06:46 (48217) INFO HtmlReporter[39m Your report can be found at: file:///Users/RNEL/.codex/worktrees/rebuild-pr2/groundWork/reports/mutation.html
+[32m03:06:46 (48217) INFO MutationTestExecutor[39m Done in 24 seconds.

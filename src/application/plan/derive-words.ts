@@ -1,7 +1,7 @@
 import type { Core } from '@/application/plan/derive-core';
 import { present, sameJson, show, textOf, uniq } from '@/application/plan/derive-values';
 import { isRecord, prop, strings, typeOf } from '@/application/plan/ids';
-import { clip } from '@/shared/plain-text';
+import { clip } from '@/domain/plain-text';
 
 /** Plain words for the props a modify op touches most. */
 const PROP_WORDS: Record<string, string> = {

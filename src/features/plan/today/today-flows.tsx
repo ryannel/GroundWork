@@ -1,4 +1,5 @@
 import type { Model } from '@/application/plan/derive';
+import { isAuthoredReference } from '@/domain/ids';
 import { FlowViewer } from '@/features/plan/viz/flow-viewer/flow-viewer';
 import { InlineMarkdown } from '@/ui/markdown';
 import { Text } from '@/ui/text';
@@ -26,12 +27,14 @@ export function TodayFlow({ model, id, base }: TodayFlowProps) {
         <p className={styles.ends}>
           {node.trigger === undefined ? null : (
             <span>
-              <strong>Starts when</strong> <InlineMarkdown text={node.trigger} />
+              <strong>Starts when</strong>{' '}
+              <InlineMarkdown isReference={isAuthoredReference} text={node.trigger} />
             </span>
           )}
           {node.outcome === undefined ? null : (
             <span>
-              <strong>Ends with</strong> <InlineMarkdown text={node.outcome} />
+              <strong>Ends with</strong>{' '}
+              <InlineMarkdown isReference={isAuthoredReference} text={node.outcome} />
             </span>
           )}
         </p>

@@ -1,6 +1,8 @@
 import { gapDays, rollUpCommitment, type CommitmentState } from '@/application/plan/work-standing';
 import { thingHref } from '@/application/plan-pages-things';
 import { shortDate } from '@/application/plan-viz-state';
+import { issueUrlOf } from '@/domain/code-links';
+import { qualifyId } from '@/domain/ids';
 import type { ProgressEvent } from '@/domain/plan/plan.generated';
 
 import { gapText, sourceWord, stateWord, type WorkCardVM } from './work-card';
@@ -73,7 +75,7 @@ export function milestoneVM(
     );
   const gap = gapDays(promisedFor, neededBy);
   return {
-    key: `${plan}/${id}`,
+    key: qualifyId(plan, id),
     id,
     scope: plan,
     name: standing?.milestone.name ?? id,
@@ -87,7 +89,7 @@ export function milestoneVM(
 }
 
 function labelIn(index: WorkspacePlanIndex, plan: string, subject: string): string {
-  const work = index.work.get(`${plan}/${subject}`);
+  const work = index.work.get(qualifyId(plan, subject));
   if (work !== undefined) return work.card.title;
   const ms = index.plans.get(plan)?.milestones.find((m) => m.id === subject);
   return ms?.name ?? subject;
@@ -99,7 +101,7 @@ function eventUrl(event: ProgressEvent): string | null {
   if (source.url !== undefined) return source.url;
   return source.repo === undefined || source.issue === undefined
     ? null
-    : `https://github.com/${source.repo}/issues/${String(source.issue)}`;
+    : issueUrlOf(source.repo, source.issue);
 }
 
 /** One event, worded, newest first when sorted with byNewest. */
