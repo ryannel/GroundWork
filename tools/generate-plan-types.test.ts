@@ -19,6 +19,7 @@ it('every committed model contract is generated from the canonical schemas', asy
     'src/domain/model/workspace.generated.ts',
     'src/domain/model/plan.generated.ts',
     'src/domain/model/evidence.generated.ts',
+    'src/domain/model/citations.generated.ts',
     'src/domain/model/contracts.generated.ts',
   ]);
   for (const contract of contracts) {

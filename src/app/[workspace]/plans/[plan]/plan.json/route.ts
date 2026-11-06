@@ -1,4 +1,5 @@
 import type { PlanParams } from '@/infrastructure/plan-data';
+import { readPlacementData } from '@/infrastructure/today-model';
 import { readPlanState } from '@/infrastructure/workspace-plans';
 
 // The checked plan, the state of its work items, where its work stands and what the plans it builds on added and changed, for the browser
@@ -15,6 +16,7 @@ export async function GET(
   const { loaded } = state;
   return Response.json({
     plan: loaded.plan,
+    placements: loaded.base.mode === 'live' ? await readPlacementData(workspace) : {},
     status: loaded.status,
     inherited: loaded.inherited,
     standing: loaded.standing,

@@ -1,0 +1,17 @@
+
+> groundwork@0.0.0 budget
+> node --import ./tools/register.ts tools/page-budget.ts
+
+599 pages; the heaviest:
+   1,021 KB  /volvo-cars/commercial-backbone/assortment/flows/mas-commercial-item-update/
+   1,010 KB  /volvo-cars/commercial-backbone/assortment/flows/pds-product-service-sync/
+   1,009 KB  /volvo-cars/commercial-backbone/assortment/
+     990 KB  /volvo-cars/commercial-backbone/assortment/flows/prism-import-product-service-identities/
+     989 KB  /volvo-cars/commercial-backbone/assortment/flows/ps-variant-lifecycle/
+     983 KB  /volvo-cars/commercial-backbone/assortment/flows/ps-import-pcf-carconfig/
+     975 KB  /volvo-cars/commercial-backbone/assortment/flows/pds-admin-enrichment-update/
+     975 KB  /volvo-cars/commercial-backbone/assortment/flows/assortment-cache-pds-upsert/
+     971 KB  /volvo-cars/commercial-backbone/assortment/flows/assortment-read-current-view/
+     958 KB  /volvo-cars/commercial-backbone/assortment/flows/ps-consume-upstream/
+
+Every page is within 1,024 KB.

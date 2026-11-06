@@ -1,6 +1,10 @@
 // @vitest-environment happy-dom
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
+import { acme } from '@/../test/workspace-kit';
+import { placementDataOf } from '@/application/plan/derive-placement';
+import { systemGroups } from '@/application/plan-pages-entity-system';
+
 import { pendingModel } from './plan-model';
 
 vi.mock(import('server-only'), () => ({}));
@@ -18,6 +22,23 @@ describe('pendingModel', () => {
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue(Response.json({ plan })));
     const model = await pendingModel('today/model.json').model;
     expect(model?.label('svc:subs')).toBe('Subscriptions');
+  });
+
+  it('keeps an ownerless topic in its recorded system after the browser reads model.json', async () => {
+    const { today } = acme();
+    const placements = placementDataOf(today.model.asIs, today.model.place);
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue(Response.json({ plan: today.plan, placements })),
+    );
+    const browser = await pendingModel('placement/model.json').model;
+    expect(browser?.ownerService('st:product-events')).toBeNull();
+    expect(browser?.place('st:product-events')).toMatchObject({ system: 'sys:products' });
+    if (browser === null) throw new Error('Missing browser model');
+    expect(systemGroups(browser, 'sys:search')).toContainEqual({
+      label: 'Gets data from',
+      ids: ['sys:products'],
+    });
   });
 
   it('gives nothing for a document that is not one', async () => {

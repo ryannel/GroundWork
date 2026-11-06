@@ -1,7 +1,7 @@
 // Acme speaking in two domains, and key terms that point at things Acme does not have.
 import { acme, type Acme } from '@/../test/workspace-kit';
 import { systemModelOf } from '@/application/workspace-model';
-import type { DomainLanguage, KeyTerm, WorkspaceModel } from '@/domain/workspace-model';
+import type { DomainLanguage, KeyTerm, LegacyWorkspaceModel } from '@/domain/workspace-model';
 
 /** The catalogue's words: a SKU, born in the Products API. */
 function catalogueLanguage(): DomainLanguage {
@@ -23,7 +23,7 @@ function catalogueLanguage(): DomainLanguage {
 /** Acme with a language in the catalogue as well as in orders, in the order the store reads them: by folder. */
 export function acmeSpeaking(): Acme {
   const { workspace, model } = acme();
-  const speaking: WorkspaceModel = {
+  const speaking: LegacyWorkspaceModel = {
     ...model,
     languages: [catalogueLanguage(), ...model.languages],
   };
@@ -54,7 +54,7 @@ function strayTerm(): KeyTerm {
 }
 
 /** Acme's model with the stray key term added. */
-export function withStrayTerm(model: WorkspaceModel): WorkspaceModel {
+export function withStrayTerm(model: LegacyWorkspaceModel): LegacyWorkspaceModel {
   return {
     ...model,
     keyTerms: { ...model.keyTerms, terms: [...model.keyTerms.terms, strayTerm()] },

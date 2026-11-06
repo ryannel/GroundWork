@@ -1,0 +1,1 @@
+{"kind":"graphql_document_binding","id":"ev:document","source":"ev:source","document_name":"OrderQuery","operation_type":"query","operation_name":"OrderQuery","variables":[],"selections":[{"path":"selectedOrder","field_name":"order","arguments":[],"source":"ev:source"},{"path":"selectedOrder.id","field_name":"id","arguments":[],"source":"ev:source"}]}

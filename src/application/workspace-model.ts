@@ -1,3 +1,4 @@
+import { legacyPlacements } from '@/application/legacy-placement';
 import { derive, type Model } from '@/application/plan/derive';
 import { homeUrlOf } from '@/domain/code-links';
 import { buildId } from '@/domain/ids';
@@ -22,7 +23,7 @@ import type {
   Scan,
   SystemContracts,
   TargetArchitecture,
-  WorkspaceModel,
+  LegacyWorkspaceModel,
 } from '@/domain/workspace-model';
 
 export interface SystemModel {
@@ -55,11 +56,11 @@ const STORE_KIND: Partial<Record<ComponentType, Store['kind']>> = {
   queue: 'topic',
 };
 
-export function systemModelOf(workspace: Workspace, model: WorkspaceModel): SystemModel {
+export function systemModelOf(workspace: Workspace, model: LegacyWorkspaceModel): SystemModel {
   const plan = systemPlanOf(workspace, model);
   return {
     plan,
-    model: derive(plan),
+    model: derive(plan, { placements: legacyPlacements(workspace, model.contracts) }),
     attribution: model.attribution,
     scans: model.scans,
     languages: model.languages,
@@ -68,7 +69,7 @@ export function systemModelOf(workspace: Workspace, model: WorkspaceModel): Syst
   };
 }
 
-function systemPlanOf(workspace: Workspace, model: WorkspaceModel): Plan {
+function systemPlanOf(workspace: Workspace, model: LegacyWorkspaceModel): Plan {
   const contracts = new Map(model.contracts.map((entry) => [entry.system, entry]));
   const systems = systemsOf(workspace);
   const parts = systems.map((system) => partsOf(system, contracts.get(system.id)));
@@ -133,7 +134,7 @@ function partsOf(
   const stores: Store[] = [];
   for (const component of system.components) {
     const kind = SERVICE_KIND[component.type];
-    if (kind === null) stores.push(storeOf(component, system, kept.get(component.id)));
+    if (kind === null) stores.push(storeOf(component, kept.get(component.id)));
     else services.push(serviceOf(component, system, detail.get(component.id)));
   }
   return { services, stores };
@@ -158,14 +159,9 @@ function serviceOf(
   };
 }
 
-function storeOf(component: Component, system: System, kept: Store | undefined): Store {
-  const owner = system.components.find(({ type }) => SERVICE_KIND[type] !== null)?.id;
-  if (kept === undefined && owner === undefined) {
-    throw new Error(`store ${component.id} has no owner: system ${system.id} has no service`);
-  }
+function storeOf(component: Component, kept: Store | undefined): Store {
   return {
     kind: STORE_KIND[component.type] ?? 'database',
-    owner: owner ?? '',
     ...kept,
     id: component.id,
     name: component.name,

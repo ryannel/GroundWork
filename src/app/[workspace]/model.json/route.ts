@@ -1,3 +1,4 @@
+import { placementDataOf } from '@/application/plan/derive-placement';
 import { todayData } from '@/infrastructure/today-data';
 
 // How the workspace's systems work today, as a plan-shaped document with no work and so no status, for the
@@ -13,5 +14,8 @@ export async function GET(
   const { workspace } = await params;
   const data = await todayData(workspace);
   if (data === null) return new Response('No such workspace', { status: 404 });
-  return Response.json({ plan: data.today.plan });
+  return Response.json({
+    plan: data.today.plan,
+    placements: placementDataOf(data.today.model.asIs, data.today.model.place),
+  });
 }

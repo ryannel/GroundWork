@@ -41,12 +41,9 @@ function flowOf(model: Model, id: string) {
   return node?.$type === 'flow' ? node : null;
 }
 
-/** The system a component belongs to: a service's own, a store's through the service that owns it. */
+/** The containing system, independently of the component's owner. */
 function systemOf(model: Model, id: string): string | null {
-  const node = model.asIs.get(id);
-  if (node?.$type === 'service') return node.system ?? null;
-  if (node?.$type === 'store' && node.owner !== undefined) return systemOf(model, node.owner);
-  return null;
+  return model.place(id)?.system ?? null;
 }
 
 function crossed(

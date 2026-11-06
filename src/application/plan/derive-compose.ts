@@ -6,6 +6,7 @@ import { createEdges, type EdgeQueries } from '@/application/plan/derive-edges';
 import { createHandlers, type HandlerQueries } from '@/application/plan/derive-handlers';
 import { createLadder } from '@/application/plan/derive-ladder';
 import { createOwners, type Owners } from '@/application/plan/derive-owners';
+import type { LegacyPlacements } from '@/application/plan/derive-placement';
 import { createRegister, type Register } from '@/application/plan/derive-register';
 import { createStory, type StoryQueries } from '@/application/plan/derive-story';
 import { createTeams, type TeamQueries } from '@/application/plan/derive-teams';
@@ -23,6 +24,7 @@ import type { IssueStatus } from '@/domain/plan/plan-status';
 import type { Plan } from '@/domain/plan/plan.generated';
 
 export interface DeriveOptions {
+  readonly placements?: LegacyPlacements;
   /** GitHub issue state of each work item, from the GitHub events in progress.yaml. */
   readonly status?: IssueStatus | undefined;
   /** Findings the caller already has; without them the model validates the plan itself. */

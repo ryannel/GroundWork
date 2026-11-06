@@ -1,6 +1,6 @@
 // Writes src/domain/plan/plan.generated.ts from schema/legacy-plan.schema.json. Run with `npm run generate`.
 import { spawnSync } from 'node:child_process';
-import { readFile, writeFile } from 'node:fs/promises';
+import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
 import { compile } from 'json-schema-to-typescript';
@@ -210,40 +210,119 @@ function typeRegistry(
   return inlined;
 }
 
-// Apply the repository's existing formatting rules without adding another type declaration path.
-function formattingOutput(source: string, args: readonly string[]): string {
+function schemaReferences(value: unknown): readonly string[] {
+  if (Array.isArray(value)) return value.flatMap(schemaReferences);
+  if (!isObject(value)) return [];
+  const own = typeof value.$ref === 'string' ? [value.$ref.split('/').at(-1) ?? ''] : [];
+  return [...own, ...Object.values(value).flatMap(schemaReferences)];
+}
+
+function citedDefinitions(definitions: JsonObject): ReadonlySet<string> {
+  const names = new Set(['AuthoredCites']);
+  let previous = -1;
+  while (previous !== names.size) {
+    previous = names.size;
+    for (const [name, definition] of Object.entries(definitions)) {
+      if (schemaReferences(definition).some((reference) => names.has(reference))) names.add(name);
+    }
+  }
+  return names;
+}
+
+function citationShape(value: unknown, cited: ReadonlySet<string>): JsonObject | null {
+  if (!isObject(value)) return null;
+  const reference = typeof value.$ref === 'string' ? value.$ref.split('/').at(-1) : undefined;
+  if (reference !== undefined) return cited.has(reference) ? { ref: reference } : null;
+  const props = isObject(value.properties)
+    ? Object.entries(value.properties).flatMap(([key, child]) => {
+        const shape = citationShape(child, cited);
+        return shape === null ? [] : [[key, shape]];
+      })
+    : [];
+  const items = citationShape(value.items, cited);
+  const choices = ['anyOf', 'oneOf', 'allOf'].flatMap((key) => {
+    const variants = value[key];
+    if (!Array.isArray(variants)) return [];
+    return variants.flatMap((variant: unknown) => {
+      const shape = citationShape(variant, cited);
+      return shape === null ? [] : [shape];
+    });
+  });
+  if (props.length === 0 && items === null && choices.length === 0) return null;
+  return {
+    ...(props.length === 0 ? {} : { props }),
+    ...(items === null ? {} : { items }),
+    ...(choices.length === 0 ? {} : { choices }),
+  };
+}
+
+function generateCitationShapes(schemas: ReadonlyMap<string, JsonObject>): string {
+  const contract = CONTRACTS[0];
+  const registry = typeRegistry(schemas, contract);
+  const definitions = registry.$defs;
+  if (!isObject(definitions)) throw new Error('Missing citation definitions.');
+  const cited = citedDefinitions(definitions);
+  const authored = definitions.AuthoredCites;
+  const minimum =
+    isObject(authored) && typeof authored.minItems === 'number' ? authored.minItems : 0;
+  const shapes = Object.fromEntries(
+    [...cited].map((name) => [
+      name,
+      name === 'AuthoredCites' ? { cites: true, minimum } : citationShape(definitions[name], cited),
+    ]),
+  );
+  return `/* Generated from canonical schemas by tools/generate-plan-types.ts. Do not edit: run npm run generate. */
+export interface CitationShape {
+  readonly cites?: true;
+  readonly minimum?: number;
+  readonly ref?: string;
+  readonly props?: readonly (readonly [string, CitationShape])[];
+  readonly items?: CitationShape;
+  readonly choices?: readonly CitationShape[];
+}
+export const CITATION_SHAPES: Readonly<Record<string, CitationShape>> = ${JSON.stringify(shapes, null, 2)};
+`;
+}
+
+// Apply every existing rule in one formatter process per batch, rather than reloading the project per file.
+function formatGenerated(args: readonly string[]): void {
   const result = spawnSync(process.execPath, args, {
     cwd: ROOT,
-    input: source,
     encoding: 'utf8',
     maxBuffer: 8 * 1024 * 1024,
   });
   if (result.status !== 0) {
     throw new Error(`Generated type formatting failed: ${result.stderr}\n${result.stdout}`);
   }
-  return result.stdout;
 }
 
-function normaliseGenerated(source: string, file: string): string {
-  const report: unknown = JSON.parse(
-    formattingOutput(source, [
-      'node_modules/eslint/bin/eslint.js',
-      '--stdin',
-      '--stdin-filename',
-      file,
-      '--fix-dry-run',
-      '--format',
-      'json',
-    ]),
-  );
-  const first: unknown = Array.isArray(report) ? report[0] : undefined;
-  if (!isObject(first)) throw new Error('Missing generated type lint report.');
-  const fixed = typeof first.output === 'string' ? first.output : source;
-  return formattingOutput(fixed, [
-    'node_modules/prettier/bin/prettier.cjs',
-    '--stdin-filepath',
-    file,
-  ]);
+async function normaliseGenerated(
+  contracts: readonly GeneratedContract[],
+): Promise<readonly GeneratedContract[]> {
+  // Keep the same src/**/*.generated.ts rules and project context as the final files.
+  const folder = await mkdtemp(path.join(ROOT, 'src/domain/model/generate-'));
+  try {
+    const entries = contracts.map((contract) => ({
+      contract,
+      file: path.join(folder, path.basename(contract.file)),
+    }));
+    const files = entries.map((entry) => entry.file);
+    await Promise.all(
+      entries.map(async ({ contract, file }) => {
+        await writeFile(file, contract.source);
+      }),
+    );
+    formatGenerated(['node_modules/eslint/bin/eslint.js', '--fix', ...files]);
+    formatGenerated(['node_modules/prettier/bin/prettier.cjs', '--write', ...files]);
+    return await Promise.all(
+      entries.map(async ({ contract, file }) => ({
+        file: contract.file,
+        source: await readFile(file, 'utf8'),
+      })),
+    );
+  } finally {
+    await rm(folder, { recursive: true, force: true });
+  }
 }
 
 export async function generateModelTypes(): Promise<readonly GeneratedContract[]> {
@@ -264,14 +343,20 @@ export async function generateModelTypes(): Promise<readonly GeneratedContract[]
       style,
     });
     const file = `src/domain/model/${contract.file}`;
-    generated.push({ file, source: normaliseGenerated(source, file) });
+    generated.push({ file, source });
   }
-  generated.push({
-    file: 'src/domain/model/contracts.generated.ts',
-    source:
-      "/* Generated by tools/generate-plan-types.ts. Do not edit: run npm run generate. */\nimport type { CanonicalEvidenceTypes } from '@/domain/model/evidence.generated';\nimport type { CanonicalPlanTypes } from '@/domain/model/plan.generated';\nimport type { WorkspaceDocumentTypes } from '@/domain/model/workspace.generated';\n\n/** Schema-generated data is exposed as immutable values throughout the model. */\nexport type ReadonlyData<T> = T extends object\n  ? { readonly [Key in keyof T]: ReadonlyData<T[Key]> }\n  : T;\n\nexport interface ContractTypes {\n  readonly workspace: WorkspaceDocumentTypes;\n  readonly plan: CanonicalPlanTypes;\n  readonly evidence: CanonicalEvidenceTypes;\n}\nexport type ContractFamily = keyof ContractTypes;\nexport type ContractDefinition<Family extends ContractFamily> = Extract<\n  keyof ContractTypes[Family],\n  string\n>;\nexport type ContractData<\n  Family extends ContractFamily,\n  Definition extends ContractDefinition<Family>,\n> = ReadonlyData<ContractTypes[Family][Definition]>;\n",
-  });
-  return generated;
+  generated.push(
+    {
+      file: 'src/domain/model/citations.generated.ts',
+      source: generateCitationShapes(schemas),
+    },
+    {
+      file: 'src/domain/model/contracts.generated.ts',
+      source:
+        "/* Generated by tools/generate-plan-types.ts. Do not edit: run npm run generate. */\nimport type { CanonicalEvidenceTypes } from '@/domain/model/evidence.generated';\nimport type { CanonicalPlanTypes } from '@/domain/model/plan.generated';\nimport type { WorkspaceDocumentTypes } from '@/domain/model/workspace.generated';\n\n/** Schema-generated data is exposed as immutable values throughout the model. */\nexport type ReadonlyData<T> = T extends object\n  ? { readonly [Key in keyof T]: ReadonlyData<T[Key]> }\n  : T;\n\nexport interface ContractTypes {\n  readonly workspace: WorkspaceDocumentTypes;\n  readonly plan: CanonicalPlanTypes;\n  readonly evidence: CanonicalEvidenceTypes;\n}\nexport type ContractFamily = keyof ContractTypes;\nexport type ContractDefinition<Family extends ContractFamily> = Extract<\n  keyof ContractTypes[Family],\n  string\n>;\nexport type ContractData<\n  Family extends ContractFamily,\n  Definition extends ContractDefinition<Family>,\n> = ReadonlyData<ContractTypes[Family][Definition]>;\n",
+    },
+  );
+  return normaliseGenerated(generated);
 }
 
 if (process.argv[1] === import.meta.filename) {

@@ -1,0 +1,667 @@
+{
+  "base": "7cfdcbc9470559eafcdeea040fc238f8872166b9",
+  "sourceCommit": "fb559433c45409febc16315555eb7911168a5051",
+  "sources": {
+    "docs/architecture.md": "03369e5544467cd7ac789c2d8ac9b35b88e29b61e23e49ad55918743c0663096",
+    "src/app/[workspace]/model.json/route.ts": "b6ac99f8746f11f1a1592833e17d13d94375074990a37d1862bde3fb5936bdc5",
+    "src/app/[workspace]/plans/[plan]/plan.json/route.ts": "f152928c9bb4b3a1858bff6aaeab279e7fe5740940705860ab99b10e56c5732b",
+    "src/application/area-map/resources.test.ts": "522cf4e279e5b29f189ddad15c505e12048e3d35032c904b342395c15a8f28f0",
+    "src/application/area-map/resources.ts": "98f9f11605bee950eb48d3a39886f03d790a98961642d35f8ae16aff9c842f20",
+    "src/application/legacy-placement.ts": "a17bd40d1132202a8cf65cf1e6f646d91c6e1682318c8c239071c9fc8836c036",
+    "src/application/legacy-view.test.ts": "44db5fcd963f31c329b5419a0c46de5694c3475d444ace3653bf15600893c301",
+    "src/application/legacy-view.ts": "5044f1cd3f3266c87bb7a82bd1fa514cee61c2364717ebafbcde34623d97ccde",
+    "src/application/model-graphql.ts": "01b4dfb776a8395adf71a47eb698456ad79f612ce5ecb793561417f859f9ea84",
+    "src/application/model-index-containment.test.ts": "b1aa2366224fe896f6a75f1f4ef0fbbd14db68ac120da2c3ceb417b85c2d1750",
+    "src/application/model-index.test.ts": "5a3269ad217db00e2782d5e49e031deb88663d005b5f131db30a3223746128f9",
+    "src/application/model-index.ts": "d8f1d12b848c4a49eb9fd386524283d43ad011d58a1966500530966ca2764efd",
+    "src/application/model-map.test.ts": "a6be3e43a0bb1408b54df834cf6ffecfc0cdfe73ff191a1374cbbe93bb416e43",
+    "src/application/model-map.ts": "d9b8a4b4e870bb4fc05e3705fffdcfe4348d6d752c7f82ae27a4bc37f532d495",
+    "src/application/plan-pages-entity-system.ts": "3213b4b08f77dc2f9848c06804c3a0f1359b6198aaf32372f859e5395f1b518a",
+    "src/application/plan-story-part.test.ts": "188415c6b121120260031c072b264913c8881d155e878c8b45f6f3aa2ea3dc7e",
+    "src/application/plan-viz-owners.test.ts": "a15bddf498d76175736f15cc12bf7b6732e33758ecb793e6279c25eccf9d860f",
+    "src/application/plan/derive-compose.ts": "d74c253d0e0e9dba80d62688fa7b123386dfa1200cf818a72a82534843470dea",
+    "src/application/plan/derive-placement.test.ts": "27bf9893120dcd7f97f3c2b40a402c08920263d3880c766425406de7cfc1f3ae",
+    "src/application/plan/derive-placement.ts": "bf4e60c3194c96b50cf5acaa88904102425dd0fb01722181345336bc833d1d9c",
+    "src/application/plan/derive.ts": "4f9c322338bd4f0e0a241f7b956500ced483ca1c768b53ab4be87d1bb1dcd7a3",
+    "src/application/plan/graph.ts": "ffe0ef0ef71f0195e5f1625f00c88e1bab050162aacfd9b49fc290f7e17d9697",
+    "src/application/plan/plan-base.test.ts": "31cf190e69ac4ab6fea5c2f75ef7ebdae7c69f55d2b489495f2c8aab9eecb3c3",
+    "src/application/plan/plan-base.ts": "5a8a3906574da6e886c0cfdaaa0ce0f20f3552debfdc1ab66c7e74fbba2c0727",
+    "src/application/plans-index.ts": "c3aed1229bc67b1a96ca187724a1783ee69d5bf60c85b161e08e3d19d59a97aa",
+    "src/application/system-map.test.ts": "526472946447e2bcae8ac1b97fe46d72d3faf7a8ae307abcc12e14db304b104b",
+    "src/application/system-map.ts": "ae3b61c0f827006a0658980286dc878d7e3dcb7df0c7028a73049b8ca7572360",
+    "src/application/today-journeys.test.ts": "dcbfb5cdd80e9df773083fc7dda86c708c3c23530e64fd96714dce1dfd22aa3a",
+    "src/application/today-journeys.ts": "90fcbe8c27087b167991fd7c6af48b9ead918f6bbb824894213ddba9cd1b09c7",
+    "src/application/workspace-area.test.ts": "eff51e4436aa1c41bbb2741f7597207a1c78079208761ac97d4181098a93c171",
+    "src/application/workspace-area.ts": "240e41733b0874bdeebe807d21696c015ecbed9172d3d251048f2b51bf2935b6",
+    "src/application/workspace-language.ts": "f1911d19cce7aeed20519a825e050a12fe680ea75031d89388344f778a217b57",
+    "src/application/workspace-model.test.ts": "d121b9fd5b18110cf5a34d18a1b91dbfd88f302753d0684cfeefa366a9823e52",
+    "src/application/workspace-model.ts": "0077d15ab834ad80bca7ef6dfd35e112527498ce4c3065fdddf730ffb174ff1b",
+    "src/application/workspace-work/workspace-plan-index.test.ts": "0fa684048bf4d34bd6609d2d08e799d33bcb46329d47a6f6185da631044d0777",
+    "src/application/workspace-work/workspace-plan-index.ts": "5459c6fd3058d222c854ba923fb6e0f87d8819106eed757e7becabb9ddfb0ef1",
+    "src/domain/code-links.ts": "98efac171e4e1fadc1cd3ae0847991ebbefd7526376dfdfb0cb13e8a2df03ab4",
+    "src/domain/model-citations.ts": "051030cc9bac7703d2ac2e754bd912d00a868bf29f7cc0b8c9469593ed7aa480",
+    "src/domain/model-cite-resolution.test.ts": "c58751fd30faf5f0a291e0da365f4ef7b3689b807103ac0dc8e365b50f489d44",
+    "src/domain/model-cite-resolution.ts": "5c892ab75d4c382e38413d90df5e286b3931106e04b0c8c9ebef2af94c35abae",
+    "src/domain/model/citations.generated.ts": "a26500a13d205198243247d7438c8cd345459db6c7031bb83a0f663e669477c3",
+    "src/domain/plan-apply.test.ts": "87b2dee7fbf9a5cd364115747695ee6c6562843a0b16d96493d7dcccda2b047d",
+    "src/domain/plan-apply.ts": "da2a6c2ee63fd4013cd31e4dbcbf11aa991a4bbce8a05610e79c7f2da64159af",
+    "src/domain/workspace-model.ts": "eb9722caf309fd2b52dc3296303fb3d354e86cf0c19ff5819b71dde21d01ffdf",
+    "src/features/plan/plan-model.test.ts": "2bb01b3f12aefa5882d226778a31b0e97613496f8dc6d20c53e589dd39edee54",
+    "src/features/plan/plan-model.ts": "a4333a2e70a8110d95f5e00bccded40bb7cc002c26592c723af6421fea239491",
+    "src/features/plan/viz/owners/owners.test.tsx": "3e2c2755ea0fbabbdbe34f0bf8ba9c0320c4b4e85384c661f16258f067232561",
+    "src/features/workspace/rebuild-model.test.tsx": "b7105158fac85a5da4c31e5d0dee52a730b554f28d7a3440d233be6608535c29",
+    "src/infrastructure/model-schema.ts": "0e58e94a93985497acef17105a4186482ba7824855429fb350f8fe88da657cde",
+    "src/infrastructure/plan-data.ts": "ac5d41da7ce144a3b26f48ee65125776634a0638af421e36fdcf1bfd485429da",
+    "src/infrastructure/read-model.test.ts": "2bfb95a55a6459a89542f5770a026b56e2aaf697880ff70d33b84e497358a3cd",
+    "src/infrastructure/read-model.ts": "bf6711809597b1a9983e29b31de95b4a861062c79d664e849ad27399277e317e",
+    "src/infrastructure/today-model.ts": "a06a3baf07a9bf9609617caeb3de38646a91a7c47d94228595721705d0e94d81",
+    "src/infrastructure/validate-model.ts": "c5cdf4d60c234fd8536ee7175532adb211d0729e042492a1c665f863c3248ea3",
+    "src/infrastructure/workspace-memo.ts": "0738f7ef52b6ce84d23422726d0eefc86c6227e3c8d5f485a3f68b5e091c322f",
+    "src/infrastructure/workspace-model.ts": "7d35329a29fddc9aca186be3662edce69ebd2284d222eb34d4f5d26e97433de4",
+    "src/infrastructure/workspace-plan-index.test.ts": "cee18a81f0733060a02e735aa3f0f20a8ce23dab01e40d3c2cbcdb2f084cf321",
+    "src/infrastructure/workspace-plan-index.ts": "8bc9cb25b89d71f7a0476bbcea1606e1f4d05a58a683285b0b7ebd479c3cf568",
+    "test/fixtures/acme/model.ts": "d5d3ac82b8db3b54f3eab0ad7bcfb26d950be34f332566fedeb103403805260f",
+    "test/fixtures/acme/plans/core-checkout.ts": "426a344e81a968b630332c3228dd076bb47196a67b827d46da51f34c76286429",
+    "test/fixtures/model-queries.ts": "3e17cc43b71830cacdda02d5341dd19a4fae2fe633196b67fcfdb326c71aa9c3",
+    "test/fixtures/model/domains/orders/systems/ordering/contracts.yaml": "96f5ba2bed25410db4f9535c598419ba47e89bff4ec37a5ea77683b27be674f2",
+    "test/fixtures/model/domains/orders/systems/ordering/system.yaml": "7bb1adb0917a9c4c4691340cc060779722e60eee849514bb4e2bdb2f9021fd16",
+    "test/fixtures/model/evidence/example/orders/bindings.jsonl": "9a8fdb3520854326a693743049db76e649bb820701938000a77e27f870196c23",
+    "test/fixtures/model/externals.yaml": "fe831b14a3fef42b0c10a8e945f7ef88fe23f8f0bbce6e022291065847759409",
+    "test/fixtures/plan-index.ts": "f2e1591196e26d139c26ea7a2f4ec696bdbc96207fe85704f004e2a9c92c155f",
+    "test/fixtures/workspace-language.ts": "52bc26f1ddff8c1926bf06e1274d8baeb504716a0401b0bc08cb23d1bef69b48",
+    "test/workspace-kit.ts": "ec32a635aa22c79429eceb31f690f7c2984c751c4319bf13a02115a0a83c557a",
+    "tools/generate-plan-types.test.ts": "b749b3454fde0f487cc2143f57d0bfd2a9de2dd182a9fec22cd672f5b23fd2c2",
+    "tools/generate-plan-types.ts": "929acb2899486909a122b67a70d65fecf79bf6d95a1fb623476f73302288ace0"
+  },
+  "before": {
+    "counts": {
+      "domains": 1,
+      "systems": 1,
+      "components": 5,
+      "entries": 11,
+      "handlers": 4,
+      "steps": 25,
+      "evidence": 23,
+      "edges": 11,
+      "gaps": 14
+    },
+    "gaps": [
+      {
+        "id": "st:unknown-owner",
+        "kind": "no_owner",
+        "message": "No cited resource owner is recorded."
+      },
+      {
+        "id": "top:confirmed",
+        "kind": "no_owner",
+        "message": "No cited resource owner is recorded."
+      },
+      {
+        "id": "api:legacy",
+        "kind": "no_caller",
+        "message": "No caller is recorded."
+      },
+      {
+        "id": "api:legacy",
+        "kind": "no_handler",
+        "message": "No handler detail is recorded."
+      },
+      {
+        "id": "api:order-query",
+        "kind": "no_handler",
+        "message": "No handler detail is recorded."
+      },
+      {
+        "id": "api:grpc-confirm",
+        "kind": "no_caller",
+        "message": "No caller is recorded."
+      },
+      {
+        "id": "api:grpc-confirm",
+        "kind": "no_handler",
+        "message": "No handler detail is recorded."
+      },
+      {
+        "id": "api:charge",
+        "kind": "no_handler",
+        "message": "No handler detail is recorded."
+      },
+      {
+        "id": "job:nightly",
+        "kind": "no_handler",
+        "message": "No handler detail is recorded."
+      },
+      {
+        "id": "job:manual",
+        "kind": "no_handler",
+        "message": "No handler detail is recorded."
+      },
+      {
+        "id": "job:unknown",
+        "kind": "no_handler",
+        "message": "No handler detail is recorded."
+      },
+      {
+        "id": "job:unknown",
+        "kind": "no_schedule",
+        "message": "No schedule or trigger is recorded."
+      },
+      {
+        "id": "sch:confirm#unknown",
+        "kind": "no_schema",
+        "message": "No field type is recorded."
+      },
+      {
+        "id": "sys:ordering",
+        "kind": "unbacked_connection",
+        "message": "The stated connection has no recorded execution backing.",
+        "reference": "sys:delivery"
+      }
+    ],
+    "edges": [
+      {
+        "from": "svc:ordering",
+        "to": "st:orders",
+        "kind": "read",
+        "via": "sch:order",
+        "site": "h:confirm#load",
+        "handler": "h:confirm",
+        "entry": "api:confirm",
+        "cites": [
+          {
+            "kind": "code",
+            "repo": "example/orders",
+            "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "path": "apps/ordering/src/Confirm.ts",
+            "lines": [
+              5,
+              7
+            ]
+          }
+        ],
+        "source": "handler"
+      },
+      {
+        "from": "svc:ordering",
+        "to": "st:orders",
+        "kind": "write",
+        "via": "sch:order#status",
+        "site": "h:confirm#tx/save",
+        "handler": "h:confirm",
+        "entry": "api:confirm",
+        "cites": [
+          {
+            "kind": "code",
+            "repo": "example/orders",
+            "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "path": "apps/ordering/src/Confirm.ts",
+            "lines": [
+              12,
+              16
+            ]
+          }
+        ],
+        "source": "handler"
+      },
+      {
+        "from": "svc:ordering",
+        "to": "ext:payments",
+        "kind": "call",
+        "via": "api:charge",
+        "site": "h:confirm#lines/reserve",
+        "handler": "h:confirm",
+        "entry": "api:confirm",
+        "cites": [
+          {
+            "kind": "code",
+            "repo": "example/orders",
+            "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "path": "apps/ordering/src/Confirm.ts",
+            "lines": [
+              22,
+              27
+            ]
+          }
+        ],
+        "source": "handler"
+      },
+      {
+        "from": "svc:ordering",
+        "to": "st:orders",
+        "kind": "read",
+        "via": "sch:order",
+        "site": "h:confirm#enrich/order",
+        "handler": "h:confirm",
+        "entry": "api:confirm",
+        "cites": [
+          {
+            "kind": "code",
+            "repo": "example/orders",
+            "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "path": "apps/ordering/src/Confirm.ts",
+            "lines": [
+              30,
+              33
+            ]
+          }
+        ],
+        "source": "handler"
+      },
+      {
+        "from": "svc:ordering",
+        "to": "ext:payments",
+        "kind": "call",
+        "via": "api:charge",
+        "site": "h:confirm#enrich/payment",
+        "handler": "h:confirm",
+        "entry": "api:confirm",
+        "cites": [
+          {
+            "kind": "code",
+            "repo": "example/orders",
+            "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "path": "apps/ordering/src/Confirm.ts",
+            "lines": [
+              34,
+              37
+            ]
+          }
+        ],
+        "source": "handler"
+      },
+      {
+        "from": "svc:ordering",
+        "to": "top:confirmed",
+        "kind": "publish",
+        "via": "msg:confirmed",
+        "site": "h:confirm#deliver/send",
+        "handler": "h:confirm",
+        "entry": "api:confirm",
+        "cites": [
+          {
+            "kind": "code",
+            "repo": "example/orders",
+            "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "path": "apps/ordering/src/Confirm.ts",
+            "lines": [
+              40,
+              44
+            ]
+          }
+        ],
+        "source": "handler"
+      },
+      {
+        "from": "svc:ordering",
+        "to": "svc:ordering",
+        "kind": "causes",
+        "via": "h:on-confirmed",
+        "site": "h:confirm#deliver/send",
+        "handler": "h:confirm",
+        "entry": "api:confirm",
+        "cites": [
+          {
+            "kind": "code",
+            "repo": "example/orders",
+            "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "path": "apps/ordering/src/Confirm.ts",
+            "lines": [
+              40,
+              44
+            ]
+          }
+        ],
+        "source": "handler"
+      },
+      {
+        "from": "app:shop",
+        "to": "svc:ordering",
+        "kind": "call",
+        "via": "api:confirm",
+        "site": "h:click#submit",
+        "handler": "h:click",
+        "entry": "ui:confirm",
+        "cites": [
+          {
+            "kind": "evidence",
+            "id": "ev:source"
+          }
+        ],
+        "source": "handler"
+      },
+      {
+        "from": "top:confirmed",
+        "to": "svc:ordering",
+        "kind": "consume",
+        "via": "msg:confirmed",
+        "site": "sub:on-confirmed",
+        "handler": null,
+        "entry": null,
+        "cites": [],
+        "source": "subscription"
+      },
+      {
+        "from": "app:shop",
+        "to": "svc:ordering",
+        "kind": "call",
+        "via": "gql:order",
+        "site": "gql:order",
+        "handler": null,
+        "entry": null,
+        "cites": [],
+        "source": "operation"
+      },
+      {
+        "via": "ext:notifications",
+        "site": "rel:notifications",
+        "handler": null,
+        "entry": null,
+        "cites": [
+          {
+            "kind": "evidence",
+            "id": "ev:source"
+          }
+        ],
+        "source": "relationship",
+        "from": "svc:ordering",
+        "to": "ext:notifications",
+        "kind": "call"
+      }
+    ]
+  },
+  "after": {
+    "counts": {
+      "domains": 1,
+      "systems": 1,
+      "components": 5,
+      "entries": 10,
+      "handlers": 4,
+      "steps": 26,
+      "evidence": 23,
+      "edges": 11,
+      "gaps": 13
+    },
+    "gaps": [
+      {
+        "id": "st:unknown-owner",
+        "kind": "no_owner",
+        "message": "No cited resource owner is recorded."
+      },
+      {
+        "id": "top:confirmed",
+        "kind": "no_owner",
+        "message": "No cited resource owner is recorded."
+      },
+      {
+        "id": "api:legacy",
+        "kind": "no_caller",
+        "message": "No caller is recorded."
+      },
+      {
+        "id": "api:legacy",
+        "kind": "no_handler",
+        "message": "No handler detail is recorded."
+      },
+      {
+        "id": "api:order-query",
+        "kind": "no_handler",
+        "message": "No handler detail is recorded."
+      },
+      {
+        "id": "api:grpc-confirm",
+        "kind": "no_caller",
+        "message": "No caller is recorded."
+      },
+      {
+        "id": "api:grpc-confirm",
+        "kind": "no_handler",
+        "message": "No handler detail is recorded."
+      },
+      {
+        "id": "api:charge",
+        "kind": "no_handler",
+        "message": "No handler detail is recorded."
+      },
+      {
+        "id": "job:nightly",
+        "kind": "no_handler",
+        "message": "No handler detail is recorded."
+      },
+      {
+        "id": "job:unknown",
+        "kind": "no_handler",
+        "message": "No handler detail is recorded."
+      },
+      {
+        "id": "job:unknown",
+        "kind": "no_schedule",
+        "message": "No schedule or trigger is recorded."
+      },
+      {
+        "id": "sch:confirm#unknown",
+        "kind": "no_schema",
+        "message": "No field type is recorded."
+      },
+      {
+        "id": "sys:ordering",
+        "kind": "unbacked_connection",
+        "message": "The stated connection has no recorded execution backing.",
+        "reference": "sys:delivery"
+      }
+    ],
+    "edges": [
+      {
+        "from": "svc:ordering",
+        "to": "st:orders",
+        "kind": "read",
+        "via": "sch:order",
+        "site": "h:confirm#load",
+        "handler": "h:confirm",
+        "entry": "api:confirm",
+        "cites": [
+          {
+            "kind": "code",
+            "repo": "example/orders",
+            "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "path": "apps/ordering/src/Confirm.ts",
+            "lines": [
+              5,
+              7
+            ]
+          }
+        ],
+        "source": "handler"
+      },
+      {
+        "from": "svc:ordering",
+        "to": "st:orders",
+        "kind": "write",
+        "via": "sch:order#status",
+        "site": "h:confirm#tx/save",
+        "handler": "h:confirm",
+        "entry": "api:confirm",
+        "cites": [
+          {
+            "kind": "code",
+            "repo": "example/orders",
+            "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "path": "apps/ordering/src/Confirm.ts",
+            "lines": [
+              12,
+              16
+            ]
+          }
+        ],
+        "source": "handler"
+      },
+      {
+        "from": "svc:ordering",
+        "to": "ext:payments",
+        "kind": "call",
+        "via": "api:charge",
+        "site": "h:confirm#lines/reserve",
+        "handler": "h:confirm",
+        "entry": "api:confirm",
+        "cites": [
+          {
+            "kind": "code",
+            "repo": "example/orders",
+            "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "path": "apps/ordering/src/Confirm.ts",
+            "lines": [
+              22,
+              27
+            ]
+          }
+        ],
+        "source": "handler"
+      },
+      {
+        "from": "svc:ordering",
+        "to": "st:orders",
+        "kind": "read",
+        "via": "sch:order",
+        "site": "h:confirm#enrich/order",
+        "handler": "h:confirm",
+        "entry": "api:confirm",
+        "cites": [
+          {
+            "kind": "code",
+            "repo": "example/orders",
+            "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "path": "apps/ordering/src/Confirm.ts",
+            "lines": [
+              30,
+              33
+            ]
+          }
+        ],
+        "source": "handler"
+      },
+      {
+        "from": "svc:ordering",
+        "to": "ext:payments",
+        "kind": "call",
+        "via": "api:charge",
+        "site": "h:confirm#enrich/payment",
+        "handler": "h:confirm",
+        "entry": "api:confirm",
+        "cites": [
+          {
+            "kind": "code",
+            "repo": "example/orders",
+            "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "path": "apps/ordering/src/Confirm.ts",
+            "lines": [
+              34,
+              37
+            ]
+          }
+        ],
+        "source": "handler"
+      },
+      {
+        "from": "svc:ordering",
+        "to": "top:confirmed",
+        "kind": "publish",
+        "via": "msg:confirmed",
+        "site": "h:confirm#deliver/send",
+        "handler": "h:confirm",
+        "entry": "api:confirm",
+        "cites": [
+          {
+            "kind": "code",
+            "repo": "example/orders",
+            "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "path": "apps/ordering/src/Confirm.ts",
+            "lines": [
+              40,
+              44
+            ]
+          }
+        ],
+        "source": "handler"
+      },
+      {
+        "from": "svc:ordering",
+        "to": "svc:ordering",
+        "kind": "causes",
+        "via": "h:on-confirmed",
+        "site": "h:confirm#deliver/send",
+        "handler": "h:confirm",
+        "entry": "api:confirm",
+        "cites": [
+          {
+            "kind": "code",
+            "repo": "example/orders",
+            "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "path": "apps/ordering/src/Confirm.ts",
+            "lines": [
+              40,
+              44
+            ]
+          }
+        ],
+        "source": "handler"
+      },
+      {
+        "from": "app:shop",
+        "to": "svc:ordering",
+        "kind": "call",
+        "via": "api:confirm",
+        "site": "h:click#submit",
+        "handler": "h:click",
+        "entry": "ui:confirm",
+        "cites": [
+          {
+            "kind": "evidence",
+            "id": "ev:source"
+          }
+        ],
+        "source": "handler"
+      },
+      {
+        "from": "top:confirmed",
+        "to": "svc:ordering",
+        "kind": "consume",
+        "via": "msg:confirmed",
+        "site": "sub:on-confirmed",
+        "handler": null,
+        "entry": null,
+        "cites": [],
+        "source": "subscription"
+      },
+      {
+        "from": "app:shop",
+        "to": "svc:ordering",
+        "kind": "call",
+        "via": "gql:order",
+        "site": "gql:order",
+        "handler": null,
+        "entry": null,
+        "cites": [],
+        "source": "operation"
+      },
+      {
+        "via": "ext:notifications",
+        "site": "rel:notifications",
+        "handler": null,
+        "entry": null,
+        "cites": [
+          {
+            "kind": "evidence",
+            "id": "ev:source"
+          }
+        ],
+        "source": "relationship",
+        "from": "svc:ordering",
+        "to": "ext:notifications",
+        "kind": "call"
+      }
+    ]
+  },
+  "violations": [],
+  "loss": [],
+  "serialisable": true,
+  "legacyPageTest": "src/features/workspace/rebuild-model.test.tsx"
+}

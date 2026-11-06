@@ -38,7 +38,7 @@ function indexOf(model: Model): ResourceIndex {
   return index;
 }
 
-/** Ownership is placement evidence, not proof that the owner reads and writes a store. */
+/** Resource access requires recorded reads or writes; ownership supplies neither access nor placement. */
 export function recordedDataAccess(model: Model): readonly Edge[] {
   return indexOf(model).access;
 }
@@ -174,7 +174,7 @@ function privateParent(model: Model, store: Model['asIs']['stores'][number]): st
   return onlyUser !== undefined && store.owner === onlyUser ? onlyUser : undefined;
 }
 
-/** Place a shared store/topic once, with its owner when known, otherwise its first recorded user. */
+/** Place a shared store/topic in its declared containing system. */
 export function withAreaResources(
   systems: readonly AreaSystemView[],
   model?: Model,
@@ -186,17 +186,11 @@ export function withAreaResources(
   const additions = new Map<string, AreaComponentView[]>();
   for (const store of model.asIs.stores) {
     if (known.has(store.id)) continue;
-    const owner = systems.find(
-      (system) =>
-        system.id === stripPrefix(store.owner, 'sys') ||
-        system.components.some((component) => component.id === store.owner),
-    );
-    const user = systems.find((system) =>
-      system.components.some((component) =>
-        component.resources.some((resource) => resource.id === store.id),
-      ),
-    );
-    const system = owner ?? user;
+    const declared = model.place(store.id)?.system;
+    const system =
+      declared === undefined || declared === null
+        ? undefined
+        : systems.find((entry) => entry.id === stripPrefix(declared, 'sys'));
     if (system !== undefined) {
       additions.set(system.id, [...(additions.get(system.id) ?? []), resourceComponent(store)]);
     }
@@ -205,7 +199,12 @@ export function withAreaResources(
     ...system,
     components: [...system.components, ...(additions.get(system.id) ?? [])].map((component) => {
       const store = model.asIs.get(component.id);
-      const parent = store?.$type === 'store' ? privateParent(model, store) : undefined;
+      const candidate = store?.$type === 'store' ? privateParent(model, store) : undefined;
+      const parent =
+        candidate !== undefined &&
+        model.place(candidate)?.system === model.place(component.id)?.system
+          ? candidate
+          : undefined;
       return store?.$type === 'store'
         ? {
             ...component,

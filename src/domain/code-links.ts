@@ -1,3 +1,5 @@
+import { hasPrefix, parseId } from '#domain/ids';
+
 // Git-host addresses are derived here; callers retain structured repository and code references.
 export interface CodeLocation {
   readonly repo: string;
@@ -97,4 +99,69 @@ export function repositoryOf(text: string): string | undefined {
 }
 export function normaliseRepository(repo: string): string {
   return repo.replace(/^github\.com\//u, '');
+}
+
+/** A source citation before its home and repository pin have been resolved. */
+export type AuthoredCodeCitation =
+  | { readonly kind: 'evidence'; readonly id: string }
+  | { readonly kind: 'inherited'; readonly lines: readonly [number, number] }
+  | {
+      readonly kind: 'home';
+      readonly home: string;
+      readonly path: string;
+      readonly commit?: string;
+      readonly lines: readonly [number, number] | undefined;
+      readonly symbol: string | undefined;
+    };
+function validCodeLines(text: string): readonly [number, number] | undefined {
+  const span = parseCodeLines(text);
+  return span !== undefined && span[0] > 0 && span[1] >= span[0] ? span : undefined;
+}
+function historicalPath(text: string): {
+  readonly path: string;
+  readonly commit?: string;
+} {
+  const at = text.lastIndexOf('@');
+  const commit = at === -1 ? undefined : text.slice(at + 1);
+  return commit !== undefined && /^[a-f0-9]{7,64}$/u.test(commit)
+    ? { path: text.slice(0, at), commit }
+    : { path: text };
+}
+/** Accept home:path@commit#Lstart-end Symbol; missing information remains unresolved. */
+export function parseAuthoredCodeCitation(text: string): AuthoredCodeCitation | null {
+  if (hasPrefix(text, 'ev')) {
+    const evidence = parseId(text);
+    return evidence?.path.length === 0 ? { kind: 'evidence', id: text } : null;
+  }
+  if (text.startsWith('#L')) {
+    const lines = validCodeLines(text);
+    return lines === undefined ? null : { kind: 'inherited', lines };
+  }
+  const colon = text.indexOf(':');
+  const home = text.slice(0, colon);
+  if (colon < 1 || !/^[a-z][a-z0-9-]*$/u.test(home)) return null;
+  if (home === 'http' || home === 'https') return null;
+  const location = homeCitationLocation(text.slice(colon + 1));
+  return location === null ? null : { kind: 'home', home, ...location };
+}
+
+function homeCitationLocation(
+  tail: string,
+): Omit<Extract<AuthoredCodeCitation, { readonly kind: 'home' }>, 'kind' | 'home'> | null {
+  const marker = tail.indexOf('#L');
+  const lineText = marker === -1 ? '' : (tail.slice(marker + 1).split(/\s+/u)[0] ?? '');
+  const lines = marker < 0 ? undefined : validCodeLines(lineText);
+  if (marker >= 0 && lines === undefined) return null;
+  const path = historicalPath(marker < 0 ? tail : tail.slice(0, marker));
+  if (path.path === '') return null;
+  const symbol = marker < 0 ? '' : tail.slice(marker + 1 + lineText.length).trim();
+  return { ...path, lines, symbol: symbol === '' ? undefined : symbol };
+}
+/** A path stays inside its declared repository home; no host URL is stored. */
+export function codePathInHome(path: string, home?: string): string | null {
+  if (path.startsWith('/') || path.includes('\\')) return null;
+  const parts = [home ?? '', path]
+    .flatMap((part) => part.split('/'))
+    .filter((part) => part !== '' && part !== '.');
+  return parts.includes('..') ? null : parts.join('/');
 }

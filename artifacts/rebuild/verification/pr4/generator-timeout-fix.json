@@ -1,0 +1,54 @@
+{
+  "sourceCommit": "fb559433c45409febc16315555eb7911168a5051",
+  "sourceSha256": "929acb2899486909a122b67a70d65fecf79bf6d95a1fb623476f73302288ace0",
+  "observedFailure": {
+    "run": 42202731605,
+    "head": "832940e7a37ced51bf77427b333dfd93ee345c10",
+    "test": "every committed model contract is generated from the canonical schemas",
+    "elapsedMs": 34620,
+    "limitMs": 30000,
+    "log": "ci-original-test-failure.log"
+  },
+  "cause": "Four ESLint and four Prettier process startups reloaded the project separately for each generated output.",
+  "fix": "Format the generated outputs as one batch with the same ESLint project rules and Prettier configuration; read results before removing only the batch\u2019s own temporary files.",
+  "focusedProof": {
+    "log": "generator-focused.log",
+    "passed": true,
+    "tests": 2,
+    "durationSeconds": 7.14,
+    "sameFiveGeneratedOutputs": true,
+    "timeoutUnchangedMs": 30000
+  },
+  "generationCommand": {
+    "log": "generator-generate.log",
+    "passed": true,
+    "sixOutputFilesUnchanged": true
+  },
+  "fullCheck": {
+    "log": "check10.log",
+    "passed": true,
+    "tests": 4249
+  },
+  "normalCommitHooks": {
+    "log": "generator-commit.log",
+    "tests": 2,
+    "durationSeconds": 7.18
+  },
+  "unchangedControls": {
+    "runtimeSourceCommit": "e934e8c1f8a8540b543994e58e4f34ee13f7bdd9",
+    "changedSourcePaths": [
+      "tools/generate-plan-types.ts"
+    ],
+    "all26MutationReportSourcesStillMatch": true,
+    "beforeAfterFixtureFactsUnchanged": true,
+    "applicationTestSchemaWorkspaceAndGeneratedFilesUnchanged": true
+  },
+  "originalCIMutation": {
+    "run": 42202731520,
+    "conclusion": "success"
+  },
+  "originalCodeQL": {
+    "run": 42202731521,
+    "conclusion": "success"
+  }
+}

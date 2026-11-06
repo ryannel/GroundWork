@@ -55,6 +55,7 @@ export const NO_BASE: BaseInfo = {
 
 const isCollection = (key: string): key is Collection => key in SYSTEM_COLLECTIONS;
 const COLLECTIONS: readonly Collection[] = Object.keys(SYSTEM_COLLECTIONS).filter(isCollection);
+const REQUIRED_COLLECTIONS = new Set<Collection>(['teams', 'services']);
 const MENTION = /\[\[([^\]|#]+)/gu;
 
 const rootOf = (id: string): string => rootId(id);
@@ -219,7 +220,9 @@ export function onBase(
     const kept = (base.collections[key] ?? [])
       .filter((entity) => inScope(entity))
       .map((entity) => structuredClone(scope === null ? entity : trimmed(entity, scope, owners)));
-    if (kept.length > 0 || own.length > 0) doc[key] = [...kept, ...own];
+    if (kept.length > 0 || own.length > 0 || REQUIRED_COLLECTIONS.has(key)) {
+      doc[key] = [...kept, ...own];
+    }
   }
   return { doc, issues };
 }

@@ -1,0 +1,1089 @@
+test	Run npm run coverage	﻿2026-11-06T10:27:35.7759528Z ##[group]Run npm run coverage
+test	Run npm run coverage	2026-11-06T10:27:35.7759856Z [36;1mnpm run coverage[0m
+test	Run npm run coverage	2026-11-06T10:27:35.7807646Z shell: /usr/bin/bash -e {0}
+test	Run npm run coverage	2026-11-06T10:27:35.7807909Z ##[endgroup]
+test	Run npm run coverage	2026-11-06T10:27:35.8847719Z 
+test	Run npm run coverage	2026-11-06T10:27:35.8848406Z > groundwork@0.0.0 coverage
+test	Run npm run coverage	2026-11-06T10:27:35.8848930Z > vitest run --coverage
+test	Run npm run coverage	2026-11-06T10:27:35.8849117Z 
+test	Run npm run coverage	2026-11-06T10:27:36.2604675Z 
+test	Run npm run coverage	2026-11-06T10:27:36.2609335Z [1m[30m[46m RUN [49m[39m[22m [36mv5.0.4 [39m[90m/home/runner/work/GroundWork/GroundWork[39m
+test	Run npm run coverage	2026-11-06T10:27:36.2610675Z       [2mCoverage enabled with [22m[33mv8[39m
+test	Run npm run coverage	2026-11-06T10:27:36.2611092Z 
+test	Run npm run coverage	2026-11-06T10:27:37.0505198Z  [32m✓[39m [30m[42m unit [49m[39m src/application/area-map/value-flow-layout.test.ts [2m([22m[2m21 tests[22m[2m)[22m[32m 87[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:39.3039183Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/derive.test.ts [2m([22m[2m42 tests[22m[2m)[22m[33m 764[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:39.4262557Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/ui-journeys-map.test.ts [2m([22m[2m27 tests[22m[2m)[22m[33m 1110[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:39.8258042Z  [32m✓[39m [30m[42m unit [49m[39m src/features/workspace/area-system-edges.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 128[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:39.9814153Z  [32m✓[39m [30m[42m unit [49m[39m src/application/workspace-work/workspace-plan-index.test.ts [2m([22m[2m23 tests[22m[2m)[22m[32m 38[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:40.5553991Z  [32m✓[39m [30m[42m unit [49m[39m src/application/area-map/resources.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 167[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:40.5853773Z  [32m✓[39m [30m[42m unit [49m[39m src/features/workspace/area-value-map.client.test.tsx [2m([22m[2m15 tests[22m[2m)[22m[33m 2385[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:40.5882151Z    [32m✓[39m value flow exploration controls [2m(11)[22m
+test	Run npm run coverage	2026-11-06T10:27:40.5911537Z      [33m[2m✓[22m[39m reveals a shared resource in a collapsed system (embedded: false)[33m 442[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:40.7812637Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/validate-plan.test.ts [2m([22m[2m57 tests[22m[2m)[22m[33m 3220[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:40.7851091Z    [32m✓[39m fixture [2m(1)[22m
+test	Run npm run coverage	2026-11-06T10:27:40.7852377Z      [33m[2m✓[22m[39m validates clean apart from the dual-publish warning[33m 597[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:41.6002666Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/federation.test.ts [2m([22m[2m23 tests[22m[2m)[22m[33m 1169[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:41.8892436Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/federation-derive.test.ts [2m([22m[2m14 tests[22m[2m)[22m[33m 610[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:41.9313989Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/work-standing.test.ts [2m([22m[2m24 tests[22m[2m)[22m[32m 31[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:42.9742827Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/mermaid.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 37[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:43.0297215Z  [32m✓[39m [30m[42m unit [49m[39m src/features/workspace/area-system-map.client.test.tsx [2m([22m[2m7 tests[22m[2m)[22m[33m 1159[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:43.0310952Z    [32m✓[39m AreaSystemMap [2m(7)[22m
+test	Run npm run coverage	2026-11-06T10:27:43.0341444Z      [33m[2m✓[22m[39m puts the recorded repository link in the service inspector header[33m 375[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:43.3201869Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/ui-journeys.test.ts [2m([22m[2m18 tests[22m[2m)[22m[33m 857[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:43.7786929Z  [32m✓[39m [30m[42m unit [49m[39m src/application/workspace-area.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 71[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:43.9048068Z  [32m✓[39m [30m[42m unit [49m[39m src/domain/scan/check-scan-bindings.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 25[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:44.2702413Z  [32m✓[39m [30m[42m unit [49m[39m src/application/model-index.test.ts [2m([22m[2m12 tests[22m[2m)[22m[33m 2872[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:44.2731351Z    [32m✓[39m the consolidated model index [2m(12)[22m
+test	Run npm run coverage	2026-11-06T10:27:44.2732824Z      [33m[2m✓[22m[39m separates placement, cited ownership, team and code homes[33m 2647[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:45.7472541Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/flow-sequence.test.ts [2m([22m[2m21 tests[22m[2m)[22m[32m 142[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:46.1223670Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/check-federation.test.ts [2m([22m[2m13 tests[22m[2m)[22m[33m 2790[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:46.1256258Z    [32m✓[39m validator checks 15–22 [2m(9)[22m
+test	Run npm run coverage	2026-11-06T10:27:46.1282842Z      [33m[2m✓[22m[39m 16. graph types: roots, keys, subgraphs of the graph, missing subgraphs, unknown types[33m 375[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:46.1312906Z      [33m[2m✓[22m[39m 17. operations: the document parses and resolves; client, kind, writes, subscriptions[33m 491[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:46.1314942Z      [33m[2m✓[22m[39m 18 & 20. caches: kind cache, POST at the edge, ttl overrides, private responses[33m 312[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:46.1316849Z      [33m[2m✓[22m[39m 22. retired subgraphs, reads of graph types, who empties a cache, usage, gateway endpoints[33m 401[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:46.1582955Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/check-neighbours.test.ts [2m([22m[2m18 tests[22m[2m)[22m[33m 1866[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:46.1621424Z    [32m✓[39m what a plan builds on [2m(4)[22m
+test	Run npm run coverage	2026-11-06T10:27:46.1622836Z      [33m[2m✓[22m[39m accepts plans that exist and never lead back to it[33m 841[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:46.3476252Z  [32m✓[39m [30m[42m unit [49m[39m src/application/workspace-work/programme-page.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 68[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:46.5992491Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/derive-domain.test.ts [2m([22m[2m16 tests[22m[2m)[22m[33m 1795[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:46.6021044Z    [32m✓[39m domain [2m(6)[22m
+test	Run npm run coverage	2026-11-06T10:27:46.6046268Z      [33m[2m✓[22m[39m validates clean and indexes concepts and stages[33m 900[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:46.9869256Z  [32m✓[39m [30m[42m unit [49m[39m src/application/workspace-area-relationships.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 66[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:47.2671852Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-story-versions-checks.branches.test.ts [2m([22m[2m20 tests[22m[2m)[22m[32m 145[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:47.2972408Z  [32m✓[39m [30m[42m unit [49m[39m src/domain/model-cite-resolution.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 28[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:47.6557457Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-system-map-links.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 25[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:47.9468748Z  [32m✓[39m [30m[42m unit [49m[39m src/application/today-handler.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 45[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:47.9500623Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/realisation.test.ts [2m([22m[2m18 tests[22m[2m)[22m[32m 20[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:48.2726953Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/derive-owners.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 24[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:48.6515615Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-story-journey.test.ts [2m([22m[2m20 tests[22m[2m)[22m[33m 649[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:49.3379964Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-journey.test.ts [2m([22m[2m23 tests[22m[2m)[22m[32m 41[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:49.3422807Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-pages.test.ts [2m([22m[2m26 tests[22m[2m)[22m[32m 42[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:49.6642572Z  [32m✓[39m [30m[42m unit [49m[39m src/domain/scan/check-scan-message-bindings.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 48[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:50.2692996Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/viz/board/board.test.tsx [2m([22m[2m18 tests[22m[2m)[22m[33m 677[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:50.4832622Z  [32m✓[39m [30m[42m unit [49m[39m src/domain/scan/discovery-check.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 35[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:50.6952700Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-waterfall.test.ts [2m([22m[2m27 tests[22m[2m)[22m[32m 28[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:50.8319069Z  [32m✓[39m [30m[42m unit [49m[39m src/application/scan-explorer/current-callers.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 24[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:50.9482841Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-sequence.test.ts [2m([22m[2m28 tests[22m[2m)[22m[32m 29[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:51.1382806Z  [32m✓[39m [30m[42m unit [49m[39m src/application/scan-explorer/visual-flow.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 19[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:51.3159872Z  [32m✓[39m [30m[42m unit [49m[39m src/features/workspace/work-pages.test.tsx [2m([22m[2m12 tests[22m[2m)[22m[32m 226[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:51.7793161Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-flow-graph.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 142[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:52.3096339Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-sequence-cells.branches.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 22[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:52.3131829Z  [32m✓[39m [30m[42m unit [49m[39m src/application/workspace-landscape-areas.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 483[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:52.3161395Z    [32m✓[39m authored landscape layout [2m(6)[22m
+test	Run npm run coverage	2026-11-06T10:27:52.3186220Z      [33m[2m✓[22m[39m grows beyond fourteen areas without overlapping boxes, paths or labels[33m 446[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:52.5702586Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/journey.test.ts [2m([22m[2m13 tests[22m[2m)[22m[33m 937[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:52.5703953Z    [32m✓[39m journeyComparison: order [2m(3)[22m
+test	Run npm run coverage	2026-11-06T10:27:52.5705214Z      [33m[2m✓[22m[39m keeps removed runs beside baseline neighbours without disturbing the resulting order[33m 781[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:52.7092452Z  [32m✓[39m [30m[42m unit [49m[39m src/domain/scan/repository-readiness.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 27[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:52.9084117Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-field-cells.branches.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 23[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:53.2502906Z  [32m✓[39m [30m[42m unit [49m[39m src/domain/scan/check-scan-archive-bindings.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 50[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:53.3842559Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-system-map-scope.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 119[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:54.6032655Z  [32m✓[39m [30m[42m unit [49m[39m src/domain/plan-apply.test.ts [2m([22m[2m10 tests[22m[2m)[22m[33m 3231[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:55.0672397Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/delivery.test.ts [2m([22m[2m11 tests[22m[2m)[22m[33m 1277[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:55.0681107Z    [32m✓[39m work a revision touches [2m(3)[22m
+test	Run npm run coverage	2026-11-06T10:27:55.0711319Z      [33m[2m✓[22m[39m names the work it adds and changes, with why[33m 794[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:55.1432508Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/viz/matrix/matrix.test.tsx [2m([22m[2m15 tests[22m[2m)[22m[33m 1122[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:55.3462175Z  [32m✓[39m [30m[42m unit [49m[39m src/domain/workspace-check.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:55.6669830Z  [32m✓[39m [30m[42m unit [49m[39m src/domain/scan/check-scan-semantic.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:55.8657123Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-story-changes-graph-ops.branches.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 33[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:56.9520622Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-board.test.ts [2m([22m[2m13 tests[22m[2m)[22m[33m 404[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:57.0442461Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/revision.test.ts [2m([22m[2m13 tests[22m[2m)[22m[33m 1779[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:57.0444100Z    [32m✓[39m buildRevision [2m(8)[22m
+test	Run npm run coverage	2026-11-06T10:27:57.0445557Z      [33m[2m✓[22m[39m a proposed head with a snapshot: head view, diff approved → head[33m 802[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:57.2742455Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-system-map-tips.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:57.3275989Z  [32m✓[39m [30m[42m unit [49m[39m src/domain/ids.test.ts [2m([22m[2m18 tests[22m[2m)[22m[32m 20[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:57.4940646Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/viz/system-map/system-map.test.tsx [2m([22m[2m13 tests[22m[2m)[22m[33m 1815[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:57.4953501Z    [32m✓[39m SystemMap [2m(13)[22m
+test	Run npm run coverage	2026-11-06T10:27:57.4955129Z      [33m[2m✓[22m[39m keeps the chosen arrangement and detail when a guided stop changes the connections[33m 438[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:57.4957328Z      [33m[2m✓[22m[39m separates arrangement from detail and remembers each view’s expanded systems[33m 327[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:57.6328158Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/plan-base.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 42[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:57.8061744Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-flow-route.branches.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:58.0894062Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-flow-draw-edges.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 45[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:58.7432017Z  [32m✓[39m [30m[42m unit [49m[39m src/ui/use-canvas-focus.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 73[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:59.0652241Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-flow-diagram.test.ts [2m([22m[2m23 tests[22m[2m)[22m[32m 175[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:59.2372551Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-flow-draw-nodes.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 17[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:59.4337079Z  [32m✓[39m [30m[42m unit [49m[39m src/application/scan-explorer/current-targets.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 32[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:59.5237648Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/plan-stack.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 17[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:27:59.8697659Z  [32m✓[39m [30m[42m unit [49m[39m src/domain/scan/check-scan-client-bindings.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 25[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:00.0712579Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/viz/flow-viewer/flow-viewer.test.tsx [2m([22m[2m13 tests[22m[2m)[22m[33m 756[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:00.1349272Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-ladder-rungs.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 176[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:00.2523144Z  [32m✓[39m [30m[42m unit [49m[39m src/application/area-map/transport.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 21[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:00.3145764Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/impact.test.ts [2m([22m[2m8 tests[22m[2m)[22m[33m 1639[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:00.3152084Z    [32m✓[39m revision impact [2m(8)[22m
+test	Run npm run coverage	2026-11-06T10:28:00.3153911Z      [33m[2m✓[22m[39m a step whose logic changes works differently; its team's finished work is reopened; no test walks it[33m 940[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:00.4681557Z  [32m✓[39m [30m[42m unit [49m[39m src/domain/scan/check-scan-event-bindings.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 49[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:00.7193186Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-screens.test.ts [2m([22m[2m18 tests[22m[2m)[22m[32m 64[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:00.8302212Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-domain.branches.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:01.1106765Z  [32m✓[39m [30m[42m unit [49m[39m src/features/workspace/area-system-layout.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 30[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:02.0222223Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/viz/risks/risks.test.tsx [2m([22m[2m12 tests[22m[2m)[22m[33m 480[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:02.3533704Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/compat-schema.branches.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:02.8309375Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-system-map-input.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 63[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:03.1077008Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/viz/screens/screens.test.tsx [2m([22m[2m17 tests[22m[2m)[22m[33m 364[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:04.0533574Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-story-changes-flows.branches.test.ts [2m([22m[2m10 tests[22m[2m)[22m[33m 305[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:04.1622238Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/work/work-card.test.tsx [2m([22m[2m6 tests[22m[2m)[22m[32m 271[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:04.1912113Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/viz/journey/journey.test.tsx [2m([22m[2m16 tests[22m[2m)[22m[33m 1581[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:04.6322798Z  [32m✓[39m [30m[42m unit [49m[39m src/application/scan-explorer/queries.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 31[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:04.7565455Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-store.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 37[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:04.7872754Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-story-versions-edit-ops.branches.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 42[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:05.2102837Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-flow-size.branches.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 25[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:05.5628239Z  [32m✓[39m [30m[42m unit [49m[39m src/application/workspace-views.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 97[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:05.9182991Z  [32m✓[39m [30m[42m unit [49m[39m src/application/area-routing/orthogonal.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 76[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:06.2722696Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/graph-queries.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 31[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:06.6247211Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/chapters/journey/journey.test.tsx [2m([22m[2m12 tests[22m[2m)[22m[33m 4007[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:06.6256672Z    [32m✓[39m journey chapter [2m(12)[22m
+test	Run npm run coverage	2026-11-06T10:28:06.6258071Z      [33m[2m✓[22m[39m draws every screen of gift-wrap with a headline[33m 695[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:06.6259822Z      [33m[2m✓[22m[39m draws every screen of shop with a headline[33m 851[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:06.6292800Z      [33m[2m✓[22m[39m turns the pager into Next step and Previous step while the walk has steps[33m 312[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:06.6334919Z      [33m[2m✓[22m[39m steps through the operations behind the button[33m 847[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:07.5621933Z  [32m✓[39m [30m[42m unit [49m[39m src/features/workspace/workspace-pages.test.tsx [2m([22m[2m7 tests[22m[2m)[22m[33m 507[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:07.6916402Z  [32m✓[39m [30m[42m unit [49m[39m src/ui/canvas/canvas-edge.test.tsx [2m([22m[2m8 tests[22m[2m)[22m[32m 285[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:08.3017246Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-decision.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 174[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:08.3322711Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/progress.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:08.4440298Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-ladder-order.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 208[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:08.5212652Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/viz/waterfall/waterfall.test.tsx [2m([22m[2m15 tests[22m[2m)[22m[33m 1172[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:08.9502913Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-screen-catalogue.branches.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 26[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:08.9931363Z  [32m✓[39m [30m[42m unit [49m[39m src/application/today-repos.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 163[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:09.3212505Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-story-part.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 232[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:09.7559983Z  [32m✓[39m [30m[42m unit [49m[39m src/domain/scan/discovery-hosts.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 191[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:10.1142874Z  [32m✓[39m [30m[42m unit [49m[39m src/application/scan-explorer/current-scan.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 28[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:10.4103958Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/revision-checks.test.ts [2m([22m[2m11 tests[22m[2m)[22m[33m 1577[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:10.4132137Z    [32m✓[39m revision ledger checks [2m(8)[22m
+test	Run npm run coverage	2026-11-06T10:28:10.4133467Z      [33m[2m✓[22m[39m a clean ledger validates[33m 701[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:10.4872265Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-ladder.test.ts [2m([22m[2m11 tests[22m[2m)[22m[33m 413[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:10.8952917Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-flow-narration.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 34[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:11.0892275Z  [32m✓[39m [30m[42m unit [49m[39m src/ui/canvas/use-canvas-pinch.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 51[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:11.2572331Z  [32m✓[39m [30m[42m unit [49m[39m src/features/workspace/plans-page.test.tsx [2m([22m[2m8 tests[22m[2m)[22m[33m 650[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:11.2600869Z    [32m✓[39m PlansPage [2m(6)[22m
+test	Run npm run coverage	2026-11-06T10:28:11.2651153Z      [33m[2m✓[22m[39m shows fifty at a time[33m 345[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:11.4372455Z  [32m✓[39m [30m[42m unit [49m[39m src/application/language-page.branches.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:11.6632487Z  [32m✓[39m [30m[42m unit [49m[39m src/application/area-map/value-flow-visibility.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 25[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:11.7517440Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-flow-viewer.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 93[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:12.0540011Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-story-versions-words.test.ts [2m([22m[2m21 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:12.1765744Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/plan-diff.test.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 1147[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:12.1806098Z    [32m✓[39m plan diff [2m(5)[22m
+test	Run npm run coverage	2026-11-06T10:28:12.1831253Z      [33m[2m✓[22m[39m identical plans: no semantic changes[33m 793[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:12.1932287Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-compat.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 26[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:12.4990632Z  [32m✓[39m [30m[42m unit [49m[39m src/application/workspace-work/work-card.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:12.5312686Z  [32m✓[39m [30m[42m unit [49m[39m src/application/landscape-domains.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 54[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:12.8926230Z  [32m✓[39m [30m[42m unit [49m[39m src/domain/scan/discovery-review.test.ts [2m([22m[2m23 tests[22m[2m)[22m[32m 29[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:12.9303272Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/viz/experience/experience.test.tsx [2m([22m[2m7 tests[22m[2m)[22m[32m 210[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:13.2622541Z  [32m✓[39m [30m[42m unit [49m[39m src/application/scan-explorer/visual-schema.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:13.8932846Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/flow-experience.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 1096[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:13.8960913Z    [32m✓[39m flowExperience [2m(4)[22m
+test	Run npm run coverage	2026-11-06T10:28:13.8981677Z      [33m[2m✓[22m[39m classifies direction and output kind without guessing from action words[33m 827[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:14.5522703Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-story-cover.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 54[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:14.6650893Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-story-changes-graph-shapes.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 32[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:14.8859614Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/stack-base.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 1830[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:14.8894559Z    [32m✓[39m stackOnto [2m(4)[22m
+test	Run npm run coverage	2026-11-06T10:28:14.8911933Z      [33m[2m✓[22m[39m applies the plans below in order and remembers which one added or changed each thing[33m 931[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:14.8926683Z    [32m✓[39m composedHashOf [2m(1)[22m
+test	Run npm run coverage	2026-11-06T10:28:14.8954013Z      [33m[2m✓[22m[39m changes when what the stack made changes, and not for the rest of today[33m 354[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:15.6559250Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-system-map-structure.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 193[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:15.8726408Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/chapters/cover/cover.test.tsx [2m([22m[2m14 tests[22m[2m)[22m[33m 1032[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:15.9852583Z  [32m✓[39m [30m[42m unit [49m[39m src/domain/explorer-publication-check.test.ts [2m([22m[2m25 tests[22m[2m)[22m[32m 21[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:16.1527239Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/viz/decisions/decision-card.test.tsx [2m([22m[2m9 tests[22m[2m)[22m[32m 290[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:16.6119275Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/federation-sdl.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 29[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:16.7365838Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-story-versions.test.ts [2m([22m[2m17 tests[22m[2m)[22m[33m 1453[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:17.3122385Z  [32m✓[39m [30m[42m unit [49m[39m src/application/workspace-domain.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 59[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:17.4473444Z  [32m✓[39m [30m[42m unit [49m[39m src/domain/scan/discovery-frontiers.test.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 332[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:17.7587486Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/check-screens.test.ts [2m([22m[2m9 tests[22m[2m)[22m[33m 1236[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:17.7601038Z    [32m✓[39m screens [2m(4)[22m
+test	Run npm run coverage	2026-11-06T10:28:17.7602289Z      [33m[2m✓[22m[39m validates clean when every screen is well placed[33m 829[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:17.9442582Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-story-commit-branches.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:18.1772126Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-flow-key.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 35[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:18.3212607Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/compat.test.ts [2m([22m[2m8 tests[22m[2m)[22m[33m 383[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:18.9443477Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-story-changes-records.branches.test.ts [2m([22m[2m11 tests[22m[2m)[22m[33m 407[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:19.4172290Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-flow-changes.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 45[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:19.8362748Z  [32m✓[39m [30m[42m unit [49m[39m src/application/legacy-view.test.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 2970[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:19.8806286Z  [32m✓[39m [30m[42m unit [49m[39m src/application/workspace-nav.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:19.9421867Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/viz/sequence/sequence.test.tsx [2m([22m[2m11 tests[22m[2m)[22m[33m 575[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:20.3556197Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-flow-stops.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 24[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:21.0615441Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/chapters/build/build.test.tsx [2m([22m[2m10 tests[22m[2m)[22m[33m 995[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:21.6599097Z  [32m✓[39m [30m[42m unit [49m[39m src/features/service-explorer/service-explorer.test.tsx [2m([22m[2m4 tests[22m[2m)[22m[33m 470[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:21.6601256Z    [32m✓[39m service explorer evidence route [2m(4)[22m
+test	Run npm run coverage	2026-11-06T10:28:21.6621732Z      [33m[2m✓[22m[39m takes a user from a branch through a write to schema fields and pinned source[33m 311[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:21.6708552Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/check-text.test.ts [2m([22m[2m14 tests[22m[2m)[22m[33m 1217[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:21.6711595Z    [32m✓[39m validate: weekdays [2m(3)[22m
+test	Run npm run coverage	2026-11-06T10:28:21.6713035Z      [33m[2m✓[22m[39m reports a wrong weekday at the prose that says it[33m 755[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:22.3908343Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/derive-handlers.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 25[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:22.5182544Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-story-changes-touched.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 286[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:22.8345686Z  [32m✓[39m [30m[42m unit [49m[39m src/application/scan-explorer/visual-boundary.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 26[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:22.9112487Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/viz/flow-diagram/flow-diagram.test.tsx [2m([22m[2m13 tests[22m[2m)[22m[33m 389[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:22.9576877Z  [32m✓[39m [30m[42m unit [49m[39m src/features/workspace/value-flows-page.client.test.tsx [2m([22m[2m4 tests[22m[2m)[22m[32m 161[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:24.0272943Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/lens.client.test.tsx [2m([22m[2m9 tests[22m[2m)[22m[32m 119[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:24.2972526Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/derive-words.test.ts [2m([22m[2m7 tests[22m[2m)[22m[33m 1011[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:24.2995480Z    [32m✓[39m itemText and valText [2m(3)[22m
+test	Run npm run coverage	2026-11-06T10:28:24.3041549Z      [33m[2m✓[22m[39m says ids as labels and edges, layers, overrides and hints as short phrases[33m 713[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:24.4383451Z  [32m✓[39m [30m[42m unit [49m[39m src/application/reference/reference.test.ts [2m([22m[2m26 tests[22m[2m)[22m[32m 35[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:24.8021284Z  [32m✓[39m [30m[42m unit [49m[39m src/application/landscape-map-input.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 25[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:24.8342503Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/viz/graph-map/graph-map.test.tsx [2m([22m[2m18 tests[22m[2m)[22m[33m 577[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:25.1323599Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-waterfall-cases.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 77[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:25.3735722Z  [32m✓[39m [30m[42m unit [49m[39m src/domain/scan/freshness-plan.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:25.4675994Z  [32m✓[39m [30m[42m unit [49m[39m src/application/workspace-target-flow.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 47[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:25.7871707Z  [32m✓[39m [30m[42m unit [49m[39m src/application/workspace-work/impact.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 43[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:25.8985260Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/chapters/ref/catalogue.test.tsx [2m([22m[2m9 tests[22m[2m)[22m[32m 144[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:26.7717112Z  [32m✓[39m [30m[42m unit [49m[39m src/domain/scan/discovery-canonical.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 501[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:26.7730421Z    [32m✓[39m canonical-only source investigation [2m(2)[22m
+test	Run npm run coverage	2026-11-06T10:28:26.7732210Z      [33m[2m✓[22m[39m rejects wrong target pin, digest, source URI and actual bytes[33m 341[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:26.8792242Z  [32m✓[39m [30m[42m unit [49m[39m src/ui/use-explorer-viewport.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 54[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:26.9088741Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/inspector.client.test.tsx [2m([22m[2m5 tests[22m[2m)[22m[33m 472[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:27.0892465Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-zoompane.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 29[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:27.3362231Z  [32m✓[39m [30m[42m unit [49m[39m src/application/workspace-work/partner-page.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 29[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:27.6231831Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/check-shape.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 19[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:27.8691826Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-owners.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 261[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:27.9737095Z  [32m✓[39m [30m[42m unit [49m[39m src/features/workspace/area-system-shape.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 40[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:28.0151720Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-tests.test.ts [2m([22m[2m8 tests[22m[2m)[22m[33m 504[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:28.1279550Z  [32m✓[39m [30m[42m unit [49m[39m src/ui/canvas/relationship-focus.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:28.3278135Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/inspector/thing.client.test.tsx [2m([22m[2m6 tests[22m[2m)[22m[33m 807[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:29.1722925Z  [32m✓[39m [30m[42m unit [49m[39m src/features/workspace/landscape-map.client.test.tsx [2m([22m[2m3 tests[22m[2m)[22m[33m 302[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:29.2451893Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/viz/stops/stops.test.tsx [2m([22m[2m6 tests[22m[2m)[22m[32m 219[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:29.3342492Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-system-map.test.ts [2m([22m[2m18 tests[22m[2m)[22m[32m 200[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:29.5571037Z  [32m✓[39m [30m[42m unit [49m[39m src/domain/scan/check-scan-framework.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:29.5813008Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/derive-register.branches.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 993[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:29.5815230Z    [32m✓[39m the decision register, from caveats and odd citations [2m(6)[22m
+test	Run npm run coverage	2026-11-06T10:28:29.5817196Z      [33m[2m✓[22m[39m reads each caveat in plain words, naming the entry itself as this decision or question[33m 694[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:29.9122558Z  [32m✓[39m [30m[42m unit [49m[39m src/application/explorer-drawing.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 22[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:29.9292417Z  [32m✓[39m [30m[42m unit [49m[39m src/application/today-views.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 91[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:30.1451547Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-experience.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:30.5748790Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/derive-domain.branches.test.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 849[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:30.5762815Z    [32m✓[39m the domain, on an odd plan [2m(5)[22m
+test	Run npm run coverage	2026-11-06T10:28:30.5791464Z      [33m[2m✓[22m[39m gives a flow split evenly the earlier stage, and none to a flow no service acts in[33m 649[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:30.9810866Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-ledger.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 217[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:31.7592610Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/viz/field-table/field-table.test.tsx [2m([22m[2m9 tests[22m[2m)[22m[32m 224[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:32.0982275Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/progress-draft.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:32.1687801Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/issues.test.ts [2m([22m[2m7 tests[22m[2m)[22m[33m 1048[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:32.1717122Z    [32m✓[39m issueMarkdown [2m(7)[22m
+test	Run npm run coverage	2026-11-06T10:28:32.1721147Z      [33m[2m✓[22m[39m lays a work item out in the built-in task template[33m 660[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:33.0282923Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-story-today.test.ts [2m([22m[2m18 tests[22m[2m)[22m[33m 609[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:33.1652978Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-story-prove.test.ts [2m([22m[2m11 tests[22m[2m)[22m[33m 387[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:33.8502475Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/proposed.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 89[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:33.9734755Z  [32m✓[39m [30m[42m unit [49m[39m src/features/workspace/language-overview.test.tsx [2m([22m[2m5 tests[22m[2m)[22m[33m 366[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:34.4513188Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/chapters/today/today.test.tsx [2m([22m[2m11 tests[22m[2m)[22m[33m 1852[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:34.4514543Z    [32m✓[39m today chapter [2m(11)[22m
+test	Run npm run coverage	2026-11-06T10:28:34.4516095Z      [33m[2m✓[22m[39m draws every screen of gift-wrap with a headline[33m 400[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:34.4517425Z      [33m[2m✓[22m[39m draws every screen of shop with a headline[33m 360[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:34.6412647Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-fields.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 22[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:34.8701040Z  [32m✓[39m [30m[42m unit [49m[39m src/application/scan-explorer/visual-csharp-boundary.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 25[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:34.9075528Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/viz/query-plan/query-plan.test.tsx [2m([22m[2m9 tests[22m[2m)[22m[33m 508[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:34.9652576Z  [32m✓[39m [30m[42m unit [49m[39m src/application/workspace-work/stack-cover.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 22[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:35.5976639Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/viz/domain/domain.test.tsx [2m([22m[2m14 tests[22m[2m)[22m[33m 572[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:35.6357729Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-graph.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 64[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:36.0532500Z  [32m✓[39m [30m[42m unit [49m[39m src/application/workspace-work/partners.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 29[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:36.3493086Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-index.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 70[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:37.0014573Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/plan-model.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 89[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:37.3942420Z  [32m✓[39m [30m[42m unit [49m[39m src/features/service-explorer/explorer-corpus.test.tsx [2m([22m[2m3 tests[22m[2m)[22m[32m 225[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:37.6990663Z  [32m✓[39m [30m[42m unit [49m[39m src/application/model-index-containment.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 29[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:37.8172665Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/chapters/commit/commit.test.tsx [2m([22m[2m11 tests[22m[2m)[22m[33m 626[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:38.0925237Z  [32m✓[39m [30m[42m unit [49m[39m src/domain/scan/rescan-acceptance.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:38.2622611Z  [32m✓[39m [30m[42m unit [49m[39m src/application/today-views-detail.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 72[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:38.4261308Z  [32m✓[39m [30m[42m unit [49m[39m src/features/workspaces/workspace-library.test.tsx [2m([22m[2m5 tests[22m[2m)[22m[32m 213[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:38.6632483Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-story-cover-base.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 22[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:39.1531015Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/viz/zoompane/zoom-pane.test.tsx [2m([22m[2m6 tests[22m[2m)[22m[32m 152[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:39.1999740Z  [32m✓[39m [30m[42m unit [49m[39m src/application/workspace-library.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 19[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:40.3164352Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/progress/progress.client.test.tsx [2m([22m[2m7 tests[22m[2m)[22m[32m 117[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:40.5932839Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/derive-plans.test.ts [2m([22m[2m9 tests[22m[2m)[22m[33m 1598[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:40.5959363Z    [32m✓[39m a plan with only the required sections [2m(1)[22m
+test	Run npm run coverage	2026-11-06T10:28:40.5971454Z      [33m[2m✓[22m[39m validates, derives and answers every question[33m 862[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:40.6477163Z  [32m✓[39m [30m[42m unit [49m[39m src/application/reference/query.test.ts [2m([22m[2m18 tests[22m[2m)[22m[32m 51[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:40.7627139Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/chapters/changes/changes.test.tsx [2m([22m[2m9 tests[22m[2m)[22m[33m 2203[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:40.7629290Z    [32m✓[39m changes chapter [2m(9)[22m
+test	Run npm run coverage	2026-11-06T10:28:40.7651939Z      [33m[2m✓[22m[39m draws every screen of a draft with a headline[33m 498[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:40.7661510Z      [33m[2m✓[22m[39m draws every screen of a plan that changes a graph with a headline[33m 426[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:41.0963369Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-story-changes-graph.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 93[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:41.4025427Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-story-changes-records.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 30[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:41.4041204Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-story-journey-walk.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 198[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:41.7898742Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/check-programme.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:41.8501516Z  [32m✓[39m [30m[42m unit [49m[39m src/application/workspace-model.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 640[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:41.8531035Z    [32m✓[39m systemModelOf [2m(6)[22m
+test	Run npm run coverage	2026-11-06T10:28:41.8548169Z      [33m[2m✓[22m[39m assembles a document the plan schema and checks accept without errors[33m 612[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:42.6812514Z  [32m✓[39m [30m[42m unit [49m[39m src/application/today-journeys.branches.test.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 1015[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:42.6814680Z    [32m✓[39m the journeys of today, when things are missing [2m(4)[22m
+test	Run npm run coverage	2026-11-06T10:28:42.6831622Z      [33m[2m✓[22m[39m walks a user journey across the flows its moves rely on, and drops one that relies on none[33m 789[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:42.8493892Z  [32m✓[39m [30m[42m unit [49m[39m src/application/today-thing.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:43.1412114Z  [32m✓[39m [30m[42m unit [49m[39m src/domain/code-links.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:43.1516161Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-pages-team.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 25[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:43.7067244Z  [32m✓[39m [30m[42m unit [49m[39m src/application/workspace-value-flows.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 50[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:43.9619379Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-pages-entity.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 29[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:44.3612220Z  [32m✓[39m [30m[42m unit [49m[39m src/application/system-map.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 118[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:44.4742407Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/chapters/versions/versions.test.tsx [2m([22m[2m7 tests[22m[2m)[22m[33m 800[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:44.4760794Z    [32m✓[39m versions chapter [2m(7)[22m
+test	Run npm run coverage	2026-11-06T10:28:44.4761803Z      [33m[2m✓[22m[39m draws every screen of gift-wrap with a headline[33m 360[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:44.6485280Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/derive-teams.branches.test.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 1004[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:44.6521262Z    [32m✓[39m a team’s cut, from the questions it decides [2m(4)[22m
+test	Run npm run coverage	2026-11-06T10:28:44.6523116Z      [33m[2m✓[22m[39m shows the screen a proposed decision it feeds would change, and the steps that show it[33m 856[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:45.5962148Z  [32m✓[39m [30m[42m unit [49m[39m src/ui/primitives.test.tsx [2m([22m[2m6 tests[22m[2m)[22m[32m 117[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:45.7853908Z  [32m✓[39m [30m[42m unit [49m[39m src/features/workspace/landscape-pages.test.tsx [2m([22m[2m4 tests[22m[2m)[22m[32m 296[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:46.0332002Z  [32m✓[39m [30m[42m unit [49m[39m src/application/area-routing/lanes.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:46.3302266Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/today/today-pages.test.tsx [2m([22m[2m10 tests[22m[2m)[22m[33m 336[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:46.6556019Z  [32m✓[39m [30m[42m unit [49m[39m src/shared/markdown.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 17[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:47.0242926Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-story-commit.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 280[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:47.1542611Z  [32m✓[39m [30m[42m unit [49m[39m src/application/workspace-language.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:47.2496749Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/chapters/prove/prove.test.tsx [2m([22m[2m9 tests[22m[2m)[22m[33m 1188[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:47.2932350Z  [32m✓[39m [30m[42m unit [49m[39m src/application/explorer-focus.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:47.7104424Z  [32m✓[39m [30m[42m unit [49m[39m src/application/domain-nav.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 48[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:47.9892409Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-story-build.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 71[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:48.0364355Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-dag.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 201[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:48.2582561Z  [32m✓[39m [30m[42m unit [49m[39m src/application/scan-explorer/current-data.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:48.3333425Z  [32m✓[39m [30m[42m unit [49m[39m src/features/workspace/area-value-focus.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:48.5775342Z  [32m✓[39m [30m[42m unit [49m[39m src/features/service-explorer/load-artifact.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 22[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:49.7186093Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/derive-register.test.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 932[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:49.7187708Z    [32m✓[39m the decision register [2m(4)[22m
+test	Run npm run coverage	2026-11-06T10:28:49.7189245Z      [33m[2m✓[22m[39m sorts decisions and questions into groups by what the plan rests on them[33m 768[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:49.7984629Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/baseline.test.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 994[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:49.7996005Z    [32m✓[39m warning baseline [2m(4)[22m
+test	Run npm run coverage	2026-11-06T10:28:49.7997570Z      [33m[2m✓[22m[39m positions resolve to ids, and ops to what they target[33m 756[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:49.9651756Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/keys.client.test.tsx [2m([22m[2m4 tests[22m[2m)[22m[32m 84[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:50.4959033Z  [32m✓[39m [30m[42m unit [49m[39m src/features/workspace/rebuild-model.test.tsx [2m([22m[2m1 test[22m[2m)[22m[33m 3144[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:50.4981154Z    [32m✓[39m the canonical model through a legacy page [2m(1)[22m
+test	Run npm run coverage	2026-11-06T10:28:50.4982957Z      [33m[2m✓[22m[39m loads, indexes, applies the fixture plan and renders the existing domain page without losing a field[33m 3141[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:50.5432251Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/tray/tray-store.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 27[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:50.6684322Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/viz/event-line/event-steps.test.tsx [2m([22m[2m4 tests[22m[2m)[22m[32m 66[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:51.0300360Z  [32m✓[39m [30m[42m unit [49m[39m src/application/today-journeys.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 41[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:51.0672090Z  [32m✓[39m [30m[42m unit [49m[39m src/application/language-page.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 68[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:51.1542477Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-system-map-pairs.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 68[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:51.5402519Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/viz/ledger/ledger.test.tsx [2m([22m[2m4 tests[22m[2m)[22m[33m 441[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:52.4686709Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-story-why.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 33[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:52.7039288Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/viz/event-line/event-line.test.tsx [2m([22m[2m5 tests[22m[2m)[22m[33m 415[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:52.7305095Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/derive-diff.branches.test.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 1020[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:52.7341871Z    [32m✓[39m a change said in words, for ops the fixture never makes [2m(3)[22m
+test	Run npm run coverage	2026-11-06T10:28:52.7362839Z      [33m[2m✓[22m[39m summarises long texts, screenshots, cleared and new ids, moves, bare steps and removals[33m 851[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:52.8442456Z  [32m✓[39m [30m[42m unit [49m[39m src/application/model-map.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 22[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:53.0242324Z  [32m✓[39m [30m[42m unit [49m[39m src/application/evidence/evidence-records.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:53.2728942Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/viz/owners/owners.test.tsx [2m([22m[2m5 tests[22m[2m)[22m[33m 414[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:53.3132600Z  [32m✓[39m [30m[42m unit [49m[39m src/application/area-map/card-geometry.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:53.5563408Z  [32m✓[39m [30m[42m unit [49m[39m src/application/key-journeys.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:53.7729542Z  [32m✓[39m [30m[42m unit [49m[39m src/ui/controls.test.tsx [2m([22m[2m4 tests[22m[2m)[22m[32m 100[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:54.3639721Z  [32m✓[39m [30m[42m unit [49m[39m src/ui/rail-drawer.client.test.tsx [2m([22m[2m5 tests[22m[2m)[22m[32m 120[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:54.5462376Z  [32m✓[39m [30m[42m unit [49m[39m src/ui/markdown.test.tsx [2m([22m[2m4 tests[22m[2m)[22m[32m 84[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:54.9312740Z  [32m✓[39m [30m[42m unit [49m[39m src/ui/navigation-progress.client.test.tsx [2m([22m[2m4 tests[22m[2m)[22m[32m 82[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:55.2432421Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-flow-geometry.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:55.7245942Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-work-cards.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:56.1022271Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/viz/store-body/store-body.test.tsx [2m([22m[2m5 tests[22m[2m)[22m[32m 139[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:56.3960583Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/chapters/ref/ref.test.tsx [2m([22m[2m7 tests[22m[2m)[22m[33m 1873[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:56.4024571Z    [32m✓[39m reference chapter [2m(7)[22m
+test	Run npm run coverage	2026-11-06T10:28:56.4041218Z      [33m[2m✓[22m[39m draws every catalogue of a draft with a headline[33m 565[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:56.4071402Z      [33m[2m✓[22m[39m draws every catalogue of a plan that changes a graph with a headline[33m 354[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:56.4245322Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/viz/endpoint/endpoint.test.tsx [2m([22m[2m4 tests[22m[2m)[22m[33m 606[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:56.6963428Z  [32m✓[39m [30m[42m unit [49m[39m src/domain/service-explorer-check.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:57.3001813Z  [32m✓[39m [30m[42m unit [49m[39m src/application/workspace-target.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 21[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:57.4402227Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-endpoint.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 72[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:57.4471517Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/viz/ladder/ladder.test.tsx [2m([22m[2m4 tests[22m[2m)[22m[33m 408[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:57.5422370Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-pages-things.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:57.6063569Z  [32m✓[39m [30m[42m unit [49m[39m src/application/area-routing/label-contract.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 21[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:58.0352482Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-system-map-tiers.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 52[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:58.2891823Z  [32m✓[39m [30m[42m unit [49m[39m src/application/area-map/api-surface.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:58.7552291Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/viz/compat/compat.test.tsx [2m([22m[2m6 tests[22m[2m)[22m[32m 99[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:58.9602506Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/tray/changes-ahead.client.test.tsx [2m([22m[2m3 tests[22m[2m)[22m[32m 213[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:59.0752949Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-screen-catalogue.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 114[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:59.0976117Z  [32m✓[39m [30m[42m unit [49m[39m src/application/evidence/evidence-index-rows.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 26[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:59.3393238Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/chapters/why/why.test.tsx [2m([22m[2m8 tests[22m[2m)[22m[33m 340[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:28:59.4191919Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/issue-templates.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 17[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:00.5081891Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-map.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 30[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:00.7622718Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/viz/store-grid/store-grid.test.tsx [2m([22m[2m8 tests[22m[2m)[22m[33m 509[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:01.0222893Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-bar.test.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 1079[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:01.0224993Z    [32m✓[39m the plan bar [2m(3)[22m
+test	Run npm run coverage	2026-11-06T10:29:01.0256783Z      [33m[2m✓[22m[39m names the stage, the teams and the version of a plan without a ledger[33m 917[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:01.0920808Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/registry-evidence.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:01.1412396Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/viz/screen-catalogue/screen-catalogue.test.tsx [2m([22m[2m6 tests[22m[2m)[22m[32m 257[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:01.4082672Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-screen-flow-layout.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 23[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:01.7252631Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/today/flow-list.client.test.tsx [2m([22m[2m4 tests[22m[2m)[22m[32m 185[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:02.0962384Z  [32m✓[39m [30m[42m unit [49m[39m src/ui/scope-switcher.client.test.tsx [2m([22m[2m3 tests[22m[2m)[22m[32m 125[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:02.3432472Z  [32m✓[39m [30m[42m unit [49m[39m src/application/area-map/connection-summary.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:02.3867789Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-chips.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:02.4749057Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/pager.client.test.tsx [2m([22m[2m3 tests[22m[2m)[22m[32m 83[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:02.7616757Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-inherited.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:03.2882806Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/viz/row-detail/row-detail.client.test.tsx [2m([22m[2m3 tests[22m[2m)[22m[32m 115[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:03.7504486Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-waterfall-tint.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:03.9052943Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-system-map-infra.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 78[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:04.2424201Z  [32m✓[39m [30m[42m unit [49m[39m src/domain/scan/discovery-evidence.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:04.4179782Z  [32m✓[39m [30m[42m unit [49m[39m src/application/acme-fixture.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 114[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:04.4269522Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/thing-page/thing-body.test.tsx [2m([22m[2m3 tests[22m[2m)[22m[33m 429[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:04.5422563Z  [32m✓[39m [30m[42m unit [49m[39m src/application/scan-explorer/corpus-index-pages.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:04.6203270Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-text.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 38[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:04.8842355Z  [32m✓[39m [30m[42m unit [49m[39m src/application/area-map/narrative-layout.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:04.9222424Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/derive-placement.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 43[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:05.7500759Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-index.branches.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 31[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:05.8726870Z  [32m✓[39m [30m[42m unit [49m[39m src/application/workspace-library-plans.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 60[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:05.8847690Z  [32m✓[39m [30m[42m unit [49m[39m src/ui/menu.test.tsx [2m([22m[2m3 tests[22m[2m)[22m[32m 89[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:06.0256002Z  [32m✓[39m [30m[42m unit [49m[39m src/application/explorer-service-overview.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:06.1984522Z  [32m✓[39m [30m[42m unit [49m[39m src/application/explorer-component-links.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:06.4986660Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/viz/endpoint/endpoint-body.client.test.tsx [2m([22m[2m2 tests[22m[2m)[22m[32m 222[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:06.7226366Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-protocol.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:07.1752292Z  [32m✓[39m [30m[42m unit [49m[39m src/application/evidence/evidence-discovery.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:07.3512558Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-ladder-plans.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 218[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:07.5382396Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/layout.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:07.8942363Z  [32m✓[39m [30m[42m unit [49m[39m src/application/area-map/narratives.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:07.9182418Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/ui-journey.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 121[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:08.1187573Z  [32m✓[39m [30m[42m unit [49m[39m src/application/today-journey-index.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:08.1573882Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-system-map-outside.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:09.0252735Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/common/inherited-note.test.tsx [2m([22m[2m2 tests[22m[2m)[22m[32m 66[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:09.4313144Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/viz/graph-evidence/graph-estimate.test.tsx [2m([22m[2m4 tests[22m[2m)[22m[32m 89[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:09.6276298Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/viz/dag/dag.test.tsx [2m([22m[2m3 tests[22m[2m)[22m[32m 266[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:09.7572319Z  [32m✓[39m [30m[42m unit [49m[39m src/shared/plain-text.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:10.0872213Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/keys.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:10.1624009Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/errors/plan-errors.test.tsx [2m([22m[2m2 tests[22m[2m)[22m[32m 184[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:10.2370652Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/common/entity-chip.test.tsx [2m([22m[2m3 tests[22m[2m)[22m[32m 108[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:10.5775654Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-pages-entity-system.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 43[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:11.3483836Z  [32m✓[39m [30m[42m unit [49m[39m src/features/design/design-page.test.tsx [2m([22m[2m2 tests[22m[2m)[22m[33m 524[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:11.3535063Z    [32m✓[39m DesignPage [2m(2)[22m
+test	Run npm run coverage	2026-11-06T10:29:11.3581338Z      [33m[2m✓[22m[39m shows a specimen of each piece, with what it is for[33m 330[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:11.3692389Z  [32m✓[39m [30m[42m unit [49m[39m src/ui/connected-canvas.client.test.tsx [2m([22m[2m1 test[22m[2m)[22m[32m 185[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:11.9062387Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/ref-label.test.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 817[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:11.9064596Z    [32m✓[39m reference labels [2m(3)[22m
+test	Run npm run coverage	2026-11-06T10:29:11.9091554Z      [33m[2m✓[22m[39m keeps two models isolated regardless of which was derived last[33m 799[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:12.2312889Z  [32m✓[39m [30m[42m unit [49m[39m src/application/explorer-location.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:12.7202528Z  [32m✓[39m [30m[42m unit [49m[39m src/application/today-flow-list.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:12.9022528Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/today/today-flows.test.tsx [2m([22m[2m3 tests[22m[2m)[22m[33m 442[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:12.9942444Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-go.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 1004[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:12.9961905Z    [32m✓[39m ladderPage [2m(2)[22m
+test	Run npm run coverage	2026-11-06T10:29:12.9991278Z      [33m[2m✓[22m[39m is null when nothing is retired[33m 841[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:13.3218728Z  [32m✓[39m [30m[42m unit [49m[39m src/application/workspace-paths.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:13.5957073Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-query-plan.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 197[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:13.5995538Z  [32m✓[39m [30m[42m unit [49m[39m src/ui/theme-toggle.client.test.tsx [2m([22m[2m2 tests[22m[2m)[22m[32m 59[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:13.8970029Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan/field-ladder.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:13.9889837Z  [32m✓[39m [30m[42m unit [49m[39m src/features/workspace/domain-target.test.tsx [2m([22m[2m2 tests[22m[2m)[22m[32m 120[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:14.1662202Z  [32m✓[39m [30m[42m unit [49m[39m src/shared/diagram-caption.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:14.4624506Z  [32m✓[39m [30m[42m unit [49m[39m src/domain/plain-text.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:14.5846504Z  [32m✓[39m [30m[42m unit [49m[39m src/ui/path-tabs.client.test.tsx [2m([22m[2m2 tests[22m[2m)[22m[32m 74[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:14.6355566Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-changes-ahead.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 37[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:14.7612342Z  [32m✓[39m [30m[42m unit [49m[39m src/application/today-store.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:14.8973617Z  [32m✓[39m [30m[42m unit [49m[39m src/application/area-map/column-order.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:15.2228130Z  [32m✓[39m [30m[42m unit [49m[39m src/application/today-reference.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 25[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:15.3380311Z  [32m✓[39m [30m[42m unit [49m[39m src/ui/use-canvas-fullscreen.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 29[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:15.3652334Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-pages-search.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:15.4902519Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-system-map-roles.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:15.6205926Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-viz-source.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:15.9632249Z  [32m✓[39m [30m[42m unit [49m[39m src/application/today-reader.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 9[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:16.2712529Z  [32m✓[39m [30m[42m unit [49m[39m src/shared/in-turn.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 52[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:16.3292307Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/viz/go-link/go-link.test.tsx [2m([22m[2m2 tests[22m[2m)[22m[32m 61[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:16.3974303Z  [32m✓[39m [30m[42m unit [49m[39m src/ui/icon.test.tsx [2m([22m[2m1 test[22m[2m)[22m[32m 41[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:16.4992406Z  [32m✓[39m [30m[42m unit [49m[39m src/features/plan/common/model-text.test.tsx [2m([22m[2m1 test[22m[2m)[22m[32m 89[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:16.5152183Z  [32m✓[39m [30m[42m unit [49m[39m src/shared/search-params.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 7[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:16.5583257Z  [32m✓[39m [30m[42m unit [49m[39m src/application/plan-story-recap.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:16.9236868Z  [32m✓[39m [30m[45m integration [49m[39m src/infrastructure/workspace-folders.test.ts [2m([22m[2m20 tests[22m[2m)[22m[32m 96[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:18.7820228Z  [32m✓[39m [30m[45m integration [49m[39m src/infrastructure/plan-store.test.ts [2m([22m[2m30 tests[22m[2m)[22m[33m 1334[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:18.7821658Z    [32m✓[39m reading the plans of a workspace [2m(4)[22m
+test	Run npm run coverage	2026-11-06T10:29:18.7822659Z      [33m[2m✓[22m[39m reads every plan without errors[33m 694[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:19.6797753Z  [32m✓[39m [30m[45m integration [49m[39m src/infrastructure/plan-store-stack.test.ts [2m([22m[2m8 tests[22m[2m)[22m[33m 2600[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:19.6801036Z    [32m✓[39m a plan read on the plans it builds on [2m(6)[22m
+test	Run npm run coverage	2026-11-06T10:29:19.6802280Z      [33m[2m✓[22m[39m reads what they added as its as-is, and changes only its own part[33m 748[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:19.6803738Z      [33m[2m✓[22m[39m is stale when a plan below or its programme changed since the lock[33m 433[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:19.6805218Z      [33m[2m✓[22m[39m says when the plan has been written again since its check[33m 508[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:21.2764827Z  [32m✓[39m [30m[45m integration [49m[39m src/infrastructure/model-schema.test.ts [2m([22m[2m82 tests[22m[2m)[22m[33m 2188[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:21.2766623Z    [32m✓[39m the handwritten canonical model [2m(20)[22m
+test	Run npm run coverage	2026-11-06T10:29:21.2768019Z      [33m[2m✓[22m[39m loads WorkspaceFile from workspace.yaml through its generated contract[33m 813[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:21.2769475Z    [32m✓[39m all evidence families use the same contract boundary [2m(45)[22m
+test	Run npm run coverage	2026-11-06T10:29:21.2770907Z      [33m[2m✓[22m[39m loads handwritten files evidence[33m 583[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:21.3365337Z  [32m✓[39m [30m[45m integration [49m[39m src/infrastructure/workspace-plan-index.test.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 1166[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:21.3366240Z    [32m✓[39m readWorkspacePlanIndex [2m(3)[22m
+test	Run npm run coverage	2026-11-06T10:29:21.3366948Z      [33m[2m✓[22m[39m indexes a plan touching an ownerless store by its containing system[33m 605[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:22.5086526Z  [32m✓[39m [30m[45m integration [49m[39m src/infrastructure/workspace-model.test.ts [2m([22m[2m7 tests[22m[2m)[22m[33m 786[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:22.5088461Z    [32m✓[39m readWorkspaceModel [2m(7)[22m
+test	Run npm run coverage	2026-11-06T10:29:22.5089567Z      [33m[2m✓[22m[39m reads the model from its files[33m 560[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:22.7186382Z  [32m✓[39m [30m[45m integration [49m[39m src/infrastructure/workspace-programmes.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 939[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:22.7188336Z    [32m✓[39m programmes [2m(2)[22m
+test	Run npm run coverage	2026-11-06T10:29:22.7189930Z      [33m[2m✓[22m[39m reads each programme, and says what is wrong with one that does not check[33m 492[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:23.1035883Z  [32m✓[39m [30m[45m integration [49m[39m src/infrastructure/evidence/evidence-index.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 106[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:23.3257288Z  [32m✓[39m [30m[45m integration [49m[39m src/infrastructure/plan-validator-handlers.test.ts [2m([22m[2m11 tests[22m[2m)[22m[33m 526[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:23.3258332Z    [32m✓[39m handler schema [2m(5)[22m
+test	Run npm run coverage	2026-11-06T10:29:23.3258901Z      [33m[2m✓[22m[39m the fixture passes the schema and the checks[33m 410[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:23.8461689Z  [32m✓[39m [30m[45m integration [49m[39m src/infrastructure/workspace-store.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 86[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:24.2782499Z  [32m✓[39m [30m[45m integration [49m[39m src/infrastructure/workspace-landscape.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 63[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:24.5920513Z  [32m✓[39m [30m[45m integration [49m[39m src/infrastructure/disk.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 26[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:24.9641849Z  [32m✓[39m [30m[45m integration [49m[39m src/infrastructure/workspace-memo.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 23[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:25.5532318Z  [32m✓[39m [30m[45m integration [49m[39m src/infrastructure/read-model.test.ts [2m([22m[2m7 tests[22m[2m)[22m[33m 2114[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:25.5551906Z    [32m✓[39m the consolidated workspace reader [2m(7)[22m
+test	Run npm run coverage	2026-11-06T10:29:25.5553454Z      [33m[2m✓[22m[39m loads every authored facet and evidence family into serialisable data[33m 1655[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:25.9152626Z  [32m✓[39m [30m[45m integration [49m[39m src/infrastructure/service-explorer-files.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 54[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:26.2918231Z  [32m✓[39m [30m[45m integration [49m[39m src/infrastructure/plan-standing.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 845[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:26.2931512Z    [32m✓[39m a loaded plan’s standing [2m(2)[22m
+test	Run npm run coverage	2026-11-06T10:29:26.2933094Z      [33m[2m✓[22m[39m blocks work that waits on a declined commitment in another plan, and keeps the dates apart[33m 652[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:26.3426835Z  [32m✓[39m [30m[45m integration [49m[39m src/infrastructure/system-narratives.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 58[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:26.6735296Z  [32m✓[39m [30m[45m integration [49m[39m src/infrastructure/plan-files.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:27.6945485Z  [32m✓[39m [30m[45m integration [49m[39m src/infrastructure/plan-validator-federation.test.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 873[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:27.6947193Z    [32m✓[39m graph-type shape (schema) [2m(4)[22m
+test	Run npm run coverage	2026-11-06T10:29:27.6948412Z      [33m[2m✓[22m[39m the shop passes the schema and the checks[33m 523[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:27.7675704Z  [32m✓[39m [30m[45m integration [49m[39m src/infrastructure/workspace-plans.test.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 664[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:27.7676858Z    [32m✓[39m readPlanState [2m(5)[22m
+test	Run npm run coverage	2026-11-06T10:29:27.7677400Z      [33m[2m✓[22m[39m loads a plan that passes its checks[33m 487[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:28.2196981Z  [32m✓[39m [30m[45m integration [49m[39m src/infrastructure/plan-revision.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:28.8026902Z  [32m✓[39m [30m[45m integration [49m[39m src/infrastructure/acme-files.test.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 651[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:28.8027655Z    [32m✓[39m acmeFiles [2m(3)[22m
+test	Run npm run coverage	2026-11-06T10:29:28.8028188Z      [33m[2m✓[22m[39m reads back as the Acme fixture[33m 485[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:33.6142422Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-discovery-inventory.test.ts [2m([22m[2m10 tests[22m[2m)[22m[33m 4396[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:33.6168736Z    [32m✓[39m scripted discovery inventory [2m(10)[22m
+test	Run npm run coverage	2026-11-06T10:29:33.6172206Z      [33m[2m✓[22m[39m retains exact source bytes, produces stable candidates and refuses overwriting publication[33m 371[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:33.6179752Z      [33m[2m✓[22m[39m recomputes the frozen denominator even if an author shrinks and rehashes inventory and publication[33m 646[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:33.6181785Z      [33m[2m✓[22m[39m rejects rehashed evidence mutation: promoted root_name[33m 757[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:33.6187620Z      [33m[2m✓[22m[39m rejects rehashed evidence mutation: removed implementation[33m 886[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:33.6193845Z      [33m[2m✓[22m[39m adding already selected explicit contexts preserves independent manifest and entry bases and inventory identity[33m 584[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:33.6196227Z      [33m[2m✓[22m[39m retains oversized entry candidates with an explicit unread frontier[33m 362[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:34.4949815Z  [32m✓[39m [30m[45m scanner [49m[39m tools/spring-schema-declarations.test.ts [2m([22m[2m12 tests[22m[2m | [22m[33m1 skipped[39m[2m)[22m[32m 24[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:35.2381530Z  [2m[90m↓[39m[22m [30m[45m scanner [49m[39m tools/scan-java-call-bindings.test.ts [2m([22m[2m11 tests[22m[2m | [22m[33m11 skipped[39m[2m)[22m
+test	Run npm run coverage	2026-11-06T10:29:42.5648212Z  [32m✓[39m [30m[45m scanner [49m[39m tools/storage-context.test.ts [2m([22m[2m29 tests[22m[2m)[22m[33m 5037[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:42.5649608Z    [32m✓[39m storage write call contexts [2m(25)[22m
+test	Run npm run coverage	2026-11-06T10:29:42.5651252Z      [33m[2m✓[22m[39m imports and serves the actual same-host caller-to-callee write association[33m 1635[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:49.8640761Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan/csharp-bindings.test.ts [2m([22m[2m17 tests[22m[2m)[22m[33m 19927[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:49.8641747Z    [32m✓[39m C# source framework and program bindings [2m(17)[22m
+test	Run npm run coverage	2026-11-06T10:29:49.8642613Z      [33m[2m✓[22m[39m keeps identical empty files pinned to distinct source identities and module paths[33m 2248[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:49.8643657Z      [33m[2m✓[22m[39m combines separate method routes, absolute selectors and action tokens with their source anchors[33m 316[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:49.8644717Z      [33m[2m✓[22m[39m uses selected-program global imports without leaking ordinary imports or accepting shadows[33m 1383[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:49.8645740Z      [33m[2m✓[22m[39m joins exact cross-file calls and argument/formal declarations without building a target[33m 2716[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:49.8646764Z      [33m[2m✓[22m[39m retains control and values but rejects shadow framework attributes and unresolved overloads[33m 2565[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:49.8647790Z      [33m[2m✓[22m[39m retains configured implementation candidates without claiming runtime DI activation[33m 2075[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:49.8649071Z      [33m[2m✓[22m[39m recognises HTTP and task boundaries from compiler-resolved framework types only[33m 1123[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:49.8650477Z      [33m[2m✓[22m[39m validates attributes, default parameters, discard lambdas and filtered catches while retaining a deconstruction frontier[33m 314[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:49.8651635Z      [33m[2m✓[22m[39m closes namespace-qualified DTO references, collections, maps, nullable values and enums[33m 1357[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:49.8652607Z      [33m[2m✓[22m[39m rebinds cross-shard source programs and rejects mixed revision inputs[33m 3962[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:50.4124426Z  [32m✓[39m [30m[45m scanner [49m[39m tools/soft-offer-proof.test.ts [2m([22m[2m20 tests[22m[2m)[22m[33m 6106[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:50.4125573Z    [32m✓[39m soft-offer source proof [2m(20)[22m
+test	Run npm run coverage	2026-11-06T10:29:50.4126317Z      [33m[2m✓[22m[39m keeps the original capture manifest unchanged under its original rules[33m 574[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:50.4127207Z      [33m[2m✓[22m[39m records cold-read hydration whose failed Result is ignored[33m 332[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:50.4128041Z      [33m[2m✓[22m[39m invalidates the handoff when either source schema or profile changes[33m 478[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:50.4128872Z      [33m[2m✓[22m[39m pages supporting records with no duplicates or missing closure[33m 456[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:50.4129707Z      [33m[2m✓[22m[39m rebuilds the disposable SQLite projection with identical answers[33m 1277[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:50.7272954Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-repository-generated.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 40[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:52.7627073Z  [32m✓[39m [30m[45m scanner [49m[39m tools/runtime-binding.test.ts [2m([22m[2m16 tests[22m[2m)[22m[33m 523[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:53.5084877Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan/discovery-format.test.ts [2m([22m[2m10 tests[22m[2m)[22m[33m 333[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:57.4791492Z  [32m✓[39m [30m[45m scanner [49m[39m tools/capture-proof.test.ts [2m([22m[2m18 tests[22m[2m)[22m[33m 6056[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:57.4792740Z    [32m✓[39m capture knowledge proof [2m(18)[22m
+test	Run npm run coverage	2026-11-06T10:29:57.4793917Z      [33m[2m✓[22m[39m generates domain types from the canonical schema without drift[33m 350[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:57.4795726Z      [33m[2m✓[22m[39m does not mix two invocations of a shared implementation or old and mutated definitions[33m 1171[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:57.4797385Z      [33m[2m✓[22m[39m keeps answers identical after rebuilding the database[33m 1184[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:57.4798937Z      [33m[2m✓[22m[39m does not replace the old snapshot when a failed or modified bundle is imported[33m 1031[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:29:58.0582558Z  [2m[90m↓[39m[22m [30m[45m scanner [49m[39m tools/scan-profile-review-individual.test.ts [2m([22m[2m5 tests[22m[2m | [22m[33m5 skipped[39m[2m)[22m
+test	Run npm run coverage	2026-11-06T10:29:58.5632380Z  [2m[90m↓[39m[22m [30m[45m scanner [49m[39m tools/scan-backend-semantics.test.ts [2m([22m[2m10 tests[22m[2m | [22m[33m10 skipped[39m[2m)[22m
+test	Run npm run coverage	2026-11-06T10:30:00.0781690Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan/typescript-semantics.test.ts [2m([22m[2m7 tests[22m[2m)[22m[33m 952[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:00.0782615Z    [32m✓[39m TypeScript semantic compiler graph [2m(7)[22m
+test	Run npm run coverage	2026-11-06T10:30:00.0783414Z      [33m[2m✓[22m[39m validates references to sibling functions without admitting sibling local bindings[33m 447[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:00.0784351Z      [33m[2m✓[22m[39m publishes compiler graphs through the public scan validator[33m 377[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:02.4912622Z  [32m✓[39m [30m[45m scanner [49m[39m tools/runtime-proof.test.ts [2m([22m[2m14 tests[22m[2m)[22m[33m 6852[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:02.4931477Z    [32m✓[39m runtime components and interaction queries [2m(14)[22m
+test	Run npm run coverage	2026-11-06T10:30:02.4951755Z      [33m[2m✓[22m[39m preserves the original v1 and v2 authority and replay hashes[33m 960[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:02.4964257Z      [33m[2m✓[22m[39m shows six components and all nine source call sites in five connections[33m 341[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:02.4965947Z      [33m[2m✓[22m[39m keeps synchronous store calls, publication and possible delivery distinct[32m 300[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:02.4967642Z      [33m[2m✓[22m[39m annotates control nodes with their actual host execution across the handoff[33m 318[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:02.4969792Z      [33m[2m✓[22m[39m retains source DTOs, configured JSON shapes, constraints and response envelopes[33m 320[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:02.4971643Z      [33m[2m✓[22m[39m retains protobuf envelopes, field tags, reserved fields, headers and absent key[33m 316[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:02.4973272Z      [33m[2m✓[22m[39m returns commit-pinned GitHub links for every supporting evidence record[33m 520[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:02.4974872Z      [33m[2m✓[22m[39m bounds supporting records and preserves v3 runtime references across pages[33m 501[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:02.4976370Z      [33m[2m✓[22m[39m rejects v3 records under earlier query rules before publication[33m 610[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:05.3289626Z  [32m✓[39m [30m[45m scanner [49m[39m tools/async-knowledge.test.ts [2m([22m[2m17 tests[22m[2m)[22m[33m 935[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:05.3290728Z    [32m✓[39m canonical asynchronous invariants [2m(11)[22m
+test	Run npm run coverage	2026-11-06T10:30:05.3291485Z      [33m[2m✓[22m[39m rejects v2 data under v1 replay rules before opening a database[33m 760[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:05.7782511Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-benchmark-depth.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 27[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:08.2604013Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-repository-delta.test.ts [2m([22m[2m7 tests[22m[2m)[22m[33m 1489[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:08.2628343Z    [32m✓[39m whole-repository delta scopes [2m(7)[22m
+test	Run npm run coverage	2026-11-06T10:30:08.2629837Z      [33m[2m✓[22m[39m preserves modified, renamed and unchanged shard membership and cache reuse[33m 1461[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:09.3346791Z  [2m[90m↓[39m[22m [30m[45m scanner [49m[39m tools/scan-entry-catalogue-native.test.ts [2m([22m[2m6 tests[22m[2m | [22m[33m6 skipped[39m[2m)[22m
+test	Run npm run coverage	2026-11-06T10:30:10.2064511Z  [2m[90m↓[39m[22m [30m[45m scanner [49m[39m tools/scan-event-review.test.ts [2m([22m[2m8 tests[22m[2m | [22m[33m8 skipped[39m[2m)[22m
+test	Run npm run coverage	2026-11-06T10:30:12.7166860Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-repository-pass.test.ts [2m([22m[2m8 tests[22m[2m)[22m[33m 11709[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:12.7168743Z    [32m✓[39m repository source checkpoint and resume [2m(8)[22m
+test	Run npm run coverage	2026-11-06T10:30:12.7170887Z      [33m[2m✓[22m[39m resumes only pending tasks, preserves committed files, and ignores unfinished attempts[33m 2030[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:12.7172859Z      [33m[2m✓[22m[39m honours STOP between tasks without selecting an aggregate[33m 2018[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:12.7174681Z      [33m[2m✓[22m[39m rejects corrupted completed artifacts before any pending source work[33m 796[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:12.7176606Z      [33m[2m✓[22m[39m rejects pin, source policy and analysis changes before any pending source work[33m 864[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:12.7178506Z      [33m[2m✓[22m[39m rejects a corrupted prepared scope before any pending source work[33m 1208[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:12.7180429Z      [33m[2m✓[22m[39m never accepts a terminal checkpoint with a missing task[33m 1451[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:12.7182339Z      [33m[2m✓[22m[39m uses a predecessor inventory without rechunking unchanged or renamed source[33m 3062[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:13.4062843Z  [2m[90m↓[39m[22m [30m[45m scanner [49m[39m tools/scan-message-review-native.test.ts [2m([22m[2m6 tests[22m[2m | [22m[33m6 skipped[39m[2m)[22m
+test	Run npm run coverage	2026-11-06T10:30:13.4256155Z  [32m✓[39m [30m[45m scanner [49m[39m tools/related-knowledge.test.ts [2m([22m[2m15 tests[22m[2m)[22m[33m 1272[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:14.1439820Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan/source-index.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 170[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:16.7424902Z  [32m✓[39m [30m[45m scanner [49m[39m tools/capture-bindings.test.ts [2m([22m[2m21 tests[22m[2m)[22m[33m 711[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:25.4252407Z  [32m✓[39m [30m[45m scanner [49m[39m tools/knowledge-validation.test.ts [2m([22m[2m13 tests[22m[2m)[22m[33m 7279[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:25.4281094Z    [32m✓[39m canonical scan validation [2m(4)[22m
+test	Run npm run coverage	2026-11-06T10:30:25.4282746Z      [33m[2m✓[22m[39m validates arbitrary paths and writes a snapshot that can be checked again[33m 2550[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:25.4311598Z      [33m[2m✓[22m[39m checks references across the selected bundles and rejects incomplete selections[33m 1615[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:25.4341218Z      [33m[2m✓[22m[39m rejects invalid v3 evidence before writing a snapshot[33m 856[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:25.4371412Z      [33m[2m✓[22m[39m runs as a standalone CLI against the current schema[33m 1359[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:25.4372837Z    [32m✓[39m pinned source verification [2m(2)[22m
+test	Run npm run coverage	2026-11-06T10:30:25.4401469Z      [33m[2m✓[22m[39m checks large pinned files, binary markers and exact trailing line bounds[33m 709[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:25.7182206Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan/spring-consumer-bindings.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 11743[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:25.7211077Z    [32m✓[39m Spring Kafka source consumer bindings [2m(6)[22m
+test	Run npm run coverage	2026-11-06T10:30:25.7269899Z      [33m[2m✓[22m[39m retains selectors, generic deserialisation, local payload and nominal source helper lineage[33m 2111[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:25.7272429Z      [33m[2m✓[22m[39m refuses wrong annotation identities, test declarations and wrong mapper identities[33m 4125[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:25.7274705Z      [33m[2m✓[22m[39m keeps inherited concrete candidates and rejects overload, varargs and abstract candidates[33m 1387[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:25.7276919Z      [33m[2m✓[22m[39m keeps source application-service bodies in the shared graph and async bodies separate[33m 1339[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:25.7280899Z      [33m[2m✓[22m[39m uses shared lexical references instead of attaching a shadowed TypeReference field[33m 1500[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:25.7289322Z      [33m[2m✓[22m[39m distinguishes async declarations and deferred execution ownership[33m 1279[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:26.5276364Z  [32m✓[39m [30m[45m scanner [49m[39m tools/spring-route-interceptors.test.ts [2m([22m[2m7 tests[22m[2m | [22m[33m1 skipped[39m[2m)[22m[32m 23[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:29.9202640Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-repository-ancillary.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 3826[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:29.9204414Z    [32m✓[39m optional ancillary cache retention [2m(4)[22m
+test	Run npm run coverage	2026-11-06T10:30:29.9205919Z      [33m[2m✓[22m[39m reuses unchanged text and binary bytes without another Git blob read[33m 508[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:29.9207587Z      [33m[2m✓[22m[39m reuses renamed identical bytes and reads only modified blobs[33m 604[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:29.9209487Z      [33m[2m✓[22m[39m rebuilds corrupt cache bytes from pinned Git and leaves legacy no-cache behaviour unchanged[33m 539[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:29.9211863Z      [33m[2m✓[22m[39m checks the 1MiB metadata limit before cache or Git blob reads[33m 454[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:29.9213107Z    [32m✓[39m positively proved canonical data retention [2m(2)[22m
+test	Run npm run coverage	2026-11-06T10:30:29.9214537Z      [33m[2m✓[22m[39m retains full proven data over1MiB while leaving default text limit unchanged[33m 1069[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:29.9216279Z      [33m[2m✓[22m[39m rechecks literal purity rather than trusting a forged canonical tag and correct hash[33m 650[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:31.4036284Z  [32m✓[39m [30m[45m scanner [49m[39m tools/knowledge-resolution.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 184[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:37.1302363Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan/spring-outbound-bindings.test.ts [2m([22m[2m7 tests[22m[2m)[22m[33m 9479[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:37.1320952Z    [32m✓[39m source client boundaries [2m(7)[22m
+test	Run npm run coverage	2026-11-06T10:30:37.1351666Z      [33m[2m✓[22m[39m retains GraphQL variables, projection, logical registry and failure translations across local origins[33m 1281[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:37.1381453Z      [33m[2m✓[22m[39m recognises direct GraphQL projection and refuses ambiguous response aliases and untyped decoys[33m 1317[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:37.1401572Z      [33m[2m✓[22m[39m keeps deferred registry assignment and response projection as unresolved frontiers[33m 1396[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:37.1472136Z      [33m[2m✓[22m[39m keeps projections and returns with their nearest lambda execution owner[33m 1449[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:37.1481848Z      [33m[2m✓[22m[39m retains guarded caller arguments for a shared HTTP client helper without collapsing alternatives[33m 1268[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:37.1489123Z      [33m[2m✓[22m[39m joins source decoder calls through the exact JDK string Set.of contract[33m 1318[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:37.1491447Z      [33m[2m✓[22m[39m retains JwtDecoder contracts and explicit runtime gaps without inventing HTTP requests[33m 1439[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:37.5921905Z  [32m✓[39m [30m[45m scanner [49m[39m tools/runtime-integrity.test.ts [2m([22m[2m33 tests[22m[2m)[22m[33m 3960[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:38.3830462Z  [2m[90m↓[39m[22m [30m[45m scanner [49m[39m tools/scan-entry-catalogue-workflow.test.ts [2m([22m[2m5 tests[22m[2m | [22m[33m5 skipped[39m[2m)[22m
+test	Run npm run coverage	2026-11-06T10:30:38.8097117Z  [32m✓[39m [30m[45m scanner [49m[39m tools/shape-constraints.test.ts [2m([22m[2m23 tests[22m[2m)[22m[32m 79[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:42.8512806Z  [32m✓[39m [30m[45m scanner [49m[39m tools/in-process-boundaries.test.ts [2m([22m[2m11 tests[22m[2m)[22m[33m 2681[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:42.8541447Z    [32m✓[39m source-proven in-process message boundaries [2m(11)[22m
+test	Run npm run coverage	2026-11-06T10:30:42.8571366Z      [33m[2m✓[22m[39m keeps publish inside its execution component[33m 393[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:42.8572750Z      [33m[2m✓[22m[39m binds a local storage resource to its service host[33m 366[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:42.8603685Z      [33m[2m✓[22m[39m requires the effect resource binding to have the same locality as the interaction[33m 442[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:50.5713188Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-source-audit.test.ts [2m([22m[2m18 tests[22m[2m)[22m[33m 6924[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:50.5741080Z    [32m✓[39m independent pinned Git source audit [2m(18)[22m
+test	Run npm run coverage	2026-11-06T10:30:50.5771859Z      [33m[2m✓[22m[39m verifies every anchor against pinned bytes once per file while ignoring changed worktree and HEAD[33m 488[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:50.5773601Z      [33m[2m✓[22m[39m rejects the wrong pinned blob[33m 510[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:50.5801145Z      [33m[2m✓[22m[39m rejects the wrong pinned path[33m 470[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:50.5814880Z      [33m[2m✓[22m[39m rejects the wrong pinned commit[33m 522[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:50.5816837Z      [33m[2m✓[22m[39m keeps independently pinned revisions of the same file separate[33m 645[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:50.5818543Z      [33m[2m✓[22m[39m recomputes the Git object hash rather than trusting returned blob bytes[33m 351[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:50.5820280Z      [33m[2m✓[22m[39m rejects invalid line bounds 3[33m 418[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:50.5821682Z      [33m[2m✓[22m[39m rejects invalid line bounds 1[33m 399[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:50.5822993Z      [33m[2m✓[22m[39m rejects invalid line bounds 0[33m 341[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:50.5824321Z      [33m[2m✓[22m[39m rejects invalid line bounds -1[33m 422[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:50.5826301Z      [33m[2m✓[22m[39m checks every anchor even when the file bytes were already verified[33m 429[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:50.5828015Z      [33m[2m✓[22m[39m rejects non-UTF-8 or non-regular pinned evidence: invalid.ts[33m 414[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:50.5829877Z      [33m[2m✓[22m[39m rejects non-UTF-8 or non-regular pinned evidence: linked.ts[33m 444[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:51.1118288Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan/spring-async-bindings.test.ts [2m([22m[2m8 tests[22m[2m)[22m[33m 11750[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:51.1120342Z    [32m✓[39m source async execution bindings [2m(8)[22m
+test	Run npm run coverage	2026-11-06T10:30:51.1182174Z      [33m[2m✓[22m[39m joins exact async targets to source result use and retains declaration uncertainty[33m 1386[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:51.1184144Z      [33m[2m✓[22m[39m keeps self invocation direct and distinguishes bound and immediate joined results[33m 1312[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:51.1186083Z      [33m[2m✓[22m[39m excludes deferred returns, throws and catches from enclosing execution ownership[33m 1389[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:51.1187841Z      [33m[2m✓[22m[39m rejects wrong annotations and future types with familiar names[33m 2459[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:51.1189718Z      [33m[2m✓[22m[39m accepts fully qualified Spring declarations while excluding unselected execution owners[33m 1295[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:51.1191868Z      [33m[2m✓[22m[39m does not equate a familiar join name on an unrelated result type with future observation[33m 1304[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:51.1193749Z      [33m[2m✓[22m[39m requires an actual zero-argument invocation to observe an immediate future join[33m 1284[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:51.1195662Z      [33m[2m✓[22m[39m retains save return rebinding using shared values without claiming persistence completion[33m 1319[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:51.3319545Z  [2m[90m↓[39m[22m [30m[45m scanner [49m[39m tools/scan-depth-native.test.ts [2m([22m[2m6 tests[22m[2m | [22m[33m6 skipped[39m[2m)[22m
+test	Run npm run coverage	2026-11-06T10:30:51.6821539Z  [32m✓[39m [30m[45m scanner [49m[39m tools/spring-route-bindings.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:51.9092728Z  [2m[90m↓[39m[22m [30m[45m scanner [49m[39m tools/scan-archive-review-native.test.ts [2m([22m[2m6 tests[22m[2m | [22m[33m6 skipped[39m[2m)[22m
+test	Run npm run coverage	2026-11-06T10:30:55.1159044Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan/scoped-source-store.test.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 2570[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:55.1181430Z    [32m✓[39m persistent pinned scoped source store [2m(5)[22m
+test	Run npm run coverage	2026-11-06T10:30:55.1191769Z      [33m[2m✓[22m[39m reads only selected blobs once, ignores worktree dirt, and reuses indexes across runs[33m 457[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:55.1193553Z      [33m[2m✓[22m[39m re-extracts changed rules from cached indexes and reparses changed parsers from cached source[33m 481[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:55.1195188Z      [33m[2m✓[22m[39m reuses a same-blob rename while rebasing source anchors and commit evidence[33m 421[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:55.1201840Z      [33m[2m✓[22m[39m reads only a changed selected blob and never shares source caches across scopes[33m 758[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:55.1203924Z      [33m[2m✓[22m[39m repairs corrupt indexes from cached source without reading Git and preserves existing entries on missing source[33m 450[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:30:55.8762121Z  [2m[90m↓[39m[22m [30m[45m scanner [49m[39m tools/scan-java25.test.ts [2m([22m[2m6 tests[22m[2m | [22m[33m6 skipped[39m[2m)[22m
+test	Run npm run coverage	2026-11-06T10:31:00.2761822Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan/spring-event-bindings.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 8034[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:00.2763778Z    [32m✓[39m event source construction [2m(6)[22m
+test	Run npm run coverage	2026-11-06T10:31:00.2801679Z      [33m[2m✓[22m[39m retains all skip decisions, changed-value comparisons and constructor ordinal bindings[33m 1353[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:00.2803742Z      [33m[2m✓[22m[39m does not infer a publisher from a method name, field order, or deferred lambda[33m 1302[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:00.2805483Z      [33m[2m✓[22m[39m maps explicit class constructor assignments independently of declaration order[33m 1367[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:00.2807352Z      [33m[2m✓[22m[39m retains a private source helper candidate when an external accessor type is unknown[33m 1274[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:00.2809265Z      [33m[2m✓[22m[39m refuses ambiguous private overloads and varargs candidate joins[33m 1435[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:00.2811190Z      [33m[2m✓[22m[39m retains source catches without inferring SDK suppression or acknowledgement[33m 1301[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:01.7310618Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-repository.test.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 4861[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:01.7312221Z    [32m✓[39m repository scan orchestration [2m(3)[22m
+test	Run npm run coverage	2026-11-06T10:31:01.7314190Z      [33m[2m✓[22m[39m retains bundled Yarn in the denominator without parsing package-manager implementation[33m 354[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:01.7316312Z      [33m[2m✓[22m[39m publishes cold/warm shards, retains ancillary bytes and observes moved local HEAD[33m 4211[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:02.4269779Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan/freshness-git.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 1979[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:02.4271543Z    [32m✓[39m pinned Git freshness [2m(6)[22m
+test	Run npm run coverage	2026-11-06T10:31:02.4273029Z      [33m[2m✓[22m[39m detects additions, changes, exact renames and deletions, including unusual paths[33m 393[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:02.4274814Z      [33m[2m✓[22m[39m detects rewritten tips, missing baselines, unknown provenance and changed rule inputs[33m 729[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:02.4276343Z      [33m[2m✓[22m[39m does not call a mismatched observation or ref current[33m 349[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:03.6303937Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan/python-rust-semantic-bindings.test.ts [2m([22m[2m7 tests[22m[2m)[22m[33m 632[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:04.1546813Z  [2m[90m↓[39m[22m [30m[45m scanner [49m[39m tools/scan-schedule-native.test.ts [2m([22m[2m5 tests[22m[2m | [22m[33m5 skipped[39m[2m)[22m
+test	Run npm run coverage	2026-11-06T10:31:04.6204196Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan/scan-format.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 2386[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:04.6205772Z    [32m✓[39m scan/v1 contract validation [2m(6)[22m
+test	Run npm run coverage	2026-11-06T10:31:04.6206907Z      [33m[2m✓[22m[39m accepts partial knowledge while retaining every required question[33m 565[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:04.6208233Z      [33m[2m✓[22m[39m rejects missing obligations and missing applicable answers[33m 415[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:04.6209670Z      [33m[2m✓[22m[39m rejects unknown keys and unsupported inapplicability[33m 411[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:04.6211515Z      [33m[2m✓[22m[39m requires evidence and complete closure for known absence[33m 306[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:04.6212927Z      [33m[2m✓[22m[39m keeps absent fields, nullable payloads and void returns distinct[33m 402[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:07.2907443Z  [32m✓[39m [30m[45m scanner [49m[39m tools/local-task.test.ts [2m([22m[2m12 tests[22m[2m)[22m[33m 809[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:10.1599451Z  [32m✓[39m [30m[45m scanner [49m[39m tools/workspace.test.ts [2m([22m[2m8 tests[22m[2m)[22m[33m 5848[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:10.1603073Z    [32m✓[39m workspace commands [2m(8)[22m
+test	Run npm run coverage	2026-11-06T10:31:10.1605290Z      [33m[2m✓[22m[39m lists linked workspace identity and provenance as JSON, without npm or logging mixed in[33m 524[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:10.1607521Z      [33m[2m✓[22m[39m shows environment override provenance and excludes other registrations[33m 1014[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:10.1609306Z      [33m[2m✓[22m[39m does not silently choose the bundled example for map or plan commands[33m 1135[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:10.1611292Z      [33m[2m✓[22m[39m prints the selected context on stderr and keeps map results as JSON[33m 582[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:10.1613017Z      [33m[2m✓[22m[39m leaves registration untouched when add would duplicate a workspace id[33m 539[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:10.1614739Z      [33m[2m✓[22m[39m does not turn an existing example into a duplicate local registration[33m 551[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:10.1616426Z      [33m[2m✓[22m[39m validates the id and web origin before trying to open a browser[33m 982[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:10.1618002Z      [33m[2m✓[22m[39m opens the registered id at the requested server origin[33m 513[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:10.7360522Z  [32m✓[39m [30m[45m scanner [49m[39m tools/receiver-bindings.test.ts [2m([22m[2m16 tests[22m[2m)[22m[33m 1547[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:12.1202259Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-spring-resources.test.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 1376[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:12.1204057Z    [32m✓[39m pinned Spring GraphQL resource loading [2m(3)[22m
+test	Run npm run coverage	2026-11-06T10:31:12.1231655Z      [33m[2m✓[22m[39m validates retained content against the actual Git tree and rejects a substituted cache[33m 374[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:12.1261106Z    [32m✓[39m pinned Spring configuration resource loading [2m(1)[22m
+test	Run npm run coverage	2026-11-06T10:31:12.1271231Z      [33m[2m✓[22m[39m reuses verified retained application YAML and excludes untracked and symbolic resources[33m 446[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:14.1323110Z [90mstdout[2m | tools/scan-repository-adopt.test.ts[2m > [22m[2mverified repository checkpoint adoption[2m > [22m[2mpreserves original native artefacts and source checkpoint while publishing bounded metric references
+test	Run npm run coverage	2026-11-06T10:31:14.1327611Z [22m[39m{"status":"source_complete","semanticAcceptance":"not_established","interpretation":"pending","repo":"org/repo","commit":"ccb5f53b5ea498a641fe8ede5831b16cecab826e"}
+test	Run npm run coverage	2026-11-06T10:31:14.1329231Z 
+test	Run npm run coverage	2026-11-06T10:31:17.3248175Z [90mstdout[2m | tools/scan-repository-adopt.test.ts[2m > [22m[2mverified repository checkpoint adoption[2m > [22m[2mpreserves original native artefacts and source checkpoint while publishing bounded metric references
+test	Run npm run coverage	2026-11-06T10:31:17.3252342Z [22m[39m{"status":"source_complete","repo":"org/repo","adoptedShards":2,"output":"/tmp/repository-pass-H6lhEw/adopted"}
+test	Run npm run coverage	2026-11-06T10:31:17.3253486Z 
+test	Run npm run coverage	2026-11-06T10:31:19.5047425Z [90mstdout[2m | tools/scan-repository-adopt.test.ts[2m > [22m[2mverified repository checkpoint adoption[2m > [22m[2mrecovers complete verified tasks after aggregate publication failed without trusting the failed aggregate
+test	Run npm run coverage	2026-11-06T10:31:19.5057788Z [22m[39m{"status":"source_complete","semanticAcceptance":"not_established","interpretation":"pending","repo":"org/repo","commit":"a2e5d35b6394a4516c6f8d0a7bca3c6192b255e9"}
+test	Run npm run coverage	2026-11-06T10:31:19.5068686Z 
+test	Run npm run coverage	2026-11-06T10:31:22.5792068Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan/spring-configuration-bindings.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 9711[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:22.5801581Z    [32m✓[39m declared Spring configuration [2m(6)[22m
+test	Run npm run coverage	2026-11-06T10:31:22.5803027Z      [33m[2m✓[22m[39m recognises root-relative production declarations while excluding test declarations[33m 4206[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:22.5804825Z      [33m[2m✓[22m[39m joins exact nominal record selectors to kebab case keys and excludes wrong receivers[33m 1317[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:22.5806857Z      [33m[2m✓[22m[39m rejects short annotation impostors and custom accessor guesses[33m 2710[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:22.5808308Z      [33m[2m✓[22m[39m retains only conditions of exact source-linked bean candidates[33m 1460[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:22.6882675Z [90mstdout[2m | tools/scan-repository-adopt.test.ts[2m > [22m[2mverified repository checkpoint adoption[2m > [22m[2mrecovers complete verified tasks after aggregate publication failed without trusting the failed aggregate
+test	Run npm run coverage	2026-11-06T10:31:22.6884693Z [22m[39m{"status":"source_complete","repo":"org/repo","adoptedShards":2,"output":"/tmp/repository-pass-TrvEjy/adopted"}
+test	Run npm run coverage	2026-11-06T10:31:22.6885254Z 
+test	Run npm run coverage	2026-11-06T10:31:23.5856084Z [90mstdout[2m | tools/scan-repository-adopt.test.ts[2m > [22m[2mverified repository checkpoint adoption[2m > [22m[2mrejects incomplete tasks before creating an adopted selection
+test	Run npm run coverage	2026-11-06T10:31:23.5858836Z [22m[39m{"status":"stopped","completed":1,"remaining":1}
+test	Run npm run coverage	2026-11-06T10:31:23.5859703Z 
+test	Run npm run coverage	2026-11-06T10:31:24.9407719Z [90mstdout[2m | tools/scan-repository-adopt.test.ts[2m > [22m[2mverified repository checkpoint adoption[2m > [22m[2mrejects changed native artefacts and never replaces an original capture
+test	Run npm run coverage	2026-11-06T10:31:24.9411075Z [22m[39m{"status":"source_complete","semanticAcceptance":"not_established","interpretation":"pending","repo":"org/repo","commit":"3a0ff8f60be04cdabdfb19e21479435737bb8655"}
+test	Run npm run coverage	2026-11-06T10:31:24.9412696Z 
+test	Run npm run coverage	2026-11-06T10:31:25.2417631Z [90mstdout[2m | tools/scan-repository-adopt.test.ts[2m > [22m[2mverified repository checkpoint adoption[2m > [22m[2mpreserves a complete zero-parser canonical capture without inventing native tasks
+test	Run npm run coverage	2026-11-06T10:31:25.2420913Z [22m[39m{"status":"source_complete","semanticAcceptance":"not_established","interpretation":"pending","repo":"org/repo","commit":"7ba505e63aa77f1a65184483fe1dd4a66ea35b84"}
+test	Run npm run coverage	2026-11-06T10:31:25.2422002Z 
+test	Run npm run coverage	2026-11-06T10:31:25.4457174Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-readiness-interpretation.test.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 2314[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:25.4459297Z    [32m✓[39m readiness interpretation boundary [2m(4)[22m
+test	Run npm run coverage	2026-11-06T10:31:25.4461227Z      [33m[2m✓[22m[39m accepts useful labelled inference without promoting context into source facts[33m 738[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:25.4463260Z      [33m[2m✓[22m[39m rejects an unseen entity context despite a valid support citation[33m 597[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:25.4465051Z      [33m[2m✓[22m[39m rejects a scan context with a falsely claimed repository pin[33m 444[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:25.4467059Z      [33m[2m✓[22m[39m rejects observed labels, copied zero usage, missing attempts and cyclic dependencies[33m 533[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:26.6169225Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-depth-next.test.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 601[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:27.3184047Z [90mstdout[2m | tools/scan-repository-adopt.test.ts[2m > [22m[2mverified repository checkpoint adoption[2m > [22m[2mpreserves a complete zero-parser canonical capture without inventing native tasks
+test	Run npm run coverage	2026-11-06T10:31:27.3186792Z [22m[39m{"status":"source_complete","repo":"org/repo","adoptedShards":0,"output":"/tmp/repository-pass-z1yjHr/adopted"}
+test	Run npm run coverage	2026-11-06T10:31:27.3188251Z 
+test	Run npm run coverage	2026-11-06T10:31:27.6953002Z [90mstdout[2m | tools/scan-repository-adopt.test.ts[2m > [22m[2mverified repository checkpoint adoption[2m > [22m[2mverifies every retained path while copying identical canonical bodies only once
+test	Run npm run coverage	2026-11-06T10:31:27.6968254Z [22m[39m{"status":"source_complete","semanticAcceptance":"not_established","interpretation":"pending","repo":"org/repo","commit":"4069a1e383514ab9bddfe65deecda35018a56fc0"}
+test	Run npm run coverage	2026-11-06T10:31:27.6969509Z 
+test	Run npm run coverage	2026-11-06T10:31:29.7968995Z [90mstdout[2m | tools/scan-repository-adopt.test.ts[2m > [22m[2mverified repository checkpoint adoption[2m > [22m[2mverifies every retained path while copying identical canonical bodies only once
+test	Run npm run coverage	2026-11-06T10:31:29.7972540Z [22m[39m{"status":"source_complete","repo":"org/repo","adoptedShards":0,"output":"/tmp/repository-pass-FPAWwR/adopted"}
+test	Run npm run coverage	2026-11-06T10:31:29.7973659Z 
+test	Run npm run coverage	2026-11-06T10:31:30.1253545Z [90mstdout[2m | tools/scan-repository-adopt.test.ts[2m > [22m[2mverified repository checkpoint adoption[2m > [22m[2mrejects substituted canonical bytes even when the retained length stays unchanged
+test	Run npm run coverage	2026-11-06T10:31:30.1256717Z [22m[39m{"status":"source_complete","semanticAcceptance":"not_established","interpretation":"pending","repo":"org/repo","commit":"67dde5323d1a3dc770cbb13c1cde8f35e5d67f11"}
+test	Run npm run coverage	2026-11-06T10:31:30.1258253Z 
+test	Run npm run coverage	2026-11-06T10:31:32.7821870Z [90mstdout[2m | tools/scan-repository-adopt.test.ts[2m > [22m[2mverified repository checkpoint adoption[2m > [22m[2mkeeps the copied checkpoint nonterminal if the verified adoption receipt cannot be written
+test	Run npm run coverage	2026-11-06T10:31:32.7825403Z [22m[39m{"status":"source_complete","semanticAcceptance":"not_established","interpretation":"pending","repo":"org/repo","commit":"50fc288c252a76da8fe5cde7991408feb4e4b5a8"}
+test	Run npm run coverage	2026-11-06T10:31:32.7827173Z 
+test	Run npm run coverage	2026-11-06T10:31:35.1003548Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-repository-adopt.test.ts [2m([22m[2m8 tests[22m[2m)[22m[33m 22900[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:35.1005108Z    [32m✓[39m verified repository checkpoint adoption [2m(8)[22m
+test	Run npm run coverage	2026-11-06T10:31:35.1006809Z      [33m[2m✓[22m[39m preserves original native artefacts and source checkpoint while publishing bounded metric references[33m 5416[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:35.1008927Z      [33m[2m✓[22m[39m recovers complete verified tasks after aggregate publication failed without trusting the failed aggregate[33m 5225[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:35.1010837Z      [33m[2m✓[22m[39m rejects incomplete tasks before creating an adopted selection[33m 901[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:35.1012325Z      [33m[2m✓[22m[39m rejects changed native artefacts and never replaces an original capture[33m 1354[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:35.1014038Z      [33m[2m✓[22m[39m preserves a complete zero-parser canonical capture without inventing native tasks[33m 2374[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:35.1015764Z      [33m[2m✓[22m[39m verifies every retained path while copying identical canonical bodies only once[33m 2478[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:35.1017482Z      [33m[2m✓[22m[39m rejects substituted canonical bytes even when the retained length stays unchanged[33m 1382[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:35.1019307Z      [33m[2m✓[22m[39m keeps the copied checkpoint nonterminal if the verified adoption receipt cannot be written[33m 3767[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:35.7015412Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-readiness-pass-io.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 8321[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:35.7016825Z    [32m✓[39m readiness source artifact input boundary [2m(6)[22m
+test	Run npm run coverage	2026-11-06T10:31:35.7018048Z      [33m[2m✓[22m[39m reads a complete checkpoint and verifies the exact committed task artifact set[33m 1931[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:35.7019079Z      [33m[2m✓[22m[39m rejects artifact traversal, missing files and symlinks before accepting a digest[33m 1633[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:35.7020676Z      [33m[2m✓[22m[39m rejects incomplete or foreign task sets and changed checkpoint bytes[33m 1704[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:35.7022524Z      [33m[2m✓[22m[39m rejects incomplete terminal checkpoints and missing prepared scopes[33m 1597[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:35.7024396Z      [33m[2m✓[22m[39m checks predecessor inventory and scope pins instead of trusting a publication label[33m 1444[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:37.4708084Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan/scan-actions.test.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 2119[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:37.4761533Z    [32m✓[39m actor/action execution bridge [2m(5)[22m
+test	Run npm run coverage	2026-11-06T10:31:37.4771168Z      [33m[2m✓[22m[39m preserves pending visible outcomes independently from local void return[33m 569[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:37.4772915Z      [33m[2m✓[22m[39m rejects a journey actor that cannot perform the selected action[33m 330[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:37.4774538Z      [33m[2m✓[22m[39m rejects an outcome from another action and an invalid visible state[33m 489[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:37.4776244Z      [33m[2m✓[22m[39m rejects a UI control bound to a local branch operation and foreign host context[33m 337[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:37.4777971Z      [33m[2m✓[22m[39m keeps authorisation distinct from eligibility and client availability[33m 392[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:43.1896188Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-refresh.test.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 6824[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:43.1897422Z    [32m✓[39m bounded refresh command [2m(4)[22m
+test	Run npm run coverage	2026-11-06T10:31:43.1898725Z      [33m[2m✓[22m[39m parses one changed selected file, reuses the other, and publishes the updated pinned manifest[33m 2087[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:43.1899833Z      [33m[2m✓[22m[39m checks current provenance automatically and skips extraction for an unchanged publication[33m 1887[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:43.1901056Z      [33m[2m✓[22m[39m blocks selected renames before changing the prior publication[33m 1251[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:43.1901883Z      [33m[2m✓[22m[39m rejects missing arguments and conflicting provenance flags[33m 1597[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:43.9097499Z  [32m✓[39m [30m[45m scanner [49m[39m tools/runtime-selection.test.ts [2m([22m[2m8 tests[22m[2m)[22m[33m 5243[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:43.9098876Z    [32m✓[39m runtime snapshot publication [2m(5)[22m
+test	Run npm run coverage	2026-11-06T10:31:43.9100282Z      [33m[2m✓[22m[39m retains update acknowledgements in native consistency queries[33m 2081[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:43.9101623Z      [33m[2m✓[22m[39m retains delete acknowledgements in native consistency queries[33m 1895[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:43.9102449Z      [33m[2m✓[22m[39m rejects missing v3 source hosts at the import boundary[33m 606[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:43.9103259Z      [33m[2m✓[22m[39m checks duplicate runtime bindings across bundle boundaries[33m 566[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:46.1376336Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan/framed-scan-document.test.ts [2m([22m[2m19 tests[22m[2m)[22m[33m 2651[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:46.1401370Z    [32m✓[39m lossless bounded scan storage framing [2m(19)[22m
+test	Run npm run coverage	2026-11-06T10:31:46.1404211Z      [33m[2m✓[22m[39m preserves every collection, key, record and byte order after framing[33m 475[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:46.1408050Z      [33m[2m✓[22m[39m splits a single record over16MiB without losing split Unicode sequences[33m 1747[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:47.5732009Z  [32m✓[39m [30m[45m scanner [49m[39m tools/endpoint-correspondence.test.ts [2m([22m[2m17 tests[22m[2m)[22m[33m 2134[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:49.2525739Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan/source-budget.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 1061[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:49.2527848Z    [32m✓[39m selected source byte budget [2m(6)[22m
+test	Run npm run coverage	2026-11-06T10:31:49.2529140Z      [33m[2m✓[22m[39m does not bypass a reduced budget through a retained index[33m 370[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:49.8422149Z  [2m[90m↓[39m[22m [30m[45m scanner [49m[39m tools/scan-mongo-bindings.test.ts [2m([22m[2m4 tests[22m[2m | [22m[33m4 skipped[39m[2m)[22m
+test	Run npm run coverage	2026-11-06T10:31:50.2132917Z [90mstdout[2m | tools/mutate-changed.test.ts[2m > [22m[2mcomplete weighted mutation reports[2m > [22m[2mweights mutant counts rather than averaging batch percentages
+test	Run npm run coverage	2026-11-06T10:31:50.2156407Z [22m[39mMutation score: 1/10 (10.00%); required 75%.
+test	Run npm run coverage	2026-11-06T10:31:50.2162166Z Mutation score: 75/100 (75.00%); required 75%.
+test	Run npm run coverage	2026-11-06T10:31:50.2221041Z Mutation score: 74/100 (74.00%); required 75%.
+test	Run npm run coverage	2026-11-06T10:31:50.2222012Z Mutation score: 0/0 (100.00%); required 75%.
+test	Run npm run coverage	2026-11-06T10:31:50.2250540Z 
+test	Run npm run coverage	2026-11-06T10:31:50.3692140Z [90mstdout[2m | tools/mutate-changed.test.ts[2m > [22m[2mdownloaded mutation report layout[2m > [22m[2maccepts one named batch and rejects a flattened download
+test	Run npm run coverage	2026-11-06T10:31:50.3694088Z [22m[39mMutation score: 3/4 (75.00%); required 75%.
+test	Run npm run coverage	2026-11-06T10:31:50.3694704Z 
+test	Run npm run coverage	2026-11-06T10:31:50.3834119Z  [32m✓[39m [30m[45m scanner [49m[39m tools/mutate-changed.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 297[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:55.0775225Z  [32m✓[39m [30m[45m scanner [49m[39m tools/progress.test.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 8631[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:55.0776872Z    [32m✓[39m npm run progress -- add [2m(4)[22m
+test	Run npm run coverage	2026-11-06T10:31:55.0778322Z      [33m[2m✓[22m[39m creates progress.yaml with a checked commitment event[33m 910[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:55.0779713Z      [33m[2m✓[22m[39m appends after what is there, keeping its comments[33m 841[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:55.0781238Z      [33m[2m✓[22m[39m refuses an event that does not check, and writes nothing[33m 2496[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:55.0782661Z      [33m[2m✓[22m[39m appends a GitHub state only when it changed, so the sync can run again[33m 2519[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:55.0783713Z    [32m✓[39m npm run progress -- show [2m(1)[22m
+test	Run npm run coverage	2026-11-06T10:31:55.0784613Z      [33m[2m✓[22m[39m prints where each work item stands[33m 1852[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:55.6623149Z  [2m[90m↓[39m[22m [30m[45m scanner [49m[39m tools/scan-profile-review.test.ts [2m([22m[2m4 tests[22m[2m | [22m[33m4 skipped[39m[2m)[22m
+test	Run npm run coverage	2026-11-06T10:31:56.1362376Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan/protobuf-contracts-capture.test.ts [2m([22m[2m4 tests[22m[2m | [22m[33m3 skipped[39m[2m)[22m[32m 167[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:56.8175020Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-readiness-interpretation-io.test.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 6082[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:56.8176696Z    [32m✓[39m readiness interpretation input files [2m(5)[22m
+test	Run npm run coverage	2026-11-06T10:31:56.8177752Z      [33m[2m✓[22m[39m returns verified snapshots for a completed interpretation of this exact catalogue[33m 1502[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:56.8178792Z      [33m[2m✓[22m[39m rejects a historical snapshot even when repository, commit, scan ID and parsed records match[33m 1166[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:56.8179839Z      [33m[2m✓[22m[39m rejects an attached current context which no completed area run actually received[33m 1148[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:56.8181531Z      [33m[2m✓[22m[39m rejects a changed context file and a partial model phase[33m 1313[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:56.8183239Z      [33m[2m✓[22m[39m returns contextual text verified against its digest, revision and declared URI[33m 951[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:59.4948505Z  [32m✓[39m [30m[45m scanner [49m[39m tools/source-entry.test.ts [2m([22m[2m20 tests[22m[2m)[22m[33m 1073[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:31:59.6911260Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-native-replay-migration.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:00.2789432Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-readiness-questions.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 20[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:00.5330829Z  [32m✓[39m [30m[45m scanner [49m[39m tools/sources.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 24[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:00.5941213Z  [32m✓[39m [30m[45m scanner [49m[39m tools/runtime-proof-view.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 4195[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:00.5943338Z    [32m✓[39m component explorer proof views [2m(6)[22m
+test	Run npm run coverage	2026-11-06T10:32:00.5945739Z      [33m[2m✓[22m[39m keeps additional source implementations and long names inside the diagram[33m 847[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:00.5963805Z      [33m[2m✓[22m[39m groups nine call sites into five component connections without discarding call sites[33m 810[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:00.5966283Z      [33m[2m✓[22m[39m renders components first and exposes internal logic and GitHub-backed contracts[33m 758[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:00.5968462Z      [33m[2m✓[22m[39m keeps unresolved destinations and candidate schemas visible and qualified[33m 573[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:00.5970534Z      [33m[2m✓[22m[39m handles recursive candidate schema references without expanding forever[33m 611[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:00.5972630Z      [33m[2m✓[22m[39m can draw a source-local query without claiming extra runtime components[33m 594[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:01.1018838Z  [2m[90m↓[39m[22m [30m[45m scanner [49m[39m tools/scan-exception-review-native.test.ts [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+test	Run npm run coverage	2026-11-06T10:32:01.4132391Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan/legacy-program-transport.test.ts [2m([22m[2m10 tests[22m[2m)[22m[33m 510[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:01.4152028Z    [33m[2m✓[22m[39m keeps receipt-bound historical bytes and validates the complete programme after one document read[33m 494[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:01.5882148Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-benchmark-gates.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:03.0062547Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-pipeline.test.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 1254[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:03.0111247Z    [32m✓[39m scoped scan boundaries and publication [2m(4)[22m
+test	Run npm run coverage	2026-11-06T10:32:03.0151430Z      [33m[2m✓[22m[39m publishes identical generations idempotently and preserves the last selection after a corrupt generation[33m 1200[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:04.0882506Z  [32m✓[39m [30m[45m scanner [49m[39m tools/subscription-filters.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 914[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:04.0884287Z    [32m✓[39m source-declared subscription header filters [2m(6)[22m
+test	Run npm run coverage	2026-11-06T10:32:04.0885902Z      [33m[2m✓[22m[39m requires a gap for unresolved filtering and values for an exact filter[33m 304[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:05.0055529Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-archive-binding-format.test.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 1692[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:05.0059034Z    [32m✓[39m public schedule and immutable collection format [2m(4)[22m
+test	Run npm run coverage	2026-11-06T10:32:05.0091705Z      [33m[2m✓[22m[39m validates explicit source uncertainty and delivers separate bounded reusable records[33m 488[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:05.0093634Z      [33m[2m✓[22m[39m rejects runtime activation, global lock and future completion upgrades[33m 523[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:05.0095750Z      [33m[2m✓[22m[39m requires explicit declaration arrays and rejects unknown nested annotation, condition and element fields[33m 352[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:05.0098133Z      [33m[2m✓[22m[39m checks kind, pin, ownership and shared invocation joins at the public boundary[33m 328[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:05.2659863Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-readiness-entry-format.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 23[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:06.4366559Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-message-binding-format.test.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 2004[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:06.4382875Z    [32m✓[39m public consumer, configuration and enum format [2m(5)[22m
+test	Run npm run coverage	2026-11-06T10:32:06.4411651Z      [33m[2m✓[22m[39m validates closed source declarations and delivers each kind through bounded record pages[33m 491[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:06.4435245Z      [33m[2m✓[22m[39m rejects effective activation, broker acknowledgement, retry and codec claims[33m 441[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:06.4436922Z      [33m[2m✓[22m[39m rejects unknown nested property, selector and enum fields[33m 367[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:06.4438405Z      [33m[2m✓[22m[39m checks kind, pin and declaration joins at the public boundary[33m 404[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:07.4568135Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-spring-inputs.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 47[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:08.1302826Z  [2m[90m↓[39m[22m [30m[45m scanner [49m[39m tools/scan-outbound-adversarial.test.ts [2m([22m[2m7 tests[22m[2m | [22m[33m7 skipped[39m[2m)[22m
+test	Run npm run coverage	2026-11-06T10:32:09.4048699Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-discovery.test.ts [2m([22m[2m8 tests[22m[2m)[22m[33m 781[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:09.4050665Z    [32m✓[39m discovery CLI completion gate [2m(8)[22m
+test	Run npm run coverage	2026-11-06T10:32:09.4081594Z      [33m[2m✓[22m[39m requires a matching independent receipt for strict completion[33m 417[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:11.6957445Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-client-binding-format.test.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 1937[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:11.6981263Z    [32m✓[39m public client binding schema [2m(3)[22m
+test	Run npm run coverage	2026-11-06T10:32:11.7011713Z      [33m[2m✓[22m[39m parses all four new closed record contracts and scalar constant alternatives[33m 809[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:11.7041725Z      [33m[2m✓[22m[39m rejects invented transport fields, unsupported discriminators and malformed constants[33m 555[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:11.7081700Z      [33m[2m✓[22m[39m rejects nested wrong-kind evidence through the same public parse boundary[33m 571[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:13.2990903Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-java-enum-bindings.test.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 7516[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:13.2991842Z    [32m✓[39m native enum declaration bindings [2m(5)[22m
+test	Run npm run coverage	2026-11-06T10:32:13.2992652Z      [33m[2m✓[22m[39m retains explicit JsonProperty literal values independently of named argument order[33m 1642[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:13.2993699Z      [33m[2m✓[22m[39m uses decoded compiler literals and retains enum constructor arguments with source anchors[33m 1509[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:13.2994736Z      [33m[2m✓[22m[39m retains compiler-folded literals and refuses impostors or unresolved annotation values[33m 1491[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:13.2995790Z      [33m[2m✓[22m[39m retains exact JsonValue method sources, nested enum identity and excludes ordinary static fields[33m 1406[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:13.2996625Z      [33m[2m✓[22m[39m rejects a same-name JsonValue impostor[33m 1466[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:13.4922767Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan/semantic-edge-identity.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 19[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:13.8153529Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan/repository-trial-reference.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 97[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:13.9499872Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-example.test.ts [2m([22m[2m9 tests[22m[2m)[22m[33m 995[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:13.9501664Z    [32m✓[39m independently authored canonical scan example [2m(9)[22m
+test	Run npm run coverage	2026-11-06T10:32:13.9503223Z      [33m[2m✓[22m[39m validates its pinned synthetic source locally through the generic scan workflow[33m 837[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:14.2266838Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-repository-generated-ncc.test.ts [2m([22m[2m18 tests[22m[2m)[22m[32m 27[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:14.5616966Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-depth-next-adversarial.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 199[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:15.3958867Z  [2m[90m↓[39m[22m [30m[45m scanner [49m[39m tools/scan-binding-evidence.test.ts [2m([22m[2m2 tests[22m[2m | [22m[33m2 skipped[39m[2m)[22m
+test	Run npm run coverage	2026-11-06T10:32:15.9255895Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-benchmark-incremental.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 1125[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:15.9257426Z    [32m✓[39m isolated incremental benchmark [2m(1)[22m
+test	Run npm run coverage	2026-11-06T10:32:15.9258868Z      [33m[2m✓[22m[39m reads and parses one changed blob, reuses a same-blob rename, and leaves original clones unchanged[33m 1123[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:16.5408074Z  [2m[90m↓[39m[22m [30m[45m scanner [49m[39m tools/scan-java-collection-bindings.test.ts [2m([22m[2m3 tests[22m[2m | [22m[33m3 skipped[39m[2m)[22m
+test	Run npm run coverage	2026-11-06T10:32:16.7026042Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan/python-rust-bindings.test.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 538[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:18.8087629Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-repository-fixture-routing.test.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 1625[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:18.8088628Z    [32m✓[39m canonical fixture adapter routing through real planning contracts [2m(3)[22m
+test	Run npm run coverage	2026-11-06T10:32:18.8089504Z      [33m[2m✓[22m[39m preserves inventory but routes no canonical data file to a native adapter[33m 658[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:18.8091056Z      [33m[2m✓[22m[39m keeps the existing native routing invariant strict against inconsistent metadata[33m 427[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:18.8093065Z      [33m[2m✓[22m[39m round-trips canonical metadata through strict predecessor validation and delta planning[33m 538[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:20.4052362Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-interpretation.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 3294[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:20.4081535Z    [32m✓[39m separate model interpretation [2m(6)[22m
+test	Run npm run coverage	2026-11-06T10:32:20.4092928Z      [33m[2m✓[22m[39m keeps generated types and the authoritative closed schema together[33m 326[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:20.4094268Z      [33m[2m✓[22m[39m validates five useful best-effort areas without changing observed records[33m 1108[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:20.4095502Z      [33m[2m✓[22m[39m keeps inferred labels for high confidence and human confirmation[33m 553[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:20.4096727Z      [33m[2m✓[22m[39m permits honest insufficient-context outcomes without inventing actors or journeys[33m 423[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:20.4097995Z      [33m[2m✓[22m[39m reports pending until the model phase happens and rejects inherited zero-call usage[33m 459[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:20.4099163Z      [33m[2m✓[22m[39m binds a contextual note to exact bytes and line ranges without treating it as code[33m 423[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:21.0838613Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan/local-facts-diagnostics.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:21.6675226Z  [2m[90m↓[39m[22m [30m[45m scanner [49m[39m tools/scan-exception-bindings.test.ts [2m([22m[2m4 tests[22m[2m | [22m[33m4 skipped[39m[2m)[22m
+test	Run npm run coverage	2026-11-06T10:32:23.5031255Z  [32m✓[39m [30m[45m scanner [49m[39m tools/rebuild/commands.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 4471[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:23.5032821Z    [32m✓[39m rebuild commands [2m(1)[22m
+test	Run npm run coverage	2026-11-06T10:32:23.5034592Z      [33m[2m✓[22m[39m captures, detects real drift and accepts only the exact explained differences[33m 4469[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:24.1932391Z  [2m[90m↓[39m[22m [30m[45m scanner [49m[39m tools/scan-java-declarations.test.ts [2m([22m[2m4 tests[22m[2m | [22m[33m4 skipped[39m[2m)[22m
+test	Run npm run coverage	2026-11-06T10:32:25.1057539Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-readiness-io.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 21[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:25.7513145Z  [2m[90m↓[39m[22m [30m[45m scanner [49m[39m tools/scan-adapters.test.ts [2m([22m[2m2 tests[22m[2m | [22m[33m2 skipped[39m[2m)[22m
+test	Run npm run coverage	2026-11-06T10:32:26.4176552Z fixture/repo · 1/2 scopes · 0 pages
+test	Run npm run coverage	2026-11-06T10:32:26.4472844Z fixture/repo · complete · 8 pages · 1 entries
+test	Run npm run coverage	2026-11-06T10:32:26.5088721Z  [32m✓[39m [30m[45m scanner [49m[39m tools/publish-corpus-repository.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 58[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:26.7045345Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-spring-review-routes.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:26.7391415Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan/csharp-index.test.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 4446[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:26.7392840Z    [32m✓[39m Roslyn supplied-byte index [2m(4)[22m
+test	Run npm run coverage	2026-11-06T10:32:26.7393949Z      [33m[2m✓[22m[39m retains parsed control, call operands, source DTO declarations and attributes[33m 308[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:26.7394993Z      [33m[2m✓[22m[39m quarantines malformed input and reuses only compatible source and parser inputs[33m 1252[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:26.7396040Z      [33m[2m✓[22m[39m invalidates the real adapter identity and exposes unresolved preprocessor selection[33m 2603[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:26.8751898Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan/freshness-status.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:27.0210867Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan/ancillary-blob-cache.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 110[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:27.5535927Z  [2m[90m↓[39m[22m [30m[45m scanner [49m[39m tools/scan-restclient-body.test.ts [2m([22m[2m2 tests[22m[2m | [22m[33m2 skipped[39m[2m)[22m
+test	Run npm run coverage	2026-11-06T10:32:28.8712416Z  [32m✓[39m [30m[45m scanner [49m[39m tools/library-boundaries.test.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 455[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:29.3712153Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan/source-node-lookups.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:29.5665976Z  [32m✓[39m [30m[45m scanner [49m[39m tools/lint-changed.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:29.6205745Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-event-binding-format.test.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 1834[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:29.6207208Z    [32m✓[39m public async, execution and event format [2m(5)[22m
+test	Run npm run coverage	2026-11-06T10:32:29.6208548Z      [33m[2m✓[22m[39m accepts all three closed source-only contracts through the public boundary[33m 494[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:29.6210458Z      [33m[2m✓[22m[39m rejects unsupported delivery, activation and completion claims[33m 369[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:29.6212208Z      [33m[2m✓[22m[39m rejects malformed nested operands and invented invocation dispatch states[33m 358[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:29.6213883Z      [33m[2m✓[22m[39m uses semantic validation for wrong-kind nested evidence and stale Java call links[33m 303[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:29.6215926Z      [33m[2m✓[22m[39m requires explicit source candidate arrays and rejects upgrades to exact resolution[33m 307[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:30.1082481Z  [2m[90m↓[39m[22m [30m[45m scanner [49m[39m tools/scan-java-foreach-bindings.test.ts [2m([22m[2m2 tests[22m[2m | [22m[33m2 skipped[39m[2m)[22m
+test	Run npm run coverage	2026-11-06T10:32:30.3625247Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan/record-pages.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:30.6109108Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-java-runtime.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 19[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:32.0122530Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan/framed-scan-integration.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 832[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:32.0124577Z    [33m[2m✓[22m[39m retains logical generation hashing while physical checkpoints commit every frame page[33m 830[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:32.5787875Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-semantic-expression.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 64[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:33.1623661Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-semantic-edge-identity-native.test.ts [2m([22m[2m3 tests[22m[2m | [22m[33m2 skipped[39m[2m)[22m[32m 60[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:33.3299298Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-spring-review-native.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:33.8298179Z  [2m[90m↓[39m[22m [30m[45m scanner [49m[39m tools/scan-java-constant-bindings.test.ts [2m([22m[2m2 tests[22m[2m | [22m[33m2 skipped[39m[2m)[22m
+test	Run npm run coverage	2026-11-06T10:32:33.8340930Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan/interpretation-format.test.ts [2m([22m[2m10 tests[22m[2m)[22m[33m 3900[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:33.8342555Z    [32m✓[39m honest unknown interpretation metadata [2m(10)[22m
+test	Run npm run coverage	2026-11-06T10:32:33.8343832Z      [33m[2m✓[22m[39m retains actual author identities while accepting historical unknown authors[33m 552[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:33.8344691Z      [33m[2m✓[22m[39m accepts unavailable execution times null and null[33m 489[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:33.8345523Z      [33m[2m✓[22m[39m accepts unavailable execution times null and 2026-10-25T12:01:00Z[33m 376[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:33.8346364Z      [33m[2m✓[22m[39m accepts unavailable execution times 2026-10-25T12:00:00Z and null[33m 377[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:33.8347121Z      [33m[2m✓[22m[39m still rejects reversed known execution times[33m 365[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:33.8347781Z      [33m[2m✓[22m[39m still requires the started_at field[33m 379[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:33.8348379Z      [33m[2m✓[22m[39m still requires the finished_at field[33m 361[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:33.8349084Z      [33m[2m✓[22m[39m still requires actor goal to be explicitly known or unknown[33m 325[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:33.8349759Z      [33m[2m✓[22m[39m rejects malformed non-null started_at[33m 340[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:33.8350836Z      [33m[2m✓[22m[39m rejects malformed non-null finished_at[33m 335[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:34.5341886Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-depth-graph-mutations.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 134[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:35.0981917Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-java-value-bindings.test.ts [2m([22m[2m7 tests[22m[2m | [22m[33m1 skipped[39m[2m)[22m[32m 8[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:35.7108644Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan-explorer/visual-provenance.test.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 1315[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:35.7109796Z    [32m✓[39m visual selection provenance [2m(3)[22m
+test	Run npm run coverage	2026-11-06T10:32:35.7111198Z      [33m[2m✓[22m[39m rejects old inferred purpose against mutated metadata bytes with the same scan id[33m 1304[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:35.9229818Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan/backend-semantic-edge-writer.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:37.4404999Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan/verified-scan-snapshot.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 2023[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:37.4407694Z    [33m[2m✓[22m[39m binds logical input to exact hashed manifest bytes and rejects substitution or mutation[33m 502[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:37.4410624Z    [33m[2m✓[22m[39m validates CLI inference against manifestSHA while using complete assembled source records[33m 1520[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:38.0465437Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-answerability-probe.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 58[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:38.2773959Z  [32m✓[39m [30m[45m scanner [49m[39m tools/return-kind.test.ts [2m([22m[2m9 tests[22m[2m)[22m[33m 902[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:38.4500339Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-profile-review-contract-types.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:38.6810417Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-java-package.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 27[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:38.9976135Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan/python-rust-index.test.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 408[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:39.1688360Z  [32m✓[39m [30m[45m scanner [49m[39m tools/spring-schema-annotations.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:39.6433155Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-rescan-preflight.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 331[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:39.6461325Z    [32m✓[39m offline corpus preflight [2m(2)[22m
+test	Run npm run coverage	2026-11-06T10:32:39.6471798Z      [33m[2m✓[22m[39m uses alternate pinned clones, excludes dirty worktree bytes and never reports semantic readiness[33m 327[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:40.2415782Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan/scoped-source-cache.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 60[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:40.4199067Z  [32m✓[39m [30m[45m scanner [49m[39m tools/checks/scope.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:40.9993852Z  [2m[90m↓[39m[22m [30m[45m scanner [49m[39m tools/scan-spring-document.test.ts [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+test	Run npm run coverage	2026-11-06T10:32:41.1793392Z  [32m✓[39m [30m[45m scanner [49m[39m tools/write-mode.test.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 332[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:41.3741942Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-diff.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:41.4629524Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-java-runtime-parser.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:41.9112742Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-repository-fixtures.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 38[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:41.9807276Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan/scoped-source-provenance.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 65[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:42.5067010Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-readiness-query-pages.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:43.0943403Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-semantic-format.test.ts [2m([22m[2m3 tests[22m[2m | [22m[33m2 skipped[39m[2m)[22m[33m 546[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:43.0957381Z    [32m✓[39m semantic extraction contract [2m(3)[22m
+test	Run npm run coverage	2026-11-06T10:32:43.0958792Z      [33m[2m✓[22m[39m validates lexical JSX callbacks, property values and branch conditions through the public boundary[33m 544[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:43.5212639Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-rescan-objects.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 443[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:43.5241481Z    [32m✓[39m pinned object-header preflight [2m(1)[22m
+test	Run npm run coverage	2026-11-06T10:32:43.5243163Z      [33m[2m✓[22m[39m checks parent commit/tree/blob headers and reports a missing blob without fetching or reading bodies[33m 441[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:43.7600487Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-bindings-pages-roundtrip.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 7[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:43.9002568Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan/scoped-document.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 49[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:44.0625841Z  [2m[90m↓[39m[22m [30m[45m scanner [49m[39m tools/scan-order-review-native.test.ts [2m([22m[2m3 tests[22m[2m | [22m[33m3 skipped[39m[2m)[22m
+test	Run npm run coverage	2026-11-06T10:32:46.6803436Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan/interpretation-actor.test.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 2340[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:46.6804397Z    [32m✓[39m grounded capabilities with unknown actors [2m(4)[22m
+test	Run npm run coverage	2026-11-06T10:32:46.6805189Z      [33m[2m✓[22m[39m retains supported actions and journeys without inventing an actor claim[33m 766[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:46.6806003Z      [33m[2m✓[22m[39m rejects non-null actor reference inferred:purpose[33m 837[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:46.6806756Z      [33m[2m✓[22m[39m rejects non-null actor reference inferred:missing[33m 417[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:46.6807531Z      [33m[2m✓[22m[39m requires an explicit actor field even when its value can be unknown[33m 318[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:47.1823952Z  [2m[90m↓[39m[22m [30m[45m scanner [49m[39m tools/scan-order-review-predicate.test.ts [2m([22m[2m2 tests[22m[2m | [22m[33m2 skipped[39m[2m)[22m
+test	Run npm run coverage	2026-11-06T10:32:47.4039880Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan/discovery-review-format.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:47.5834725Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-status.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:48.0611948Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan/graphql-document-bindings.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:48.2697314Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-profile-question-mutations.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:48.4202956Z  [32m✓[39m [30m[45m scanner [49m[39m tools/design-drift-rules.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:48.6765817Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan/discovery-format-inputs.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:48.9065193Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-bindings-pages.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:49.3613304Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan/canonical-data-fixture.test.ts [2m([22m[2m22 tests[22m[2m)[22m[32m 46[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:49.9222683Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-csharp-program.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:50.1182817Z  [32m✓[39m [30m[45m scanner [49m[39m tools/rebuild/html.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:50.5968555Z  [32m✓[39m [30m[45m scanner [49m[39m tools/pack-explorer-writer.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 28[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:51.0818199Z  [2m[90m↓[39m[22m [30m[45m scanner [49m[39m tools/scan-order-review-types.test.ts [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+test	Run npm run coverage	2026-11-06T10:32:51.2737255Z  [32m✓[39m [30m[45m scanner [49m[39m tools/permalink.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:51.4182197Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-repository-generated-config.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:51.5730620Z  [32m✓[39m [30m[45m scanner [49m[39m tools/rebuild/snapshots.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:52.8892318Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-binding-format.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 1062[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:52.8921295Z    [32m✓[39m canonical native binding schema [2m(2)[22m
+test	Run npm run coverage	2026-11-06T10:32:52.8981751Z      [33m[2m✓[22m[39m accepts explicit collection mapping uncertainty and rejects unknown fields and record kinds[33m 471[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:52.9011448Z      [33m[2m✓[22m[39m rejects malformed Java resolution records and nested exception source arrays[33m 589[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:54.1654817Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan/framework-records.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 830[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:54.1655706Z    [32m✓[39m canonical framework records [2m(2)[22m
+test	Run npm run coverage	2026-11-06T10:32:54.1656494Z      [33m[2m✓[22m[39m validates the native contract and delivers selected bindings through bounded pages[33m 464[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:54.1657594Z      [33m[2m✓[22m[39m rejects malformed structure and validly shaped dangling references at the public boundary[33m 365[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:55.3992564Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan-explorer/retained-capture.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 993[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:55.4031720Z    [33m[2m✓[22m[39m keeps the canonical snapshot immutable when callers mutate delivered supporting records[33m 991[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:57.7066438Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-freshness.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 2046[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:57.7090994Z    [32m✓[39m scan freshness command [2m(2)[22m
+test	Run npm run coverage	2026-11-06T10:32:57.7109277Z      [33m[2m✓[22m[39m reports missing arguments with an error exit[33m 681[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:57.7121423Z      [33m[2m✓[22m[39m checks pinned source offline and labels the analysis provenance limitation[33m 1359[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:57.9675095Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan/graphql-source-document.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:58.1931130Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-entry-record-closure.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:58.8986659Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-semantic-edge-cache.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 47[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:59.1562137Z  [32m✓[39m [30m[45m scanner [49m[39m tools/page-budget-rules.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:59.4262139Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-dotnet-setup.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:32:59.9941387Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan/python-rust-runtime.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 30[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:33:00.4142413Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan/native-literal-values.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 15953[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:33:00.4224931Z    [32m✓[39m native literal type preservation [2m(6)[22m
+test	Run npm run coverage	2026-11-06T10:33:00.4226558Z      [33m[2m✓[22m[39m keeps java booleans distinct from equally spelled strings[33m 1357[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:33:00.4228544Z      [33m[2m✓[22m[39m does not turn Go predeclared identifier syntax into proven unshadowed boolean constants[33m 14151[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:33:00.4962784Z  [32m✓[39m [30m[45m scanner [49m[39m src/infrastructure/scan/csharp-diagnostics.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:33:00.6646263Z  [32m✓[39m [30m[45m scanner [49m[39m tools/spring-route-values.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:33:00.8770406Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-mark.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:33:01.6286157Z  [32m✓[39m [30m[45m scanner [49m[39m tools/native-cli.test.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 571[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:33:01.8966199Z  [32m✓[39m [30m[45m scanner [49m[39m tools/register.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 110[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:33:02.3002361Z  [32m✓[39m [30m[45m scanner [49m[39m tools/scan-protobuf-contracts-types.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 149[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:33:03.1342213Z  [32m✓[39m [30m[45m scanner [49m[39m tools/generate-scan-types.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 553[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:33:03.1371359Z    [33m[2m✓[22m[39m keeps scan types generated from the authoritative schema[33m 552[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:33:35.7763802Z  [31m❯[39m [30m[45m scanner [49m[39m tools/generate-plan-types.test.ts [2m([22m[2m2 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[33m 35068[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:33:35.7765850Z    [33m[2m✓[22m[39m the committed plan types are what the schema generates (run `npm run generate`)[33m 446[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:33:35.7766924Z [31m   [31m×[31m every committed model contract is generated from the canonical schemas[39m[33m 34620[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:34:33.0279452Z  [32m✓[39m [30m[46m architecture [49m[39m test/architecture.test.ts [2m([22m[2m72 tests[22m[2m)[22m[33m 56708[2mms[22m[39m
+test	Run npm run coverage	2026-11-06T10:34:37.3190613Z 
+test	Run npm run coverage	2026-11-06T10:34:37.3191796Z [31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+test	Run npm run coverage	2026-11-06T10:34:37.3192142Z 
+test	Run npm run coverage	2026-11-06T10:34:37.3195044Z [41m[1m FAIL [22m[49m [30m[45m scanner [49m[39m tools/generate-plan-types.test.ts[2m > [22mevery committed model contract is generated from the canonical schemas
+test	Run npm run coverage	2026-11-06T10:34:37.3200745Z [31m[1mError[22m: Test timed out in 30000ms.
+test	Run npm run coverage	2026-11-06T10:34:37.3202059Z If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".[39m
+test	Run npm run coverage	2026-11-06T10:34:37.3203152Z [36m [2m❯[22m tools/generate-plan-types.test.ts:[2m16:1[22m[39m
+test	Run npm run coverage	2026-11-06T10:34:37.3223564Z     [90m 14|[39m });
+test	Run npm run coverage	2026-11-06T10:34:37.3224002Z     [90m 15|[39m
+test	Run npm run coverage	2026-11-06T10:34:37.3224691Z     [90m 16|[39m it('every committed model contract is generated from the canonical sch…
+test	Run npm run coverage	2026-11-06T10:34:37.3225186Z     [90m   |[39m [31m^[39m
+test	Run npm run coverage	2026-11-06T10:34:37.3225820Z     [90m 17|[39m   const contracts = await generateModelTypes();
+test	Run npm run coverage	2026-11-06T10:34:37.3226615Z     [90m 18|[39m   expect(contracts.map((contract) => contract.file)).toEqual([
+test	Run npm run coverage	2026-11-06T10:34:37.3227064Z 
+test	Run npm run coverage	2026-11-06T10:34:37.3227470Z [31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+test	Run npm run coverage	2026-11-06T10:34:37.3227813Z 
+test	Run npm run coverage	2026-11-06T10:34:37.3230771Z 
+test	Run npm run coverage	2026-11-06T10:34:37.3249590Z [2m Test Files [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m532 passed[39m[22m[2m | [22m[33m27 skipped[39m[90m (560)[39m
+test	Run npm run coverage	2026-11-06T10:34:37.3276571Z [2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m4245 passed[39m[22m[2m | [22m[33m128 skipped[39m[90m (4374)[39m
+test	Run npm run coverage	2026-11-06T10:34:37.3277277Z [2m   Start at [22m 10:27:36
+test	Run npm run coverage	2026-11-06T10:34:37.3290616Z [2m   Duration [22m 421.02s[2m (tests 64%, import 22%, environment 5%, transform 5%, worker 2%, setup 1%)[22m
+test	Run npm run coverage	2026-11-06T10:34:37.3326658Z 
+test	Run npm run coverage	2026-11-06T10:34:37.3370254Z 
+test	Run npm run coverage	2026-11-06T10:34:37.3406157Z ##[error]Error: Test timed out in 30000ms.
+test	Run npm run coverage	If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+test	Run npm run coverage	 ❯ tools/generate-plan-types.test.ts:16:1
+test	Run npm run coverage	
+test	Run npm run coverage	
+test	Run npm run coverage	2026-11-06T10:34:37.4896138Z ##[error]Process completed with exit code 1.

@@ -1,0 +1,59 @@
+[38;2;56;56;56m╭──────────────────────────────────────╮[m
+[38;2;56;56;56m│[m lefthook  v2.2.2   hook:  [1mpre-commit[m [38;2;56;56;56m│[m
+[38;2;56;56;56m╰──────────────────────────────────────╯[m
+│  workspaces (skip) no matching staged files
+│  styles (skip) no files for inspection
+┃  format ❯ 
+Checking formatting...
+All matched files use Prettier code style!
+
+┃  types ❯ 
+
+┃  lint ❯ 
+
+┃  tests ❯ 
+
+ RUN  v5.0.4 /Users/RNEL/.codex/worktrees/rebuild-pr4/groundWork
+
+fixture/repo · 1/2 scopes · 0 pages
+fixture/repo · complete · 8 pages · 1 entries
+
+ Test Files  302 passed (302)
+   Affected  302 of 559 test files (related to 59 files)
+      Tests  2789 passed (2789)
+   Start at  10:59:28
+   Duration  59.33s (tests 52%, import 34%, environment 12%, setup 1%)
+
+
+[38;2;56;56;56m  ────────────────────────────────────[m
+summary: (done in 67.93 seconds)
+✓ format (4.71 seconds)
+✓ types (11.91 seconds)
+✓ lint (40.71 seconds)
+✓ tests (67.93 seconds)
+[codex/rebuild-pr4 e934e8c1] Add canonical workspace model and derived indexes
+ 73 files changed, 11260 insertions(+), 779 deletions(-)
+ create mode 100644 src/application/legacy-placement.ts
+ create mode 100644 src/application/legacy-view.test.ts
+ create mode 100644 src/application/legacy-view.ts
+ create mode 100644 src/application/model-graphql.ts
+ create mode 100644 src/application/model-index-containment.test.ts
+ create mode 100644 src/application/model-index.test.ts
+ create mode 100644 src/application/model-index.ts
+ create mode 100644 src/application/model-map.test.ts
+ create mode 100644 src/application/model-map.ts
+ create mode 100644 src/application/plan/derive-placement.test.ts
+ create mode 100644 src/application/plan/derive-placement.ts
+ create mode 100644 src/application/plans-index.ts
+ create mode 100644 src/domain/model-citations.ts
+ create mode 100644 src/domain/model-cite-resolution.test.ts
+ create mode 100644 src/domain/model-cite-resolution.ts
+ create mode 100644 src/domain/model/citations.generated.ts
+ create mode 100644 src/domain/plan-apply.test.ts
+ create mode 100644 src/domain/plan-apply.ts
+ create mode 100644 src/features/workspace/rebuild-model.test.tsx
+ create mode 100644 src/infrastructure/read-model.test.ts
+ create mode 100644 src/infrastructure/read-model.ts
+ create mode 100644 src/infrastructure/validate-model.ts
+ create mode 100644 test/fixtures/model-queries.ts
+ create mode 100644 test/fixtures/model/evidence/example/orders/bindings.jsonl

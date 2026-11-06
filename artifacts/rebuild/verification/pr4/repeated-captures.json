@@ -1,0 +1,13 @@
+{
+  "identicalFiles": 190,
+  "knownTransportVariants": [
+    {
+      "workspace": "acme",
+      "file": "route-70370555f544e09df429.json.gz",
+      "path": "/htmlBytes",
+      "before": 27172,
+      "after": 27129,
+      "cause": "The pre-existing exact PR1 Flight-wrapper allowance; payload, headings and links are identical."
+    }
+  ]
+}

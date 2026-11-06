@@ -92,5 +92,13 @@ schemas:
       id: 'sch:graph-order',
       kind: graph-type,
       graph: 'graph:shop',
-      fields: [{ id: id, name: id, type: ID }],
+      name: Order,
+      fields: [{ id: id, name: id, type: ID, subgraphs: ['sg:orders'] }],
     }
+  - id: sch:graph-query
+    kind: graph-type
+    graph: graph:shop
+    name: Query
+    root: query
+    fields:
+      - { id: order, name: order, type: 'sch:graph-order', subgraphs: ['sg:orders'] }

@@ -1,4 +1,5 @@
-import { fieldId } from '@/application/plan/ids';
+import { fieldId, prop } from '@/application/plan/ids';
+import { appendChild } from '@/domain/ids';
 import type {
   EndpointNode,
   FieldNode,
@@ -58,7 +59,9 @@ function flat<T extends { readonly id: string }, K extends EntityType>(
 
 function fieldNodes(schema: Schema, i: number, origins: Origins): FieldNode[] {
   return (schema.fields ?? []).map((f, j) => {
-    const id = fieldId(schema.id, f.name);
+    const declared = prop(f, 'id');
+    const id =
+      typeof declared === 'string' ? appendChild(schema.id, declared) : fieldId(schema.id, f.name);
     return {
       ...f,
       id,

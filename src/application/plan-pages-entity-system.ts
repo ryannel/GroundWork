@@ -13,15 +13,14 @@ interface Group {
 /** How many parts or stores the inspector names before it says how many more there are. */
 const NAMED = 6;
 
-/** The `sys:` id each service and store belongs to: a service's system, a store's owner's. */
-function systemsOf(model: Model): Map<string, string> {
-  const of = new Map<string, string>();
-  for (const s of model.plan.services) if (s.system !== undefined) of.set(s.id, s.system);
-  for (const st of model.plan.stores ?? []) {
-    const sys = st.owner === undefined ? undefined : of.get(st.owner);
-    if (sys !== undefined) of.set(st.id, sys);
-  }
-  return of;
+/** Each component's declared containing system, independently of resource ownership. */
+function systemsOf(model: Model): ReadonlyMap<string, string> {
+  return new Map(
+    [...model.plan.services, ...(model.plan.stores ?? [])].flatMap((component) => {
+      const system = model.place(component.id)?.system;
+      return system === undefined || system === null ? [] : [[component.id, system] as const];
+    }),
+  );
 }
 
 /** Who leans on whom along one edge: a caller on what it calls, a reader on its store, a consumer on its sender. */

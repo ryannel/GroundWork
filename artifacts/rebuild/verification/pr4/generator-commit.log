@@ -1,0 +1,33 @@
+[38;2;56;56;56m╭──────────────────────────────────────╮[m
+[38;2;56;56;56m│[m lefthook  v2.2.2   hook:  [1mpre-commit[m [38;2;56;56;56m│[m
+[38;2;56;56;56m╰──────────────────────────────────────╯[m
+│  styles (skip) no files for inspection
+│  workspaces (skip) no matching staged files
+┃  format ❯ 
+Checking formatting...
+All matched files use Prettier code style!
+
+┃  types ❯ 
+
+┃  lint ❯ 
+
+┃  tests ❯ 
+
+ RUN  v5.0.4 /Users/RNEL/.codex/worktrees/rebuild-pr4/groundWork
+
+
+ Test Files  1 passed (1)
+   Affected  1 of 559 test files (related to tools/generate-plan-types.ts)
+      Tests  2 passed (2)
+   Start at  11:50:42
+   Duration  7.18s (tests 99%, import 1%)
+
+
+[38;2;56;56;56m  ────────────────────────────────────[m
+summary: (done in 8.80 seconds)
+✓ format (0.96 seconds)
+✓ types (3.78 seconds)
+✓ lint (3.98 seconds)
+✓ tests (8.80 seconds)
+[codex/rebuild-pr4 fb559433] Batch schema formatting to keep generation within its test limit
+ 1 file changed, 33 insertions(+), 31 deletions(-)

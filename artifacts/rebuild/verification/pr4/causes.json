@@ -1,0 +1,97 @@
+{
+  "sourceCommit": "e934e8c1f8a8540b543994e58e4f34ee13f7bdd9",
+  "baselineCommit": "7cfdcbc9470559eafcdeea040fc238f8872166b9",
+  "pointerCountsByCauseLocation": {
+    "personal": {
+      "derived/componentEdges": 1,
+      "derived/nodes": 3,
+      "derived/storeAccess": 2,
+      "derived/systemEdges": 1,
+      "plan": 1,
+      "route snapshots": 13
+    },
+    "acme": {
+      "derived/componentEdges": 1,
+      "derived/nodes": 6,
+      "derived/storeAccess": 2,
+      "derived/systemEdges": 1,
+      "existing PR1 transport allowance": 1,
+      "lookupFacts": 45,
+      "plan": 2,
+      "route snapshots": 11
+    },
+    "volvo-cars": {
+      "areaViews": 11741,
+      "derived/componentEdges": 7333,
+      "derived/nodes": 80,
+      "derived/storeAccess": 252,
+      "derived/systemEdges": 8244,
+      "lookupFacts": 11674,
+      "plan": 18,
+      "plans": 1983,
+      "route selection and ordering": 21,
+      "route snapshots": 1432
+    }
+  },
+  "unsupportedOwnership": {
+    "before": "7cfdcbc:src/application/workspace-model.ts:161",
+    "after": "e934e8c1:src/application/workspace-model.ts:162",
+    "evidence": "fidelity-ledger.json: removedInferredOwners and removedEdges, by workspace; exact identities and before values.",
+    "classification": "Changed derived claims. Authored records are unchanged. Array positions shift when unsupported edges and incidental scope entries disappear."
+  },
+  "placement": {
+    "source": [
+      "src/application/plan/derive-placement.ts:30",
+      "src/application/legacy-placement.ts:25"
+    ],
+    "evidence": "fidelity.py asserts every today node identity and all non-ownership fields are retained; lookupFacts may change only placement and effective citation attribution. Before/after fields are in the paired facts.json.gz files.",
+    "classification": "Corrected placement metadata, independently of ownership. Global flows remain global."
+  },
+  "areas": {
+    "source": [
+      "src/application/area-map/resources.ts:178",
+      "src/application/workspace-area.ts:355"
+    ],
+    "evidence": "fidelity-ledger.json: areaCorrections; fidelity.py verifies retained card fields, every previously visible authored diagram, usage of removed duplicate cards, and unchanged technical relationships apart from their system labels. One newly visible repository link is checked against its recorded attribution.",
+    "classification": "Placement and folding changes, with ordering fallout. Six Choose diagram topics are placed in Assortment; its original diagram is retained. Previously hidden Buy and Orders diagrams now resolve."
+  },
+  "flowWork": {
+    "source": [
+      "src/infrastructure/workspace-plan-index.ts:19",
+      "src/application/workspace-work/workspace-plan-index.ts:168"
+    ],
+    "evidence": "check9.log and code-commit.log; exact nested-step and three-system flow regressions. Comparison 3 to 4 restores the three Assortment work items; their linked facts remain authored, unchanged.",
+    "classification": "Corrected system participation. A whole flow touches every recorded participant; a nested step retains its exact placement."
+  },
+  "planScope": {
+    "evidence": "fidelity.py verifies unchanged plan ops, reasoning and outline, unchanged retained backed edges, and no explicit reference to the two removed incidental entities outside the old scoped service/store collections. All workspace entities remain present. Retained before/after node fields are identical after removing array paths and corrected ownership fields.",
+    "removedIncidentalIds": [
+      "svc:assortment-admin-api",
+      "st:assortment-admin-db"
+    ],
+    "plan": "unify-price-breakdown",
+    "classification": "Changed plan scope after removing an unsupported ownership path. The old incidental admin detail URL now reports no matching thing in that plan; workspace facts remain."
+  },
+  "browserRepresentation": {
+    "source": [
+      "src/application/plan/derive-placement.ts:72"
+    ],
+    "evidence": "Exact placement objects and plan payloads are captured in model.json/plan.json route snapshots; raw model records are checked in fidelity.py. Every allowance pins the exact field hashes.",
+    "classification": "Serialisable placement metadata plus the same ownership corrections. Hidden model payload changes can change HTML bytes without changing visible text."
+  },
+  "transport": {
+    "evidence": "repeated-captures.json and the existing PR1 allowance for route-70370555f544e09df429.json.gz /htmlBytes.",
+    "classification": "Representation only: 27172 to 27129 bytes, with identical payload, headings and links. No new transport allowance is added."
+  },
+  "backedFacts": {
+    "proof": "fidelity.py; fidelity-ledger.json; paired baseline and current facts.json.gz",
+    "unchanged": [
+      "all authored workspace sections",
+      "all current entity identities and non-ownership node fields",
+      "all retained component and system edges, including backing steps and handlers",
+      "callers, handler edges and message derivations",
+      "plan operations, reasoning and outline",
+      "every previously visible authored area diagram"
+    ]
+  }
+}

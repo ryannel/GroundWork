@@ -6,9 +6,9 @@ import { acmeWorkspace } from '@/../test/fixtures/acme/workspace';
 import { type OnToday, planOnToday, type PlanOverlay } from '@/../test/plan-kit';
 import { type SystemModel, systemModelOf } from '@/application/workspace-model';
 import type { Flow, Interaction, Screen, UserJourney } from '@/domain/plan/plan.generated';
-import type { SystemContracts, WorkspaceModel } from '@/domain/workspace-model';
+import type { SystemContracts, LegacyWorkspaceModel } from '@/domain/workspace-model';
 
-const contractsOf = (model: WorkspaceModel, system: string): SystemContracts => {
+const contractsOf = (model: LegacyWorkspaceModel, system: string): SystemContracts => {
   const found = model.contracts.find((c) => c.system === system);
   if (found === undefined) throw new Error(`no contracts for ${system}`);
   return found;
@@ -17,7 +17,7 @@ const contractsOf = (model: WorkspaceModel, system: string): SystemContracts => 
 type Mutable<T> = { -readonly [K in keyof T]: T[K] };
 const open = (c: SystemContracts): Mutable<SystemContracts> => c;
 
-function paymentsToday(model: WorkspaceModel): void {
+function paymentsToday(model: LegacyWorkspaceModel): void {
   const payments = open(contractsOf(model, 'payments'));
   payments.schemas = [
     ...payments.schemas,
@@ -48,7 +48,7 @@ const SHOP_SCREENS: Screen[] = [
   },
 ];
 
-function shopToday(model: WorkspaceModel): void {
+function shopToday(model: LegacyWorkspaceModel): void {
   const shop = open(contractsOf(model, 'shop'));
   shop.schemas = [
     ...shop.schemas,
@@ -96,7 +96,7 @@ function shopToday(model: WorkspaceModel): void {
   ];
 }
 
-function orderingToday(model: WorkspaceModel): void {
+function orderingToday(model: LegacyWorkspaceModel): void {
   const ordering = open(contractsOf(model, 'ordering'));
   ordering.screens = [
     ...ordering.screens,
@@ -263,7 +263,7 @@ function publishProduct(flow: Flow): Flow {
   };
 }
 
-function flowsToday(model: WorkspaceModel): Flow[] {
+function flowsToday(model: LegacyWorkspaceModel): Flow[] {
   const byId = new Map(model.flows.map((f) => [f.id, f]));
   const get = (id: string): Flow => {
     const flow = byId.get(id);
@@ -280,7 +280,7 @@ function flowsToday(model: WorkspaceModel): Flow[] {
   ];
 }
 
-function interactionsToday(model: WorkspaceModel): Interaction[] {
+function interactionsToday(model: LegacyWorkspaceModel): Interaction[] {
   const place = model.interactions.find((i) => i.id === 'ui:place-order');
   const add = model.interactions.find((i) => i.id === 'ui:add-to-basket');
   if (place === undefined || add === undefined) throw new Error('no interactions');
@@ -326,7 +326,7 @@ function interactionsToday(model: WorkspaceModel): Interaction[] {
   ];
 }
 
-const journeysToday = (model: WorkspaceModel): UserJourney[] => [
+const journeysToday = (model: LegacyWorkspaceModel): UserJourney[] => [
   ...model.journeys,
   {
     id: 'uj:recheck',
@@ -337,7 +337,7 @@ const journeysToday = (model: WorkspaceModel): UserJourney[] => [
 ];
 
 /** Acme's model of today with replies, screens, journeys, a job and a System flow. */
-function coreTodayModel(): WorkspaceModel {
+function coreTodayModel(): LegacyWorkspaceModel {
   const model = acmeModel();
   paymentsToday(model);
   shopToday(model);
