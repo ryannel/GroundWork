@@ -1,0 +1,8 @@
+{
+  "probe": "ordinary Git listing with the previous default buffer",
+  "status": null,
+  "signal": "SIGTERM",
+  "error": "spawnSync git ENOBUFS",
+  "stdoutBytes": 1114112,
+  "stderr": ""
+}
