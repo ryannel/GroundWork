@@ -14,7 +14,13 @@ const report = process.argv[3];
 if (source === undefined || report === undefined) throw new Error('Pass the workspace folder and report JSON filename.');
 const files = await authoredFiles(source);
 const migrated = migrateWorkspace(files, migrationReview());
-const probes = [];
+const probes: {
+  readonly file: string;
+  readonly line: number;
+  readonly handler: string;
+  readonly value: unknown;
+  readonly missingCitations: Awaited<ReturnType<typeof modelProblems>>;
+}[] = [];
 for (const [file, fragment] of migrated.files) {
   if (fragment.family !== 'plan') continue;
   for (const change of modelList(modelRecord(fragment.value)?.changes)) {
