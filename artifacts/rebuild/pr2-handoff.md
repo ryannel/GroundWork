@@ -101,3 +101,11 @@ The final inventory reports **zero** uncentralised runtime operations, retaining
 The final complete local check passes (`check-markdown-corrected.log`): 4,084 tests in 520 test files, with the existing 27 files/125 tests skipped. Type coverage is 100%; pure-layer coverage is 97.48% lines and 87.65% branches. Lint, architecture tests and every static check pass. Duplication remains 0.38%. The expanded CI mutation gate remains required before merge.
 
 New terminal logs have trailing whitespace and terminal carriage returns normalised for Git; their outcomes and messages are retained. Raw local copies are under `/tmp/groundwork-pr2-raw-verification-logs`.
+
+## The expanded view tests
+
+A completed local mutation run over the 14 newly exposed files detected 1,353 of 2,038 active mutants (66.39%). The concrete gaps were the compatibility presenter (0 of 144, all uncovered) and flow node cards (28 of 154). Their new pure tests exercise missing-reader gaps, migration proof locations, role counts, explanation limits, deduplication, ownership and lens state, endpoint and internal-step descriptions, topic labels, supported store kinds, drawing data and plan-state markers.
+
+The corrected fixtures pass TypeScript, lint and all 13 focused tests. The completed targeted run detects 128 of 144 compatibility mutations (88.89%) and 137 of 154 node-card mutations (88.96%), 265 of 298 together (88.93%). These results are recorded under `verification/pr2/final-views-*` and `mutation-final-views-summary.json`; they remain diagnostic until the complete CI aggregate passes. The production source is unchanged from `2c20e4c5`, so that head's successful build, all 599 budgets and all frozen comparisons remain the production proof for this test-only follow-up. Both new test files target files already in the 148-file mutation scope.
+
+The refreshed follow-up inventory remains at zero uncentralised operations, with 1,614 consumer rows and 8,153 literal/helper candidates. No explorer capability has been retired.

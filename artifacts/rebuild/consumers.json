@@ -52580,6 +52580,157 @@
     "status": "adapter"
   },
   {
+    "category": "fixture or test",
+    "file": "src/application/plan-viz-compat.test.ts",
+    "hits": [
+      {
+        "line": 4,
+        "text": "import { derive, type Model } from '@/application/plan/derive';"
+      },
+      {
+        "line": 8,
+        "text": "const target = 'api:change';"
+      },
+      {
+        "line": 15,
+        "text": "{ id: 'svc:a', name: 'Orders', kind: 'service' },"
+      },
+      {
+        "line": 16,
+        "text": "{ id: 'svc:b', name: 'Search', kind: 'service' },"
+      },
+      {
+        "line": 21,
+        "text": "const person = (svc: string, extra: Partial<Person> = {}): Person => ({"
+      },
+      {
+        "line": 57,
+        "text": "person('svc:a'),"
+      },
+      {
+        "line": 58,
+        "text": "person('svc:b', { movedBy: { step: 'flow:change#read', change: 'chg:move' } }),"
+      },
+      {
+        "line": 94,
+        "text": "who: [person('svc:a', { role }), person('svc:b', { role })],"
+      },
+      {
+        "line": 106,
+        "text": "compatBadgeView(model({ verdict: 'migration', reasons: [], who: [person('svc:b')] }), target)"
+      },
+      {
+        "line": 121,
+        "text": "who: [person('svc:a'), person('svc:b', { role: 'caller' })],"
+      },
+      {
+        "line": 133,
+        "text": "person('svc:a'),"
+      },
+      {
+        "line": 134,
+        "text": "person('svc:a'),"
+      },
+      {
+        "line": 135,
+        "text": "person('svc:a', { via: 'flow:read#one' }),"
+      },
+      {
+        "line": 136,
+        "text": "person('svc:b', { via: 'api:read' }),"
+      },
+      {
+        "line": 137,
+        "text": "person('svc:b', { via: 'flow:read' }),"
+      },
+      {
+        "line": 138,
+        "text": "person('svc:a', {"
+      },
+      {
+        "line": 139,
+        "text": "via: 'api:old',"
+      },
+      {
+        "line": 140,
+        "text": "movedBy: { step: 'flow:new#one', change: 'chg:move', rung: 'api:new' },"
+      },
+      {
+        "line": 142,
+        "text": "person('svc:a', {"
+      },
+      {
+        "line": 143,
+        "text": "via: 'api:other',"
+      },
+      {
+        "line": 146,
+        "text": "person('svc:b', {"
+      },
+      {
+        "line": 147,
+        "text": "via: 'msg:old',"
+      },
+      {
+        "line": 148,
+        "text": "movedBy: { step: null, change: 'chg:move', rung: 'msg:new' },"
+      },
+      {
+        "line": 150,
+        "text": "person('svc:b', { via: 'flow:current#two', movedBy: { step: null, change: null } }),"
+      },
+      {
+        "line": 151,
+        "text": "person('svc:b', { movedBy: { step: null, change: null } }),"
+      },
+      {
+        "line": 156,
+        "text": "{ svc: 'svc:a', where: null },"
+      },
+      {
+        "line": 157,
+        "text": "{ svc: 'svc:a', where: { word: 'in', id: 'flow:read#one' } },"
+      },
+      {
+        "line": 158,
+        "text": "{ svc: 'svc:b', where: { word: 'through', id: 'api:read' } },"
+      },
+      {
+        "line": 159,
+        "text": "{ svc: 'svc:b', where: { word: 'through', id: 'flow:read' } },"
+      },
+      {
+        "line": 162,
+        "text": "{ svc: 'svc:a', where: { word: 'in', id: 'flow:new#one' } },"
+      },
+      {
+        "line": 163,
+        "text": "{ svc: 'svc:b', where: { word: 'to', id: 'msg:new' } },"
+      },
+      {
+        "line": 164,
+        "text": "{ svc: 'svc:b', where: { word: 'in', id: 'flow:current#two' } },"
+      },
+      {
+        "line": 165,
+        "text": "{ svc: 'svc:b', where: null },"
+      },
+      {
+        "line": 169,
+        "text": "expect(whoKey({ svc: 'svc:a', where: null })).toBe('svc:a ');"
+      },
+      {
+        "line": 170,
+        "text": "expect(whoKey({ svc: 'svc:a', where: { word: 'in', id: 'flow:read#one' } })).toBe("
+      },
+      {
+        "line": 171,
+        "text": "'svc:a flow:read#one',"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
     "category": "consumer",
     "file": "src/application/plan-viz-compat.ts",
     "hits": [
@@ -53390,6 +53541,213 @@
       {
         "line": 142,
         "text": "h: r.h,"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "fixture or test",
+    "file": "src/application/plan-viz-flow-draw-nodes.test.ts",
+    "hits": [
+      {
+        "line": 3,
+        "text": "import { derive } from '@/application/plan/derive';"
+      },
+      {
+        "line": 7,
+        "text": "import type { Plan } from '@/domain/plan/plan.generated';"
+      },
+      {
+        "line": 16,
+        "text": "{ id: 'svc:a', name: 'A', kind: 'service', team: 'team:a' },"
+      },
+      {
+        "line": 17,
+        "text": "{ id: 'svc:b', name: 'B', kind: 'ui' },"
+      },
+      {
+        "line": 18,
+        "text": "{ id: 'svc:job', name: 'Job', kind: 'job' },"
+      },
+      {
+        "line": 19,
+        "text": "{ id: 'svc:external', name: 'Partner', kind: 'external' },"
+      },
+      {
+        "line": 22,
+        "text": "{ id: 'st:db', name: 'Orders', kind: 'database' },"
+      },
+      {
+        "line": 23,
+        "text": "{ id: 'st:cache', name: 'Cache', kind: 'cache' },"
+      },
+      {
+        "line": 24,
+        "text": "{ id: 'st:topic', name: 'Events', kind: 'topic' },"
+      },
+      {
+        "line": 28,
+        "text": "id: 'if:a',"
+      },
+      {
+        "line": 29,
+        "text": "service: 'svc:a',"
+      },
+      {
+        "line": 31,
+        "text": "endpoints: [{ id: 'api:read', sig: 'GET /records', summary: '**Read** [[svc:b]]' }],"
+      },
+      {
+        "line": 36,
+        "text": "id: 'sch:order',"
+      },
+      {
+        "line": 39,
+        "text": "store: 'st:db',"
+      },
+      {
+        "line": 42,
+        "text": "{ id: 'sch:unplaced', name: 'Unknown', kind: 'dto' },"
+      },
+      {
+        "line": 44,
+        "text": "messages: [{ id: 'msg:changed', name: 'Changed', topic: 'st:topic' }],"
+      },
+      {
+        "line": 52,
+        "text": "from: 'svc:a',"
+      },
+      {
+        "line": 53,
+        "text": "to: 'svc:a',"
+      },
+      {
+        "line": 55,
+        "text": "action: '**Update** [[svc:b]]',"
+      },
+      {
+        "line": 56,
+        "text": "writes: ['sch:order#id'],"
+      },
+      {
+        "line": 58,
+        "text": "{ id: 'flow:work#keep', from: 'svc:a', to: 'svc:a', via: 'internal', action: 'Compute' },"
+      },
+      {
+        "line": 67,
+        "text": "{ modify: 'svc:a', set: { name: 'A revised' } },"
+      },
+      {
+        "line": 69,
+        "text": "{ add: 'service', value: { id: 'svc:new', name: 'New app', kind: 'ui' } },"
+      },
+      {
+        "line": 70,
+        "text": "{ add: 'endpoint', into: 'if:a', value: { id: 'api:new', sig: 'POST /records' } },"
+      },
+      {
+        "line": 71,
+        "text": "{ add: 'message', value: { id: 'msg:new', name: 'Added', topic: 'st:topic' } },"
+      },
+      {
+        "line": 81,
+        "text": "markers: { 'svc:a': '◇', 'flow:work#old': '◇' },"
+      },
+      {
+        "line": 94,
+        "text": "h: 200,"
+      },
+      {
+        "line": 101,
+        "text": "touched: new Set(['svc:a']),"
+      },
+      {
+        "line": 102,
+        "text": "touchSteps: new Map([['svc:a', [0, 1]]]),"
+      },
+      {
+        "line": 110,
+        "text": "[node('svc:a'), node('svc:new'), node('svc:missing')],"
+      },
+      {
+        "line": 114,
+        "text": "id: 'svc:a',"
+      },
+      {
+        "line": 120,
+        "text": "h: 200,"
+      },
+      {
+        "line": 145,
+        "text": "drawNodes(context('asIs'), [node('svc:a')], { ...filters, lens: options.lens })[0],"
+      },
+      {
+        "line": 147,
+        "text": "expect(drawNodes(context(), [node('svc:a')], { ...filters, lens: 'team:a' })[0]?.lensOff).toBe("
+      },
+      {
+        "line": 153,
+        "text": "drawNodes(context(), [node('svc:b'), node('svc:job'), node('svc:external')], filters).map("
+      },
+      {
+        "line": 164,
+        "text": "['st:db', 'st:cache'].map((id) => node(id, { kind: 'store' })),"
+      },
+      {
+        "line": 173,
+        "text": "const spec = node('svc:a', {"
+      },
+      {
+        "line": 175,
+        "text": "{ via: 'api:read', steps: [0] },"
+      },
+      {
+        "line": 176,
+        "text": "{ via: 'api:new', steps: [1] },"
+      },
+      {
+        "line": 187,
+        "text": "via: 'api:read',"
+      },
+      {
+        "line": 197,
+        "text": "via: 'api:new',"
+      },
+      {
+        "line": 216,
+        "text": "aria: 'Step 1: **Update** [[svc:b]] · Deprecated · still works',"
+      },
+      {
+        "line": 238,
+        "text": "const spec = node('st:topic', { kind: 'topic', events: ['msg:changed', 'msg:new'] });"
+      },
+      {
+        "line": 244,
+        "text": "{ id: 'msg:changed', text: 'Changed', title: 'Changed', added: false, y: 48, textX: 156 },"
+      },
+      {
+        "line": 245,
+        "text": "{ id: 'msg:new', text: 'Added', title: 'Added', added: true, y: 64, textX: 156 },"
+      },
+      {
+        "line": 258,
+        "text": "from: 'svc:a',"
+      },
+      {
+        "line": 259,
+        "text": "to: 'svc:b',"
+      },
+      {
+        "line": 260,
+        "text": "reads: ['sch:order#id', 'sch:unplaced', 'missing'],"
+      },
+      {
+        "line": 261,
+        "text": "writes: ['sch:order'],"
+      },
+      {
+        "line": 264,
+        "text": ").toEqual(new Set(['svc:a', 'svc:b', 'st:db']));"
       }
     ],
     "status": "adapter"
