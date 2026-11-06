@@ -1,0 +1,16 @@
+{
+  "head": "2f9b390bbf8c030865797b7994ebcc04a2e8c4a7",
+  "run": "https://github.com/ryannel/GroundWork/actions/runs/42160262302",
+  "failedJob": 127704974755,
+  "message": "Missing or unexpected mutation batches.",
+  "expectedBatches": 1,
+  "completedBatchScore": {
+    "detected": 47,
+    "active": 58,
+    "percentage": 81.03
+  },
+  "cause": "actions/download-artifact v7 flattens one matched artifact into the requested path, irrespective of merge-multiple false.",
+  "source": "https://github.com/actions/download-artifact/blob/37930b1c2abaa49bbe596cd826c3c89aef350131/src/download-artifact.ts#L175-L181",
+  "fix": "Download the sole expected artifact by name into reports/batches/mutation-0; retain named pattern downloads for multiple expected batches.",
+  "scopeAndThresholdUnchanged": true
+}

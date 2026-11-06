@@ -37,3 +37,20 @@ The full check passes, including static checks, lint and coverage; `check.log` r
 After merging this PR, create PR 4 from updated main in its own worktree. Read the repository specification and run the task checkpoint and workspace registry commands. Build `WorkspaceModel`, `readModel`, `apply`, `indexOf`, `plansIndex` and the explicit loss-reporting compatibility boundary. Derive facts from recorded evidence and keep ownership separate from placement.
 
 PR 7 still requires a person to accept headline and edge review rows. Before PR 9, reconfirm design §10.2 with the user. Keep code and Volvo data PRs separate and never edit the original code checkout.
+
+
+## Single-batch CI download
+
+All ordinary CI checks passed at `2f9b390b`, and its mutation batch detected 47/58 faults. The final mutation
+job failed on the report layout: pinned `download-artifact` v7 sends a sole match directly into the chosen
+path, even when `merge-multiple` is false. The aggregator correctly rejected that flattened directory.
+`ci-single-artifact-failure.json` records the failed run and the upstream source lines that explain it.
+
+The workflow now downloads a single expected batch by its exact name into `reports/batches/mutation-0`;
+multiple expected batches keep named pattern downloads. The existing strict aggregator is unchanged apart
+from exporting its test boundary. Two regressions prove a correctly named sole report passes, a flattened
+report fails, and one named report cannot stand in for several expected batches. All 13 tooling tests pass.
+The downloaded, completed CI report also passes the real aggregate command at 81.03% when placed in the
+expected directory (`ci-report-replay.log`). Missing reports, source mismatches and weakened thresholds
+continue to fail. This follow-up changes verification delivery only; build, budget and model comparison
+proofs above describe the same application and contract code. The updated head must pass CI before merge.

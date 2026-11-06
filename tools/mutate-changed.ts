@@ -169,7 +169,7 @@ export function mutationPassed(scores: readonly Score[], floor: number): boolean
   );
   return percentage >= floor;
 }
-async function aggregate(folder: string, targets: readonly string[]): Promise<void> {
+export async function aggregate(folder: string, targets: readonly string[]): Promise<void> {
   const batches = mutationBatches(targets);
   const expectedNames = batches
     .map(({ index }) => `mutation-${String(index)}`)
