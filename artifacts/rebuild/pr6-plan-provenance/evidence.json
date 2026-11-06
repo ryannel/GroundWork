@@ -1,0 +1,145 @@
+{
+  "sourceCommit": "723085497ded5b51d3c23fdcb5f6b1c778aa3efa",
+  "schemaSha256": "96b91f275d4a38b04df954990f4188d6d2d60ae53c8d2bd9de07b4d647283f33",
+  "plans": 1,
+  "proposedHandlers": 2,
+  "missingEffectCitations": 6,
+  "probes": [
+    {
+      "file": "plans/care-se-stock-reservation/plan.yaml",
+      "line": 240,
+      "handler": "h:conditional-order-on-finance-application-update",
+      "value": {
+        "id": "h:conditional-order-on-finance-application-update",
+        "on": "sub:conditional-order-fae-finance-application-update",
+        "component": "svc:conditional-order",
+        "summary": "Keeps a Swedish Care stock car reserved while its application moves.",
+        "steps": [
+          {
+            "read": "sch:conditional-order-record",
+            "from": "st:conditional-order-db",
+            "does": "Finds the order by the business reference (the lead id)",
+            "id": "read-conditional-order-record"
+          },
+          {
+            "if": "the order holds a stock car reservation and this status is new for it",
+            "id": "the-order-holds-a-stock-car-reservation-and-this-status-is-new-for-it",
+            "then": [
+              {
+                "call": "api:car-locator-engine-reserve",
+                "does": "Renews the same reservation for the agreed time",
+                "id": "call-car-locator-engine-reserve"
+              },
+              {
+                "write": "sch:conditional-order-record",
+                "to": "st:conditional-order-db",
+                "does": "Keeps the new expiry and the status seen",
+                "id": "write-conditional-order-record"
+              }
+            ],
+            "else": [
+              {
+                "does": "Ignores the event",
+                "id": "ignores-the-event"
+              }
+            ]
+          }
+        ]
+      },
+      "missingCitations": [
+        {
+          "path": "/steps/0",
+          "schemaPath": "#/allOf/43/then/required",
+          "params": {
+            "missingProperty": "cites"
+          },
+          "keyword": "required",
+          "message": "must have required property 'cites'"
+        },
+        {
+          "path": "/steps/1/then/0",
+          "schemaPath": "#/allOf/43/then/required",
+          "params": {
+            "missingProperty": "cites"
+          },
+          "keyword": "required",
+          "message": "must have required property 'cites'"
+        },
+        {
+          "path": "/steps/1/then/1",
+          "schemaPath": "#/allOf/43/then/required",
+          "params": {
+            "missingProperty": "cites"
+          },
+          "keyword": "required",
+          "message": "must have required property 'cites'"
+        }
+      ]
+    },
+    {
+      "file": "plans/care-se-stock-reservation/plan.yaml",
+      "line": 259,
+      "handler": "h:conditional-order-on-finance-application-reject",
+      "value": {
+        "id": "h:conditional-order-on-finance-application-reject",
+        "on": "sub:conditional-order-fae-finance-application-reject",
+        "component": "svc:conditional-order",
+        "summary": "Releases a reserved stock car when its financing is declined.",
+        "steps": [
+          {
+            "read": "sch:conditional-order-record",
+            "from": "st:conditional-order-db",
+            "does": "Finds the order by the business reference (the lead id)",
+            "id": "read-conditional-order-record"
+          },
+          {
+            "if": "the order holds a stock car reservation",
+            "id": "the-order-holds-a-stock-car-reservation",
+            "then": [
+              {
+                "call": "api:car-locator-engine-unreserve",
+                "does": "Releases the car",
+                "id": "call-car-locator-engine-unreserve"
+              },
+              {
+                "write": "sch:conditional-order-record",
+                "to": "st:conditional-order-db",
+                "does": "Records the release",
+                "id": "write-conditional-order-record"
+              }
+            ]
+          }
+        ]
+      },
+      "missingCitations": [
+        {
+          "path": "/steps/0",
+          "schemaPath": "#/allOf/43/then/required",
+          "params": {
+            "missingProperty": "cites"
+          },
+          "keyword": "required",
+          "message": "must have required property 'cites'"
+        },
+        {
+          "path": "/steps/1/then/0",
+          "schemaPath": "#/allOf/43/then/required",
+          "params": {
+            "missingProperty": "cites"
+          },
+          "keyword": "required",
+          "message": "must have required property 'cites'"
+        },
+        {
+          "path": "/steps/1/then/1",
+          "schemaPath": "#/allOf/43/then/required",
+          "params": {
+            "missingProperty": "cites"
+          },
+          "keyword": "required",
+          "message": "must have required property 'cites'"
+        }
+      ]
+    }
+  ]
+}
