@@ -1,0 +1,8 @@
+{
+  "route": "/volvo-cars/things/?id=msg-assortment-classification-changed",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 190978,
+  "sha256": "a5c2676e3dd9e87016d8b0e20409f3b3ee0532839f1b1f636c44abce6869e858",
+  "body": "608c84b6b0628a1056569969c4e49c23c9320a78ce9fdd8c1a5c71ee98be6dc2.body.gz"
+}

@@ -1,0 +1,8 @@
+{
+  "route": "/volvo-cars/areas/range/",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 330270,
+  "sha256": "dff89bc185a8c023007b6e324a20e1651176563e7d394389f71ff5546a3bddb6",
+  "body": "00c4482abe995628c0a337eac1a18b078c8487c9520df019a151d3fe95c6abee.body.gz"
+}

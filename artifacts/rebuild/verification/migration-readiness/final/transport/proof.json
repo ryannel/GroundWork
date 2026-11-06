@@ -1,0 +1,738 @@
+[
+  {
+    "workspace": "personal",
+    "file": "route-d27f1e2788e7e51292e6.json.gz",
+    "route": "/personal/",
+    "pointer": {
+      "file": "route-d27f1e2788e7e51292e6.json.gz",
+      "path": "/htmlBytes",
+      "before": 31640,
+      "after": 31597
+    },
+    "previous": {
+      "body": "previous-2297784afcfb43fd5e1dbdf469d7c58a4f0dfab096ca034aaf2d25c256f15881.html.gz",
+      "bytes": 31640,
+      "sha256": "2297784afcfb43fd5e1dbdf469d7c58a4f0dfab096ca034aaf2d25c256f15881"
+    },
+    "current": {
+      "body": "current-1de21c2a1566815032cff29a598b1175b2c4bff7f5169b636bb129006ffc1787.html.gz",
+      "bytes": 31597,
+      "sha256": "1de21c2a1566815032cff29a598b1175b2c4bff7f5169b636bb129006ffc1787"
+    },
+    "observations": [
+      {
+        "body": "previous-2297784afcfb43fd5e1dbdf469d7c58a4f0dfab096ca034aaf2d25c256f15881.html.gz",
+        "bytes": 31640,
+        "sha256": "2297784afcfb43fd5e1dbdf469d7c58a4f0dfab096ca034aaf2d25c256f15881"
+      }
+    ],
+    "allDomAndHydratedValuesEqual": true,
+    "wrapperDeltaBytes": -43,
+    "assetDeltaBytes": 0,
+    "measuredDelta": -43
+  },
+  {
+    "workspace": "personal",
+    "file": "route-ffb0bde0c2ccc55f8dca.json.gz",
+    "route": "/personal/people/",
+    "pointer": {
+      "file": "route-ffb0bde0c2ccc55f8dca.json.gz",
+      "path": "/htmlBytes",
+      "before": 29833,
+      "after": 29876
+    },
+    "previous": {
+      "body": "previous-ebfdb1c5f64617dac57f1509c26eb64032030626022dccf988cbd57f9b6a3ecd.html.gz",
+      "bytes": 29833,
+      "sha256": "ebfdb1c5f64617dac57f1509c26eb64032030626022dccf988cbd57f9b6a3ecd"
+    },
+    "current": {
+      "body": "current-aa1237526682b8708d331560f9a3d9225de2309ea7df85c30cc05e1be2b56629.html.gz",
+      "bytes": 29876,
+      "sha256": "aa1237526682b8708d331560f9a3d9225de2309ea7df85c30cc05e1be2b56629"
+    },
+    "observations": [
+      {
+        "body": "previous-ebfdb1c5f64617dac57f1509c26eb64032030626022dccf988cbd57f9b6a3ecd.html.gz",
+        "bytes": 29833,
+        "sha256": "ebfdb1c5f64617dac57f1509c26eb64032030626022dccf988cbd57f9b6a3ecd"
+      }
+    ],
+    "allDomAndHydratedValuesEqual": true,
+    "wrapperDeltaBytes": 43,
+    "assetDeltaBytes": 0,
+    "measuredDelta": 43
+  },
+  {
+    "workspace": "personal",
+    "file": "route-f221f4d7b4c7bc432779.json.gz",
+    "route": "/personal/plans/",
+    "pointer": {
+      "file": "route-f221f4d7b4c7bc432779.json.gz",
+      "path": "/htmlBytes",
+      "before": 29892,
+      "after": 29849
+    },
+    "previous": {
+      "body": "previous-e64bfe28d7587ae3bc7ca7350e53701301340beabc9dbf644fabd9dc92f0626a.html.gz",
+      "bytes": 29892,
+      "sha256": "e64bfe28d7587ae3bc7ca7350e53701301340beabc9dbf644fabd9dc92f0626a"
+    },
+    "current": {
+      "body": "current-08bcaa260fa6e0ffedcb06569a0ee73f19c6e7d31f30ba8a10005d3beca52649.html.gz",
+      "bytes": 29849,
+      "sha256": "08bcaa260fa6e0ffedcb06569a0ee73f19c6e7d31f30ba8a10005d3beca52649"
+    },
+    "observations": [
+      {
+        "body": "previous-e64bfe28d7587ae3bc7ca7350e53701301340beabc9dbf644fabd9dc92f0626a.html.gz",
+        "bytes": 29892,
+        "sha256": "e64bfe28d7587ae3bc7ca7350e53701301340beabc9dbf644fabd9dc92f0626a"
+      }
+    ],
+    "allDomAndHydratedValuesEqual": true,
+    "wrapperDeltaBytes": -43,
+    "assetDeltaBytes": 0,
+    "measuredDelta": -43
+  },
+  {
+    "workspace": "personal",
+    "file": "route-35c2f4e59f52d4d9fbf1.json.gz",
+    "route": "/personal/programmes/",
+    "pointer": {
+      "file": "route-35c2f4e59f52d4d9fbf1.json.gz",
+      "path": "/htmlBytes",
+      "before": 29903,
+      "after": 29946
+    },
+    "previous": {
+      "body": "previous-46f491358ec92ce928c47a95f73987f530033e36319cacdeb16cf134ec28cfcd.html.gz",
+      "bytes": 29903,
+      "sha256": "46f491358ec92ce928c47a95f73987f530033e36319cacdeb16cf134ec28cfcd"
+    },
+    "current": {
+      "body": "current-ba9f1f8999998c879d1ef76fef1f8f4b01c42800a71bf6328baf55e7de5b8b29.html.gz",
+      "bytes": 29946,
+      "sha256": "ba9f1f8999998c879d1ef76fef1f8f4b01c42800a71bf6328baf55e7de5b8b29"
+    },
+    "observations": [
+      {
+        "body": "previous-46f491358ec92ce928c47a95f73987f530033e36319cacdeb16cf134ec28cfcd.html.gz",
+        "bytes": 29903,
+        "sha256": "46f491358ec92ce928c47a95f73987f530033e36319cacdeb16cf134ec28cfcd"
+      }
+    ],
+    "allDomAndHydratedValuesEqual": true,
+    "wrapperDeltaBytes": 43,
+    "assetDeltaBytes": 0,
+    "measuredDelta": 43
+  },
+  {
+    "workspace": "personal",
+    "file": "route-1b1fccadc460a4e104c4.json.gz",
+    "route": "/personal/things/?id=svc-allotment-app",
+    "pointer": {
+      "file": "route-1b1fccadc460a4e104c4.json.gz",
+      "path": "/htmlBytes",
+      "before": 37377,
+      "after": 37334
+    },
+    "previous": {
+      "body": "previous-5e4f41c401f848d1d88792ffc24ccd2d6fa7096a5f09b53ff7b37eb99ca90896.html.gz",
+      "bytes": 37377,
+      "sha256": "5e4f41c401f848d1d88792ffc24ccd2d6fa7096a5f09b53ff7b37eb99ca90896"
+    },
+    "current": {
+      "body": "current-70da37805d30dbd36bcff305a16bccda30ff8790d31a91127053a8637eecca36.html.gz",
+      "bytes": 37334,
+      "sha256": "70da37805d30dbd36bcff305a16bccda30ff8790d31a91127053a8637eecca36"
+    },
+    "observations": [
+      {
+        "body": "previous-5e4f41c401f848d1d88792ffc24ccd2d6fa7096a5f09b53ff7b37eb99ca90896.html.gz",
+        "bytes": 37377,
+        "sha256": "5e4f41c401f848d1d88792ffc24ccd2d6fa7096a5f09b53ff7b37eb99ca90896"
+      }
+    ],
+    "allDomAndHydratedValuesEqual": true,
+    "wrapperDeltaBytes": -43,
+    "assetDeltaBytes": 0,
+    "measuredDelta": -43
+  },
+  {
+    "workspace": "acme",
+    "file": "route-5387805077e15b1937d9.json.gz",
+    "route": "/acme/",
+    "pointer": {
+      "file": "route-5387805077e15b1937d9.json.gz",
+      "path": "/htmlBytes",
+      "before": 43232,
+      "after": 43189
+    },
+    "previous": {
+      "body": "previous-7310f9c3ac7de2fb0408d69c01687d45cee80891d4be6dbd1667af8d98ffae59.html.gz",
+      "bytes": 43232,
+      "sha256": "7310f9c3ac7de2fb0408d69c01687d45cee80891d4be6dbd1667af8d98ffae59"
+    },
+    "current": {
+      "body": "current-382164f6b93b15be47dc546e73a4839a61a14b9adea906763eb0624924a7fabb.html.gz",
+      "bytes": 43189,
+      "sha256": "382164f6b93b15be47dc546e73a4839a61a14b9adea906763eb0624924a7fabb"
+    },
+    "observations": [
+      {
+        "body": "previous-7310f9c3ac7de2fb0408d69c01687d45cee80891d4be6dbd1667af8d98ffae59.html.gz",
+        "bytes": 43232,
+        "sha256": "7310f9c3ac7de2fb0408d69c01687d45cee80891d4be6dbd1667af8d98ffae59"
+      }
+    ],
+    "allDomAndHydratedValuesEqual": true,
+    "wrapperDeltaBytes": -43,
+    "assetDeltaBytes": 0,
+    "measuredDelta": -43
+  },
+  {
+    "workspace": "acme",
+    "file": "route-2766aed1314ff3a2861b.json.gz",
+    "route": "/acme/explorer/",
+    "pointer": {
+      "file": "route-2766aed1314ff3a2861b.json.gz",
+      "path": "/htmlBytes",
+      "before": 25473,
+      "after": 25430
+    },
+    "previous": {
+      "body": "previous-fa607031059ff8f428e289a1a846fd0c1f979bc4049766b7d119243279aa7266.html.gz",
+      "bytes": 25473,
+      "sha256": "fa607031059ff8f428e289a1a846fd0c1f979bc4049766b7d119243279aa7266"
+    },
+    "current": {
+      "body": "current-44fc47e8693fd447da5a683c4d0e1d723c3dd6233d789bc3d37e9b3489ff7b33.html.gz",
+      "bytes": 25430,
+      "sha256": "44fc47e8693fd447da5a683c4d0e1d723c3dd6233d789bc3d37e9b3489ff7b33"
+    },
+    "observations": [
+      {
+        "body": "previous-fa607031059ff8f428e289a1a846fd0c1f979bc4049766b7d119243279aa7266.html.gz",
+        "bytes": 25473,
+        "sha256": "fa607031059ff8f428e289a1a846fd0c1f979bc4049766b7d119243279aa7266"
+      }
+    ],
+    "allDomAndHydratedValuesEqual": true,
+    "wrapperDeltaBytes": -43,
+    "assetDeltaBytes": 0,
+    "measuredDelta": -43
+  },
+  {
+    "workspace": "acme",
+    "file": "route-6374487d74074517730d.json.gz",
+    "route": "/acme/people/",
+    "pointer": {
+      "file": "route-6374487d74074517730d.json.gz",
+      "path": "/htmlBytes",
+      "before": 41733,
+      "after": 41776
+    },
+    "previous": {
+      "body": "previous-0205211e85e4661934787cb1e2cb10c0f7db675628fa774c8733710b79be1327.html.gz",
+      "bytes": 41733,
+      "sha256": "0205211e85e4661934787cb1e2cb10c0f7db675628fa774c8733710b79be1327"
+    },
+    "current": {
+      "body": "current-0738373383d9e89444da14b00a4dd8899756c9b72216a21fc807819c079aa62a.html.gz",
+      "bytes": 41776,
+      "sha256": "0738373383d9e89444da14b00a4dd8899756c9b72216a21fc807819c079aa62a"
+    },
+    "observations": [
+      {
+        "body": "previous-0205211e85e4661934787cb1e2cb10c0f7db675628fa774c8733710b79be1327.html.gz",
+        "bytes": 41733,
+        "sha256": "0205211e85e4661934787cb1e2cb10c0f7db675628fa774c8733710b79be1327"
+      }
+    ],
+    "allDomAndHydratedValuesEqual": true,
+    "wrapperDeltaBytes": 43,
+    "assetDeltaBytes": 0,
+    "measuredDelta": 43
+  },
+  {
+    "workspace": "acme",
+    "file": "route-e38cd1fab6b083167cbb.json.gz",
+    "route": "/acme/plans/",
+    "pointer": {
+      "file": "route-e38cd1fab6b083167cbb.json.gz",
+      "path": "/htmlBytes",
+      "before": 36914,
+      "after": 36871
+    },
+    "previous": {
+      "body": "previous-dae27249b075b68f370404cd135c5f3b569cdd1aa9aa28f7fe2382feaae80f85.html.gz",
+      "bytes": 36914,
+      "sha256": "dae27249b075b68f370404cd135c5f3b569cdd1aa9aa28f7fe2382feaae80f85"
+    },
+    "current": {
+      "body": "current-097c61b16361ae6d014980ee38f67aa75b1c4875f9073717f9b814e292757119.html.gz",
+      "bytes": 36871,
+      "sha256": "097c61b16361ae6d014980ee38f67aa75b1c4875f9073717f9b814e292757119"
+    },
+    "observations": [
+      {
+        "body": "previous-dae27249b075b68f370404cd135c5f3b569cdd1aa9aa28f7fe2382feaae80f85.html.gz",
+        "bytes": 36914,
+        "sha256": "dae27249b075b68f370404cd135c5f3b569cdd1aa9aa28f7fe2382feaae80f85"
+      }
+    ],
+    "allDomAndHydratedValuesEqual": true,
+    "wrapperDeltaBytes": -43,
+    "assetDeltaBytes": 0,
+    "measuredDelta": -43
+  },
+  {
+    "workspace": "acme",
+    "file": "route-9cfabff74e65383b4393.json.gz",
+    "route": "/acme/programmes/",
+    "pointer": {
+      "file": "route-9cfabff74e65383b4393.json.gz",
+      "path": "/htmlBytes",
+      "before": 36968,
+      "after": 36925
+    },
+    "previous": {
+      "body": "previous-2b1344731b83fb532c8411299a32cfb14eeabd5e86e038205053a2f8bea0829c.html.gz",
+      "bytes": 36968,
+      "sha256": "2b1344731b83fb532c8411299a32cfb14eeabd5e86e038205053a2f8bea0829c"
+    },
+    "current": {
+      "body": "current-b57af004e27e063d35a5c1cb0aa4461ec3c9dadbf0a48e7469bb182f42de7e6f.html.gz",
+      "bytes": 36925,
+      "sha256": "b57af004e27e063d35a5c1cb0aa4461ec3c9dadbf0a48e7469bb182f42de7e6f"
+    },
+    "observations": [
+      {
+        "body": "previous-2b1344731b83fb532c8411299a32cfb14eeabd5e86e038205053a2f8bea0829c.html.gz",
+        "bytes": 36968,
+        "sha256": "2b1344731b83fb532c8411299a32cfb14eeabd5e86e038205053a2f8bea0829c"
+      }
+    ],
+    "allDomAndHydratedValuesEqual": true,
+    "wrapperDeltaBytes": -43,
+    "assetDeltaBytes": 0,
+    "measuredDelta": -43
+  },
+  {
+    "workspace": "acme",
+    "file": "route-23fa7a87ef6e6edac44b.json.gz",
+    "route": "/acme/reference/",
+    "pointer": {
+      "file": "route-23fa7a87ef6e6edac44b.json.gz",
+      "path": "/htmlBytes",
+      "before": 42199,
+      "after": 42156
+    },
+    "previous": {
+      "body": "previous-222e17fd165ec4d5e2cd563967d678a17e302abf0c1979bef992d1ff21d3774a.html.gz",
+      "bytes": 42199,
+      "sha256": "222e17fd165ec4d5e2cd563967d678a17e302abf0c1979bef992d1ff21d3774a"
+    },
+    "current": {
+      "body": "current-f65f12f9f0517e906f09611408d52e321671afd938490cd0bbf3e86eea3eb7fb.html.gz",
+      "bytes": 42156,
+      "sha256": "f65f12f9f0517e906f09611408d52e321671afd938490cd0bbf3e86eea3eb7fb"
+    },
+    "observations": [
+      {
+        "body": "previous-222e17fd165ec4d5e2cd563967d678a17e302abf0c1979bef992d1ff21d3774a.html.gz",
+        "bytes": 42199,
+        "sha256": "222e17fd165ec4d5e2cd563967d678a17e302abf0c1979bef992d1ff21d3774a"
+      }
+    ],
+    "allDomAndHydratedValuesEqual": true,
+    "wrapperDeltaBytes": -43,
+    "assetDeltaBytes": 0,
+    "measuredDelta": -43
+  },
+  {
+    "workspace": "acme",
+    "file": "route-69e145634256e9eea7c9.json.gz",
+    "route": "/acme/things/?id=sch-product",
+    "pointer": {
+      "file": "route-69e145634256e9eea7c9.json.gz",
+      "path": "/htmlBytes",
+      "before": 51080,
+      "after": 51123
+    },
+    "previous": {
+      "body": "previous-b5c54e463c6209459b77a6b5056a251af9a83c77630b5cd69a7da7251c546dfc.html.gz",
+      "bytes": 51080,
+      "sha256": "b5c54e463c6209459b77a6b5056a251af9a83c77630b5cd69a7da7251c546dfc"
+    },
+    "current": {
+      "body": "current-c6d733a6c654d9582ee60697574b1ebf23fc425ae35849dd547195a7e2fa1e1f.html.gz",
+      "bytes": 51123,
+      "sha256": "c6d733a6c654d9582ee60697574b1ebf23fc425ae35849dd547195a7e2fa1e1f"
+    },
+    "observations": [
+      {
+        "body": "previous-b5c54e463c6209459b77a6b5056a251af9a83c77630b5cd69a7da7251c546dfc.html.gz",
+        "bytes": 51080,
+        "sha256": "b5c54e463c6209459b77a6b5056a251af9a83c77630b5cd69a7da7251c546dfc"
+      }
+    ],
+    "allDomAndHydratedValuesEqual": true,
+    "wrapperDeltaBytes": 43,
+    "assetDeltaBytes": 0,
+    "measuredDelta": 43
+  },
+  {
+    "workspace": "acme",
+    "file": "route-a1df0b2f33adaa9cda23.json.gz",
+    "route": "/acme/things/?id=st-products-db",
+    "pointer": {
+      "file": "route-a1df0b2f33adaa9cda23.json.gz",
+      "path": "/htmlBytes",
+      "before": 52093,
+      "after": 52050
+    },
+    "previous": {
+      "body": "previous-893ada0a454cb20bb0e3d51f65d8b1725551e716779366cfd234059aa5d03499.html.gz",
+      "bytes": 52093,
+      "sha256": "893ada0a454cb20bb0e3d51f65d8b1725551e716779366cfd234059aa5d03499"
+    },
+    "current": {
+      "body": "current-844152ddd9556fcb8f75aca512527c4d8ce0a1a3f2f929bd0d6bee4fd7ea9e2b.html.gz",
+      "bytes": 52050,
+      "sha256": "844152ddd9556fcb8f75aca512527c4d8ce0a1a3f2f929bd0d6bee4fd7ea9e2b"
+    },
+    "observations": [
+      {
+        "body": "previous-893ada0a454cb20bb0e3d51f65d8b1725551e716779366cfd234059aa5d03499.html.gz",
+        "bytes": 52093,
+        "sha256": "893ada0a454cb20bb0e3d51f65d8b1725551e716779366cfd234059aa5d03499"
+      }
+    ],
+    "allDomAndHydratedValuesEqual": true,
+    "wrapperDeltaBytes": -43,
+    "assetDeltaBytes": 0,
+    "measuredDelta": -43
+  },
+  {
+    "workspace": "volvo-cars",
+    "file": "route-b2bcc18b9738cdfe3f73.json.gz",
+    "route": "/volvo-cars/",
+    "pointer": {
+      "file": "route-b2bcc18b9738cdfe3f73.json.gz",
+      "path": "/htmlBytes",
+      "before": 85027,
+      "after": 84984
+    },
+    "previous": {
+      "body": "previous-c88a47c3c5c3e6728d7468292cede72ef2bb14064672a0130e45e4f26e824d90.html.gz",
+      "bytes": 85027,
+      "sha256": "c88a47c3c5c3e6728d7468292cede72ef2bb14064672a0130e45e4f26e824d90"
+    },
+    "current": {
+      "body": "current-8c70d23370f189a1e597aa64a72f7f0f3ac815086733f23a26cb5c6c512ba549.html.gz",
+      "bytes": 84984,
+      "sha256": "8c70d23370f189a1e597aa64a72f7f0f3ac815086733f23a26cb5c6c512ba549"
+    },
+    "observations": [
+      {
+        "body": "previous-c88a47c3c5c3e6728d7468292cede72ef2bb14064672a0130e45e4f26e824d90.html.gz",
+        "bytes": 85027,
+        "sha256": "c88a47c3c5c3e6728d7468292cede72ef2bb14064672a0130e45e4f26e824d90"
+      }
+    ],
+    "allDomAndHydratedValuesEqual": true,
+    "wrapperDeltaBytes": -43,
+    "assetDeltaBytes": 0,
+    "measuredDelta": -43
+  },
+  {
+    "workspace": "volvo-cars",
+    "file": "route-b588a9aeeb40e49b18be.json.gz",
+    "route": "/volvo-cars/language/",
+    "pointer": {
+      "file": "route-b588a9aeeb40e49b18be.json.gz",
+      "path": "/htmlBytes",
+      "before": 144122,
+      "after": 144079
+    },
+    "previous": {
+      "body": "previous-d8290a245b0e87c01aa27800a2e9c049518802f5539d1ccfe0137ce79172295a.html.gz",
+      "bytes": 144122,
+      "sha256": "d8290a245b0e87c01aa27800a2e9c049518802f5539d1ccfe0137ce79172295a"
+    },
+    "current": {
+      "body": "current-570f216cb56b387e64611fdfd5070bd6b638425608156fa1b94e7c559e4acf77.html.gz",
+      "bytes": 144079,
+      "sha256": "570f216cb56b387e64611fdfd5070bd6b638425608156fa1b94e7c559e4acf77"
+    },
+    "observations": [
+      {
+        "body": "previous-d8290a245b0e87c01aa27800a2e9c049518802f5539d1ccfe0137ce79172295a.html.gz",
+        "bytes": 144122,
+        "sha256": "d8290a245b0e87c01aa27800a2e9c049518802f5539d1ccfe0137ce79172295a"
+      }
+    ],
+    "allDomAndHydratedValuesEqual": true,
+    "wrapperDeltaBytes": -43,
+    "assetDeltaBytes": 0,
+    "measuredDelta": -43
+  },
+  {
+    "workspace": "volvo-cars",
+    "file": "route-a6fb6c2427433f7dfd10.json.gz",
+    "route": "/volvo-cars/partners/",
+    "pointer": {
+      "file": "route-a6fb6c2427433f7dfd10.json.gz",
+      "path": "/htmlBytes",
+      "before": 58734,
+      "after": 58777
+    },
+    "previous": {
+      "body": "previous-402911b0fc628366072799c67d6ec9d9fbef13e8ff57aa73abd285cec9130fd6.html.gz",
+      "bytes": 58734,
+      "sha256": "402911b0fc628366072799c67d6ec9d9fbef13e8ff57aa73abd285cec9130fd6"
+    },
+    "current": {
+      "body": "current-730d2093bb8a3b41ea301537927577e1e3d242e0bc242219d0740d2287b4cf58.html.gz",
+      "bytes": 58777,
+      "sha256": "730d2093bb8a3b41ea301537927577e1e3d242e0bc242219d0740d2287b4cf58"
+    },
+    "observations": [
+      {
+        "body": "previous-402911b0fc628366072799c67d6ec9d9fbef13e8ff57aa73abd285cec9130fd6.html.gz",
+        "bytes": 58734,
+        "sha256": "402911b0fc628366072799c67d6ec9d9fbef13e8ff57aa73abd285cec9130fd6"
+      }
+    ],
+    "allDomAndHydratedValuesEqual": true,
+    "wrapperDeltaBytes": 43,
+    "assetDeltaBytes": 0,
+    "measuredDelta": 43
+  },
+  {
+    "workspace": "volvo-cars",
+    "file": "route-3a9321061c67a0298213.json.gz",
+    "route": "/volvo-cars/plans/",
+    "pointer": {
+      "file": "route-3a9321061c67a0298213.json.gz",
+      "path": "/htmlBytes",
+      "before": 75603,
+      "after": 75646
+    },
+    "previous": {
+      "body": "previous-9689d66a69f915a966d51625af39d1c13cc5d3dc9119d63c5dd36c720125b92a.html.gz",
+      "bytes": 75603,
+      "sha256": "9689d66a69f915a966d51625af39d1c13cc5d3dc9119d63c5dd36c720125b92a"
+    },
+    "current": {
+      "body": "current-0eb71923ffc7c944d0d337b150fa7812f036e82fb6c35875fcdb183574f00bb7.html.gz",
+      "bytes": 75646,
+      "sha256": "0eb71923ffc7c944d0d337b150fa7812f036e82fb6c35875fcdb183574f00bb7"
+    },
+    "observations": [
+      {
+        "body": "previous-9689d66a69f915a966d51625af39d1c13cc5d3dc9119d63c5dd36c720125b92a.html.gz",
+        "bytes": 75603,
+        "sha256": "9689d66a69f915a966d51625af39d1c13cc5d3dc9119d63c5dd36c720125b92a"
+      }
+    ],
+    "allDomAndHydratedValuesEqual": true,
+    "wrapperDeltaBytes": 43,
+    "assetDeltaBytes": 0,
+    "measuredDelta": 43
+  },
+  {
+    "workspace": "volvo-cars",
+    "file": "route-5e2473ce331617b773bc.json.gz",
+    "route": "/volvo-cars/reference/",
+    "pointer": {
+      "file": "route-5e2473ce331617b773bc.json.gz",
+      "path": "/htmlBytes",
+      "before": 61930,
+      "after": 61973
+    },
+    "previous": {
+      "body": "previous-15a68472d18ee1321bf6a6f7b0f45e17a7b4c0218016152c99f1a88e2899d305.html.gz",
+      "bytes": 61930,
+      "sha256": "15a68472d18ee1321bf6a6f7b0f45e17a7b4c0218016152c99f1a88e2899d305"
+    },
+    "current": {
+      "body": "current-2759f79d33825267992e6518a8adb8f756332f3694d0a28337071b524cd1eab8.html.gz",
+      "bytes": 61973,
+      "sha256": "2759f79d33825267992e6518a8adb8f756332f3694d0a28337071b524cd1eab8"
+    },
+    "observations": [
+      {
+        "body": "previous-15a68472d18ee1321bf6a6f7b0f45e17a7b4c0218016152c99f1a88e2899d305.html.gz",
+        "bytes": 61930,
+        "sha256": "15a68472d18ee1321bf6a6f7b0f45e17a7b4c0218016152c99f1a88e2899d305"
+      }
+    ],
+    "allDomAndHydratedValuesEqual": true,
+    "wrapperDeltaBytes": 43,
+    "assetDeltaBytes": 0,
+    "measuredDelta": 43
+  },
+  {
+    "workspace": "volvo-cars",
+    "file": "route-858cdd1340f4e7514855.json.gz",
+    "route": "/volvo-cars/things/?id=api-assortment-admin-classification-create",
+    "pointer": {
+      "file": "route-858cdd1340f4e7514855.json.gz",
+      "path": "/htmlBytes",
+      "before": 1487027,
+      "after": 1486984
+    },
+    "previous": {
+      "body": "previous-01794aef29e143e7c003eeac7ee4c962b378275d9ae5ac4c9e3b35157256f57c.html.gz",
+      "bytes": 1487027,
+      "sha256": "01794aef29e143e7c003eeac7ee4c962b378275d9ae5ac4c9e3b35157256f57c"
+    },
+    "current": {
+      "body": "current-ede9bfadfab109880743c56700e6ff8a08d3b628592fe20ab03edb14929a8035.html.gz",
+      "bytes": 1486984,
+      "sha256": "ede9bfadfab109880743c56700e6ff8a08d3b628592fe20ab03edb14929a8035"
+    },
+    "observations": [
+      {
+        "body": "previous-01794aef29e143e7c003eeac7ee4c962b378275d9ae5ac4c9e3b35157256f57c.html.gz",
+        "bytes": 1487027,
+        "sha256": "01794aef29e143e7c003eeac7ee4c962b378275d9ae5ac4c9e3b35157256f57c"
+      }
+    ],
+    "allDomAndHydratedValuesEqual": true,
+    "wrapperDeltaBytes": -43,
+    "assetDeltaBytes": 0,
+    "measuredDelta": -43
+  },
+  {
+    "workspace": "volvo-cars",
+    "file": "route-2852d67c520228a04001.json.gz",
+    "route": "/volvo-cars/things/?id=h-assortment-admin-apply-car-plan",
+    "pointer": {
+      "file": "route-2852d67c520228a04001.json.gz",
+      "path": "/htmlBytes",
+      "before": 1055740,
+      "after": 1055783
+    },
+    "previous": {
+      "body": "previous-7061d402a535cbd39f4874eb68e156eb97aec5f7141e7621e1d087e517cd512e.html.gz",
+      "bytes": 1055740,
+      "sha256": "7061d402a535cbd39f4874eb68e156eb97aec5f7141e7621e1d087e517cd512e"
+    },
+    "current": {
+      "body": "current-ba1499b05ee882929bb748a8da794ef784a680ab1a356485d215ed531287dd58.html.gz",
+      "bytes": 1055783,
+      "sha256": "ba1499b05ee882929bb748a8da794ef784a680ab1a356485d215ed531287dd58"
+    },
+    "observations": [
+      {
+        "body": "previous-7061d402a535cbd39f4874eb68e156eb97aec5f7141e7621e1d087e517cd512e.html.gz",
+        "bytes": 1055740,
+        "sha256": "7061d402a535cbd39f4874eb68e156eb97aec5f7141e7621e1d087e517cd512e"
+      }
+    ],
+    "allDomAndHydratedValuesEqual": true,
+    "wrapperDeltaBytes": 43,
+    "assetDeltaBytes": 0,
+    "measuredDelta": 43
+  },
+  {
+    "workspace": "volvo-cars",
+    "file": "route-151af0354f9b819dc21a.json.gz",
+    "route": "/volvo-cars/things/?id=msg-assortment-classification-changed",
+    "pointer": {
+      "file": "route-151af0354f9b819dc21a.json.gz",
+      "path": "/htmlBytes",
+      "before": 190935,
+      "after": 190978
+    },
+    "previous": {
+      "body": "previous-18944bd15ca7e179d84ee5ac6c1f72f7665eca15f8254642cb815be2fe67108d.html.gz",
+      "bytes": 190935,
+      "sha256": "18944bd15ca7e179d84ee5ac6c1f72f7665eca15f8254642cb815be2fe67108d"
+    },
+    "current": {
+      "body": "current-a5c2676e3dd9e87016d8b0e20409f3b3ee0532839f1b1f636c44abce6869e858.html.gz",
+      "bytes": 190978,
+      "sha256": "a5c2676e3dd9e87016d8b0e20409f3b3ee0532839f1b1f636c44abce6869e858"
+    },
+    "observations": [
+      {
+        "body": "previous-18944bd15ca7e179d84ee5ac6c1f72f7665eca15f8254642cb815be2fe67108d.html.gz",
+        "bytes": 190935,
+        "sha256": "18944bd15ca7e179d84ee5ac6c1f72f7665eca15f8254642cb815be2fe67108d"
+      }
+    ],
+    "allDomAndHydratedValuesEqual": true,
+    "wrapperDeltaBytes": 43,
+    "assetDeltaBytes": 0,
+    "measuredDelta": 43
+  },
+  {
+    "workspace": "volvo-cars",
+    "file": "route-75a393b5caaa2701c12b.json.gz",
+    "route": "/volvo-cars/things/?id=svc-assortment-admin-api",
+    "pointer": {
+      "file": "route-75a393b5caaa2701c12b.json.gz",
+      "path": "/htmlBytes",
+      "before": 212421,
+      "after": 212464
+    },
+    "previous": {
+      "body": "previous-f5a5f396c3464543ae16c2da670757476a9097d668a22d1fcf8d4332849c2173.html.gz",
+      "bytes": 212421,
+      "sha256": "f5a5f396c3464543ae16c2da670757476a9097d668a22d1fcf8d4332849c2173"
+    },
+    "current": {
+      "body": "current-7b161af78a7679fc41c519c5800cb8af8bb63bd835cc99f7a4692ca095e893fb.html.gz",
+      "bytes": 212464,
+      "sha256": "7b161af78a7679fc41c519c5800cb8af8bb63bd835cc99f7a4692ca095e893fb"
+    },
+    "observations": [
+      {
+        "body": "previous-f5a5f396c3464543ae16c2da670757476a9097d668a22d1fcf8d4332849c2173.html.gz",
+        "bytes": 212421,
+        "sha256": "f5a5f396c3464543ae16c2da670757476a9097d668a22d1fcf8d4332849c2173"
+      }
+    ],
+    "allDomAndHydratedValuesEqual": true,
+    "wrapperDeltaBytes": 43,
+    "assetDeltaBytes": 0,
+    "measuredDelta": 43
+  },
+  {
+    "workspace": "volvo-cars",
+    "file": "route-30a4a455a43d3edecfa3.json.gz",
+    "route": "/volvo-cars/value-flows/",
+    "pointer": {
+      "file": "route-30a4a455a43d3edecfa3.json.gz",
+      "path": "/htmlBytes",
+      "before": 298607,
+      "after": 298650
+    },
+    "previous": {
+      "body": "previous-aa7497a5b2b0ad67ebfa34484985f4bbc46b6830f5f97fd416c90e56109d976e.html.gz",
+      "bytes": 298607,
+      "sha256": "aa7497a5b2b0ad67ebfa34484985f4bbc46b6830f5f97fd416c90e56109d976e"
+    },
+    "current": {
+      "body": "current-c136cb44043c6c6851d26eed9da041e77ee1dcf7277fcc40220108d845f17f34.html.gz",
+      "bytes": 298650,
+      "sha256": "c136cb44043c6c6851d26eed9da041e77ee1dcf7277fcc40220108d845f17f34"
+    },
+    "observations": [
+      {
+        "body": "previous-aa7497a5b2b0ad67ebfa34484985f4bbc46b6830f5f97fd416c90e56109d976e.html.gz",
+        "bytes": 298607,
+        "sha256": "aa7497a5b2b0ad67ebfa34484985f4bbc46b6830f5f97fd416c90e56109d976e"
+      }
+    ],
+    "allDomAndHydratedValuesEqual": true,
+    "wrapperDeltaBytes": 43,
+    "assetDeltaBytes": 0,
+    "measuredDelta": 43
+  }
+]

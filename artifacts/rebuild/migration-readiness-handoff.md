@@ -37,3 +37,13 @@ The source batch passes 254 focused tests across 43 files, including the pre-wri
 The remaining native projection failure was the supported `deprecate` op adding a marker absent from the Schema contract. Schema alone now declares `deprecated` and schema-kind `supersedes`; identity, fields and citations remain intact. The combined focused suite passes 257 tests across 43 files after central regeneration.
 
 Incremental native validation preserves the seven unchanged successful plan results from the pinned second run and rechecks the sole affected plan. The reusable proof asserts that only optional Schema lifecycle fields were added, every runtime input and generated-type erasure is unchanged, and the exact generated-file receipts still match. It also exercises ordinary map show for every declared current model id using one index. The earlier one-error report stays intact; the reconciled receipt records the final result separately. The capture harness now refuses existing comparison or recording folders before starting a server.
+
+## Verified frozen application source
+
+Application source `6fd10282` passes 257 focused tests across 43 files, build and the complete-data 606-page budget (maximum 1,021 KB; ceiling 1,024 KB). All 193 baseline files remain unchanged. The saved baseline replay has zero unexplained differences: personal 34, acme 82 and Volvo 42,792 exact allowed pointers. All 188 routes retain facts, status, headings, links and payload against PR6; 23 byte variants retain complete DOM/Flight values and order.
+
+The native receipt reconciles all 8 plan results, strictly revalidates the current base and affected plan, and resolves 388,838 declared current model ids exactly once through ordinary map show. All current facts/evidence match the earlier generated copy byte-for-byte; only 3 reviewed plans differ. The data cutover waits for the canonical consumer code documented in the PR8 handoff.
+
+The repeated transport slowdown is fixed without reducing proof: stable acyclic record colours are reused while cyclic records retain every original refinement round. All 23 saved pairs verify offline in 1.15 seconds; 12 controls and 3 small actual pairs match the original complete hashes. The largest graph hashes 14,940 records instead of 9,033,030. Original raw responses and full old verdicts remain recorded.
+
+`verification.json` links the final receipts. Normal push-hook and exact-head CI, CodeQL and Mutation statuses remain the authoritative merge gates; all 6 touched pure-layer files are mutated in full at the unchanged 75% floor. No separate duplicate full check is run before pushing.

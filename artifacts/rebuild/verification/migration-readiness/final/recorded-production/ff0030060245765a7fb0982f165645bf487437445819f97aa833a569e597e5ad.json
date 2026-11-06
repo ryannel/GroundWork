@@ -1,0 +1,8 @@
+{
+  "route": "/volvo-cars/commercial-backbone/plans/",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 78357,
+  "sha256": "ab1f0322ef3c52dfd747abfbcd52ead03a284d352f74cb98594e2997c14c49ea",
+  "body": "ff0030060245765a7fb0982f165645bf487437445819f97aa833a569e597e5ad.body.gz"
+}

@@ -1,0 +1,8 @@
+{
+  "route": "/acme/model.json",
+  "status": 200,
+  "type": "application/json",
+  "bytes": 15948,
+  "sha256": "438631f3e107b5199a30f468838fa452bfb26c531e6171ac973e341445446990",
+  "body": "dd1c592d1de1c7b1168c115a1ef42093bba10a018bbe6f3a19137a3ea8fbf50c.body.gz"
+}

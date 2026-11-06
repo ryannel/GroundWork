@@ -1,0 +1,698 @@
+{
+  "oldSourceCommit": "6fd10282",
+  "oldSourceSha256": "07b923b4256bfe2b807032cf9d78349dd8ca128b1d2864b1da3263c5075fb821",
+  "newSourceSha256": "241287eaec3ef6a254b05696c143f96a246a9d3e940d0dd8bab36b188f95ac04",
+  "algorithm": "Uniform hash values unchanged; freeze acyclic records after dependency height + 1 rounds, cyclic records and dependants retain all N + 1 rounds. All references validated, including unreachable records.",
+  "controls": [
+    {
+      "case": "row renaming",
+      "expectedEqual": true,
+      "oldAndNewCompleteColoursIdentical": true
+    },
+    {
+      "case": "array order",
+      "expectedEqual": false,
+      "oldAndNewCompleteColoursIdentical": true
+    },
+    {
+      "case": "authored id",
+      "expectedEqual": false,
+      "oldAndNewCompleteColoursIdentical": true
+    },
+    {
+      "case": "selector",
+      "expectedEqual": false,
+      "oldAndNewCompleteColoursIdentical": true
+    },
+    {
+      "case": "import definition",
+      "expectedEqual": false,
+      "oldAndNewCompleteColoursIdentical": true
+    },
+    {
+      "case": "control order",
+      "expectedEqual": false,
+      "oldAndNewCompleteColoursIdentical": true
+    },
+    {
+      "case": "unreachable value",
+      "expectedEqual": false,
+      "oldAndNewCompleteColoursIdentical": true
+    },
+    {
+      "case": "UTF-8 text",
+      "expectedEqual": false,
+      "oldAndNewCompleteColoursIdentical": true
+    },
+    {
+      "case": "cyclic renaming",
+      "expectedEqual": true,
+      "oldAndNewCompleteColoursIdentical": true
+    },
+    {
+      "case": "cyclic authored id",
+      "expectedEqual": false,
+      "oldAndNewCompleteColoursIdentical": true
+    },
+    {
+      "case": "mixed cyclic/DAG literal",
+      "expectedEqual": false,
+      "oldAndNewCompleteColoursIdentical": true
+    },
+    {
+      "case": "mixed cyclic/DAG order",
+      "expectedEqual": false,
+      "oldAndNewCompleteColoursIdentical": true
+    }
+  ],
+  "unknownUnreachableReferenceRejectedByBoth": true,
+  "smallActualPairs": [
+    {
+      "route": "/acme/explorer/",
+      "oldSeconds": 0.044894917169585824,
+      "newSeconds": 0.0074854581616818905,
+      "oldAndNewCompleteOutputsIdentical": true,
+      "pairEqual": true,
+      "graphs": [
+        {
+          "records": 42,
+          "oldRounds": 43,
+          "uniformRounds": 43,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 1806,
+          "newRecordHashes": 164
+        },
+        {
+          "records": 42,
+          "oldRounds": 43,
+          "uniformRounds": 43,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 1806,
+          "newRecordHashes": 164
+        }
+      ]
+    },
+    {
+      "route": "/personal/people/",
+      "oldSeconds": 0.057831292040646076,
+      "newSeconds": 0.008159957826137543,
+      "oldAndNewCompleteOutputsIdentical": true,
+      "pairEqual": true,
+      "graphs": [
+        {
+          "records": 48,
+          "oldRounds": 49,
+          "uniformRounds": 49,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 2352,
+          "newRecordHashes": 186
+        },
+        {
+          "records": 48,
+          "oldRounds": 49,
+          "uniformRounds": 49,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 2352,
+          "newRecordHashes": 186
+        }
+      ]
+    },
+    {
+      "route": "/personal/plans/",
+      "oldSeconds": 0.06033412483520806,
+      "newSeconds": 0.009258999954909086,
+      "oldAndNewCompleteOutputsIdentical": true,
+      "pairEqual": true,
+      "graphs": [
+        {
+          "records": 48,
+          "oldRounds": 49,
+          "uniformRounds": 49,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 2352,
+          "newRecordHashes": 186
+        },
+        {
+          "records": 48,
+          "oldRounds": 49,
+          "uniformRounds": 49,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 2352,
+          "newRecordHashes": 186
+        }
+      ]
+    }
+  ],
+  "savedOldFullProof": "proof-before-parser-optimisation.json",
+  "savedOldFullProofSha256": "03734da4319ba94a7322f80b089adb1c3abd74a999096bc2c660bee6ee279555",
+  "allActualPairs": [
+    {
+      "route": "/personal/",
+      "oldRecordedPairEqual": true,
+      "newPairEqual": true,
+      "graphs": [
+        {
+          "records": 48,
+          "oldRounds": 49,
+          "uniformRounds": 49,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 2352,
+          "newRecordHashes": 189
+        },
+        {
+          "records": 48,
+          "oldRounds": 49,
+          "uniformRounds": 49,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 2352,
+          "newRecordHashes": 189
+        }
+      ]
+    },
+    {
+      "route": "/personal/people/",
+      "oldRecordedPairEqual": true,
+      "newPairEqual": true,
+      "graphs": [
+        {
+          "records": 48,
+          "oldRounds": 49,
+          "uniformRounds": 49,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 2352,
+          "newRecordHashes": 186
+        },
+        {
+          "records": 48,
+          "oldRounds": 49,
+          "uniformRounds": 49,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 2352,
+          "newRecordHashes": 186
+        }
+      ]
+    },
+    {
+      "route": "/personal/plans/",
+      "oldRecordedPairEqual": true,
+      "newPairEqual": true,
+      "graphs": [
+        {
+          "records": 48,
+          "oldRounds": 49,
+          "uniformRounds": 49,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 2352,
+          "newRecordHashes": 186
+        },
+        {
+          "records": 48,
+          "oldRounds": 49,
+          "uniformRounds": 49,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 2352,
+          "newRecordHashes": 186
+        }
+      ]
+    },
+    {
+      "route": "/personal/programmes/",
+      "oldRecordedPairEqual": true,
+      "newPairEqual": true,
+      "graphs": [
+        {
+          "records": 48,
+          "oldRounds": 49,
+          "uniformRounds": 49,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 2352,
+          "newRecordHashes": 186
+        },
+        {
+          "records": 48,
+          "oldRounds": 49,
+          "uniformRounds": 49,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 2352,
+          "newRecordHashes": 186
+        }
+      ]
+    },
+    {
+      "route": "/personal/things/?id=svc-allotment-app",
+      "oldRecordedPairEqual": true,
+      "newPairEqual": true,
+      "graphs": [
+        {
+          "records": 49,
+          "oldRounds": 50,
+          "uniformRounds": 50,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 2450,
+          "newRecordHashes": 192
+        },
+        {
+          "records": 49,
+          "oldRounds": 50,
+          "uniformRounds": 50,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 2450,
+          "newRecordHashes": 192
+        }
+      ]
+    },
+    {
+      "route": "/acme/",
+      "oldRecordedPairEqual": true,
+      "newPairEqual": true,
+      "graphs": [
+        {
+          "records": 50,
+          "oldRounds": 51,
+          "uniformRounds": 51,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 2550,
+          "newRecordHashes": 199
+        },
+        {
+          "records": 50,
+          "oldRounds": 51,
+          "uniformRounds": 51,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 2550,
+          "newRecordHashes": 199
+        }
+      ]
+    },
+    {
+      "route": "/acme/explorer/",
+      "oldRecordedPairEqual": true,
+      "newPairEqual": true,
+      "graphs": [
+        {
+          "records": 42,
+          "oldRounds": 43,
+          "uniformRounds": 43,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 1806,
+          "newRecordHashes": 164
+        },
+        {
+          "records": 42,
+          "oldRounds": 43,
+          "uniformRounds": 43,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 1806,
+          "newRecordHashes": 164
+        }
+      ]
+    },
+    {
+      "route": "/acme/people/",
+      "oldRecordedPairEqual": true,
+      "newPairEqual": true,
+      "graphs": [
+        {
+          "records": 51,
+          "oldRounds": 52,
+          "uniformRounds": 52,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 2652,
+          "newRecordHashes": 202
+        },
+        {
+          "records": 51,
+          "oldRounds": 52,
+          "uniformRounds": 52,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 2652,
+          "newRecordHashes": 202
+        }
+      ]
+    },
+    {
+      "route": "/acme/plans/",
+      "oldRecordedPairEqual": true,
+      "newPairEqual": true,
+      "graphs": [
+        {
+          "records": 50,
+          "oldRounds": 51,
+          "uniformRounds": 51,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 2550,
+          "newRecordHashes": 196
+        },
+        {
+          "records": 50,
+          "oldRounds": 51,
+          "uniformRounds": 51,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 2550,
+          "newRecordHashes": 196
+        }
+      ]
+    },
+    {
+      "route": "/acme/programmes/",
+      "oldRecordedPairEqual": true,
+      "newPairEqual": true,
+      "graphs": [
+        {
+          "records": 50,
+          "oldRounds": 51,
+          "uniformRounds": 51,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 2550,
+          "newRecordHashes": 196
+        },
+        {
+          "records": 50,
+          "oldRounds": 51,
+          "uniformRounds": 51,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 2550,
+          "newRecordHashes": 196
+        }
+      ]
+    },
+    {
+      "route": "/acme/reference/",
+      "oldRecordedPairEqual": true,
+      "newPairEqual": true,
+      "graphs": [
+        {
+          "records": 50,
+          "oldRounds": 51,
+          "uniformRounds": 51,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 2550,
+          "newRecordHashes": 198
+        },
+        {
+          "records": 50,
+          "oldRounds": 51,
+          "uniformRounds": 51,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 2550,
+          "newRecordHashes": 198
+        }
+      ]
+    },
+    {
+      "route": "/acme/things/?id=sch-product",
+      "oldRecordedPairEqual": true,
+      "newPairEqual": true,
+      "graphs": [
+        {
+          "records": 58,
+          "oldRounds": 59,
+          "uniformRounds": 59,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 3422,
+          "newRecordHashes": 223
+        },
+        {
+          "records": 58,
+          "oldRounds": 59,
+          "uniformRounds": 59,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 3422,
+          "newRecordHashes": 223
+        }
+      ]
+    },
+    {
+      "route": "/acme/things/?id=st-products-db",
+      "oldRecordedPairEqual": true,
+      "newPairEqual": true,
+      "graphs": [
+        {
+          "records": 59,
+          "oldRounds": 60,
+          "uniformRounds": 60,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 3540,
+          "newRecordHashes": 226
+        },
+        {
+          "records": 59,
+          "oldRounds": 60,
+          "uniformRounds": 60,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 3540,
+          "newRecordHashes": 226
+        }
+      ]
+    },
+    {
+      "route": "/volvo-cars/",
+      "oldRecordedPairEqual": true,
+      "newPairEqual": true,
+      "graphs": [
+        {
+          "records": 55,
+          "oldRounds": 56,
+          "uniformRounds": 56,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 3080,
+          "newRecordHashes": 223
+        },
+        {
+          "records": 55,
+          "oldRounds": 56,
+          "uniformRounds": 56,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 3080,
+          "newRecordHashes": 223
+        }
+      ]
+    },
+    {
+      "route": "/volvo-cars/language/",
+      "oldRecordedPairEqual": true,
+      "newPairEqual": true,
+      "graphs": [
+        {
+          "records": 58,
+          "oldRounds": 59,
+          "uniformRounds": 59,
+          "cyclicRecords": 5,
+          "oldRecordHashes": 3422,
+          "newRecordHashes": 397
+        },
+        {
+          "records": 58,
+          "oldRounds": 59,
+          "uniformRounds": 59,
+          "cyclicRecords": 5,
+          "oldRecordHashes": 3422,
+          "newRecordHashes": 397
+        }
+      ]
+    },
+    {
+      "route": "/volvo-cars/partners/",
+      "oldRecordedPairEqual": true,
+      "newPairEqual": true,
+      "graphs": [
+        {
+          "records": 57,
+          "oldRounds": 58,
+          "uniformRounds": 58,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 3306,
+          "newRecordHashes": 231
+        },
+        {
+          "records": 57,
+          "oldRounds": 58,
+          "uniformRounds": 58,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 3306,
+          "newRecordHashes": 231
+        }
+      ]
+    },
+    {
+      "route": "/volvo-cars/plans/",
+      "oldRecordedPairEqual": true,
+      "newPairEqual": true,
+      "graphs": [
+        {
+          "records": 57,
+          "oldRounds": 58,
+          "uniformRounds": 58,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 3306,
+          "newRecordHashes": 231
+        },
+        {
+          "records": 57,
+          "oldRounds": 58,
+          "uniformRounds": 58,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 3306,
+          "newRecordHashes": 231
+        }
+      ]
+    },
+    {
+      "route": "/volvo-cars/reference/",
+      "oldRecordedPairEqual": true,
+      "newPairEqual": true,
+      "graphs": [
+        {
+          "records": 56,
+          "oldRounds": 57,
+          "uniformRounds": 57,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 3192,
+          "newRecordHashes": 227
+        },
+        {
+          "records": 56,
+          "oldRounds": 57,
+          "uniformRounds": 57,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 3192,
+          "newRecordHashes": 227
+        }
+      ]
+    },
+    {
+      "route": "/volvo-cars/things/?id=api-assortment-admin-classification-create",
+      "oldRecordedPairEqual": true,
+      "newPairEqual": true,
+      "graphs": [
+        {
+          "records": 3005,
+          "oldRounds": 3006,
+          "uniformRounds": 3006,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 9033030,
+          "newRecordHashes": 14940
+        },
+        {
+          "records": 3005,
+          "oldRounds": 3006,
+          "uniformRounds": 3006,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 9033030,
+          "newRecordHashes": 14940
+        }
+      ]
+    },
+    {
+      "route": "/volvo-cars/things/?id=h-assortment-admin-apply-car-plan",
+      "oldRecordedPairEqual": true,
+      "newPairEqual": true,
+      "graphs": [
+        {
+          "records": 1985,
+          "oldRounds": 1986,
+          "uniformRounds": 1986,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 3942210,
+          "newRecordHashes": 9868
+        },
+        {
+          "records": 1985,
+          "oldRounds": 1986,
+          "uniformRounds": 1986,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 3942210,
+          "newRecordHashes": 9868
+        }
+      ]
+    },
+    {
+      "route": "/volvo-cars/things/?id=msg-assortment-classification-changed",
+      "oldRecordedPairEqual": true,
+      "newPairEqual": true,
+      "graphs": [
+        {
+          "records": 259,
+          "oldRounds": 260,
+          "uniformRounds": 260,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 67340,
+          "newRecordHashes": 1214
+        },
+        {
+          "records": 259,
+          "oldRounds": 260,
+          "uniformRounds": 260,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 67340,
+          "newRecordHashes": 1214
+        }
+      ]
+    },
+    {
+      "route": "/volvo-cars/things/?id=svc-assortment-admin-api",
+      "oldRecordedPairEqual": true,
+      "newPairEqual": true,
+      "graphs": [
+        {
+          "records": 405,
+          "oldRounds": 406,
+          "uniformRounds": 406,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 164430,
+          "newRecordHashes": 1928
+        },
+        {
+          "records": 405,
+          "oldRounds": 406,
+          "uniformRounds": 406,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 164430,
+          "newRecordHashes": 1928
+        }
+      ]
+    },
+    {
+      "route": "/volvo-cars/value-flows/",
+      "oldRecordedPairEqual": true,
+      "newPairEqual": true,
+      "graphs": [
+        {
+          "records": 73,
+          "oldRounds": 74,
+          "uniformRounds": 74,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 5402,
+          "newRecordHashes": 279
+        },
+        {
+          "records": 73,
+          "oldRounds": 74,
+          "uniformRounds": 74,
+          "cyclicRecords": 2,
+          "oldRecordHashes": 5402,
+          "newRecordHashes": 279
+        }
+      ]
+    }
+  ],
+  "allActualPairsCount": 23,
+  "newAllPairsSeconds": 1.0975782091263682,
+  "cyclicGraphs": 46,
+  "largestRecordGraph": {
+    "records": 3005,
+    "oldRounds": 3006,
+    "uniformRounds": 3006,
+    "cyclicRecords": 2,
+    "oldRecordHashes": 9033030,
+    "newRecordHashes": 14940
+  },
+  "noNetworkRequests": true,
+  "noOldLargePairsRerun": true,
+  "offlineCliVerify": {
+    "command": "python transport.py --verify --out artifacts/rebuild/verification/migration-readiness/final/transport",
+    "seconds": 1.1506269588135183,
+    "output": "Verified 23 exact recorded transport pairs offline; complete values and array order remain checked.",
+    "exitCode": 0
+  }
+}

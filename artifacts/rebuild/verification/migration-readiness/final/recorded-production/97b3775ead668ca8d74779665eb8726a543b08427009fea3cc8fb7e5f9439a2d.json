@@ -1,0 +1,8 @@
+{
+  "route": "/volvo-cars/model.json",
+  "status": 200,
+  "type": "application/json",
+  "bytes": 12816574,
+  "sha256": "0f608e268c06152841b583106d9e0badc61ab74eb79c3432591dfe519baf44d7",
+  "body": "97b3775ead668ca8d74779665eb8726a543b08427009fea3cc8fb7e5f9439a2d.body.gz"
+}

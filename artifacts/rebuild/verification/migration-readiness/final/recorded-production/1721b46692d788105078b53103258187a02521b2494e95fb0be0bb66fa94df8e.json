@@ -1,0 +1,8 @@
+{
+  "route": "/volvo-cars/plans/sourced-financing-terms/plan.json",
+  "status": 200,
+  "type": "application/json",
+  "bytes": 1069868,
+  "sha256": "ee9ccee40adb4f7248a36986de074744555fae55db8131afba07587e534bb4c5",
+  "body": "1721b46692d788105078b53103258187a02521b2494e95fb0be0bb66fa94df8e.body.gz"
+}

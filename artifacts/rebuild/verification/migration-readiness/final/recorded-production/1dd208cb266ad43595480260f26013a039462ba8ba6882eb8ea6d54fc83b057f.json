@@ -1,0 +1,8 @@
+{
+  "route": "/acme/explorer/",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 25430,
+  "sha256": "44fc47e8693fd447da5a683c4d0e1d723c3dd6233d789bc3d37e9b3489ff7b33",
+  "body": "1dd208cb266ad43595480260f26013a039462ba8ba6882eb8ea6d54fc83b057f.body.gz"
+}

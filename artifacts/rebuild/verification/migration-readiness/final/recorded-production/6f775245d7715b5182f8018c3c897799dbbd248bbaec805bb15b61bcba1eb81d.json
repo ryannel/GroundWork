@@ -1,0 +1,8 @@
+{
+  "route": "/acme/catalogue/flows/",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 112673,
+  "sha256": "7ce82da4a4bd9760a5e65d26da6eed4cfd8ce7d9b81cfe50c530b9be6d8b6c1b",
+  "body": "6f775245d7715b5182f8018c3c897799dbbd248bbaec805bb15b61bcba1eb81d.body.gz"
+}

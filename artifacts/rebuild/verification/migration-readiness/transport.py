@@ -24,6 +24,30 @@ def flight_rows(flight):
 # Flight row numbers and delivery order are technical identities. Compare their complete
 # referenced value graph instead: all literals, import definitions, array order and
 # property selectors remain checked. Authored Groundwork identities are never rewritten.
+def refinement_schedule(records,reference):
+ # Freeze acyclic records after dependency height + 1 uniform rounds.
+ # Cycles and their dependants keep all original N + 1 rounds and exact colours.
+ def dependencies(value):
+  if isinstance(value,list):return set().union(*(dependencies(child) for child in value))
+  if isinstance(value,dict):return set().union(*(dependencies(child) for child in value.values()))
+  match=reference.fullmatch(value) if isinstance(value,str) else None
+  if match is None:return set()
+  identity=match[2]
+  assert identity in records,('Unknown Flight reference',value)
+  return {identity}
+ parents={identity:[] for identity in records};remaining={};heights={identity:0 for identity in records}
+ for identity,record in records.items():
+  children=dependencies(record);remaining[identity]=len(children)
+  for child in children:parents[child].append(identity)
+ ready=[identity for identity,count in remaining.items() if count==0]
+ while ready:
+  identity=ready.pop()
+  for parent in parents[identity]:
+   heights[parent]=max(heights[parent],heights[identity]+1)
+   remaining[parent]-=1
+   if remaining[parent]==0:ready.append(parent)
+ return {identity:heights[identity]+1 if remaining[identity]==0 else len(records)+1 for identity in records}
+
 def semantic_graph(flight):
  records={};hints=[]
  for identity,row_kind,body in flight_rows(flight):
@@ -48,8 +72,11 @@ def semantic_graph(flight):
   assert identity in records,('Unknown Flight reference',value)
   return {'flightReference':kind or 'value','record':colours[identity],'selector':selector}
  colours={identity:'reference' for identity in records}
- for _ in range(len(records)+1):
-  colours={identity:hashlib.sha256(json.dumps(values(record,colours),sort_keys=True).encode()).hexdigest() for identity,record in records.items()}
+ schedule=refinement_schedule(records,reference);active=list(records)
+ for iteration in range(max(schedule.values(),default=1)):
+  updated={identity:hashlib.sha256(json.dumps(values(records[identity],colours),sort_keys=True).encode()).hexdigest() for identity in active}
+  colours.update(updated)
+  active=[identity for identity in active if iteration+1<schedule[identity]]
  return {'root':colours['0'],'records':sorted(colours.values()),'hints':hints}
 
 
@@ -97,6 +124,22 @@ assert semantic_graph(fixture)!=semantic_graph(renamed.replace('h:confirm#tx/sav
 text='sequenceDiagram\n A->>B: Café'
 encoded='0:"$1"\n1:T'+format(len(text.encode()),'x')+','+text
 assert semantic_graph(encoded)!=semantic_graph(encoded.replace('Café','Cafè'))
+selector='0:["$1:name"]\n1:{"name":"Alpha","other":"Alpha"}\n'
+assert semantic_graph(selector)!=semantic_graph(selector.replace('$1:name','$1:other'))
+imports='0:["$L1"]\n1:I["module.js",["chunk.js"],"default"]\n'
+assert semantic_graph(imports)!=semantic_graph(imports.replace('module.js','other.js'))
+controls='0:"$@1"\n1:X\n1:C\n'
+assert semantic_graph(controls)!=semantic_graph(controls.replace('1:X\n1:C','1:C\n1:X'))
+assert semantic_graph(fixture)!=semantic_graph(fixture+'3:{"unused":"retained"}\n')
+cycle='0:"$1"\n1:{"next":"$1","id":"h:cycle"}\n'
+assert semantic_graph(cycle)==semantic_graph(cycle.replace('$1','$a').replace('1:','a:'))
+assert semantic_graph(cycle)!=semantic_graph(cycle.replace('h:cycle','h:changed'))
+mixed='0:{"loop":"$1","data":"$2"}\n1:{"again":"$1","data":"$2"}\n2:{"child":"$3"}\n3:{"id":"h:shared","order":[1,2]}\n'
+assert semantic_graph(mixed)!=semantic_graph(mixed.replace('h:shared','h:changed'))
+assert semantic_graph(mixed)!=semantic_graph(mixed.replace('[1,2]','[2,1]'))
+try:semantic_graph('0:null\n1:"$f"\n')
+except AssertionError:pass
+else:raise AssertionError('Unknown reference in an unreachable record was accepted')
 if args.verify:
  rows=load(root/'proof.json')
  for row in rows:

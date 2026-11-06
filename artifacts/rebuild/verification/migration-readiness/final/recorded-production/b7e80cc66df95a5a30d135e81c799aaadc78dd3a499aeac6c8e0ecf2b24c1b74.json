@@ -1,0 +1,8 @@
+{
+  "route": "/acme/things/?id=api-products-get",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 46713,
+  "sha256": "4be4351610ebb9e03ec3df151f26586c39c66f11e70d9298e8d7a6c0b936b649",
+  "body": "b7e80cc66df95a5a30d135e81c799aaadc78dd3a499aeac6c8e0ecf2b24c1b74.body.gz"
+}

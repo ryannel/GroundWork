@@ -1,0 +1,8 @@
+{
+  "route": "/acme/reference/schemas/",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 53078,
+  "sha256": "81f81eab8f957da4f407d0ae2dcd8128a658ef51788cea20a31536e7025e2852",
+  "body": "5073a80fee333cbad317c31ba0282e20d671e3c9a912ffbafbecd48d634683ce.body.gz"
+}
