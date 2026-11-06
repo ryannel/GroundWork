@@ -1,0 +1,21 @@
+
+> groundwork@0.0.0 check:quick
+> node --import ./tools/register.ts tools/checks/quick.ts tools/generate-plan-types.ts tools/generate-plan-types.test.ts
+
+Checking 2 task files.
+Checking formatting...
+All matched files use Prettier code style!
+Format: 0.1s
+Lint: 6.0s
+Types: 2.8s
+
+ RUN  v5.0.4 /Users/RNEL/.codex/worktrees/rebuild-pr4/groundWork
+
+
+ Test Files  1 passed (1)
+   Affected  1 of 559 test files (related to 2 files)
+      Tests  2 passed (2)
+   Start at  11:42:21
+   Duration  7.14s (tests 99%, import 1%)
+
+Related tests: 9.3s

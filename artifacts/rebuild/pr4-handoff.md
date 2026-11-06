@@ -68,6 +68,21 @@ complete map output, optional legacy representations and evidence boundaries. Th
 The final run passes at 76.16% across all 26 touched pure files and includes the area-diagram and flow-work regressions. No threshold or whole-file scope was
 reduced. The failed report and completed reports are retained as evidence.
 
+## Observed CI timeout and correction
+
+The first CI run passed the model tests, CodeQL and the weighted mutation gate, but its schema-generation test
+ran for 34.620 seconds against the existing 30-second limit. `generator-timeout-fix.json` and the failed log
+record that failure. Formatting started ESLint and Prettier separately for each output, repeatedly loading the
+project. The correction batches the outputs through the same two formatter commands, with the same project
+rules, configuration and timeout. It changes only `tools/generate-plan-types.ts`.
+
+The two focused tests pass in 7.14 seconds and compare every generated contract byte for byte. `npm run generate`
+leaves all six output files unchanged. The full check passes again with 4,249 tests. The normal commit hook's two
+focused tests pass in 7.18 seconds. No application, fixture, schema, workspace data or generated file changes;
+the prior build, page-size, comparison and mutation proofs remain valid by exact source and input identity.
+The fixture proof is refreshed to the corrected source commit, and the earlier proof is retained. CI must pass
+on the final PR head before merge.
+
 ## Next: PR 5
 
 Start a fresh worktree from the merged main. Read the agreed node-canvas mockup and the relevant installed

@@ -1,0 +1,44 @@
+{
+  "totalMs": 66337,
+  "timings": [
+    {
+      "command": "node_modules/eslint/bin/eslint.js",
+      "ms": 46276
+    },
+    {
+      "command": "node_modules/prettier/bin/prettier.cjs",
+      "ms": 222
+    },
+    {
+      "command": "node_modules/eslint/bin/eslint.js",
+      "ms": 6881
+    },
+    {
+      "command": "node_modules/prettier/bin/prettier.cjs",
+      "ms": 147
+    },
+    {
+      "command": "node_modules/eslint/bin/eslint.js",
+      "ms": 6188
+    },
+    {
+      "command": "node_modules/prettier/bin/prettier.cjs",
+      "ms": 143
+    },
+    {
+      "command": "node_modules/eslint/bin/eslint.js",
+      "ms": 5955
+    },
+    {
+      "command": "node_modules/prettier/bin/prettier.cjs",
+      "ms": 119
+    }
+  ],
+  "files": [
+    "src/domain/model/workspace.generated.ts",
+    "src/domain/model/plan.generated.ts",
+    "src/domain/model/evidence.generated.ts",
+    "src/domain/model/citations.generated.ts",
+    "src/domain/model/contracts.generated.ts"
+  ]
+}

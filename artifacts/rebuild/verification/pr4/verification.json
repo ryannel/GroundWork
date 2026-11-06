@@ -1,18 +1,19 @@
 {
-  "sourceCommit": "e934e8c1f8a8540b543994e58e4f34ee13f7bdd9",
+  "sourceCommit": "fb559433c45409febc16315555eb7911168a5051",
   "base": "7cfdcbc9470559eafcdeea040fc238f8872166b9",
   "sourceFrozen": true,
   "checks": {
     "check": {
       "command": "npm run check",
-      "log": "check9.log",
+      "log": "check10.log",
       "passed": true,
       "tests": 4249,
       "testFiles": 533,
       "existingSkippedTests": 125,
       "typeCoveragePercent": 100,
       "linesPercent": 97.52,
-      "branchesPercent": 87.71
+      "branchesPercent": 87.71,
+      "sourceCommit": "fb559433c45409febc16315555eb7911168a5051"
     },
     "commit": {
       "log": "code-commit.log",
@@ -23,7 +24,9 @@
     "build": {
       "command": "npm run build",
       "log": "build4.log",
-      "passed": true
+      "passed": true,
+      "runSourceCommit": "e934e8c1f8a8540b543994e58e4f34ee13f7bdd9",
+      "remainsValidAfterToolingFix": "Only offline generation scheduling changed; all application, loader, fixture, schema and generated files are byte-identical. All mutation report source texts still match."
     },
     "budget": {
       "command": "npm run budget",
@@ -31,11 +34,13 @@
       "passed": true,
       "pages": 599,
       "maxKB": 1021,
-      "limitKB": 1024
+      "limitKB": 1024,
+      "runSourceCommit": "e934e8c1f8a8540b543994e58e4f34ee13f7bdd9",
+      "remainsValidAfterToolingFix": "Only offline generation scheduling changed; all application, loader, fixture, schema and generated files are byte-identical. All mutation report source texts still match."
     },
     "inventory": {
       "command": "npm run rebuild:inventory",
-      "log": "inventory-final2.log",
+      "log": "inventory-final3.log",
       "consumerRows": 1663,
       "literalAndHelperCandidates": 8928,
       "uncentralisedRuntimeOperations": 0,
@@ -59,7 +64,9 @@
         "fidelity-ledger.json",
         "fidelity.py",
         "repeated-captures.json"
-      ]
+      ],
+      "runSourceCommit": "e934e8c1f8a8540b543994e58e4f34ee13f7bdd9",
+      "remainsValidAfterToolingFix": "Only offline generation scheduling changed; all application, loader, fixture, schema and generated files are byte-identical. All mutation report source texts still match."
     },
     "mutation": {
       "command": "npm run mutate:changed -- --base 7cfdcbc9470559eafcdeea040fc238f8872166b9",
@@ -76,19 +83,24 @@
       },
       "log": "mutation-3.log",
       "report": "mutation-3.json.gz",
-      "sourcesMatchFrozenCommit": true
+      "sourcesMatchFrozenCommit": true,
+      "runSourceCommit": "e934e8c1f8a8540b543994e58e4f34ee13f7bdd9",
+      "remainsValidAfterToolingFix": "Only offline generation scheduling changed; all application, loader, fixture, schema and generated files are byte-identical. All mutation report source texts still match."
     },
     "fixture": {
       "proof": "model-proof.json",
       "legacyPageTest": "src/features/workspace/rebuild-model.test.tsx",
       "violations": [],
       "losses": [],
-      "jsonRoundTrip": true
+      "jsonRoundTrip": true,
+      "sourceCommit": "fb559433c45409febc16315555eb7911168a5051"
     }
   },
   "readOnlyPins": {
     "originalCheckout": "24cb5020eab2e352fb2f0102681179b732ed3bf6",
     "volvoData": "723085497ded5b51d3c23fdcb5f6b1c778aa3efa"
   },
-  "baselineFilesUnchanged": 193
+  "baselineFilesUnchanged": 193,
+  "runtimeUnchangedFrom": "e934e8c1f8a8540b543994e58e4f34ee13f7bdd9",
+  "toolingFollowUp": "generator-timeout-fix.json"
 }

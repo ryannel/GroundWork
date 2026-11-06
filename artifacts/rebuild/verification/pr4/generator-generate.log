@@ -1,0 +1,10 @@
+
+> groundwork@0.0.0 generate
+> node tools/generate-plan-types.ts
+
+Wrote src/domain/plan/plan.generated.ts
+Wrote src/domain/model/workspace.generated.ts
+Wrote src/domain/model/plan.generated.ts
+Wrote src/domain/model/evidence.generated.ts
+Wrote src/domain/model/citations.generated.ts
+Wrote src/domain/model/contracts.generated.ts

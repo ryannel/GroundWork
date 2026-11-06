@@ -1,6 +1,6 @@
 {
   "base": "7cfdcbc9470559eafcdeea040fc238f8872166b9",
-  "sourceCommit": "e934e8c1f8a8540b543994e58e4f34ee13f7bdd9",
+  "sourceCommit": "fb559433c45409febc16315555eb7911168a5051",
   "sources": {
     "docs/architecture.md": "03369e5544467cd7ac789c2d8ac9b35b88e29b61e23e49ad55918743c0663096",
     "src/app/[workspace]/model.json/route.ts": "b6ac99f8746f11f1a1592833e17d13d94375074990a37d1862bde3fb5936bdc5",
@@ -71,7 +71,7 @@
     "test/fixtures/workspace-language.ts": "52bc26f1ddff8c1926bf06e1274d8baeb504716a0401b0bc08cb23d1bef69b48",
     "test/workspace-kit.ts": "ec32a635aa22c79429eceb31f690f7c2984c751c4319bf13a02115a0a83c557a",
     "tools/generate-plan-types.test.ts": "b749b3454fde0f487cc2143f57d0bfd2a9de2dd182a9fec22cd672f5b23fd2c2",
-    "tools/generate-plan-types.ts": "5fc1b45fa33404848db4594007fad2fc6cfecb1ab4307936c6ab2d6e363e37c6"
+    "tools/generate-plan-types.ts": "929acb2899486909a122b67a70d65fecf79bf6d95a1fb623476f73302288ace0"
   },
   "before": {
     "counts": {
