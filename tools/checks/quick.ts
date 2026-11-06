@@ -19,8 +19,9 @@ function filesInGit(): string[] {
   const result = spawnSync(
     'git',
     ['-c', 'core.fsmonitor=false', 'ls-files', '-co', '--exclude-standard', '-z'],
-    { encoding: 'utf8' },
+    { encoding: 'utf8', maxBuffer: 16 * 1024 * 1024 },
   );
+  if (result.error !== undefined) throw result.error;
   if (result.status !== 0) {
     throw new Error(result.stderr === '' ? 'Cannot read the Git file list.' : result.stderr);
   }

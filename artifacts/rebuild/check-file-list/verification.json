@@ -1,0 +1,23 @@
+{
+  "focused": {
+    "tests": 7,
+    "files": 2,
+    "passed": true,
+    "lint": true,
+    "types": true,
+    "format": true
+  },
+  "build": {
+    "passed": true,
+    "buildId": "3po6q9Jt--0iqL4G_u8jX"
+  },
+  "fullCheck": {
+    "required": true,
+    "authority": "normal pre-push hook"
+  },
+  "ci": {
+    "required": true
+  },
+  "mutationScope": [],
+  "renderingAndDataLoadingInputsUnchangedFrom": "9e7d6a050e0d7e5549bead15ad417782b7b78a19"
+}

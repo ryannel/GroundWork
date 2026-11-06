@@ -1,0 +1,7 @@
+{
+  "base": "9e7d6a050e0d7e5549bead15ad417782b7b78a19",
+  "files": {
+    "tools/checks/quick.ts": "334fef76cf7405b43a4c71a9c7d892725b659f6045136dcb5a56adaecdb4654b",
+    "tools/checks/quick.test.ts": "fb850357406850392885afd19878c47d09c6ca77810dc0c07286327dbd0cb8ee"
+  }
+}

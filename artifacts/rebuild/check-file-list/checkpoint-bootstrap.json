@@ -1,0 +1,6 @@
+{
+  "reason": "Unchanged checkpoint CLI fails ENOBUFS before any edit; snapshot uses the unchanged scope function with a larger subprocess buffer.",
+  "listedBytes": 1137707,
+  "entries": 11299,
+  "uncommittedChangesBeforeSnapshot": 0
+}
