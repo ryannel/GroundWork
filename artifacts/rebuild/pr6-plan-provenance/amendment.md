@@ -20,18 +20,29 @@ These are proposed changes, not six missing facts about the running system. Atta
 citations would falsely assert that the new behaviour is implemented. Inventing evidence records or
 removing the current-fact citation requirement would also violate the rebuild guardrails.
 
-## Proposed text for docs/rebuild/design.md §5 and §6
+## Proposed text for docs/rebuild/design.md §4.4, §5 and §6
 
-> Code citations establish current behaviour. Plan overlays describe intended behaviour: new or changed
-> effects may lack implementation citations, but must remain visibly proposed and unverified, with their
-> plan and change recorded. Existing citations remain source context and do not establish that a proposed
-> change is implemented. Applying a plan preserves structural and reference validation and reports missing
-> implementation evidence as explicit gaps. Uncited proposals cannot become current workspace facts;
-> landing a plan requires reconciliation with actual evidence.
+> Plan ops describe intended changes. Their added or changed behaviour is proposed, with attribution derived
+> from the plan and change containing the op. Implementation citations may be absent in a plan projection
+> and remain visible evidence gaps. Existing citations provide source context; they do not establish that
+> proposed behaviour is implemented. Current workspace facts continue to require effect citations.
 
-This changes the trust treatment of plan projections, so it needs a product/design decision. It does not
-change a coverage, mutation, architecture, page-size or current-fact evidence threshold. The exact schema
-and validation representation will follow the approved rule and receive focused tests before PR6 closes.
+Use the existing plan/before/after boundary. Keep one structural model and one schema authority; derive
+proposal attribution beside the projection rather than authoring flags on steps. Named current-fact and
+plan-projection validation profiles may differ only on the explicitly declared implementation-evidence
+policy. Validate the base strictly and compute the projection from its actual ops before validating its
+shape and references. The ordinary current-fact validator must still reject the same uncited values.
+
+This is a narrow correction to the unconditional citation rule, not a new landing workflow. It does not
+change a coverage, mutation, architecture, page-size or current-fact evidence threshold. Implementation
+requires the user's approval and focused proof covering additions, replacements, retained old citations,
+unchanged facts, invalid structure and invalid references.
+
+## Independent review
+
+The user requested three independent, read-only subagent reviews: design, implementation and Volvo data.
+All three recommend the context-derived distinction above. None changed source files or ran expensive checks.
+See `reviews.md` for their findings and alternatives.
 
 ## Reproduce
 
