@@ -55,6 +55,7 @@ def semantic_graph(flight):
 
 parser=argparse.ArgumentParser()
 parser.add_argument('--previous-origin')
+parser.add_argument('--previous-recorded')
 parser.add_argument('--verify',action='store_true')
 parser.add_argument('--previous-build-id')
 parser.add_argument('--current-build-id',default='.next/BUILD_ID')
@@ -112,13 +113,17 @@ if args.verify:
  print('Verified',len(rows),'exact recorded transport pairs offline; complete values and array order remain checked.')
  raise SystemExit(0)
 recorded=[load(path) for path in Path(args.recorded).glob('*.json')]
+previous_recorded=Path(args.previous_recorded) if args.previous_recorded else None
+previous_rows=load(previous_recorded/'proof.json') if previous_recorded else []
 rows=[]
 for workspace in ['personal','acme','volvo-cars']:
  current=Path(args.current)/workspace;previous=Path(args.previous)/workspace
- comparison=load(current/'comparison.json')
- for change in comparison['unexplained']:
-  assert change['path']=='/htmlBytes',(workspace,change)
-  now=load(current/change['file']);was=load(previous/change['file'])
+ manifest=load(current/'manifest.json')
+ for file in manifest['files']:
+  if file=='facts.json.gz':continue
+  now=load(current/file);was=load(previous/file)
+  if now['htmlBytes']==was['htmlBytes']:continue
+  change={'file':file,'path':'/htmlBytes','before':was['htmlBytes'],'after':now['htmlBytes']}
   for field in ['route','status','type','headings','links','payload']:assert now[field]==was[field],(workspace,field)
   matches=[item for item in recorded if item['route']==now['route'] and item['bytes']==now['htmlBytes']]
   assert len(matches)==1,(now['route'],len(matches))
@@ -126,7 +131,15 @@ for workspace in ['personal','acme','volvo-cars']:
   new=gzip.decompress((Path(args.recorded)/witness['body']).read_bytes())
   assert hashlib.sha256(new).hexdigest()==witness['sha256']
   observations=[];old=None
+  witnesses=[row['previous'] for row in previous_rows if row['route']==now['route'] and row['previous']['bytes']==was['htmlBytes']]
+  if witnesses:
+   sample=witnesses[0];old=gzip.decompress((previous_recorded/sample['body']).read_bytes())
+   assert hashlib.sha256(old).hexdigest()==sample['sha256']
+   assert len(old)==was['htmlBytes']
+   observations.append(retain(old,'previous'))
   for attempt in range(12):
+   if old is not None:break
+   assert args.previous_origin,'No recorded previous witness; supply --previous-origin'
    request=urllib.request.Request(args.previous_origin+now['route'],headers={'User-Agent':'node','Accept':'*/*','Accept-Language':'*','Sec-Fetch-Mode':'cors','Accept-Encoding':'identity'})
    response=urllib.request.urlopen(request,timeout=120);candidate=response.read()
    assert response.status==was['status']

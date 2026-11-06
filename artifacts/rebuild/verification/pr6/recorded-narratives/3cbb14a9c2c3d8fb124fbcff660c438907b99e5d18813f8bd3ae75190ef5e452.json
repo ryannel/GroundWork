@@ -1,0 +1,8 @@
+{
+  "route": "/personal/model.json",
+  "status": 200,
+  "type": "application/json",
+  "bytes": 2255,
+  "sha256": "7c8eab1b88c5dd8c9f46b1e0981ccac67cc849bd335317047ea6f86706281566",
+  "body": "3cbb14a9c2c3d8fb124fbcff660c438907b99e5d18813f8bd3ae75190ef5e452.body.gz"
+}

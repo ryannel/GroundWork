@@ -1,13 +1,358 @@
 [
   {
+    "workspace": "personal",
+    "file": "route-d27f1e2788e7e51292e6.json.gz",
+    "route": "/personal/",
+    "pointer": {
+      "file": "route-d27f1e2788e7e51292e6.json.gz",
+      "path": "/htmlBytes",
+      "before": 31597,
+      "after": 31640
+    },
+    "previous": {
+      "body": "previous-bfd85daadf537bdb22ea491c3e61b2220356ac4bdb34da4b5abfaa87ea05e50c.html.gz",
+      "bytes": 31597,
+      "sha256": "bfd85daadf537bdb22ea491c3e61b2220356ac4bdb34da4b5abfaa87ea05e50c"
+    },
+    "current": {
+      "body": "current-2297784afcfb43fd5e1dbdf469d7c58a4f0dfab096ca034aaf2d25c256f15881.html.gz",
+      "bytes": 31640,
+      "sha256": "2297784afcfb43fd5e1dbdf469d7c58a4f0dfab096ca034aaf2d25c256f15881"
+    },
+    "observations": [
+      {
+        "body": "previous-bfd85daadf537bdb22ea491c3e61b2220356ac4bdb34da4b5abfaa87ea05e50c.html.gz",
+        "bytes": 31597,
+        "sha256": "bfd85daadf537bdb22ea491c3e61b2220356ac4bdb34da4b5abfaa87ea05e50c"
+      }
+    ],
+    "allDomAndHydratedValuesEqual": true,
+    "wrapperDeltaBytes": 43,
+    "assetDeltaBytes": 0,
+    "measuredDelta": 43
+  },
+  {
+    "workspace": "personal",
+    "file": "route-aa3f6236d49586518744.json.gz",
+    "route": "/personal/partners/",
+    "pointer": {
+      "file": "route-aa3f6236d49586518744.json.gz",
+      "path": "/htmlBytes",
+      "before": 29827,
+      "after": 29784
+    },
+    "previous": {
+      "body": "previous-b4a3c34dad1cf11de2c3b8effd499b30e9e7e9439b86bf4db58333f71330348e.html.gz",
+      "bytes": 29827,
+      "sha256": "b4a3c34dad1cf11de2c3b8effd499b30e9e7e9439b86bf4db58333f71330348e"
+    },
+    "current": {
+      "body": "current-4b1d692f8f0696a2a19a19c9a99150e475b3a8f8e5e2d27b0a0aa3c9425b2c7d.html.gz",
+      "bytes": 29784,
+      "sha256": "4b1d692f8f0696a2a19a19c9a99150e475b3a8f8e5e2d27b0a0aa3c9425b2c7d"
+    },
+    "observations": [
+      {
+        "body": "previous-3ac91ddea28fd263592d0dc7c0caaca52cb5fa9b4895d5cdb6dea78d6c4ea92a.html.gz",
+        "bytes": 29784,
+        "sha256": "3ac91ddea28fd263592d0dc7c0caaca52cb5fa9b4895d5cdb6dea78d6c4ea92a"
+      },
+      {
+        "body": "previous-b4a3c34dad1cf11de2c3b8effd499b30e9e7e9439b86bf4db58333f71330348e.html.gz",
+        "bytes": 29827,
+        "sha256": "b4a3c34dad1cf11de2c3b8effd499b30e9e7e9439b86bf4db58333f71330348e"
+      }
+    ],
+    "allDomAndHydratedValuesEqual": true,
+    "wrapperDeltaBytes": -43,
+    "assetDeltaBytes": 0,
+    "measuredDelta": -43
+  },
+  {
+    "workspace": "personal",
+    "file": "route-ffb0bde0c2ccc55f8dca.json.gz",
+    "route": "/personal/people/",
+    "pointer": {
+      "file": "route-ffb0bde0c2ccc55f8dca.json.gz",
+      "path": "/htmlBytes",
+      "before": 29876,
+      "after": 29833
+    },
+    "previous": {
+      "body": "previous-bd85b5d9bf3870ca3c2acd9129a5c794a7ac6f8ba60a3be75eac62fd4a7c6559.html.gz",
+      "bytes": 29876,
+      "sha256": "bd85b5d9bf3870ca3c2acd9129a5c794a7ac6f8ba60a3be75eac62fd4a7c6559"
+    },
+    "current": {
+      "body": "current-ebfdb1c5f64617dac57f1509c26eb64032030626022dccf988cbd57f9b6a3ecd.html.gz",
+      "bytes": 29833,
+      "sha256": "ebfdb1c5f64617dac57f1509c26eb64032030626022dccf988cbd57f9b6a3ecd"
+    },
+    "observations": [
+      {
+        "body": "previous-4421c45790dea5d29ac0da38d1891e0074750117e00c5f420e9d0e426b830782.html.gz",
+        "bytes": 29833,
+        "sha256": "4421c45790dea5d29ac0da38d1891e0074750117e00c5f420e9d0e426b830782"
+      },
+      {
+        "body": "previous-bd85b5d9bf3870ca3c2acd9129a5c794a7ac6f8ba60a3be75eac62fd4a7c6559.html.gz",
+        "bytes": 29876,
+        "sha256": "bd85b5d9bf3870ca3c2acd9129a5c794a7ac6f8ba60a3be75eac62fd4a7c6559"
+      }
+    ],
+    "allDomAndHydratedValuesEqual": true,
+    "wrapperDeltaBytes": -43,
+    "assetDeltaBytes": 0,
+    "measuredDelta": -43
+  },
+  {
+    "workspace": "personal",
+    "file": "route-f221f4d7b4c7bc432779.json.gz",
+    "route": "/personal/plans/",
+    "pointer": {
+      "file": "route-f221f4d7b4c7bc432779.json.gz",
+      "path": "/htmlBytes",
+      "before": 29849,
+      "after": 29892
+    },
+    "previous": {
+      "body": "previous-615e88e6bae21fd7d25ccb032594deb1440e8fbc0f98487683100c047cfe1429.html.gz",
+      "bytes": 29849,
+      "sha256": "615e88e6bae21fd7d25ccb032594deb1440e8fbc0f98487683100c047cfe1429"
+    },
+    "current": {
+      "body": "current-e64bfe28d7587ae3bc7ca7350e53701301340beabc9dbf644fabd9dc92f0626a.html.gz",
+      "bytes": 29892,
+      "sha256": "e64bfe28d7587ae3bc7ca7350e53701301340beabc9dbf644fabd9dc92f0626a"
+    },
+    "observations": [
+      {
+        "body": "previous-615e88e6bae21fd7d25ccb032594deb1440e8fbc0f98487683100c047cfe1429.html.gz",
+        "bytes": 29849,
+        "sha256": "615e88e6bae21fd7d25ccb032594deb1440e8fbc0f98487683100c047cfe1429"
+      }
+    ],
+    "allDomAndHydratedValuesEqual": true,
+    "wrapperDeltaBytes": 43,
+    "assetDeltaBytes": 0,
+    "measuredDelta": 43
+  },
+  {
+    "workspace": "personal",
+    "file": "route-6a67cd7303ef5056d642.json.gz",
+    "route": "/personal/reference/",
+    "pointer": {
+      "file": "route-6a67cd7303ef5056d642.json.gz",
+      "path": "/htmlBytes",
+      "before": 31114,
+      "after": 31071
+    },
+    "previous": {
+      "body": "previous-a3030acdf75fa2c2aa54d8294f093a659ba505a30f12a2438d219b77eaa08a6d.html.gz",
+      "bytes": 31114,
+      "sha256": "a3030acdf75fa2c2aa54d8294f093a659ba505a30f12a2438d219b77eaa08a6d"
+    },
+    "current": {
+      "body": "current-1c08e9a59bf586af8e923c17860b0a8699e927dbd35e151688e0dcfdcc45b8a0.html.gz",
+      "bytes": 31071,
+      "sha256": "1c08e9a59bf586af8e923c17860b0a8699e927dbd35e151688e0dcfdcc45b8a0"
+    },
+    "observations": [
+      {
+        "body": "previous-a3030acdf75fa2c2aa54d8294f093a659ba505a30f12a2438d219b77eaa08a6d.html.gz",
+        "bytes": 31114,
+        "sha256": "a3030acdf75fa2c2aa54d8294f093a659ba505a30f12a2438d219b77eaa08a6d"
+      }
+    ],
+    "allDomAndHydratedValuesEqual": true,
+    "wrapperDeltaBytes": -43,
+    "assetDeltaBytes": 0,
+    "measuredDelta": -43
+  },
+  {
+    "workspace": "personal",
+    "file": "route-4c363f7b30e4b25b5dc2.json.gz",
+    "route": "/personal/things/?id=st-allotment-db",
+    "pointer": {
+      "file": "route-4c363f7b30e4b25b5dc2.json.gz",
+      "path": "/htmlBytes",
+      "before": 32849,
+      "after": 32892
+    },
+    "previous": {
+      "body": "previous-7b799d8f74d88ddb05e97058441ded30a102e06ba7141caadae2db08698c24b0.html.gz",
+      "bytes": 32849,
+      "sha256": "7b799d8f74d88ddb05e97058441ded30a102e06ba7141caadae2db08698c24b0"
+    },
+    "current": {
+      "body": "current-26ace10b643f453fffce7e353a368ed6dd83cf3600974129ce0e4a49a0298931.html.gz",
+      "bytes": 32892,
+      "sha256": "26ace10b643f453fffce7e353a368ed6dd83cf3600974129ce0e4a49a0298931"
+    },
+    "observations": [
+      {
+        "body": "previous-7b799d8f74d88ddb05e97058441ded30a102e06ba7141caadae2db08698c24b0.html.gz",
+        "bytes": 32849,
+        "sha256": "7b799d8f74d88ddb05e97058441ded30a102e06ba7141caadae2db08698c24b0"
+      }
+    ],
+    "allDomAndHydratedValuesEqual": true,
+    "wrapperDeltaBytes": 43,
+    "assetDeltaBytes": 0,
+    "measuredDelta": 43
+  },
+  {
+    "workspace": "personal",
+    "file": "route-1b1fccadc460a4e104c4.json.gz",
+    "route": "/personal/things/?id=svc-allotment-app",
+    "pointer": {
+      "file": "route-1b1fccadc460a4e104c4.json.gz",
+      "path": "/htmlBytes",
+      "before": 37334,
+      "after": 37377
+    },
+    "previous": {
+      "body": "previous-194d59cada21a66b791a4b1759680ac3c4bc4ddc26e7cb3ab89bd98092c766d8.html.gz",
+      "bytes": 37334,
+      "sha256": "194d59cada21a66b791a4b1759680ac3c4bc4ddc26e7cb3ab89bd98092c766d8"
+    },
+    "current": {
+      "body": "current-5e4f41c401f848d1d88792ffc24ccd2d6fa7096a5f09b53ff7b37eb99ca90896.html.gz",
+      "bytes": 37377,
+      "sha256": "5e4f41c401f848d1d88792ffc24ccd2d6fa7096a5f09b53ff7b37eb99ca90896"
+    },
+    "observations": [
+      {
+        "body": "previous-d827c50264a9483327395af29b4aae5d18f2a6d61a16d95ef28f519a43e66e9f.html.gz",
+        "bytes": 37377,
+        "sha256": "d827c50264a9483327395af29b4aae5d18f2a6d61a16d95ef28f519a43e66e9f"
+      },
+      {
+        "body": "previous-d827c50264a9483327395af29b4aae5d18f2a6d61a16d95ef28f519a43e66e9f.html.gz",
+        "bytes": 37377,
+        "sha256": "d827c50264a9483327395af29b4aae5d18f2a6d61a16d95ef28f519a43e66e9f"
+      },
+      {
+        "body": "previous-d827c50264a9483327395af29b4aae5d18f2a6d61a16d95ef28f519a43e66e9f.html.gz",
+        "bytes": 37377,
+        "sha256": "d827c50264a9483327395af29b4aae5d18f2a6d61a16d95ef28f519a43e66e9f"
+      },
+      {
+        "body": "previous-194d59cada21a66b791a4b1759680ac3c4bc4ddc26e7cb3ab89bd98092c766d8.html.gz",
+        "bytes": 37334,
+        "sha256": "194d59cada21a66b791a4b1759680ac3c4bc4ddc26e7cb3ab89bd98092c766d8"
+      }
+    ],
+    "allDomAndHydratedValuesEqual": true,
+    "wrapperDeltaBytes": 43,
+    "assetDeltaBytes": 0,
+    "measuredDelta": 43
+  },
+  {
+    "workspace": "acme",
+    "file": "route-5387805077e15b1937d9.json.gz",
+    "route": "/acme/",
+    "pointer": {
+      "file": "route-5387805077e15b1937d9.json.gz",
+      "path": "/htmlBytes",
+      "before": 43189,
+      "after": 43232
+    },
+    "previous": {
+      "body": "previous-9f3ad7e543fe85f013007bd1836cb3f16347235602905e78fbfdee51518acbd3.html.gz",
+      "bytes": 43189,
+      "sha256": "9f3ad7e543fe85f013007bd1836cb3f16347235602905e78fbfdee51518acbd3"
+    },
+    "current": {
+      "body": "current-7310f9c3ac7de2fb0408d69c01687d45cee80891d4be6dbd1667af8d98ffae59.html.gz",
+      "bytes": 43232,
+      "sha256": "7310f9c3ac7de2fb0408d69c01687d45cee80891d4be6dbd1667af8d98ffae59"
+    },
+    "observations": [
+      {
+        "body": "previous-9f3ad7e543fe85f013007bd1836cb3f16347235602905e78fbfdee51518acbd3.html.gz",
+        "bytes": 43189,
+        "sha256": "9f3ad7e543fe85f013007bd1836cb3f16347235602905e78fbfdee51518acbd3"
+      }
+    ],
+    "allDomAndHydratedValuesEqual": true,
+    "wrapperDeltaBytes": 43,
+    "assetDeltaBytes": 0,
+    "measuredDelta": 43
+  },
+  {
+    "workspace": "acme",
+    "file": "route-639fe7d6c385e2a73fc9.json.gz",
+    "route": "/acme/journeys/",
+    "pointer": {
+      "file": "route-639fe7d6c385e2a73fc9.json.gz",
+      "path": "/htmlBytes",
+      "before": 40346,
+      "after": 40389
+    },
+    "previous": {
+      "body": "previous-0f506d83852f47326496a6d0ffd04f24e0d6db637861fea69fc232717ccb7488.html.gz",
+      "bytes": 40346,
+      "sha256": "0f506d83852f47326496a6d0ffd04f24e0d6db637861fea69fc232717ccb7488"
+    },
+    "current": {
+      "body": "current-88310f1e69e802dca1e6d73b5f7aba2c77186f6ad36e32a95b82350c6f569f1f.html.gz",
+      "bytes": 40389,
+      "sha256": "88310f1e69e802dca1e6d73b5f7aba2c77186f6ad36e32a95b82350c6f569f1f"
+    },
+    "observations": [
+      {
+        "body": "previous-0f506d83852f47326496a6d0ffd04f24e0d6db637861fea69fc232717ccb7488.html.gz",
+        "bytes": 40346,
+        "sha256": "0f506d83852f47326496a6d0ffd04f24e0d6db637861fea69fc232717ccb7488"
+      }
+    ],
+    "allDomAndHydratedValuesEqual": true,
+    "wrapperDeltaBytes": 43,
+    "assetDeltaBytes": 0,
+    "measuredDelta": 43
+  },
+  {
+    "workspace": "acme",
+    "file": "route-a5d555b60865ca6553f6.json.gz",
+    "route": "/acme/language/",
+    "pointer": {
+      "file": "route-a5d555b60865ca6553f6.json.gz",
+      "path": "/htmlBytes",
+      "before": 44912,
+      "after": 44955
+    },
+    "previous": {
+      "body": "previous-8d9037b6af04c24d812333aab78628dc78500f5c5eb685b9e8d839e16aeee63b.html.gz",
+      "bytes": 44912,
+      "sha256": "8d9037b6af04c24d812333aab78628dc78500f5c5eb685b9e8d839e16aeee63b"
+    },
+    "current": {
+      "body": "current-ecf792ef2ddde18e8ea44216fa6a391b89c759a4bf8d3b2a8811518824fdc962.html.gz",
+      "bytes": 44955,
+      "sha256": "ecf792ef2ddde18e8ea44216fa6a391b89c759a4bf8d3b2a8811518824fdc962"
+    },
+    "observations": [
+      {
+        "body": "previous-8d9037b6af04c24d812333aab78628dc78500f5c5eb685b9e8d839e16aeee63b.html.gz",
+        "bytes": 44912,
+        "sha256": "8d9037b6af04c24d812333aab78628dc78500f5c5eb685b9e8d839e16aeee63b"
+      }
+    ],
+    "allDomAndHydratedValuesEqual": true,
+    "wrapperDeltaBytes": 43,
+    "assetDeltaBytes": 0,
+    "measuredDelta": 43
+  },
+  {
     "workspace": "acme",
     "file": "route-6374487d74074517730d.json.gz",
     "route": "/acme/people/",
     "pointer": {
-      "after": "6c908bfd99637e01712a6f9b81cb1721bd7291b24775396b74498421d8ced4f1",
-      "before": "430ff5bfb22b80ea58cfd1246ce0f852645030922b4cc57be9d08e42ab7683da",
       "file": "route-6374487d74074517730d.json.gz",
-      "path": "/htmlBytes"
+      "path": "/htmlBytes",
+      "before": 41776,
+      "after": 41733
     },
     "previous": {
       "body": "previous-49381d0e47776074c86793dd2a3ac192ac78164a27b665f153f017378278fec4.html.gz",
@@ -15,21 +360,11 @@
       "sha256": "49381d0e47776074c86793dd2a3ac192ac78164a27b665f153f017378278fec4"
     },
     "current": {
-      "body": "current-eefc8ae890986d876c16d69513c6f45214eb266993be9aaaea43f945adde9171.html.gz",
+      "body": "current-0205211e85e4661934787cb1e2cb10c0f7db675628fa774c8733710b79be1327.html.gz",
       "bytes": 41733,
-      "sha256": "eefc8ae890986d876c16d69513c6f45214eb266993be9aaaea43f945adde9171"
+      "sha256": "0205211e85e4661934787cb1e2cb10c0f7db675628fa774c8733710b79be1327"
     },
     "observations": [
-      {
-        "body": "previous-96d25195769aab388691ac2ffc6b14aab05e587af528b6aba6d40bd96d998081.html.gz",
-        "bytes": 41733,
-        "sha256": "96d25195769aab388691ac2ffc6b14aab05e587af528b6aba6d40bd96d998081"
-      },
-      {
-        "body": "previous-4ec22f51720f4306f0235db9d18db5122f45120aebf8a9e8601624ef8828662b.html.gz",
-        "bytes": 41733,
-        "sha256": "4ec22f51720f4306f0235db9d18db5122f45120aebf8a9e8601624ef8828662b"
-      },
       {
         "body": "previous-49381d0e47776074c86793dd2a3ac192ac78164a27b665f153f017378278fec4.html.gz",
         "bytes": 41776,
@@ -43,34 +378,187 @@
   },
   {
     "workspace": "acme",
-    "file": "route-a1df0b2f33adaa9cda23.json.gz",
-    "route": "/acme/things/?id=st-products-db",
+    "file": "route-9cfabff74e65383b4393.json.gz",
+    "route": "/acme/programmes/",
     "pointer": {
-      "after": "bc87af2bb148bef669c8c6e287c88064f91b4069c2ac5022d72d1d2456fe35c3",
-      "before": "bcd84701cb7efc4a21383a3f3a96e550c00c18aa368f530d14cfb2abaeaf8c40",
-      "file": "route-a1df0b2f33adaa9cda23.json.gz",
-      "path": "/htmlBytes"
+      "file": "route-9cfabff74e65383b4393.json.gz",
+      "path": "/htmlBytes",
+      "before": 36925,
+      "after": 36968
     },
     "previous": {
-      "body": "previous-c0c08182b8547f08c59a903e636e54d5be7f312f2a01ca8d7fb5101029fe7918.html.gz",
-      "bytes": 52093,
-      "sha256": "c0c08182b8547f08c59a903e636e54d5be7f312f2a01ca8d7fb5101029fe7918"
+      "body": "previous-c3900d96f8691441b2861f14810f696f18121abe4ae49c8acdcdec8a0888cc4f.html.gz",
+      "bytes": 36925,
+      "sha256": "c3900d96f8691441b2861f14810f696f18121abe4ae49c8acdcdec8a0888cc4f"
     },
     "current": {
-      "body": "current-20ba98b06d74e42509b81ad5bb7fc4e4a5a3907f2125e8ec5bc4cbd500d76e17.html.gz",
-      "bytes": 52050,
-      "sha256": "20ba98b06d74e42509b81ad5bb7fc4e4a5a3907f2125e8ec5bc4cbd500d76e17"
+      "body": "current-2b1344731b83fb532c8411299a32cfb14eeabd5e86e038205053a2f8bea0829c.html.gz",
+      "bytes": 36968,
+      "sha256": "2b1344731b83fb532c8411299a32cfb14eeabd5e86e038205053a2f8bea0829c"
     },
     "observations": [
       {
-        "body": "previous-83691043829e5ddd107a76dcea82dfadc54c90e81921dadac4f60491ac880c39.html.gz",
-        "bytes": 52050,
-        "sha256": "83691043829e5ddd107a76dcea82dfadc54c90e81921dadac4f60491ac880c39"
+        "body": "previous-c3900d96f8691441b2861f14810f696f18121abe4ae49c8acdcdec8a0888cc4f.html.gz",
+        "bytes": 36925,
+        "sha256": "c3900d96f8691441b2861f14810f696f18121abe4ae49c8acdcdec8a0888cc4f"
+      }
+    ],
+    "allDomAndHydratedValuesEqual": true,
+    "wrapperDeltaBytes": 43,
+    "assetDeltaBytes": 0,
+    "measuredDelta": 43
+  },
+  {
+    "workspace": "acme",
+    "file": "route-4f5901ed06540b959e16.json.gz",
+    "route": "/acme/things/?id=api-products-get",
+    "pointer": {
+      "file": "route-4f5901ed06540b959e16.json.gz",
+      "path": "/htmlBytes",
+      "before": 46670,
+      "after": 46713
+    },
+    "previous": {
+      "body": "previous-46f368eb117f6885e3076f83c18e21ebd82096a6f7ac255337593490532dfe51.html.gz",
+      "bytes": 46670,
+      "sha256": "46f368eb117f6885e3076f83c18e21ebd82096a6f7ac255337593490532dfe51"
+    },
+    "current": {
+      "body": "current-25cbffa40b2bc472f92da8c0d7152e3b0782045af0ff92716a173b4ae4660b18.html.gz",
+      "bytes": 46713,
+      "sha256": "25cbffa40b2bc472f92da8c0d7152e3b0782045af0ff92716a173b4ae4660b18"
+    },
+    "observations": [
+      {
+        "body": "previous-d36ee3b1c813329e054b0c25109e158886feb476cc39f0854e1fbfd442c65520.html.gz",
+        "bytes": 46713,
+        "sha256": "d36ee3b1c813329e054b0c25109e158886feb476cc39f0854e1fbfd442c65520"
       },
       {
-        "body": "previous-c0c08182b8547f08c59a903e636e54d5be7f312f2a01ca8d7fb5101029fe7918.html.gz",
-        "bytes": 52093,
-        "sha256": "c0c08182b8547f08c59a903e636e54d5be7f312f2a01ca8d7fb5101029fe7918"
+        "body": "previous-46f368eb117f6885e3076f83c18e21ebd82096a6f7ac255337593490532dfe51.html.gz",
+        "bytes": 46670,
+        "sha256": "46f368eb117f6885e3076f83c18e21ebd82096a6f7ac255337593490532dfe51"
+      }
+    ],
+    "allDomAndHydratedValuesEqual": true,
+    "wrapperDeltaBytes": 43,
+    "assetDeltaBytes": 0,
+    "measuredDelta": 43
+  },
+  {
+    "workspace": "acme",
+    "file": "route-b74e9d9ab1170f2c9f39.json.gz",
+    "route": "/acme/things/?id=msg-product-changed",
+    "pointer": {
+      "file": "route-b74e9d9ab1170f2c9f39.json.gz",
+      "path": "/htmlBytes",
+      "before": 52190,
+      "after": 52233
+    },
+    "previous": {
+      "body": "previous-b2d981a19429929766f077b3736f8516d2ec385a3b6e74ba8292ffd39e397538.html.gz",
+      "bytes": 52190,
+      "sha256": "b2d981a19429929766f077b3736f8516d2ec385a3b6e74ba8292ffd39e397538"
+    },
+    "current": {
+      "body": "current-abdd6d05f442cc14630b38eb0a7ac2e6339ce107254710c36fc8302f870c9c6e.html.gz",
+      "bytes": 52233,
+      "sha256": "abdd6d05f442cc14630b38eb0a7ac2e6339ce107254710c36fc8302f870c9c6e"
+    },
+    "observations": [
+      {
+        "body": "previous-b2d981a19429929766f077b3736f8516d2ec385a3b6e74ba8292ffd39e397538.html.gz",
+        "bytes": 52190,
+        "sha256": "b2d981a19429929766f077b3736f8516d2ec385a3b6e74ba8292ffd39e397538"
+      }
+    ],
+    "allDomAndHydratedValuesEqual": true,
+    "wrapperDeltaBytes": 43,
+    "assetDeltaBytes": 0,
+    "measuredDelta": 43
+  },
+  {
+    "workspace": "volvo-cars",
+    "file": "route-871309667e3c5b4bb3ee.json.gz",
+    "route": "/volvo-cars/journeys/",
+    "pointer": {
+      "file": "route-871309667e3c5b4bb3ee.json.gz",
+      "path": "/htmlBytes",
+      "before": 93672,
+      "after": 93715
+    },
+    "previous": {
+      "body": "previous-d182df5253a717dc95a3ce2d13509d85cdc5ddf9dabd71825e14c365c89e7449.html.gz",
+      "bytes": 93672,
+      "sha256": "d182df5253a717dc95a3ce2d13509d85cdc5ddf9dabd71825e14c365c89e7449"
+    },
+    "current": {
+      "body": "current-d3466f917fff638183c11cc98e01aa98eb336969452b1e4e867dd8d946ddf1c8.html.gz",
+      "bytes": 93715,
+      "sha256": "d3466f917fff638183c11cc98e01aa98eb336969452b1e4e867dd8d946ddf1c8"
+    },
+    "observations": [
+      {
+        "body": "previous-d182df5253a717dc95a3ce2d13509d85cdc5ddf9dabd71825e14c365c89e7449.html.gz",
+        "bytes": 93672,
+        "sha256": "d182df5253a717dc95a3ce2d13509d85cdc5ddf9dabd71825e14c365c89e7449"
+      }
+    ],
+    "allDomAndHydratedValuesEqual": true,
+    "wrapperDeltaBytes": 43,
+    "assetDeltaBytes": 0,
+    "measuredDelta": 43
+  },
+  {
+    "workspace": "volvo-cars",
+    "file": "route-f10fb7491fbb34afd381.json.gz",
+    "route": "/volvo-cars/programmes/",
+    "pointer": {
+      "file": "route-f10fb7491fbb34afd381.json.gz",
+      "path": "/htmlBytes",
+      "before": 57523,
+      "after": 57480
+    },
+    "previous": {
+      "body": "previous-d1b6235fe3f10cd18fefc0704ffbef0fd78eb510f76d27a59eb2f7678ae30223.html.gz",
+      "bytes": 57523,
+      "sha256": "d1b6235fe3f10cd18fefc0704ffbef0fd78eb510f76d27a59eb2f7678ae30223"
+    },
+    "current": {
+      "body": "current-2d7c1546ef0ecba04d8dcf25e135c88805e1c29ee6509a1fb04830b9359d6659.html.gz",
+      "bytes": 57480,
+      "sha256": "2d7c1546ef0ecba04d8dcf25e135c88805e1c29ee6509a1fb04830b9359d6659"
+    },
+    "observations": [
+      {
+        "body": "previous-8336a59b1c7dcbd3e555d702d67a9a3fd643153911a859e281bc261d7a0725eb.html.gz",
+        "bytes": 57480,
+        "sha256": "8336a59b1c7dcbd3e555d702d67a9a3fd643153911a859e281bc261d7a0725eb"
+      },
+      {
+        "body": "previous-025497d3e5b196a97dc9776c46c0c95ecb619140e405f8b1696c7016b28e3a26.html.gz",
+        "bytes": 57480,
+        "sha256": "025497d3e5b196a97dc9776c46c0c95ecb619140e405f8b1696c7016b28e3a26"
+      },
+      {
+        "body": "previous-025497d3e5b196a97dc9776c46c0c95ecb619140e405f8b1696c7016b28e3a26.html.gz",
+        "bytes": 57480,
+        "sha256": "025497d3e5b196a97dc9776c46c0c95ecb619140e405f8b1696c7016b28e3a26"
+      },
+      {
+        "body": "previous-8336a59b1c7dcbd3e555d702d67a9a3fd643153911a859e281bc261d7a0725eb.html.gz",
+        "bytes": 57480,
+        "sha256": "8336a59b1c7dcbd3e555d702d67a9a3fd643153911a859e281bc261d7a0725eb"
+      },
+      {
+        "body": "previous-8336a59b1c7dcbd3e555d702d67a9a3fd643153911a859e281bc261d7a0725eb.html.gz",
+        "bytes": 57480,
+        "sha256": "8336a59b1c7dcbd3e555d702d67a9a3fd643153911a859e281bc261d7a0725eb"
+      },
+      {
+        "body": "previous-d1b6235fe3f10cd18fefc0704ffbef0fd78eb510f76d27a59eb2f7678ae30223.html.gz",
+        "bytes": 57523,
+        "sha256": "d1b6235fe3f10cd18fefc0704ffbef0fd78eb510f76d27a59eb2f7678ae30223"
       }
     ],
     "allDomAndHydratedValuesEqual": true,
@@ -79,30 +567,35 @@
     "measuredDelta": -43
   },
   {
-    "workspace": "acme",
-    "file": "route-03c69d1ba9240dde189b.json.gz",
-    "route": "/acme/value-flows/",
+    "workspace": "volvo-cars",
+    "file": "route-151af0354f9b819dc21a.json.gz",
+    "route": "/volvo-cars/things/?id=msg-assortment-classification-changed",
     "pointer": {
-      "after": "3371d6ea5abafea6d0ba7a81e470f01433738b091d5a9bc7b8da7f2c580c1451",
-      "before": "0c9583040e8a91ab6c0d2ea9c83867faff6713e08eea4fc16919c36c516df17f",
-      "file": "route-03c69d1ba9240dde189b.json.gz",
-      "path": "/htmlBytes"
+      "file": "route-151af0354f9b819dc21a.json.gz",
+      "path": "/htmlBytes",
+      "before": 190978,
+      "after": 190935
     },
     "previous": {
-      "body": "previous-686d9530b442b075f2c78d100fab58c8da868fad45539dc631d390d9efae61ba.html.gz",
-      "bytes": 36218,
-      "sha256": "686d9530b442b075f2c78d100fab58c8da868fad45539dc631d390d9efae61ba"
+      "body": "previous-575d09ffa067ad9b526e4068ef93499b877c8afef9bad7566b359c194e240466.html.gz",
+      "bytes": 190978,
+      "sha256": "575d09ffa067ad9b526e4068ef93499b877c8afef9bad7566b359c194e240466"
     },
     "current": {
-      "body": "current-69f94de41fea768347fdfa59ff4a3cb181f813d363d71a863c42857afc60d6c8.html.gz",
-      "bytes": 36175,
-      "sha256": "69f94de41fea768347fdfa59ff4a3cb181f813d363d71a863c42857afc60d6c8"
+      "body": "current-18944bd15ca7e179d84ee5ac6c1f72f7665eca15f8254642cb815be2fe67108d.html.gz",
+      "bytes": 190935,
+      "sha256": "18944bd15ca7e179d84ee5ac6c1f72f7665eca15f8254642cb815be2fe67108d"
     },
     "observations": [
       {
-        "body": "previous-686d9530b442b075f2c78d100fab58c8da868fad45539dc631d390d9efae61ba.html.gz",
-        "bytes": 36218,
-        "sha256": "686d9530b442b075f2c78d100fab58c8da868fad45539dc631d390d9efae61ba"
+        "body": "previous-30ef158d26a1c4b240372c12eb7679b56131a90d3136f9dfc054ac8ccc55917e.html.gz",
+        "bytes": 190935,
+        "sha256": "30ef158d26a1c4b240372c12eb7679b56131a90d3136f9dfc054ac8ccc55917e"
+      },
+      {
+        "body": "previous-575d09ffa067ad9b526e4068ef93499b877c8afef9bad7566b359c194e240466.html.gz",
+        "bytes": 190978,
+        "sha256": "575d09ffa067ad9b526e4068ef93499b877c8afef9bad7566b359c194e240466"
       }
     ],
     "allDomAndHydratedValuesEqual": true,
@@ -115,10 +608,10 @@
     "file": "route-f8d01d08102a309e1ccc.json.gz",
     "route": "/volvo-cars/things/?id=st-assortment-classifications-events",
     "pointer": {
-      "after": "975e89c8b9b5565b39759502fdfe22619b52d92c5992cc8b4c4d526ba2d4cee6",
-      "before": "032cdfcb06e57486dab1a9a26556c46cb0820ec7b110ad40172f493ccc709c46",
       "file": "route-f8d01d08102a309e1ccc.json.gz",
-      "path": "/htmlBytes"
+      "path": "/htmlBytes",
+      "before": 183099,
+      "after": 183056
     },
     "previous": {
       "body": "previous-81ce8942fb0a0d702e6a63fcb9d9ab987e7323c0ae740a3fc13f444e60a710b1.html.gz",
@@ -126,35 +619,57 @@
       "sha256": "81ce8942fb0a0d702e6a63fcb9d9ab987e7323c0ae740a3fc13f444e60a710b1"
     },
     "current": {
-      "body": "current-4996201b85bc0313918d4a13f88dcbbe1c157fa4533d786bd43ddaad8dbc8441.html.gz",
+      "body": "current-08749c3207f2ab669044886d543ed76988ea9d4b505bcb9a71e0cd07733b587f.html.gz",
       "bytes": 183056,
-      "sha256": "4996201b85bc0313918d4a13f88dcbbe1c157fa4533d786bd43ddaad8dbc8441"
+      "sha256": "08749c3207f2ab669044886d543ed76988ea9d4b505bcb9a71e0cd07733b587f"
     },
     "observations": [
-      {
-        "body": "previous-9e948e42b712ca9d458ea2647c7228ffab3db2d24499ada567f32ec0e3f3f960.html.gz",
-        "bytes": 183056,
-        "sha256": "9e948e42b712ca9d458ea2647c7228ffab3db2d24499ada567f32ec0e3f3f960"
-      },
-      {
-        "body": "previous-9e948e42b712ca9d458ea2647c7228ffab3db2d24499ada567f32ec0e3f3f960.html.gz",
-        "bytes": 183056,
-        "sha256": "9e948e42b712ca9d458ea2647c7228ffab3db2d24499ada567f32ec0e3f3f960"
-      },
-      {
-        "body": "previous-9e948e42b712ca9d458ea2647c7228ffab3db2d24499ada567f32ec0e3f3f960.html.gz",
-        "bytes": 183056,
-        "sha256": "9e948e42b712ca9d458ea2647c7228ffab3db2d24499ada567f32ec0e3f3f960"
-      },
-      {
-        "body": "previous-a1f740caa5bc58577aff1a422aae9eb1c9c9668ab8d0bd71364d92fc381543be.html.gz",
-        "bytes": 183056,
-        "sha256": "a1f740caa5bc58577aff1a422aae9eb1c9c9668ab8d0bd71364d92fc381543be"
-      },
       {
         "body": "previous-81ce8942fb0a0d702e6a63fcb9d9ab987e7323c0ae740a3fc13f444e60a710b1.html.gz",
         "bytes": 183099,
         "sha256": "81ce8942fb0a0d702e6a63fcb9d9ab987e7323c0ae740a3fc13f444e60a710b1"
+      }
+    ],
+    "allDomAndHydratedValuesEqual": true,
+    "wrapperDeltaBytes": -43,
+    "assetDeltaBytes": 0,
+    "measuredDelta": -43
+  },
+  {
+    "workspace": "volvo-cars",
+    "file": "route-75a393b5caaa2701c12b.json.gz",
+    "route": "/volvo-cars/things/?id=svc-assortment-admin-api",
+    "pointer": {
+      "file": "route-75a393b5caaa2701c12b.json.gz",
+      "path": "/htmlBytes",
+      "before": 212464,
+      "after": 212421
+    },
+    "previous": {
+      "body": "previous-66b4ed8a1d6d6bab899bb7c9db2443632901545e6717741512a99ea6496276c6.html.gz",
+      "bytes": 212464,
+      "sha256": "66b4ed8a1d6d6bab899bb7c9db2443632901545e6717741512a99ea6496276c6"
+    },
+    "current": {
+      "body": "current-f5a5f396c3464543ae16c2da670757476a9097d668a22d1fcf8d4332849c2173.html.gz",
+      "bytes": 212421,
+      "sha256": "f5a5f396c3464543ae16c2da670757476a9097d668a22d1fcf8d4332849c2173"
+    },
+    "observations": [
+      {
+        "body": "previous-b2a2dd7f00a74d6a670e36b7411823ffe97844962e751b091692d10c3d4884bd.html.gz",
+        "bytes": 212421,
+        "sha256": "b2a2dd7f00a74d6a670e36b7411823ffe97844962e751b091692d10c3d4884bd"
+      },
+      {
+        "body": "previous-289bd28810181466de16990e11f9c498b0d1f5103e35a519376a6c9b885f4ad3.html.gz",
+        "bytes": 212421,
+        "sha256": "289bd28810181466de16990e11f9c498b0d1f5103e35a519376a6c9b885f4ad3"
+      },
+      {
+        "body": "previous-66b4ed8a1d6d6bab899bb7c9db2443632901545e6717741512a99ea6496276c6.html.gz",
+        "bytes": 212464,
+        "sha256": "66b4ed8a1d6d6bab899bb7c9db2443632901545e6717741512a99ea6496276c6"
       }
     ],
     "allDomAndHydratedValuesEqual": true,

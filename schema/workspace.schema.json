@@ -4509,7 +4509,7 @@
       "type": "object",
       "properties": {
         "component": {
-          "$ref": "#/$defs/ComponentId"
+          "$ref": "#/$defs/ContextComponentId"
         },
         "title": {
           "type": "string",
@@ -4522,11 +4522,18 @@
         "supporting": {
           "type": "array",
           "items": {
-            "$ref": "#/$defs/ComponentId"
+            "$ref": "#/$defs/ContextComponentId"
           }
         },
         "cites": {
           "$ref": "#/$defs/AuthoredCites"
+        },
+        "backs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Id"
+          },
+          "minItems": 1
         }
       },
       "required": [
@@ -4605,6 +4612,10 @@
         "medium",
         "high"
       ]
+    },
+    "ContextComponentId": {
+      "type": "string",
+      "pattern": "^(?:svc|app|st|top|ext|sys|lib):[^#\\s]+$"
     }
   },
   "anyOf": [

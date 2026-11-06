@@ -1,12 +1,14 @@
 import { execFileSync, spawn } from 'node:child_process';
 import { mkdir, open, writeFile } from 'node:fs/promises';
+import { parseArgs } from 'node:util';
 
 import { withSite } from '../../../../tools/rebuild/site.ts';
 
 const proof = 'artifacts/rebuild/verification/pr6';
+const { values } = parseArgs({ options: { recorded: { type: 'string', default: `${proof}/recorded-production` } } });
 await mkdir(`${proof}/comparison`, { recursive: true });
 await withSite(undefined, async (upstream) => {
-  const proxy = spawn('/usr/bin/python3', [`${proof}/capture-proxy.py`, '--upstream', upstream, '--out', `${proof}/recorded-production`], { stdio: ['ignore', 'pipe', 'inherit'] });
+  const proxy = spawn('/usr/bin/python3', [`${proof}/capture-proxy.py`, '--upstream', upstream, '--out', values.recorded], { stdio: ['ignore', 'pipe', 'inherit'] });
   try {
     const origin = await new Promise((resolve, reject) => {
       proxy.once('error', reject);

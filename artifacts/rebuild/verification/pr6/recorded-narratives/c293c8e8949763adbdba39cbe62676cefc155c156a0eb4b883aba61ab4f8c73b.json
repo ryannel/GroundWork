@@ -1,0 +1,8 @@
+{
+  "route": "/acme/catalogue/target/",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 27909,
+  "sha256": "bd44f57f96e447d8d3e9da82d34831e985561126c9c2d3cc506ac1e7c30f3296",
+  "body": "c293c8e8949763adbdba39cbe62676cefc155c156a0eb4b883aba61ab4f8c73b.body.gz"
+}

@@ -205,6 +205,7 @@ export interface WorkspaceDocumentTypes {
   NarrativeStage: NarrativeStage;
   Narrative: Narrative;
   Confidence: Confidence;
+  ContextComponentId: string;
   document: WorkspaceDocumentDocument;
 }
 export interface CodeHome {
@@ -1255,6 +1256,10 @@ export interface NarrativeStage {
   summary: string;
   supporting: string[];
   cites: AuthoredCites;
+  /**
+   * @minItems 1
+   */
+  backs?: [string, ...string[]];
 }
 export interface ProgrammeFile {
   id: string;

@@ -546,3 +546,9 @@ model. Only the schema's explicitly annotated implementation-evidence requiremen
 validation checks the current base strictly and computes the after model from the plan; it never accepts
 an arbitrary after model as current facts. The evidence and review are recorded under
 `artifacts/rebuild/pr6-plan-provenance/`.
+
+Narrative migration retains model references in `backs`, separately from the existing code citations of
+those referenced facts. Narrative stages use the same contextual component, external, system and library
+references as the landscape. Their inferred label, confidence, reasoning, limitations and original input
+fingerprint remain intact. Missing cited backing requires explicit review; a model id is never presented
+as a code-home citation.

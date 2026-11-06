@@ -19,11 +19,12 @@ reviewed data proposals separately.
   semantic tests reject streams and missing topics and preserve queue read/write facts.
 - `verification/pr6/fidelity.json`: all facts and all 188 legacy route statuses, headings, links and payloads
   equal PR5. All 193 frozen PR1 baseline files are unchanged. The unchanged comparator accepts the recorded
-  captures with zero unexplained differences: Personal 31, Acme 78, Volvo 42,792 historical differences.
-- Four new exact HTML-size pairs are proved by `verification/pr6/transport/proof.json`: complete DOM and
-  decoded Flight values are equal, with one fewer 43-byte wrapper each. Only those exact pairs were added
-  to `allowed-diffs.yaml`. The parameterised recorder and verifier retain the response actually compared,
-  so no manual recapture loop is needed.
+  captures with zero unexplained differences: Personal 33, Acme 78, Volvo 42,795 historical differences.
+- Five exact HTML-size pairs were added to `allowed-diffs.yaml`, each backed by complete DOM and decoded
+  Flight equality with one fewer 43-byte wrapper. The initial four are retained in
+  `verification/pr6/transport-initial/`; the final batch proves all 19 transport differences against PR5 in
+  `verification/pr6/transport/proof.json`. Its single new pair is the Volvo programmes route. The parameterised
+  recorder and verifier retain the responses compared and reuse prior witnesses without manual recaptures.
 
 ## Implemented migration
 
@@ -57,6 +58,11 @@ profiles. Only the annotated implementation-evidence requirement differs. The pr
 today strictly and computes its own after model. Missing implementation evidence stays visible; current-fact
 checks reject uncited effects and derived proposed behaviour. No authored per-step planned flags were added.
 
+Four legacy narrative files now pass through conversion and schema preflight. Their original model
+backing remains in `backs`; code citations are derived only from referenced facts with recorded citations.
+The inferred label, reasoning, confidence, limitations and original fingerprint remain intact. One missing
+backing remains an explicit document review rather than invented evidence.
+
 The remaining schema corrections preserve observed values: app jobs, free-text delivery semantics,
 GraphQL invocation metadata, screen reads/assets, HTTPS transport, high-level flow transport, landscape
 model backing, historical document references and retry wording with an unknown stopping condition. They
@@ -71,7 +77,8 @@ occurrences across all authored files from the narrower original design audit.
 
 The tool intentionally stops before creating an output when identity, placement, step-id or document
 reconciliation is pending. Volvo is still unchanged. Pending rows include 122 external/system classifications,
-583 step collisions, 83 placements and three older plan context documents. Those three documents retain
+583 step collisions, 83 placements and three older plan context documents, plus one narrative stage without cited backing.
+Those three documents retain
 all original narrative and stage identities; the tool accepts only an explicitly reviewed canonical
 replacement, rather than dropping their contents automatically. Full descriptions remain usable while
 headlines are reviewed.
@@ -92,7 +99,7 @@ the user's reconfirmation before PR9.
 
 ## Verification and merge gate
 
-The frozen source passed focused format, lint, types and 3,051 related tests across 346 files. The production
+The frozen source passed focused format, lint, types and 3,053 related tests across 347 files. The production
 build passed; its initial restricted-network font download failure is retained separately from the passing
 network-enabled build. Page budget passed for 606 pages, maximum 1,021 KB against 1,024 KB.
 

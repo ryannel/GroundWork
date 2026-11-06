@@ -16,6 +16,7 @@ import {
   migrationJobIdentities,
   type MigrationIdentities,
 } from './identities';
+import { migrateNarratives, modelBackings } from './narratives';
 import { migratePlan } from './plans';
 import { fingerprint, type MigrationReview } from './review';
 import { migrateFailures, migrateSteps, slug, type StepContext } from './steps';
@@ -306,30 +307,12 @@ function nativeFlow(value: unknown, citations: MigrationCitations): unknown {
   });
   return { ...flow, steps };
 }
-function landscapeBacks(value: unknown, sources: ReadonlyMap<string, readonly unknown[]>): unknown {
-  if (Array.isArray(value)) return value.map((item) => landscapeBacks(item, sources));
-  const node = modelRecord(value);
-  if (node === null) return value;
-  const converted = Object.fromEntries(
-    Object.entries(node).map(([key, item]) => [
-      key === 'evidence' && node.from !== undefined && node.to !== undefined ? 'backs' : key,
-      landscapeBacks(item, sources),
-    ]),
-  );
-  if (node.evidence === undefined || node.from === undefined || node.to === undefined) {
-    return converted;
-  }
-  const cites = modelList(node.evidence).flatMap((id) =>
-    typeof id === 'string' ? (sources.get(id) ?? []) : [],
-  );
-  return { ...converted, ...(cites.length === 0 ? {} : { cites: [...new Set(cites)] }) };
-}
 function nativeLandscape(
   value: unknown,
   citations: MigrationCitations,
   sources: ReadonlyMap<string, readonly unknown[]>,
 ): unknown {
-  const node = modelRecord(convertCitations(landscapeBacks(value, sources), citations));
+  const node = modelRecord(convertCitations(modelBackings(value, sources), citations));
   if (node === null) return value;
   return {
     ...node,
@@ -342,7 +325,15 @@ function auxiliary(
   file: MigrationFile,
   citations: MigrationCitations,
   sources: ReadonlyMap<string, readonly unknown[]>,
+  review: MigrationReview,
 ): MigrationFragment {
+  if (file.path.endsWith('/narratives.yaml')) {
+    return {
+      family: 'workspace',
+      definition: 'NarrativesFile',
+      value: migrateNarratives(file, citations, sources, review),
+    };
+  }
   if (file.path.startsWith('flows/')) {
     return {
       family: 'workspace',
@@ -433,7 +424,7 @@ function auxiliaryFiles(
         value: migratePlan(file.value, { path: file.path, review, citations, placements }),
       });
     } else {
-      const fragment = auxiliary(file, citations, sources);
+      const fragment = auxiliary(file, citations, sources, review);
       output.set(file.path, fragment);
       if (file.path.startsWith('programmes/') && file.path.endsWith('/programme.yaml')) {
         const id = modelText(modelRecord(fragment.value)?.id) ?? '';

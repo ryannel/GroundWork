@@ -58,9 +58,9 @@ node --import ./tools/register.ts --conditions=react-server \
 The proof fails if the observed two-handler/six-effect conflict changes. It reads the original workspace
 and writes only the selected report. Volvo remains unchanged.
 
-## PR6 state at this pause
+## Historical checkpoint before implementation
 
 The focused migration suite passes: 8 files, 27 tests, including complete two-run byte equality with an
 accepted headline, isolated output validation, unchanged source files, nested plan conversion, exact flow
-anchors, metadata preservation and cited edge reconciliation. Full merge checks, build, budget and CI
-have not run because PR6 is not ready. PR6 remains unmerged. Frozen baselines remain unchanged.
+anchors, metadata preservation and cited edge reconciliation. At that checkpoint, full merge checks, build, budget and CI had not run.
+The current implementation and verification state are recorded in `../pr6-handoff.md`.

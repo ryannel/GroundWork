@@ -1,0 +1,8 @@
+{
+  "route": "/personal/plans/",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 29892,
+  "sha256": "e64bfe28d7587ae3bc7ca7350e53701301340beabc9dbf644fabd9dc92f0626a",
+  "body": "bf0c41bffad146fb1e95807e0b7d96b93bb79bee2b621acbb38cb2422141f87b.body.gz"
+}

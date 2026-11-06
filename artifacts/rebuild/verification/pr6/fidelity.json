@@ -5,10 +5,16 @@
     "allRouteStatusHeadingsLinksAndPayloadEqualToPr5": true,
     "transportDifferences": [
       {
-        "file": "route-d1914e9ed927de457d05.json.gz",
-        "route": "/personal/journeys/",
-        "previous": 29514,
-        "current": 29557
+        "file": "route-d27f1e2788e7e51292e6.json.gz",
+        "route": "/personal/",
+        "previous": 31597,
+        "current": 31640
+      },
+      {
+        "file": "route-aa3f6236d49586518744.json.gz",
+        "route": "/personal/partners/",
+        "previous": 29827,
+        "current": 29784
       },
       {
         "file": "route-ffb0bde0c2ccc55f8dca.json.gz",
@@ -23,16 +29,22 @@
         "current": 29892
       },
       {
-        "file": "route-35c2f4e59f52d4d9fbf1.json.gz",
-        "route": "/personal/programmes/",
-        "previous": 29903,
-        "current": 29946
+        "file": "route-6a67cd7303ef5056d642.json.gz",
+        "route": "/personal/reference/",
+        "previous": 31114,
+        "current": 31071
       },
       {
         "file": "route-4c363f7b30e4b25b5dc2.json.gz",
         "route": "/personal/things/?id=st-allotment-db",
         "previous": 32849,
         "current": 32892
+      },
+      {
+        "file": "route-1b1fccadc460a4e104c4.json.gz",
+        "route": "/personal/things/?id=svc-allotment-app",
+        "previous": 37334,
+        "current": 37377
       }
     ]
   },
@@ -82,30 +94,6 @@
         "route": "/acme/things/?id=msg-product-changed",
         "previous": 52190,
         "current": 52233
-      },
-      {
-        "file": "route-69e145634256e9eea7c9.json.gz",
-        "route": "/acme/things/?id=sch-product",
-        "previous": 51080,
-        "current": 51123
-      },
-      {
-        "file": "route-a1df0b2f33adaa9cda23.json.gz",
-        "route": "/acme/things/?id=st-products-db",
-        "previous": 52093,
-        "current": 52050
-      },
-      {
-        "file": "route-7d4150c8474fdb6f87ae.json.gz",
-        "route": "/acme/things/?id=svc-products",
-        "previous": 53098,
-        "current": 53141
-      },
-      {
-        "file": "route-03c69d1ba9240dde189b.json.gz",
-        "route": "/acme/value-flows/",
-        "previous": 36218,
-        "current": 36175
       }
     ]
   },
@@ -115,40 +103,22 @@
     "allRouteStatusHeadingsLinksAndPayloadEqualToPr5": true,
     "transportDifferences": [
       {
-        "file": "route-b2bcc18b9738cdfe3f73.json.gz",
-        "route": "/volvo-cars/",
-        "previous": 85027,
-        "current": 84984
-      },
-      {
         "file": "route-871309667e3c5b4bb3ee.json.gz",
         "route": "/volvo-cars/journeys/",
         "previous": 93672,
         "current": 93715
       },
       {
-        "file": "route-a6fb6c2427433f7dfd10.json.gz",
-        "route": "/volvo-cars/partners/",
-        "previous": 58734,
-        "current": 58777
-      },
-      {
-        "file": "route-5e2473ce331617b773bc.json.gz",
-        "route": "/volvo-cars/reference/",
-        "previous": 61930,
-        "current": 61973
+        "file": "route-f10fb7491fbb34afd381.json.gz",
+        "route": "/volvo-cars/programmes/",
+        "previous": 57523,
+        "current": 57480
       },
       {
         "file": "route-151af0354f9b819dc21a.json.gz",
         "route": "/volvo-cars/things/?id=msg-assortment-classification-changed",
         "previous": 190978,
         "current": 190935
-      },
-      {
-        "file": "route-dd0dfd59d7952fb044b5.json.gz",
-        "route": "/volvo-cars/things/?id=sch-assortment-admin-classification",
-        "previous": 555638,
-        "current": 555681
       },
       {
         "file": "route-f8d01d08102a309e1ccc.json.gz",
