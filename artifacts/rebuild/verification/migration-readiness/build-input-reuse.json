@@ -1,0 +1,10 @@
+{
+  "buildId": "rPy4tIsM-r4ICvJolQNC1",
+  "compiledRuntimeSchemaAndBundledWorkspacesUnchangedAfterBuild": true,
+  "laterSourceChanges": [
+    "tools/rebuild/allowances.ts: equivalent exact lookup performance",
+    "tools/migrate-model/steps.ts: review receipt metadata only"
+  ],
+  "runtimeRegistryCorrectedToCompleteReadOnlyDataset": true,
+  "pageBudgetAndCaptureRerunAfterRegistryCorrection": true
+}

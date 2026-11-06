@@ -1,6 +1,7 @@
 import 'server-only';
 
 import { indexOf, type ModelIndex } from '@/application/model-index';
+import { planStoryProblems } from '@/application/plan-story';
 import { plansIndex, type IndexedPlan } from '@/application/plans-index';
 import { hasPrefix } from '@/domain/ids';
 import {
@@ -155,6 +156,37 @@ function queueProblems(index: ModelIndex): readonly ModelProblem[] {
     });
   });
 }
+function interfaceSystemProblems(index: ModelIndex): readonly ModelProblem[] {
+  return index.entities.flatMap((node) => {
+    const target = node.kind === 'interface' ? modelText(node.data.system) : null;
+    if (target === null) return [];
+    const system = index.get(target);
+    return system?.kind === 'system' && system.data.mapped === false
+      ? []
+      : [
+          {
+            at: `${node.id}/system`,
+            message:
+              'A system-level interface provider must reference a declared unmapped system (mapped: false).',
+          },
+        ];
+  });
+}
+function operationClientProblems(index: ModelIndex): readonly ModelProblem[] {
+  return index.entities.flatMap((node) => {
+    const target = node.kind === 'operation' ? modelText(node.data.component) : null;
+    if (target === null) return [];
+    const component = index.get(target);
+    return component !== null && ['service', 'app'].includes(component.kind)
+      ? []
+      : [
+          {
+            at: `${node.id}/component`,
+            message: 'A supplied operation client must reference a declared executable component.',
+          },
+        ];
+  });
+}
 /** Recheck an applied model with the original contracts, after citation resolution. */
 async function validateFragments(
   model: WorkspaceModel,
@@ -177,7 +209,12 @@ async function validateFragments(
   const problems = checks.flat();
   if (problems.length > 0) return problems;
   try {
-    return queueProblems(indexOf(model));
+    const index = indexOf(model);
+    return [
+      ...queueProblems(index),
+      ...interfaceSystemProblems(index),
+      ...operationClientProblems(index),
+    ];
   } catch (error) {
     return [{ at: model.id, message: error instanceof Error ? error.message : String(error) }];
   }
@@ -219,7 +256,10 @@ export async function validatePlanProjection(
   try {
     const projection = plansIndex([plan], before).plans[0];
     if (projection === undefined) throw new Error('The selected plan projection is missing.');
-    const problems = await validateFragments(projection.after, 'plan');
+    const problems = [
+      ...(await validateFragments(projection.after, 'plan')),
+      ...planStoryProblems(plan, projection.beforeIndex, projection.afterIndex),
+    ];
     return { projection: problems.length === 0 ? projection : null, problems };
   } catch (error) {
     return {

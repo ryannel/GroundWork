@@ -209,7 +209,8 @@ function entrySignature(value: unknown): string {
 function legacyInterface(item: ModelData<'Interface'>): readonly Interface[] {
   if (item.kind === 'sdk') return [];
   const data = modelRecord(item);
-  const service = modelText(data?.component) ?? modelText(data?.external);
+  const service =
+    modelText(data?.component) ?? modelText(data?.external) ?? modelText(data?.system);
   if (service === null) throw new Error(`${item.id}: interface has no declared provider.`);
   return [
     {

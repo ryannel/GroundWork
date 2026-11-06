@@ -155,3 +155,42 @@ export function queryModel(): WorkspaceModel {
     ],
   };
 }
+
+/** Synthetic client evidence names a system whose implementation has not been mapped. */
+export function systemProviderModel(provider = 'sys:unmapped'): WorkspaceModel {
+  const model = queryModel();
+  return {
+    ...model,
+    domains: model.domains.map((domain) => ({
+      ...domain,
+      systems: domain.systems.map((item): ModelSystem =>
+        item.id === 'sys:a'
+          ? {
+              ...item,
+              connections: (item.connections ?? []).map((connection) => ({
+                ...connection,
+                backs: ['h:a#publish'],
+              })),
+              interfaces: [
+                ...item.interfaces,
+                {
+                  id: 'if:unmapped-api',
+                  kind: 'rest',
+                  system: provider,
+                  entries: [{ id: 'api:unmapped-api', method: 'GET', path: '/known' }],
+                  cites: [cite],
+                },
+              ],
+              handlers: item.handlers.map((handler) => ({
+                ...handler,
+                steps: [
+                  ...handler.steps,
+                  { id: 'call-unmapped', call: 'api:unmapped-api', cites: [cite] },
+                ],
+              })),
+            }
+          : item,
+      ),
+    })),
+  };
+}

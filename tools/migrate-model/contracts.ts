@@ -95,20 +95,29 @@ export function entryOf(value: unknown, kind: unknown, review: MigrationReview):
     ...(entry.errors === undefined ? {} : { errors: modelList(entry.errors).map(errorOf) }),
   };
 }
+function interfaceProvider(service: unknown, node: Node): Node {
+  const provider =
+    modelText(service) ??
+    modelText(node.component) ??
+    modelText(node.external) ??
+    modelText(node.system);
+  if (provider === null) return {};
+  const fields: Readonly<Record<string, string>> = { ext: 'external', sys: 'system' };
+  const field = fields[parseId(provider)?.prefix ?? ''] ?? 'component';
+  return { [field]: provider };
+}
 export function migrateContracts(input: unknown, context: ContractContext): Node {
   const file = nodeOf(convertCitations(input, context.citations));
   const interfaces = modelList(file.interfaces).map((item) => {
     const node = nodeOf(item);
     const { service, protocol, endpoints, ...kept } = node;
-    const provider = modelText(service) ?? modelText(node.component) ?? modelText(node.external);
-    const external = parseId(provider)?.prefix === 'ext';
     const transport = protocol === 'http' || protocol === 'https' ? protocol : null;
     const kind = transport === null ? (protocol ?? node.kind) : 'rest';
     return {
       ...kept,
       kind,
       ...(transport === null ? {} : { transport }),
-      ...(provider === null ? {} : { [external ? 'external' : 'component']: provider }),
+      ...interfaceProvider(service, kept),
       entries: modelList(endpoints ?? node.entries).map((entry) =>
         entryOf(entry, kind, context.review),
       ),

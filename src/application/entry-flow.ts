@@ -62,6 +62,8 @@ function citationOf(cite: ModelCite): FlowCitation {
 function providerOf(entry: ModelEntity, index: ModelIndex): string {
   if (entry.place.component !== null) return index.label(entry.place.component);
   const provider = index.get(entry.parent ?? '');
+  const system = modelText(provider?.data.system);
+  if (system !== null) return `${index.label(system)} (unmapped)`;
   const external = modelText(provider?.data.external);
   return external === null ? 'Component not recorded' : `${index.label(external)} (external)`;
 }

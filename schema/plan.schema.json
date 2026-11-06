@@ -1369,6 +1369,35 @@
               "$ref": "#/$defs/chapter"
             }
           }
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Authored explanation of the systems this plan discusses; not a second collection of current facts."
+        },
+        "scope": {
+          "type": "array",
+          "items": {
+            "$ref": "workspace.schema.json#/$defs/Id"
+          },
+          "uniqueItems": true,
+          "description": "Additional model ids this plan relies on. Resolve against its before and after models."
+        },
+        "concepts": {
+          "type": "array",
+          "items": {
+            "$ref": "workspace.schema.json#/$defs/Concept/properties/id"
+          },
+          "uniqueItems": true,
+          "description": "Canonical concept ids used in this story; new concepts are introduced by plan ops, never copied here."
+        },
+        "stages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/storyStage"
+          },
+          "uniqueIds": true,
+          "description": "Ordered, plan-local presentation groups. Their ids and memberships do not create a model level or execution edges."
         }
       }
     },
@@ -1731,6 +1760,61 @@
       "type": "string",
       "pattern": "^sc:[a-z0-9]+(?:-[a-z0-9]+)*$",
       "description": "sc:<kebab-slug>"
+    },
+    "storyComponent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "component"
+      ],
+      "properties": {
+        "component": {
+          "$ref": "workspace.schema.json#/$defs/ContextComponentId"
+        },
+        "from": {
+          "type": "array",
+          "items": {
+            "$ref": "workspace.schema.json#/$defs/Id"
+          },
+          "description": "Recorded ids to focus on when explaining this component. These references do not assert new edges."
+        }
+      }
+    },
+    "storyStage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "summary",
+        "components"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "workspace.schema.json#/$defs/Id",
+          "pattern": "^stage:[^#\\s]+$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "components": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/storyComponent"
+          }
+        },
+        "flows": {
+          "type": "array",
+          "items": {
+            "$ref": "workspace.schema.json#/$defs/FlowFile/properties/id"
+          }
+        }
+      }
     }
   },
   "type": "object",

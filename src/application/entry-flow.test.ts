@@ -4,6 +4,7 @@ import path from 'node:path';
 
 import { afterAll, beforeAll, expect, it, vi } from 'vitest';
 
+import { systemProviderModel } from '@/../test/fixtures/model-queries';
 import { entitiesIn, type WorkspaceModel } from '@/domain/workspace-model';
 import { readModelPlans } from '@/infrastructure/model-plans';
 import { readModel } from '@/infrastructure/read-model';
@@ -152,4 +153,13 @@ it('keeps the explicitly recorded external provider visible when drilling into i
   expect(flow?.component).toBe('Payments (external)');
   expect(flow?.handlers).toEqual([]);
   expect(flow?.gaps).toContain('api:charge: No handler detail is recorded.');
+});
+
+it('shows the named unmapped system and its implementation gap on the entry flow', () => {
+  const flow = entryFlowOf(indexOf(systemProviderModel()), 'api:unmapped-api');
+  expect(flow?.component).toBe('Unmapped (unmapped)');
+  expect(flow?.handlers).toEqual([]);
+  expect(flow?.gaps).toContain(
+    'api:unmapped-api: The system providing this interface is unmapped; its implementing component is unknown.',
+  );
 });

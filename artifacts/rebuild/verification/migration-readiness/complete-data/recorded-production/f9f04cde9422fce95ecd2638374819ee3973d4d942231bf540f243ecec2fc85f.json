@@ -1,0 +1,8 @@
+{
+  "route": "/acme/things/?id=svc-products",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 53098,
+  "sha256": "2c378e720c5053ba178edc523f5b970717878254368059ba8fd975741cc766f3",
+  "body": "f9f04cde9422fce95ecd2638374819ee3973d4d942231bf540f243ecec2fc85f.body.gz"
+}

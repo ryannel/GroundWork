@@ -1,0 +1,8 @@
+{
+  "route": "/personal/things/?id=svc-allotment-app",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 37377,
+  "sha256": "60503b7ffe780e5f84f22ddfd8b38b17fdb1231671d7865a127ec4a7ea651208",
+  "body": "979e7b0c38a7d3efd83e9e278e537e061cdc30b84334601705c842ae35c558f4.body.gz"
+}

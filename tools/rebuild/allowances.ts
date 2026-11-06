@@ -37,14 +37,10 @@ export function unexplained(
   changes: readonly Difference[],
   allowances: ReturnType<typeof allowancesOf>,
 ): readonly Difference[] {
-  return changes.filter(
-    (change) =>
-      !allowances.some(
-        (allowed) =>
-          allowed.workspace === workspace &&
-          (['file', 'path', 'before', 'after'] as const).every(
-            (key) => allowed[key] === change[key],
-          ),
-      ),
+  const key = (difference: Difference): string =>
+    JSON.stringify([difference.file, difference.path, difference.before, difference.after]);
+  const approved = new Set(
+    allowances.filter((allowed) => allowed.workspace === workspace).map(key),
   );
+  return changes.filter((change) => !approved.has(key(change)));
 }

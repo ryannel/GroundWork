@@ -1,0 +1,8 @@
+{
+  "route": "/acme/reference/events/",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 44240,
+  "sha256": "8fcba76ad34788c96b87e07a1fd03bc1fb7d3a96b55aa07408522c6f0fc2f230",
+  "body": "7cf416c4cde3a9b6b0e9b70014dda5bea64e537e1cd1aeae972dadf4b3beaa54.body.gz"
+}

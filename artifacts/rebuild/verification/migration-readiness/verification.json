@@ -1,0 +1,42 @@
+{
+  "sourceFreeze": "source-freeze.json",
+  "focused": {
+    "relatedTests": 222,
+    "files": 38,
+    "exactComparatorTests": 4,
+    "receiptRelatedTests": 54,
+    "receiptFiles": 12
+  },
+  "build": {
+    "passed": true,
+    "buildId": "rPy4tIsM-r4ICvJolQNC1",
+    "laterToolEdits": "build-input-reuse.json"
+  },
+  "budget": {
+    "passed": true,
+    "pages": 606,
+    "maxKB": 1021,
+    "limitKB": 1024,
+    "log": "budget-complete-data.log.gz"
+  },
+  "baselineIntegrity": "baseline-integrity.json",
+  "fidelity": "fidelity.json",
+  "comparisons": "comparison-acceptance.json",
+  "transport": "complete-data/transport/proof.json",
+  "flowBackings": "flow-backing-proof.json",
+  "allowancePerformance": "allowance-index-proof.json",
+  "fullCheck": {
+    "required": true,
+    "authority": "Normal pre-push npm run check hook"
+  },
+  "ci": {
+    "required": true,
+    "workflows": [
+      "CI",
+      "CodeQL",
+      "Mutation"
+    ],
+    "mutationFloor": 75
+  },
+  "volvoAuthoredFilesUnchanged": true
+}

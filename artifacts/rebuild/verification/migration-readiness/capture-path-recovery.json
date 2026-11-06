@@ -1,0 +1,33 @@
+{
+  "priorTrackedProofsRestored": [
+    "artifacts/rebuild/verification/pr6/comparison/acme/route-03c69d1ba9240dde189b.json.gz",
+    "artifacts/rebuild/verification/pr6/comparison/acme/route-4478e3dd494569e83fbe.json.gz",
+    "artifacts/rebuild/verification/pr6/comparison/acme/route-5387805077e15b1937d9.json.gz",
+    "artifacts/rebuild/verification/pr6/comparison/acme/route-6374487d74074517730d.json.gz",
+    "artifacts/rebuild/verification/pr6/comparison/acme/route-69e145634256e9eea7c9.json.gz",
+    "artifacts/rebuild/verification/pr6/comparison/acme/route-70370555f544e09df429.json.gz",
+    "artifacts/rebuild/verification/pr6/comparison/acme/route-7d4150c8474fdb6f87ae.json.gz",
+    "artifacts/rebuild/verification/pr6/comparison/acme/route-a1df0b2f33adaa9cda23.json.gz",
+    "artifacts/rebuild/verification/pr6/comparison/acme/route-b74e9d9ab1170f2c9f39.json.gz",
+    "artifacts/rebuild/verification/pr6/comparison/acme/route-e38cd1fab6b083167cbb.json.gz",
+    "artifacts/rebuild/verification/pr6/comparison/personal/route-35c2f4e59f52d4d9fbf1.json.gz",
+    "artifacts/rebuild/verification/pr6/comparison/personal/route-aa3f6236d49586518744.json.gz",
+    "artifacts/rebuild/verification/pr6/comparison/personal/route-d27f1e2788e7e51292e6.json.gz",
+    "artifacts/rebuild/verification/pr6/comparison/personal/route-f221f4d7b4c7bc432779.json.gz",
+    "artifacts/rebuild/verification/pr6/comparison/personal/route-f8190763b839ce741b87.json.gz",
+    "artifacts/rebuild/verification/pr6/comparison/personal/route-ffb0bde0c2ccc55f8dca.json.gz",
+    "artifacts/rebuild/verification/pr6/comparison/volvo-cars/facts.json.gz",
+    "artifacts/rebuild/verification/pr6/comparison/volvo-cars/route-30a4a455a43d3edecfa3.json.gz",
+    "artifacts/rebuild/verification/pr6/comparison/volvo-cars/route-5e1c6c106e3c3eba21c1.json.gz",
+    "artifacts/rebuild/verification/pr6/comparison/volvo-cars/route-5e2473ce331617b773bc.json.gz",
+    "artifacts/rebuild/verification/pr6/comparison/volvo-cars/route-75a393b5caaa2701c12b.json.gz",
+    "artifacts/rebuild/verification/pr6/comparison/volvo-cars/route-858cdd1340f4e7514855.json.gz",
+    "artifacts/rebuild/verification/pr6/comparison/volvo-cars/route-b2bcc18b9738cdfe3f73.json.gz",
+    "artifacts/rebuild/verification/pr6/comparison/volvo-cars/route-b588a9aeeb40e49b18be.json.gz",
+    "artifacts/rebuild/verification/pr6/comparison/volvo-cars/route-ef5cd74f811ae6c4732b.json.gz",
+    "artifacts/rebuild/verification/pr6/comparison/volvo-cars/route-f8d01d08102a309e1ccc.json.gz"
+  ],
+  "newComparisonPreserved": "comparison",
+  "newResponsesPreserved": "recorded-production",
+  "originalBaselineNeverWritten": true
+}

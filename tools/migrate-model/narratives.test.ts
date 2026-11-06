@@ -6,6 +6,7 @@ import { modelProblems } from '@/infrastructure/model-schema';
 import { migrationCitations } from './citations';
 import { migrateNarratives } from './narratives';
 import { migrationReview } from './review';
+import { migrateWorkspace } from './workspace';
 
 vi.mock(import('server-only'), () => ({}));
 const input = {
@@ -100,4 +101,84 @@ describe('narrative migration', () => {
     expect(review.pending('documents')).toBe(1);
     expect(review.rows().documents?.[0]?.original).toEqual(input);
   });
+});
+
+it('uses pinned flow evidence for narrative backing independently of input order', async () => {
+  const commit = 'a'.repeat(40);
+  const narrative = {
+    ...input,
+    stories: [
+      {
+        id: 'overview',
+        name: 'Relay',
+        summary: 'The recorded relay',
+        confidence: 'medium',
+        reasoning: 'Read from the referenced flow',
+        limitations: ['Runtime delivery is not established'],
+        relatedSystems: [],
+        connections: [],
+        stages: [
+          {
+            component: 'svc:dispatcher',
+            title: 'Relay financing updates',
+            summary: 'Receives the product id',
+            supporting: [],
+            evidence: ['flow:financing#relay'],
+          },
+          {
+            component: 'svc:dispatcher',
+            title: 'Handle the product id',
+            summary: 'The recorded handler receives the id',
+            supporting: [],
+            evidence: ['flow:financing#relay'],
+          },
+        ],
+      },
+    ],
+  };
+  const files = [
+    { path: 'workspace.yaml', text: '', value: { id: 'fixture', name: 'Fixture' } },
+    { ...file, value: narrative },
+    {
+      path: 'flows/financing.yaml',
+      text: '',
+      value: {
+        id: 'flow:financing',
+        name: 'Relay financing updates',
+        trigger: 'Products change',
+        outcome: 'The id is received',
+        steps: [
+          {
+            id: 'flow:financing#relay',
+            from: 'st:changes',
+            to: 'svc:dispatcher',
+            via: 'msg:changed',
+            action: 'Receive the product id',
+            sources: [
+              { repo: 'org/dispatcher', path: 'Consumer.cs', commit, lines: [22, 37] },
+              { repo: 'org/dispatcher', path: 'Handler.cs', commit, lines: [11, 18] },
+            ],
+          },
+        ],
+      },
+    },
+  ];
+  const original = JSON.stringify(files);
+  const review = migrationReview();
+  const converted = migrateWorkspace(files, review);
+  const result = converted.files.get(file.path)?.value;
+  expect(review.pending('documents')).toBe(0);
+  const story = modelRecord(modelList(modelRecord(result)?.stories)[0]);
+  expect(modelList(story?.stages)[0]).toMatchObject({
+    backs: ['flow:financing#relay'],
+    cites: [
+      `org-dispatcher:Consumer.cs@${commit}#L22-37`,
+      `org-dispatcher:Handler.cs@${commit}#L11-18`,
+    ],
+  });
+  await expect(modelProblems('workspace', 'NarrativesFile', result)).resolves.toEqual([]);
+  expect(
+    migrateWorkspace(files.toReversed(), migrationReview()).files.get(file.path)?.value,
+  ).toEqual(result);
+  expect(JSON.stringify(files)).toBe(original);
 });

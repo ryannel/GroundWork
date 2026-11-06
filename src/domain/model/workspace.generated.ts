@@ -206,6 +206,7 @@ export interface WorkspaceDocumentTypes {
   Narrative: Narrative;
   Confidence: Confidence;
   ContextComponentId: string;
+  SystemId: string;
   document: WorkspaceDocumentDocument;
 }
 export interface CodeHome {
@@ -606,6 +607,7 @@ export interface RestInterface {
   entries?: RestEntry[];
   cites?: AuthoredCites;
   transport?: 'http' | 'https';
+  system?: string;
 }
 export interface GraphqlEntry {
   id: string;
@@ -639,6 +641,7 @@ export interface GraphqlInterface {
   subgraph?: string;
   entries?: GraphqlEntry[];
   cites?: AuthoredCites;
+  system?: string;
 }
 export interface GrpcEntry {
   id: string;
@@ -671,6 +674,7 @@ export interface GrpcInterface {
   subgraph?: string;
   entries?: GrpcEntry[];
   cites?: AuthoredCites;
+  system?: string;
 }
 export interface SdkEntry {
   id: string;
@@ -703,6 +707,7 @@ export interface SdkInterface {
   subgraph?: string;
   entries?: SdkEntry[];
   cites?: AuthoredCites;
+  system?: string;
 }
 export interface Message {
   id: string;
@@ -753,7 +758,7 @@ export interface Interaction {
 }
 export interface Operation {
   id: string;
-  component: string;
+  component?: string;
   name?: string;
   kind?: 'query' | 'mutation' | 'subscription';
   graph: string;

@@ -1,0 +1,8 @@
+{
+  "route": "/volvo-cars/plans/immutable-ids/things/?id=svc-assortment-admin-api",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 181744,
+  "sha256": "24b73bb1a75a144ce41228eeaa721d7561de9732fa0f72c3eabeea9ec5a17d39",
+  "body": "885c02b9822ff4e82f8c5a2cc949f06715b81bf8e3900126f49c0e748b2b023b.body.gz"
+}

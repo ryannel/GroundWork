@@ -195,3 +195,30 @@ describe('plan implementation evidence', () => {
     ).toBe(false);
   });
 });
+
+it('checks story references against the actual before and after at the projection boundary', async () => {
+  const base = await proposal(handlerAdds());
+  const story = {
+    scope: ['h:renew#load', 'stage:known'],
+    stages: [
+      {
+        id: 'stage:known',
+        name: 'Read the order',
+        summary: 'Read the recorded order',
+        components: [{ component: 'svc:ordering' }],
+      },
+    ],
+  };
+  const valid = await validatePlanProjection({ ...base, story }, current);
+  expect(valid.problems).toEqual([]);
+  expect(valid.projection).not.toBeNull();
+  const invalid = await validatePlanProjection(
+    { ...base, story: { ...story, scope: ['svc:absent'] } },
+    current,
+  );
+  expect(invalid.projection).toBeNull();
+  expect(invalid.problems).toContainEqual({
+    at: 'plan:reservation/story/scope/0',
+    message: 'Unresolved plan story reference: svc:absent.',
+  });
+});

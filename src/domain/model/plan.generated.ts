@@ -277,6 +277,8 @@ export interface CanonicalPlanTypes {
   id_flow: string;
   id_req: string;
   id_sc: string;
+  storyComponent: StoryComponent;
+  storyStage: StoryStage;
   document: CanonicalPlanDocument;
 }
 export interface WorkspaceDomainFile {
@@ -513,6 +515,7 @@ export interface WorkspaceRestInterface {
   entries?: WorkspaceRestEntry[];
   cites?: WorkspaceAuthoredCites;
   transport?: 'http' | 'https';
+  system?: string;
 }
 export interface WorkspaceRestEntry {
   id: string;
@@ -546,6 +549,7 @@ export interface WorkspaceGraphqlInterface {
   subgraph?: string;
   entries?: WorkspaceGraphqlEntry[];
   cites?: WorkspaceAuthoredCites;
+  system?: string;
 }
 export interface WorkspaceGraphqlEntry {
   id: string;
@@ -579,6 +583,7 @@ export interface WorkspaceGrpcInterface {
   subgraph?: string;
   entries?: WorkspaceGrpcEntry[];
   cites?: WorkspaceAuthoredCites;
+  system?: string;
 }
 export interface WorkspaceGrpcEntry {
   id: string;
@@ -611,6 +616,7 @@ export interface WorkspaceSdkInterface {
   subgraph?: string;
   entries?: WorkspaceSdkEntry[];
   cites?: WorkspaceAuthoredCites;
+  system?: string;
 }
 export interface WorkspaceSdkEntry {
   id: string;
@@ -681,7 +687,7 @@ export interface WorkspaceInteraction {
 }
 export interface WorkspaceOperation {
   id: string;
-  component: string;
+  component?: string;
   name?: string;
   kind?: 'query' | 'mutation' | 'subscription';
   graph: string;
@@ -1443,10 +1449,40 @@ export interface Story {
     build?: Chapter;
     commit?: Chapter;
   };
+  /**
+   * Authored explanation of the systems this plan discusses; not a second collection of current facts.
+   */
+  summary?: string;
+  /**
+   * Additional model ids this plan relies on. Resolve against its before and after models.
+   */
+  scope?: string[];
+  /**
+   * Canonical concept ids used in this story; new concepts are introduced by plan ops, never copied here.
+   */
+  concepts?: string[];
+  /**
+   * Ordered, plan-local presentation groups. Their ids and memberships do not create a model level or execution edges.
+   */
+  stages?: StoryStage[];
 }
 export interface Chapter {
   headline?: string;
   recap?: string[];
+}
+export interface StoryStage {
+  id: string;
+  name: string;
+  summary: string;
+  components: StoryComponent[];
+  flows?: string[];
+}
+export interface StoryComponent {
+  component: string;
+  /**
+   * Recorded ids to focus on when explaining this component. These references do not assert new edges.
+   */
+  from?: string[];
 }
 export interface Test {
   id: string;

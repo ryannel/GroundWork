@@ -16,6 +16,7 @@ import {
   migrationJobIdentities,
   type MigrationIdentities,
 } from './identities';
+import { mergeExternals, mergeInterfaceFiles } from './identity-merges';
 import { migrateNarratives, modelBackings } from './narratives';
 import { migratePlan } from './plans';
 import { fingerprint, type MigrationReview } from './review';
@@ -192,6 +193,23 @@ function handlerFiles(
   }
   return groups;
 }
+function reviewedDescription(
+  record: Node,
+  identities: MigrationIdentities,
+  field: 'purpose' | 'summary',
+): Node {
+  const decision = identities.descriptions.get(modelText(record.id) ?? '');
+  const value = modelText(decision?.[field]);
+  if (value === null) return record;
+  const updated = rewriteDocument(value, identities.replacements);
+  if (typeof updated !== 'string') throw new Error('Reviewed identity description must be text.');
+  for (const paragraph of (modelText(record.summary) ?? '').split('\n\n')) {
+    if (!updated.includes(paragraph)) {
+      throw new Error(`Reviewed identity description drops facts: ${String(record.id)}`);
+    }
+  }
+  return { ...record, summary: updated };
+}
 function systemComponents(
   system: SystemInput,
   details: ReadonlyMap<string, readonly Node[]>,
@@ -212,11 +230,21 @@ function systemComponents(
     const id = modelText(component.id) ?? '';
     const old = retired.get(id) ?? id;
     const descriptions = details.get(id) ?? [];
-    const kind = identities.externalKinds.get(old);
+    const kind = identities.externalKinds.get(old) ?? identities.externalKinds.get(id);
     if (kind === 'external') {
-      externals.push(identityRecord(component, descriptions, system.citations));
+      externals.push(
+        reviewedDescription(
+          identityRecord(component, descriptions, system.citations),
+          identities,
+          'summary',
+        ),
+      );
     } else if (kind === 'system') {
-      const record = identityRecord(component, descriptions, system.citations);
+      const record = reviewedDescription(
+        identityRecord(component, descriptions, system.citations),
+        identities,
+        'purpose',
+      );
       unmapped.push({
         id,
         name: record.name,
@@ -454,6 +482,9 @@ function finishWorkspace(
       reason: `Ambiguous legacy id; use ${alternatives.join(' or ')}.`,
     };
   }
+  for (const [file, value] of mergeInterfaceFiles(output, identities.merges)) {
+    output.set(file, { family: 'workspace', definition: 'ContractsFile', value });
+  }
   const jobs = migrationJobIdentities(files);
   for (const [file, fragment] of output) {
     output.set(file, { ...fragment, value: rewriteDocument(fragment.value, jobs.replacements) });
@@ -550,6 +581,9 @@ export function migrateWorkspace(
     for (const item of Object.values(node)) gather(item);
   }
   for (const fragment of output.values()) gather(fragment.value);
+  for (const file of files.filter((entry) => entry.path.startsWith('flows/'))) {
+    gather(convertCitations(file.value, globalCitations));
+  }
 
   for (const [file, fragment] of auxiliaryFiles(
     files,
@@ -589,7 +623,7 @@ export function migrateWorkspace(
   output.set('externals.yaml', {
     family: 'workspace',
     definition: 'ExternalsFile',
-    value: { externals: uniqueRecords(externals) },
+    value: { externals: uniqueRecords(mergeExternals(externals, identities.merges)) },
   });
   output.set('libraries.yaml', {
     family: 'workspace',

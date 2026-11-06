@@ -31,6 +31,17 @@ span stays in `problems`. Generated citation metadata follows the same schema de
 JSON and target-shift model-id citations are not rewritten. Duplicate evidence identities fail before any
 reference can select an arbitrary record.
 
+An interface names exactly one provider: an executable component, an external party or a declared unmapped
+system. The system facet records a known API boundary without inventing its implementing component; its
+entry flow keeps that gap visible. The target must have `mapped: false`. Interfaces retain their recorded
+consuming file and code homes, independently of the provider. A system provider never occupies component
+placement or gains a deployable's roles.
+
+A GraphQL operation retains its cited document and graph independently of whether its client is known.
+An omitted client stays a visible gap; a supplied client must resolve to a declared executable component.
+Selections and possible resolver reach remain available without inventing a client-origin execution edge.
+Neither a document's source path nor its containing file establishes the invoking component.
+
 `indexOf` derives placement, execution edges, reverse queries, graph composition, roles, ownership and gaps.
 Placement follows containment; resource ownership needs an explicit cited owner. Graph composition follows
 selected, required and provided fields and reports unresolved or ambiguous composition. Its possible resolver

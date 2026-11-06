@@ -268,3 +268,41 @@ it('assigns an app id to an explicitly proposed UI component and rewrites later 
     ),
   ).toEqual({ modify: 'app:sales-tool', note: 'Use [[app:sales-tool]].' });
 });
+
+it('retains a known system provider, protocol metadata and exact client evidence', async () => {
+  const review = migrationReview();
+  const result = migrateContracts(
+    {
+      interfaces: [
+        {
+          id: 'if:boundary',
+          service: 'sys:unmapped',
+          protocol: 'https',
+          sources: [source],
+          endpoints: [{ id: 'api:known', sig: 'GET /known', sources: [source] }],
+        },
+      ],
+    },
+    { review, citations: migrationCitations([], review, 'sys:consumer') },
+  );
+  const check = await modelValidator('workspace', 'ContractsFile');
+  expect(check(result), JSON.stringify(check.errors)).toBe(true);
+  expect(result.interfaces).toEqual([
+    {
+      id: 'if:boundary',
+      system: 'sys:unmapped',
+      kind: 'rest',
+      transport: 'https',
+      cites: [`example-orders:src/Orders.ts@${source.commit}#L3-8`],
+      entries: [
+        {
+          id: 'api:known',
+          sig: 'GET /known',
+          method: 'GET',
+          path: '/known',
+          cites: [`example-orders:src/Orders.ts@${source.commit}#L3-8`],
+        },
+      ],
+    },
+  ]);
+});

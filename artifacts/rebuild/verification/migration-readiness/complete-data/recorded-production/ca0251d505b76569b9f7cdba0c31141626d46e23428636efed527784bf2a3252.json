@@ -1,0 +1,8 @@
+{
+  "route": "/volvo-cars/plans/care-se-order-change/things/?id=svc-assortment-api",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 144473,
+  "sha256": "576f57fabb45bb548e76eadbb2b69fdab93aa5b7e309275c73f7ce4c94886696",
+  "body": "ca0251d505b76569b9f7cdba0c31141626d46e23428636efed527784bf2a3252.body.gz"
+}

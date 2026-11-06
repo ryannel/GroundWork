@@ -16,6 +16,7 @@ export interface MigrationReview {
     source: unknown,
     detail: Readonly<Record<string, unknown>>,
   ) => unknown;
+  readonly decisions: (prefix: string) => readonly ReviewRow[];
   readonly rows: () => Readonly<Record<string, readonly ReviewRow[]>>;
   readonly pending: (family: string) => number;
 }
@@ -61,6 +62,7 @@ export function migrationReview(accepted: readonly unknown[] = []): MigrationRev
       rows.set(key, row);
       return approval;
     },
+    decisions: (prefix) => [...approvals.values()].filter((row) => row.key.startsWith(prefix)),
     rows: () =>
       Object.fromEntries(
         [...recorded]

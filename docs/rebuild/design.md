@@ -179,9 +179,13 @@ relationships:
   consumers and store access go when handlers do not reproduce them, cited to their contract sources.
 - **Unmapped systems** are `sys:` with `mapped: false`, not externals. `externals.yaml` holds each true third
   party's identity and summary once (one LaunchDarkly). Its endpoints and SDK operations are interfaces in the
-  consuming system's `contracts.yaml`. An interface has exactly one of `component: <svc:|app:>` or
-  `external: <ext:>`; a third party used by several systems has its interface declared once, in the system that
-  first wraps it, and others call those ids.
+  consuming system's `contracts.yaml`. An interface declares exactly one provider: `component: <svc:|app:>`,
+  `external: <ext:>` or `system: <sys:>`. A system provider must reference a declared system with `mapped: false`:
+  its API boundary is known, while its implementing component remains an explicit gap. A mapped system must
+  name its executable component instead. Keep a system-level interface in the consuming contracts file where
+  it was recorded; containment does not imply that the consumer provides it. This does not establish a new
+  component, deployment or code owner. A third party used by several systems has its interface declared once,
+  in the system that first wraps it, and others call those ids.
 
 ### 4.2 `contracts.yaml`
 
@@ -242,7 +246,7 @@ interactions:
     component: app:assortment-admin-web
     on: scr:car-plan-editor#apply-actions
     action: click
-operations: # GraphQL documents a component sends
+operations: # GraphQL documents; component is the client when explicitly known
   - id: gql:car-configurator-get-plan
     component: app:car-configurator
     graph: graph:volvo-commerce
@@ -516,7 +520,7 @@ The rebuild plan (`rebuild.md`) holds the order and proofs. The design-level rul
 | `failures` with ids and cites                                                                                                                 | Design review and data: 1,516 `fails` entries.                                            |
 | `say` optional with defined fallback                                                                                                          | Data: 56% of `does` already fit; conditions make good headlines.                          |
 | No `shared.yaml`; every resource placed in a system                                                                                           | Design review: edges need placement. Data: all 17 shared resources have a placing system. |
-| GraphQL: entries by field and signature; operations owned by a component with a document; `selects` derived                                   | Design review; data shows derivation works.                                               |
+| GraphQL: entries by field and signature; operations retain a document, with an explicit client when known; `selects` derived                  | Design review; data shows derivation works.                                               |
 | Protocol-specific entry shapes; `sig` kept when unsplittable                                                                                  | Data: about 70 signature shapes.                                                          |
 | Tagged field types                                                                                                                            | Design review: `Map<…>`, `oneof(…)` not traversable.                                      |
 | No service `as`; roles derived from entries; `form` only for stores, topics and apps                                                          | Data: 53 services have mixed entries.                                                     |
@@ -552,3 +556,42 @@ those referenced facts. Narrative stages use the same contextual component, exte
 references as the landscape. Their inferred label, confidence, reasoning, limitations and original input
 fingerprint remain intact. Missing cited backing requires explicit review; a model id is never presented
 as a code-home citation.
+
+The PR7 identity review exposed 62 interfaces (194 entries across 54 unmapped providers) that could not retain
+their known system boundary under the former component-or-external rule. The explicit system provider is
+a narrow uncertainty facet, reviewed against the real declarations and adopted under the user's delegated
+authority for reversible decisions after subagent review. Exact-one-provider validation and
+current-effect citation requirements remain strict; missing and mapped system targets fail.
+
+### PR7 clarification: GraphQL documents with an unknown client
+
+An operation retains its cited GraphQL document and graph even when the invoking component is unknown.
+`component` is optional; when supplied it must resolve to a declared executable component. A missing client
+stays visible as a `no_client` gap. Document selections and possible resolver reach remain available, but no
+client-origin execution edge is inferred. File containment, operation names, app paths and source labels
+such as “call site” do not establish the client.
+
+The PR7 source inventory has 155 operations: 79 explicit clients and 76 unknown clients, all with complete
+cited documents. The latter cite 63 shared-only source scopes, five app-only scopes and eight mixed scopes;
+58 include a call-site source note. There are zero explicit `call: gql:…` model bindings, so none supplies a
+unique or multiple client binding for those 76 documents. The sole flow `via: gql:price-breakdown` already
+has an explicit client. Exact source lines, counts and original review rows are recorded in the data PR's
+`artifacts/rebuild/pr7/reviews/operation-clients.md` and `operation-client-proof.json`. This narrow
+uncertainty amendment was cross-checked in subagent review and adopted under the user's delegated
+authority for reversible choices. It does not relax cited-effect validation or source/document contracts.
+
+### PR7 clarification: plan context remains an overlay
+
+A plan's `story` may retain its summary, scope references, concept references and locally identified stages.
+Stages name the components and flows they discuss, including their local stage dependencies; these are
+contextual references, not execution edges. References must resolve in the before or after model, or to a
+stage declared in that plan. Current concepts remain in domain language and are referenced from the plan.
+A genuinely proposed concept is introduced by an explicit change op, rather than copied into a current
+collection or hidden in prose.
+
+The three source plans needing reconciliation contain 4,219 original leaves, 104 contextual references,
+14 stage identities and 101 ops. Their 21 current concept definitions match the canonical domain language;
+`con:version` is instead explicitly introduced by three changes and is retained as a proposed concept op.
+The data PR records complete pointer receipts in `reviews/plan-context.md` and its proposal ledger. Typed
+story context preserves those facts without weakening the ban on copied current collections. This
+reversible clarification follows subagent review under the user's delegated authority.
