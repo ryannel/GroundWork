@@ -144,6 +144,19 @@ Target: `design.md` (revision 3). Code: `/Users/RNEL/Workspace/groundWork`. Data
 - **Done when**: the compare passes, `npm run workspace -- check` passes, and `npm run map -- show <id>` resolves
   every migrated id once.
 
+### Execution dependency recorded during PR7
+
+The data review and isolated generation stay in the PR7 data worktree. Its final comparison needs the
+canonical consumers scheduled for PR8: the actual `captureFacts` probe on the canonical fixture still
+fails in `flows/confirm.yaml` with the legacy `origin` requirement. `tools/rebuild/facts.ts:78` calls
+`readToday`, and `src/infrastructure/today-model.ts:30` still enters `readWorkspaceModel`. The canonical
+workspace check and map show also failed at that boundary before their focused readiness fixes.
+
+Land the required consumer code before merging the data cutover, then close PR7 against its original
+comparison, workspace-check and all-id criteria. This changes the implementation dependency order, not
+an acceptance criterion. Code and data remain separate PRs, original data/caches stay intact, and no
+baseline is regenerated. The user's delegated authority covers this reversible engineering ordering.
+
 ### PR 8: plans, tools, routes and pages (code)
 
 - Pages and JSON routes (`model.json`, `plan.json`, revision `plan.json`, `areas/[area]/map.json`) call

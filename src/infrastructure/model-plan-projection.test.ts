@@ -97,6 +97,61 @@ describe('plan implementation evidence', () => {
       page?.flow?.gaps.filter((gap) => gap.includes('implementation is unverified')),
     ).toHaveLength(6);
   });
+  it('deprecates a schema on a private projection without deleting its fields or citations', async () => {
+    const before = JSON.stringify(current);
+    const prior = indexOf(current);
+    const schema = prior.get('sch:confirm')?.data;
+    const result = await validatePlanProjection(
+      await proposal([{ deprecate: 'sch:confirm' }]),
+      current,
+    );
+    expect(result.problems).toEqual([]);
+    const projected = result.projection;
+    expect(projected?.afterIndex.get('sch:confirm')?.data).toEqual({
+      ...schema,
+      deprecated: true,
+    });
+    expect(projected?.afterIndex.cites('sch:confirm#order-id')).toEqual(
+      prior.cites('sch:confirm#order-id'),
+    );
+    if (projected === null) throw new Error('Missing valid schema projection');
+    await expect(validateModel(projected.after)).resolves.toEqual([]);
+    expect(JSON.stringify(current)).toBe(before);
+  });
+  it('records schema replacement while retaining both identities and rejecting a different kind', async () => {
+    const before = JSON.stringify(current);
+    const prior = indexOf(current);
+    const result = await validatePlanProjection(
+      await proposal([{ deprecate: 'sch:confirm', replaced_by: 'sch:order' }]),
+      current,
+    );
+    expect(result.problems).toEqual([]);
+    expect(result.projection?.afterIndex.get('sch:confirm')?.data).toEqual({
+      ...prior.get('sch:confirm')?.data,
+      deprecated: true,
+    });
+    expect(result.projection?.afterIndex.get('sch:order')?.data).toEqual({
+      ...prior.get('sch:order')?.data,
+      supersedes: 'sch:confirm',
+    });
+    const invalid = await validatePlanProjection(
+      await proposal([{ deprecate: 'sch:confirm', replaced_by: 'svc:ordering' }]),
+      current,
+    );
+    expect(invalid.projection).toBeNull();
+    expect(invalid.problems).toContainEqual(
+      expect.objectContaining({ message: 'sch:confirm: replacement has a different kind.' }),
+    );
+    expect(JSON.stringify(current)).toBe(before);
+  });
+  it('keeps schema lifecycle values and replacement prefixes strict', async () => {
+    const check = await modelValidator('workspace', 'Schema');
+    const schema = { id: 'sch:new', kind: 'dto', deprecated: true, supersedes: 'sch:old' };
+    expect(check(schema)).toBe(true);
+    expect(check({ ...schema, deprecated: 'true' })).toBe(false);
+    expect(check({ ...schema, supersedes: 'api:old' })).toBe(false);
+    expect(check({ ...schema, supersedes: 'sch:old#field' })).toBe(false);
+  });
   it('checks generic handler replacements after applying the plan', async () => {
     const plan = await proposal([
       {

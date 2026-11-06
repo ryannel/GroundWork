@@ -53,6 +53,13 @@ validation. The plan projection boundary validates the base strictly, computes i
 the same schema with only its annotated implementation-evidence policy relaxed. Missing implementation
 evidence stays visible as a gap; retained citations describe baseline context, not implemented changes.
 
+Canonical batch plan validation checks the strict current model once, then composes only each plan's
+explicit `builds_on` ancestors. Shared ancestors apply once; missing, cyclic and unordered conflicting
+ancestors fail. Every projected result uses the plan evidence profile and retains ancestor proposal
+attribution. Proposed context cannot enter the strict current-model boundary. Native workspace check
+and precommit use this same batch boundary; native precommit also checks that staged plans match the
+working text just validated. Format-1 lock checks remain in their existing path.
+
 `legacyViewOf` is the named compatibility boundary for workspace/domain page consumers. Its workspace tree
 retains canonical facets on their containing systems, with explicit aliases for legacy identity and narrative
 fields. A recursive loss report compares every source field with that carrier. The page projection uses legacy

@@ -1,0 +1,15 @@
+{
+  "nativeWorkspace": "/private/tmp/rebuild-pr7-native-output-02",
+  "schema": "sch:static-storefront-finances",
+  "sourceOperation": {
+    "deprecate": "sch:static-storefront-finances"
+  },
+  "fields": 2,
+  "citations": 2,
+  "beforeFingerprint": "c47bfec819b50e35fa8cec55fb8f4bd6abb5cf61ccc11b379add74e2e4410ce7",
+  "afterWithoutLifecycleFingerprint": "c47bfec819b50e35fa8cec55fb8f4bd6abb5cf61ccc11b379add74e2e4410ce7",
+  "onlyAddedProperty": "deprecated",
+  "deprecated": true,
+  "authoritativeSchemaProblems": [],
+  "sourceUnchanged": true
+}

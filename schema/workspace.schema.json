@@ -1316,6 +1316,13 @@
           },
           "uniqueIds": true
         },
+        "supersedes": {
+          "type": "string",
+          "pattern": "^(?:sch):[^#\\s]+$"
+        },
+        "deprecated": {
+          "type": "boolean"
+        },
         "cites": {
           "$ref": "#/$defs/AuthoredCites"
         }

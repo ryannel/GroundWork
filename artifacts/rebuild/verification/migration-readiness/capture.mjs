@@ -1,4 +1,5 @@
 import { execFileSync, spawn } from 'node:child_process';
+import { existsSync } from 'node:fs';
 import { mkdir, open, writeFile } from 'node:fs/promises';
 import { parseArgs } from 'node:util';
 
@@ -10,6 +11,9 @@ const { values } = parseArgs({
 });
 const proof = values.out;
 const recorded = values.recorded ?? `${proof}/recorded-production`;
+if (existsSync(`${proof}/comparison`) || existsSync(recorded)) {
+  throw new Error('Use a new --out and recording folder; existing captures are never overwritten.');
+}
 await mkdir(`${proof}/comparison`, { recursive: true });
 await withSite(undefined, async (upstream) => {
   const proxy = spawn(

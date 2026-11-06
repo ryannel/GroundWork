@@ -572,6 +572,8 @@ export interface Schema {
   keys?: JsonValue[];
   summary?: string;
   fields?: Field[];
+  supersedes?: string;
+  deprecated?: boolean;
   cites?: AuthoredCites;
 }
 export interface RestEntry {

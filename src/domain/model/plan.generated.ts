@@ -711,6 +711,8 @@ export interface WorkspaceSchema {
   keys?: WorkspaceJsonValue[];
   summary?: string;
   fields?: WorkspaceField[];
+  supersedes?: string;
+  deprecated?: boolean;
   cites?: WorkspaceAuthoredCites;
 }
 export interface WorkspaceField {
