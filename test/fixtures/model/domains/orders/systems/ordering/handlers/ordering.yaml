@@ -9,7 +9,10 @@
       say: Check the order exists
       if: The order does not exist
       then: [{ id: not-found, return: 404, cites: ['#L8-10'] }]
-      else: [{ id: known, does: Continue with the order }]
+      else: [{ id: known, does: Continue with the order, cites: ['#L11'] }]
+    - id: already-confirmed
+      if: The order is already confirmed
+      then: [{ id: unchanged, return: 200, cites: ['#L11'] }]
     - id: tx
       transaction: true
       steps:

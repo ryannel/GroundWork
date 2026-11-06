@@ -1,0 +1,19 @@
+{
+  "cause": "The SDK interface records external: ext:payments, while file containment correctly has no workspace component. The flow header read containment alone and hid the explicitly named external provider.",
+  "fixtureEvidence": "test/fixtures/model/domains/orders/systems/ordering/contracts.yaml:30-35",
+  "focusedRegression": "The new test failed with Component not recorded and now expects Payments (external), while retaining the missing-handler gap.",
+  "changedSourceFiles": [
+    "src/application/entry-flow.test.ts",
+    "src/application/entry-flow.ts"
+  ],
+  "previousFreeze": "source-freeze-before-provider.json",
+  "finalFreeze": "source-freeze.json",
+  "legacyProofs": "These two files affect only the new entry projection and its tests. Existing business derivations and legacy route projections are byte-identical; full check, build, budget and whole-file mutation are repeated.",
+  "productionBrowserProof": {
+    "route": "/model-fixture/entries/?id=api-charge",
+    "header": "endpoint \u00b7 Payments (external)",
+    "provider": "Payments (external)",
+    "gap": "api:charge: No handler detail is recorded.",
+    "build": "DfpzB862pxY6uzoViGZW-"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "wholeFiles": [
+    "src/application/entry-flow-library.ts",
+    "src/application/entry-flow-page.ts",
+    "src/application/entry-flow-paths.ts",
+    "src/application/entry-flow.ts",
+    "src/domain/ids.ts",
+    "src/domain/plan-apply.ts"
+  ],
+  "threshold": 75,
+  "detected": 770,
+  "undetected": 251,
+  "score": 75.41625857002938,
+  "exactScopeAndFreshSourcesValidated": true
+}

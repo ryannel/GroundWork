@@ -19,7 +19,7 @@
     "lint": "eslint --concurrency off --max-warnings 0 .",
     "lint:changed": "node tools/lint-changed.ts",
     "design:drift": "node --import ./tools/register.ts tools/design-drift.ts",
-    "budget": "node --import ./tools/register.ts tools/page-budget.ts",
+    "budget": "node --import ./tools/register.ts --conditions=react-server tools/page-budget.ts",
     "lint:css": "stylelint --cache --cache-location node_modules/.cache/stylelint/ \"src/**/*.css\"",
     "format": "prettier --write --cache --cache-location node_modules/.cache/prettier.json .",
     "format:check": "prettier --check --cache --cache-location node_modules/.cache/prettier.json .",

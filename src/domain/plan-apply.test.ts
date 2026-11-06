@@ -61,7 +61,9 @@ describe('canonical plan overlays', () => {
     expect(index.get('api:legacy')?.data.deprecated).toBe(true);
     expect(index.get('api:confirm')?.data.supersedes).toBe('api:legacy');
     expect(index.get('job:manual')).toBeNull();
-    const steps = after.domains[0]?.systems[0]?.handlers[0]?.steps[2]?.steps;
+    const steps = after.domains[0]?.systems[0]?.handlers[0]?.steps.find(
+      (step) => step.id === 'tx',
+    )?.steps;
     expect(steps?.map((step) => step.id)).toEqual(['save', 'audit', 'queue']);
   });
   it('resolves new shorthand spans from the declared handler without guessing a file', async () => {

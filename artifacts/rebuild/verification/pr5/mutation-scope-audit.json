@@ -1,0 +1,21 @@
+{
+  "requestedWholeFiles": [
+    "src/application/entry-flow-library.ts",
+    "src/application/entry-flow-page.ts",
+    "src/application/entry-flow-paths.ts",
+    "src/application/entry-flow.ts",
+    "src/domain/ids.ts",
+    "src/domain/plan-apply.ts"
+  ],
+  "initialReportFiles": 31,
+  "requestedScopeScore": 75.32082922013821,
+  "statuses": {
+    "Survived": 218,
+    "Killed": 761,
+    "NoCoverage": 32,
+    "Ignored": 217,
+    "Timeout": 2
+  },
+  "cacheBackup": "reports/pr5-before-scope-cache.json",
+  "cacheAction": "Preserved the full cache; retained every completed mutant for the six requested whole files in the active cache. No source, mutation target or threshold changed. Rerun must pass exact report-scope validation."
+}

@@ -170,7 +170,7 @@ export function idToToken(id: string): string {
 export function tokenToId(token: string): string | null {
   const dash = token.indexOf('-');
   const prefix = token.slice(0, dash);
-  if (dash < 1 || dash === token.length - 1 || !Object.hasOwn(ID_PREFIXES, prefix)) return null;
+  if (dash < 1 || dash === token.length - 1 || !Object.hasOwn(KINDS, prefix)) return null;
   const rest = token.slice(dash + 1);
   const dot = rest.indexOf('.');
   return dot > 0 ? `${prefix}:${rest.slice(0, dot)}#${rest.slice(dot + 1)}` : `${prefix}:${rest}`;

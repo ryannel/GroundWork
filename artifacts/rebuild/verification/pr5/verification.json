@@ -1,0 +1,121 @@
+{
+  "base": "e630260d70907f51faf2822d589776e1a0126e17",
+  "sourceFrozen": true,
+  "sourceManifest": "source-freeze.json",
+  "checks": {
+    "check": {
+      "passed": true,
+      "log": "check.log.gz",
+      "tests": 4261,
+      "testFiles": 536,
+      "existingSkippedTests": 125,
+      "typeCoverage": 100,
+      "lines": 97.53,
+      "branches": 87.72,
+      "scope": "Completed local run before the incoming checks-workflow integration; the frozen application files are unchanged."
+    },
+    "build": {
+      "passed": true,
+      "log": "build.log.gz",
+      "buildId": "DfpzB862pxY6uzoViGZW-"
+    },
+    "budget": {
+      "passed": true,
+      "log": "budget.log.gz",
+      "pages": 606,
+      "maxKB": 1021,
+      "limitKB": 1024,
+      "requiredEntrySeeds": 6
+    },
+    "mutation": {
+      "passed": true,
+      "log": "mutation.log.gz",
+      "wholeFiles": [
+        "src/application/entry-flow-library.ts",
+        "src/application/entry-flow-page.ts",
+        "src/application/entry-flow-paths.ts",
+        "src/application/entry-flow.ts",
+        "src/domain/ids.ts",
+        "src/domain/plan-apply.ts"
+      ],
+      "threshold": 75,
+      "detected": 770,
+      "undetected": 251,
+      "score": 75.41625857002938,
+      "exactScopeAndFreshSourcesValidated": true
+    },
+    "inventory": {
+      "passed": true,
+      "log": "inventory.log.gz",
+      "consumers": 1673,
+      "candidates": 8990,
+      "uncentralisedRuntimeOperations": 0,
+      "unprovenExplorerCapabilities": 20
+    },
+    "comparisons": {
+      "sourceCapturedFromFinalBuild": true,
+      "capture": "comparison-complete",
+      "captureTimeUnexplained": {
+        "personal": 2,
+        "acme": 1,
+        "volvo-cars": 1
+      },
+      "acceptanceCommand": "node --import ./tools/register.ts --conditions=react-server artifacts/rebuild/verification/pr5/accept-comparisons.mjs",
+      "acceptance": "comparison-acceptance.json",
+      "passed": true,
+      "results": {
+        "personal": {
+          "routes": 24,
+          "differences": 33,
+          "unexplained": 0,
+          "exactCapturedChangesRecomputed": true
+        },
+        "acme": {
+          "routes": 35,
+          "differences": 83,
+          "unexplained": 0,
+          "exactCapturedChangesRecomputed": true
+        },
+        "volvo-cars": {
+          "routes": 129,
+          "differences": 42792,
+          "unexplained": 0,
+          "exactCapturedChangesRecomputed": true
+        }
+      },
+      "comparatorUnchanged": true,
+      "observedExactTransportPairs": 62,
+      "frozenBaselineFilesUnchanged": 193
+    },
+    "model": {
+      "proof": "model-proof.json",
+      "beforeSteps": 27,
+      "afterSteps": 28,
+      "allLeavesCited": true,
+      "serialisableRoundTrip": true,
+      "externalProvider": "Payments (external)"
+    },
+    "browser": {
+      "buildId": "DfpzB862pxY6uzoViGZW-",
+      "finalCaptures": [
+        "after-light.jpg",
+        "after-dark.jpg",
+        "before-dark.jpg",
+        "narrow-dark.jpg",
+        "narrow-inspector-dark.jpg",
+        "external-provider-dark.jpg"
+      ],
+      "measurements": [
+        "wide.json",
+        "narrow.json"
+      ]
+    },
+    "currentFullCheck": {
+      "method": "Mandatory pre-push npm run check, followed by current-head CI",
+      "upstreamIntegration": "upstream-integration.json",
+      "required": true
+    }
+  },
+  "noCompanyDataOrProducerRetirement": true,
+  "originalBase": "441af89badd455e71a1ba3d18e6745469631a32d"
+}

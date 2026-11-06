@@ -1,6 +1,7 @@
 import { FlowCard, FlowCardRow } from '@/ui/flow-card';
 import { SectionHeading } from '@/ui/section-heading';
 
+import { EntryCanvasSpecimen } from './entry-canvas-specimen';
 import {
   ComponentOverviewSpecimen,
   ExplorerSpecimen,
@@ -12,6 +13,7 @@ export function DiagramsSection() {
   return (
     <section>
       <SectionHeading title="Diagrams">Pieces a diagram places for itself.</SectionHeading>
+      <EntryCanvasSpecimen />
       <Specimen
         name="FlowCard"
         use="One stage of a flow diagram and what owns it, sized in advance by a layout."

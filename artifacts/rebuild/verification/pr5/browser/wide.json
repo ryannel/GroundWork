@@ -1,0 +1,19 @@
+{
+  "branches": [
+    {
+      "label": "Order facts",
+      "width": 361,
+      "x": 91,
+      "y": 1143.9765625
+    },
+    {
+      "label": "Payment facts",
+      "width": 361,
+      "x": 468,
+      "y": 1143.9765625
+    }
+  ],
+  "documentWidth": 1280,
+  "theme": "dark",
+  "viewport": 1280
+}

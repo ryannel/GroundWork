@@ -1,0 +1,362 @@
+[
+  {
+    "workspace": "personal",
+    "file": "route-d27f1e2788e7e51292e6.json.gz",
+    "route": "/personal/",
+    "previousBytes": 31640,
+    "previousReplayBytes": 31640,
+    "previousCaptureVsReplayDelta": 0,
+    "currentBytes": 31597,
+    "delta": -43,
+    "samples": {
+      "pr4": {
+        "bytes": 31640,
+        "raw": "route-d27f1e2788e7e51292e6-pr4-1067dff1a510b885.html.gz",
+        "sha256": "1067dff1a510b885c105e1db7fa04bd5becd2ae4dbdede9c6677cfae00650e16"
+      },
+      "pr5": {
+        "bytes": 31597,
+        "raw": "route-d27f1e2788e7e51292e6-pr5-17741bdc17f1dad3.html.gz",
+        "sha256": "17741bdc17f1dad370b5ddbfea6193458175237f96f210451bacf067a5f1b52e"
+      }
+    },
+    "observations": {
+      "pr4": [
+        31640
+      ],
+      "pr5": [
+        31597
+      ]
+    },
+    "identicalNormalisedHtmlAndFlight": true,
+    "knownDomBytes": 0,
+    "knownEscapedFlightBytes": 0,
+    "routerEntriesAdded": 0,
+    "wrapperDeltaBytes": -43,
+    "assetDeltaBytes": 0,
+    "wrapperCounts": {
+      "pr4": 11,
+      "pr5": 10
+    }
+  },
+  {
+    "workspace": "personal",
+    "file": "route-f8190763b839ce741b87.json.gz",
+    "route": "/personal/explorer/",
+    "previousBytes": 24028,
+    "previousReplayBytes": 24028,
+    "previousCaptureVsReplayDelta": 0,
+    "currentBytes": 23985,
+    "delta": -43,
+    "samples": {
+      "pr4": {
+        "bytes": 24028,
+        "raw": "route-f8190763b839ce741b87-pr4-16499e4bccbe75e8.html.gz",
+        "sha256": "16499e4bccbe75e87f8aeaf5024caab3905bc445cc9f6183cbfdb2d5807717a0"
+      },
+      "pr5": {
+        "bytes": 23985,
+        "raw": "route-f8190763b839ce741b87-pr5-b8fe8a11e1131985.html.gz",
+        "sha256": "b8fe8a11e113198586f515f00c8e0352a03fb51f294b040203b72c9bcdde7e0e"
+      }
+    },
+    "observations": {
+      "pr4": [
+        24028
+      ],
+      "pr5": [
+        23985
+      ]
+    },
+    "identicalNormalisedHtmlAndFlight": true,
+    "knownDomBytes": 0,
+    "knownEscapedFlightBytes": 0,
+    "routerEntriesAdded": 0,
+    "wrapperDeltaBytes": -43,
+    "assetDeltaBytes": 0,
+    "wrapperCounts": {
+      "pr4": 10,
+      "pr5": 9
+    }
+  },
+  {
+    "workspace": "acme",
+    "file": "route-70370555f544e09df429.json.gz",
+    "route": "/acme/catalogue/plans/",
+    "previousBytes": 27129,
+    "previousReplayBytes": 27172,
+    "previousCaptureVsReplayDelta": 43,
+    "currentBytes": 27141,
+    "delta": -31,
+    "samples": {
+      "pr4": {
+        "bytes": 27172,
+        "raw": "route-70370555f544e09df429-pr4-20ed619ac547d4de.html.gz",
+        "sha256": "20ed619ac547d4de393188f6933605b7ab7279e16bc4598634456a242ff516e6"
+      },
+      "pr5": {
+        "bytes": 27141,
+        "raw": "route-70370555f544e09df429-pr5-f54aba582fe62c4c.html.gz",
+        "sha256": "f54aba582fe62c4c77fd61d5505133e413cac963477037a8fb5b4193e21ebe48"
+      }
+    },
+    "observations": {
+      "pr4": [
+        27172
+      ],
+      "pr5": [
+        27141
+      ]
+    },
+    "identicalNormalisedHtmlAndFlight": true,
+    "knownDomBytes": 0,
+    "knownEscapedFlightBytes": 12,
+    "routerEntriesAdded": 1,
+    "wrapperDeltaBytes": -43,
+    "assetDeltaBytes": 0,
+    "wrapperCounts": {
+      "pr4": 11,
+      "pr5": 10
+    }
+  },
+  {
+    "workspace": "acme",
+    "file": "route-e38cd1fab6b083167cbb.json.gz",
+    "route": "/acme/plans/",
+    "previousBytes": 36914,
+    "previousReplayBytes": 36914,
+    "previousCaptureVsReplayDelta": 0,
+    "currentBytes": 36871,
+    "delta": -43,
+    "samples": {
+      "pr4": {
+        "bytes": 36914,
+        "raw": "route-e38cd1fab6b083167cbb-pr4-36eda1e61a90a90d.html.gz",
+        "sha256": "36eda1e61a90a90d631e4b3ca55c03ee6d9ca7c34699567fa8b405a4b1f2f44a"
+      },
+      "pr5": {
+        "bytes": 36871,
+        "raw": "route-e38cd1fab6b083167cbb-pr5-0f8e79fde4f3a9c1.html.gz",
+        "sha256": "0f8e79fde4f3a9c19992fa25b00f0aa96906f0704cb4296b1d760258cccdd96a"
+      }
+    },
+    "observations": {
+      "pr4": [
+        36914
+      ],
+      "pr5": [
+        36871
+      ]
+    },
+    "identicalNormalisedHtmlAndFlight": true,
+    "knownDomBytes": 0,
+    "knownEscapedFlightBytes": 0,
+    "routerEntriesAdded": 0,
+    "wrapperDeltaBytes": -43,
+    "assetDeltaBytes": 0,
+    "wrapperCounts": {
+      "pr4": 13,
+      "pr5": 12
+    }
+  },
+  {
+    "workspace": "acme",
+    "file": "route-9cfabff74e65383b4393.json.gz",
+    "route": "/acme/programmes/",
+    "previousBytes": 36968,
+    "previousReplayBytes": 36968,
+    "previousCaptureVsReplayDelta": 0,
+    "currentBytes": 36925,
+    "delta": -43,
+    "samples": {
+      "pr4": {
+        "bytes": 36968,
+        "raw": "route-9cfabff74e65383b4393-pr4-b923edc8106808f6.html.gz",
+        "sha256": "b923edc8106808f6922fc4b388a5fad6111df54e32c629967b633ed78c8f5d0f"
+      },
+      "pr5": {
+        "bytes": 36925,
+        "raw": "route-9cfabff74e65383b4393-pr5-0523c60b2aec740a.html.gz",
+        "sha256": "0523c60b2aec740a39429c6ee8461b45a4ccefd6c474bd2c6f021b43a94f5d50"
+      }
+    },
+    "observations": {
+      "pr4": [
+        36968
+      ],
+      "pr5": [
+        36925
+      ]
+    },
+    "identicalNormalisedHtmlAndFlight": true,
+    "knownDomBytes": 0,
+    "knownEscapedFlightBytes": 0,
+    "routerEntriesAdded": 0,
+    "wrapperDeltaBytes": -43,
+    "assetDeltaBytes": 0,
+    "wrapperCounts": {
+      "pr4": 13,
+      "pr5": 12
+    }
+  },
+  {
+    "workspace": "acme",
+    "file": "route-69e145634256e9eea7c9.json.gz",
+    "route": "/acme/things/?id=sch-product",
+    "previousBytes": 51123,
+    "previousReplayBytes": 51123,
+    "previousCaptureVsReplayDelta": 0,
+    "currentBytes": 51080,
+    "delta": -43,
+    "samples": {
+      "pr4": {
+        "bytes": 51123,
+        "raw": "route-69e145634256e9eea7c9-pr4-f5d447c1f5f57942.html.gz",
+        "sha256": "f5d447c1f5f57942b7e263d7e9ac02fa673293d466432b20276fccb156176d22"
+      },
+      "pr5": {
+        "bytes": 51080,
+        "raw": "route-69e145634256e9eea7c9-pr5-f2f09281214b2c3a.html.gz",
+        "sha256": "f2f09281214b2c3a113f3c1452ed88375d6ef7bf3c1264e627205860caca54dd"
+      }
+    },
+    "observations": {
+      "pr4": [
+        51123
+      ],
+      "pr5": [
+        51080
+      ]
+    },
+    "identicalNormalisedHtmlAndFlight": true,
+    "knownDomBytes": 0,
+    "knownEscapedFlightBytes": 0,
+    "routerEntriesAdded": 0,
+    "wrapperDeltaBytes": -43,
+    "assetDeltaBytes": 0,
+    "wrapperCounts": {
+      "pr4": 16,
+      "pr5": 15
+    }
+  },
+  {
+    "workspace": "volvo-cars",
+    "file": "route-a6fb6c2427433f7dfd10.json.gz",
+    "route": "/volvo-cars/partners/",
+    "previousBytes": 58777,
+    "previousReplayBytes": 58777,
+    "previousCaptureVsReplayDelta": 0,
+    "currentBytes": 58734,
+    "delta": -43,
+    "samples": {
+      "pr4": {
+        "bytes": 58777,
+        "raw": "route-a6fb6c2427433f7dfd10-pr4-a70a374546258125.html.gz",
+        "sha256": "a70a374546258125d3ada99396f808429c9c39771eff37ecd3da2454e885cc11"
+      },
+      "pr5": {
+        "bytes": 58734,
+        "raw": "route-a6fb6c2427433f7dfd10-pr5-492777769021f9b5.html.gz",
+        "sha256": "492777769021f9b54bdf960db88fd7ff950b91c1ae1e7759076aad69394e9a38"
+      }
+    },
+    "observations": {
+      "pr4": [
+        58777
+      ],
+      "pr5": [
+        58734
+      ]
+    },
+    "identicalNormalisedHtmlAndFlight": true,
+    "knownDomBytes": 0,
+    "knownEscapedFlightBytes": 0,
+    "routerEntriesAdded": 0,
+    "wrapperDeltaBytes": -43,
+    "assetDeltaBytes": 0,
+    "wrapperCounts": {
+      "pr4": 16,
+      "pr5": 15
+    }
+  },
+  {
+    "workspace": "volvo-cars",
+    "file": "route-858cdd1340f4e7514855.json.gz",
+    "route": "/volvo-cars/things/?id=api-assortment-admin-classification-create",
+    "previousBytes": 1487027,
+    "previousReplayBytes": 1487027,
+    "previousCaptureVsReplayDelta": 0,
+    "currentBytes": 1486984,
+    "delta": -43,
+    "samples": {
+      "pr4": {
+        "bytes": 1487027,
+        "raw": "route-858cdd1340f4e7514855-pr4-5cca683412ec867d.html.gz",
+        "sha256": "5cca683412ec867d61f7ecf8fa622f811875828242cb8e6a22c23e79a4f19a56"
+      },
+      "pr5": {
+        "bytes": 1486984,
+        "raw": "route-858cdd1340f4e7514855-pr5-b4bdef9f279a8fac.html.gz",
+        "sha256": "b4bdef9f279a8fac9d34016e51c0b27ff2f8aae3f377f6dbf7a528378967ee65"
+      }
+    },
+    "observations": {
+      "pr4": [
+        1487027
+      ],
+      "pr5": [
+        1486984
+      ]
+    },
+    "identicalNormalisedHtmlAndFlight": true,
+    "knownDomBytes": 0,
+    "knownEscapedFlightBytes": 0,
+    "routerEntriesAdded": 0,
+    "wrapperDeltaBytes": -43,
+    "assetDeltaBytes": 0,
+    "wrapperCounts": {
+      "pr4": 227,
+      "pr5": 226
+    }
+  },
+  {
+    "workspace": "volvo-cars",
+    "file": "route-2852d67c520228a04001.json.gz",
+    "route": "/volvo-cars/things/?id=h-assortment-admin-apply-car-plan",
+    "previousBytes": 1055783,
+    "previousReplayBytes": 1055783,
+    "previousCaptureVsReplayDelta": 0,
+    "currentBytes": 1055740,
+    "delta": -43,
+    "samples": {
+      "pr4": {
+        "bytes": 1055783,
+        "raw": "route-2852d67c520228a04001-pr4-e33c98eff9bbe087.html.gz",
+        "sha256": "e33c98eff9bbe0872c5e8c2fba4e5c7366906292d70c67c70e452d5df708d11e"
+      },
+      "pr5": {
+        "bytes": 1055740,
+        "raw": "route-2852d67c520228a04001-pr5-ca0046b558e28a5e.html.gz",
+        "sha256": "ca0046b558e28a5ecedab807b16d1534bc21e5440297f67027a7fc4582651100"
+      }
+    },
+    "observations": {
+      "pr4": [
+        1055783
+      ],
+      "pr5": [
+        1055740
+      ]
+    },
+    "identicalNormalisedHtmlAndFlight": true,
+    "knownDomBytes": 0,
+    "knownEscapedFlightBytes": 0,
+    "routerEntriesAdded": 0,
+    "wrapperDeltaBytes": -43,
+    "assetDeltaBytes": 0,
+    "wrapperCounts": {
+      "pr4": 157,
+      "pr5": 156
+    }
+  }
+]

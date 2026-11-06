@@ -48857,6 +48857,12 @@
   },
   {
     "category": "route",
+    "file": "src/app/[workspace]/entries/page.tsx",
+    "hits": [],
+    "status": "adapter"
+  },
+  {
+    "category": "route",
     "file": "src/app/[workspace]/explorer/data/[file]/route.ts",
     "hits": [
       {
@@ -48947,14 +48953,6 @@
         "text": "import { workspaceRegistrations } from '@/infrastructure/workspace-folders';"
       },
       {
-        "line": 7,
-        "text": "import { readWorkspaces } from '@/infrastructure/workspace-store';"
-      },
-      {
-        "line": 21,
-        "text": "const workspace = findWorkspace(await readWorkspaces(), id);"
-      },
-      {
         "line": 53,
         "text": "scope={{ label: 'Workspace', current, links, index: { label: 'All workspaces', href: '/' } }}"
       }
@@ -48985,15 +48983,15 @@
     "file": "src/app/[workspace]/page.tsx",
     "hits": [
       {
-        "line": 9,
+        "line": 11,
         "text": "import { todayData } from '@/infrastructure/today-data';"
       },
       {
-        "line": 10,
+        "line": 12,
         "text": "import { readAuthoredLandscape } from '@/infrastructure/workspace-landscape';"
       },
       {
-        "line": 21,
+        "line": 24,
         "text": "const data = await todayData(id);"
       }
     ],
@@ -49330,20 +49328,12 @@
     "file": "src/app/page.tsx",
     "hits": [
       {
-        "line": 5,
-        "text": "import { localWorkspaceDetails, workspaceRegistrations } from '@/infrastructure/workspace-folders';"
+        "line": 4,
+        "text": "import { readWorkspaceLibrary } from '@/infrastructure/workspace-library';"
       },
       {
-        "line": 6,
-        "text": "import { readLoadedPlans } from '@/infrastructure/workspace-plans';"
-      },
-      {
-        "line": 7,
-        "text": "import { readWorkspaces } from '@/infrastructure/workspace-store';"
-      },
-      {
-        "line": 13,
-        "text": "const [workspaces, links] = await Promise.all([readWorkspaces(), workspaceRegistrations()]);"
+        "line": 10,
+        "text": "return <WorkspaceLibrary library={await readWorkspaceLibrary()} />;"
       }
     ],
     "status": "adapter"
@@ -50037,6 +50027,178 @@
       {
         "line": 76,
         "text": "export function domainNavOf(workspace: Workspace, view: DomainView, here: Here): DomainNav {"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "consumer",
+    "file": "src/application/entry-flow-library.ts",
+    "hits": [
+      {
+        "line": 4,
+        "text": "import type { ModelPlan, WorkspaceModel } from '@/domain/workspace-model';"
+      },
+      {
+        "line": 11,
+        "text": "model: WorkspaceModel,"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "consumer",
+    "file": "src/application/entry-flow-page.ts",
+    "hits": [
+      {
+        "line": 2,
+        "text": "import type { ModelPlan, WorkspaceModel } from '@/domain/workspace-model';"
+      },
+      {
+        "line": 34,
+        "text": "model: WorkspaceModel,"
+      },
+      {
+        "line": 71,
+        "text": "model: WorkspaceModel,"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "fixture or test",
+    "file": "src/application/entry-flow.test.ts",
+    "hits": [
+      {
+        "line": 7,
+        "text": "import { entitiesIn, type WorkspaceModel } from '@/domain/workspace-model';"
+      },
+      {
+        "line": 19,
+        "text": "let model: WorkspaceModel;"
+      },
+      {
+        "line": 42,
+        "text": "const flow = entryFlowOf(indexOf(model), 'api:confirm');"
+      },
+      {
+        "line": 45,
+        "text": ".filter((entity) => entity.id.startsWith('h:confirm#'))"
+      },
+      {
+        "line": 48,
+        "text": "expect(nodes[0]?.id).toBe('h:confirm#load');"
+      },
+      {
+        "line": 54,
+        "text": "expect(flow?.callers).toEqual([{ label: 'Shop', site: 'h:click#submit' }]);"
+      },
+      {
+        "line": 57,
+        "text": "site: 'h:confirm#tx/save',"
+      },
+      {
+        "line": 63,
+        "text": "expect(node('h:confirm#already-confirmed')?.kind).toBe('guard');"
+      },
+      {
+        "line": 64,
+        "text": "expect(node('h:confirm#missing')?.kind).toBe('if');"
+      },
+      {
+        "line": 65,
+        "text": "expect(node('h:confirm#tx')?.kind).toBe('transaction');"
+      },
+      {
+        "line": 66,
+        "text": "expect(node('h:confirm#lines')?.kind).toBe('each');"
+      },
+      {
+        "line": 67,
+        "text": "expect(node('h:confirm#enrich')?.branches.map((branch) => branch.label)).toEqual(["
+      },
+      {
+        "line": 71,
+        "text": "expect(node('h:confirm#deliver')?.branches.map((branch) => branch.label)).toEqual(["
+      },
+      {
+        "line": 75,
+        "text": "expect(node('h:confirm#cleanup')?.branches.map((branch) => branch.label)).toEqual(["
+      },
+      {
+        "line": 80,
+        "text": "expect(node('h:confirm#!db-down')?.detail).toContain('The database is unavailable');"
+      },
+      {
+        "line": 81,
+        "text": "expect(node('h:confirm#lines/reserve')?.condition).toBe('Payment is required');"
+      },
+      {
+        "line": 82,
+        "text": "expect(node('h:confirm#deliver/send')?.async).toBe(true);"
+      },
+      {
+        "line": 86,
+        "text": "expect(nodes.find((node) => node.id === 'h:confirm#tx/save')?.citations[0]?.href).toBe("
+      },
+      {
+        "line": 89,
+        "text": "expect(nodes.find((node) => node.id === 'h:confirm#tx/save')?.contract).toContain('status');"
+      },
+      {
+        "line": 90,
+        "text": "expect(nodes.find((node) => node.id === 'h:confirm#deliver/send')?.drill).toEqual({"
+      },
+      {
+        "line": 94,
+        "text": "expect(nodes.find((node) => node.id === 'h:confirm#lines/reserve')?.drill?.href).toBe("
+      },
+      {
+        "line": 97,
+        "text": "expect(nodes.find((node) => node.id === 'h:confirm#tx/queue')?.drill).toBeNull();"
+      },
+      {
+        "line": 123,
+        "text": "expect(beforeNodes.find((node) => node.id === 'h:confirm#tx/save')?.title).toBe('write · status');"
+      },
+      {
+        "line": 124,
+        "text": "expect(afterNodes.find((node) => node.id === 'h:confirm#tx/save')?.title).toBe("
+      },
+      {
+        "line": 127,
+        "text": "expect(beforeNodes.some((node) => node.id === 'h:confirm#tx/audit')).toBe(false);"
+      },
+      {
+        "line": 128,
+        "text": "expect(afterNodes.some((node) => node.id === 'h:confirm#tx/audit')).toBe(true);"
+      },
+      {
+        "line": 139,
+        "text": "expect(page?.entries.some((entry) => entry.id === 'api:confirm')).toBe(true);"
+      },
+      {
+        "line": 146,
+        "text": "entryFlowHref(model.id, { entry: 'api:confirm', plan: 'plan:confirm', version: 'after' }),"
+      },
+      {
+        "line": 151,
+        "text": "const flow = entryFlowOf(indexOf(model), 'api:charge');"
+      },
+      {
+        "line": 154,
+        "text": "expect(flow?.gaps).toContain('api:charge: No handler detail is recorded.');"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "consumer",
+    "file": "src/application/entry-flow.ts",
+    "hits": [
+      {
+        "line": 9,
+        "text": "} from '@/domain/workspace-model';"
       }
     ],
     "status": "adapter"
@@ -69797,199 +69959,199 @@
         "text": "expect(tokenToId('svc-orders')).toBe('svc:orders');"
       },
       {
-        "line": 95,
+        "line": 104,
         "text": "expect(scopedId('care', 'h:x#tx/read')).toBe('care/h:x#tx/read');"
       },
       {
-        "line": 96,
+        "line": 105,
         "text": "expect(scopedId('care', 'other/h:x#tx/read')).toBe('other/h:x#tx/read');"
       },
       {
-        "line": 100,
+        "line": 109,
         "text": "expect(prefixOf('svc:orders')).toBe('svc');"
       },
       {
-        "line": 102,
+        "line": 111,
         "text": "expect(hasPrefix('svc:orders', 'svc')).toBe(true);"
       },
       {
-        "line": 105,
+        "line": 114,
         "text": "expect(otherPrefix('svc:orders')).toBe('SVC:ORDERS');"
       },
       {
-        "line": 106,
+        "line": 115,
         "text": "expect(stripPrefix('svc:orders', 'svc')).toBe('orders');"
       },
       {
-        "line": 107,
+        "line": 116,
         "text": "expect(stripPrefix('st:orders', 'svc')).toBe('st:orders');"
       },
       {
-        "line": 111,
+        "line": 120,
         "text": "expect(childPathOf('h:x')).toBeUndefined();"
       },
       {
-        "line": 112,
+        "line": 121,
         "text": "expect(splitChildId('h:x#tx/read')).toEqual(['h:x', 'tx/read']);"
       },
       {
-        "line": 113,
+        "line": 122,
         "text": "expect(colonLocalId('svc:orders')).toBe('orders');"
       },
       {
-        "line": 115,
+        "line": 124,
         "text": "expect(localId('svc:orders')).toBe('orders');"
       },
       {
-        "line": 116,
+        "line": 125,
         "text": "expect(lastChildId('h:x#read')).toBe('read');"
       },
       {
-        "line": 117,
+        "line": 126,
         "text": "expect(isQualifiedId('svc:orders')).toBe(true);"
       },
       {
-        "line": 119,
+        "line": 128,
         "text": "expect(hasChildPath('h:x#read')).toBe(true);"
       },
       {
-        "line": 120,
+        "line": 129,
         "text": "expect(isDisplayId('svc:orders')).toBe(true);"
       },
       {
-        "line": 121,
+        "line": 130,
         "text": "expect(startsWithId('svc:orders')).toBe(true);"
       },
       {
-        "line": 122,
+        "line": 131,
         "text": "expect(isTextId('svc:orders')).toBe(true);"
       },
       {
-        "line": 123,
+        "line": 132,
         "text": "expect(isTextId('svc:orders are new')).toBe(false);"
       },
       {
-        "line": 130,
+        "line": 139,
         "text": "resolveAlias('h:old#tx/read', {"
       },
       {
-        "line": 131,
+        "line": 140,
         "text": "'h:old#tx/read': { to: 'h:middle#fetch' },"
       },
       {
-        "line": 132,
+        "line": 141,
         "text": "'h:middle#fetch': { to: 'h:new#load' },"
       },
       {
-        "line": 133,
+        "line": 142,
         "text": "'h:old': { to: 'h:other' },"
       },
       {
-        "line": 135,
+        "line": 144,
         "text": ").toEqual({ id: 'h:new#load', used: ['h:old#tx/read', 'h:middle#fetch'], problem: null });"
       },
       {
-        "line": 136,
+        "line": 145,
         "text": "expect(resolveAlias('svc:current', {}).used).toEqual([]);"
       },
       {
-        "line": 140,
+        "line": 149,
         "text": "expect(resolveAlias('h:old#tx/read', { 'h:old': { to: 'h:new' } })).toEqual({"
       },
       {
-        "line": 142,
+        "line": 151,
         "text": "used: ['h:old'],"
       },
       {
-        "line": 143,
+        "line": 152,
         "text": "problem: 'h:old#tx/read needs an explicit alias because h:old was retired',"
       },
       {
-        "line": 145,
+        "line": 154,
         "text": "expect(resolveAlias('h:old#tx/read', { 'h:old#tx': { to: 'h:new#queue' } }).used).toEqual(["
       },
       {
-        "line": 146,
+        "line": 155,
         "text": "'h:old#tx',"
       },
       {
-        "line": 148,
+        "line": 157,
         "text": "expect(resolveAlias('h:old#tx/read', { 'h:old#tx-other': { to: 'h:new#queue' } }).id).toBe("
       },
       {
-        "line": 149,
+        "line": 158,
         "text": "'h:old#tx/read',"
       },
       {
-        "line": 155,
+        "line": 164,
         "text": "resolveAlias('svc:old', { 'svc:old': { to: null, reason: 'Retired without replacement' } }),"
       },
       {
-        "line": 156,
+        "line": 165,
         "text": ").toEqual({ id: null, used: ['svc:old'], problem: 'Retired without replacement' });"
       },
       {
-        "line": 157,
+        "line": 166,
         "text": "expect(resolveAlias('svc:old', { 'svc:old': { to: null } }).problem).toBe("
       },
       {
-        "line": 158,
+        "line": 167,
         "text": "'Alias svc:old needs a reason',"
       },
       {
-        "line": 161,
+        "line": 170,
         "text": "resolveAlias('svc:a', { 'svc:a': { to: 'svc:b' }, 'svc:b': { to: 'svc:a' } }).problem,"
       },
       {
-        "line": 162,
+        "line": 171,
         "text": ").toBe('Alias cycle at svc:a');"
       },
       {
-        "line": 170,
+        "line": 179,
         "text": "expect(hasAnyPrefix('api:read', ['api', 'gql'])).toBe(true);"
       },
       {
-        "line": 171,
+        "line": 180,
         "text": "expect(hasAnyPrefix('api:', ['api'])).toBe(true);"
       },
       {
-        "line": 173,
+        "line": 182,
         "text": "expect(hasAnyPrefix('msg:read', ['api', 'gql'])).toBe(false);"
       },
       {
-        "line": 174,
+        "line": 183,
         "text": "expect(hasAnyPrefix('api:read', [])).toBe(false);"
       },
       {
-        "line": 185,
+        "line": 194,
         "text": "expect(hasChildPrefix('sch:read#one', 'flow')).toBe(false);"
       },
       {
-        "line": 188,
+        "line": 197,
         "text": "expect(firstFlowReference('[[svc:reader]] then [[flow:read]] and [[flow:save]]')).toBe("
       },
       {
-        "line": 203,
+        "line": 212,
         "text": "'svc:a',"
       },
       {
-        "line": 204,
+        "line": 213,
         "text": "'sch:Order#item_id',"
       },
       {
-        "line": 206,
+        "line": 215,
         "text": "'h:entry#step',"
       },
       {
-        "line": 207,
+        "line": 216,
         "text": "'h:entry#tx/read',"
       },
       {
-        "line": 208,
+        "line": 217,
         "text": "'h:entry#!failure',"
       },
       {
-        "line": 210,
+        "line": 219,
         "text": "'svc:',"
       }
     ],
@@ -70660,163 +70822,163 @@
         "text": "expect(index.get('api:confirm')?.data.supersedes).toBe('api:legacy');"
       },
       {
-        "line": 72,
+        "line": 74,
         "text": "into: 'h:confirm',"
       },
       {
-        "line": 78,
+        "line": 80,
         "text": "expect(indexOf(after).cites('h:confirm#audit')).toEqual(["
       },
       {
-        "line": 92,
+        "line": 94,
         "text": "{ modify: 'svc:ordering', append: { uses: ['lib:other'] } },"
       },
       {
-        "line": 93,
+        "line": 95,
         "text": "{ modify: 'svc:ordering', drop: { uses: ['lib:messaging'] } },"
       },
       {
-        "line": 95,
+        "line": 97,
         "text": "modify: 'h:confirm',"
       },
       {
-        "line": 101,
+        "line": 103,
         "text": "expect(indexOf(after).get('svc:ordering')?.data.uses).toEqual(['lib:other']);"
       },
       {
-        "line": 102,
+        "line": 104,
         "text": "expect(indexOf(after).get('h:confirm#last')?.data.cites).toEqual(["
       },
       {
-        "line": 109,
+        "line": 111,
         "text": "opsOf([{ modify: 'h:confirm#done', set: { cites: ['missing:Absent.ts'] } }]),"
       },
       {
-        "line": 114,
+        "line": 116,
         "text": "id: 'h:confirm#done',"
       },
       {
-        "line": 120,
+        "line": 122,
         "text": "opsOf([{ modify: 'h:confirm#done', set: { cites: ['ev:source'] } }]),"
       },
       {
-        "line": 125,
+        "line": 127,
         "text": "const removed = apply(opsOf([{ remove: 'h:confirm#done' }]), missing);"
       },
       {
-        "line": 129,
+        "line": 131,
         "text": "{ modify: 'st:orders', set: { owner: { id: 'svc:ordering', cites: ['ev:absent'] } } },"
       },
       {
-        "line": 133,
+        "line": 135,
         "text": "const different = apply(opsOf([{ modify: 'st:orders', set: { cites: ['ev:source'] } }]), owner);"
       },
       {
-        "line": 135,
+        "line": 137,
         "text": "expect.objectContaining({ id: 'st:orders', property: 'owner/cites' }),"
       },
       {
-        "line": 145,
+        "line": 147,
         "text": "id: 'sys:other',"
       },
       {
-        "line": 149,
+        "line": 151,
         "text": "{ id: 'svc:other', kind: 'service', name: 'Other', cites: ['other:Start.ts#L1-2'] },"
       },
       {
-        "line": 156,
+        "line": 158,
         "text": "expect(indexOf(after).cites('svc:other')).toEqual(["
       },
       {
-        "line": 170,
+        "line": 172,
         "text": "opsOf([{ modify: 'svc:old-ordering', set: { does: 'Confirms orders' } }]),"
       },
       {
-        "line": 173,
+        "line": 175,
         "text": "expect(indexOf(after).get('svc:ordering')?.data.does).toBe('Confirms orders');"
       },
       {
-        "line": 176,
+        "line": 178,
         "text": "opsOf([{ modify: 'api:retired', set: { summary: 'Cannot restore a retired identity' } }]),"
       },
       {
-        "line": 184,
+        "line": 186,
         "text": "[{ modify: 'svc:ordering', set: { id: 'svc:renamed' } }],"
       },
       {
-        "line": 185,
+        "line": 187,
         "text": "[{ modify: 'svc:absent', set: { does: 'Missing' } }],"
       },
       {
-        "line": 190,
+        "line": 192,
         "text": "value: { id: 'svc:new', name: 'New', kind: 'service' },"
       },
       {
-        "line": 196,
+        "line": 198,
         "text": "into: 'h:confirm#tx',"
       },
       {
-        "line": 197,
+        "line": 199,
         "text": "after: 'h:confirm#done',"
       },
       {
-        "line": 201,
+        "line": 203,
         "text": "[{ add: 'step', into: 'h:confirm#tx', value: { id: 'save', does: 'Duplicate' } }],"
       },
       {
-        "line": 202,
+        "line": 204,
         "text": "[{ modify: 'svc:ordering', set: { cites: [] } }],"
       },
       {
-        "line": 203,
+        "line": 205,
         "text": "[{ modify: 'svc:ordering', set: { cites: [{ kind: 'evidence', id: 'ev:source' }] } }],"
       },
       {
-        "line": 204,
+        "line": 206,
         "text": "[{ modify: 'svc:ordering', append: { name: ['Wrong'] } }],"
       },
       {
-        "line": 205,
+        "line": 207,
         "text": "[{ modify: 'svc:ordering', drop: { name: ['Wrong'] } }],"
       },
       {
-        "line": 212,
+        "line": 214,
         "text": "expect(indexOf(model).get('h:confirm#tx/save')?.data.say).toBeUndefined();"
       },
       {
-        "line": 217,
+        "line": 219,
         "text": ").resolves.toContainEqual(expect.objectContaining({ at: 'sys:ordering/jobs/3/cron' }));"
       },
       {
-        "line": 219,
+        "line": 221,
         "text": "validateModel(apply(opsOf([{ modify: 'svc:ordering', set: { invented: true } }]), model)),"
       },
       {
-        "line": 224,
+        "line": 226,
         "text": "'{\"modify\":\"st:unknown-owner\",\"set\":{\"__proto__\":{\"owner\":{\"id\":\"svc:ordering\",\"cites\":[{\"kind\":\"evidence\",\"id\":\"ev:source\"}]}}}}',"
       },
       {
-        "line": 227,
+        "line": 229,
         "text": "expect(indexOf(after).resourceOwner('st:unknown-owner')).toBeNull();"
       },
       {
-        "line": 233,
+        "line": 235,
         "text": "expect(index.plansTouching('h:confirm#tx/save')).toHaveLength(1);"
       },
       {
-        "line": 235,
+        "line": 237,
         "text": "expect(index.plansTouching('sys:ordering')).toHaveLength(1);"
       },
       {
-        "line": 236,
+        "line": 238,
         "text": "expect(index.plansTouching('svc:ordering')).toHaveLength(1);"
       },
       {
-        "line": 239,
+        "line": 241,
         "text": "expect(index.plans[0]?.beforeIndex.get('h:confirm#tx/save')?.data.say).toBeUndefined();"
       },
       {
-        "line": 240,
+        "line": 242,
         "text": "expect(index.plans[0]?.afterIndex.get('h:confirm#tx/save')?.data.say).toBe("
       }
     ],
@@ -71380,11 +71542,11 @@
     "file": "src/features/design/design-diagrams.tsx",
     "hits": [
       {
-        "line": 20,
+        "line": 22,
         "text": "<FlowCardRow glyph=\"sys\" inspect=\"sys:offers\" lines={['Offers']} />"
       },
       {
-        "line": 23,
+        "line": 25,
         "text": "inspect=\"sys:site\""
       }
     ],
@@ -71397,6 +71559,25 @@
       {
         "line": 22,
         "text": "label: 'Workspace',"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "fixture or test",
+    "file": "src/features/entry-flow/entry-flow.client.test.tsx",
+    "hits": [
+      {
+        "line": 23,
+        "text": "const projected = entryFlowOf(indexOf(model), 'api:confirm');"
+      },
+      {
+        "line": 33,
+        "text": "expect(inspector.getByText('h:confirm#tx/save')).toBeTruthy();"
+      },
+      {
+        "line": 43,
+        "text": "screen.getByRole('button', { name: 'publish publish · msg:confirmed Asynchronous' }),"
       }
     ],
     "status": "adapter"
@@ -74937,7 +75118,7 @@
     "file": "src/features/workspaces/workspace-panel.tsx",
     "hits": [
       {
-        "line": 71,
+        "line": 78,
         "text": "Workspace id: <code>{card.id}</code>"
       }
     ],
@@ -74970,6 +75151,40 @@
       {
         "line": 26,
         "text": "await expect(readWorkspaceModel(acmeWorkspace(), root)).resolves.toEqual(acmeModel());"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "fixture or test",
+    "file": "src/infrastructure/canonical-model.test.ts",
+    "hits": [
+      {
+        "line": 11,
+        "text": "import { readWorkspaces } from './workspace-store';"
+      },
+      {
+        "line": 22,
+        "text": "const workspaces = await readWorkspaces(root);"
+      },
+      {
+        "line": 31,
+        "text": "const workspaces = await readWorkspaces(root);"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "consumer",
+    "file": "src/infrastructure/canonical-model.ts",
+    "hits": [
+      {
+        "line": 5,
+        "text": "import { modelRecord, type WorkspaceModel } from '@/domain/workspace-model';"
+      },
+      {
+        "line": 15,
+        "text": "): Promise<WorkspaceModel | null> {"
       }
     ],
     "status": "adapter"
@@ -75153,6 +75368,17 @@
       {
         "line": 46,
         "text": "input.manifest.rules !== 'knowledge-query/v3' &&"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "consumer",
+    "file": "src/infrastructure/model-plans.ts",
+    "hits": [
+      {
+        "line": 5,
+        "text": "import type { ModelPlan } from '@/domain/workspace-model';"
       }
     ],
     "status": "adapter"
@@ -76499,6 +76725,29 @@
   },
   {
     "category": "consumer",
+    "file": "src/infrastructure/workspace-library.ts",
+    "hits": [
+      {
+        "line": 10,
+        "text": "import { readWorkspaces } from './workspace-store';"
+      },
+      {
+        "line": 13,
+        "text": "export async function readWorkspaceLibrary(): Promise<Library> {"
+      },
+      {
+        "line": 14,
+        "text": "const [workspaces, links] = await Promise.all([readWorkspaces(), workspaceRegistrations()]);"
+      },
+      {
+        "line": 32,
+        "text": "if (card === undefined) throw new Error(`Workspace card missing for ${workspace.id}`);"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "consumer",
     "file": "src/infrastructure/workspace-model-facts.ts",
     "hits": [
       {
@@ -76929,42 +77178,46 @@
     "hits": [
       {
         "line": 6,
-        "text": "import type { Domain, System, Workspace } from '@/domain/workspace';"
+        "text": "import { legacyViewOf } from '@/application/legacy-view';"
       },
       {
         "line": 7,
+        "text": "import type { Domain, System, Workspace } from '@/domain/workspace';"
+      },
+      {
+        "line": 8,
         "text": "import { checkWorkspace } from '@/domain/workspace-check';"
       },
       {
-        "line": 15,
+        "line": 17,
         "text": "const remembered = untilEdited<readonly Workspace[]>();"
       },
       {
-        "line": 19,
+        "line": 21,
         "text": "//     systems/<system>/system.yaml"
       },
       {
-        "line": 20,
+        "line": 22,
         "text": "export async function readWorkspaces(root?: string): Promise<readonly Workspace[]> {"
       },
       {
-        "line": 23,
-        "text": "return Promise.all([...found.values()].map(async (folder) => readWorkspace(folder)));"
-      },
-      {
-        "line": 27,
-        "text": "async function readWorkspace(folder: string): Promise<Workspace> {"
+        "line": 28,
+        "text": "return model === null ? readWorkspace(folder) : legacyViewOf(model).workspace;"
       },
       {
         "line": 34,
+        "text": "async function readWorkspace(folder: string): Promise<Workspace> {"
+      },
+      {
+        "line": 41,
         "text": "const workspace: Workspace = {"
       },
       {
-        "line": 81,
+        "line": 88,
         "text": "const file = await readYaml(pathIn(folder, 'system.yaml'), systemFile);"
       },
       {
-        "line": 100,
+        "line": 107,
         "text": "talksTo: component.talks_to,"
       }
     ],
@@ -79971,55 +80224,59 @@
         "text": "if: The order does not exist"
       },
       {
-        "line": 16,
+        "line": 14,
+        "text": "if: The order is already confirmed"
+      },
+      {
+        "line": 19,
         "text": "- { id: save, write: 'sch:order#status', to: 'st:orders', cites: ['#L12-16'] }"
       },
       {
-        "line": 23,
+        "line": 26,
         "text": "call: 'api:charge',"
       },
       {
-        "line": 31,
+        "line": 34,
         "text": "steps: [{ id: order, read: 'sch:order', from: 'st:orders', cites: ['#L30-33'] }]"
       },
       {
-        "line": 33,
+        "line": 36,
         "text": "steps: [{ id: payment, call: 'api:charge', cites: ['#L34-37'] }]"
       },
       {
-        "line": 36,
+        "line": 39,
         "text": "until: Acknowledged"
       },
       {
-        "line": 42,
+        "line": 45,
         "text": "publish: 'msg:confirmed',"
       },
       {
-        "line": 43,
+        "line": 46,
         "text": "causes: 'h:on-confirmed',"
       },
       {
-        "line": 55,
+        "line": 58,
         "text": "- id: h:on-confirmed"
       },
       {
-        "line": 56,
+        "line": 59,
         "text": "component: svc:ordering"
       },
       {
-        "line": 59,
+        "line": 62,
         "text": "- id: h:relay"
       },
       {
-        "line": 60,
+        "line": 63,
         "text": "component: svc:ordering"
       },
       {
-        "line": 63,
+        "line": 66,
         "text": "- id: h:click"
       },
       {
-        "line": 66,
+        "line": 69,
         "text": "steps: [{ id: submit, call: 'api:confirm', cites: ['ev:source'] }]"
       }
     ],
@@ -81827,7 +82084,12 @@
   {
     "category": "quality configuration",
     "file": "tools/page-budget.ts",
-    "hits": [],
+    "hits": [
+      {
+        "line": 10,
+        "text": "import { workspaceRegistrations } from '@/infrastructure/workspace-folders';"
+      }
+    ],
     "status": "adapter"
   },
   {
@@ -84101,7 +84363,7 @@
     "hits": [
       {
         "line": 1,
-        "text": "node --import ./tools/register.ts tools/page-budget.ts"
+        "text": "node --import ./tools/register.ts --conditions=react-server tools/page-budget.ts"
       }
     ],
     "status": "adapter"

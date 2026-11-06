@@ -11,6 +11,17 @@ interface WorkspacePanelProps {
   readonly card: WorkspaceCard;
 }
 
+function MorePlans({ card }: WorkspacePanelProps) {
+  if (card.morePlans === 0) return null;
+  const more = card.plans.length === 0 ? '' : 'more ';
+  return (
+    <Link className={styles.more} href={card.href}>
+      {card.morePlans} {more}
+      {card.morePlans === 1 ? 'plan' : 'plans'} →
+    </Link>
+  );
+}
+
 // One workspace: what it is, its domains to step straight into, and its plans by what they wait on.
 export function WorkspacePanel({ card }: WorkspacePanelProps) {
   return (
@@ -46,18 +57,14 @@ export function WorkspacePanel({ card }: WorkspacePanelProps) {
         </section>
         <section className={styles.plans}>
           <h3 className={styles.label}>Plans</h3>
-          {card.plans.length === 0 ? (
+          {card.plans.length === 0 && card.morePlans === 0 ? (
             <p className={styles.empty}>
               No plans yet. Each plan is a folder under <code>plans/</code> in the workspace.
             </p>
           ) : (
             <PlanList plans={card.plans} />
           )}
-          {card.morePlans === 0 ? null : (
-            <Link className={styles.more} href={card.href}>
-              {card.morePlans} more {card.morePlans === 1 ? 'plan' : 'plans'} →
-            </Link>
-          )}
+          <MorePlans card={card} />
         </section>
       </div>
       <footer className={styles.foot}>
