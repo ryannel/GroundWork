@@ -36,7 +36,11 @@ Placement follows containment; resource ownership needs an explicit cited owner.
 selected, required and provided fields and reports unresolved or ambiguous composition. Its possible resolver
 reach is not an observed runtime query plan. `apply` edits a private clone, preserves declared identities and
 resolves new citations; `validateModel` rechecks the resulting fragments with the same contracts. `plansIndex`
-is separate from the model index and gives each plan independent before and after values.
+is separate from the model index and gives each plan independent before and after values. Proposal
+attribution is derived from the containing plan, change and op. Current facts retain strict effect-citation
+validation. The plan projection boundary validates the base strictly, computes its own after model and uses
+the same schema with only its annotated implementation-evidence policy relaxed. Missing implementation
+evidence stays visible as a gap; retained citations describe baseline context, not implemented changes.
 
 `legacyViewOf` is the named compatibility boundary for workspace/domain page consumers. Its workspace tree
 retains canonical facets on their containing systems, with explicit aliases for legacy identity and narrative

@@ -1,0 +1,8 @@
+{
+  "route": "/volvo-cars/plans/care-se-financing-status/plan.json",
+  "status": 200,
+  "type": "application/json",
+  "bytes": 1427872,
+  "sha256": "39d54f79dc1ca59d2af689a082c34a46771a1cc9e788463d9ebb9f095e929868",
+  "body": "23d312af3ad3931c35645dfb6fc91bb23f5a103d75ec5df62d191ca8ff6f3cb8.body.gz"
+}

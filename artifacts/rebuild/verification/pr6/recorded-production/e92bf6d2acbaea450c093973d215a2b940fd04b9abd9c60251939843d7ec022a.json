@@ -1,0 +1,8 @@
+{
+  "route": "/personal/things/?id=st-allotment-db",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 32892,
+  "sha256": "371c072dbcd39bc690f12dd79fd6743504517030ca8eed8834072c9862727b48",
+  "body": "e92bf6d2acbaea450c093973d215a2b940fd04b9abd9c60251939843d7ec022a.body.gz"
+}

@@ -1,0 +1,34 @@
+{
+  "unambiguousIds": 348730,
+  "families": {
+    "evidence": {
+      "total": 1817,
+      "pending": 1817
+    }
+  },
+  "validationCauses": {
+    "{\n  \"family\": \"claims\",\n  \"keyword\": \"additionalProperties\",\n  \"params\": {\n    \"additionalProperty\": \"basis\"\n  },\n  \"path\": \"\"\n}": 35,
+    "{\n  \"family\": \"claims\",\n  \"keyword\": \"additionalProperties\",\n  \"params\": {\n    \"additionalProperty\": \"deployment\"\n  },\n  \"path\": \"\"\n}": 13,
+    "{\n  \"family\": \"claims\",\n  \"keyword\": \"additionalProperties\",\n  \"params\": {\n    \"additionalProperty\": \"evidence\"\n  },\n  \"path\": \"\"\n}": 35,
+    "{\n  \"family\": \"claims\",\n  \"keyword\": \"additionalProperties\",\n  \"params\": {\n    \"additionalProperty\": \"from\"\n  },\n  \"path\": \"\"\n}": 13,
+    "{\n  \"family\": \"claims\",\n  \"keyword\": \"additionalProperties\",\n  \"params\": {\n    \"additionalProperty\": \"meaning\"\n  },\n  \"path\": \"\"\n}": 13,
+    "{\n  \"family\": \"claims\",\n  \"keyword\": \"additionalProperties\",\n  \"params\": {\n    \"additionalProperty\": \"runtime_observation\"\n  },\n  \"path\": \"\"\n}": 35,
+    "{\n  \"family\": \"claims\",\n  \"keyword\": \"additionalProperties\",\n  \"params\": {\n    \"additionalProperty\": \"scope\"\n  },\n  \"path\": \"\"\n}": 35,
+    "{\n  \"family\": \"claims\",\n  \"keyword\": \"additionalProperties\",\n  \"params\": {\n    \"additionalProperty\": \"source_anchors\"\n  },\n  \"path\": \"\"\n}": 1226,
+    "{\n  \"family\": \"claims\",\n  \"keyword\": \"additionalProperties\",\n  \"params\": {\n    \"additionalProperty\": \"to\"\n  },\n  \"path\": \"\"\n}": 13,
+    "{\n  \"family\": \"claims\",\n  \"keyword\": \"required\",\n  \"params\": {\n    \"missingProperty\": \"cites\"\n  },\n  \"path\": \"\"\n}": 1261,
+    "{\n  \"family\": \"claims\",\n  \"keyword\": \"required\",\n  \"params\": {\n    \"missingProperty\": \"confidence\"\n  },\n  \"path\": \"\"\n}": 22,
+    "{\n  \"family\": \"claims\",\n  \"keyword\": \"required\",\n  \"params\": {\n    \"missingProperty\": \"limitations\"\n  },\n  \"path\": \"\"\n}": 22,
+    "{\n  \"family\": \"claims\",\n  \"keyword\": \"required\",\n  \"params\": {\n    \"missingProperty\": \"reasoning\"\n  },\n  \"path\": \"\"\n}": 35,
+    "{\n  \"family\": \"claims\",\n  \"keyword\": \"required\",\n  \"params\": {\n    \"missingProperty\": \"statement\"\n  },\n  \"path\": \"\"\n}": 13,
+    "{\n  \"family\": \"claims\",\n  \"keyword\": \"type\",\n  \"params\": {\n    \"type\": [\n      \"string\",\n      \"null\"\n    ]\n  },\n  \"path\": \"/actor\"\n}": 529,
+    "{\n  \"family\": \"schemas\",\n  \"keyword\": \"additionalProperties\",\n  \"params\": {\n    \"additionalProperty\": \"diagnostics\"\n  },\n  \"path\": \"\"\n}": 12,
+    "{\n  \"family\": \"schemas\",\n  \"keyword\": \"additionalProperties\",\n  \"params\": {\n    \"additionalProperty\": \"path\"\n  },\n  \"path\": \"\"\n}": 556,
+    "{\n  \"family\": \"schemas\",\n  \"keyword\": \"additionalProperties\",\n  \"params\": {\n    \"additionalProperty\": \"source_anchors\"\n  },\n  \"path\": \"\"\n}": 556,
+    "{\n  \"family\": \"schemas\",\n  \"keyword\": \"enum\",\n  \"params\": {\n    \"allowedValues\": [\n      \"message\",\n      \"enum\",\n      \"field\",\n      \"enum_value\",\n      \"service\",\n      \"rpc\",\n      \"schema\"\n    ]\n  },\n  \"path\": \"/kind\"\n}": 12,
+    "{\n  \"family\": \"schemas\",\n  \"keyword\": \"required\",\n  \"params\": {\n    \"missingProperty\": \"cites\"\n  },\n  \"path\": \"\"\n}": 556,
+    "{\n  \"family\": \"schemas\",\n  \"keyword\": \"required\",\n  \"params\": {\n    \"missingProperty\": \"declaration\"\n  },\n  \"path\": \"\"\n}": 12,
+    "{\n  \"family\": \"schemas\",\n  \"keyword\": \"required\",\n  \"params\": {\n    \"missingProperty\": \"file\"\n  },\n  \"path\": \"\"\n}": 556,
+    "{\n  \"family\": \"schemas\",\n  \"keyword\": \"type\",\n  \"params\": {\n    \"type\": \"string\"\n  },\n  \"path\": \"/fq_name\"\n}": 12
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "route": "/volvo-cars/plans/immutable-ids/build/build-order/",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 189691,
+  "sha256": "6041ff6574c905ac3ab093adfb8ef4bb3e463824c1ca785b6442cdd76ce585ca",
+  "body": "60b0306ceb553eac931e9c139ffdd97a9389deba5fd384da9c4cd703c5cadb93.body.gz"
+}

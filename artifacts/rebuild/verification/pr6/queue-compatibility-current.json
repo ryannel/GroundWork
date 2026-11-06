@@ -1,0 +1,665 @@
+{
+  "note": "Minimal validation probes isolate the prefix restriction. probe is a synthetic child id and citation home, not a proposed migration or claim about code.",
+  "sourceFiles": [
+    {
+      "file": "domains/commercial-backbone/systems/car-configuration-engine/contracts.yaml",
+      "sha256": "b461d5851f712f72a61a089ded366c50f13ac915257010cdc6249e7a50056ea8"
+    },
+    {
+      "file": "domains/commercial-backbone/systems/car-configuration-engine/handlers.yaml",
+      "sha256": "e942c0bee07a976de395c56763e246077df8b19d67cf2097d260809e3bf2ab38"
+    },
+    {
+      "file": "domains/commercial-backbone/systems/car-configuration-engine/system.yaml",
+      "sha256": "eab5626d474cdf49d01dff0b430cfa098c0a4b1557ba87b165d5d25bc1e3b481"
+    },
+    {
+      "file": "domains/shopping/systems/media-site/contracts.yaml",
+      "sha256": "3fd01d512bbb5957be6bed70146fcecc17f213166f55559f5a66b2ef96d8ee5b"
+    },
+    {
+      "file": "domains/shopping/systems/media-site/handlers.yaml",
+      "sha256": "d15d55f17e066743eb4b7fdeacc2bd7a8eaa6b1b7d7afc37ee9acbf7555a2a9c"
+    },
+    {
+      "file": "domains/shopping/systems/media-site/system.yaml",
+      "sha256": "144893a4f1b759b30ac156828962560eaff4f39129dc7f37356ca964ab95448a"
+    }
+  ],
+  "schema": {
+    "file": "schema/workspace.schema.json",
+    "commit": "2048a2ce45388d54b087b2bca7e869b158704525",
+    "sha256": "3816f85c895bb593e7bba5cf3fb8345c18e25333dd60637eae4ba5bca04b5392",
+    "currentSha256": "0e7858c5e7a1b6bf1d3ce0a63ff63131bb17fac11e4666f825c6806289c9dff4"
+  },
+  "counts": {
+    "legacyQueues": 125,
+    "affectedQueues": 2,
+    "schemas": 4,
+    "reads": 1,
+    "writes": 8,
+    "matchingMessageContracts": 0
+  },
+  "currentRewrittenProbesValidate": true,
+  "originalProbesValidate": true,
+  "rewrittenProbesFailOnlyTargetPattern": true,
+  "cases": [
+    {
+      "file": "domains/commercial-backbone/systems/car-configuration-engine/contracts.yaml",
+      "line": 5264,
+      "pointer": "/schemas/32",
+      "handler": null,
+      "definition": "Schema",
+      "original": {
+        "id": "sch:cce-optimization-facade-car-ruleset-job",
+        "kind": "record",
+        "store": "st:cce-optimization-facade-queue",
+        "cites": [
+          "probe:source.cs#L1"
+        ]
+      },
+      "sources": [
+        {
+          "repo": "volvo-cars/cce-optimization-facade",
+          "path": "internal/database/queuedb/models.go",
+          "lines": [
+            9,
+            27
+          ],
+          "commit": "8da8ebe3227a43817bbbca25fdec182edfaa6584"
+        }
+      ],
+      "rewritten": {
+        "id": "sch:cce-optimization-facade-car-ruleset-job",
+        "kind": "record",
+        "store": "top:cce-optimization-facade-queue",
+        "cites": [
+          "probe:source.cs#L1"
+        ]
+      },
+      "errors": [
+        {
+          "instancePath": "/store",
+          "schemaPath": "#/properties/store/pattern",
+          "keyword": "pattern",
+          "params": {
+            "pattern": "^(?:st):[^#\\s]+$"
+          },
+          "message": "must match pattern \"^(?:st):[^#\\s]+$\""
+        }
+      ]
+    },
+    {
+      "file": "domains/commercial-backbone/systems/car-configuration-engine/contracts.yaml",
+      "line": 5288,
+      "pointer": "/schemas/33",
+      "handler": null,
+      "definition": "Schema",
+      "original": {
+        "id": "sch:cce-optimization-facade-car-sync-job",
+        "kind": "record",
+        "store": "st:cce-optimization-facade-queue",
+        "cites": [
+          "probe:source.cs#L1"
+        ]
+      },
+      "sources": [
+        {
+          "repo": "volvo-cars/cce-optimization-facade",
+          "path": "internal/domain/carsync.go",
+          "lines": [
+            5,
+            51
+          ],
+          "commit": "8da8ebe3227a43817bbbca25fdec182edfaa6584"
+        }
+      ],
+      "rewritten": {
+        "id": "sch:cce-optimization-facade-car-sync-job",
+        "kind": "record",
+        "store": "top:cce-optimization-facade-queue",
+        "cites": [
+          "probe:source.cs#L1"
+        ]
+      },
+      "errors": [
+        {
+          "instancePath": "/store",
+          "schemaPath": "#/properties/store/pattern",
+          "keyword": "pattern",
+          "params": {
+            "pattern": "^(?:st):[^#\\s]+$"
+          },
+          "message": "must match pattern \"^(?:st):[^#\\s]+$\""
+        }
+      ]
+    },
+    {
+      "file": "domains/commercial-backbone/systems/car-configuration-engine/contracts.yaml",
+      "line": 5461,
+      "pointer": "/schemas/39",
+      "handler": null,
+      "definition": "Schema",
+      "original": {
+        "id": "sch:cce-optimization-facade-specification-ruleset-job",
+        "kind": "record",
+        "store": "st:cce-optimization-facade-queue",
+        "cites": [
+          "probe:source.cs#L1"
+        ]
+      },
+      "sources": [
+        {
+          "repo": "volvo-cars/cce-optimization-facade",
+          "path": "internal/database/queuedb/models.go",
+          "lines": [
+            29,
+            47
+          ],
+          "commit": "8da8ebe3227a43817bbbca25fdec182edfaa6584"
+        }
+      ],
+      "rewritten": {
+        "id": "sch:cce-optimization-facade-specification-ruleset-job",
+        "kind": "record",
+        "store": "top:cce-optimization-facade-queue",
+        "cites": [
+          "probe:source.cs#L1"
+        ]
+      },
+      "errors": [
+        {
+          "instancePath": "/store",
+          "schemaPath": "#/properties/store/pattern",
+          "keyword": "pattern",
+          "params": {
+            "pattern": "^(?:st):[^#\\s]+$"
+          },
+          "message": "must match pattern \"^(?:st):[^#\\s]+$\""
+        }
+      ]
+    },
+    {
+      "file": "domains/commercial-backbone/systems/car-configuration-engine/handlers.yaml",
+      "line": 5520,
+      "pointer": "/handlers/61/steps/2/do/0",
+      "handler": "h:cce-optimization-facade-event-on-car-specification-upserted",
+      "definition": "Step",
+      "original": {
+        "id": "probe",
+        "write": "sch:cce-optimization-facade-specification-ruleset-job",
+        "to": "st:cce-optimization-facade-queue",
+        "cites": [
+          "probe:source.cs#L1"
+        ]
+      },
+      "sources": [
+        {
+          "repo": "volvo-cars/cce-optimization-facade",
+          "path": "internal/service/carspecificationsyncer.go",
+          "lines": [
+            108,
+            120
+          ],
+          "commit": "8da8ebe3227a43817bbbca25fdec182edfaa6584"
+        },
+        {
+          "repo": "volvo-cars/cce-optimization-facade",
+          "path": "internal/service/carspecificationsyncer.go",
+          "lines": [
+            206,
+            229
+          ],
+          "commit": "8da8ebe3227a43817bbbca25fdec182edfaa6584"
+        }
+      ],
+      "rewritten": {
+        "id": "probe",
+        "write": "sch:cce-optimization-facade-specification-ruleset-job",
+        "to": "top:cce-optimization-facade-queue",
+        "cites": [
+          "probe:source.cs#L1"
+        ]
+      },
+      "errors": [
+        {
+          "instancePath": "/to",
+          "schemaPath": "#/properties/to/pattern",
+          "keyword": "pattern",
+          "params": {
+            "pattern": "^(?:st):[^#\\s]+$"
+          },
+          "message": "must match pattern \"^(?:st):[^#\\s]+$\""
+        }
+      ]
+    },
+    {
+      "file": "domains/commercial-backbone/systems/car-configuration-engine/handlers.yaml",
+      "line": 5577,
+      "pointer": "/handlers/62/steps/2/do/0",
+      "handler": "h:cce-optimization-facade-event-on-policies-rules-updated",
+      "definition": "Step",
+      "original": {
+        "id": "probe",
+        "write": "sch:cce-optimization-facade-car-sync-job",
+        "to": "st:cce-optimization-facade-queue",
+        "cites": [
+          "probe:source.cs#L1"
+        ]
+      },
+      "sources": [
+        {
+          "repo": "volvo-cars/cce-optimization-facade",
+          "path": "internal/messaging/policyupdatedhandler.go",
+          "lines": [
+            67,
+            86
+          ],
+          "commit": "8da8ebe3227a43817bbbca25fdec182edfaa6584"
+        },
+        {
+          "repo": "volvo-cars/cce-optimization-facade",
+          "path": "internal/service/carsyncjobdispatcher.go",
+          "lines": [
+            19,
+            41
+          ],
+          "commit": "8da8ebe3227a43817bbbca25fdec182edfaa6584"
+        }
+      ],
+      "rewritten": {
+        "id": "probe",
+        "write": "sch:cce-optimization-facade-car-sync-job",
+        "to": "top:cce-optimization-facade-queue",
+        "cites": [
+          "probe:source.cs#L1"
+        ]
+      },
+      "errors": [
+        {
+          "instancePath": "/to",
+          "schemaPath": "#/properties/to/pattern",
+          "keyword": "pattern",
+          "params": {
+            "pattern": "^(?:st):[^#\\s]+$"
+          },
+          "message": "must match pattern \"^(?:st):[^#\\s]+$\""
+        }
+      ]
+    },
+    {
+      "file": "domains/commercial-backbone/systems/car-configuration-engine/handlers.yaml",
+      "line": 5711,
+      "pointer": "/handlers/63/steps/4/do/3/do/0",
+      "handler": "h:cce-optimization-facade-event-on-policy-rules-saved",
+      "definition": "Step",
+      "original": {
+        "id": "probe",
+        "write": "sch:cce-optimization-facade-car-ruleset-job",
+        "to": "st:cce-optimization-facade-queue",
+        "cites": [
+          "probe:source.cs#L1"
+        ]
+      },
+      "sources": [
+        {
+          "repo": "volvo-cars/cce-optimization-facade",
+          "path": "internal/service/carspecificationsyncer.go",
+          "lines": [
+            395,
+            418
+          ],
+          "commit": "8da8ebe3227a43817bbbca25fdec182edfaa6584"
+        }
+      ],
+      "rewritten": {
+        "id": "probe",
+        "write": "sch:cce-optimization-facade-car-ruleset-job",
+        "to": "top:cce-optimization-facade-queue",
+        "cites": [
+          "probe:source.cs#L1"
+        ]
+      },
+      "errors": [
+        {
+          "instancePath": "/to",
+          "schemaPath": "#/properties/to/pattern",
+          "keyword": "pattern",
+          "params": {
+            "pattern": "^(?:st):[^#\\s]+$"
+          },
+          "message": "must match pattern \"^(?:st):[^#\\s]+$\""
+        }
+      ]
+    },
+    {
+      "file": "domains/commercial-backbone/systems/car-configuration-engine/handlers.yaml",
+      "line": 5768,
+      "pointer": "/handlers/64/steps/3",
+      "handler": "h:cce-optimization-facade-event-on-spec-market-imported",
+      "definition": "Step",
+      "original": {
+        "id": "probe",
+        "write": "sch:cce-optimization-facade-car-sync-job",
+        "to": "st:cce-optimization-facade-queue",
+        "cites": [
+          "probe:source.cs#L1"
+        ]
+      },
+      "sources": [
+        {
+          "repo": "volvo-cars/cce-optimization-facade",
+          "path": "internal/messaging/specmarketimportedhandler.go",
+          "lines": [
+            95,
+            110
+          ],
+          "commit": "8da8ebe3227a43817bbbca25fdec182edfaa6584"
+        }
+      ],
+      "rewritten": {
+        "id": "probe",
+        "write": "sch:cce-optimization-facade-car-sync-job",
+        "to": "top:cce-optimization-facade-queue",
+        "cites": [
+          "probe:source.cs#L1"
+        ]
+      },
+      "errors": [
+        {
+          "instancePath": "/to",
+          "schemaPath": "#/properties/to/pattern",
+          "keyword": "pattern",
+          "params": {
+            "pattern": "^(?:st):[^#\\s]+$"
+          },
+          "message": "must match pattern \"^(?:st):[^#\\s]+$\""
+        }
+      ]
+    },
+    {
+      "file": "domains/commercial-backbone/systems/car-configuration-engine/handlers.yaml",
+      "line": 5811,
+      "pointer": "/handlers/65/steps/1",
+      "handler": "h:cce-optimization-facade-event-sync-policy",
+      "definition": "Step",
+      "original": {
+        "id": "probe",
+        "write": "sch:cce-optimization-facade-car-sync-job",
+        "to": "st:cce-optimization-facade-queue",
+        "cites": [
+          "probe:source.cs#L1"
+        ]
+      },
+      "sources": [
+        {
+          "repo": "volvo-cars/cce-optimization-facade",
+          "path": "internal/api/httpserver/policy/synccontroller.go",
+          "lines": [
+            118,
+            121
+          ],
+          "commit": "8da8ebe3227a43817bbbca25fdec182edfaa6584"
+        }
+      ],
+      "rewritten": {
+        "id": "probe",
+        "write": "sch:cce-optimization-facade-car-sync-job",
+        "to": "top:cce-optimization-facade-queue",
+        "cites": [
+          "probe:source.cs#L1"
+        ]
+      },
+      "errors": [
+        {
+          "instancePath": "/to",
+          "schemaPath": "#/properties/to/pattern",
+          "keyword": "pattern",
+          "params": {
+            "pattern": "^(?:st):[^#\\s]+$"
+          },
+          "message": "must match pattern \"^(?:st):[^#\\s]+$\""
+        }
+      ]
+    },
+    {
+      "file": "domains/shopping/systems/media-site/contracts.yaml",
+      "line": 1157,
+      "pointer": "/schemas/2",
+      "handler": null,
+      "definition": "Schema",
+      "original": {
+        "id": "sch:media-dam-upload-job",
+        "kind": "payload",
+        "store": "st:media-dam-upload-queue",
+        "cites": [
+          "probe:source.cs#L1"
+        ]
+      },
+      "sources": [
+        {
+          "repo": "volvo-cars/cdls-mono-volvocars",
+          "commit": "8e1fd20c525fd3ef46f89fa7734dba06b06c79fc",
+          "path": "apps/media/src/api/queue/damUploadQueue.ts",
+          "lines": [
+            19,
+            48
+          ]
+        }
+      ],
+      "rewritten": {
+        "id": "sch:media-dam-upload-job",
+        "kind": "payload",
+        "store": "top:media-dam-upload-queue",
+        "cites": [
+          "probe:source.cs#L1"
+        ]
+      },
+      "errors": [
+        {
+          "instancePath": "/store",
+          "schemaPath": "#/properties/store/pattern",
+          "keyword": "pattern",
+          "params": {
+            "pattern": "^(?:st):[^#\\s]+$"
+          },
+          "message": "must match pattern \"^(?:st):[^#\\s]+$\""
+        }
+      ]
+    },
+    {
+      "file": "domains/shopping/systems/media-site/handlers.yaml",
+      "line": 3989,
+      "pointer": "/handlers/58/steps/2",
+      "handler": "h:media-notified-pull",
+      "definition": "Step",
+      "original": {
+        "id": "probe",
+        "write": "sch:media-dam-upload-job",
+        "to": "st:media-dam-upload-queue",
+        "cites": [
+          "probe:source.cs#L1"
+        ]
+      },
+      "sources": [
+        {
+          "repo": "volvo-cars/cdls-mono-volvocars",
+          "commit": "8e1fd20c525fd3ef46f89fa7734dba06b06c79fc",
+          "path": "apps/media/app/api/media/notified-pull/route.ts",
+          "lines": [
+            105,
+            130
+          ],
+          "symbol": "safeEnqueue"
+        },
+        {
+          "repo": "volvo-cars/cdls-mono-volvocars",
+          "commit": "8e1fd20c525fd3ef46f89fa7734dba06b06c79fc",
+          "path": "apps/media/src/api/queue/damUploadQueue.ts",
+          "lines": [
+            99,
+            126
+          ],
+          "symbol": "enqueueFailedUpload"
+        }
+      ],
+      "rewritten": {
+        "id": "probe",
+        "write": "sch:media-dam-upload-job",
+        "to": "top:media-dam-upload-queue",
+        "cites": [
+          "probe:source.cs#L1"
+        ]
+      },
+      "errors": [
+        {
+          "instancePath": "/to",
+          "schemaPath": "#/properties/to/pattern",
+          "keyword": "pattern",
+          "params": {
+            "pattern": "^(?:st):[^#\\s]+$"
+          },
+          "message": "must match pattern \"^(?:st):[^#\\s]+$\""
+        }
+      ]
+    },
+    {
+      "file": "domains/shopping/systems/media-site/handlers.yaml",
+      "line": 4041,
+      "pointer": "/handlers/59/steps/1",
+      "handler": "h:media-process-retry-queue",
+      "definition": "Step",
+      "original": {
+        "id": "probe",
+        "read": "sch:media-dam-upload-job",
+        "from": "st:media-dam-upload-queue",
+        "cites": [
+          "probe:source.cs#L1"
+        ]
+      },
+      "sources": [
+        {
+          "repo": "volvo-cars/cdls-mono-volvocars",
+          "commit": "8e1fd20c525fd3ef46f89fa7734dba06b06c79fc",
+          "path": "apps/media/src/api/queue/damUploadQueue.ts",
+          "lines": [
+            127,
+            164
+          ],
+          "symbol": "dequeueUploadJobs"
+        }
+      ],
+      "rewritten": {
+        "id": "probe",
+        "read": "sch:media-dam-upload-job",
+        "from": "top:media-dam-upload-queue",
+        "cites": [
+          "probe:source.cs#L1"
+        ]
+      },
+      "errors": [
+        {
+          "instancePath": "/from",
+          "schemaPath": "#/properties/from/pattern",
+          "keyword": "pattern",
+          "params": {
+            "pattern": "^(?:st):[^#\\s]+$"
+          },
+          "message": "must match pattern \"^(?:st):[^#\\s]+$\""
+        }
+      ]
+    },
+    {
+      "file": "domains/shopping/systems/media-site/handlers.yaml",
+      "line": 4123,
+      "pointer": "/handlers/59/steps/5/then/1",
+      "handler": "h:media-process-retry-queue",
+      "definition": "Step",
+      "original": {
+        "id": "probe",
+        "write": "sch:media-dam-upload-job",
+        "to": "st:media-dam-upload-queue",
+        "cites": [
+          "probe:source.cs#L1"
+        ]
+      },
+      "sources": [
+        {
+          "repo": "volvo-cars/cdls-mono-volvocars",
+          "commit": "8e1fd20c525fd3ef46f89fa7734dba06b06c79fc",
+          "path": "apps/media/src/api/queue/damUploadQueue.ts",
+          "lines": [
+            178,
+            214
+          ],
+          "symbol": "requeueWithBackoff"
+        }
+      ],
+      "rewritten": {
+        "id": "probe",
+        "write": "sch:media-dam-upload-job",
+        "to": "top:media-dam-upload-queue",
+        "cites": [
+          "probe:source.cs#L1"
+        ]
+      },
+      "errors": [
+        {
+          "instancePath": "/to",
+          "schemaPath": "#/properties/to/pattern",
+          "keyword": "pattern",
+          "params": {
+            "pattern": "^(?:st):[^#\\s]+$"
+          },
+          "message": "must match pattern \"^(?:st):[^#\\s]+$\""
+        }
+      ]
+    },
+    {
+      "file": "domains/shopping/systems/media-site/handlers.yaml",
+      "line": 4245,
+      "pointer": "/handlers/61/steps/2",
+      "handler": "h:media-retry-dlq",
+      "definition": "Step",
+      "original": {
+        "id": "probe",
+        "write": "sch:media-dam-upload-job",
+        "to": "st:media-dam-upload-queue",
+        "cites": [
+          "probe:source.cs#L1"
+        ]
+      },
+      "sources": [
+        {
+          "repo": "volvo-cars/cdls-mono-volvocars",
+          "commit": "8e1fd20c525fd3ef46f89fa7734dba06b06c79fc",
+          "path": "apps/media/src/api/queue/damUploadQueue.ts",
+          "lines": [
+            289,
+            322
+          ],
+          "symbol": "reEnqueueDeadLetterEntry"
+        }
+      ],
+      "rewritten": {
+        "id": "probe",
+        "write": "sch:media-dam-upload-job",
+        "to": "top:media-dam-upload-queue",
+        "cites": [
+          "probe:source.cs#L1"
+        ]
+      },
+      "errors": [
+        {
+          "instancePath": "/to",
+          "schemaPath": "#/properties/to/pattern",
+          "keyword": "pattern",
+          "params": {
+            "pattern": "^(?:st):[^#\\s]+$"
+          },
+          "message": "must match pattern \"^(?:st):[^#\\s]+$\""
+        }
+      ]
+    }
+  ]
+}

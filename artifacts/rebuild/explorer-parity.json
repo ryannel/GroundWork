@@ -170,6 +170,13 @@
       "legacyServices": []
     },
     {
+      "workspace": "acme",
+      "selected": "legacy manifest",
+      "available": false,
+      "services": [],
+      "legacyServices": []
+    },
+    {
       "workspace": "volvo-cars",
       "selected": "corpus catalogue",
       "available": true,
@@ -1259,13 +1266,6 @@
         "svc:cds-ecom-customer-service",
         "gpe-pretax"
       ]
-    },
-    {
-      "workspace": "acme",
-      "selected": "legacy manifest",
-      "available": false,
-      "services": [],
-      "legacyServices": []
     }
   ]
 }

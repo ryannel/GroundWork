@@ -267,3 +267,35 @@ export const inIdScope = (id: string, scope: string): boolean => id.startsWith(`
 export const withoutIdScope = (id: string, scope: string): string => id.slice(scope.length + 1);
 export const lastIdPart = (id: string): string => id.split(/[:#]/u).pop() ?? id;
 export const lastSlugPart = (id: string): string => id.split('-').pop() ?? id;
+
+function rewriteReference(id: string, replacements: ReadonlyMap<string, string>): string {
+  const direct = replacements.get(id);
+  if (direct !== undefined) return direct;
+  const parsed = parseId(id);
+  const replacement = parsed === null ? undefined : replacements.get(parsed.root);
+  if (replacement === undefined) return id;
+  const child = childPathOf(id);
+  return child === undefined ? replacement : childId(replacement, child);
+}
+/** Rewrite known identities in references and prose, preserving unknown words and qualified scopes. */
+export function rewriteIdReferences(
+  text: string,
+  replacements: ReadonlyMap<string, string>,
+  reference = true,
+): string {
+  const direct = reference ? replacements.get(text) : undefined;
+  if (direct !== undefined) return direct;
+  const links = text.replaceAll(
+    /\[\[([^[\]\r\n]+)\]\]/gu,
+    (_match, id: string) => `[[${rewriteReference(id, replacements)}]]`,
+  );
+  return links.replaceAll(/\b[a-z]+:[\w.~!/#:-]+/gu, (match) => {
+    const rewritten = rewriteReference(match, replacements);
+    if (rewritten !== match || !match.endsWith('.')) return rewritten;
+    return `${rewriteReference(match.slice(0, -1), replacements)}.`;
+  });
+}
+
+export function isChildId(value: unknown): boolean {
+  return typeof value === 'string' && /^[A-Za-z0-9][\w.~-]*$/u.test(value);
+}

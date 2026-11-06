@@ -85,9 +85,12 @@ function evidenceLocations(
     value.data.source,
   ];
   const seen = new Set([...visited, id]);
-  return refs.flatMap((ref) =>
-    typeof ref === 'string' ? evidenceLocations(ref, evidence, seen) : [],
-  );
+  return refs.flatMap((ref) => {
+    if (typeof ref === 'string') return evidenceLocations(ref, evidence, seen);
+    const reference = modelRecord(ref);
+    const code = reference?.kind === 'code' ? recordedLocation(reference) : null;
+    return code === null ? [] : [code];
+  });
 }
 function homeLocation(
   parsed: Extract<
@@ -121,7 +124,16 @@ function recordedLocation(value: Readonly<Record<string, unknown>>): CodeCite | 
   if (typeof repo !== 'string' || typeof commit !== 'string' || typeof path !== 'string') {
     return null;
   }
-  return { kind: 'code', repo, commit, path };
+  const lines = codeLines(value.lines);
+  const symbol = modelText(value.symbol);
+  return {
+    kind: 'code',
+    repo,
+    commit,
+    path,
+    ...(lines === undefined ? {} : { lines }),
+    ...(symbol === null ? {} : { symbol }),
+  };
 }
 function recordedLocations(
   value: unknown,

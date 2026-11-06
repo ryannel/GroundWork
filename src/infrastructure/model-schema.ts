@@ -15,6 +15,7 @@ import { pathIn, readText } from '@/infrastructure/disk';
 
 const SCHEMA_BASE = 'https://groundwork.local/schema';
 const FAMILIES = ['workspace', 'plan', 'evidence'] as const;
+type ValidationProfile = 'current' | 'plan';
 const compiled = new Map<string, Promise<Ajv2020>>();
 
 const object = (value: unknown): value is Readonly<Record<string, unknown>> =>
@@ -59,7 +60,19 @@ export function modelAjv(): Ajv2020 {
   return ajv;
 }
 
-async function compile(root: string, resolved: boolean): Promise<Ajv2020> {
+function schemaProfile(value: unknown, profile: ValidationProfile): unknown {
+  if (Array.isArray(value)) return value.map((item) => schemaProfile(item, profile));
+  if (!object(value)) return value;
+  if (profile === 'plan' && value.implementationEvidence === true) return {};
+  return Object.fromEntries(
+    Object.entries(value).map(([key, item]) => [key, schemaProfile(item, profile)]),
+  );
+}
+async function compile(
+  root: string,
+  resolved: boolean,
+  profile: ValidationProfile,
+): Promise<Ajv2020> {
   const schemas = await Promise.all(
     FAMILIES.map(async (family): Promise<unknown> =>
       JSON.parse(await readText(pathIn(root, 'schema', `${family}.schema.json`))),
@@ -73,7 +86,9 @@ async function compile(root: string, resolved: boolean): Promise<Ajv2020> {
     if (resolved && object(schema.$defs) && object(schema.$defs.AuthoredCites)) {
       Object.assign(schema.$defs.AuthoredCites, { items: { $ref: '#/$defs/Cite' }, minItems: 0 });
     }
-    ajv.addSchema(schema);
+    const selected = schemaProfile(schema, profile);
+    if (!object(selected)) throw new TypeError('A schema profile must remain an object.');
+    ajv.addSchema(selected);
   }
   return ajv;
 }
@@ -83,11 +98,12 @@ async function schemaValidator<Data>(
   definition: string,
   root: string,
   resolved: boolean,
+  profile: ValidationProfile,
 ): Promise<ValidateFunction<Data>> {
-  const key = `${root}\n${String(resolved)}`;
+  const key = `${root}\n${String(resolved)}\n${profile}`;
   let pending = compiled.get(key);
   if (pending === undefined) {
-    pending = compile(root, resolved);
+    pending = compile(root, resolved, profile);
     compiled.set(key, pending);
   }
   const ajv = await pending;
@@ -108,14 +124,21 @@ export async function modelValidator<
   definition: Definition,
   root = process.cwd(),
 ): Promise<ValidateFunction<ContractData<Family, Definition>>> {
-  return schemaValidator(family, definition, root, false);
+  return schemaValidator(family, definition, root, false, family === 'plan' ? 'plan' : 'current');
 }
 
 /** The same authority after source citations have been resolved; unresolved references live in gaps. */
 export async function resolvedModelValidator<
   Definition extends Exclude<ContractDefinition<'workspace'>, 'AuthoredCites'>,
 >(definition: Definition, root = process.cwd()): Promise<ValidateFunction<ModelData<Definition>>> {
-  return schemaValidator('workspace', definition, root, true);
+  return schemaValidator('workspace', definition, root, true, 'current');
+}
+
+/** Only the projection boundary uses the annotated implementation-evidence exception. */
+export async function projectionModelValidator<
+  Definition extends Exclude<ContractDefinition<'workspace'>, 'AuthoredCites'>,
+>(definition: Definition): Promise<ValidateFunction<ModelData<Definition>>> {
+  return schemaValidator('workspace', definition, process.cwd(), true, 'plan');
 }
 
 export interface ContractProblem {
@@ -126,6 +149,35 @@ export interface ContractProblem {
 export interface ContractCheck<Data> {
   readonly data: Data | null;
   readonly errors: readonly ContractProblem[];
+}
+
+/** Report heterogeneous file failures without expanding their recursive data types in a caller. */
+export async function modelProblems<Family extends ContractFamily>(
+  family: Family,
+  definition: ContractDefinition<Family>,
+  value: unknown,
+  root = process.cwd(),
+): Promise<
+  readonly (ContractProblem & {
+    readonly schemaPath: string;
+    readonly params: Readonly<Record<string, unknown>>;
+  })[]
+> {
+  const check = await schemaValidator<unknown>(
+    family,
+    definition,
+    root,
+    false,
+    family === 'plan' ? 'plan' : 'current',
+  );
+  if (check(value)) return [];
+  return (check.errors ?? []).map((error) => ({
+    path: error.instancePath,
+    schemaPath: error.schemaPath,
+    params: error.params,
+    keyword: error.keyword,
+    message: error.message ?? 'Schema validation failed',
+  }));
 }
 
 export async function checkModelData<

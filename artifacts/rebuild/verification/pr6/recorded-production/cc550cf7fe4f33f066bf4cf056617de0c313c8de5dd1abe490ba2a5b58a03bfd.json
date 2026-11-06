@@ -1,0 +1,8 @@
+{
+  "route": "/acme/value-flows/",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 36175,
+  "sha256": "69f94de41fea768347fdfa59ff4a3cb181f813d363d71a863c42857afc60d6c8",
+  "body": "cc550cf7fe4f33f066bf4cf056617de0c313c8de5dd1abe490ba2a5b58a03bfd.body.gz"
+}

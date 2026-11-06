@@ -1,0 +1,8 @@
+{
+  "route": "/acme/journeys/uj-buy/",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 42170,
+  "sha256": "f352d9d9c29b5552c690611ded40982aa3f2115f8d15c54ef61eb1c6330c9318",
+  "body": "abf56b032cbf65694aad5961976317b1bd508dfd73c80287c8c009dd51ef103c.body.gz"
+}

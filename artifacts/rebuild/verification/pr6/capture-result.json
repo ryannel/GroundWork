@@ -1,0 +1,16 @@
+{
+  "personal": {
+    "captured": true,
+    "exit": 0
+  },
+  "acme": {
+    "captured": true,
+    "exit": 1,
+    "note": "Inspect exact unexplained differences before allowing any change."
+  },
+  "volvo-cars": {
+    "captured": true,
+    "exit": 1,
+    "note": "Inspect exact unexplained differences before allowing any change."
+  }
+}

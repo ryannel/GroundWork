@@ -1,0 +1,8 @@
+{
+  "route": "/acme/plans/",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 36914,
+  "sha256": "9bff00907fe8523309007415feea174ba501ad9cb48fb6751aef539a4cee969c",
+  "body": "70a40b326f9156b030871a207bcb2303afa37cccf560a62ff7e999bfcaadfdd3.body.gz"
+}

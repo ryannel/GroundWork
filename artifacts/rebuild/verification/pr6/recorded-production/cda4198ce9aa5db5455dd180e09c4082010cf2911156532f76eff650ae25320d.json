@@ -1,0 +1,8 @@
+{
+  "route": "/volvo-cars/things/?id=sch-assortment-admin-classification",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 555681,
+  "sha256": "feaf8c43b9f99b128d0d709ccf406115d7f652fb23628b2a353f1188960c4685",
+  "body": "cda4198ce9aa5db5455dd180e09c4082010cf2911156532f76eff650ae25320d.body.gz"
+}

@@ -1,0 +1,8 @@
+{
+  "route": "/volvo-cars/plans/unify-price-breakdown/plan.json",
+  "status": 200,
+  "type": "application/json",
+  "bytes": 1080847,
+  "sha256": "415787b2efa8bc4a2bc0f1c5e7743df7326dc78117f0cf6d37eb65573d6618bc",
+  "body": "bdc9ca8b29cd541259cdd616a14b6c7c09b3a81c5f498aae04f0247887efe00e.body.gz"
+}

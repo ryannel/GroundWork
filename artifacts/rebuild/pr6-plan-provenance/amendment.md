@@ -1,6 +1,6 @@
 # Proposed plan provenance amendment
 
-Status: awaiting the user's decision. No citation requirement has been relaxed for this proposal.
+Status: approved by the user on 6 November 2026. Current-fact evidence requirements remain strict.
 
 ## Observed conflict
 
@@ -35,7 +35,7 @@ shape and references. The ordinary current-fact validator must still reject the 
 
 This is a narrow correction to the unconditional citation rule, not a new landing workflow. It does not
 change a coverage, mutation, architecture, page-size or current-fact evidence threshold. Implementation
-requires the user's approval and focused proof covering additions, replacements, retained old citations,
+requires focused proof covering additions, replacements, retained old citations,
 unchanged facts, invalid structure and invalid references.
 
 ## Independent review

@@ -7,7 +7,7 @@ Target: `design.md` (revision 3). Code: `/Users/RNEL/Workspace/groundWork`. Data
 
 1. Every fact has one home and one explicit, immutable id.
 2. Every page, route, tool, plan and the browser read one `WorkspaceModel` through `readModel` and `indexOf`.
-3. Every summary connection rests on cited detail; every step with an effect cites code or evidence.
+3. Every summary connection rests on cited detail; every current-fact step with an effect cites code or evidence; plan projections retain explicit implementation-evidence gaps.
 4. An entry flow view (endpoint, subscription, job, UI interaction) replaces the method-level explorer.
 5. Dead caches and legacy files are gone; what remains is normalised; no information a view shows is lost.
 
@@ -116,7 +116,7 @@ Target: `design.md` (revision 3). Code: `/Users/RNEL/Workspace/groundWork`. Data
    `mapped: false`, 125 topics/queues → `top:`, libraries → `lib:`); bare landscape area and system ids;
    seed `aliases.yaml`;
 2. rewrite every reference: about 4,000 ids and about 920 `[[id]]` text links across domains, landscape,
-   programmes, plans, progress, revisions, base locks, flows and journeys (including 313 handler steps inside 17 plan ops and 8 `after: flow:x#step` anchors), flows and journeys;
+   programmes, plans, progress, revisions, base locks, flows and journeys (including 313 step nodes inside 17 plan ops — 275 handler nodes and 38 flow nodes — and 8 `after: flow:x#step` anchors), flows and journeys;
 3. components into `system.yaml` with `kind`/`form`; `homes` keyed; one-line `cites` lists (911 `url:` sources
    converted); kept fields per design §12;
 4. handlers split by component with explicit `component:`; `do` → `steps`; empty blocks and step `origin`

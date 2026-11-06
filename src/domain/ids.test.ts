@@ -14,6 +14,7 @@ import {
   firstFlowReference,
   idToToken,
   isDisplayId,
+  isChildId,
   isAuthoredReference,
   isQualifiedId,
   isTextId,
@@ -29,6 +30,7 @@ import {
   qualifiedOf,
   qualifyId,
   resolveAlias,
+  rewriteIdReferences,
   rootId,
   scopedId,
   splitChildId,
@@ -221,4 +223,38 @@ describe('authored reference grammar', () => {
       ].map(isAuthoredReference),
     ).toEqual([true, true, true, true, false, false, false, false, false]);
   });
+});
+
+describe('migration reference rewriting', () => {
+  it('rewrites exact values, nested paths and prose without changing other ids', () => {
+    const replacements = new Map([
+      ['svc:web', 'app:web'],
+      ['st:events', 'top:events'],
+      ['area-old', 'area:old'],
+    ]);
+    expect(rewriteIdReferences('area-old', replacements)).toBe('area:old');
+    expect(
+      rewriteIdReferences('[[svc:web]] calls [[st:events#field/path]] and svc:web.', replacements),
+    ).toBe('[[app:web]] calls [[top:events#field/path]] and app:web.');
+    expect(
+      rewriteIdReferences('[[programme/sc:sample]] svc:website [[svc:other]]', replacements),
+    ).toBe('[[programme/sc:sample]] svc:website [[svc:other]]');
+  });
+});
+
+it('preserves valid authored child identities including their case', () => {
+  expect(['Code', 'part_name', 'part-name', 'part.name', '1'].map(isChildId)).toEqual([
+    true,
+    true,
+    true,
+    true,
+    true,
+  ]);
+  expect(['', 'two words', 'a/b', null, 2].map(isChildId)).toEqual([
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
 });

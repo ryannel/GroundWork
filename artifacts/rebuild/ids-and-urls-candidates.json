@@ -2091,6 +2091,62 @@
       {
         "line": 85,
         "text": "expect(index.gaps('st:remote')).toEqual(["
+      },
+      {
+        "line": 96,
+        "text": "const node = entitiesIn(model).find((entity) => entity.id === 'h:a#read');"
+      },
+      {
+        "line": 106,
+        "text": "const system = entitiesIn(model).find((node) => node.id === 'sys:b');"
+      },
+      {
+        "line": 107,
+        "text": "const source = entitiesIn(model).find((node) => node.id === 'sys:a');"
+      },
+      {
+        "line": 111,
+        "text": "{ id: 'msg:remote', topic: 'top:remote', payload: 'sch:remote' },"
+      },
+      {
+        "line": 112,
+        "text": "{ id: 'msg:other', topic: 'top:remote', payload: 'sch:remote' },"
+      },
+      {
+        "line": 119,
+        "text": "from: 'svc:a',"
+      },
+      {
+        "line": 120,
+        "text": "to: 'msg:other',"
+      },
+      {
+        "line": 124,
+        "text": "cites: [{ kind: 'evidence', id: 'ev:source' }],"
+      },
+      {
+        "line": 129,
+        "text": "expect(index.producers('msg:remote')).toEqual(['svc:a']);"
+      },
+      {
+        "line": 130,
+        "text": "expect(index.producers('msg:other')).toEqual(['svc:a']);"
+      },
+      {
+        "line": 134,
+        "text": "const system = entitiesIn(model).find((node) => node.id === 'sys:b');"
+      },
+      {
+        "line": 140,
+        "text": "from: 'svc:b',"
+      },
+      {
+        "line": 141,
+        "text": "to: 'msg:remote',"
+      },
+      {
+        "line": 145,
+        "text": "cites: [{ kind: 'evidence', id: 'ev:source' }],"
       }
     ],
     "status": "adapter"
@@ -22585,12 +22641,24 @@
     "file": "src/application/plans-index.ts",
     "hits": [
       {
-        "line": 8,
+        "line": 15,
+        "text": "readonly plan: string;"
+      },
+      {
+        "line": 21,
         "text": "readonly plan: ModelPlan;"
       },
       {
-        "line": 28,
+        "line": 41,
         "text": "function touches(plan: IndexedPlan, id: string): boolean {"
+      },
+      {
+        "line": 75,
+        "text": "plan: ModelPlan,"
+      },
+      {
+        "line": 93,
+        "text": ".map((node) => ({ id: node.id, plan: plan.meta.id, change: change.id, op: position })),"
       }
     ],
     "status": "adapter"
@@ -26051,364 +26119,396 @@
         "text": "idToToken,"
       },
       {
-        "line": 37,
+        "line": 39,
         "text": "tokenToId,"
       },
       {
-        "line": 44,
+        "line": 46,
         "text": "expect(id).toBe('h:apply#tx/queue/outbox');"
       },
       {
-        "line": 55,
+        "line": 57,
         "text": "expect(kindOf('sch:response#status')).toBe('field');"
       },
       {
-        "line": 56,
+        "line": 58,
         "text": "expect(kindOf('scr:editor#actions')).toBe('region');"
       },
       {
-        "line": 57,
+        "line": 59,
         "text": "expect(kindOf('sub:orders')).toBe('subscription');"
       },
       {
-        "line": 58,
+        "line": 60,
         "text": "expect(kindOf('term:sku')).toBe('keyTerm');"
       },
       {
-        "line": 59,
+        "line": 61,
         "text": "expect(kindOf('flow:checkout#reserve')).toBe('step');"
       },
       {
-        "line": 60,
+        "line": 62,
         "text": "expect(kindOf('sys:orders#invented-child')).toBeNull();"
       },
       {
-        "line": 61,
+        "line": 63,
         "text": "expect(kindOf('svc:orders#!invented-failure')).toBeNull();"
       },
       {
-        "line": 62,
+        "line": 64,
         "text": "expect(appendChild(childId(parent, 'tx'), 'read')).toBe('h:apply#tx/read');"
       },
       {
-        "line": 63,
+        "line": 65,
         "text": "expect(appendChild(parent, 'read')).toBe('h:apply#read');"
       },
       {
-        "line": 64,
+        "line": 66,
         "text": "expect(isWithinId('h:apply#tx/read', 'h:apply#tx')).toBe(true);"
       },
       {
-        "line": 65,
+        "line": 67,
         "text": "expect(isWithinId('h:apply#tx-other/read', 'h:apply#tx')).toBe(false);"
       },
       {
-        "line": 68,
+        "line": 70,
         "text": "it.each([null, 2, 'unknown:x', 'h:x#', 'h:x#tx//read', 'h:x#!', 'h:x#two words', 'h:x#a#b'])("
       },
       {
-        "line": 77,
+        "line": 79,
         "text": "expect(planEntityTypeOf('flow:x#read')).toBe('step');"
       },
       {
-        "line": 78,
+        "line": 80,
         "text": "expect(planEntityTypeOf('sch:x#id')).toBe('field');"
       },
       {
-        "line": 79,
+        "line": 81,
         "text": "expect(planEntityTypeOf('scr:x#button')).toBe('region');"
       },
       {
-        "line": 80,
+        "line": 82,
         "text": "expect(planEntityTypeOf('h:x#read')).toBeNull();"
       },
       {
-        "line": 81,
+        "line": 83,
         "text": "expect(planEntityTypeOf('api:x')).toBe('endpoint');"
       },
       {
-        "line": 84,
+        "line": 86,
         "text": "expect(idToToken('flow:cancel#publish')).toBe('flow-cancel.publish');"
       },
       {
-        "line": 85,
+        "line": 87,
         "text": "expect(tokenToId('flow-cancel.publish')).toBe('flow:cancel#publish');"
       },
       {
-        "line": 86,
+        "line": 88,
         "text": "expect(tokenToId('svc-orders')).toBe('svc:orders');"
       },
       {
-        "line": 88,
+        "line": 90,
         "text": "'dom:orders',"
       },
       {
-        "line": 89,
+        "line": 91,
         "text": "'plan:confirm',"
       },
       {
-        "line": 90,
+        "line": 92,
         "text": "'sub:on-confirmed',"
       },
       {
-        "line": 91,
+        "line": 93,
         "text": "'job:relay',"
       },
       {
-        "line": 92,
+        "line": 94,
         "text": "'ui:confirm',"
       },
       {
-        "line": 94,
+        "line": 96,
         "text": "expect(tokenToId(idToToken(id))).toBe(id);"
       },
       {
-        "line": 97,
+        "line": 99,
         "text": "expect(tokenToId(token)).toBeNull();"
       },
       {
-        "line": 104,
+        "line": 106,
         "text": "expect(scopedId('care', 'h:x#tx/read')).toBe('care/h:x#tx/read');"
       },
       {
-        "line": 105,
+        "line": 107,
         "text": "expect(scopedId('care', 'other/h:x#tx/read')).toBe('other/h:x#tx/read');"
       },
       {
-        "line": 106,
+        "line": 108,
         "text": "expect(parentOf('flow:x#read')).toBe('flow:x');"
       },
       {
-        "line": 107,
+        "line": 109,
         "text": "expect(parentOf('flow:x')).toBeNull();"
       },
       {
-        "line": 109,
+        "line": 111,
         "text": "expect(prefixOf('svc:orders')).toBe('svc');"
       },
       {
-        "line": 111,
+        "line": 113,
         "text": "expect(hasPrefix('svc:orders', 'svc')).toBe(true);"
       },
       {
-        "line": 114,
+        "line": 116,
         "text": "expect(otherPrefix('svc:orders')).toBe('SVC:ORDERS');"
       },
       {
-        "line": 115,
+        "line": 117,
         "text": "expect(stripPrefix('svc:orders', 'svc')).toBe('orders');"
       },
       {
-        "line": 116,
+        "line": 118,
         "text": "expect(stripPrefix('st:orders', 'svc')).toBe('st:orders');"
       },
       {
-        "line": 120,
+        "line": 122,
         "text": "expect(childPathOf('h:x')).toBeUndefined();"
       },
       {
-        "line": 121,
+        "line": 123,
         "text": "expect(splitChildId('h:x#tx/read')).toEqual(['h:x', 'tx/read']);"
       },
       {
-        "line": 122,
+        "line": 124,
         "text": "expect(colonLocalId('svc:orders')).toBe('orders');"
       },
       {
-        "line": 124,
+        "line": 126,
         "text": "expect(localId('svc:orders')).toBe('orders');"
       },
       {
-        "line": 125,
+        "line": 127,
         "text": "expect(lastChildId('h:x#read')).toBe('read');"
       },
       {
-        "line": 126,
+        "line": 128,
         "text": "expect(isQualifiedId('svc:orders')).toBe(true);"
       },
       {
-        "line": 128,
+        "line": 130,
         "text": "expect(hasChildPath('h:x#read')).toBe(true);"
       },
       {
-        "line": 129,
+        "line": 131,
         "text": "expect(isDisplayId('svc:orders')).toBe(true);"
       },
       {
-        "line": 130,
+        "line": 132,
         "text": "expect(startsWithId('svc:orders')).toBe(true);"
       },
       {
-        "line": 131,
+        "line": 133,
         "text": "expect(isTextId('svc:orders')).toBe(true);"
       },
       {
-        "line": 132,
+        "line": 134,
         "text": "expect(isTextId('svc:orders are new')).toBe(false);"
       },
       {
-        "line": 139,
+        "line": 141,
         "text": "resolveAlias('h:old#tx/read', {"
       },
       {
-        "line": 140,
+        "line": 142,
         "text": "'h:old#tx/read': { to: 'h:middle#fetch' },"
       },
       {
-        "line": 141,
+        "line": 143,
         "text": "'h:middle#fetch': { to: 'h:new#load' },"
       },
       {
-        "line": 142,
+        "line": 144,
         "text": "'h:old': { to: 'h:other' },"
       },
       {
-        "line": 144,
+        "line": 146,
         "text": ").toEqual({ id: 'h:new#load', used: ['h:old#tx/read', 'h:middle#fetch'], problem: null });"
       },
       {
-        "line": 145,
+        "line": 147,
         "text": "expect(resolveAlias('svc:current', {}).used).toEqual([]);"
       },
       {
-        "line": 149,
+        "line": 151,
         "text": "expect(resolveAlias('h:old#tx/read', { 'h:old': { to: 'h:new' } })).toEqual({"
       },
       {
-        "line": 151,
+        "line": 153,
         "text": "used: ['h:old'],"
       },
       {
-        "line": 152,
+        "line": 154,
         "text": "problem: 'h:old#tx/read needs an explicit alias because h:old was retired',"
       },
       {
-        "line": 154,
+        "line": 156,
         "text": "expect(resolveAlias('h:old#tx/read', { 'h:old#tx': { to: 'h:new#queue' } }).used).toEqual(["
       },
       {
-        "line": 155,
+        "line": 157,
         "text": "'h:old#tx',"
       },
       {
-        "line": 157,
+        "line": 159,
         "text": "expect(resolveAlias('h:old#tx/read', { 'h:old#tx-other': { to: 'h:new#queue' } }).id).toBe("
       },
       {
-        "line": 158,
+        "line": 160,
         "text": "'h:old#tx/read',"
       },
       {
-        "line": 164,
+        "line": 166,
         "text": "resolveAlias('svc:old', { 'svc:old': { to: null, reason: 'Retired without replacement' } }),"
       },
       {
-        "line": 165,
+        "line": 167,
         "text": ").toEqual({ id: null, used: ['svc:old'], problem: 'Retired without replacement' });"
       },
       {
-        "line": 166,
+        "line": 168,
         "text": "expect(resolveAlias('svc:old', { 'svc:old': { to: null } }).problem).toBe("
       },
       {
-        "line": 167,
+        "line": 169,
         "text": "'Alias svc:old needs a reason',"
       },
       {
-        "line": 170,
+        "line": 172,
         "text": "resolveAlias('svc:a', { 'svc:a': { to: 'svc:b' }, 'svc:b': { to: 'svc:a' } }).problem,"
       },
       {
-        "line": 171,
+        "line": 173,
         "text": ").toBe('Alias cycle at svc:a');"
       },
       {
-        "line": 178,
+        "line": 180,
         "text": "expect(hasAnyPrefix('gql:read', ['api', 'gql'])).toBe(true);"
       },
       {
-        "line": 179,
+        "line": 181,
         "text": "expect(hasAnyPrefix('api:read', ['api', 'gql'])).toBe(true);"
       },
       {
-        "line": 180,
+        "line": 182,
         "text": "expect(hasAnyPrefix('api:', ['api'])).toBe(true);"
       },
       {
-        "line": 182,
+        "line": 184,
         "text": "expect(hasAnyPrefix('msg:read', ['api', 'gql'])).toBe(false);"
       },
       {
-        "line": 183,
+        "line": 185,
         "text": "expect(hasAnyPrefix('api:read', [])).toBe(false);"
       },
       {
-        "line": 189,
+        "line": 191,
         "text": "expect(hasChildPrefix('flow:read#one', 'flow')).toBe(true);"
       },
       {
-        "line": 190,
+        "line": 192,
         "text": "expect(hasChildPrefix('flow:read#', 'flow')).toBe(true);"
       },
       {
-        "line": 191,
+        "line": 193,
         "text": "expect(hasChildPrefix('flow:#one', 'flow')).toBe(false);"
       },
       {
-        "line": 192,
+        "line": 194,
         "text": "expect(hasChildPrefix('flow:read', 'flow')).toBe(false);"
       },
       {
-        "line": 194,
+        "line": 196,
         "text": "expect(hasChildPrefix('sch:read#one', 'flow')).toBe(false);"
       },
       {
-        "line": 197,
+        "line": 199,
         "text": "expect(firstFlowReference('[[svc:reader]] then [[flow:read]] and [[flow:save]]')).toBe("
       },
       {
-        "line": 198,
+        "line": 200,
         "text": "'flow:read',"
       },
       {
-        "line": 200,
+        "line": 202,
         "text": "expect(firstFlowReference('[[flow:]] then [[flow:read#one]]')).toBe('flow:read#one');"
       },
       {
-        "line": 201,
+        "line": 203,
         "text": "expect(firstFlowReference('[[outer [[flow:read]]')).toBe('flow:read');"
       },
       {
-        "line": 202,
+        "line": 204,
         "text": "expect(firstFlowReference('flow:read')).toBeUndefined();"
       },
       {
-        "line": 203,
+        "line": 205,
         "text": "expect(firstFlowReference('[[flow:read]')).toBeUndefined();"
       },
       {
-        "line": 212,
+        "line": 214,
         "text": "'svc:a',"
       },
       {
-        "line": 213,
+        "line": 215,
         "text": "'sch:Order#item_id',"
       },
       {
-        "line": 215,
+        "line": 217,
         "text": "'h:entry#step',"
       },
       {
-        "line": 216,
+        "line": 218,
         "text": "'h:entry#tx/read',"
       },
       {
-        "line": 217,
+        "line": 219,
         "text": "'h:entry#!failure',"
       },
       {
-        "line": 219,
+        "line": 221,
         "text": "'svc:',"
+      },
+      {
+        "line": 231,
+        "text": "['svc:web', 'app:web'],"
+      },
+      {
+        "line": 232,
+        "text": "['st:events', 'top:events'],"
+      },
+      {
+        "line": 233,
+        "text": "['area-old', 'area:old'],"
+      },
+      {
+        "line": 235,
+        "text": "expect(rewriteIdReferences('area-old', replacements)).toBe('area:old');"
+      },
+      {
+        "line": 237,
+        "text": "rewriteIdReferences('[[svc:web]] calls [[st:events#field/path]] and svc:web.', replacements),"
+      },
+      {
+        "line": 238,
+        "text": ").toBe('[[app:web]] calls [[top:events#field/path]] and app:web.');"
+      },
+      {
+        "line": 240,
+        "text": "rewriteIdReferences('[[programme/sc:sample]] svc:website [[svc:other]]', replacements),"
+      },
+      {
+        "line": 241,
+        "text": ").toBe('[[programme/sc:sample]] svc:website [[svc:other]]');"
       }
     ],
     "status": "adapter"
@@ -26828,6 +26928,14 @@
       {
         "line": 319,
         "text": "reference: 'ev:missing',"
+      },
+      {
+        "line": 361,
+        "text": "id: 'ev:historical-document',"
+      },
+      {
+        "line": 380,
+        "text": "const result = resolveModelCitations('Handler', handler(['ev:historical-document']), {"
       }
     ],
     "status": "adapter"
@@ -26859,35 +26967,35 @@
     "file": "src/domain/model/plan.generated.ts",
     "hits": [
       {
-        "line": 685,
+        "line": 687,
         "text": "graph: string;"
       },
       {
-        "line": 717,
+        "line": 722,
         "text": "* a reference to another record: sch:* (its key) or sch:*#field"
       },
       {
-        "line": 810,
+        "line": 815,
         "text": "app: string;"
       },
       {
-        "line": 901,
+        "line": 908,
         "text": "graph: string;"
       },
       {
-        "line": 965,
+        "line": 972,
         "text": "* via gql: only: which cache case the flow narrates (hit = the outermost layer answers; miss = it misses and the next answers; cold = every layer misses)"
       },
       {
-        "line": 1024,
+        "line": 1032,
         "text": "term: string;"
       },
       {
-        "line": 1372,
+        "line": 1380,
         "text": "* who proposes it: team ids (team:…) or names"
       },
       {
-        "line": 1467,
+        "line": 1475,
         "text": "team: string;"
       }
     ],
@@ -26898,23 +27006,23 @@
     "file": "src/domain/model/plan.generated.ts",
     "hits": [
       {
-        "line": 1381,
+        "line": 1389,
         "text": "* a GitHub handle such as @ryannel: whoever merged the pull request. One person answers for it; there is no sign-off across teams"
       },
       {
-        "line": 1386,
+        "line": 1394,
         "text": "* a GitHub handle such as @ryannel: whoever closed the pull request"
       },
       {
-        "line": 1401,
+        "line": 1409,
         "text": "* GitHub repos in scope, \"org/name\"; discovery starts here"
       },
       {
-        "line": 1490,
+        "line": 1498,
         "text": "* GitHub issue number in `repo`; written back by tools/export-issues.mjs, never authored by hand"
       },
       {
-        "line": 1494,
+        "line": 1502,
         "text": "* which issue template (.github/ISSUE_TEMPLATE/<type>.yml) the exported issue uses; default task"
       }
     ],
@@ -26929,27 +27037,27 @@
         "text": "* a reference to another record: sch:* (its key) or sch:*#field"
       },
       {
-        "line": 756,
+        "line": 758,
         "text": "graph: string;"
       },
       {
-        "line": 786,
+        "line": 792,
         "text": "app: string;"
       },
       {
-        "line": 868,
+        "line": 875,
         "text": "graph: string;"
       },
       {
-        "line": 1030,
+        "line": 1037,
         "text": "area: string;"
       },
       {
-        "line": 1164,
+        "line": 1175,
         "text": "* via gql: only: which cache case the flow narrates (hit = the outermost layer answers; miss = it misses and the next answers; cold = every layer misses)"
       },
       {
-        "line": 1287,
+        "line": 1299,
         "text": "term: string;"
       }
     ],
@@ -31154,6 +31262,216 @@
   },
   {
     "category": "id construction, parsing or literal",
+    "file": "src/infrastructure/model-plan-projection.test.ts",
+    "hits": [
+      {
+        "line": 28,
+        "text": "meta: { id: 'plan:reservation', title: 'Renew and release reservations' },"
+      },
+      {
+        "line": 38,
+        "text": "- { id: load, read: 'sch:order', from: 'st:orders' }"
+      },
+      {
+        "line": 40,
+        "text": "if: The order holds a reservation"
+      },
+      {
+        "line": 42,
+        "text": "- { id: request, call: 'api:charge' }"
+      },
+      {
+        "line": 43,
+        "text": "- { id: save, write: 'sch:order', to: 'st:orders' }"
+      },
+      {
+        "line": 47,
+        "text": "into: 'sys:ordering',"
+      },
+      {
+        "line": 49,
+        "text": "id: name === 'renew' ? 'h:renew' : 'h:release',"
+      },
+      {
+        "line": 50,
+        "text": "component: 'svc:ordering',"
+      },
+      {
+        "line": 51,
+        "text": "on: 'job:nightly',"
+      },
+      {
+        "line": 66,
+        "text": "id: 'h:renew#eligible/save',"
+      },
+      {
+        "line": 67,
+        "text": "plan: 'plan:reservation',"
+      },
+      {
+        "line": 92,
+        "text": "id: 'job:nightly',"
+      },
+      {
+        "line": 93,
+        "text": "plan: plan.meta.id,"
+      },
+      {
+        "line": 103,
+        "text": "modify: 'h:relay',"
+      },
+      {
+        "line": 106,
+        "text": "{ id: 'load', read: 'sch:order', from: 'st:orders' },"
+      },
+      {
+        "line": 107,
+        "text": "{ id: 'send', call: 'api:charge' },"
+      },
+      {
+        "line": 126,
+        "text": "const plan = await proposal([{ modify: 'h:confirm#lines/reserve', set: { async: true } }]);"
+      },
+      {
+        "line": 131,
+        "text": "{ id: 'h:confirm#lines/reserve', plan: plan.meta.id, change: 'chg:renew-and-release', op: 0 },"
+      },
+      {
+        "line": 133,
+        "text": "expect(projected?.afterIndex.cites('h:confirm#lines/reserve')).toEqual("
+      },
+      {
+        "line": 134,
+        "text": "prior.cites('h:confirm#lines/reserve'),"
+      },
+      {
+        "line": 138,
+        "text": ".gaps('h:confirm#lines/reserve')"
+      },
+      {
+        "line": 145,
+        "text": "expect(projected?.afterIndex.cites('h:confirm#load')).toEqual(prior.cites('h:confirm#load'));"
+      },
+      {
+        "line": 146,
+        "text": "expect(projected?.proposals.some((item) => item.id === 'h:confirm#load')).toBe(false);"
+      },
+      {
+        "line": 150,
+        "text": "at: 'h:confirm#lines/reserve',"
+      },
+      {
+        "line": 158,
+        "text": "{ modify: 'h:relay', set: { steps: [{ id: 'load', read: 'sch:order', from: 'st:orders' }] } },"
+      },
+      {
+        "line": 168,
+        "text": "at: 'sys:ordering/2/steps/0',"
+      },
+      {
+        "line": 175,
+        "text": "modify: 'h:relay',"
+      },
+      {
+        "line": 176,
+        "text": "set: { steps: [{ id: 'invalid', read: 'sch:order', from: 'svc:ordering' }] },"
+      },
+      {
+        "line": 178,
+        "text": "{ modify: 'h:absent', set: { summary: 'No such handler' } },"
+      },
+      {
+        "line": 187,
+        "text": "check({ add: 'step', into: 'h:relay', value: { id: 'bad', call: 'api:charge', cites: [] } }),"
+      },
+      {
+        "line": 192,
+        "text": "into: 'h:relay',"
+      },
+      {
+        "line": 193,
+        "text": "value: { id: 'bad', call: 'api:charge', cites: ['https://example.com/fake-proof'] },"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "src/infrastructure/model-queue-access.test.ts",
+    "hits": [
+      {
+        "line": 28,
+        "text": "id: 'sch:job',"
+      },
+      {
+        "line": 30,
+        "text": "store: 'top:jobs',"
+      },
+      {
+        "line": 40,
+        "text": "...(declared ? [{ id: 'top:jobs', name: 'Jobs', kind: 'topic' as const, form }] : []),"
+      },
+      {
+        "line": 44,
+        "text": "handler.id === 'h:confirm'"
+      },
+      {
+        "line": 49,
+        "text": "{ id: 'read-job', read: 'sch:job', from: 'top:jobs', cites: handler.cites ?? [] },"
+      },
+      {
+        "line": 50,
+        "text": "{ id: 'write-job', write: 'sch:job', to: 'top:jobs', cites: handler.cites ?? [] },"
+      },
+      {
+        "line": 65,
+        "text": "expect(index.storeAccess('top:jobs').map((edge) => [edge.kind, edge.via])).toEqual(["
+      },
+      {
+        "line": 66,
+        "text": "['read', 'sch:job'],"
+      },
+      {
+        "line": 67,
+        "text": "['write', 'sch:job'],"
+      },
+      {
+        "line": 69,
+        "text": "expect(index.edges('top:jobs', { kinds: ['publish', 'consume'] })).toEqual([]);"
+      },
+      {
+        "line": 70,
+        "text": "const flow = entryFlowOf(index, 'api:confirm');"
+      },
+      {
+        "line": 71,
+        "text": "expect(JSON.stringify(flow)).toContain('h:confirm#write-job');"
+      },
+      {
+        "line": 72,
+        "text": "expect(index.get('h:confirm#write-job')?.data.cites).not.toEqual([]);"
+      },
+      {
+        "line": 80,
+        "text": "'sch:job/store',"
+      },
+      {
+        "line": 81,
+        "text": "'h:confirm#read-job/from',"
+      },
+      {
+        "line": 82,
+        "text": "'h:confirm#write-job/to',"
+      },
+      {
+        "line": 88,
+        "text": "expect(check({ id: 'write', write: 'sch:job', to: 'svc:ordering', cites: ['ev:source'] })).toBe("
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
     "file": "src/infrastructure/model-schema.test.ts",
     "hits": [
       {
@@ -32189,6 +32507,17 @@
       {
         "line": 63,
         "text": "expect(changed.files['flows/new.yaml']).toContain('flow:new');"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "src/infrastructure/validate-model.ts",
+    "hits": [
+      {
+        "line": 203,
+        "text": "plan: ModelPlan,"
       }
     ],
     "status": "adapter"
@@ -39972,6 +40301,744 @@
       {
         "line": 89,
         "text": "expect(host).toBe('github.com');"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "tools/migrate-model/catalogues.test.ts",
+    "hits": [
+      {
+        "line": 15,
+        "text": "const citations = migrationCitations([], review, 'sys:orders');"
+      },
+      {
+        "line": 22,
+        "text": "graphs: [{ id: 'graph:shop', name: 'Shop', gateway: 'svc:orders' }],"
+      },
+      {
+        "line": 24,
+        "text": "{ id: 'sg:orders', graph: 'graph:shop', service: 'svc:orders', batching: 'dataloader' },"
+      },
+      {
+        "line": 38,
+        "text": "id: 'if:orders',"
+      },
+      {
+        "line": 40,
+        "text": "component: 'svc:orders',"
+      },
+      {
+        "line": 41,
+        "text": "entries: [{ id: 'api:order', sig: 'Query.order(id: ID!): Order' }],"
+      },
+      {
+        "line": 53,
+        "text": "subgraphs: [{ component: 'svc:orders', batching: 'dataloader' }],"
+      },
+      {
+        "line": 58,
+        "text": "subgraph: 'sg:orders',"
+      },
+      {
+        "line": 66,
+        "text": "const citations = migrationCitations([], review, 'sys:shop');"
+      },
+      {
+        "line": 69,
+        "text": "{ folder, citations, contracts: { screens: [{ id: 'scr:shop', service: 'app:shop' }] } },"
+      },
+      {
+        "line": 77,
+        "text": "id: 'ui:buy',"
+      },
+      {
+        "line": 79,
+        "text": "from: ['scr:shop'],"
+      },
+      {
+        "line": 80,
+        "text": "to: 'scr:done',"
+      },
+      {
+        "line": 100,
+        "text": "id: 'ui:buy',"
+      },
+      {
+        "line": 101,
+        "text": "component: 'app:shop',"
+      },
+      {
+        "line": 102,
+        "text": "on: 'scr:shop',"
+      },
+      {
+        "line": 104,
+        "text": "to: 'scr:done',"
+      },
+      {
+        "line": 112,
+        "text": "id: 'jny:buy',"
+      },
+      {
+        "line": 114,
+        "text": "interactions: ['ui:buy'],"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "tools/migrate-model/catalogues.ts",
+    "hits": [
+      {
+        "line": 73,
+        "text": "): ReadonlyMap<string, { readonly app: string; readonly scope: CatalogueScope }> {"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "Git-host URL construction, parsing or literal",
+    "file": "tools/migrate-model/citations.ts",
+    "hits": [
+      {
+        "line": 1,
+        "text": "import { normaliseRepository, parseGitHostUrl } from '@/domain/code-links';"
+      },
+      {
+        "line": 20,
+        "text": "const link = parseGitHostUrl(source.url);"
+      },
+      {
+        "line": 24,
+        "text": "repo: link.host === 'github.com' ? link.repo : `${link.host}/${link.repo}`,"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "tools/migrate-model/contracts.ts",
+    "hits": [
+      {
+        "line": 156,
+        "text": "app: screen.app ?? service,"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "tools/migrate-model/conversion.test.ts",
+    "hits": [
+      {
+        "line": 24,
+        "text": "const citations = migrationCitations([], review, 'sys:orders');"
+      },
+      {
+        "line": 52,
+        "text": "const citations = migrationCitations([], review, 'sys:orders');"
+      },
+      {
+        "line": 55,
+        "text": "value: { components: [{ id: 'svc:orders', summary: 'Cited detail.', sources: [source] }] },"
+      },
+      {
+        "line": 59,
+        "text": "{ id: 'svc:orders', name: 'Orders', type: 'service', does: 'Short purpose.' },"
+      },
+      {
+        "line": 60,
+        "text": "details.get('svc:orders') ?? [],"
+      },
+      {
+        "line": 70,
+        "text": "const citations = migrationCitations([], review, 'sys:orders');"
+      },
+      {
+        "line": 75,
+        "text": "id: 'if:orders',"
+      },
+      {
+        "line": 76,
+        "text": "service: 'svc:orders',"
+      },
+      {
+        "line": 80,
+        "text": "id: 'api:get',"
+      },
+      {
+        "line": 92,
+        "text": "id: 'sch:order',"
+      },
+      {
+        "line": 115,
+        "text": "['evidence', 'ev:original'],"
+      },
+      {
+        "line": 116,
+        "text": "['file:a', 'ev:file'],"
+      },
+      {
+        "line": 119,
+        "text": "evidence: ['ev:file'],"
+      },
+      {
+        "line": 120,
+        "text": "id: 'ev:original',"
+      },
+      {
+        "line": 122,
+        "text": "expect(rewriteDocument({ 'file:a': 'file:a' }, replacements)).toEqual({ 'ev:file': 'ev:file' });"
+      },
+      {
+        "line": 132,
+        "text": "{ id: 'svc:unknown', type: 'external', name: 'Unknown' },"
+      },
+      {
+        "line": 133,
+        "text": "{ id: 'svc:shop', type: 'website', name: 'Shop' },"
+      },
+      {
+        "line": 134,
+        "text": "{ id: 'st:events', type: 'queue', name: 'Events' },"
+      },
+      {
+        "line": 141,
+        "text": "expect(initial.replacements.get('svc:shop')).toBe('app:shop');"
+      },
+      {
+        "line": 142,
+        "text": "expect(initial.replacements.get('st:events')).toBe('top:events');"
+      },
+      {
+        "line": 150,
+        "text": "expect(final.replacements.get('svc:unknown')).toBe('sys:unknown');"
+      },
+      {
+        "line": 159,
+        "text": "const replacements = new Map([['operations', 'sys:operations']]);"
+      },
+      {
+        "line": 163,
+        "text": "operations: [{ id: 'gql:example', name: 'operations' }],"
+      },
+      {
+        "line": 171,
+        "text": "operations: [{ id: 'gql:example', name: 'operations' }],"
+      },
+      {
+        "line": 172,
+        "text": "system: 'sys:operations',"
+      },
+      {
+        "line": 173,
+        "text": "description: 'See [[sys:operations]].',"
+      },
+      {
+        "line": 185,
+        "text": "expect(ids.ambiguous.get('fleet')).toEqual(['dom:fleet', 'area:fleet']);"
+      },
+      {
+        "line": 196,
+        "text": "id: 'sch:task',"
+      },
+      {
+        "line": 213,
+        "text": "{ set: { note: 'See [[sch:task#_id]].' }, modify: 'sch:task#_id' },"
+      },
+      {
+        "line": 216,
+        "text": ").toEqual({ set: { note: 'See [[sch:task#field-id]].' }, modify: 'sch:task#field-id' });"
+      },
+      {
+        "line": 225,
+        "text": "{ id: 'h:daily', on: 'job:each morning' },"
+      },
+      {
+        "line": 226,
+        "text": "{ id: 'h:one', on: 'job:heartbeat' },"
+      },
+      {
+        "line": 227,
+        "text": "{ id: 'h:two', on: 'job:heartbeat' },"
+      },
+      {
+        "line": 233,
+        "text": "expect(jobs.replacements.get('job:each morning')).toBe('job:daily');"
+      },
+      {
+        "line": 234,
+        "text": "expect(jobs.aliases['job:heartbeat']?.to).toBeNull();"
+      },
+      {
+        "line": 235,
+        "text": "expect(jobs.replacements.has('job:heartbeat')).toBe(false);"
+      },
+      {
+        "line": 238,
+        "text": "{ on: 'job:each morning', description: 'See [[job:each morning]].', trigger: 'each morning' },"
+      },
+      {
+        "line": 241,
+        "text": ").toEqual({ on: 'job:daily', description: 'See [[job:daily]].', trigger: 'each morning' });"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "Git-host URL construction, parsing or literal",
+    "file": "tools/migrate-model/conversion.test.ts",
+    "hits": [
+      {
+        "line": 30,
+        "text": "url: 'https://github.com/example/orders/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/src/Orders.ts#L3-L8',"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "tools/migrate-model/edges.test.ts",
+    "hits": [
+      {
+        "line": 14,
+        "text": "const citations = migrationCitations([], review, 'sys:shop');"
+      },
+      {
+        "line": 20,
+        "text": "id: 'sys:shop',"
+      },
+      {
+        "line": 24,
+        "text": "id: 'svc:shop',"
+      },
+      {
+        "line": 26,
+        "text": "{ to: 'svc:orders', via: 'api' },"
+      },
+      {
+        "line": 27,
+        "text": "{ to: 'svc:unknown', via: 'api' },"
+      },
+      {
+        "line": 33,
+        "text": "messages: [{ id: 'msg:ordered', topic: 'top:orders', producer: 'svc:shop', cites }],"
+      },
+      {
+        "line": 34,
+        "text": "stores: [{ id: 'st:db', access: [{ svc: 'svc:shop', mode: 'readwrite' }], cites }],"
+      },
+      {
+        "line": 41,
+        "text": "id: 'sys:orders',"
+      },
+      {
+        "line": 43,
+        "text": "components: [{ id: 'svc:orders' }, { id: 'top:orders' }, { id: 'st:db' }],"
+      },
+      {
+        "line": 46,
+        "text": "interfaces: [{ id: 'if:orders', component: 'svc:orders', entries: [{ id: 'api:order' }] }],"
+      },
+      {
+        "line": 54,
+        "text": "system: { id: 'sys:shop', name: 'Shop' },"
+      },
+      {
+        "line": 58,
+        "text": "id: 'h:buy',"
+      },
+      {
+        "line": 59,
+        "text": "component: 'svc:shop',"
+      },
+      {
+        "line": 60,
+        "text": "on: 'api:buy',"
+      },
+      {
+        "line": 63,
+        "text": "{ id: 'call-orders', call: 'api:order', cites },"
+      },
+      {
+        "line": 64,
+        "text": "{ id: 'read-db', read: 'sch:order', from: 'st:db', cites },"
+      },
+      {
+        "line": 70,
+        "text": "['orders', { system: { id: 'sys:orders', name: 'Orders' }, contracts: {}, handlers: [] }],"
+      },
+      {
+        "line": 79,
+        "text": "connections: [{ to: 'sys:orders', says: 'api', backs: ['h:buy#call-orders'] }],"
+      },
+      {
+        "line": 83,
+        "text": "expect.objectContaining({ from: 'svc:shop', to: 'st:db', kind: 'write', cites }),"
+      },
+      {
+        "line": 84,
+        "text": "expect.objectContaining({ from: 'svc:shop', to: 'msg:ordered', kind: 'publish', cites }),"
+      },
+      {
+        "line": 91,
+        "text": "edge: { to: 'svc:unknown' },"
+      },
+      {
+        "line": 109,
+        "text": "graphs: scope.folder === 'shop' ? [{ id: 'graph:shop', gateway: 'svc:orders' }] : [],"
+      },
+      {
+        "line": 123,
+        "text": "id: 'gql:order',"
+      },
+      {
+        "line": 124,
+        "text": "component: 'svc:shop',"
+      },
+      {
+        "line": 125,
+        "text": "graph: 'graph:shop',"
+      },
+      {
+        "line": 126,
+        "text": "document: 'ev:document',"
+      },
+      {
+        "line": 136,
+        "text": "expect(result?.connections).toEqual([{ to: 'sys:orders', says: 'api', backs: ['gql:order'] }]);"
+      },
+      {
+        "line": 146,
+        "text": "(row) => modelRecord(row.edge)?.to === 'svc:orders',"
+      },
+      {
+        "line": 150,
+        "text": "from: 'svc:shop',"
+      },
+      {
+        "line": 151,
+        "text": "to: 'svc:orders',"
+      },
+      {
+        "line": 157,
+        "text": "const connection = { to: 'sys:orders', says: 'Reviewed supplier call', backs: ['rel:reviewed'] };"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "tools/migrate-model/evidence.test.ts",
+    "hits": [
+      {
+        "line": 50,
+        "text": "host: 'ev:unknown-host',"
+      },
+      {
+        "line": 116,
+        "text": "host: 'ev:unknown-host',"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "tools/migrate-model/graphql.test.ts",
+    "hits": [
+      {
+        "line": 14,
+        "text": "id: 'gql:order',"
+      },
+      {
+        "line": 17,
+        "text": "graph: 'graph:shop',"
+      },
+      {
+        "line": 18,
+        "text": "client: 'app:shop',"
+      },
+      {
+        "line": 31,
+        "text": "component: 'app:shop',"
+      },
+      {
+        "line": 52,
+        "text": "id: 'gql:unsupported',"
+      },
+      {
+        "line": 55,
+        "text": "client: 'app:shop',"
+      },
+      {
+        "line": 56,
+        "text": "graph: 'graph:shop',"
+      },
+      {
+        "line": 68,
+        "text": "{ id: 'gql:unknown', document: 'query Unknown { value }' },"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "tools/migrate-model/plans.test.ts",
+    "hits": [
+      {
+        "line": 25,
+        "text": "modify: 'h:reserve',"
+      },
+      {
+        "line": 27,
+        "text": "steps: [{ each: 'car', do: [{ call: 'api:reserve', origin: 'extracted' }] }],"
+      },
+      {
+        "line": 30,
+        "text": "{ add: 'field', into: 'sch:order', value: { name: 'reservationId', type: 'string' } },"
+      },
+      {
+        "line": 33,
+        "text": "into: 'flow:reserve',"
+      },
+      {
+        "line": 34,
+        "text": "after: 'flow:reserve#request',"
+      },
+      {
+        "line": 36,
+        "text": "id: 'flow:reserve#confirm',"
+      },
+      {
+        "line": 37,
+        "text": "from: 'svc:shop',"
+      },
+      {
+        "line": 38,
+        "text": "to: 'svc:shop',"
+      },
+      {
+        "line": 50,
+        "text": "citations: migrationCitations([], review, 'plan:care'),"
+      },
+      {
+        "line": 57,
+        "text": "modify: 'h:reserve',"
+      },
+      {
+        "line": 59,
+        "text": "steps: [{ id: 'car', each: 'car', steps: [{ id: 'call-reserve', call: 'api:reserve' }] }],"
+      },
+      {
+        "line": 64,
+        "text": "after: 'flow:reserve#request',"
+      },
+      {
+        "line": 67,
+        "text": "expect(result.meta).toMatchObject({ id: 'plan:care', programme: 'prog:care' });"
+      },
+      {
+        "line": 80,
+        "text": "value: { id: 'h:care', component: 'svc:shop', on: 'msg:ordered', steps: [] },"
+      },
+      {
+        "line": 89,
+        "text": "citations: migrationCitations([], review, 'plan:care'),"
+      },
+      {
+        "line": 90,
+        "text": "placements: new Map([['svc:shop', 'sys:shop']]),"
+      },
+      {
+        "line": 96,
+        "text": "into: 'sys:shop',"
+      },
+      {
+        "line": 97,
+        "text": "value: { id: 'sub:shop-ordered', component: 'svc:shop', message: 'msg:ordered' },"
+      },
+      {
+        "line": 101,
+        "text": "into: 'sys:shop',"
+      },
+      {
+        "line": 102,
+        "text": "value: { id: 'h:care', component: 'svc:shop', on: 'sub:shop-ordered', steps: [] },"
+      },
+      {
+        "line": 115,
+        "text": "context: ['svc:shop'],"
+      },
+      {
+        "line": 121,
+        "text": "citations: migrationCitations([], review, 'plan:care'),"
+      },
+      {
+        "line": 132,
+        "text": "plan: { meta: original.meta, problem: original.problem, changes: [] },"
+      },
+      {
+        "line": 137,
+        "text": "meta: { id: 'plan:care', title: 'Care' },"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "tools/migrate-model/plans.ts",
+    "hits": [
+      {
+        "line": 93,
+        "text": "flow: () => ({ ...value, steps: modelList(value.steps).map(migrateFlowStep) }),"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "tools/migrate-model/runner.test.ts",
+    "hits": [
+      {
+        "line": 54,
+        "text": "description: 'Run [[job:each morning]]',"
+      },
+      {
+        "line": 63,
+        "text": "components: [{ id: 'svc:orders', name: 'Orders', type: 'service' }],"
+      },
+      {
+        "line": 68,
+        "text": "id: 'if:orders',"
+      },
+      {
+        "line": 69,
+        "text": "service: 'svc:orders',"
+      },
+      {
+        "line": 71,
+        "text": "endpoints: [{ id: 'api:order', sig: 'GET /orders' }],"
+      },
+      {
+        "line": 78,
+        "text": "id: 'h:order',"
+      },
+      {
+        "line": 79,
+        "text": "component: 'svc:orders',"
+      },
+      {
+        "line": 80,
+        "text": "on: 'api:order',"
+      },
+      {
+        "line": 96,
+        "text": "{ id: 'h:nightly', component: 'svc:orders', on: 'job:each morning', steps: [] },"
+      },
+      {
+        "line": 127,
+        "text": "'job:each morning:',"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "tools/migrate-model/steps.test.ts",
+    "hits": [
+      {
+        "line": 14,
+        "text": "path: 'h:example',"
+      },
+      {
+        "line": 33,
+        "text": "write: 'sch:result',"
+      },
+      {
+        "line": 34,
+        "text": "to: 'st:db',"
+      },
+      {
+        "line": 37,
+        "text": "causes: 'h:next',"
+      },
+      {
+        "line": 45,
+        "text": "do: [{ call: 'api:next' }, { wait: '2s' }],"
+      },
+      {
+        "line": 65,
+        "text": "write: 'sch:result',"
+      },
+      {
+        "line": 66,
+        "text": "to: 'st:db',"
+      },
+      {
+        "line": 69,
+        "text": "causes: 'h:next',"
+      },
+      {
+        "line": 93,
+        "text": "[{ call: 'api:next', does: 'First' }, { call: 'api:next', does: 'Second' }, {}],"
+      },
+      {
+        "line": 104,
+        "text": "{ call: 'api:next', does },"
+      },
+      {
+        "line": 105,
+        "text": "{ call: 'api:next', does: 'Other' },"
+      },
+      {
+        "line": 150,
+        "text": "[parse('if: allowed\\nthen: [{ return: 400 }]\\nelse: [{ return: 400 }]')],"
+      },
+      {
+        "line": 162,
+        "text": "parallel: [[{ call: 'api:a' }, { call: 'api:b' }], [{ call: 'api:c' }]],"
+      },
+      {
+        "line": 169,
+        "text": "{ steps: [{ call: 'api:a' }, { call: 'api:b' }] },"
+      },
+      {
+        "line": 170,
+        "text": "{ steps: [{ call: 'api:c' }] },"
+      },
+      {
+        "line": 177,
+        "text": "{ read: 'sch:plan', from: 'st:cache' },"
+      },
+      {
+        "line": 178,
+        "text": "{ read: 'sch:plan', from: 'st:database' },"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "tools/migrate-model/workspace.ts",
+    "hits": [
+      {
+        "line": 3,
+        "text": "import { buildId, hasPrefix, idToToken, localId, parseId } from '@/domain/ids';"
+      },
+      {
+        "line": 79,
+        "text": "area: declaredId(detail.area, 'area'),"
+      },
+      {
+        "line": 129,
+        "text": "): { readonly handler: Node; readonly subscription: Node | null; readonly job: Node | null } {"
+      },
+      {
+        "line": 189,
+        "text": "const file = `${folder}/handlers/${idToToken(modelText(handler.component) ?? '')}.yaml`;"
       }
     ],
     "status": "adapter"

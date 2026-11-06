@@ -347,3 +347,52 @@ describe('schema-directed citation resolution', () => {
     expect(resolveModelCitations('Handler', value, ambiguous).problems).toHaveLength(3);
   });
 });
+
+it('inherits the actual historical span from a migrated GraphQL document', () => {
+  const oldPin = 'c'.repeat(40);
+  const historical: ModelRepository = {
+    ...repository,
+    records: [
+      ...repository.records,
+      {
+        family: 'bindings',
+        data: {
+          kind: 'graphql_document_binding',
+          id: 'ev:historical-document',
+          document_name: 'Order',
+          operation_type: 'query',
+          operation_name: 'Order',
+          variables: [],
+          selections: [],
+          document: 'query Order { order { id } }',
+          source: {
+            kind: 'code',
+            repo: 'example/orders',
+            commit: oldPin,
+            path: 'queries/Order.ts',
+            lines: [3, 8],
+            symbol: 'Order',
+          },
+        },
+      },
+    ],
+  };
+  const result = resolveModelCitations('Handler', handler(['ev:historical-document']), {
+    ...scope,
+    evidence: [historical],
+  });
+  expect(result.problems).toEqual([]);
+  expect(result.data).toMatchObject({
+    steps: [
+      {
+        steps: [
+          {
+            cites: [
+              { repo: 'example/orders', commit: oldPin, path: 'queries/Order.ts', lines: [12, 15] },
+            ],
+          },
+        ],
+      },
+    ],
+  });
+});

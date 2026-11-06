@@ -1,5 +1,6 @@
 // Read-only reproduction: run from the Groundwork root with the registered Volvo folder as argument.
 import assert from 'node:assert/strict';
+import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { readFile, readdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
@@ -7,11 +8,20 @@ import path from 'node:path';
 import { isMap, isSeq, LineCounter, parseDocument } from 'yaml';
 
 import { buildId, parseId } from '../../../../src/domain/ids.ts';
-import { modelValidator } from '../../../../src/infrastructure/model-schema.ts';
+import { modelAjv, modelValidator } from '../../../../src/infrastructure/model-schema.ts';
 
 const workspace = process.argv[2];
 assert.ok(workspace, 'Pass the registered Volvo workspace folder.');
-const output = 'artifacts/rebuild/verification/pr6/queue-compatibility.json';
+const output = 'artifacts/rebuild/verification/pr6/queue-compatibility-current.json';
+const frozenCommit = '2048a2ce45388d54b087b2bca7e869b158704525';
+const authority = modelAjv();
+let frozenSchema;
+for (const family of ['workspace', 'plan', 'evidence']) {
+  const text = execFileSync('/usr/bin/git', ['show', `${frozenCommit}:schema/${family}.schema.json`], {encoding: 'utf8'});
+  authority.addSchema(JSON.parse(text));
+  if (family === 'workspace') frozenSchema = text;
+}
+
 const domainFiles = await readdir(path.join(workspace, 'domains'), { recursive: true });
 const files = domainFiles
   .filter((file) => /\/(?:system|contracts|handlers)\.yaml$/u.test(file))
@@ -97,7 +107,10 @@ for (const item of cases) {
   const id = parseId(original[key]);
   assert.ok(id);
   const rewritten = { ...original, [key]: buildId('top', id.local) };
-  const validate = await modelValidator('workspace', item.definition);
+  const validate = authority.getSchema(`https://groundwork.local/schema/workspace.schema.json#/$defs/${item.definition}`);
+  assert.ok(validate);
+  const current = await modelValidator('workspace', item.definition);
+  assert.equal(current(rewritten), true, JSON.stringify(current.errors));
   assert.equal(validate(original), true, JSON.stringify(validate.errors));
   assert.equal(validate(rewritten), false, `${item.file}:${String(item.line)}`);
   const errors = structuredClone(validate.errors);
@@ -135,7 +148,9 @@ const report = {
   })),
   schema: {
     file: 'schema/workspace.schema.json',
-    sha256: createHash('sha256').update(schema).digest('hex'),
+    commit: frozenCommit,
+    sha256: createHash('sha256').update(frozenSchema).digest('hex'),
+    currentSha256: createHash('sha256').update(schema).digest('hex'),
   },
   counts: {
     legacyQueues: topics.size,
@@ -145,6 +160,7 @@ const report = {
     writes: 8,
     matchingMessageContracts: 0,
   },
+  currentRewrittenProbesValidate: true,
   originalProbesValidate: true,
   rewrittenProbesFailOnlyTargetPattern: true,
   cases: failures,
@@ -153,7 +169,8 @@ await writeFile(output, `${JSON.stringify(report, null, 2)}\n`);
 console.log(
   JSON.stringify({
     ...report.counts,
-    originalProbesValidate: true,
+    currentRewrittenProbesValidate: true,
+  originalProbesValidate: true,
     rewrittenProbesFailOnlyTargetPattern: true,
   }),
 );

@@ -1,0 +1,8 @@
+{
+  "route": "/volvo-cars/",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 84984,
+  "sha256": "b08660e8b9df55c5776869d2bcc0661b6466fe9a85b5d75bc4c66baa6c89dd48",
+  "body": "2a76cf0afba6fe1a26b538311b025fadd803f09f877abe6439f972b1f440074f.body.gz"
+}

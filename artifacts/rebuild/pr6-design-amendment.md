@@ -1,6 +1,6 @@
 # Queue access in the canonical model
 
-Status: proposed; awaiting the user's approval. No specification, application code or Volvo data has changed.
+Status: implemented after the user's instruction to apply common sense and best-practice corrections while preserving existing facts. The queue-specific rule preserves the recorded read/write facts and retains strict evidence checks; Volvo data remains unchanged.
 
 PR5 is merged as [#69](https://github.com/ryannel/GroundWork/pull/69), merge
 `2048a2ce45388d54b087b2bca7e869b158704525`. PR6 starts from that commit in its own worktree.
@@ -55,10 +55,9 @@ Add after the step table in §4.4:
 
 Record the reason and the measured counts in the design's review-change ledger (§12).
 
-If approved, PR6 will make the matching schema/type changes and enforce the queue-form restriction in
-semantic validation. Focused tests will prove that queue-backed records and access effects validate and
-remain in the index and entry flow, while stream targets and missing targets fail. All existing thresholds,
-citation requirements and frozen baselines remain in force.
+PR6 makes the matching schema/type correction and enforces the queue-form restriction in semantic
+validation. The focused tests retain record access in the index and flow and reject streams and missing
+topics. Existing thresholds, citation requirements and frozen baselines remain in force.
 
 ## Focused reproduction
 
@@ -70,7 +69,7 @@ node --import ./tools/register.ts --conditions=react-server \
 ```
 
 The script reads all authored system, contract and handler files. It identifies legacy queue ids, finds every
-schema and read/write reference to them, and checks minimal probes against the existing shared Ajv loader.
+schema and read/write reference to them, and checks minimal probes against the frozen PR5 schema and the current shared Ajv loader.
 The probes use a synthetic child id and citation home solely to isolate the prefix restriction; they do not
 claim to be migrated records or resolved citations.
 
@@ -78,5 +77,7 @@ Result in `verification/pr6/queue-compatibility.json`: all 13 original probes va
 fail **only** the `/store`, `/from` or `/to` target pattern. The report includes hashes for the six affected
 source files and the unchanged workspace schema. This proves the conflict without changing data or relaxing a rule.
 
-PR6 implementation is paused at the user-required specification amendment gate. No expensive application
-checks were rerun: this preflight changes only review artefacts, and PR5's verified inputs remain unchanged.
+The original report remains frozen. `queue-compatibility-current.json` records the same 13 prefix failures
+against PR5 commit `2048a2ce45388d54b087b2bca7e869b158704525` and verifies that all 13 rewritten probes
+validate under the corrected current schema. Queue-versus-stream semantics are proved separately by
+`src/infrastructure/model-queue-access.test.ts`.
