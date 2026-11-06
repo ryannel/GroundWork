@@ -1039,20 +1039,20 @@ Each was measured against the code. They cost more than they catch:
 
 ## Checks
 
-| Command                             | Runs                                                                                              | When                        |
-| ----------------------------------- | ------------------------------------------------------------------------------------------------- | --------------------------- |
-| `npm run lint:changed`              | ESLint on changed and new files, and the component behind any changed CSS module                  | while working               |
-| `npm test` / `npm run test:changed` | unit, integration and scanner tests (all, or those touched by changes)                            | while working               |
-| `npm run mutate:changed`            | mutation tests of the changed pure-layer files (`--base <ref>` to compare with a branch)          | while working, pull request |
-| pre-commit hook                     | ESLint, Stylelint and Prettier on staged files, `tsc`, and the tests related to them, in parallel | each commit                 |
-| `npm run design:drift`              | fails if a feature styles looks or draws raw controls more than the baseline allows               | while working               |
-| `npm run budget`                    | after a build, fails if any page of the running site weighs more than 1 MB                        | after a build, CI           |
-| `npm run check:static`              | typecheck, type coverage, styles, design drift, format, cycles, duplication and knip              | part of `check`             |
-| `npm run check`                     | `check:static`, lint, and all tests with coverage                                                 | shared changes, pre-push    |
-| CI                                  | `npm audit`, `check:static`, lint, tests and the build, as parallel jobs from cold                | every push and pull request |
-| Mutation                            | `npm run mutate:changed` against the pull request's base; the report is attached to the run       | PRs touching pure layers    |
-| CodeQL                              | `security-extended` queries over the TypeScript and the workflows                                 | every push, PR and weekly   |
-| Dependabot                          | grouped pull requests for npm and Actions bumps; security fixes as soon as an advisory lands      | weekly                      |
+| Command                             | Runs                                                                                         | When                        |
+| ----------------------------------- | -------------------------------------------------------------------------------------------- | --------------------------- |
+| `npm run lint:changed`              | ESLint on changed and new files, and the component behind any changed CSS module             | while working               |
+| `npm test` / `npm run test:changed` | unit, integration and scanner tests (all, or those touched by changes)                       | while working               |
+| `npm run mutate:changed`            | mutation tests of the changed pure-layer files (`--base <ref>` to compare with a branch)     | while working, pull request |
+| pre-commit hook                     | ESLint, Stylelint and Prettier on staged files, in parallel                                  | each commit                 |
+| `npm run design:drift`              | fails if a feature styles looks or draws raw controls more than the baseline allows          | while working               |
+| `npm run budget`                    | after a build, fails if any page of the running site weighs more than 1 MB                   | after a build, CI           |
+| `npm run check:static`              | typecheck, type coverage, styles, design drift, format, cycles, duplication and knip         | part of `check`             |
+| `npm run check`                     | `check:static`, lint, and all tests with coverage                                            | shared changes, pre-push    |
+| CI                                  | `npm audit`, `check:static`, lint, tests and the build, as parallel jobs from cold           | every push and pull request |
+| Mutation                            | `npm run mutate:changed` against the pull request's base; the report is attached to the run  | PRs touching pure layers    |
+| CodeQL                              | `security-extended` queries over the TypeScript and the workflows                            | every push, PR and weekly   |
+| Dependabot                          | grouped pull requests for npm and Actions bumps; security fixes as soon as an advisory lands | weekly                      |
 
 `npm run mutate` runs every pure-layer file: about 50,000 mutants, hours of work. It keeps its results in
 `reports/stryker-incremental.json` and reruns only what changed since. `patches/` fixes Stryker's Vitest runner
@@ -1101,7 +1101,11 @@ be mistaken for the current task; independent worktrees have independent checkpo
 UI-only checks use `tsconfig.web.json`, excluding scanner implementations and tests as root files. TypeScript
 still follows imported dependencies. Shared logic and tooling use the full project and related scanner tests.
 `npm run check` and the merge checks still cover the whole repository, including architecture and coverage.
-The pre-commit hook includes related integration and scanner tests as well as unit tests.
+Commits run the fast staged-file checks. Type checking and the full test suite, including integration, scanner
+and architecture tests with coverage, remain mandatory before every push and in CI. Use focused checks while
+editing; the successful pre-push `npm run check` counts as the full check for unchanged inputs. Avoid running
+the same full suite immediately before that hook. For a local handover without a push, run `npm run check`
+explicitly. Build and page-budget requirements remain separate.
 Generated `docs/scan-trials/` and `artifacts/` outputs remain on disk and in Git where already tracked; source
 formatting and task checkpoints exclude them. Maintained source, tests, schemas and ordinary documentation stay
 in scope. A checkpoint is a development aid, never a substitute for the merge checks.

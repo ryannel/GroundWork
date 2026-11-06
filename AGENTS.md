@@ -17,6 +17,9 @@ Groundwork) in Next.js and TypeScript.
   application/domain/infrastructure changes, check-tooling or lint/configuration changes, and before merging.
   Run `npm run build` for route, server/client boundary, dependency or build configuration changes, and before
   merging. After rendering or data-loading changes, also run `npm run budget` against the production build.
+- The pre-push hook runs `npm run check`. Count its successful run as the required full check for those
+  unchanged inputs; avoid running the same full check immediately before pushing. Run it explicitly for a
+  local handover without a push. During edits, use focused checks.
 - Keep related behaviour together. Line, parameter, import and folder counts are not reasons to split code.
   Extract for a separate responsibility, reuse, or a useful test boundary; keep complexity and dependency rules.
 - One word per idea. The levels are workspace, domain, system and component, and nothing else. A

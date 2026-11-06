@@ -1,4 +1,4 @@
-# Checks staged files only, in parallel. CI runs every part of `npm run check` cold, as parallel jobs.
+# Fast staged-file checks run on commit. The complete suite runs before push and in CI.
 glob_matcher: doublestar
 
 pre-commit:
@@ -12,12 +12,6 @@ pre-commit:
       run: npx stylelint --cache --cache-location node_modules/.cache/stylelint/ {staged_files}
     format:
       run: npx prettier --check --cache --cache-location node_modules/.cache/prettier.json --ignore-unknown {staged_files}
-    types:
-      glob: '**/*.{ts,tsx,mts}'
-      run: npx tsc --noEmit
-    tests:
-      glob: '{src,tools}/**/*.{ts,tsx,css}'
-      run: npx vitest related --run --project unit --project integration --project scanner --passWithNoTests {staged_files}
     workspaces:
       glob: 'workspaces/**/*.{yaml,yml,json}'
       run: for folder in workspaces/*/; do if [ -f "${folder}workspace.yaml" ]; then npm run --silent workspace -- check "$folder" || exit 1; fi; done
