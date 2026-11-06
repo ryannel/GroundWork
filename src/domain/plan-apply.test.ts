@@ -106,6 +106,70 @@ describe('canonical plan overlays', () => {
     ]);
     await expect(validateModel(after)).resolves.toEqual([]);
   });
+  it('initialises absent optional error lists without changing the base or its facts', async () => {
+    const before = JSON.stringify(model);
+    const entry = indexOf(model).get('api:legacy')?.data;
+    expect(entry?.errors).toBeUndefined();
+    const after = apply(
+      opsOf([
+        {
+          modify: 'api:legacy',
+          append: {
+            errors: [{ status: 409, when: 'The account is not approved', cites: ['ev:source'] }],
+          },
+        },
+      ]),
+      model,
+    );
+    expect(indexOf(after).get('api:legacy')?.data).toEqual({
+      ...entry,
+      errors: [
+        {
+          status: 409,
+          when: 'The account is not approved',
+          cites: [{ kind: 'evidence', id: 'ev:source' }],
+        },
+      ],
+    });
+    await expect(validateModel(after)).resolves.toEqual([]);
+    expect(JSON.stringify(model)).toBe(before);
+  });
+  it('still rejects present non-array targets and dropping an absent collection', () => {
+    const before = JSON.stringify(model);
+    expect(() =>
+      apply(
+        opsOf([
+          {
+            modify: 'api:legacy',
+            set: { errors: 'Not a list' },
+            append: { errors: [{ status: 409, when: 'The account is not approved' }] },
+          },
+        ]),
+        model,
+      ),
+    ).toThrow('append requires an existing array');
+    expect(() => apply(opsOf([{ modify: 'api:legacy', drop: { errors: [] } }]), model)).toThrow(
+      'drop requires an existing array',
+    );
+    expect(JSON.stringify(model)).toBe(before);
+  });
+  it('retains misspelt appended properties for authoritative schema rejection', async () => {
+    const before = JSON.stringify(model);
+    const after = apply(
+      opsOf([
+        {
+          modify: 'api:legacy',
+          append: { erorrs: [{ status: 409, when: 'The account is not approved' }] },
+        },
+      ]),
+      model,
+    );
+    expect(indexOf(after).get('api:legacy')?.data.erorrs).toEqual([
+      { status: 409, when: 'The account is not approved' },
+    ]);
+    await expect(validateModel(after)).resolves.not.toEqual([]);
+    expect(JSON.stringify(model)).toBe(before);
+  });
   it('replaces citation gaps only where the plan supplies a new citation and drops gaps for removed entities', () => {
     const missing = apply(
       opsOf([{ modify: 'h:confirm#done', set: { cites: ['missing:Absent.ts'] } }]),

@@ -9,6 +9,7 @@ import {
 } from '@/domain/workspace-model';
 
 import { indexOf, type ModelIndex } from './model-index';
+import { overlapsOf, touchesOf } from './plan/plan-stack';
 
 export interface ProposedEffect {
   readonly id: string;
@@ -125,4 +126,45 @@ export function plansIndex(plans: readonly ModelPlan[], model: WorkspaceModel): 
     return { plan, before: model, after, proposals, beforeIndex, afterIndex: indexOf(after) };
   });
   return { plans: indexed, plansTouching: (id) => indexed.filter((plan) => touches(plan, id)) };
+}
+
+/** Only explicit ancestors contribute proposed context; shared ancestors are applied once. */
+export function inheritedPlanOrder(
+  plan: ModelPlan,
+  plans: ReadonlyMap<string, ModelPlan>,
+): readonly ModelPlan[] {
+  const ordered: ModelPlan[] = [];
+  const complete = new Set<string>();
+  const open = new Set([plan.meta.id]);
+  const visit = (id: string): void => {
+    if (open.has(id)) throw new Error(`Cyclic plan dependency: ${plan.meta.id} reaches ${id}.`);
+    if (complete.has(id)) return;
+    const ancestor = plans.get(id);
+    if (ancestor === undefined) throw new Error(`Missing plan dependency: ${id}.`);
+    open.add(id);
+    for (const parent of ancestor.builds_on ?? []) visit(parent);
+    open.delete(id);
+    complete.add(id);
+    ordered.push(ancestor);
+  };
+  for (const id of plan.builds_on ?? []) visit(id);
+  const neighbours = new Map(
+    ordered.map((ancestor) => [
+      ancestor.meta.id,
+      {
+        ids: new Map<string, string | null>(),
+        buildsOn: ancestor.builds_on ?? [],
+        touches: touchesOf(ancestor),
+        hash: '',
+        landed: false,
+      },
+    ]),
+  );
+  const overlap = overlapsOf(neighbours)[0];
+  if (overlap !== undefined) {
+    throw new Error(
+      `Unordered plan ancestors ${overlap.plans.join(' and ')} overlap on ${overlap.target}.`,
+    );
+  }
+  return ordered;
 }

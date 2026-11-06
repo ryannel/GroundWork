@@ -2,8 +2,13 @@ import 'server-only';
 
 import { indexOf, type ModelIndex } from '@/application/model-index';
 import { planStoryProblems } from '@/application/plan-story';
-import { plansIndex, type IndexedPlan } from '@/application/plans-index';
-import { hasPrefix } from '@/domain/ids';
+import {
+  inheritedPlanOrder,
+  plansIndex,
+  type IndexedPlan,
+  type ProposedEffect,
+} from '@/application/plans-index';
+import { hasPrefix, rootId } from '@/domain/ids';
 import {
   modelText,
   type ModelPlan,
@@ -139,8 +144,19 @@ function fragments(model: WorkspaceModel): readonly Fragment[] {
 }
 function queueProblems(index: ModelIndex): readonly ModelProblem[] {
   return index.entities.flatMap((node) => {
-    const keys = node.kind === 'schema' ? ['store'] : ['from', 'to'];
-    if (!['schema', 'step'].includes(node.kind)) return [];
+    if (
+      node.kind !== 'schema' &&
+      (node.kind !== 'step' || index.get(rootId(node.id))?.kind !== 'handler')
+    ) {
+      return [];
+    }
+    const keys =
+      node.kind === 'schema'
+        ? ['store']
+        : [
+            ...(node.data.read === undefined ? [] : ['from']),
+            ...(node.data.write === undefined ? [] : ['to']),
+          ];
     return keys.flatMap((key) => {
       const target = modelText(node.data[key]);
       if (target === null || !hasPrefix(target, 'top')) return [];
@@ -253,6 +269,14 @@ export async function validatePlanProjection(
       })),
     };
   }
+  return projectedPlan(plan, before);
+}
+
+/** Used only after the public boundary has checked the strict current base and the plan schema. */
+async function projectedPlan(
+  plan: ModelPlan,
+  before: WorkspaceModel,
+): Promise<PlanProjectionCheck> {
   try {
     const projection = plansIndex([plan], before).plans[0];
     if (projection === undefined) throw new Error('The selected plan projection is missing.');
@@ -269,4 +293,84 @@ export async function validatePlanProjection(
       ],
     };
   }
+}
+
+interface CheckedModelPlan {
+  readonly id: string;
+  readonly problems: readonly ModelProblem[];
+  readonly proposals: readonly ProposedEffect[];
+}
+interface PlanBatchCheck {
+  readonly plans: readonly CheckedModelPlan[];
+  readonly problems: readonly ModelProblem[];
+}
+/** Check current once, then validate each explicit proposed stack without retaining every large model. */
+export async function validatePlanProjections(
+  plans: readonly ModelPlan[],
+  current: WorkspaceModel,
+): Promise<PlanBatchCheck> {
+  const currentProblems = await validateModel(current);
+  if (currentProblems.length > 0) return { plans: [], problems: currentProblems };
+  const registry = new Map(plans.map((plan) => [plan.meta.id, plan]));
+  if (registry.size !== plans.length) {
+    return { plans: [], problems: [{ at: current.id, message: 'Duplicate plan identity.' }] };
+  }
+  const checked = new Map<string, CheckedModelPlan>();
+  const inspect = async (plan: ModelPlan): Promise<CheckedModelPlan> => {
+    const existing = checked.get(plan.meta.id);
+    if (existing !== undefined) return existing;
+    const record = (
+      problems: readonly ModelProblem[],
+      proposals: readonly ProposedEffect[] = [],
+    ): CheckedModelPlan => {
+      const result = { id: plan.meta.id, problems, proposals };
+      checked.set(plan.meta.id, result);
+      return result;
+    };
+    try {
+      const schema = await modelProblems('plan', 'document', plan);
+      if (schema.length > 0) {
+        return record(
+          schema.map((error) => ({ at: `${plan.meta.id}${error.path}`, message: error.message })),
+        );
+      }
+      const ancestors = inheritedPlanOrder(plan, registry);
+      const failed = await ancestors.reduce<Promise<CheckedModelPlan | null>>(
+        async (previous, ancestor) => {
+          const failure = await previous;
+          if (failure !== null) return failure;
+          const result = await inspect(ancestor);
+          return result.problems.length > 0 ? result : null;
+        },
+        Promise.resolve(null),
+      );
+      if (failed !== null) {
+        return record([
+          { at: plan.meta.id, message: `Plan dependency ${failed.id} failed validation.` },
+        ]);
+      }
+      let before = current;
+      const proposals: ProposedEffect[] = [];
+      for (const ancestor of ancestors) {
+        const inherited = plansIndex([ancestor], before).plans[0];
+        if (inherited === undefined) {
+          throw new Error(`Missing ancestor projection: ${ancestor.meta.id}.`);
+        }
+        before = inherited.after;
+        proposals.push(...inherited.proposals);
+      }
+      const result = await projectedPlan(plan, before);
+      return record(result.problems, [...proposals, ...(result.projection?.proposals ?? [])]);
+    } catch (error) {
+      return record([
+        { at: plan.meta.id, message: error instanceof Error ? error.message : String(error) },
+      ]);
+    }
+  };
+  await plans.reduce(async (previous, plan) => {
+    await previous;
+    await inspect(plan);
+  }, Promise.resolve());
+  const results = plans.flatMap((plan) => checked.get(plan.meta.id) ?? []);
+  return { plans: results, problems: results.flatMap((result) => result.problems) };
 }

@@ -278,7 +278,8 @@ function arrayPatch(
   const patch: Record<string, unknown> = {};
   for (const mode of ['append', 'drop'] as const) {
     for (const [key, value] of Object.entries(modelRecord(op[mode]) ?? {})) {
-      if (!Array.isArray(entity.data[key])) {
+      const absentAppend = mode === 'append' && entity.data[key] === undefined;
+      if (!absentAppend && !Array.isArray(entity.data[key])) {
         throw new TypeError(`${entity.id}.${key}: ${mode} requires an existing array.`);
       }
       const resolved = modelRecord(

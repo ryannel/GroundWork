@@ -45,12 +45,18 @@ import { parseArgs } from 'node:util';
 
 import { stringify } from 'yaml';
 
+import { indexOf } from '@/application/model-index';
 import { languageWarnings } from '@/application/workspace-language';
 import { systemModelOf } from '@/application/workspace-model';
 import { workspaceHref } from '@/application/workspace-paths';
 import { targetWarnings } from '@/application/workspace-target';
+import type { Workspace } from '@/domain/workspace';
+import type { WorkspaceModel } from '@/domain/workspace-model';
+import { readModelIfCanonical } from '@/infrastructure/canonical-model';
+import { readModelPlans } from '@/infrastructure/model-plans';
 import { listPlans, readOverlaps, readPlan } from '@/infrastructure/plan-store';
 import { checkPlanData } from '@/infrastructure/plan-validator';
+import { validatePlanProjections } from '@/infrastructure/validate-model';
 import {
   folderOf,
   type LocalEntry,
@@ -368,12 +374,56 @@ async function reportOverlaps(workspace: string): Promise<number> {
   return overlaps.length;
 }
 
+/** Canonical checks use the same strict model and plan projection boundaries as migration validation. */
+async function checkCanonical(model: WorkspaceModel): Promise<string> {
+  const index = indexOf(model);
+  const problems = [
+    ...index
+      .gaps()
+      .filter((gap) => gap.kind === 'unbacked_connection')
+      .map((gap) => ({
+        at: gap.id,
+        message: gap.message,
+      })),
+  ];
+  const plans = await readModelPlans(model.id);
+  const batch = await validatePlanProjections(plans, model);
+  const broken = plans.length - batch.plans.filter((plan) => plan.problems.length === 0).length;
+  problems.push(...batch.problems);
+  for (const problem of problems) console.error(`${problem.at}: ${problem.message}`);
+  const gaps = index.gaps();
+  if (values.warnings) {
+    for (const gap of gaps) console.warn(`${gap.id}: ${gap.message}`);
+  }
+  const counts = [
+    count(model.domains.length, 'domain'),
+    count(model.domains.flatMap((domain) => domain.systems).length, 'system'),
+    count(model.flows.length, 'flow'),
+    count(index.entities.filter((node) => node.kind === 'concept').length, 'concept'),
+    count(model.programmes.length, 'programme'),
+    `${String(plans.length - broken)} of ${count(plans.length, 'plan')} read`,
+    count(gaps.length, 'warning'),
+  ];
+  console.log(`${model.id}: ${counts.join(', ')}`);
+  if (problems.length > 0) process.exitCode = 1;
+  return model.id;
+}
+
 /** Check the workspace in `given`; exits 1 on any error. Its id, to read its plans by. */
 async function check(given: string): Promise<string> {
   const folder = path.resolve(given);
   process.env.GROUNDWORK_WORKSPACES = folder;
+  const [registered] = await registrationsAt(HOME, { env: folder, local: true });
+  if (registered === undefined) throw new Error(`${folder}: no workspace read`);
+  const canonical = await readModelIfCanonical(registered.id);
+  if (canonical !== null) return checkCanonical(canonical);
   const [workspace] = await readWorkspaces();
   if (workspace === undefined) throw new Error(`${folder}: no workspace read`);
+  return checkLegacy(workspace);
+}
+
+/** Preserve the existing format-1 model, programme and lock checks. */
+async function checkLegacy(workspace: Workspace): Promise<string> {
   const model = await readWorkspaceModel(workspace);
   const system = systemModelOf(workspace, model);
   const today = await checkPlanData(system.plan);
@@ -443,6 +493,16 @@ async function unlocked(
   });
 }
 
+/** Fresh canonical projection checks replace a legacy lock; staged plans must match the checked text. */
+function unstagedCanonicalPlans(folder: string, staged: readonly string[]): readonly string[] {
+  const unstaged = new Set(gitLines(folder, ['diff', '--name-only', '-z']));
+  return staged
+    .filter((file) => PLAN_FILE.test(file) && unstaged.has(file))
+    .map(
+      (file) => `${file} has changes which were checked but are not staged; stage the checked plan`,
+    );
+}
+
 /** What a workspace repo's pre-commit hook runs: the check, when YAML is staged, and each staged plan's lock. */
 async function precommit(given: string): Promise<void> {
   const folder = path.resolve(given);
@@ -452,7 +512,11 @@ async function precommit(given: string): Promise<void> {
   );
   if (read.length === 0) return;
   const workspace = await check(folder);
-  const problems = await unlocked(workspace, folder, staged);
+  const canonical = await readModelIfCanonical(workspace);
+  const problems =
+    canonical === null
+      ? await unlocked(workspace, folder, staged)
+      : unstagedCanonicalPlans(folder, staged);
   for (const problem of problems) console.error(problem);
   if (problems.length > 0) process.exitCode = 1;
   if (process.exitCode === 1) {

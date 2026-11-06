@@ -71,6 +71,39 @@ describe('cited record access to queues', () => {
     expect(JSON.stringify(flow)).toContain('h:confirm#write-job');
     expect(index.get('h:confirm#write-job')?.data.cites).not.toEqual([]);
   });
+  it('keeps flow topic exchanges distinct from handler record access', async () => {
+    const model: WorkspaceModel = {
+      ...original,
+      flows: original.flows.map((flow) => ({
+        ...flow,
+        steps: [
+          ...flow.steps,
+          {
+            id: 'publish-confirmed',
+            from: 'svc:ordering',
+            to: 'top:confirmed',
+            via: 'msg:confirmed',
+            action: 'Publishes the order confirmation',
+            cites: flow.steps[0]?.cites ?? [],
+          },
+          {
+            id: 'consume-confirmed',
+            from: 'top:confirmed',
+            to: 'svc:ordering',
+            via: 'msg:confirmed',
+            action: 'Consumes the order confirmation',
+            cites: flow.steps[0]?.cites ?? [],
+          },
+        ],
+      })),
+    };
+    const before = JSON.stringify(model.flows);
+    await expect(validateModel(model)).resolves.toEqual([]);
+    const index = indexOf(model);
+    expect(index.get('flow:confirm#publish-confirmed')?.data.to).toBe('top:confirmed');
+    expect(index.get('flow:confirm#consume-confirmed')?.data.from).toBe('top:confirmed');
+    expect(JSON.stringify(model.flows)).toBe(before);
+  });
   it.each([
     ['stream', true],
     ['queue', false],

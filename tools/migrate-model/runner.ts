@@ -10,7 +10,7 @@ import { modelRecord, modelText } from '@/domain/workspace-model';
 import { readModelPlans } from '@/infrastructure/model-plans';
 import { modelValidator } from '@/infrastructure/model-schema';
 import { readModel } from '@/infrastructure/read-model';
-import { validateModel, validatePlanProjection } from '@/infrastructure/validate-model';
+import { validatePlanProjections } from '@/infrastructure/validate-model';
 import { workspaceFolder } from '@/infrastructure/workspace-folders';
 
 import { migrateEvidence } from './evidence';
@@ -102,18 +102,12 @@ export async function validateMigratedOutput(out: string): Promise<readonly unkn
     }
     const model = await readModel(id);
     if (model === null) throw new Error('Cannot load the migrated workspace.');
-    const currentProblems = await validateModel(model);
-    if (currentProblems.length > 0) return currentProblems;
-    const problems = indexOf(model)
+    const checked = await validatePlanProjections(await readModelPlans(id), model);
+    if (checked.problems.length > 0) return checked.problems;
+    return indexOf(model)
       .gaps()
       .filter((gap) => gap.kind === 'unbacked_connection')
       .map((gap) => ({ at: gap.id, message: gap.message }));
-    if (problems.length > 0) return problems;
-    for (const plan of await readModelPlans(id)) {
-      const check = await validatePlanProjection(plan, model);
-      problems.push(...check.problems);
-    }
-    return problems;
   } catch (error) {
     return [{ at: out, message: error instanceof Error ? error.message : String(error) }];
   }
@@ -173,7 +167,7 @@ export async function migrateModel(
     };
     if (
       problems.length > 0 ||
-      ['step-ids', 'identities', 'placements', 'documents'].some(
+      ['step-ids', 'identities', 'placements', 'documents', 'plan-consumers'].some(
         (family) => review.pending(family) > 0,
       )
     ) {

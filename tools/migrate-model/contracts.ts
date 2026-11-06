@@ -67,7 +67,7 @@ export function fieldsOf(values: readonly unknown[]): readonly Node[] {
     };
   });
 }
-function errorOf(value: unknown): Node {
+export function errorOf(value: unknown): Node {
   const error = nodeOf(value);
   if (error.code === undefined) return error;
   const { code, ...kept } = error;
@@ -76,12 +76,16 @@ function errorOf(value: unknown): Node {
     when: [modelText(error.when), `Code: ${JSON.stringify(code)}`].filter(Boolean).join(' · '),
   };
 }
+export function restShapeOf(value: unknown): Node {
+  const sig = modelText(value);
+  const rest =
+    sig === null ? null : /^(GET|HEAD|POST|PUT|PATCH|DELETE|OPTIONS)\s+(\/\S*)$/u.exec(sig);
+  return rest === null ? {} : { method: rest[1], path: rest[2] };
+}
 export function entryOf(value: unknown, kind: unknown, review: MigrationReview): Node {
   const entry = nodeOf(value);
   const sig = modelText(entry.sig);
-  const rest =
-    sig === null ? null : /^(GET|HEAD|POST|PUT|PATCH|DELETE|OPTIONS)\s+(\/\S*)$/u.exec(sig);
-  const shape = kind === 'rest' && rest !== null ? { method: rest[1], path: rest[2] } : {};
+  const shape = kind === 'rest' ? restShapeOf(sig) : {};
   if (sig !== null && Object.keys(shape).length === 0) {
     review.add('signatures', `signature/${String(entry.id)}`, entry, {
       id: entry.id,

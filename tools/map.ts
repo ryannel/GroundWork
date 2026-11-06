@@ -13,14 +13,18 @@ import { writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { parseArgs } from 'node:util';
 
+import { indexOf } from '@/application/model-index';
 import { type Cited, findIn, ownedBy, type SystemMap, systemMapOf } from '@/application/system-map';
 import { callersOf, shownIn } from '@/application/system-map-links';
 import { mapMarkdownOf } from '@/application/system-map-md';
 import { systemModelOf } from '@/application/workspace-model';
 import { localId } from '@/domain/ids';
+import { readModelIfCanonical } from '@/infrastructure/canonical-model';
 import { selectedWorkspace, workspaceFolder } from '@/infrastructure/workspace-folders';
 import { readWorkspaceModel } from '@/infrastructure/workspace-model';
 import { readWorkspaces } from '@/infrastructure/workspace-store';
+
+import { modelMapOf } from './model-map';
 
 const { positionals, values } = parseArgs({
   allowPositionals: true,
@@ -32,10 +36,12 @@ const { positionals, values } = parseArgs({
   },
 });
 
-async function loaded(): Promise<SystemMap> {
+async function loaded(): Promise<SystemMap | ReturnType<typeof modelMapOf>> {
   const selected = await selectedWorkspace(values.workspace);
   console.error(`Workspace: ${selected.name} (${selected.id}) at ${selected.folder}`);
   process.env.GROUNDWORK_WORKSPACES = selected.folder;
+  const canonical = await readModelIfCanonical(selected.id);
+  if (canonical !== null) return modelMapOf(indexOf(canonical));
   const all = await readWorkspaces();
   const workspace = all.find(({ id }) => id === selected.id);
   if (workspace === undefined) throw new Error(`no workspace ${selected.id}`);
@@ -107,7 +113,19 @@ async function answer(map: SystemMap, command: string, arg: string): Promise<unk
   }
 }
 
+function canonicalAnswer(
+  map: ReturnType<typeof modelMapOf>,
+  command: string,
+  arg: string,
+): unknown {
+  if (command !== 'show') {
+    return { error: `Canonical map ${command} is not available yet; use show <id>.` };
+  }
+  return map.show(arg) ?? { error: `no fact ${arg}; try: find ${localId(arg)}` };
+}
+
 const [command = 'repos', ...rest] = positionals;
 const map = await loaded();
-const result = await answer(map, command, rest.join(' '));
+const arg = rest.join(' ');
+const result = 'show' in map ? canonicalAnswer(map, command, arg) : await answer(map, command, arg);
 process.stdout.write(`${JSON.stringify(withLocal(result), null, 2)}\n`);
