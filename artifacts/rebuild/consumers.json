@@ -69688,15 +69688,31 @@
         "text": "'sys:new',"
       },
       {
-        "line": 427,
+        "line": 354,
+        "text": "'flow:mixed': ['sys:two', 'sys:one', 'sys:two'],"
+      },
+      {
+        "line": 355,
+        "text": "'flow:mixed#save': ['sys:two'],"
+      },
+      {
+        "line": 362,
+        "text": "expect(index.changes.get('flow/chg:flow')?.systems).toEqual(['sys:one', 'sys:two']);"
+      },
+      {
+        "line": 363,
+        "text": "expect(index.changes.get('flow/chg:step')?.systems).toEqual(['sys:two']);"
+      },
+      {
+        "line": 455,
         "text": "const second: Overlap = { ...OVERLAP, target: 'svc:a', changes: ['x', 'y\\nz'] };"
       },
       {
-        "line": 428,
+        "line": 456,
         "text": "const third: Overlap = { ...OVERLAP, target: 'svc:a', changes: ['x\\ny', 'z'] };"
       },
       {
-        "line": 435,
+        "line": 463,
         "text": "expect(index.overlaps.map((o) => o.target)).toEqual(['svc:a', 'svc:status']);"
       }
     ],

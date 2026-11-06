@@ -1,0 +1,41 @@
+
+> groundwork@0.0.0 rebuild:compare
+> node --import ./tools/register.ts --conditions=react-server tools/rebuild/compare.ts --before artifacts/rebuild/baseline/acme --workspace acme --out .workspaces/rebuild/pr4/compare-5/acme --origin http://127.0.0.1:51499
+
+Workspace: Acme (acme) at /Users/RNEL/.codex/worktrees/rebuild-pr4/groundWork/.workspaces/rebuild/acme
+Capturing /
+Capturing /acme/
+Capturing /acme/catalogue/
+Capturing /acme/catalogue/flows/
+Capturing /acme/catalogue/interfaces/
+Capturing /acme/catalogue/language/
+Capturing /acme/catalogue/map/
+Capturing /acme/catalogue/plans/
+Capturing /acme/catalogue/products/
+Capturing /acme/catalogue/target/
+Capturing /acme/explorer/
+Capturing /acme/journeys/
+Capturing /acme/journeys/flow-cancel-order/
+Capturing /acme/journeys/flow-publish-product/
+Capturing /acme/journeys/uj-buy/
+Capturing /acme/language/
+Capturing /acme/model.json
+Capturing /acme/partners/
+Capturing /acme/people/
+Capturing /acme/plans/
+Capturing /acme/programmes/
+Capturing /acme/reference/
+Capturing /acme/reference/apis/
+Capturing /acme/reference/components/
+Capturing /acme/reference/events/
+Capturing /acme/reference/flows/
+Capturing /acme/reference/schemas/
+Capturing /acme/reference/screens/
+Capturing /acme/reference/stores/
+Capturing /acme/things/?id=api-products-get
+Capturing /acme/things/?id=msg-product-changed
+Capturing /acme/things/?id=sch-product
+Capturing /acme/things/?id=st-products-db
+Capturing /acme/things/?id=svc-products
+Capturing /acme/value-flows/
+69 differences; 0 unexplained. Report: .workspaces/rebuild/pr4/compare-5/acme/comparison.json

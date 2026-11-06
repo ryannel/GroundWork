@@ -1,0 +1,29 @@
+[
+  {
+    "id": "personal",
+    "name": "Personal",
+    "folder": "/Users/RNEL/.codex/worktrees/rebuild-pr4/groundWork/workspaces/personal",
+    "source": "example",
+    "isExample": true,
+    "repo": null,
+    "href": "/personal/"
+  },
+  {
+    "id": "volvo-cars",
+    "name": "Volvo Cars",
+    "folder": "/Users/RNEL/Workspace/volvo-groundwork",
+    "source": "local",
+    "isExample": false,
+    "repo": null,
+    "href": "/volvo-cars/"
+  },
+  {
+    "id": "acme",
+    "name": "Acme",
+    "folder": "/Users/RNEL/.codex/worktrees/rebuild-pr4/groundWork/.workspaces/rebuild/acme",
+    "source": "local",
+    "isExample": false,
+    "repo": null,
+    "href": "/acme/"
+  }
+]

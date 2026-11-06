@@ -1,0 +1,581 @@
+{
+  "acme": {
+    "allTodayNodeIdsAndNonOwnershipFieldsUnchanged": 80,
+    "areaCorrections": [],
+    "comparisonPointers": 68,
+    "componentEdgesRetainedExactly": 14,
+    "lookupChangesByField": {
+      "component": 21,
+      "domain": 4,
+      "sources": 8,
+      "sourcesOf": 8,
+      "system": 4
+    },
+    "plansHaveUnchangedOpsAndReasoning": 0,
+    "removedEdges": {
+      "componentEdges": [
+        {
+          "from": "svc:shop-bff",
+          "id": "data|svc:shop-bff|st:basket-cache",
+          "kind": "data",
+          "mode": "readwrite",
+          "read": true,
+          "steps": [],
+          "sync": false,
+          "to": "st:basket-cache",
+          "via": null,
+          "write": true
+        }
+      ],
+      "systemEdges": [
+        {
+          "from": "svc:shop-bff",
+          "fromSystem": "shop",
+          "id": "data|svc:shop-bff|st:basket-cache",
+          "kind": "data",
+          "mode": "readwrite",
+          "read": true,
+          "steps": [],
+          "sync": false,
+          "to": "st:basket-cache",
+          "toSystem": "shop",
+          "via": null,
+          "write": true
+        }
+      ]
+    },
+    "removedInferredOwners": [
+      {
+        "id": "st:product-events",
+        "owner": "svc:products"
+      },
+      {
+        "id": "st:basket-cache",
+        "owner": "svc:shop-bff"
+      }
+    ],
+    "routeAdditions": [],
+    "systemEdgesRetainedExactly": 14,
+    "unchangedAuthoredSections": [
+      "attribution",
+      "authoredSystemEdges",
+      "codeHomes",
+      "explorer",
+      "keyTerms",
+      "landscape",
+      "languages",
+      "repositoryStates",
+      "scans",
+      "targets",
+      "workspace"
+    ],
+    "unchangedDerivedSections": [
+      "callers",
+      "handlerEdges",
+      "messages"
+    ]
+  },
+  "personal": {
+    "allTodayNodeIdsAndNonOwnershipFieldsUnchanged": 8,
+    "areaCorrections": [],
+    "comparisonPointers": 21,
+    "componentEdgesRetainedExactly": 0,
+    "lookupChangesByField": {},
+    "plansHaveUnchangedOpsAndReasoning": 0,
+    "removedEdges": {
+      "componentEdges": [
+        {
+          "from": "svc:allotment-app",
+          "id": "data|svc:allotment-app|st:allotment-db",
+          "kind": "data",
+          "mode": "readwrite",
+          "read": true,
+          "steps": [],
+          "sync": false,
+          "to": "st:allotment-db",
+          "via": null,
+          "write": true
+        }
+      ],
+      "systemEdges": [
+        {
+          "from": "svc:allotment-app",
+          "fromSystem": "allotment-log",
+          "id": "data|svc:allotment-app|st:allotment-db",
+          "kind": "data",
+          "mode": "readwrite",
+          "read": true,
+          "steps": [],
+          "sync": false,
+          "to": "st:allotment-db",
+          "toSystem": "allotment-log",
+          "via": null,
+          "write": true
+        }
+      ]
+    },
+    "removedInferredOwners": [
+      {
+        "id": "st:allotment-db",
+        "owner": "svc:allotment-app"
+      }
+    ],
+    "routeAdditions": [],
+    "systemEdgesRetainedExactly": 0,
+    "unchangedAuthoredSections": [
+      "attribution",
+      "authoredSystemEdges",
+      "codeHomes",
+      "explorer",
+      "keyTerms",
+      "landscape",
+      "languages",
+      "repositoryStates",
+      "scans",
+      "targets",
+      "workspace"
+    ],
+    "unchangedDerivedSections": [
+      "callers",
+      "handlerEdges",
+      "messages"
+    ]
+  },
+  "volvo-cars": {
+    "allTodayNodeIdsAndNonOwnershipFieldsUnchanged": 16334,
+    "areaCorrections": [
+      {
+        "addedSystems": [],
+        "area": "range",
+        "authoredDiagramRetained": true,
+        "movedCards": [],
+        "removedMisplacedCardsStillListedAsResources": [
+          "st:offers-read-view-car-offers-topic"
+        ]
+      },
+      {
+        "addedSystems": [],
+        "area": "commercial",
+        "authoredDiagramRetained": true,
+        "movedCards": [
+          {
+            "after": "finance",
+            "before": "price",
+            "id": "st:price-fees-update"
+          },
+          {
+            "after": "finance",
+            "before": "price",
+            "id": "st:price-interest-rate-update"
+          },
+          {
+            "after": "finance",
+            "before": "price",
+            "id": "st:price-market-settings-update"
+          },
+          {
+            "after": "finance",
+            "before": "price",
+            "id": "st:price-residual-value-update"
+          }
+        ],
+        "removedMisplacedCardsStillListedAsResources": [
+          "st:cce-bto-cars-topic",
+          "st:conditional-order-update-events"
+        ]
+      },
+      {
+        "addedSystems": [],
+        "area": "content",
+        "authoredDiagramRetained": true,
+        "movedCards": [],
+        "removedMisplacedCardsStillListedAsResources": [
+          "st:offers-read-view-car-offers-topic"
+        ]
+      },
+      {
+        "addedSystems": [
+          "assortment"
+        ],
+        "area": "choose",
+        "authoredDiagramRetained": true,
+        "movedCards": [
+          {
+            "after": "assortment",
+            "before": "offers",
+            "id": "st:mas-commercialitem-events"
+          },
+          {
+            "after": "assortment",
+            "before": "offers",
+            "id": "st:mas-commercialsegment-events"
+          },
+          {
+            "after": "assortment",
+            "before": "product-enrichment",
+            "id": "st:pcf-carconfig-events"
+          },
+          {
+            "after": "assortment",
+            "before": "offers",
+            "id": "st:pcf-configurableproduct-events"
+          },
+          {
+            "after": "assortment",
+            "before": "offers",
+            "id": "st:pds-products-events"
+          },
+          {
+            "after": "assortment",
+            "before": "product-enrichment",
+            "id": "st:pds-specification-events"
+          },
+          {
+            "after": "assortment",
+            "before": "product-enrichment",
+            "id": "st:product-service-events"
+          }
+        ],
+        "removedMisplacedCardsStillListedAsResources": [
+          "st:conditional-order-update-events",
+          "st:price-fees-update",
+          "st:price-interest-rate-update",
+          "st:price-market-settings-update",
+          "st:price-residual-value-update"
+        ]
+      },
+      {
+        "addedSystems": [
+          "leads"
+        ],
+        "area": "buy",
+        "authoredDiagramRetained": null,
+        "movedCards": [
+          {
+            "after": "conditional-order",
+            "before": "order-orchestration",
+            "id": "st:app5541-orchestrator-process-events"
+          },
+          {
+            "after": "conditional-order",
+            "before": "order-orchestration",
+            "id": "st:app5541-orchestrator-task-events"
+          }
+        ],
+        "removedMisplacedCardsStillListedAsResources": [
+          "st:mas-commercialsegment-events"
+        ]
+      },
+      {
+        "addedSystems": [
+          "leads"
+        ],
+        "area": "orders",
+        "authoredDiagramRetained": null,
+        "movedCards": [
+          {
+            "after": "conditional-order",
+            "before": "order-orchestration",
+            "id": "st:app5541-orchestrator-process-events"
+          },
+          {
+            "after": "conditional-order",
+            "before": "order-orchestration",
+            "id": "st:app5541-orchestrator-task-events"
+          }
+        ],
+        "removedMisplacedCardsStillListedAsResources": []
+      },
+      {
+        "addedSystems": [],
+        "area": "identity",
+        "authoredDiagramRetained": true,
+        "movedCards": [],
+        "removedMisplacedCardsStillListedAsResources": [
+          "st:app5541-cdb-sync-events",
+          "st:app5541-delete-customer-events"
+        ]
+      },
+      {
+        "addedSystems": [],
+        "area": "operations",
+        "authoredDiagramRetained": true,
+        "movedCards": [
+          {
+            "after": "conditional-order",
+            "before": "order-orchestration",
+            "id": "st:app5541-orchestrator-process-events"
+          },
+          {
+            "after": "conditional-order",
+            "before": "order-orchestration",
+            "id": "st:app5541-orchestrator-task-events"
+          },
+          {
+            "after": "finance",
+            "before": "price",
+            "id": "st:price-fees-update"
+          },
+          {
+            "after": "finance",
+            "before": "price",
+            "id": "st:price-interest-rate-update"
+          },
+          {
+            "after": "finance",
+            "before": "price",
+            "id": "st:price-market-settings-update"
+          },
+          {
+            "after": "finance",
+            "before": "price",
+            "id": "st:price-residual-value-update"
+          }
+        ],
+        "removedMisplacedCardsStillListedAsResources": []
+      }
+    ],
+    "comparisonPointers": 42778,
+    "componentEdgesRetainedExactly": 1688,
+    "lookupChangesByField": {
+      "component": 8367,
+      "domain": 1433,
+      "sources": 1,
+      "sourcesOf": 1,
+      "system": 1865
+    },
+    "plansHaveUnchangedOpsAndReasoning": 8,
+    "removedEdges": {
+      "componentEdges": [
+        {
+          "from": "svc:leads-api",
+          "id": "data|svc:leads-api|st:lead-capture-ai-bot-vectors",
+          "kind": "data",
+          "mode": "readwrite",
+          "read": true,
+          "steps": [],
+          "sync": false,
+          "to": "st:lead-capture-ai-bot-vectors",
+          "via": null,
+          "write": true
+        },
+        {
+          "from": "svc:leads-forms",
+          "id": "data|svc:leads-forms|st:forms-backend-images",
+          "kind": "data",
+          "mode": "readwrite",
+          "read": true,
+          "steps": [],
+          "sync": false,
+          "to": "st:forms-backend-images",
+          "via": null,
+          "write": true
+        },
+        {
+          "from": "svc:leads-forms",
+          "id": "data|svc:leads-forms|st:forms-backend-postgres",
+          "kind": "data",
+          "mode": "readwrite",
+          "read": true,
+          "steps": [],
+          "sync": false,
+          "to": "st:forms-backend-postgres",
+          "via": null,
+          "write": true
+        },
+        {
+          "from": "svc:leads-forms",
+          "id": "data|svc:leads-forms|st:forms-backend-redis",
+          "kind": "data",
+          "mode": "readwrite",
+          "read": true,
+          "steps": [],
+          "sync": false,
+          "to": "st:forms-backend-redis",
+          "via": null,
+          "write": true
+        },
+        {
+          "from": "svc:prism-api",
+          "id": "data|svc:prism-api|st:product-enrichment-dgs-response-redis",
+          "kind": "data",
+          "mode": "readwrite",
+          "read": true,
+          "steps": [],
+          "sync": false,
+          "to": "st:product-enrichment-dgs-response-redis",
+          "via": null,
+          "write": true
+        }
+      ],
+      "systemEdges": [
+        {
+          "from": "svc:leads-api",
+          "fromSystem": "leads",
+          "id": "data|svc:leads-api|st:lead-capture-ai-bot-vectors",
+          "kind": "data",
+          "mode": "readwrite",
+          "read": true,
+          "steps": [],
+          "sync": false,
+          "to": "st:lead-capture-ai-bot-vectors",
+          "toSystem": "leads",
+          "via": null,
+          "write": true
+        },
+        {
+          "from": "svc:leads-forms",
+          "fromSystem": "lead-forms",
+          "id": "data|svc:leads-forms|st:forms-backend-images",
+          "kind": "data",
+          "mode": "readwrite",
+          "read": true,
+          "steps": [],
+          "sync": false,
+          "to": "st:forms-backend-images",
+          "toSystem": "lead-forms",
+          "via": null,
+          "write": true
+        },
+        {
+          "from": "svc:leads-forms",
+          "fromSystem": "lead-forms",
+          "id": "data|svc:leads-forms|st:forms-backend-postgres",
+          "kind": "data",
+          "mode": "readwrite",
+          "read": true,
+          "steps": [],
+          "sync": false,
+          "to": "st:forms-backend-postgres",
+          "toSystem": "lead-forms",
+          "via": null,
+          "write": true
+        },
+        {
+          "from": "svc:leads-forms",
+          "fromSystem": "lead-forms",
+          "id": "data|svc:leads-forms|st:forms-backend-redis",
+          "kind": "data",
+          "mode": "readwrite",
+          "read": true,
+          "steps": [],
+          "sync": false,
+          "to": "st:forms-backend-redis",
+          "toSystem": "lead-forms",
+          "via": null,
+          "write": true
+        },
+        {
+          "from": "svc:prism-api",
+          "fromSystem": "product-enrichment",
+          "id": "data|svc:prism-api|st:product-enrichment-dgs-response-redis",
+          "kind": "data",
+          "mode": "readwrite",
+          "read": true,
+          "steps": [],
+          "sync": false,
+          "to": "st:product-enrichment-dgs-response-redis",
+          "toSystem": "product-enrichment",
+          "via": null,
+          "write": true
+        }
+      ]
+    },
+    "removedInferredOwners": [
+      {
+        "id": "st:pds-products-events",
+        "owner": "svc:assortment-admin-api"
+      },
+      {
+        "id": "st:cce-config-policy",
+        "owner": "svc:cce-car-configurator"
+      },
+      {
+        "id": "st:cce-config-policy-topic",
+        "owner": "svc:cce-car-configurator"
+      },
+      {
+        "id": "st:cce-car-sync-notifications-topic",
+        "owner": "svc:cce-car-configurator"
+      },
+      {
+        "id": "st:app5541-conditional-order-intake",
+        "owner": "svc:conditional-order"
+      },
+      {
+        "id": "st:app5981-ps-external",
+        "owner": "svc:conditional-order"
+      },
+      {
+        "id": "st:app5303-coss-bravo-sold-registration-order-events-0",
+        "owner": "svc:conditional-order"
+      },
+      {
+        "id": "st:fae-pl-product-sync",
+        "owner": "svc:fae-core"
+      },
+      {
+        "id": "st:order-manager-order-updates-inbound",
+        "owner": "svc:om-order-status-tracking"
+      },
+      {
+        "id": "st:product-enrichment-dgs-response-redis",
+        "owner": "svc:prism-api"
+      },
+      {
+        "id": "st:fleet-accounts-risk-assessment-initiations",
+        "owner": "svc:fleet-accounts-api"
+      },
+      {
+        "id": "st:volvo-id-update-topic",
+        "owner": "svc:fleet-accounts-api"
+      },
+      {
+        "id": "st:volvo-id-delete-topic",
+        "owner": "svc:fleet-accounts-api"
+      },
+      {
+        "id": "st:app3418-om-outbound",
+        "owner": "svc:customer-crm-sync"
+      },
+      {
+        "id": "st:forms-backend-postgres",
+        "owner": "svc:leads-forms"
+      },
+      {
+        "id": "st:forms-backend-images",
+        "owner": "svc:leads-forms"
+      },
+      {
+        "id": "st:forms-backend-redis",
+        "owner": "svc:leads-forms"
+      },
+      {
+        "id": "st:lead-capture-ai-bot-vectors",
+        "owner": "svc:leads-api"
+      }
+    ],
+    "routeAdditions": [
+      "/volvo-cars/plans/unify-price-breakdown/things/?id=svc-assortment-api"
+    ],
+    "systemEdgesRetainedExactly": 1688,
+    "unchangedAuthoredSections": [
+      "attribution",
+      "authoredSystemEdges",
+      "codeHomes",
+      "explorer",
+      "keyTerms",
+      "landscape",
+      "languages",
+      "repositoryStates",
+      "scans",
+      "targets",
+      "workspace"
+    ],
+    "unchangedDerivedSections": [
+      "callers",
+      "handlerEdges",
+      "messages"
+    ]
+  }
+}

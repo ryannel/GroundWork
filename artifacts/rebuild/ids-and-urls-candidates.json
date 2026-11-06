@@ -25463,31 +25463,55 @@
         "text": "'sys:new',"
       },
       {
-        "line": 341,
+        "line": 344,
+        "text": "ops: [{ modify: 'flow:mixed', set: { outcome: 'Confirmed' } }],"
+      },
+      {
+        "line": 349,
+        "text": "ops: [{ modify: 'flow:mixed#save', set: { action: 'Save' } }],"
+      },
+      {
+        "line": 354,
+        "text": "'flow:mixed': ['sys:two', 'sys:one', 'sys:two'],"
+      },
+      {
+        "line": 355,
+        "text": "'flow:mixed#save': ['sys:two'],"
+      },
+      {
+        "line": 362,
+        "text": "expect(index.changes.get('flow/chg:flow')?.systems).toEqual(['sys:one', 'sys:two']);"
+      },
+      {
+        "line": 363,
+        "text": "expect(index.changes.get('flow/chg:step')?.systems).toEqual(['sys:two']);"
+      },
+      {
+        "line": 369,
         "text": "{ id: 'wi:no-repo', title: 'A', team: 'team:orders', github_issue: 1 },"
       },
       {
-        "line": 342,
+        "line": 370,
         "text": "{ id: 'wi:no-issue', title: 'B', team: 'team:orders', repo: 'acme/x' },"
       },
       {
-        "line": 343,
+        "line": 371,
         "text": "{ id: 'wi:bad-repo', title: 'C', team: 'team:orders', repo: 'not a repo', github_issue: 2 },"
       },
       {
-        "line": 366,
+        "line": 394,
         "text": "work_items: [{ id: 'wi:r', title: 'R', team: 'team:orders', milestone: 'ms:second' }],"
       },
       {
-        "line": 427,
+        "line": 455,
         "text": "const second: Overlap = { ...OVERLAP, target: 'svc:a', changes: ['x', 'y\\nz'] };"
       },
       {
-        "line": 428,
+        "line": 456,
         "text": "const third: Overlap = { ...OVERLAP, target: 'svc:a', changes: ['x\\ny', 'z'] };"
       },
       {
-        "line": 435,
+        "line": 463,
         "text": "expect(index.overlaps.map((o) => o.target)).toEqual(['svc:a', 'svc:status']);"
       }
     ],
@@ -25527,6 +25551,10 @@
       {
         "line": 129,
         "text": "const rootOf = (id: string): string => rootId(id);"
+      },
+      {
+        "line": 176,
+        "text": "return typeof op.into === 'string' ? systemsOf(rootOf(op.into)) : [];"
       },
       {
         "line": 221,
