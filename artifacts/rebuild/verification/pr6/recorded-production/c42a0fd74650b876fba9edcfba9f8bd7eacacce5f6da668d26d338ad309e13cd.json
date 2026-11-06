@@ -1,0 +1,8 @@
+{
+  "route": "/acme/reference/screens/",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 47699,
+  "sha256": "aee9fbe5f40a7188cbff1eb49aa5af59145c3fad1bc098da8ec0b6f603e2a35d",
+  "body": "c42a0fd74650b876fba9edcfba9f8bd7eacacce5f6da668d26d338ad309e13cd.body.gz"
+}

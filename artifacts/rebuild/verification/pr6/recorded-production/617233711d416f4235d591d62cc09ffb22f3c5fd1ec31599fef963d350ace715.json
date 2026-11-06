@@ -1,0 +1,8 @@
+{
+  "route": "/acme/journeys/",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 40389,
+  "sha256": "6bfba32859000d78997fdd3c536a55c4939ee96a7dc065d68331ee45e44c5b71",
+  "body": "617233711d416f4235d591d62cc09ffb22f3c5fd1ec31599fef963d350ace715.body.gz"
+}

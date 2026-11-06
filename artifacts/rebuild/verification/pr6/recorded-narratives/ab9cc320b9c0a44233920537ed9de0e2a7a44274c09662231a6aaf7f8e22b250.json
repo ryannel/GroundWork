@@ -1,0 +1,8 @@
+{
+  "route": "/personal/people/",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 29833,
+  "sha256": "ebfdb1c5f64617dac57f1509c26eb64032030626022dccf988cbd57f9b6a3ecd",
+  "body": "ab9cc320b9c0a44233920537ed9de0e2a7a44274c09662231a6aaf7f8e22b250.body.gz"
+}

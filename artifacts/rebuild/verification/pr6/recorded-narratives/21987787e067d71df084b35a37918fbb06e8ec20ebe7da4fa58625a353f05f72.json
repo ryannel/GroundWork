@@ -1,0 +1,8 @@
+{
+  "route": "/acme/language/",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 44955,
+  "sha256": "ecf792ef2ddde18e8ea44216fa6a391b89c759a4bf8d3b2a8811518824fdc962",
+  "body": "21987787e067d71df084b35a37918fbb06e8ec20ebe7da4fa58625a353f05f72.body.gz"
+}

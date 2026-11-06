@@ -1,0 +1,47 @@
+{
+  "syntheticFixture": true,
+  "acceptedFilesSha256": "2c4df5031378ff5bcea9cd23e61000e364ba153bf9ce7a6ea235b4d31d375d38",
+  "readyRuns": 2,
+  "outputBytesIdentical": true,
+  "reportBytesIdentical": true,
+  "inputUnchanged": true,
+  "reorderedInputIdsUnchanged": true,
+  "includes": [
+    "cited queue record access",
+    "app job and preserved trigger",
+    "accepted headline",
+    "uncited future plan return",
+    "isolated ordinary reader and plan projection validation"
+  ],
+  "output": {
+    "aliases.yaml": "9bc5964830684a6259d65d0c3323dfbe51a52fc39249d954c456e9c02289dfee",
+    "domains/orders/domain.yaml": "a406ec8d5ab5b13537597df138a6216a1025b666a87a05d4de6ed1c298f10888",
+    "domains/orders/systems/orders/contracts.yaml": "f7f467b887f247eb37f5c2309c743987620f628153d2bf320237892e3183b13e",
+    "domains/orders/systems/orders/handlers.yaml": "9e6f011c3a5e7eefdc332371573c689c36c6f66af5612f32312e38e16d214cc9",
+    "domains/orders/systems/orders/handlers/app-shop.yaml": "77ede93cc98f2c0bcaea6e553b39fb46a5771b6f7f3ffcd73aba93ad7b902dcd",
+    "domains/orders/systems/orders/handlers/svc-orders.yaml": "da2b8e46c6c5c81ad337072c630f1210d43dac9bd90ffe557a3491bd692b0d22",
+    "domains/orders/systems/orders/screens.yaml": "8f738ad8a3d43226b4980a877e3ebffa905336077ff90ed7da97496afc1240b0",
+    "domains/orders/systems/orders/system.yaml": "d006bbf27a0c1d26f77c3257a85eaa41d93476d7d0c620024861d8cf0e1f6d69",
+    "evidence/orders/repository.json": "85107d1e682b1810c3ba421140beda1ed3822b6609ed4fa2c940445b26758342",
+    "externals.yaml": "57224d133db4add1c949200e79b9b2675187f19a4938652624476dc3ad0b4ed3",
+    "libraries.yaml": "643558f9b41d684f241c569e0bf82fcb04dd5723a82c7dfe00d3fcfca0d3f13e",
+    "plans/change/plan.yaml": "1d97e99bfd864c12db0c072bb0a45eb252a14ed168ac53225f7898e125c6f11b",
+    "workspace.yaml": "c7551328cc943981f4b17d24c92090a9788740f7b1b44ab553629c5f4508baa7"
+  },
+  "reports": {
+    "headlines.yaml": "d032480f4dea09dc96668f47855e07b6e836131981450fe66d98244250800705",
+    "migration.json": "96b1164fe4a05178675a9adece49b178d0d3082d35d382c8cd620e7e3769e6b6",
+    "review-edges.yaml": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "step-ids.yaml": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "summary.json": "0c0ed631486fd118fd00691cf258dac18c807563122863c1d4f92b8acb467e39"
+  },
+  "original": {
+    "domains/orders/domain.yaml": "22d81045d524c40271a49ba901c583603c3c11a7b069609d74547c238567d1aa",
+    "domains/orders/systems/orders/contracts.yaml": "733d0ed45400af60895cb388fb88e08fbcc30760161378c6ac2e35a1f54c9c96",
+    "domains/orders/systems/orders/handlers.yaml": "9e6f011c3a5e7eefdc332371573c689c36c6f66af5612f32312e38e16d214cc9",
+    "domains/orders/systems/orders/system.yaml": "52cefa06839b9d92241a26507b63e20badb624ea8e8f91d020ce96911549421e",
+    "evidence/orders/repository.json": "e9224812c41c63e044b08d5bf6719bf5bf516c6340ecfcd344d670c9fb979e68",
+    "plans/change/plan.yaml": "89b6bdeb429275f002e25137c292cfc0eb69990853e3a66209eb6993b364f3fe",
+    "workspace.yaml": "634bd583d93f2fa505e07d8ee662822917c35f014258ffe276edffae785eaf23"
+  }
+}

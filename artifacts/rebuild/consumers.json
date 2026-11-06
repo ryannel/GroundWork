@@ -1500,187 +1500,187 @@
         "text": "The canonical `WorkspaceModel` is serialisable data. `readModel` validates authored fragments, resolves only"
       },
       {
-        "line": 41,
+        "line": 45,
         "text": "`legacyViewOf` is the named compatibility boundary for workspace/domain page consumers. Its workspace tree"
       },
       {
-        "line": 60,
+        "line": 64,
         "text": "landscape.yaml                     authored areas and the major relationships used to enter the system model"
       },
       {
-        "line": 65,
+        "line": 69,
         "text": "systems/<system>/system.yaml      purpose, owning team (optional), components and what they talk to"
       },
       {
-        "line": 66,
+        "line": 70,
         "text": "systems/<system>/contracts.yaml   what its components offer and keep (system model)"
       },
       {
-        "line": 68,
+        "line": 72,
         "text": "systems/<system>/handlers.yaml    what runs when its endpoints and messages are reached (system model)"
       },
       {
-        "line": 69,
+        "line": 73,
         "text": "story.yaml                          summary and stages across domains (system model)"
       },
       {
-        "line": 73,
+        "line": 77,
         "text": "scans/<org>/<repo>.yaml             the commit each repo was last read at, and how far it has moved since"
       },
       {
-        "line": 77,
+        "line": 81,
         "text": "base.lock.json                    what an open plan was checked against (generated): checked_on, entities"
       },
       {
-        "line": 86,
+        "line": 90,
         "text": "`landscape.yaml` is optional. Its areas are authored, purpose-led entrances into the evidence, not a fifth level"
       },
       {
-        "line": 292,
+        "line": 296,
         "text": "`src/infrastructure/workspace-folders.ts` is the only code that knows where workspaces are, and every reader asks"
       },
       {
-        "line": 313,
+        "line": 317,
         "text": "staged plan whose `base.lock.json` does not hold the check of what it says now. Groundwork's own `lefthook.yml`"
       },
       {
-        "line": 326,
+        "line": 330,
         "text": "another. Workspace switching opens the chosen workspace's root, not a potentially unrelated plan or system."
       },
       {
-        "line": 336,
+        "line": 340,
         "text": "`contracts.yaml` holds a system's stores, interfaces, schemas, messages, screens, graphs, subgraphs and"
       },
       {
-        "line": 337,
+        "line": 341,
         "text": "operations, plus `components:` detail (kind, summary, sources) for components named in `system.yaml`. The"
       },
       {
-        "line": 338,
+        "line": 342,
         "text": "structure stays the source of a component's name, tech and what it does. `handlers.yaml`, beside it, holds the"
       },
       {
-        "line": 367,
+        "line": 371,
         "text": "entirely outside the company are dashed. The stages are then listed in reading order, then the shifts. Today's"
       },
       {
-        "line": 370,
+        "line": 374,
         "text": "- `src/domain/workspace-model.ts` has the types: `WorkspaceModel`, `Attribution` (origin and code sources by id,"
       },
       {
-        "line": 373,
+        "line": 377,
         "text": "- `src/infrastructure/workspace-model.ts` reads the files (each one optional), takes `origin` off, keeps the"
       },
       {
-        "line": 376,
+        "line": 380,
         "text": "- `src/application/workspace-model.ts` `systemModelOf(workspace, model)` assembles one plan-shaped document with"
       },
       {
-        "line": 377,
+        "line": 381,
         "text": "no changes (teams and colours from `workspace.yaml`, `sys:<system>` per system, components as services or"
       },
       {
-        "line": 383,
+        "line": 387,
         "text": "The optional service explorer reads a disposable projection under `<workspace>/explorer/`; its typed"
       },
       {
-        "line": 392,
+        "line": 396,
         "text": "in place under `<workspace>/explorer/corpus/` (`src/infrastructure/scan-explorer/corpus-assets.ts` installs it;"
       },
       {
-        "line": 393,
+        "line": 397,
         "text": "`src/infrastructure/explorer-assets.ts` reads it back) and lets the"
       },
       {
-        "line": 406,
+        "line": 410,
         "text": "discovery.json                      readiness, scopes, declared components and knowledge gaps (optional)"
       },
       {
-        "line": 420,
+        "line": 424,
         "text": "shaping in `src/application/evidence/`, and the writer in `src/infrastructure/scan-explorer/evidence-files.ts`."
       },
       {
-        "line": 441,
+        "line": 445,
         "text": "See the [service explorer contract](scan-trials/service-explorer/README.md)."
       },
       {
-        "line": 450,
+        "line": 454,
         "text": "proof scope and remaining adoption gates. `schema/knowledge.schema.json` defines immutable revision bundles, snapshot"
       },
       {
-        "line": 451,
+        "line": 455,
         "text": "selection, control/data records and query messages; `npm run generate:knowledge` generates domain types."
       },
       {
-        "line": 453,
+        "line": 457,
         "text": "`src/domain/knowledge` defines revision references and validation rules. `src/application/knowledge` performs"
       },
       {
-        "line": 458,
+        "line": 462,
         "text": "`src/infrastructure/knowledge` validates documents, verifies hashes and builds a disposable SQLite index."
       },
       {
-        "line": 461,
+        "line": 465,
         "text": "write acknowledgements, channel bindings, subscriptions, handoffs, delivery policies and consistency boundaries."
       },
       {
-        "line": 535,
+        "line": 539,
         "text": "- Plan types live in `src/domain/plan/`. `plan.generated.ts` is generated from `schema/plan.schema.json` by"
       },
       {
-        "line": 539,
+        "line": 543,
         "text": "- Handlers (`h:` ids) say what a component does when an endpoint, message, interaction or schedule reaches it,"
       },
       {
-        "line": 555,
+        "line": 559,
         "text": "`base.lock.json` fingerprints what an open plan's `modify`, `remove` and `after` ops target, and records the"
       },
       {
-        "line": 560,
+        "line": 564,
         "text": "the lock, and refuses while a plan it builds on has not landed. `src/infrastructure/plan-base-store.ts` loads"
       },
       {
-        "line": 566,
+        "line": 570,
         "text": "- `src/infrastructure/plan-store.ts` reads plans and revisions onto their base. `readPlan` trusts the check a plan"
       },
       {
-        "line": 583,
+        "line": 587,
         "text": "`src/infrastructure/plan-standing.ts` and sent with `plan.json`):"
       },
       {
-        "line": 595,
+        "line": 599,
         "text": "scenarios, decisions, questions and milestones its plans share; `src/infrastructure/workspace-programmes.ts`"
       },
       {
-        "line": 599,
+        "line": 603,
         "text": "loaded and kept until a file changes by `src/infrastructure/workspace-plan-index.ts`): its plans in landing order,"
       },
       {
-        "line": 639,
+        "line": 643,
         "text": "| `/[workspace]/explorer/`                            | the service explorer                      |"
       },
       {
-        "line": 640,
+        "line": 644,
         "text": "| `/[workspace]/explorer/data/[file]`                 | the service explorer's data               |"
       },
       {
-        "line": 712,
+        "line": 716,
         "text": "put a system in a tier with `tier:` in its system.yaml; otherwise the model implies it"
       },
       {
-        "line": 727,
+        "line": 731,
         "text": "system.yaml (feature flags, sign-in, error tracking) is plumbing no business data comes from, so the map leaves it"
       },
       {
-        "line": 796,
+        "line": 800,
         "text": "(`svc:orders` is `#i-svc-orders`). Each open or hop pushes a history entry, so Back steps through what was seen and"
       },
       {
-        "line": 838,
+        "line": 842,
         "text": "Other screens read in stops keep the stop in `?stop=<key>`: the system map and graph stages on Today, the walk"
       },
       {
-        "line": 887,
+        "line": 891,
         "text": "- Every file in `src/infrastructure` imports `server-only`. Only `src/infrastructure/workspace-folders.ts`,"
       }
     ],
@@ -1958,111 +1958,119 @@
         "text": "- Field types are a small tagged grammar (scalar name, `sch:` id, `array`, `map`, `one_of`, `enum`), so views can"
       },
       {
-        "line": 288,
+        "line": 271,
+        "text": "A schema's `store` may name a `st:` component or a `top:` component whose form is `queue` when the cited"
+      },
+      {
+        "line": 292,
         "text": "- id: h:assortment-admin-apply-car-plan"
       },
       {
-        "line": 289,
+        "line": 293,
         "text": "component: svc:assortment-admin-api"
       },
       {
-        "line": 290,
+        "line": 294,
         "text": "on: api:assortment-admin-car-plan-apply # api: | sub: | job: | ui:"
       },
       {
-        "line": 295,
+        "line": 299,
         "text": "read: sch:assortment-admin-plan"
       },
       {
-        "line": 296,
+        "line": 300,
         "text": "from: st:assortment-admin-db"
       },
       {
-        "line": 299,
+        "line": 303,
         "text": "if: the plan does not exist"
       },
       {
-        "line": 307,
+        "line": 311,
         "text": "write: sch:assortment-admin-plan#status,"
       },
       {
-        "line": 308,
+        "line": 312,
         "text": "to: st:assortment-admin-db,"
       },
       {
-        "line": 316,
+        "line": 320,
         "text": "write: sch:assortment-admin-outbox"
       },
       {
-        "line": 317,
+        "line": 321,
         "text": "to: st:assortment-admin-db"
       },
       {
-        "line": 318,
+        "line": 322,
         "text": "causes: h:assortment-outbox-relay#publish"
       },
       {
-        "line": 329,
+        "line": 333,
         "text": "- { id: call, call: api:pricing-get-price, cites: ['#L36-46'] }"
       },
       {
-        "line": 344,
-        "text": "| effect    | At most one of `read`+`from`, `write`+`to` (the store is always named), `call` (`api:` or `gql:`), `publish` (`msg:`), `wait` (a duration or words), `return` (a status or words). None means computation.                                                                                           |"
+        "line": 348,
+        "text": "| effect    | At most one of `read`+`from`, `write`+`to` (the store or queue is always named), `call` (`api:` or `gql:`), `publish` (`msg:`), `wait` (a duration or words), `return` (a status or words). None means computation.                                                                                  |"
       },
       {
-        "line": 377,
+        "line": 353,
+        "text": "`from` and `to` may name a `st:` component or a `top:` component whose form is `queue`; a stream is not a"
+      },
+      {
+        "line": 392,
         "text": "// WorkspaceModel after readModel: cites: Cite[]"
       },
       {
-        "line": 406,
+        "line": 421,
         "text": "- **`WorkspaceModel`** (`src/domain/workspace-model.ts`): plain serialisable data. The only shape of \"how things"
       },
       {
-        "line": 415,
+        "line": 430,
         "text": "- **Deleted at the end:** `systemModelOf`, `SystemModel`, `Today.today`, \"today as an approved plan\","
       },
       {
-        "line": 416,
+        "line": 431,
         "text": "`collectionsOf`/`onBase`, separate `Service`/`Store` types, both `teamOf`, about 18 place maps,"
       },
       {
-        "line": 417,
+        "line": 432,
         "text": "`domain/workspace-links.ts`."
       },
       {
-        "line": 422,
+        "line": 437,
         "text": "`schema/plan.schema.json` (the overlay; ops target any id, including `h:…#step`, `sch:…#field`, `scr:…#region`)."
       },
       {
-        "line": 426,
+        "line": 441,
         "text": "- Deleted after the new scan path is proven: `knowledge*`, `scan-discovery`, `scan-interpretation`."
       },
       {
-        "line": 430,
+        "line": 445,
         "text": "- **Entry flow view** for `api:`, `sub:`, `job:` and `ui:`, built from the mockup's node canvas:"
       },
       {
-        "line": 449,
+        "line": 464,
         "text": "| Retire                   | live `explorer/corpus`            | 3.6 GB              | 0              | parity report                                   |"
       },
       {
-        "line": 469,
+        "line": 484,
         "text": "- **`talks_to`**: 855 backed edges become `connections` with `backs:`; 48 contract-backed and 10 GraphQL-backed"
       },
       {
-        "line": 496,
+        "line": 511,
         "text": "| `sub:` subscriptions separate from `msg:`                                                                                                     | Design review: one message, many receivers with different groups, conditions, retry.      |"
       },
       {
-        "line": 498,
+        "line": 513,
         "text": "| Explicit ids on schema fields, screen regions and failures                                                                                    | Design review: plans already target `sch:…#field`.                                        |"
       },
       {
-        "line": 499,
+        "line": 514,
         "text": "| `ui:` declared only in `contracts.yaml`; `screens.yaml` has no entries                                                                        | Design review: two homes.                                                                 |"
       },
       {
-        "line": 508,
+        "line": 523,
         "text": "| Unmapped Volvo systems as `sys:` with `mapped: false`                                                                                         | Data: about 55 fake externals.                                                            |"
       }
     ],
@@ -48229,15 +48237,15 @@
         "text": "\"acknowledged\","
       },
       {
-        "line": 5634,
+        "line": 5654,
         "text": "\"acknowledgement\": {"
       },
       {
-        "line": 5682,
+        "line": 5702,
         "text": "\"acknowledgement\","
       },
       {
-        "line": 6838,
+        "line": 6858,
         "text": "\"knowledge_gaps\": {"
       }
     ],
@@ -48561,7 +48569,7 @@
         "text": "\"description\": \"a reference to another record: sch:* (its key) or sch:*#field\""
       },
       {
-        "line": 2584,
+        "line": 2624,
         "text": "\"pattern\": \"^h:[^#\\\\s]+(?:#[^!#\\\\s][^#\\\\s]*)?$\""
       }
     ],
@@ -51227,6 +51235,54 @@
       {
         "line": 85,
         "text": "expect(index.gaps('st:remote')).toEqual(["
+      },
+      {
+        "line": 96,
+        "text": "const node = entitiesIn(model).find((entity) => entity.id === 'h:a#read');"
+      },
+      {
+        "line": 106,
+        "text": "const system = entitiesIn(model).find((node) => node.id === 'sys:b');"
+      },
+      {
+        "line": 107,
+        "text": "const source = entitiesIn(model).find((node) => node.id === 'sys:a');"
+      },
+      {
+        "line": 111,
+        "text": "{ id: 'msg:remote', topic: 'top:remote', payload: 'sch:remote' },"
+      },
+      {
+        "line": 112,
+        "text": "{ id: 'msg:other', topic: 'top:remote', payload: 'sch:remote' },"
+      },
+      {
+        "line": 119,
+        "text": "from: 'svc:a',"
+      },
+      {
+        "line": 120,
+        "text": "to: 'msg:other',"
+      },
+      {
+        "line": 129,
+        "text": "expect(index.producers('msg:remote')).toEqual(['svc:a']);"
+      },
+      {
+        "line": 130,
+        "text": "expect(index.producers('msg:other')).toEqual(['svc:a']);"
+      },
+      {
+        "line": 134,
+        "text": "const system = entitiesIn(model).find((node) => node.id === 'sys:b');"
+      },
+      {
+        "line": 140,
+        "text": "from: 'svc:b',"
+      },
+      {
+        "line": 141,
+        "text": "to: 'msg:remote',"
       }
     ],
     "status": "adapter"
@@ -51639,7 +51695,7 @@
         "text": "function handlersIn(model: WorkspaceModel): readonly ModelHandler[] {"
       },
       {
-        "line": 604,
+        "line": 633,
         "text": "export function indexOf(model: WorkspaceModel): ModelIndex {"
       }
     ],
@@ -66827,19 +66883,23 @@
     "file": "src/application/plans-index.ts",
     "hits": [
       {
-        "line": 3,
-        "text": "import type { ModelPlan, WorkspaceModel } from '@/domain/workspace-model';"
+        "line": 8,
+        "text": "type WorkspaceModel,"
       },
       {
         "line": 9,
+        "text": "} from '@/domain/workspace-model';"
+      },
+      {
+        "line": 22,
         "text": "readonly before: WorkspaceModel;"
       },
       {
-        "line": 10,
+        "line": 23,
         "text": "readonly after: WorkspaceModel;"
       },
       {
-        "line": 39,
+        "line": 106,
         "text": "export function plansIndex(plans: readonly ModelPlan[], model: WorkspaceModel): PlansIndex {"
       }
     ],
@@ -69907,252 +69967,272 @@
     "file": "src/domain/ids.test.ts",
     "hits": [
       {
-        "line": 44,
+        "line": 46,
         "text": "expect(id).toBe('h:apply#tx/queue/outbox');"
       },
       {
-        "line": 55,
+        "line": 57,
         "text": "expect(kindOf('sch:response#status')).toBe('field');"
       },
       {
-        "line": 60,
+        "line": 62,
         "text": "expect(kindOf('sys:orders#invented-child')).toBeNull();"
       },
       {
-        "line": 61,
+        "line": 63,
         "text": "expect(kindOf('svc:orders#!invented-failure')).toBeNull();"
       },
       {
-        "line": 62,
+        "line": 64,
         "text": "expect(appendChild(childId(parent, 'tx'), 'read')).toBe('h:apply#tx/read');"
       },
       {
-        "line": 63,
+        "line": 65,
         "text": "expect(appendChild(parent, 'read')).toBe('h:apply#read');"
       },
       {
-        "line": 64,
+        "line": 66,
         "text": "expect(isWithinId('h:apply#tx/read', 'h:apply#tx')).toBe(true);"
       },
       {
-        "line": 65,
+        "line": 67,
         "text": "expect(isWithinId('h:apply#tx-other/read', 'h:apply#tx')).toBe(false);"
       },
       {
-        "line": 68,
+        "line": 70,
         "text": "it.each([null, 2, 'unknown:x', 'h:x#', 'h:x#tx//read', 'h:x#!', 'h:x#two words', 'h:x#a#b'])("
       },
       {
-        "line": 78,
+        "line": 80,
         "text": "expect(planEntityTypeOf('sch:x#id')).toBe('field');"
       },
       {
-        "line": 80,
+        "line": 82,
         "text": "expect(planEntityTypeOf('h:x#read')).toBeNull();"
       },
       {
-        "line": 81,
+        "line": 83,
         "text": "expect(planEntityTypeOf('api:x')).toBe('endpoint');"
       },
       {
-        "line": 86,
+        "line": 88,
         "text": "expect(tokenToId('svc-orders')).toBe('svc:orders');"
       },
       {
-        "line": 104,
+        "line": 106,
         "text": "expect(scopedId('care', 'h:x#tx/read')).toBe('care/h:x#tx/read');"
       },
       {
-        "line": 105,
+        "line": 107,
         "text": "expect(scopedId('care', 'other/h:x#tx/read')).toBe('other/h:x#tx/read');"
       },
       {
-        "line": 109,
+        "line": 111,
         "text": "expect(prefixOf('svc:orders')).toBe('svc');"
       },
       {
-        "line": 111,
+        "line": 113,
         "text": "expect(hasPrefix('svc:orders', 'svc')).toBe(true);"
       },
       {
-        "line": 114,
+        "line": 116,
         "text": "expect(otherPrefix('svc:orders')).toBe('SVC:ORDERS');"
       },
       {
-        "line": 115,
+        "line": 117,
         "text": "expect(stripPrefix('svc:orders', 'svc')).toBe('orders');"
       },
       {
-        "line": 116,
+        "line": 118,
         "text": "expect(stripPrefix('st:orders', 'svc')).toBe('st:orders');"
       },
       {
-        "line": 120,
+        "line": 122,
         "text": "expect(childPathOf('h:x')).toBeUndefined();"
       },
       {
-        "line": 121,
+        "line": 123,
         "text": "expect(splitChildId('h:x#tx/read')).toEqual(['h:x', 'tx/read']);"
       },
       {
-        "line": 122,
+        "line": 124,
         "text": "expect(colonLocalId('svc:orders')).toBe('orders');"
       },
       {
-        "line": 124,
+        "line": 126,
         "text": "expect(localId('svc:orders')).toBe('orders');"
       },
       {
-        "line": 125,
+        "line": 127,
         "text": "expect(lastChildId('h:x#read')).toBe('read');"
       },
       {
-        "line": 126,
+        "line": 128,
         "text": "expect(isQualifiedId('svc:orders')).toBe(true);"
       },
       {
-        "line": 128,
+        "line": 130,
         "text": "expect(hasChildPath('h:x#read')).toBe(true);"
       },
       {
-        "line": 129,
+        "line": 131,
         "text": "expect(isDisplayId('svc:orders')).toBe(true);"
       },
       {
-        "line": 130,
+        "line": 132,
         "text": "expect(startsWithId('svc:orders')).toBe(true);"
       },
       {
-        "line": 131,
+        "line": 133,
         "text": "expect(isTextId('svc:orders')).toBe(true);"
       },
       {
-        "line": 132,
+        "line": 134,
         "text": "expect(isTextId('svc:orders are new')).toBe(false);"
       },
       {
-        "line": 139,
+        "line": 141,
         "text": "resolveAlias('h:old#tx/read', {"
       },
       {
-        "line": 140,
+        "line": 142,
         "text": "'h:old#tx/read': { to: 'h:middle#fetch' },"
       },
       {
-        "line": 141,
+        "line": 143,
         "text": "'h:middle#fetch': { to: 'h:new#load' },"
       },
       {
-        "line": 142,
+        "line": 144,
         "text": "'h:old': { to: 'h:other' },"
       },
       {
-        "line": 144,
+        "line": 146,
         "text": ").toEqual({ id: 'h:new#load', used: ['h:old#tx/read', 'h:middle#fetch'], problem: null });"
       },
       {
-        "line": 145,
+        "line": 147,
         "text": "expect(resolveAlias('svc:current', {}).used).toEqual([]);"
       },
       {
-        "line": 149,
+        "line": 151,
         "text": "expect(resolveAlias('h:old#tx/read', { 'h:old': { to: 'h:new' } })).toEqual({"
       },
       {
-        "line": 151,
+        "line": 153,
         "text": "used: ['h:old'],"
       },
       {
-        "line": 152,
+        "line": 154,
         "text": "problem: 'h:old#tx/read needs an explicit alias because h:old was retired',"
       },
       {
-        "line": 154,
+        "line": 156,
         "text": "expect(resolveAlias('h:old#tx/read', { 'h:old#tx': { to: 'h:new#queue' } }).used).toEqual(["
       },
       {
-        "line": 155,
+        "line": 157,
         "text": "'h:old#tx',"
       },
       {
-        "line": 157,
+        "line": 159,
         "text": "expect(resolveAlias('h:old#tx/read', { 'h:old#tx-other': { to: 'h:new#queue' } }).id).toBe("
       },
       {
-        "line": 158,
+        "line": 160,
         "text": "'h:old#tx/read',"
       },
       {
-        "line": 164,
+        "line": 166,
         "text": "resolveAlias('svc:old', { 'svc:old': { to: null, reason: 'Retired without replacement' } }),"
       },
       {
-        "line": 165,
+        "line": 167,
         "text": ").toEqual({ id: null, used: ['svc:old'], problem: 'Retired without replacement' });"
       },
       {
-        "line": 166,
+        "line": 168,
         "text": "expect(resolveAlias('svc:old', { 'svc:old': { to: null } }).problem).toBe("
       },
       {
-        "line": 167,
+        "line": 169,
         "text": "'Alias svc:old needs a reason',"
       },
       {
-        "line": 170,
+        "line": 172,
         "text": "resolveAlias('svc:a', { 'svc:a': { to: 'svc:b' }, 'svc:b': { to: 'svc:a' } }).problem,"
       },
       {
-        "line": 171,
+        "line": 173,
         "text": ").toBe('Alias cycle at svc:a');"
       },
       {
-        "line": 179,
+        "line": 181,
         "text": "expect(hasAnyPrefix('api:read', ['api', 'gql'])).toBe(true);"
       },
       {
-        "line": 180,
+        "line": 182,
         "text": "expect(hasAnyPrefix('api:', ['api'])).toBe(true);"
       },
       {
-        "line": 182,
+        "line": 184,
         "text": "expect(hasAnyPrefix('msg:read', ['api', 'gql'])).toBe(false);"
       },
       {
-        "line": 183,
+        "line": 185,
         "text": "expect(hasAnyPrefix('api:read', [])).toBe(false);"
       },
       {
-        "line": 194,
+        "line": 196,
         "text": "expect(hasChildPrefix('sch:read#one', 'flow')).toBe(false);"
       },
       {
-        "line": 197,
+        "line": 199,
         "text": "expect(firstFlowReference('[[svc:reader]] then [[flow:read]] and [[flow:save]]')).toBe("
       },
       {
-        "line": 212,
+        "line": 214,
         "text": "'svc:a',"
       },
       {
-        "line": 213,
+        "line": 215,
         "text": "'sch:Order#item_id',"
       },
       {
-        "line": 215,
+        "line": 217,
         "text": "'h:entry#step',"
       },
       {
-        "line": 216,
+        "line": 218,
         "text": "'h:entry#tx/read',"
       },
       {
-        "line": 217,
+        "line": 219,
         "text": "'h:entry#!failure',"
       },
       {
-        "line": 219,
+        "line": 221,
         "text": "'svc:',"
+      },
+      {
+        "line": 231,
+        "text": "['svc:web', 'app:web'],"
+      },
+      {
+        "line": 232,
+        "text": "['st:events', 'top:events'],"
+      },
+      {
+        "line": 237,
+        "text": "rewriteIdReferences('[[svc:web]] calls [[st:events#field/path]] and svc:web.', replacements),"
+      },
+      {
+        "line": 240,
+        "text": "rewriteIdReferences('[[programme/sc:sample]] svc:website [[svc:other]]', replacements),"
+      },
+      {
+        "line": 241,
+        "text": ").toBe('[[programme/sc:sample]] svc:website [[svc:other]]');"
       }
     ],
     "status": "adapter"
@@ -70718,11 +70798,11 @@
         "text": "phase: 'read' | 'staged' | 'acknowledged' | 'committed' | 'published' | 'delivered' | 'unknown';"
       },
       {
-        "line": 1407,
+        "line": 1427,
         "text": "acknowledgement: 'unobserved';"
       },
       {
-        "line": 1576,
+        "line": 1596,
         "text": "knowledge_gaps?: string[];"
       }
     ],
@@ -70733,7 +70813,7 @@
     "file": "src/domain/model/plan.generated.ts",
     "hits": [
       {
-        "line": 717,
+        "line": 722,
         "text": "* a reference to another record: sch:* (its key) or sch:*#field"
       }
     ],
@@ -75373,12 +75453,206 @@
     "status": "adapter"
   },
   {
+    "category": "fixture or test",
+    "file": "src/infrastructure/model-plan-projection.test.ts",
+    "hits": [
+      {
+        "line": 11,
+        "text": "import { modelRecord, type ModelPlan, type WorkspaceModel } from '@/domain/workspace-model';"
+      },
+      {
+        "line": 18,
+        "text": "let current: WorkspaceModel;"
+      },
+      {
+        "line": 38,
+        "text": "- { id: load, read: 'sch:order', from: 'st:orders' }"
+      },
+      {
+        "line": 40,
+        "text": "if: The order holds a reservation"
+      },
+      {
+        "line": 42,
+        "text": "- { id: request, call: 'api:charge' }"
+      },
+      {
+        "line": 43,
+        "text": "- { id: save, write: 'sch:order', to: 'st:orders' }"
+      },
+      {
+        "line": 47,
+        "text": "into: 'sys:ordering',"
+      },
+      {
+        "line": 49,
+        "text": "id: name === 'renew' ? 'h:renew' : 'h:release',"
+      },
+      {
+        "line": 50,
+        "text": "component: 'svc:ordering',"
+      },
+      {
+        "line": 66,
+        "text": "id: 'h:renew#eligible/save',"
+      },
+      {
+        "line": 103,
+        "text": "modify: 'h:relay',"
+      },
+      {
+        "line": 106,
+        "text": "{ id: 'load', read: 'sch:order', from: 'st:orders' },"
+      },
+      {
+        "line": 107,
+        "text": "{ id: 'send', call: 'api:charge' },"
+      },
+      {
+        "line": 126,
+        "text": "const plan = await proposal([{ modify: 'h:confirm#lines/reserve', set: { async: true } }]);"
+      },
+      {
+        "line": 131,
+        "text": "{ id: 'h:confirm#lines/reserve', plan: plan.meta.id, change: 'chg:renew-and-release', op: 0 },"
+      },
+      {
+        "line": 133,
+        "text": "expect(projected?.afterIndex.cites('h:confirm#lines/reserve')).toEqual("
+      },
+      {
+        "line": 134,
+        "text": "prior.cites('h:confirm#lines/reserve'),"
+      },
+      {
+        "line": 138,
+        "text": ".gaps('h:confirm#lines/reserve')"
+      },
+      {
+        "line": 145,
+        "text": "expect(projected?.afterIndex.cites('h:confirm#load')).toEqual(prior.cites('h:confirm#load'));"
+      },
+      {
+        "line": 146,
+        "text": "expect(projected?.proposals.some((item) => item.id === 'h:confirm#load')).toBe(false);"
+      },
+      {
+        "line": 150,
+        "text": "at: 'h:confirm#lines/reserve',"
+      },
+      {
+        "line": 158,
+        "text": "{ modify: 'h:relay', set: { steps: [{ id: 'load', read: 'sch:order', from: 'st:orders' }] } },"
+      },
+      {
+        "line": 168,
+        "text": "at: 'sys:ordering/2/steps/0',"
+      },
+      {
+        "line": 175,
+        "text": "modify: 'h:relay',"
+      },
+      {
+        "line": 176,
+        "text": "set: { steps: [{ id: 'invalid', read: 'sch:order', from: 'svc:ordering' }] },"
+      },
+      {
+        "line": 178,
+        "text": "{ modify: 'h:absent', set: { summary: 'No such handler' } },"
+      },
+      {
+        "line": 187,
+        "text": "check({ add: 'step', into: 'h:relay', value: { id: 'bad', call: 'api:charge', cites: [] } }),"
+      },
+      {
+        "line": 192,
+        "text": "into: 'h:relay',"
+      },
+      {
+        "line": 193,
+        "text": "value: { id: 'bad', call: 'api:charge', cites: ['https://example.com/fake-proof'] },"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
     "category": "consumer",
     "file": "src/infrastructure/model-plans.ts",
     "hits": [
       {
         "line": 5,
         "text": "import type { ModelPlan } from '@/domain/workspace-model';"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "fixture or test",
+    "file": "src/infrastructure/model-queue-access.test.ts",
+    "hits": [
+      {
+        "line": 9,
+        "text": "import type { ModelSystem, WorkspaceModel } from '@/domain/workspace-model';"
+      },
+      {
+        "line": 17,
+        "text": "let original: WorkspaceModel;"
+      },
+      {
+        "line": 26,
+        "text": "function withQueue(form: 'queue' | 'stream', declared = true): WorkspaceModel {"
+      },
+      {
+        "line": 28,
+        "text": "id: 'sch:job',"
+      },
+      {
+        "line": 44,
+        "text": "handler.id === 'h:confirm'"
+      },
+      {
+        "line": 49,
+        "text": "{ id: 'read-job', read: 'sch:job', from: 'top:jobs', cites: handler.cites ?? [] },"
+      },
+      {
+        "line": 50,
+        "text": "{ id: 'write-job', write: 'sch:job', to: 'top:jobs', cites: handler.cites ?? [] },"
+      },
+      {
+        "line": 66,
+        "text": "['read', 'sch:job'],"
+      },
+      {
+        "line": 67,
+        "text": "['write', 'sch:job'],"
+      },
+      {
+        "line": 70,
+        "text": "const flow = entryFlowOf(index, 'api:confirm');"
+      },
+      {
+        "line": 71,
+        "text": "expect(JSON.stringify(flow)).toContain('h:confirm#write-job');"
+      },
+      {
+        "line": 72,
+        "text": "expect(index.get('h:confirm#write-job')?.data.cites).not.toEqual([]);"
+      },
+      {
+        "line": 80,
+        "text": "'sch:job/store',"
+      },
+      {
+        "line": 81,
+        "text": "'h:confirm#read-job/from',"
+      },
+      {
+        "line": 82,
+        "text": "'h:confirm#write-job/to',"
+      },
+      {
+        "line": 88,
+        "text": "expect(check({ id: 'write', write: 'sch:job', to: 'svc:ordering', cites: ['ev:source'] })).toBe("
       }
     ],
     "status": "adapter"
@@ -76632,16 +76906,28 @@
     "file": "src/infrastructure/validate-model.ts",
     "hits": [
       {
-        "line": 4,
-        "text": "import type { ModelDomain, ModelSystem, WorkspaceModel } from '@/domain/workspace-model';"
+        "line": 11,
+        "text": "type WorkspaceModel,"
       },
       {
-        "line": 87,
+        "line": 12,
+        "text": "} from '@/domain/workspace-model';"
+      },
+      {
+        "line": 95,
         "text": "function fragments(model: WorkspaceModel): readonly Fragment[] {"
       },
       {
-        "line": 132,
+        "line": 160,
+        "text": "model: WorkspaceModel,"
+      },
+      {
+        "line": 187,
         "text": "export async function validateModel(model: WorkspaceModel): Promise<readonly ModelProblem[]> {"
+      },
+      {
+        "line": 204,
+        "text": "before: WorkspaceModel,"
       }
     ],
     "status": "adapter"
@@ -82060,6 +82346,773 @@
     "status": "adapter"
   },
   {
+    "category": "fixture or test",
+    "file": "tools/migrate-model/catalogues.test.ts",
+    "hits": [
+      {
+        "line": 3,
+        "text": "import { modelList, modelRecord } from '@/domain/workspace-model';"
+      },
+      {
+        "line": 15,
+        "text": "const citations = migrationCitations([], review, 'sys:orders');"
+      },
+      {
+        "line": 22,
+        "text": "graphs: [{ id: 'graph:shop', name: 'Shop', gateway: 'svc:orders' }],"
+      },
+      {
+        "line": 24,
+        "text": "{ id: 'sg:orders', graph: 'graph:shop', service: 'svc:orders', batching: 'dataloader' },"
+      },
+      {
+        "line": 34,
+        "text": "`${folder}/contracts.yaml`,"
+      },
+      {
+        "line": 38,
+        "text": "id: 'if:orders',"
+      },
+      {
+        "line": 40,
+        "text": "component: 'svc:orders',"
+      },
+      {
+        "line": 41,
+        "text": "entries: [{ id: 'api:order', sig: 'Query.order(id: ID!): Order' }],"
+      },
+      {
+        "line": 53,
+        "text": "subgraphs: [{ component: 'svc:orders', batching: 'dataloader' }],"
+      },
+      {
+        "line": 66,
+        "text": "const citations = migrationCitations([], review, 'sys:shop');"
+      },
+      {
+        "line": 92,
+        "text": "new Map([[`${folder}/contracts.yaml`, {}]]),"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "tool",
+    "file": "tools/migrate-model/catalogues.ts",
+    "hits": [
+      {
+        "line": 4,
+        "text": "import { modelList, modelRecord, modelText } from '@/domain/workspace-model';"
+      },
+      {
+        "line": 147,
+        "text": "const key = `${interaction.folder}/contracts.yaml`;"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "tool",
+    "file": "tools/migrate-model/citations.ts",
+    "hits": [
+      {
+        "line": 2,
+        "text": "import { modelList, modelRecord, modelText, type ModelCite } from '@/domain/workspace-model';"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "tool",
+    "file": "tools/migrate-model/components.ts",
+    "hits": [
+      {
+        "line": 2,
+        "text": "import { modelList, modelRecord, modelText } from '@/domain/workspace-model';"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "tool",
+    "file": "tools/migrate-model/contracts.ts",
+    "hits": [
+      {
+        "line": 2,
+        "text": "import { modelList, modelRecord, modelText } from '@/domain/workspace-model';"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "fixture or test",
+    "file": "tools/migrate-model/conversion.test.ts",
+    "hits": [
+      {
+        "line": 3,
+        "text": "import { modelRecord } from '@/domain/workspace-model';"
+      },
+      {
+        "line": 24,
+        "text": "const citations = migrationCitations([], review, 'sys:orders');"
+      },
+      {
+        "line": 52,
+        "text": "const citations = migrationCitations([], review, 'sys:orders');"
+      },
+      {
+        "line": 55,
+        "text": "value: { components: [{ id: 'svc:orders', summary: 'Cited detail.', sources: [source] }] },"
+      },
+      {
+        "line": 59,
+        "text": "{ id: 'svc:orders', name: 'Orders', type: 'service', does: 'Short purpose.' },"
+      },
+      {
+        "line": 60,
+        "text": "details.get('svc:orders') ?? [],"
+      },
+      {
+        "line": 70,
+        "text": "const citations = migrationCitations([], review, 'sys:orders');"
+      },
+      {
+        "line": 75,
+        "text": "id: 'if:orders',"
+      },
+      {
+        "line": 76,
+        "text": "service: 'svc:orders',"
+      },
+      {
+        "line": 80,
+        "text": "id: 'api:get',"
+      },
+      {
+        "line": 92,
+        "text": "id: 'sch:order',"
+      },
+      {
+        "line": 127,
+        "text": "path: 'domains/example/systems/orders/system.yaml',"
+      },
+      {
+        "line": 132,
+        "text": "{ id: 'svc:unknown', type: 'external', name: 'Unknown' },"
+      },
+      {
+        "line": 133,
+        "text": "{ id: 'svc:shop', type: 'website', name: 'Shop' },"
+      },
+      {
+        "line": 134,
+        "text": "{ id: 'st:events', type: 'queue', name: 'Events' },"
+      },
+      {
+        "line": 141,
+        "text": "expect(initial.replacements.get('svc:shop')).toBe('app:shop');"
+      },
+      {
+        "line": 142,
+        "text": "expect(initial.replacements.get('st:events')).toBe('top:events');"
+      },
+      {
+        "line": 150,
+        "text": "expect(final.replacements.get('svc:unknown')).toBe('sys:unknown');"
+      },
+      {
+        "line": 159,
+        "text": "const replacements = new Map([['operations', 'sys:operations']]);"
+      },
+      {
+        "line": 172,
+        "text": "system: 'sys:operations',"
+      },
+      {
+        "line": 173,
+        "text": "description: 'See [[sys:operations]].',"
+      },
+      {
+        "line": 181,
+        "text": "{ path: 'landscape.yaml', text: '', value: { areas: [{ id: 'fleet', name: 'Fleet' }] } },"
+      },
+      {
+        "line": 191,
+        "text": "path: 'domains/orders/systems/orders/contracts.yaml',"
+      },
+      {
+        "line": 196,
+        "text": "id: 'sch:task',"
+      },
+      {
+        "line": 213,
+        "text": "{ set: { note: 'See [[sch:task#_id]].' }, modify: 'sch:task#_id' },"
+      },
+      {
+        "line": 216,
+        "text": ").toEqual({ set: { note: 'See [[sch:task#field-id]].' }, modify: 'sch:task#field-id' });"
+      },
+      {
+        "line": 221,
+        "text": "path: 'domains/orders/systems/orders/handlers.yaml',"
+      },
+      {
+        "line": 225,
+        "text": "{ id: 'h:daily', on: 'job:each morning' },"
+      },
+      {
+        "line": 226,
+        "text": "{ id: 'h:one', on: 'job:heartbeat' },"
+      },
+      {
+        "line": 227,
+        "text": "{ id: 'h:two', on: 'job:heartbeat' },"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "fixture or test",
+    "file": "tools/migrate-model/edges.test.ts",
+    "hits": [
+      {
+        "line": 3,
+        "text": "import { modelRecord } from '@/domain/workspace-model';"
+      },
+      {
+        "line": 14,
+        "text": "const citations = migrationCitations([], review, 'sys:shop');"
+      },
+      {
+        "line": 20,
+        "text": "id: 'sys:shop',"
+      },
+      {
+        "line": 24,
+        "text": "id: 'svc:shop',"
+      },
+      {
+        "line": 25,
+        "text": "talks_to: ["
+      },
+      {
+        "line": 26,
+        "text": "{ to: 'svc:orders', via: 'api' },"
+      },
+      {
+        "line": 27,
+        "text": "{ to: 'svc:unknown', via: 'api' },"
+      },
+      {
+        "line": 33,
+        "text": "messages: [{ id: 'msg:ordered', topic: 'top:orders', producer: 'svc:shop', cites }],"
+      },
+      {
+        "line": 34,
+        "text": "stores: [{ id: 'st:db', access: [{ svc: 'svc:shop', mode: 'readwrite' }], cites }],"
+      },
+      {
+        "line": 41,
+        "text": "id: 'sys:orders',"
+      },
+      {
+        "line": 43,
+        "text": "components: [{ id: 'svc:orders' }, { id: 'top:orders' }, { id: 'st:db' }],"
+      },
+      {
+        "line": 46,
+        "text": "interfaces: [{ id: 'if:orders', component: 'svc:orders', entries: [{ id: 'api:order' }] }],"
+      },
+      {
+        "line": 54,
+        "text": "system: { id: 'sys:shop', name: 'Shop' },"
+      },
+      {
+        "line": 58,
+        "text": "id: 'h:buy',"
+      },
+      {
+        "line": 59,
+        "text": "component: 'svc:shop',"
+      },
+      {
+        "line": 60,
+        "text": "on: 'api:buy',"
+      },
+      {
+        "line": 63,
+        "text": "{ id: 'call-orders', call: 'api:order', cites },"
+      },
+      {
+        "line": 64,
+        "text": "{ id: 'read-db', read: 'sch:order', from: 'st:db', cites },"
+      },
+      {
+        "line": 70,
+        "text": "['orders', { system: { id: 'sys:orders', name: 'Orders' }, contracts: {}, handlers: [] }],"
+      },
+      {
+        "line": 79,
+        "text": "connections: [{ to: 'sys:orders', says: 'api', backs: ['h:buy#call-orders'] }],"
+      },
+      {
+        "line": 83,
+        "text": "expect.objectContaining({ from: 'svc:shop', to: 'st:db', kind: 'write', cites }),"
+      },
+      {
+        "line": 84,
+        "text": "expect.objectContaining({ from: 'svc:shop', to: 'msg:ordered', kind: 'publish', cites }),"
+      },
+      {
+        "line": 91,
+        "text": "edge: { to: 'svc:unknown' },"
+      },
+      {
+        "line": 109,
+        "text": "graphs: scope.folder === 'shop' ? [{ id: 'graph:shop', gateway: 'svc:orders' }] : [],"
+      },
+      {
+        "line": 124,
+        "text": "component: 'svc:shop',"
+      },
+      {
+        "line": 136,
+        "text": "expect(result?.connections).toEqual([{ to: 'sys:orders', says: 'api', backs: ['gql:order'] }]);"
+      },
+      {
+        "line": 146,
+        "text": "(row) => modelRecord(row.edge)?.to === 'svc:orders',"
+      },
+      {
+        "line": 150,
+        "text": "from: 'svc:shop',"
+      },
+      {
+        "line": 151,
+        "text": "to: 'svc:orders',"
+      },
+      {
+        "line": 157,
+        "text": "const connection = { to: 'sys:orders', says: 'Reviewed supplier call', backs: ['rel:reviewed'] };"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "tool",
+    "file": "tools/migrate-model/edges.ts",
+    "hits": [
+      {
+        "line": 2,
+        "text": "import { modelList, modelRecord, modelText } from '@/domain/workspace-model';"
+      },
+      {
+        "line": 247,
+        "text": "nodes(component.talks_to).map((summary) => ({ from: modelText(component.id) ?? '', summary })),"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "fixture or test",
+    "file": "tools/migrate-model/evidence.test.ts",
+    "hits": [
+      {
+        "line": 7,
+        "text": "import { modelList, modelRecord } from '@/domain/workspace-model';"
+      },
+      {
+        "line": 38,
+        "text": "knowledgeGaps: ['No caller is proved.'],"
+      },
+      {
+        "line": 109,
+        "text": "knowledge_gaps: ['No caller is proved.'],"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "tool",
+    "file": "tools/migrate-model/evidence.ts",
+    "hits": [
+      {
+        "line": 6,
+        "text": "import { modelList, modelRecord, modelText } from '@/domain/workspace-model';"
+      },
+      {
+        "line": 156,
+        "text": "knowledgeGaps: 'knowledge_gaps',"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "tool",
+    "file": "tools/migrate-model/files.ts",
+    "hits": [
+      {
+        "line": 7,
+        "text": "import { modelRecord } from '@/domain/workspace-model';"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "tool",
+    "file": "tools/migrate-model/graphql.ts",
+    "hits": [
+      {
+        "line": 3,
+        "text": "import { modelList, modelRecord, modelText } from '@/domain/workspace-model';"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "tool",
+    "file": "tools/migrate-model/identities.ts",
+    "hits": [
+      {
+        "line": 2,
+        "text": "import { modelList, modelRecord, modelText } from '@/domain/workspace-model';"
+      },
+      {
+        "line": 25,
+        "text": "if (file.path.endsWith('/system.yaml')) return [id, 'sys'];"
+      },
+      {
+        "line": 141,
+        "text": "for (const file of files.filter((value) => value.path.endsWith('/handlers.yaml'))) {"
+      },
+      {
+        "line": 186,
+        "text": "if (!file.path.endsWith('/system.yaml')) continue;"
+      },
+      {
+        "line": 194,
+        "text": "files.find((file) => file.path === 'landscape.yaml'),"
+      },
+      {
+        "line": 204,
+        "text": "for (const file of files.filter((item) => item.path.endsWith('/handlers.yaml'))) {"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "fixture or test",
+    "file": "tools/migrate-model/plans.test.ts",
+    "hits": [
+      {
+        "line": 3,
+        "text": "import { modelList, modelRecord } from '@/domain/workspace-model';"
+      },
+      {
+        "line": 25,
+        "text": "modify: 'h:reserve',"
+      },
+      {
+        "line": 27,
+        "text": "steps: [{ each: 'car', do: [{ call: 'api:reserve', origin: 'extracted' }] }],"
+      },
+      {
+        "line": 30,
+        "text": "{ add: 'field', into: 'sch:order', value: { name: 'reservationId', type: 'string' } },"
+      },
+      {
+        "line": 37,
+        "text": "from: 'svc:shop',"
+      },
+      {
+        "line": 38,
+        "text": "to: 'svc:shop',"
+      },
+      {
+        "line": 57,
+        "text": "modify: 'h:reserve',"
+      },
+      {
+        "line": 59,
+        "text": "steps: [{ id: 'car', each: 'car', steps: [{ id: 'call-reserve', call: 'api:reserve' }] }],"
+      },
+      {
+        "line": 80,
+        "text": "value: { id: 'h:care', component: 'svc:shop', on: 'msg:ordered', steps: [] },"
+      },
+      {
+        "line": 90,
+        "text": "placements: new Map([['svc:shop', 'sys:shop']]),"
+      },
+      {
+        "line": 96,
+        "text": "into: 'sys:shop',"
+      },
+      {
+        "line": 97,
+        "text": "value: { id: 'sub:shop-ordered', component: 'svc:shop', message: 'msg:ordered' },"
+      },
+      {
+        "line": 101,
+        "text": "into: 'sys:shop',"
+      },
+      {
+        "line": 102,
+        "text": "value: { id: 'h:care', component: 'svc:shop', on: 'sub:shop-ordered', steps: [] },"
+      },
+      {
+        "line": 115,
+        "text": "context: ['svc:shop'],"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "tool",
+    "file": "tools/migrate-model/plans.ts",
+    "hits": [
+      {
+        "line": 2,
+        "text": "import { modelList, modelRecord, modelText } from '@/domain/workspace-model';"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "tool",
+    "file": "tools/migrate-model/review.ts",
+    "hits": [
+      {
+        "line": 4,
+        "text": "import { modelList, modelRecord, modelText } from '@/domain/workspace-model';"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "fixture or test",
+    "file": "tools/migrate-model/runner.test.ts",
+    "hits": [
+      {
+        "line": 7,
+        "text": "import { modelRecord } from '@/domain/workspace-model';"
+      },
+      {
+        "line": 59,
+        "text": "'domains/shop/systems/orders/system.yaml': {"
+      },
+      {
+        "line": 63,
+        "text": "components: [{ id: 'svc:orders', name: 'Orders', type: 'service' }],"
+      },
+      {
+        "line": 65,
+        "text": "'domains/shop/systems/orders/contracts.yaml': {"
+      },
+      {
+        "line": 68,
+        "text": "id: 'if:orders',"
+      },
+      {
+        "line": 69,
+        "text": "service: 'svc:orders',"
+      },
+      {
+        "line": 71,
+        "text": "endpoints: [{ id: 'api:order', sig: 'GET /orders' }],"
+      },
+      {
+        "line": 75,
+        "text": "'domains/shop/systems/orders/handlers.yaml': {"
+      },
+      {
+        "line": 78,
+        "text": "id: 'h:order',"
+      },
+      {
+        "line": 79,
+        "text": "component: 'svc:orders',"
+      },
+      {
+        "line": 80,
+        "text": "on: 'api:order',"
+      },
+      {
+        "line": 96,
+        "text": "{ id: 'h:nightly', component: 'svc:orders', on: 'job:each morning', steps: [] },"
+      },
+      {
+        "line": 124,
+        "text": "readFile(path.join(options.out, 'domains/shop/systems/orders/contracts.yaml'), 'utf8'),"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "tool",
+    "file": "tools/migrate-model/runner.ts",
+    "hits": [
+      {
+        "line": 9,
+        "text": "import { modelRecord, modelText } from '@/domain/workspace-model';"
+      },
+      {
+        "line": 14,
+        "text": "import { workspaceFolder } from '@/infrastructure/workspace-folders';"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "fixture or test",
+    "file": "tools/migrate-model/steps.test.ts",
+    "hits": [
+      {
+        "line": 4,
+        "text": "import { modelRecord } from '@/domain/workspace-model';"
+      },
+      {
+        "line": 14,
+        "text": "path: 'h:example',"
+      },
+      {
+        "line": 33,
+        "text": "write: 'sch:result',"
+      },
+      {
+        "line": 34,
+        "text": "to: 'st:db',"
+      },
+      {
+        "line": 37,
+        "text": "causes: 'h:next',"
+      },
+      {
+        "line": 45,
+        "text": "do: [{ call: 'api:next' }, { wait: '2s' }],"
+      },
+      {
+        "line": 65,
+        "text": "write: 'sch:result',"
+      },
+      {
+        "line": 66,
+        "text": "to: 'st:db',"
+      },
+      {
+        "line": 69,
+        "text": "causes: 'h:next',"
+      },
+      {
+        "line": 93,
+        "text": "[{ call: 'api:next', does: 'First' }, { call: 'api:next', does: 'Second' }, {}],"
+      },
+      {
+        "line": 104,
+        "text": "{ call: 'api:next', does },"
+      },
+      {
+        "line": 105,
+        "text": "{ call: 'api:next', does: 'Other' },"
+      },
+      {
+        "line": 150,
+        "text": "[parse('if: allowed\\nthen: [{ return: 400 }]\\nelse: [{ return: 400 }]')],"
+      },
+      {
+        "line": 162,
+        "text": "parallel: [[{ call: 'api:a' }, { call: 'api:b' }], [{ call: 'api:c' }]],"
+      },
+      {
+        "line": 169,
+        "text": "{ steps: [{ call: 'api:a' }, { call: 'api:b' }] },"
+      },
+      {
+        "line": 170,
+        "text": "{ steps: [{ call: 'api:c' }] },"
+      },
+      {
+        "line": 177,
+        "text": "{ read: 'sch:plan', from: 'st:cache' },"
+      },
+      {
+        "line": 178,
+        "text": "{ read: 'sch:plan', from: 'st:database' },"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "tool",
+    "file": "tools/migrate-model/steps.ts",
+    "hits": [
+      {
+        "line": 2,
+        "text": "import { modelList, modelRecord, modelText } from '@/domain/workspace-model';"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "tool",
+    "file": "tools/migrate-model/workspace.ts",
+    "hits": [
+      {
+        "line": 5,
+        "text": "import { modelList, modelRecord, modelText } from '@/domain/workspace-model';"
+      },
+      {
+        "line": 67,
+        "text": "if (file.path.endsWith('/system.yaml')) {"
+      },
+      {
+        "line": 70,
+        "text": "if (file.path !== 'landscape.yaml') return { ...file, value };"
+      },
+      {
+        "line": 89,
+        "text": ".filter((file) => file.path.endsWith('/system.yaml'))"
+      },
+      {
+        "line": 93,
+        "text": "const contracts = modelRecord(byPath.get(`${folder}/contracts.yaml`)) ?? {};"
+      },
+      {
+        "line": 94,
+        "text": "const handlers = nodes(modelRecord(byPath.get(`${folder}/handlers.yaml`))?.handlers);"
+      },
+      {
+        "line": 368,
+        "text": "if (file.path === 'landscape.yaml') {"
+      },
+      {
+        "line": 471,
+        "text": "const file = `${system.folder}/system.yaml`;"
+      },
+      {
+        "line": 494,
+        "text": "const details = detailIndex(files.filter((file) => file.path.endsWith('/contracts.yaml')));"
+      },
+      {
+        "line": 513,
+        "text": "output.set(`${system.folder}/system.yaml`, {"
+      },
+      {
+        "line": 518,
+        "text": "output.set(`${system.folder}/contracts.yaml`, {"
+      },
+      {
+        "line": 533,
+        "text": "`${path.posix.dirname(system.folder)}/${slug(localId(modelText(unmapped.id) ?? ''))}/system.yaml`,"
+      },
+      {
+        "line": 545,
+        "text": "output.set(`${folder}/system.yaml`, { family: 'workspace', definition: 'SystemFile', value });"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
     "category": "tool",
     "file": "tools/pack-corpus-explorer.ts",
     "hits": [
@@ -85079,6 +86132,17 @@
       {
         "line": 1,
         "text": "node --import ./tools/register.ts --conditions=react-server tools/explorer-parity.ts"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "package script",
+    "file": "package.json#scripts/migrate:model",
+    "hits": [
+      {
+        "line": 1,
+        "text": "node --import ./tools/register.ts --conditions=react-server tools/migrate-model.ts"
       }
     ],
     "status": "adapter"

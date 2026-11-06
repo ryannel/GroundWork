@@ -1,0 +1,8 @@
+{
+  "route": "/volvo-cars/plans/care-se-sales-tool/plan.json",
+  "status": 200,
+  "type": "application/json",
+  "bytes": 1426102,
+  "sha256": "f0d4ed00c3dca83f6267b2ecc7db8ed61ff0e24fb36a24617b239f3d3b6908fc",
+  "body": "9b2218a90937ffcf85121ede6617f79b881ab3ec9f75fc321c9fc4f8224a64e6.body.gz"
+}

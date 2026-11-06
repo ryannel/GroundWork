@@ -1,0 +1,8 @@
+{
+  "route": "/acme/things/?id=msg-product-changed",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 52233,
+  "sha256": "16b5380495f46fd81cebc29df0a404f1a46ed7b055bcdc5b79440609b46558f3",
+  "body": "b6176ff14d8bc4b2ead15d71c4263cd6cb78f916bed6693ff666db2a5289ddd1.body.gz"
+}

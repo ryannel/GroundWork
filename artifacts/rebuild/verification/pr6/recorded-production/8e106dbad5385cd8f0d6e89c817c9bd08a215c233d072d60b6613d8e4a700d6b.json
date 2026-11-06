@@ -1,0 +1,8 @@
+{
+  "route": "/volvo-cars/plans/care-se-online/journey/empty/",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 75334,
+  "sha256": "b2a29ed7b91965bc8bcfc5abb805b30f06d4aa7978f09f754f98f8e4466d3268",
+  "body": "8e106dbad5385cd8f0d6e89c817c9bd08a215c233d072d60b6613d8e4a700d6b.body.gz"
+}

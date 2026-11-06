@@ -1282,7 +1282,7 @@
         },
         "store": {
           "type": "string",
-          "pattern": "^(?:st):[^#\\s]+$"
+          "pattern": "^(?:st|top):[^#\\s]+$"
         },
         "table": {
           "type": "string",
@@ -1467,6 +1467,12 @@
         },
         "cites": {
           "$ref": "#/$defs/AuthoredCites"
+        },
+        "transport": {
+          "enum": [
+            "http",
+            "https"
+          ]
         }
       },
       "required": [
@@ -2016,11 +2022,8 @@
           "minLength": 1
         },
         "semantics": {
-          "enum": [
-            "event",
-            "command",
-            "state"
-          ]
+          "type": "string",
+          "minLength": 1
         },
         "summary": {
           "type": "string",
@@ -2103,8 +2106,7 @@
           "pattern": "^(?:job):[^#\\s]+$"
         },
         "component": {
-          "type": "string",
-          "pattern": "^(?:svc):[^#\\s]+$"
+          "$ref": "#/$defs/ExecutableId"
         },
         "name": {
           "type": "string",
@@ -2197,6 +2199,10 @@
         },
         "cites": {
           "$ref": "#/$defs/AuthoredCites"
+        },
+        "when": {
+          "type": "string",
+          "minLength": 1
         }
       },
       "required": [
@@ -2253,6 +2259,21 @@
         },
         "cites": {
           "$ref": "#/$defs/AuthoredCites"
+        },
+        "method": {
+          "type": "string",
+          "minLength": 1
+        },
+        "persisted": {
+          "type": [
+            "boolean",
+            "string"
+          ],
+          "minLength": 1
+        },
+        "trigger": {
+          "type": "string",
+          "minLength": 1
         }
       },
       "required": [
@@ -2327,6 +2348,12 @@
         },
         "cites": {
           "$ref": "#/$defs/AuthoredCites"
+        },
+        "reads": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/SchemaRef"
+          }
         }
       },
       "required": [
@@ -2463,12 +2490,25 @@
         },
         "exhausted": {
           "$ref": "#/$defs/Steps"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
         }
       },
-      "required": [
-        "until"
-      ],
-      "additionalProperties": false
+      "additionalProperties": false,
+      "anyOf": [
+        {
+          "required": [
+            "until"
+          ]
+        },
+        {
+          "required": [
+            "description"
+          ]
+        }
+      ]
     },
     "Lane": {
       "type": "object",
@@ -2506,14 +2546,14 @@
         },
         "from": {
           "type": "string",
-          "pattern": "^(?:st):[^#\\s]+$"
+          "pattern": "^(?:st|top):[^#\\s]+$"
         },
         "write": {
           "$ref": "#/$defs/SchemaRef"
         },
         "to": {
           "type": "string",
-          "pattern": "^(?:st):[^#\\s]+$"
+          "pattern": "^(?:st|top):[^#\\s]+$"
         },
         "call": {
           "type": "string",
@@ -3042,7 +3082,8 @@
             "required": [
               "cites"
             ]
-          }
+          },
+          "implementationEvidence": true
         }
       ]
     },
@@ -3786,16 +3827,31 @@
         },
         "cites": {
           "$ref": "#/$defs/AuthoredCites"
+        },
+        "transport": {
+          "type": "string",
+          "minLength": 1
         }
       },
       "required": [
         "id",
         "from",
         "to",
-        "via",
         "action"
       ],
-      "additionalProperties": false
+      "additionalProperties": false,
+      "anyOf": [
+        {
+          "required": [
+            "via"
+          ]
+        },
+        {
+          "required": [
+            "transport"
+          ]
+        }
+      ]
     },
     "JourneyFile": {
       "type": "object",
@@ -4160,6 +4216,13 @@
         },
         "cites": {
           "$ref": "#/$defs/AuthoredCites"
+        },
+        "backs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Id"
+          },
+          "minItems": 1
         }
       },
       "required": [
@@ -4324,7 +4387,8 @@
                   "type": "object",
                   "properties": {
                     "component": {
-                      "$ref": "#/$defs/ComponentId"
+                      "type": "string",
+                      "pattern": "^(?:svc|app|st|top|ext|sys|lib):[^#\\s]+$"
                     },
                     "column": {
                       "type": "integer",
@@ -4445,7 +4509,7 @@
       "type": "object",
       "properties": {
         "component": {
-          "$ref": "#/$defs/ComponentId"
+          "$ref": "#/$defs/ContextComponentId"
         },
         "title": {
           "type": "string",
@@ -4458,11 +4522,18 @@
         "supporting": {
           "type": "array",
           "items": {
-            "$ref": "#/$defs/ComponentId"
+            "$ref": "#/$defs/ContextComponentId"
           }
         },
         "cites": {
           "$ref": "#/$defs/AuthoredCites"
+        },
+        "backs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Id"
+          },
+          "minItems": 1
         }
       },
       "required": [
@@ -4541,6 +4612,10 @@
         "medium",
         "high"
       ]
+    },
+    "ContextComponentId": {
+      "type": "string",
+      "pattern": "^(?:svc|app|st|top|ext|sys|lib):[^#\\s]+$"
     }
   },
   "anyOf": [

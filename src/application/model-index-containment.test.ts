@@ -90,3 +90,61 @@ describe('cross-system model queries', () => {
     expect(index.cites('absent')).toEqual([]);
   });
 });
+
+it('keeps an unknown retry stopping condition visible without reversing the original wording', () => {
+  const model = queryModel();
+  const node = entitiesIn(model).find((entity) => entity.id === 'h:a#read');
+  if (node === undefined) throw new Error('Missing fixture step');
+  Object.assign(node.data, { retry: { description: 'timeout or error', times: 3 }, steps: [] });
+  expect(indexOf(model).gaps(node.id)).toContainEqual(
+    expect.objectContaining({ kind: 'no_retry_condition' }),
+  );
+});
+
+it('keeps publications of different messages on one topic distinct', () => {
+  const model = queryModel();
+  const system = entitiesIn(model).find((node) => node.id === 'sys:b');
+  const source = entitiesIn(model).find((node) => node.id === 'sys:a');
+  if (system === undefined || source === undefined) throw new Error('Missing fixture systems');
+  Object.assign(system.data, {
+    messages: [
+      { id: 'msg:remote', topic: 'top:remote', payload: 'sch:remote' },
+      { id: 'msg:other', topic: 'top:remote', payload: 'sch:remote' },
+    ],
+  });
+  Object.assign(source.data, {
+    relationships: [
+      {
+        id: 'rel:other',
+        from: 'svc:a',
+        to: 'msg:other',
+        kind: 'publish',
+        says: 'Publishes the other event',
+        reason: 'Only the contract records this publication',
+        cites: [{ kind: 'evidence', id: 'ev:source' }],
+      },
+    ],
+  });
+  const index = indexOf(model);
+  expect(index.producers('msg:remote')).toEqual(['svc:a']);
+  expect(index.producers('msg:other')).toEqual(['svc:a']);
+});
+it('rejects a message-consumption relationship already established by a subscription', () => {
+  const model = queryModel();
+  const system = entitiesIn(model).find((node) => node.id === 'sys:b');
+  if (system === undefined) throw new Error('Missing fixture system');
+  Object.assign(system.data, {
+    relationships: [
+      {
+        id: 'rel:duplicate',
+        from: 'svc:b',
+        to: 'msg:remote',
+        kind: 'consume',
+        says: 'Consumes the event',
+        reason: 'A duplicate claim',
+        cites: [{ kind: 'evidence', id: 'ev:source' }],
+      },
+    ],
+  });
+  expect(() => indexOf(model)).toThrow('duplicates recorded handler or operation detail');
+});

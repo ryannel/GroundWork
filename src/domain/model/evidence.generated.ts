@@ -1140,7 +1140,10 @@ export interface JavaConstantBinding {
 export interface GraphqlDocumentBinding {
   kind: 'graphql_document_binding';
   id: string;
-  source: string;
+  /**
+   * A persisted source id, or an explicit historical code reference retained from an authored GraphQL document.
+   */
+  source: string | WorkspaceCodeRef;
   document_name: string;
   operation_type: 'query' | 'mutation' | 'subscription';
   operation_name: string | null;
@@ -1160,6 +1163,23 @@ export interface GraphqlDocumentBinding {
     source: string;
   }[];
   signature?: string;
+  /**
+   * The complete authored GraphQL text retained during migration; selections are parsed deterministically.
+   */
+  document?: string;
+  limitations?: string[];
+}
+export interface WorkspaceCodeRef {
+  kind: 'code';
+  repo: string;
+  commit: string;
+  path: string;
+  /**
+   * @minItems 2
+   * @maxItems 2
+   */
+  lines?: [number, number];
+  symbol?: string;
 }
 export interface AsyncBinding {
   id: string;

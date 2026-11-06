@@ -1,0 +1,8 @@
+{
+  "route": "/acme/reference/stores/",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 55350,
+  "sha256": "c991023799cf0e3e22e7aa8d1c37b986538c4b17affa5db89e3005ea8c0c4f67",
+  "body": "fa84b5636393c005e240af61c3352b6919ffe2f532f8a9dcaa9f66884a130f1a.body.gz"
+}

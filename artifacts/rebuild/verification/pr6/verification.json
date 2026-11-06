@@ -1,0 +1,106 @@
+{
+  "sourceFrozen": true,
+  "sourceManifest": "source-freeze.json",
+  "checks": {
+    "focused": {
+      "passed": true,
+      "tests": 3053,
+      "files": 347,
+      "log": "focused.log.gz"
+    },
+    "build": {
+      "passed": true,
+      "buildId": "wwUsK1_HrSRNXwQvHAVFQ",
+      "log": "build.log.gz",
+      "initialNetworkFailure": "build-font-network-failure.log.gz"
+    },
+    "budget": {
+      "passed": true,
+      "pages": 606,
+      "maxKB": 1021,
+      "limitKB": 1024,
+      "log": "budget.log.gz"
+    },
+    "roundTrip": "round-trip.json",
+    "queueCompatibility": "queue-compatibility-current.json",
+    "comparisons": "comparison-acceptance.json",
+    "baselineIntegrity": "baseline-integrity.json",
+    "evidence": "evidence-migration.json",
+    "fullCheck": {
+      "required": true,
+      "authority": "normal pre-push npm run check hook"
+    },
+    "ci": {
+      "required": true,
+      "authority": "all checks and CI, Mutation and CodeQL workflows for the pushed head"
+    },
+    "mutation": {
+      "threshold": 75,
+      "wholeFiles": [
+        "src/application/model-index.ts",
+        "src/application/plans-index.ts",
+        "src/domain/ids.ts",
+        "src/domain/model-cite-resolution.ts"
+      ]
+    }
+  },
+  "volvoDataUnchanged": true,
+  "preflight": {
+    "status": "needs-review",
+    "problems": 2754,
+    "review": {
+      "citations": {
+        "total": 8,
+        "pending": 8
+      },
+      "component-conflicts": {
+        "total": 92,
+        "pending": 92
+      },
+      "component-kinds": {
+        "total": 1,
+        "pending": 1
+      },
+      "documents": {
+        "total": 4,
+        "pending": 4
+      },
+      "headlines": {
+        "total": 4264,
+        "pending": 4264
+      },
+      "identities": {
+        "total": 122,
+        "pending": 122
+      },
+      "owners": {
+        "total": 4,
+        "pending": 4
+      },
+      "placements": {
+        "total": 83,
+        "pending": 83
+      },
+      "retry-conditions": {
+        "total": 74,
+        "pending": 74
+      },
+      "review-edges": {
+        "total": 737,
+        "pending": 737
+      },
+      "signatures": {
+        "total": 457,
+        "pending": 457
+      },
+      "source-notes": {
+        "total": 604,
+        "pending": 604
+      },
+      "step-ids": {
+        "total": 583,
+        "pending": 583
+      }
+    }
+  }
+}

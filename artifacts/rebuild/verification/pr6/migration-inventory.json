@@ -1,0 +1,1052 @@
+{
+  "sourceCommit": "723085497ded5b51d3c23fdcb5f6b1c778aa3efa",
+  "sourceFiles": 250,
+  "sourceSha256": "fefa8e173ffa219d06b6ae2cae56ba451234ccd9cd02c83e2196eafc182b0e10",
+  "migrationFiles": 445,
+  "definitions": {
+    "workspace/SystemFile": 49,
+    "workspace/ContractsFile": 49,
+    "workspace/ScreensFile": 49,
+    "workspace/HandlersFile": 190,
+    "workspace/DomainFile": 3,
+    "workspace/DomainLanguageFile": 2,
+    "retained auxiliary": 30,
+    "workspace/TargetFile": 1,
+    "workspace/FlowFile": 41,
+    "workspace/JourneyFile": 14,
+    "workspace/LandscapeFile": 1,
+    "workspace/LanguageFile": 1,
+    "plan/document": 8,
+    "workspace/ProgrammeFile": 2,
+    "workspace/WorkspaceFile": 1,
+    "workspace/GraphFile": 1,
+    "workspace/ExternalsFile": 1,
+    "workspace/LibrariesFile": 1,
+    "workspace/AliasesFile": 1
+  },
+  "explicitIdentityRewrites": 422,
+  "ambiguousLegacyIdentities": 1,
+  "rawSources": 35249,
+  "urlSources": 1755,
+  "symbolsWithoutLines": [],
+  "jobs": 111,
+  "aliases": 531,
+  "splitHandlerFiles": 190,
+  "review": {
+    "citations": 8,
+    "component-conflicts": 92,
+    "component-kinds": 1,
+    "documents": 3,
+    "headlines": 4264,
+    "identities": 122,
+    "owners": 4,
+    "placements": 83,
+    "retry-conditions": 74,
+    "review-edges": 737,
+    "signatures": 457,
+    "source-notes": 604,
+    "step-ids": 583
+  },
+  "originalFiles": [
+    {
+      "path": "domains/commercial-backbone/domain.yaml",
+      "sha256": "a089acc2b439d7d638bfac4f5e7cd1aa66bddd2d0d229b37f442bbe4a88e4aa8"
+    },
+    {
+      "path": "domains/commercial-backbone/language.yaml",
+      "sha256": "12708079764e5436a55a6318466624f4936603dfea504664ba2366bbbe69db20"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/assortment/contracts.yaml",
+      "sha256": "ee9e2f016d6e8773eb4d877510ea22796dd7a3bed83bde4d16534d3da1c4c4e7"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/assortment/handlers.yaml",
+      "sha256": "83d04f03ccd1ead04935e542a8bf229a00bf097551eaf9dce41044b2c65b863e"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/assortment/system.yaml",
+      "sha256": "06f58acdcf0cdc747ba2a19ad61b2b581683cf09bf7b7def4d5859bbce229805"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/car-configuration-engine/contracts.yaml",
+      "sha256": "b461d5851f712f72a61a089ded366c50f13ac915257010cdc6249e7a50056ea8"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/car-configuration-engine/handlers.yaml",
+      "sha256": "e942c0bee07a976de395c56763e246077df8b19d67cf2097d260809e3bf2ab38"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/car-configuration-engine/system.yaml",
+      "sha256": "eab5626d474cdf49d01dff0b430cfa098c0a4b1557ba87b165d5d25bc1e3b481"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/cart/contracts.yaml",
+      "sha256": "ba37ea31ee8a23fff530470fa0c0cb141c489a8fd079e0f7a794e9f6a89ad0ba"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/cart/handlers.yaml",
+      "sha256": "b9240e88af8b19895fa55dbcd733d9788070cafd7a9eca0c3d4247e18c32829d"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/cart/system.yaml",
+      "sha256": "afe5e787168fa1a801e2591cda8c56d377e4cc8326d428ccee58fc7ebef58311"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/conditional-order/contracts.yaml",
+      "sha256": "3c2d87652747d599931bd0c3bf765301635e36c6b98deec55f6c9421d61e8e6e"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/conditional-order/handlers.yaml",
+      "sha256": "8cfb1efec64f1d45ff8e77c81ae11fbe8c8a7d9772e12b9d53f2efc8d8408dc3"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/conditional-order/system.yaml",
+      "sha256": "67f034f2b4baede8414cb91b6322852221b7b0a5c787a9fc8417ff74f02a4102"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/discounts/contracts.yaml",
+      "sha256": "9355b2b87daf184dfe460e4e86fdf542670454fd5057166a3536872e12151272"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/discounts/handlers.yaml",
+      "sha256": "b065659f593d41c8e8ec6c7cf1336dbce962c14172503a10a7cf03d6b118d63c"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/discounts/system.yaml",
+      "sha256": "f8c2bb6215dc5c22c532d78545e9084059ddbca13986f01e2c31c9b24cb0a31e"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/federated-graph/contracts.yaml",
+      "sha256": "ccddea72eb54affa5de688ec53f5d6db7a20e033b5d08f797e0fb2a9226802a2"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/federated-graph/handlers.yaml",
+      "sha256": "8fd8570ffd1bd5d57114bc7f4e2fa72a94c900c48136982d6b8eaae0076702e0"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/federated-graph/system.yaml",
+      "sha256": "e8376540467b973a551c66b8ec578006405c8aacbaa65ed4a53b893e2c635f42"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/finance/contracts.yaml",
+      "sha256": "e303c6b79a697658874a07febdd95ef52b47d3e4fcd11c6be281fb366ccf7161"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/finance/handlers.yaml",
+      "sha256": "da2d435215ab5e0f101460f75d3fc5185909054c46e30cec458cb3e3064e0c89"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/finance/system.yaml",
+      "sha256": "c0e00c5476a4166453799e2b1807441a38412b3abf42b5328b34b9b4499f6efd"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/offers/contracts.yaml",
+      "sha256": "3fb8cc54e9250873a563e8cedce9a300e08e3bdb9c15ed2f2b577cceac234fb6"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/offers/handlers.yaml",
+      "sha256": "896d41659f8d73565beb748f4d0e7cb7e4367916d18220f07b15d911459e98c4"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/offers/system.yaml",
+      "sha256": "e4a97b1cf36f1d27e5fd5318e687fbab0ef498935611e02bf8f81fb5b3d76a73"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/order-management/contracts.yaml",
+      "sha256": "95b8436e69061d1198a926ef86ae52543b57f820dd44d2077292f63da9e2e21b"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/order-management/handlers.yaml",
+      "sha256": "982fecc0a68c78946a178d13bd1bf739c61e48046f7fea963f482584bb848d87"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/order-management/system.yaml",
+      "sha256": "c45aa87727a1348fcdac64224ce3d4533177c2f628800c61f5248cfd517074cd"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/order-orchestration/contracts.yaml",
+      "sha256": "0a6db6ddf79c4d0bb1875a7720fab3ab9451d8f3da59d728a6198672c5b45a48"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/order-orchestration/handlers.yaml",
+      "sha256": "c2ce7701a6170475400542991635568a7123276659f27d37ca41226a403b93a3"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/order-orchestration/system.yaml",
+      "sha256": "2e0b37f313fa7d20e3bd8b4156249c3b6f2d3889e1886465d436be27e8f85c59"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/payment/contracts.yaml",
+      "sha256": "a517d6c442759b128a461e4d05068ff99675a64293db3d549266f17d0a3ab701"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/payment/handlers.yaml",
+      "sha256": "29d438aba7d6566d9cdec5004a9592aee6d791a33783139baa9e2ae98f9879ba"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/payment/system.yaml",
+      "sha256": "ba973c2cffc13adc651a2a8c9a9df080eb99c9840a88f6f299d16882226da373"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/price/contracts.yaml",
+      "sha256": "8b2b571b2abaeb813cc6fe902ce114062624e569515a13da9d59d74717115d24"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/price/handlers.yaml",
+      "sha256": "5e0a772afc405a4542ca44bdb181ce7d3e193958cf70b09302ecb08db8be32a3"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/price/narratives.yaml",
+      "sha256": "2311d05a1132e8d643d6be759eee4e94ae40b7faeecd58b83526096b857b671a"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/price/system.yaml",
+      "sha256": "1962fb1623c7f9027e247a8b0187a463e176ba9f239fdce0132828aec4faa183"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/product-enrichment/contracts.yaml",
+      "sha256": "98f79aeed991f1cde2c0e26df7348cbb071ba984c04a8889570d5e3bdf68c9c3"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/product-enrichment/handlers.yaml",
+      "sha256": "9e9a573871126713e37935ecedc2b8470936e191012c4589112f294d614a4d56"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/product-enrichment/system.yaml",
+      "sha256": "0f898848cb87143b9c4da4168866630d2c01cfc6dd1aa74354d66d8d0a8f70d4"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/retailer-data/contracts.yaml",
+      "sha256": "5de03ae05d98ffc336964731b9da459258f4a6f8a41742c9a6710dbe75f541b0"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/retailer-data/handlers.yaml",
+      "sha256": "c2f97c3d9b036880e5ef1c30463bca528291f73fdf30588b0a25d949d6766d97"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/retailer-data/system.yaml",
+      "sha256": "a24406368e693e8fafe2f373d65fdf97435b51143a1d75ee1c2567cfe50d4542"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/salesforce-emea/contracts.yaml",
+      "sha256": "79e050266b18a39ec37e004e1a956fd49582e402613d8715a59cb4eb5387552d"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/salesforce-emea/handlers.yaml",
+      "sha256": "4b941d984fc7139ff354ca04147e6764867eaff42dcc7a0191ba70e3c8728cee"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/salesforce-emea/narratives.yaml",
+      "sha256": "b612b99451595b3e820a5927b41784c8a54a086ada067aacbaf17fb438777b36"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/salesforce-emea/system.yaml",
+      "sha256": "5c3e0ea5a1c98cf00ac299622ee8b57bcb14c7e43413ae25979f44af55282810"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/stock-reservation/contracts.yaml",
+      "sha256": "7e4dd6b58a4e7c2b4d3eeb229164109371a8a7ef1a903b9d3f2c8dbe3800db8e"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/stock-reservation/handlers.yaml",
+      "sha256": "fc7a6e6714e2aa0a110125ebcdc4042bbb3c3be796d477728500bb489becae78"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/stock-reservation/system.yaml",
+      "sha256": "0cfe55c534ebd927fa7b79b719825fffa34376e76d89bed955aec8ac0691cb87"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/tax/contracts.yaml",
+      "sha256": "8a4534320556a19797ba4108e7488580821722c6634f02bf9633d5c9b874e02a"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/tax/handlers.yaml",
+      "sha256": "97d60d5aab36ec60d1fd7b2da450c31c688c737576e97812388f1e5d220cc176"
+    },
+    {
+      "path": "domains/commercial-backbone/systems/tax/system.yaml",
+      "sha256": "29da3837da12d3b77e3b9c3bdb36403bd35d5b129811d747788d18098f1becc1"
+    },
+    {
+      "path": "domains/commercial-backbone/target.yaml",
+      "sha256": "b42bf743398c10d0af5de9d5c32ac682b65d000d4594cda69882ca0f1bd626b7"
+    },
+    {
+      "path": "domains/fleet/domain.yaml",
+      "sha256": "059d70b372ff87409e7489c9d37885140d7238b2da371310cf34be4f79b88584"
+    },
+    {
+      "path": "domains/fleet/systems/fleet-account-management/contracts.yaml",
+      "sha256": "94b7cb0a30e22dd21671af4ebe33efd6600605c2bbe58f5ecea3342cdc1df313"
+    },
+    {
+      "path": "domains/fleet/systems/fleet-account-management/handlers.yaml",
+      "sha256": "f8cd31595e76fbd5745d490f85a393c8099148cc1823555aafed5edd158de108"
+    },
+    {
+      "path": "domains/fleet/systems/fleet-account-management/system.yaml",
+      "sha256": "471ccbc48871f702632d4d9fd823a9d29ab2306df5d4fdca63735a62e18a00df"
+    },
+    {
+      "path": "domains/shopping/domain.yaml",
+      "sha256": "3b918a286866dd35940b35af0a48fb9cb587c7a9b14a630dcbe3aca00becf6af"
+    },
+    {
+      "path": "domains/shopping/language.yaml",
+      "sha256": "3c05d2853d8ef8ed199865153d9a50f2e35074f05a87524e4a31e491c3d87e3b"
+    },
+    {
+      "path": "domains/shopping/systems/car-configurator/contracts.yaml",
+      "sha256": "b5f25d941a14acbf381bb5fec5a4be798e39ff36347beab344bad8c1aac8e8b9"
+    },
+    {
+      "path": "domains/shopping/systems/car-configurator/handlers.yaml",
+      "sha256": "982695bff3a52bd44b965106f16ebc35fdc12316dad3c8414fd6cfd70c3ebc39"
+    },
+    {
+      "path": "domains/shopping/systems/car-configurator/system.yaml",
+      "sha256": "597e37114dda2ff57a4fcd9ae0e2be1e6367a69070ec437178f4275335777636"
+    },
+    {
+      "path": "domains/shopping/systems/car-selector/contracts.yaml",
+      "sha256": "ceaae1e4be0e353d7ef1ff15f09d841bfafb37e6476567c766b99a6c7381170c"
+    },
+    {
+      "path": "domains/shopping/systems/car-selector/handlers.yaml",
+      "sha256": "b0c5a3e7d39a4005753b71e9254ad01bdd414b77e4a611cb68c84ccee5493efc"
+    },
+    {
+      "path": "domains/shopping/systems/car-selector/system.yaml",
+      "sha256": "238334629ed39a30ed5151e695ebd6516cf3eb2bcab7816d211232a0e66a798a"
+    },
+    {
+      "path": "domains/shopping/systems/checkout/contracts.yaml",
+      "sha256": "646d5968673fa623fbbc692ff7406a898df309a400a43683b6ca7e1c81fa1641"
+    },
+    {
+      "path": "domains/shopping/systems/checkout/handlers.yaml",
+      "sha256": "f26cb280b229b449f02a0111a57429424e3ef7e5accb97d772691e8375f53559"
+    },
+    {
+      "path": "domains/shopping/systems/checkout/system.yaml",
+      "sha256": "1abd3845c0c8f21f47482751d98fed216ae3ba3619a74b6dd4a4382d64d20221"
+    },
+    {
+      "path": "domains/shopping/systems/customer-care/contracts.yaml",
+      "sha256": "7370c6f33184fdfdfe08355ed3eb226d38c028eab1a8c0995b2f2ee3cd17d310"
+    },
+    {
+      "path": "domains/shopping/systems/customer-care/handlers.yaml",
+      "sha256": "f0e6d16e0524a08d2a93193bb0dfe855b942513fcd9330fa639d2c36b7eb09bf"
+    },
+    {
+      "path": "domains/shopping/systems/customer-care/system.yaml",
+      "sha256": "7a524b1b9f8da9e663880a277d0ddefbfb3f50ad5acb57990b684cc4af5863df"
+    },
+    {
+      "path": "domains/shopping/systems/customer-profile/contracts.yaml",
+      "sha256": "19c7945fd715ac41b663d44b0aaaf036b11e4f35e95b5deb9a21797324b22495"
+    },
+    {
+      "path": "domains/shopping/systems/customer-profile/handlers.yaml",
+      "sha256": "c77af765e50eb879abd541eb4133b3f76dcd0642cacce6ba67e52cbbeebd630c"
+    },
+    {
+      "path": "domains/shopping/systems/customer-profile/system.yaml",
+      "sha256": "1ebcd49923a0b51200e7e1db492ea6685b057697318d9698ad467c1a1942e04a"
+    },
+    {
+      "path": "domains/shopping/systems/customer/contracts.yaml",
+      "sha256": "e35e3be79d7a3236c3638f90433563e967ca6c50362e5f4cf4cef6f92fb388dc"
+    },
+    {
+      "path": "domains/shopping/systems/customer/handlers.yaml",
+      "sha256": "98cd1fef6381f8dcd973358d4483be669f84f75cb3a95d57f18b2be4df178ae7"
+    },
+    {
+      "path": "domains/shopping/systems/customer/system.yaml",
+      "sha256": "28f02e5118a02934502d07eec212773517196af36fd4154df92819b7b8304af5"
+    },
+    {
+      "path": "domains/shopping/systems/data-portals/contracts.yaml",
+      "sha256": "35b24b9a5c393755d684eda6e96e58a0f933d67b1748a9ce38eb79c28084fbaa"
+    },
+    {
+      "path": "domains/shopping/systems/data-portals/handlers.yaml",
+      "sha256": "700f0f303e242907d6942ee74cfa1c1355bdeff3c1cc34e46c278a94d4b9c7f8"
+    },
+    {
+      "path": "domains/shopping/systems/data-portals/system.yaml",
+      "sha256": "685e62d6f719543f5600a49121e0c596b75cdcccb2bdea0f3c2f579382c32122"
+    },
+    {
+      "path": "domains/shopping/systems/data-submission/contracts.yaml",
+      "sha256": "a387933054d2a25d1c0753d613d4d422f791dfb144201354781484677222e105"
+    },
+    {
+      "path": "domains/shopping/systems/data-submission/handlers.yaml",
+      "sha256": "fb59280c9a6e1a107459a45876cde8d25e0513e3fdfe1c6cb6ec4bb0c9a01f7a"
+    },
+    {
+      "path": "domains/shopping/systems/data-submission/system.yaml",
+      "sha256": "037da33c9051b504b5149b205e3b1b225a97d234fd5590f43682dd385a61f943"
+    },
+    {
+      "path": "domains/shopping/systems/employee-car-booking/contracts.yaml",
+      "sha256": "76d14535c1e56d133275a8c46cd1eb219334926c9546cde611a791c941d95ade"
+    },
+    {
+      "path": "domains/shopping/systems/employee-car-booking/handlers.yaml",
+      "sha256": "286d3c9c60c92b2757a6ca26de7fe5caf85deeec482d68f3816d453623e5f84b"
+    },
+    {
+      "path": "domains/shopping/systems/employee-car-booking/system.yaml",
+      "sha256": "deb0cbdefc8735d30c865e08561404ab7f91cf41595a89e7647772e3dbc63805"
+    },
+    {
+      "path": "domains/shopping/systems/fleet-sales/contracts.yaml",
+      "sha256": "ea12e44fcd6911b7f08349bcde958cc4a1c6a6d0f77a24da643f9153fcfbd48a"
+    },
+    {
+      "path": "domains/shopping/systems/fleet-sales/handlers.yaml",
+      "sha256": "87a248980b5612963cf64547998f0e67980564d1edb0cae13753a6c15397a0c0"
+    },
+    {
+      "path": "domains/shopping/systems/fleet-sales/system.yaml",
+      "sha256": "f038071a63b1fae34f31a0bf7de6821f1365d6f49789d4baff383e7ceac1d301"
+    },
+    {
+      "path": "domains/shopping/systems/lead-forms/contracts.yaml",
+      "sha256": "d0354daf7ab7e42a6afe2a4c1ac35fab69fbb5f485761a22e14eed68d8de208e"
+    },
+    {
+      "path": "domains/shopping/systems/lead-forms/handlers.yaml",
+      "sha256": "25f7e01e01ba0528c1bcf13c238f72f49b5f926824647f6777d54f942476e4d5"
+    },
+    {
+      "path": "domains/shopping/systems/lead-forms/narratives.yaml",
+      "sha256": "a5948284abcd2eacecabc3347a74c823b055324dd794dd9ac211a82999f00a51"
+    },
+    {
+      "path": "domains/shopping/systems/lead-forms/system.yaml",
+      "sha256": "df6dd37eda62260e55540d0774d39c58e5b80daf6b9366222fd0408b1e25571f"
+    },
+    {
+      "path": "domains/shopping/systems/leads/contracts.yaml",
+      "sha256": "01f205b737f0b147286830081e581e625123145f09cab82457086f565d19c298"
+    },
+    {
+      "path": "domains/shopping/systems/leads/handlers.yaml",
+      "sha256": "161f63624c9633f55e3e390822b570abae73f6d951592396a8aaf854ad66a504"
+    },
+    {
+      "path": "domains/shopping/systems/leads/narratives.yaml",
+      "sha256": "9b90206b72ec4d23643cdc540cbd1737000e04f247c1d85f859d4ecb9cb2434d"
+    },
+    {
+      "path": "domains/shopping/systems/leads/system.yaml",
+      "sha256": "7758a099fb134c5a86f3bfd475de947d9d232df3d9d95df5cedaaea048e9efdf"
+    },
+    {
+      "path": "domains/shopping/systems/lynk-co-website/contracts.yaml",
+      "sha256": "0f87278308f664ba7c5a919448bba8234351531417c697bad159ebd9a4cbabd8"
+    },
+    {
+      "path": "domains/shopping/systems/lynk-co-website/handlers.yaml",
+      "sha256": "a85f5bc84bc75cf668db7fb487a28e7882338c200de659b32b4c0ee374da0282"
+    },
+    {
+      "path": "domains/shopping/systems/lynk-co-website/system.yaml",
+      "sha256": "00d5325bf5a77e00dcc2dfa7249fa99bf745b0592a86e325aabd7ffe1db3cf4a"
+    },
+    {
+      "path": "domains/shopping/systems/market-pages/contracts.yaml",
+      "sha256": "84f0c61443e4374af1152aa3d9497db0c66d8415b814b1d8ce32f3e05ea371e9"
+    },
+    {
+      "path": "domains/shopping/systems/market-pages/handlers.yaml",
+      "sha256": "b2545ff10dcdc9a42ae84279d41a4dd9d82dfa4e34d3d4453ab44185ce476856"
+    },
+    {
+      "path": "domains/shopping/systems/market-pages/system.yaml",
+      "sha256": "2ebe3e5e92ad9d66f24207ed6499b35bbebc00e547c6dc2f22edc64b55460441"
+    },
+    {
+      "path": "domains/shopping/systems/marketing-pages/contracts.yaml",
+      "sha256": "8c5eee300260b9c1b92b8fc273809dc565660bfe4ef31837297104304ad44db2"
+    },
+    {
+      "path": "domains/shopping/systems/marketing-pages/handlers.yaml",
+      "sha256": "93b95ec2e47d2c1e4d4bf9f70ad8e2265453478a5a9f939cb0bff6a2b07d0a0f"
+    },
+    {
+      "path": "domains/shopping/systems/marketing-pages/system.yaml",
+      "sha256": "7c012fd558c89f813bf4e71b23e6f3bbdb1bea6fa258c61826a3f0aec5d3dec0"
+    },
+    {
+      "path": "domains/shopping/systems/media-site/contracts.yaml",
+      "sha256": "3fd01d512bbb5957be6bed70146fcecc17f213166f55559f5a66b2ef96d8ee5b"
+    },
+    {
+      "path": "domains/shopping/systems/media-site/handlers.yaml",
+      "sha256": "d15d55f17e066743eb4b7fdeacc2bd7a8eaa6b1b7d7afc37ee9acbf7555a2a9c"
+    },
+    {
+      "path": "domains/shopping/systems/media-site/system.yaml",
+      "sha256": "144893a4f1b759b30ac156828962560eaff4f39129dc7f37356ca964ab95448a"
+    },
+    {
+      "path": "domains/shopping/systems/news/contracts.yaml",
+      "sha256": "3e5b82170644dfa3f77f77c4fab6065965441ec6579a2b56202ca045014c5199"
+    },
+    {
+      "path": "domains/shopping/systems/news/handlers.yaml",
+      "sha256": "208ffd90c2dac4565a6623ae8f171f06faf0958b64883e60d08c31f156e09a6d"
+    },
+    {
+      "path": "domains/shopping/systems/news/system.yaml",
+      "sha256": "cce934641d3cc38179663ee1ec50bc616c8f1989a04368498796591c01ac1d26"
+    },
+    {
+      "path": "domains/shopping/systems/offer-selector/contracts.yaml",
+      "sha256": "ca9431e290b02a235617c83a62898cc60fff279449478e923ff07d1b7c9d97ba"
+    },
+    {
+      "path": "domains/shopping/systems/offer-selector/handlers.yaml",
+      "sha256": "5acf8de2ddf87b22e8d8d0e039f6459271f002d929b4b4299819999df9a74145"
+    },
+    {
+      "path": "domains/shopping/systems/offer-selector/system.yaml",
+      "sha256": "36c8df88f39da9a6d6db77fbff8fca5a5a871adbbe77c09656f3785b0fdb2b76"
+    },
+    {
+      "path": "domains/shopping/systems/order-processing/contracts.yaml",
+      "sha256": "47fd8b453815bc54e02c813a2d7308f35bd7c26a2f1614c776f700bf9aafd521"
+    },
+    {
+      "path": "domains/shopping/systems/order-processing/handlers.yaml",
+      "sha256": "a3a251676be24e5b51f9e109a113844f578fced1c39a6e922e1af343f922b7b5"
+    },
+    {
+      "path": "domains/shopping/systems/order-processing/system.yaml",
+      "sha256": "073ab97b0fb07890869b6bd3e3771a9deb4388ec1e16e1b53d77ee7d47869275"
+    },
+    {
+      "path": "domains/shopping/systems/privacy-notice/contracts.yaml",
+      "sha256": "1d3c0a830d15bcd75f7db9bc0693798b12fd758a1fa778519da3d182a228f104"
+    },
+    {
+      "path": "domains/shopping/systems/privacy-notice/handlers.yaml",
+      "sha256": "530d24247b853284a3e8a6544025f9f143f975c55d2418f386c1f0d4fa325a7c"
+    },
+    {
+      "path": "domains/shopping/systems/privacy-notice/system.yaml",
+      "sha256": "47e29fef20d60fa1ceb3515accb27f6e9c5ab7c3b557e95fb9a5a5a63101dc66"
+    },
+    {
+      "path": "domains/shopping/systems/product-pages/contracts.yaml",
+      "sha256": "52e2098c201daa8c23491b72079378cd9fd14e7fbac95599c74e4d91d13c82ba"
+    },
+    {
+      "path": "domains/shopping/systems/product-pages/handlers.yaml",
+      "sha256": "8baf28c759863bbeb5945fe95b838d0ccf3f73af1129142b6162ae84ab9608ee"
+    },
+    {
+      "path": "domains/shopping/systems/product-pages/system.yaml",
+      "sha256": "4cc8eeab20994c3875f6686403c7290fe2e6e04fa7c4d0bde3707e5b14a608cc"
+    },
+    {
+      "path": "domains/shopping/systems/service-booking/contracts.yaml",
+      "sha256": "2b24922f691011052613fccedcd5b72ff04ba7b9fea9a8c99f98b9b7282729eb"
+    },
+    {
+      "path": "domains/shopping/systems/service-booking/handlers.yaml",
+      "sha256": "6bb7bfb854f4b2618e23d31ac5b01b840bf09f0e048cc71a3f821955688f564a"
+    },
+    {
+      "path": "domains/shopping/systems/service-booking/system.yaml",
+      "sha256": "136094576252589307dd655e35d4681c39db6ac9e893af96a92ca45244ea7350"
+    },
+    {
+      "path": "domains/shopping/systems/sweden-market-tools/contracts.yaml",
+      "sha256": "87a84a65f300614a80e18bf64441677739a4708fbeb4e07741ae96370e8efdba"
+    },
+    {
+      "path": "domains/shopping/systems/sweden-market-tools/handlers.yaml",
+      "sha256": "caa500f94d71967c854b92faadbf5c6876766ffbfe7d888c1ca2005203919955"
+    },
+    {
+      "path": "domains/shopping/systems/sweden-market-tools/system.yaml",
+      "sha256": "266e24ad0ade5dc64f6e183727e2411992fe86a5fd9d26d6d6cee7a714ffa988"
+    },
+    {
+      "path": "domains/shopping/systems/terms-and-conditions/contracts.yaml",
+      "sha256": "284eb185c74a943987397063cc45d094142c7063d8332b14b1c78559afff774f"
+    },
+    {
+      "path": "domains/shopping/systems/terms-and-conditions/handlers.yaml",
+      "sha256": "67855b1dd2a37b85fce0f5eea67f8ce81518604a8b887bcf8fe70a8919f869d6"
+    },
+    {
+      "path": "domains/shopping/systems/terms-and-conditions/system.yaml",
+      "sha256": "483ec8f484ee4aab07ab13ef43c84ba9421dd2fb4a03328404a8f97a68184f0a"
+    },
+    {
+      "path": "domains/shopping/systems/test-drive/contracts.yaml",
+      "sha256": "ff4911efe0524ad94bc8a9929a37b900d39073a04f62d1020008aa8befcd7ca1"
+    },
+    {
+      "path": "domains/shopping/systems/test-drive/handlers.yaml",
+      "sha256": "f8b0d9eb2328ebc0a7c69805e474dd3c4bf3013823372ba1a9eb8fd60741fed5"
+    },
+    {
+      "path": "domains/shopping/systems/test-drive/system.yaml",
+      "sha256": "1bb69c0ecbabce430d3cef19966f2e846c176eae9daf5dd9169c97d3f7c8a5a6"
+    },
+    {
+      "path": "domains/shopping/systems/us-retail-sites/contracts.yaml",
+      "sha256": "e657b76b29eb6a8208e3fea4c32e270c5b2ea51c8f3902386e0d8333427ce265"
+    },
+    {
+      "path": "domains/shopping/systems/us-retail-sites/handlers.yaml",
+      "sha256": "5e32820e3bbbe72e8a2224fe21f28d0460113e7b7b2668e26d69f9abffb83bad"
+    },
+    {
+      "path": "domains/shopping/systems/us-retail-sites/system.yaml",
+      "sha256": "66da5af0d4adee5d8f7fcbfca3bdd0e41aa1a7ce8ffaba62f3d7b6a8c7a4350a"
+    },
+    {
+      "path": "domains/shopping/systems/volvo-cars-website/contracts.yaml",
+      "sha256": "ee18f8bace68e6a90891a064b979a00d72169a11bd6559637ccfbfd18350cfd5"
+    },
+    {
+      "path": "domains/shopping/systems/volvo-cars-website/handlers.yaml",
+      "sha256": "530d24247b853284a3e8a6544025f9f143f975c55d2418f386c1f0d4fa325a7c"
+    },
+    {
+      "path": "domains/shopping/systems/volvo-cars-website/system.yaml",
+      "sha256": "9ba53fefee62b12aa433028de76fb90791fae74892cfd0e667f128b806da2cd3"
+    },
+    {
+      "path": "domains/shopping/systems/volvo-flow/contracts.yaml",
+      "sha256": "4b665b12e94f6cf533cebd8026e72ae817248b7958f01fcb0236cdba21d182a5"
+    },
+    {
+      "path": "domains/shopping/systems/volvo-flow/handlers.yaml",
+      "sha256": "25fe6fe7061cf42e1483e7d4f38afcf7abc750a4c9edbb91ce2aed217fa122fe"
+    },
+    {
+      "path": "domains/shopping/systems/volvo-flow/system.yaml",
+      "sha256": "59cd65435a8da0faafe95813e383be62de3821d5326516681070302a402067ae"
+    },
+    {
+      "path": "domains/shopping/systems/volvo-id-web/contracts.yaml",
+      "sha256": "c7c7a160bf115f57ffdf036b6916f67389889fc33a4b7388c228b7e1464c248d"
+    },
+    {
+      "path": "domains/shopping/systems/volvo-id-web/handlers.yaml",
+      "sha256": "4c57326b5f5dd70470e816e30d0dc4def5c9b7fa2d5f2cc113965067fd6ca778"
+    },
+    {
+      "path": "domains/shopping/systems/volvo-id-web/system.yaml",
+      "sha256": "76496e3842198ea9d0344f6e41470d60af9b9606a91cd62a9238348ce3c84782"
+    },
+    {
+      "path": "domains/shopping/systems/website-platform/contracts.yaml",
+      "sha256": "02055233adc59bcae8987518512fad2b0bea71985904bb58152d07cced71cf0f"
+    },
+    {
+      "path": "domains/shopping/systems/website-platform/handlers.yaml",
+      "sha256": "7bd96d93f043007b3d100135bf4e843a28353982a665436c7d8334356af01a4c"
+    },
+    {
+      "path": "domains/shopping/systems/website-platform/system.yaml",
+      "sha256": "89b3ae75636120ab1b0b81d2e999c220aa51378461980acf1c277f237f85680b"
+    },
+    {
+      "path": "domains/shopping/systems/webstore/contracts.yaml",
+      "sha256": "12b929617725d0a8764a94040786fb702a7a43fe0041e89d57536bc72f01516d"
+    },
+    {
+      "path": "domains/shopping/systems/webstore/handlers.yaml",
+      "sha256": "3c413290efe4f37d09f19cb00617e5532f178989cbb06093a7a6cd71633b61b9"
+    },
+    {
+      "path": "domains/shopping/systems/webstore/system.yaml",
+      "sha256": "a1df78f01fbd9081fd5ab3a3741563badf77900d97c42024dc082f6aad1fb218"
+    },
+    {
+      "path": "flows/activate-financing-offer.yaml",
+      "sha256": "56ff2c2a3248df850f83bee0a80652a2039c3d3f77ee1cdd7ed43cc580b17ffd"
+    },
+    {
+      "path": "flows/admin-create-finance.yaml",
+      "sha256": "a3985d76df746873f71ec8a780f79b1e7d72a215829d54989e8aba078b0dd747"
+    },
+    {
+      "path": "flows/assortment-admin-reference-data.yaml",
+      "sha256": "083e1ae23144e565d73f7645cc18e49399e7b47c13a89a905ff4a2da238edd9a"
+    },
+    {
+      "path": "flows/assortment-cache-pds-delete.yaml",
+      "sha256": "613a832bce589ec0a772c21b688971bfed4a5b83388934587a5ce94cff6f2b26"
+    },
+    {
+      "path": "flows/assortment-cache-pds-upsert.yaml",
+      "sha256": "51fd7b3f3bffd56bd2ec106d84aa58ccdcaf560bd4433d317bdef2ba12a77108"
+    },
+    {
+      "path": "flows/assortment-classifies-current-products.yaml",
+      "sha256": "a335bff3a3e55b3d2dbef9043c4849ce72332a63573f162a9ff40feaabdcc89e"
+    },
+    {
+      "path": "flows/assortment-commercialitem-update.yaml",
+      "sha256": "6ce200e391dd372889eb9cc4d59f31ab398067d9dfbb40272ae351f0c7af6dcb"
+    },
+    {
+      "path": "flows/assortment-maintains-market-availability.yaml",
+      "sha256": "f514d747897f71a138adc8ed58a5868b4090e55f5e5aef4a276a1663e0b06ad2"
+    },
+    {
+      "path": "flows/assortment-read-current-view.yaml",
+      "sha256": "d3e5f665ceeb3aac46376f25040200819a77b180a3634e8f0dfa56ce23b6bc1a"
+    },
+    {
+      "path": "flows/assortment-transform-car-token.yaml",
+      "sha256": "b42807f576a91bf70ab9bdb105622ebfa44017ed2774fc45b5fed740f8bcf7f1"
+    },
+    {
+      "path": "flows/configure-offer-products.yaml",
+      "sha256": "bb9f9799245e6855a09a3cc991da3450bc84afdac6c1e1a3d432df72e7ee4ddd"
+    },
+    {
+      "path": "flows/fae-maintain-finance-products.yaml",
+      "sha256": "7096ffb609d4c487971acd22c191c83abe468d2c703cfbf10be257a1c7142328"
+    },
+    {
+      "path": "flows/fae-search-finance-products.yaml",
+      "sha256": "feb221437084764a3e183d6c7f808adde335fce27a8c81a49576ae236c8976aa"
+    },
+    {
+      "path": "flows/fae-serve-product-groups.yaml",
+      "sha256": "b247ce5cebd704cb0625a22a7d303c853763e13786f9cbb9903709feab8ff18f"
+    },
+    {
+      "path": "flows/gpe-price-configuration-calculation.yaml",
+      "sha256": "830db64eabc5e76463cc5c1018cdbf4e9cc3675b57952581a30692cb194b1a06"
+    },
+    {
+      "path": "flows/gpe-price-data-import-financing-products.yaml",
+      "sha256": "dfdce08291f94f78b3c7787670b23789d5bef3317c5e2978643b589c3c3ce055"
+    },
+    {
+      "path": "flows/list-financing-products.yaml",
+      "sha256": "28ab439489bb79d5049abc5e4815a7de60f011acf119a2d15f2632b06e3344fa"
+    },
+    {
+      "path": "flows/mapper-full-sync-products.yaml",
+      "sha256": "dbf4149e56cc25ec69df1cda2b35038e1693c48c30db620ade07de5c46070729"
+    },
+    {
+      "path": "flows/mapper-project-product-events.yaml",
+      "sha256": "d9addbc403ebf29e1628b1414f5aa438645db3b19eb2c5708b38a92769e4fd92"
+    },
+    {
+      "path": "flows/mapper-resolve-car-products.yaml",
+      "sha256": "f255748fa5f71142229577d7f9d4cb8b0c752bf4b5598c0c92b208d7e8c494f0"
+    },
+    {
+      "path": "flows/mapper-resolve-current-variants.yaml",
+      "sha256": "eedfed74a56ef76181eb0c14bb7d93d985be9e5f1d246b291c9560a06ee732b9"
+    },
+    {
+      "path": "flows/mas-commercial-item-update.yaml",
+      "sha256": "637596c96493e161aa6d55ddf4d102c3bbb3b0855c0e59d75f6cf069070fdfd1"
+    },
+    {
+      "path": "flows/offer-admin-to-read-view.yaml",
+      "sha256": "30cada949688951f99dfd58e50241f6aaab08d68225f39ff3bd1992472182833"
+    },
+    {
+      "path": "flows/offer-management-archive-offers.yaml",
+      "sha256": "c66bb436fc817f07e41ac7226aec6edaf2cc0981fecaa56dcc73fb8d083993a6"
+    },
+    {
+      "path": "flows/pds-admin-enrichment-update.yaml",
+      "sha256": "92da5a65963d27cc103cbe3f6a190ec4791d24de6ea4e3775ee54f59f4e81ec9"
+    },
+    {
+      "path": "flows/pds-admin-topic-sync.yaml",
+      "sha256": "530c07cc65be467d8ec563d2b86a3b7d091278e6610517bb39960fe7431e393f"
+    },
+    {
+      "path": "flows/pds-current-read.yaml",
+      "sha256": "9e9bbbeaa9f595f88ff43bc9b4adccd3fc05941c6c2b9cc281f0669ff5d48f4e"
+    },
+    {
+      "path": "flows/pds-product-service-sync.yaml",
+      "sha256": "5056748b3fb6e658defeea1560f5c22178728e31ccf37da8d351a0201590cb3d"
+    },
+    {
+      "path": "flows/price-core-author-financing-product.yaml",
+      "sha256": "4f46ec3adf6f4c036615030fbea31dbec04b41d79f911cfe4bd55184d54e0f59"
+    },
+    {
+      "path": "flows/pricing-dgs-maps-price-response-codes.yaml",
+      "sha256": "ff85169c26006a13e178c3e115638d63ce9d6d0ff58ed7a35cc10dfb8f10996d"
+    },
+    {
+      "path": "flows/prism-enrich-by-variant-id.yaml",
+      "sha256": "4ae9522ff5795e05dcee65428cc8eaae30cc9806ef41118f169e5c05926a9e4d"
+    },
+    {
+      "path": "flows/prism-import-product-service-identities.yaml",
+      "sha256": "c255ee5a9e32e51565b66a8ac42d2ab5105fb01ca5b4ff6b62703869cb568b96"
+    },
+    {
+      "path": "flows/ps-consume-upstream.yaml",
+      "sha256": "9cb4efa169b5435b6a2926bee8628f531d0b5ee6bb2d4040d4c4896aff6e0a88"
+    },
+    {
+      "path": "flows/ps-import-manage-and-segment.yaml",
+      "sha256": "72e3efa52bf2b8d43ab303022b1626ec41532ce1b724d0c624bd68504a975234"
+    },
+    {
+      "path": "flows/ps-import-pcf-carconfig.yaml",
+      "sha256": "37dce106159f84b0ba23e7bdfad5693b9a43f67f58a89812ddd569f2edc82917"
+    },
+    {
+      "path": "flows/ps-product-lifecycle.yaml",
+      "sha256": "74990a8bad6c0bf48069e63248a0d7e5c9a41860803dce6ca9587cf252606c44"
+    },
+    {
+      "path": "flows/ps-publish-snapshot.yaml",
+      "sha256": "bf77011495652cb0c25dc661bd82c26695ab7f145aadf3bf3fd62f46a331dd2f"
+    },
+    {
+      "path": "flows/ps-rule-matching.yaml",
+      "sha256": "423780c3bbb69aaea40411e2b9f653d6c8506c19dda1c13c64aff5fcb28efdeb"
+    },
+    {
+      "path": "flows/ps-variant-lifecycle.yaml",
+      "sha256": "101b4747842e03e671260a5f867b77e5ddd0ae047b7a7cc1f441dc8bc67b2b1d"
+    },
+    {
+      "path": "flows/read-offer-access-with-channel-settings.yaml",
+      "sha256": "88bca486e0e034997c7b3995468033c12b0b74623a78b6d98dd76f6b2308cba7"
+    },
+    {
+      "path": "flows/render-price-breakdown.yaml",
+      "sha256": "ed23b50fa91d5f780b6f7d737b61fb9e50254844f9aa6f7df53a0f8f414e961a"
+    },
+    {
+      "path": "journeys/car-configuration-engine-admin.yaml",
+      "sha256": "4007af81b56ccb2d09e9b94f38f76c7fad97ff3ab26dbd380dde8c23459200bb"
+    },
+    {
+      "path": "journeys/choose-delivery-information.yaml",
+      "sha256": "10a92cae3fd64794e77823cd10a9f51ef676bc68b3316b38a7f16da4db2d3757"
+    },
+    {
+      "path": "journeys/customer-care-requests.yaml",
+      "sha256": "faea6482c410e509cba1d5352a6d901cded42ae7a8985507f4b99e929f6c696c"
+    },
+    {
+      "path": "journeys/data-submission-interactions.yaml",
+      "sha256": "f6bd403a5e3e4ba8c9824e3ccfcacaae3a2071c1128cd2010b28acfdc44a2e77"
+    },
+    {
+      "path": "journeys/discount-admin.yaml",
+      "sha256": "8a928eb15e12d3d119ddc8e5c56ed90817876d59d780817aea86fbc6a2b899de"
+    },
+    {
+      "path": "journeys/employee-car-booking-interactions.yaml",
+      "sha256": "1d1fcee8f65cfa40d9bbe787a6cea58fe90e9953c0fcd88496d33d9cb9cdc1f5"
+    },
+    {
+      "path": "journeys/lead-capture-interactions.yaml",
+      "sha256": "62e36886058e9459f603dcc2ab700cbca25843d73743cab63ff933b1e9fa24f4"
+    },
+    {
+      "path": "journeys/news-interactions.yaml",
+      "sha256": "cec7d40bb175d984b9acd207c0acb1ac86445a6ba2e7048562f3e9e13470bfda"
+    },
+    {
+      "path": "journeys/price-admin.yaml",
+      "sha256": "81d75d56cf9aa5b1a8c56a2356d6b0ec170948ce3bfcf9a890f26dd3c5944fd2"
+    },
+    {
+      "path": "journeys/product-catalog-admin.yaml",
+      "sha256": "f5445933c0c208e5b433ecccde282365799b5269e4629b070429802d5ab2c3cb"
+    },
+    {
+      "path": "journeys/product-enrichment-admin.yaml",
+      "sha256": "3043c996a391f3c7deccc170532b70756ae4db6336a34b9eafdfe8d913aad5a3"
+    },
+    {
+      "path": "journeys/tax-admin.yaml",
+      "sha256": "4d944a3f56b6a387477e51e770c3ecaa285ced7be0bbca6538a2202f2e5d5855"
+    },
+    {
+      "path": "journeys/us-accessibility-request.yaml",
+      "sha256": "0cf1b56c1c104b8b4402a9a471a3a9acd4689d0bf925e6f8665b598f84d160b2"
+    },
+    {
+      "path": "journeys/website-cookie-runtime.yaml",
+      "sha256": "50d7abdfb871c20d79a197ca6c1c496a8c8623807ba8350a0c9ad775f5a7367b"
+    },
+    {
+      "path": "landscape.yaml",
+      "sha256": "fea846fb2babf1abb63b35310c1048a420c33d336e24d151f341531e9e01ba3d"
+    },
+    {
+      "path": "language.yaml",
+      "sha256": "34988c5526febe22742defd0262b93f1bc622cbfc068c391e271e40b79c0f03b"
+    },
+    {
+      "path": "plans/care-se-financing-status/base.lock.json",
+      "sha256": "ff8e2a85ff924b7c1f67f138be1e128c439527241937941ceb2c43c1bd4bc5f5"
+    },
+    {
+      "path": "plans/care-se-financing-status/plan.yaml",
+      "sha256": "82bea01200aace88570425322e1a1415b2086dbd63e2576dcdfc579b24a12b82"
+    },
+    {
+      "path": "plans/care-se-financing-status/progress.yaml",
+      "sha256": "2212b1f5ba416347f297c015ac3f4a35d33024f4c8bb6507d9efdfdcdf0253ef"
+    },
+    {
+      "path": "plans/care-se-online/base.lock.json",
+      "sha256": "ed27c5997ec9bb97131845f61bc71d678f24b2308b635653a19190506a678ea3"
+    },
+    {
+      "path": "plans/care-se-online/plan.yaml",
+      "sha256": "3392cbc128a4b97fe5070d0c2f51e673bc2e8c6a7de36c68d280c17c41ee4a32"
+    },
+    {
+      "path": "plans/care-se-order-change/base.lock.json",
+      "sha256": "df5ada1e917354196ea9dbaeec22f5f7619c933320e2f047a8446b22ed75ceef"
+    },
+    {
+      "path": "plans/care-se-order-change/plan.yaml",
+      "sha256": "649ec33ecbc9a4849bc51a886d14fbcfbb8cc59aebc7672ddaf2dbdba056fa00"
+    },
+    {
+      "path": "plans/care-se-order-change/progress.yaml",
+      "sha256": "7fd20c752d3b9a969c59cb34e7f1bccf0f7cd34e7fdaf3eda6aa6dabb281327c"
+    },
+    {
+      "path": "plans/care-se-sales-tool/base.lock.json",
+      "sha256": "447acbeff061161e097e83a1fa5bfb166b6a22d777c0d6fb919c281a5755ecf8"
+    },
+    {
+      "path": "plans/care-se-sales-tool/plan.yaml",
+      "sha256": "3d9961659f83c56b4d27795dc776deea60eb32c869baf1542528265cf8c1e81b"
+    },
+    {
+      "path": "plans/care-se-stock-reservation/base.lock.json",
+      "sha256": "0e301b0fa32db4ae1bc356023b0e7f2293c9e8bd38894e71bcdc5510c8b0d750"
+    },
+    {
+      "path": "plans/care-se-stock-reservation/plan.yaml",
+      "sha256": "53ef54ac63cb1c6252b8f820b46855e1ca7c1deb0f15e561f9feacc493de4b82"
+    },
+    {
+      "path": "plans/care-se-stock-reservation/progress.yaml",
+      "sha256": "799ffe478361806369ff190cabf3eb96a952c9315ce2cc7fc649e2d41fdb4a27"
+    },
+    {
+      "path": "plans/immutable-ids/base.lock.json",
+      "sha256": "1b0adeac907d033ecca15d32021a8dd3d53541c8ea41f8882a88a9906520fc49"
+    },
+    {
+      "path": "plans/immutable-ids/discovery/assortment-api.yaml",
+      "sha256": "1ee41effd01b6efb5cc5daf6dc13f7be90a321cb4e7f30864986040e476d47d9"
+    },
+    {
+      "path": "plans/immutable-ids/discovery/popcat-manage-and-segment.yaml",
+      "sha256": "b8aabe1830ff00720edcfe87cd74037840aabce5e8a815da17b2a97bb39c57bb"
+    },
+    {
+      "path": "plans/immutable-ids/discovery/prism.yaml",
+      "sha256": "3b25090fd200d603299cab66ac4ace10d38e080e76aa26e5d7e69c5769b06171"
+    },
+    {
+      "path": "plans/immutable-ids/discovery/product-details-service.yaml",
+      "sha256": "4ee24aeb000b17044596e9d0f61545df46759318d7337226496a0f7e45ac3de5"
+    },
+    {
+      "path": "plans/immutable-ids/discovery/product-mapper.yaml",
+      "sha256": "0109b1338e550e755276ae291681175585e573be5798bd3dd74b5e028d56e668"
+    },
+    {
+      "path": "plans/immutable-ids/discovery/product-service.yaml",
+      "sha256": "dde6965a2f7f045d95d3786c79ee683e8b724a16f10b02e13b745918ed0b0050"
+    },
+    {
+      "path": "plans/immutable-ids/plan.yaml",
+      "sha256": "302cb0502811bfdbeec2fc9afae6b9dee7e43ad2d45bf205ce26728a27046566"
+    },
+    {
+      "path": "plans/sourced-financing-terms/base.lock.json",
+      "sha256": "09c196c3a8da46ccb6d76a2136f73f1145003066357d7fd816077b62a13b6bed"
+    },
+    {
+      "path": "plans/sourced-financing-terms/discovery/cds-finance-engine-core-service.yaml",
+      "sha256": "3c06456f72c246cb4a0a6c1310a52be15f5ba379eb631423225cda51957334bb"
+    },
+    {
+      "path": "plans/sourced-financing-terms/discovery/cds-finance-engine-integration-service.yaml",
+      "sha256": "3aae04cb63f9d963575752f00a5e2a52947401ce1e6ed3bb88ef53c0f12d29d7"
+    },
+    {
+      "path": "plans/sourced-financing-terms/discovery/cds-finance-engine.yaml",
+      "sha256": "593f30661ae86e5b769dc6229b45fabaf4eb72b1e4fe98b1e3c5ef9ff5a82032"
+    },
+    {
+      "path": "plans/sourced-financing-terms/discovery/gpe-configuration.yaml",
+      "sha256": "625c230f5034fbd84efecebbedc0c94b079bbfb59da034e2a58ca98b9775eda5"
+    },
+    {
+      "path": "plans/sourced-financing-terms/discovery/ooe-financing-offers.yaml",
+      "sha256": "b92deb700d4164d16555ad926a50db2fe4ceefb200c821e80c554770ba2053ea"
+    },
+    {
+      "path": "plans/sourced-financing-terms/discovery/price-data-management.yaml",
+      "sha256": "f84a8755a77e1df8cd67725c9c4948ce42891901974b26f2dc73031404433190"
+    },
+    {
+      "path": "plans/sourced-financing-terms/plan.yaml",
+      "sha256": "e4eb996893b12c7b9b5b33f9c1fc8337c902bdb0886d3158374aeb48e47043bc"
+    },
+    {
+      "path": "plans/unify-price-breakdown/base.lock.json",
+      "sha256": "0a2b28a24bfc0c8f5c173eefd48594b9b000a77a111e101c2a50fd7c6b824ddf"
+    },
+    {
+      "path": "plans/unify-price-breakdown/discovery/gpe-price.yaml",
+      "sha256": "339f53d531f8c3a8ab30d05478a363b3cc8b7693a321f400a7caac5e1536bcd4"
+    },
+    {
+      "path": "plans/unify-price-breakdown/discovery/offer-management.yaml",
+      "sha256": "33282d977cf9a9eb80279bc08501e160d384ceb580070412a789d2b617f3f7ff"
+    },
+    {
+      "path": "plans/unify-price-breakdown/discovery/popcat-assortment-api.yaml",
+      "sha256": "89bba79a17243aed8d2ff8df0996aed13ec048c2550f46e9bebf1bc37f83eae6"
+    },
+    {
+      "path": "plans/unify-price-breakdown/plan.yaml",
+      "sha256": "718e43b974a851601bfbb68b7383694ffe4345427784a177263558bcda4b523b"
+    },
+    {
+      "path": "programmes/care-se/programme.yaml",
+      "sha256": "55e7a54d369838702b0ee90cbcb14582f1c05c93170e512e5c69b7532fee7c07"
+    },
+    {
+      "path": "workspace.yaml",
+      "sha256": "33d15e241881dde5a1d550d36c34650e483c758709a6b5fd821e1b1eb08f8e7e"
+    }
+  ]
+}

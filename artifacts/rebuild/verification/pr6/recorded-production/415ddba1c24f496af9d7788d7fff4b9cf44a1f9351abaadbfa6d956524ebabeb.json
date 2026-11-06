@@ -1,0 +1,8 @@
+{
+  "route": "/volvo-cars/people/",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 74603,
+  "sha256": "5e9721f28493a06c9cdd82063ef83f2c4311872bec7e59c9e6f39b1740dc792a",
+  "body": "415ddba1c24f496af9d7788d7fff4b9cf44a1f9351abaadbfa6d956524ebabeb.body.gz"
+}

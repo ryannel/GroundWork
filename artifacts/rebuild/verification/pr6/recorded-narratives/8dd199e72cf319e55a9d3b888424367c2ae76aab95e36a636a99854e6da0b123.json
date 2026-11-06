@@ -1,0 +1,8 @@
+{
+  "route": "/volvo-cars/plans/",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 75603,
+  "sha256": "9689d66a69f915a966d51625af39d1c13cc5d3dc9119d63c5dd36c720125b92a",
+  "body": "8dd199e72cf319e55a9d3b888424367c2ae76aab95e36a636a99854e6da0b123.body.gz"
+}

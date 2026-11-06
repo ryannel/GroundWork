@@ -313,6 +313,20 @@ function sameDestination(actual: string, target: string, lookup: Lookup): boolea
   if (actual === target) return true;
   return lookup.get(target)?.kind === 'system' && lookup.get(actual)?.place.system === target;
 }
+function duplicatesRelation(
+  record: ModelEdge,
+  from: string,
+  target: string,
+  kind: unknown,
+  lookup: Lookup,
+): boolean {
+  if (record.kind !== kind) return false;
+  const to = componentOf(target, lookup) ?? target;
+  const message = lookup.get(target)?.kind === 'message';
+  if (message && record.via !== target) return false;
+  if (kind === 'consume') return record.to === from && sameDestination(record.from, to, lookup);
+  return record.from === from && sameDestination(record.to, to, lookup);
+}
 function relationEdges(lookup: Lookup, detail: readonly ModelEdge[]): readonly ModelEdge[] {
   return lookup.nodes
     .filter((node) => node.kind === 'relationship')
@@ -328,9 +342,8 @@ function relationEdges(lookup: Lookup, detail: readonly ModelEdge[]): readonly M
         return [];
       }
       const to = componentOf(target, lookup) ?? target;
-      const duplicate = detail.some(
-        (record) =>
-          record.from === from && sameDestination(record.to, to, lookup) && record.kind === kind,
+      const duplicate = detail.some((record) =>
+        duplicatesRelation(record, from, target, kind, lookup),
       );
       if (duplicate) {
         throw new Error(
@@ -486,12 +499,28 @@ function uncitedEffect(node: ModelEntity): readonly ModelGap[] {
     ? [{ id: node.id, kind: 'no_cites', message: 'The effect has no recorded leaf citation.' }]
     : [];
 }
+function retryGaps(node: ModelEntity): readonly ModelGap[] {
+  const retry = modelRecord(node.data.retry);
+  return node.kind === 'step' && retry !== null && modelText(retry.until) === null
+    ? [
+        {
+          id: node.id,
+          kind: 'no_retry_condition',
+          message: 'No stopping condition is recorded; the original retry description is retained.',
+        },
+      ]
+    : [];
+}
 function nodeGaps(
   node: ModelEntity,
   lookup: Lookup,
   records: readonly ModelEdge[],
 ): readonly ModelGap[] {
-  const gaps: ModelGap[] = [...missingDetail(node, lookup, records), ...uncitedEffect(node)];
+  const gaps: ModelGap[] = [
+    ...missingDetail(node, lookup, records),
+    ...uncitedEffect(node),
+    ...retryGaps(node),
+  ];
   const add = (kind: string, message: string): void => {
     gaps.push({ id: node.id, kind, message });
   };

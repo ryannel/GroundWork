@@ -268,6 +268,10 @@ schemas:
 - Field types are a small tagged grammar (scalar name, `sch:` id, `array`, `map`, `one_of`, `enum`), so views can
   traverse API, storage and message schemas.
 
+A schema's `store` may name a `st:` component or a `top:` component whose form is `queue` when the cited
+code stores records or job payloads there. This records observed queue access without asserting a message
+contract. A stream cannot be a record store.
+
 ### 4.3 `screens.yaml`
 
 ```yaml
@@ -341,10 +345,21 @@ screens:
 | `id`      | Required; unique among siblings; a short slug assigned once and then frozen.                                                                                                                                                                                                                         |
 | `say`     | Optional headline, at most 60 characters. When absent, the view uses `does` if short, else the condition (`if`, `each`, `retry.until`), else a phrase built from the effect and target.                                                                                                              |
 | `does`    | Optional detail of any length; shown in the inspector.                                                                                                                                                                                                                                               |
-| effect    | At most one of `read`+`from`, `write`+`to` (the store is always named), `call` (`api:` or `gql:`), `publish` (`msg:`), `wait` (a duration or words), `return` (a status or words). None means computation.                                                                                           |
+| effect    | At most one of `read`+`from`, `write`+`to` (the store or queue is always named), `call` (`api:` or `gql:`), `publish` (`msg:`), `wait` (a duration or words), `return` (a status or words). None means computation.                                                                                  |
 | structure | At most one of `if`/`then`/`else`, `each`/`steps`, `parallel: [{ lane, steps }]`, `try`/`catch`/`finally`, `transaction`/`steps`, or `retry: { until, times?, exhausted?: Step[] }`/`steps`. `then`, `else`, `steps`, `catch`, `finally` and `exhausted` all hold the same step shape. `do` is gone. |
 | modifiers | `when` (condition on one step), `async`, `causes` (an asynchronous follow-on: a step or handler elsewhere).                                                                                                                                                                                          |
-| `cites`   | Required on every step with an effect.                                                                                                                                                                                                                                                               |
+| `cites`   | Required on every current-fact step with an effect. Plan projections may retain an implementation-evidence gap.                                                                                                                                                                                      |
+
+`from` and `to` may name a `st:` component or a `top:` component whose form is `queue`; a stream is not a
+read/write target. Preserve cited record access to queues as read/write effects and derive access edges from
+them. Do not infer publication, a subscription, a message contract or asynchronous causation from queue
+access. Declared message publication and subscriptions retain their existing forms.
+
+Plan ops describe intended changes. Their added or changed behaviour is proposed, with attribution derived
+from the plan and change containing the op. Implementation citations may be absent in a plan projection
+and remain visible evidence gaps. Existing citations provide source context; they do not establish that
+proposed behaviour is implemented. Current workspace facts continue to require effect citations. Proposal
+attribution belongs beside the plan's before and after models; it is not authored as flags on steps.
 
 Handler `failures` are addressable (`#!<id>`), cited, and use the same `when`/`return` as steps.
 
@@ -513,3 +528,27 @@ The rebuild plan (`rebuild.md`) holds the order and proofs. The design-level rul
 | Keep endpoint `auth`, `idempotent`, `summary`; message `semantics`; store fields; field `note`; screen kind/device/route; infrastructure flag | Data: rev 2 would have lost them.                                                         |
 | Externals keep identity only; their interfaces sit in the consuming system with `external:`                                                   | Consistency check: interfaces need one home.                                              |
 | `infrastructure` flag defined; `retry.exhausted` defined; example fully cited; deterministic `step-<n>` fallback                              | Consistency check.                                                                        |
+
+### PR6 implementation correction: queue record access
+
+The read-only migration preflight found four schemas and nine explicit read/write effects (one read, eight
+writes) against two queues, with no corresponding declared message contracts. Queue ids still become `top:`,
+while schemas and read/write effects may reference queues. Semantic validation rejects stream targets. The
+measured cases, exact source lines and original schema failures are recorded in
+`artifacts/rebuild/pr6-design-amendment.md` and `artifacts/rebuild/verification/pr6/queue-compatibility.json`.
+This preserves existing cited facts under the user's instruction to apply evidence-based corrections.
+
+### Approved clarification: plan implementation evidence
+
+The user approved the narrow plan-provenance amendment on 6 November 2026, after three independent
+reviews. The current-fact and plan-projection validation profiles share one schema authority and structural
+model. Only the schema's explicitly annotated implementation-evidence requirement differs. Projection
+validation checks the current base strictly and computes the after model from the plan; it never accepts
+an arbitrary after model as current facts. The evidence and review are recorded under
+`artifacts/rebuild/pr6-plan-provenance/`.
+
+Narrative migration retains model references in `backs`, separately from the existing code citations of
+those referenced facts. Narrative stages use the same contextual component, external, system and library
+references as the landscape. Their inferred label, confidence, reasoning, limitations and original input
+fingerprint remain intact. Missing cited backing requires explicit review; a model id is never presented
+as a code-home citation.

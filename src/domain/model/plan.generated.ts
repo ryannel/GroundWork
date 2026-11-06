@@ -512,6 +512,7 @@ export interface WorkspaceRestInterface {
   subgraph?: string;
   entries?: WorkspaceRestEntry[];
   cites?: WorkspaceAuthoredCites;
+  transport?: 'http' | 'https';
 }
 export interface WorkspaceRestEntry {
   id: string;
@@ -637,7 +638,7 @@ export interface WorkspaceMessage {
   topic: string;
   payload?: string;
   key?: string;
-  semantics?: 'event' | 'command' | 'state';
+  semantics?: string;
   summary?: string;
   version?: string;
   supersedes?: string;
@@ -676,6 +677,7 @@ export interface WorkspaceInteraction {
   effect?: string;
   summary?: string;
   cites?: WorkspaceAuthoredCites;
+  when?: string;
 }
 export interface WorkspaceOperation {
   id: string;
@@ -688,6 +690,9 @@ export interface WorkspaceOperation {
   variables?: WorkspaceJsonValue;
   summary?: string;
   cites?: WorkspaceAuthoredCites;
+  method?: string;
+  persisted?: boolean | string;
+  trigger?: string;
 }
 export interface WorkspaceSchema {
   id: string;
@@ -822,6 +827,7 @@ export interface WorkspaceRegion {
   name: string;
   summary?: string;
   cites?: WorkspaceAuthoredCites;
+  reads?: string[];
 }
 export interface WorkspaceAsset {
   figma?: string;
@@ -874,9 +880,10 @@ export interface WorkspaceLane {
   steps: WorkspaceSteps;
 }
 export interface WorkspaceRetry {
-  until: string;
+  until?: string;
   times?: number;
   exhausted?: WorkspaceSteps;
+  description?: string;
 }
 export interface WorkspaceFailure {
   id: string;
@@ -944,7 +951,7 @@ export interface WorkspaceFlowStep {
   id: string;
   from: string;
   to: string;
-  via: string;
+  via?: string;
   action: string;
   /**
    * markdown; may cite [[id]]
@@ -971,6 +978,7 @@ export interface WorkspaceFlowStep {
   purges?: string[];
   handler_step?: string;
   cites?: WorkspaceAuthoredCites;
+  transport?: string;
 }
 export interface WorkspaceJourneyFile {
   id: string;

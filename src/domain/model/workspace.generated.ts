@@ -205,6 +205,7 @@ export interface WorkspaceDocumentTypes {
   NarrativeStage: NarrativeStage;
   Narrative: Narrative;
   Confidence: Confidence;
+  ContextComponentId: string;
   document: WorkspaceDocumentDocument;
 }
 export interface CodeHome {
@@ -604,6 +605,7 @@ export interface RestInterface {
   subgraph?: string;
   entries?: RestEntry[];
   cites?: AuthoredCites;
+  transport?: 'http' | 'https';
 }
 export interface GraphqlEntry {
   id: string;
@@ -708,7 +710,7 @@ export interface Message {
   topic: string;
   payload?: string;
   key?: string;
-  semantics?: 'event' | 'command' | 'state';
+  semantics?: string;
   summary?: string;
   version?: string;
   supersedes?: string;
@@ -747,6 +749,7 @@ export interface Interaction {
   effect?: string;
   summary?: string;
   cites?: AuthoredCites;
+  when?: string;
 }
 export interface Operation {
   id: string;
@@ -759,6 +762,9 @@ export interface Operation {
   variables?: JsonValue;
   summary?: string;
   cites?: AuthoredCites;
+  method?: string;
+  persisted?: boolean | string;
+  trigger?: string;
 }
 export interface ContractsFile {
   interfaces?: Interface[];
@@ -774,6 +780,7 @@ export interface Region {
   name: string;
   summary?: string;
   cites?: AuthoredCites;
+  reads?: string[];
 }
 export interface Asset {
   figma?: string;
@@ -832,9 +839,10 @@ export interface Lane {
   steps: Steps;
 }
 export interface Retry {
-  until: string;
+  until?: string;
   times?: number;
   exhausted?: Steps;
+  description?: string;
 }
 export interface Failure {
   id: string;
@@ -1106,6 +1114,10 @@ export interface LandscapeConnection {
   label: string;
   kind: 'api' | 'message' | 'data';
   cites: AuthoredCites;
+  /**
+   * @minItems 1
+   */
+  backs?: [string, ...string[]];
 }
 export interface LandscapeSystemRelationship {
   id: string;
@@ -1143,7 +1155,7 @@ export interface FlowStep {
   id: string;
   from: string;
   to: string;
-  via: string;
+  via?: string;
   action: string;
   /**
    * markdown; may cite [[id]]
@@ -1170,6 +1182,7 @@ export interface FlowStep {
   purges?: string[];
   handler_step?: string;
   cites?: AuthoredCites;
+  transport?: string;
 }
 export interface JourneyFile {
   id: string;
@@ -1243,6 +1256,10 @@ export interface NarrativeStage {
   summary: string;
   supporting: string[];
   cites: AuthoredCites;
+  /**
+   * @minItems 1
+   */
+  backs?: [string, ...string[]];
 }
 export interface ProgrammeFile {
   id: string;

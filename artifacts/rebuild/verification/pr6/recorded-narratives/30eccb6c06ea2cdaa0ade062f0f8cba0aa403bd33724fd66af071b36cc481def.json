@@ -1,0 +1,8 @@
+{
+  "route": "/acme/partners/",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 36806,
+  "sha256": "2f657f495495b179cd7f678c4bca2551fd3ad545add4b5aa927ba96cba5f142c",
+  "body": "30eccb6c06ea2cdaa0ade062f0f8cba0aa403bd33724fd66af071b36cc481def.body.gz"
+}

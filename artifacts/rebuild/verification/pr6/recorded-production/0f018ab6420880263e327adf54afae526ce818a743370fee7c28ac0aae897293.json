@@ -1,0 +1,8 @@
+{
+  "route": "/volvo-cars/plans/immutable-ids/plan.json",
+  "status": 200,
+  "type": "application/json",
+  "bytes": 1138720,
+  "sha256": "f7d3d4d271e43f3536b18ffa44c96a95e115422c5411af2b91e9600a6b097116",
+  "body": "0f018ab6420880263e327adf54afae526ce818a743370fee7c28ac0aae897293.body.gz"
+}

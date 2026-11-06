@@ -4206,8 +4206,16 @@
           "$ref": "#/$defs/EvidenceId"
         },
         "source": {
-          "type": "string",
-          "minLength": 1
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "$ref": "workspace.schema.json#/$defs/CodeRef"
+            }
+          ],
+          "description": "A persisted source id, or an explicit historical code reference retained from an authored GraphQL document."
         },
         "document_name": {
           "type": "string",
@@ -4309,6 +4317,18 @@
         "signature": {
           "type": "string",
           "minLength": 1
+        },
+        "document": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The complete authored GraphQL text retained during migration; selections are parsed deterministically."
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
         }
       }
     },

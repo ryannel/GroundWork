@@ -1,0 +1,8 @@
+{
+  "route": "/acme/things/?id=st-products-db",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 52050,
+  "sha256": "20ba98b06d74e42509b81ad5bb7fc4e4a5a3907f2125e8ec5bc4cbd500d76e17",
+  "body": "70f955ce1ec38afd9d04c8b2d97a1c00818b4480bf7e38fe2f82a1756aa5e03d.body.gz"
+}

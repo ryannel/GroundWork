@@ -1,0 +1,8 @@
+{
+  "route": "/acme/programmes/",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 36968,
+  "sha256": "2b1344731b83fb532c8411299a32cfb14eeabd5e86e038205053a2f8bea0829c",
+  "body": "e6fd9b787285356021efbcc5bc652f9038ef331397b06b166d72d3850520eca1.body.gz"
+}

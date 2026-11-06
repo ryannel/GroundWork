@@ -1,0 +1,8 @@
+{
+  "route": "/volvo-cars/plans/care-se-stock-reservation/plan.json",
+  "status": 200,
+  "type": "application/json",
+  "bytes": 1364483,
+  "sha256": "10a4fb7583188cffd6ecfedbb6a6cf225ceb3021b52a20603facf271ff9912d7",
+  "body": "9486b0cec60bb1202b767510c281b464257a11cc82a20a397f937de45806ef22.body.gz"
+}
