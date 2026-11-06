@@ -14,7 +14,7 @@ import { type FlowNodeSpec, actionOf, stepState, storeOf } from '@/application/p
 import { HEAD, MONO, ROW, sigOf, tagWidth } from '@/application/plan-viz-flow-size';
 import { callWords, protocolOf } from '@/application/plan-viz-protocol';
 import { teamIndex } from '@/application/plan-viz-teams';
-import { plainTitle } from '@/shared/plain-text';
+import { plainTitle } from '@/domain/plain-text';
 
 const GLYPH: Record<string, [glyph: string, word: string]> = {
   service: ['▣', 'SERVICE'],

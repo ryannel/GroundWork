@@ -4,9 +4,9 @@ import { prop, typeOf } from '@/application/plan/ids';
 import { labelsOf, refLabel } from '@/application/plan/ref-label';
 import { glyphOf } from '@/application/plan-pages-entity';
 import { prefixOf } from '@/domain/ids';
+import { clip, plain, plainTitle } from '@/domain/plain-text';
 import type { EntityType } from '@/domain/plan/plan-ids';
 import { TYPE_WORDS } from '@/domain/plan/plan-vocab';
-import { clip, plain, plainTitle } from '@/shared/plain-text';
 
 // How a chip names one thing in a plan: its glyph and type word (type is told by glyph and word, never by
 // colour), its label, whether it reads in mono, and its status. Colour is kept for status alone.

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import type { FlowEntry } from '@/application/today-flow-list';
+import { isAuthoredReference } from '@/domain/ids';
 import { plural } from '@/shared/text';
 import { Chip, ChipList } from '@/ui/chip';
 import { Markdown } from '@/ui/markdown';
@@ -67,7 +68,7 @@ export function LanguagePreview({
     <div className={styles.preview}>
       {summary === '' ? null : (
         <div className={styles.summary}>
-          <Markdown text={summary} />
+          <Markdown isReference={isAuthoredReference} text={summary} />
         </div>
       )}
       <ChipList>

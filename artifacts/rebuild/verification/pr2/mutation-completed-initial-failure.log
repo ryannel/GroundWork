@@ -1,0 +1,8 @@
+mutate	Run node tools/mutate-changed.ts --aggregate reports/batches --base "$BASE_SHA"	﻿2026-11-06T00:14:42.3250366Z ##[group]Run node tools/mutate-changed.ts --aggregate reports/batches --base "$BASE_SHA"
+mutate	Run node tools/mutate-changed.ts --aggregate reports/batches --base "$BASE_SHA"	2026-11-06T00:14:42.3251043Z [36;1mnode tools/mutate-changed.ts --aggregate reports/batches --base "$BASE_SHA"[0m
+mutate	Run node tools/mutate-changed.ts --aggregate reports/batches --base "$BASE_SHA"	2026-11-06T00:14:42.3279928Z shell: /usr/bin/bash -e {0}
+mutate	Run node tools/mutate-changed.ts --aggregate reports/batches --base "$BASE_SHA"	2026-11-06T00:14:42.3280267Z env:
+mutate	Run node tools/mutate-changed.ts --aggregate reports/batches --base "$BASE_SHA"	2026-11-06T00:14:42.3280594Z   BASE_SHA: 74e4a17b14cd21dded7505ba5a551a01b526c67d
+mutate	Run node tools/mutate-changed.ts --aggregate reports/batches --base "$BASE_SHA"	2026-11-06T00:14:42.3280962Z ##[endgroup]
+mutate	Run node tools/mutate-changed.ts --aggregate reports/batches --base "$BASE_SHA"	2026-11-06T00:14:42.7006613Z Mutation score: 12865/21116 (60.93%); required 75%.
+mutate	Run node tools/mutate-changed.ts --aggregate reports/batches --base "$BASE_SHA"	2026-11-06T00:14:42.7118530Z ##[error]Process completed with exit code 1.

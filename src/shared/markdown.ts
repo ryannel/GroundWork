@@ -27,7 +27,7 @@ interface Found {
   readonly end: number;
 }
 
-const ID = /^[a-z]+:[\w.#-]+$/u;
+export type ReferenceSyntax = (text: string) => boolean;
 const URL_END = new Set([' ', '\t', '\n', '<', '>', '"']);
 const URL_TRAIL = new Set(['.', ',', ';', ':', '!', '?', ')']);
 
@@ -43,21 +43,26 @@ export function shortUrl(url: string): string {
   return `${host}/…/${short}`;
 }
 
-function enclosed(text: string, at: number, marks: readonly [string, string]): Found | null {
+function enclosed(
+  text: string,
+  at: number,
+  marks: readonly [string, string],
+  isReference: ReferenceSyntax,
+): Found | null {
   const [open, close] = marks;
   const end = text.indexOf(close, at + open.length);
   if (end === -1) return null;
   const inner = text.slice(at + open.length, end);
   const after = end + close.length;
   if (open === '[[') {
-    return ID.test(inner) ? { token: { kind: 'ref', id: inner }, end: after } : null;
+    return isReference(inner) ? { token: { kind: 'ref', id: inner }, end: after } : null;
   }
   if (open === '`') {
     return inner === '' ? null : { token: { kind: 'code', text: inner }, end: after };
   }
   if (inner === '' || inner.includes('*') || inner.startsWith(' ')) return null;
   const kind = open === '**' ? 'strong' : 'em';
-  return { token: { kind, children: parseInline(inner) }, end: after };
+  return { token: { kind, children: parseInline(inner, isReference) }, end: after };
 }
 
 function link(text: string, at: number): Found | null {
@@ -83,23 +88,23 @@ function bareUrl(text: string, at: number): Found | null {
   return { token: { kind: 'link', href, text: shortUrl(href), short: true }, end };
 }
 
-function tokenAt(text: string, at: number): Found | null {
-  if (text.startsWith('[[', at)) return enclosed(text, at, ['[[', ']]']);
-  if (text.startsWith('`', at)) return enclosed(text, at, ['`', '`']);
-  if (text.startsWith('**', at)) return enclosed(text, at, ['**', '**']);
-  if (text.startsWith('*', at)) return enclosed(text, at, ['*', '*']);
+function tokenAt(text: string, at: number, isReference: ReferenceSyntax): Found | null {
+  if (text.startsWith('[[', at)) return enclosed(text, at, ['[[', ']]'], isReference);
+  if (text.startsWith('`', at)) return enclosed(text, at, ['`', '`'], isReference);
+  if (text.startsWith('**', at)) return enclosed(text, at, ['**', '**'], isReference);
+  if (text.startsWith('*', at)) return enclosed(text, at, ['*', '*'], isReference);
   if (text.startsWith('[', at)) return link(text, at);
   if (text.startsWith('h', at)) return bareUrl(text, at);
   return null;
 }
 
 /** One line of prose as runs of text, code, emphasis, links and citations. */
-export function parseInline(text: string): Inline[] {
+export function parseInline(text: string, isReference: ReferenceSyntax): Inline[] {
   const out: Inline[] = [];
   let start = 0;
   let at = 0;
   while (at < text.length) {
-    const found = tokenAt(text, at);
+    const found = tokenAt(text, at, isReference);
     if (found === null) {
       at += 1;
       continue;
@@ -123,20 +128,37 @@ function lineKind(line: string): [LineKind, string] {
   return ['text', line];
 }
 
-function blockOf(kind: LineKind, lines: readonly string[], key: string): Block {
-  if (kind === 'text') return { key, kind: 'paragraph', inlines: parseInline(lines.join(' ')) };
-  if (kind === 'quote') return { key, kind: 'quote', inlines: parseInline(lines.join(' ')) };
-  const items = lines.map((line, index) => ({ key: String(index), inlines: parseInline(line) }));
+function blockOf(
+  kind: LineKind,
+  lines: readonly string[],
+  key: string,
+  isReference: ReferenceSyntax,
+): Block {
+  if (kind === 'text') {
+    return { key, kind: 'paragraph', inlines: parseInline(lines.join(' '), isReference) };
+  }
+  if (kind === 'quote') {
+    return { key, kind: 'quote', inlines: parseInline(lines.join(' '), isReference) };
+  }
+  const items = lines.map((line, index) => ({
+    key: String(index),
+    inlines: parseInline(line, isReference),
+  }));
   return { key, kind: 'list', ordered: kind === 'number', items };
 }
 
 /** Text as blocks; nothing for empty text. */
-export function parseMarkdown(text: string | null | undefined): Block[] {
+export function parseMarkdown(
+  text: string | null | undefined,
+  isReference: ReferenceSyntax,
+): Block[] {
   const blocks: Block[] = [];
   let kind: LineKind | null = null;
   let lines: string[] = [];
   const flush = (): void => {
-    if (kind !== null && lines.length > 0) blocks.push(blockOf(kind, lines, String(blocks.length)));
+    if (kind !== null && lines.length > 0) {
+      blocks.push(blockOf(kind, lines, String(blocks.length), isReference));
+    }
     kind = null;
     lines = [];
   };

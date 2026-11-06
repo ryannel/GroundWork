@@ -1,6 +1,6 @@
 import type { Model } from '@/application/plan/derive';
 import { prop } from '@/application/plan/ids';
-import { hasPrefix } from '@/domain/ids';
+import { hasAnyPrefix, hasPrefix } from '@/domain/ids';
 import type { FlowNode, StepNode } from '@/domain/plan/plan-graph';
 import type { Flow } from '@/domain/plan/plan.generated';
 
@@ -71,7 +71,7 @@ export function isJob(
   );
 }
 
-export const isSync = (via: string | undefined): boolean => /^(?:api|gql):/u.test(via ?? '');
+export const isSync = (via: string | undefined): boolean => hasAnyPrefix(via, ['api', 'gql']);
 
 /** api (a call that waits for its answer, REST or GraphQL) · msg (an event) · data (to or from a store) · internal. */
 export function stepKind(model: FlowModel, s: Pick<StepNode, 'via' | 'from' | 'to'>): StepKind {

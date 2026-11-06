@@ -1,6 +1,15 @@
 import { describe, expect, it } from 'vitest';
 
-import { inlineText, parseInline, parseMarkdown, shortUrl } from './markdown';
+import {
+  inlineText,
+  parseInline as parseGenericInline,
+  parseMarkdown as parseGenericMarkdown,
+  shortUrl,
+} from './markdown';
+
+const isReference = (id: string) => ['svc:orders', 'svc:x'].includes(id);
+const parseInline = (text: string) => parseGenericInline(text, isReference);
+const parseMarkdown = (text: string | null | undefined) => parseGenericMarkdown(text, isReference);
 
 const kinds = (text: string) => parseInline(text).map((run) => run.kind);
 
@@ -79,5 +88,16 @@ describe('inlineText', () => {
         id.toUpperCase(),
       ),
     ).toBe('a SVC:X t https://w.x');
+  });
+});
+
+describe('caller-owned reference syntax', () => {
+  it('honours the supplied policy even for references unrelated to model ids', () => {
+    expect(
+      parseGenericInline('[[chapter one]] [[svc:a]]', (text) => text === 'chapter one'),
+    ).toEqual([
+      { key: '0', kind: 'ref', id: 'chapter one' },
+      { key: '15', kind: 'text', text: ' [[svc:a]]' },
+    ]);
   });
 });

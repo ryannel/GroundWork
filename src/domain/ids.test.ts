@@ -9,8 +9,12 @@ import {
   failureId,
   hasChildPath,
   hasPrefix,
+  hasAnyPrefix,
+  hasChildPrefix,
+  firstFlowReference,
   idToToken,
   isDisplayId,
+  isAuthoredReference,
   isQualifiedId,
   isTextId,
   isWithinId,
@@ -157,5 +161,55 @@ describe('aliases', () => {
       resolveAlias('svc:a', { 'svc:a': { to: 'svc:b' }, 'svc:b': { to: 'svc:a' } }).problem,
     ).toBe('Alias cycle at svc:a');
     expect(resolveAlias('toString', {}).id).toBe('toString');
+  });
+});
+
+describe('legacy regular-expression identity forms', () => {
+  it('classifies only the explicitly selected prefixes without declaring the id valid', () => {
+    expect(hasAnyPrefix('gql:read', ['api', 'gql'])).toBe(true);
+    expect(hasAnyPrefix('api:read', ['api', 'gql'])).toBe(true);
+    expect(hasAnyPrefix('api:', ['api'])).toBe(true);
+    expect(hasAnyPrefix('api-more:read', ['api'])).toBe(false);
+    expect(hasAnyPrefix('msg:read', ['api', 'gql'])).toBe(false);
+    expect(hasAnyPrefix('api:read', [])).toBe(false);
+    expect(hasAnyPrefix(undefined, ['api'])).toBe(false);
+    expect(hasAnyPrefix(null, ['api'])).toBe(false);
+    expect(hasAnyPrefix({}, ['api'])).toBe(false);
+  });
+  it('recognises legacy child links only after a non-empty root of the requested prefix', () => {
+    expect(hasChildPrefix('flow:read#one', 'flow')).toBe(true);
+    expect(hasChildPrefix('flow:read#', 'flow')).toBe(true);
+    expect(hasChildPrefix('flow:#one', 'flow')).toBe(false);
+    expect(hasChildPrefix('flow:read', 'flow')).toBe(false);
+    expect(hasChildPrefix('flow-other:read#one', 'flow')).toBe(false);
+    expect(hasChildPrefix('sch:read#one', 'flow')).toBe(false);
+  });
+  it('keeps the first explicit flow reference and the existing authored-link grammar', () => {
+    expect(firstFlowReference('[[svc:reader]] then [[flow:read]] and [[flow:save]]')).toBe(
+      'flow:read',
+    );
+    expect(firstFlowReference('[[flow:]] then [[flow:read#one]]')).toBe('flow:read#one');
+    expect(firstFlowReference('[[outer [[flow:read]]')).toBe('flow:read');
+    expect(firstFlowReference('flow:read')).toBeUndefined();
+    expect(firstFlowReference('[[flow:read]')).toBeUndefined();
+    expect(firstFlowReference('')).toBeUndefined();
+  });
+});
+
+describe('authored reference grammar', () => {
+  it('preserves the legacy Markdown grammar without assuming an entity exists', () => {
+    expect(
+      [
+        'svc:a',
+        'sch:Order#item_id',
+        'unknown:root.part',
+        'h:entry#step',
+        'h:entry#tx/read',
+        'h:entry#!failure',
+        'not an id',
+        'svc:',
+        'SVC:a',
+      ].map(isAuthoredReference),
+    ).toEqual([true, true, true, true, false, false, false, false, false]);
   });
 });

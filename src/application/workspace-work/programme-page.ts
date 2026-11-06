@@ -2,7 +2,7 @@ import { gapDays } from '@/application/plan/work-standing';
 import type { PlanRow } from '@/application/plan-index';
 import { domainHref, programmeHref } from '@/application/workspace-paths';
 import { qualifyId } from '@/domain/ids';
-import { plain } from '@/shared/plain-text';
+import { plain } from '@/domain/plain-text';
 
 import { firstDate, type MilestoneVM, rolledUp } from './milestones';
 import { gapText, type WorkCardVM } from './work-card';

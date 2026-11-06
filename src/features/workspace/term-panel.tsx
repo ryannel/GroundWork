@@ -1,4 +1,5 @@
 import type { LanguagePage, TermDetail } from '@/application/language-page';
+import { isAuthoredReference } from '@/domain/ids';
 import { Button } from '@/ui/button';
 import { Markdown } from '@/ui/markdown';
 import { Cluster, Stack } from '@/ui/stack';
@@ -44,7 +45,7 @@ export function TermPanel({ detail, page, onPick }: TermPanelProps) {
   return (
     <Stack as="section" gap={3} label={detail.name}>
       <Head detail={detail} onPick={onPick} />
-      <Markdown renderRef={renderRef} text={detail.means} />
+      <Markdown isReference={isAuthoredReference} renderRef={renderRef} text={detail.means} />
       {detail.aliases.length === 0 ? null : (
         <Part title="Also called">
           <Text as="p">{detail.aliases.join(', ')}</Text>

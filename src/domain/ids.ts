@@ -70,6 +70,17 @@ export function hasPrefix<Prefix extends string>(
 ): id is `${Prefix}:${string}` {
   return typeof id === 'string' && id.startsWith(`${prefix}:`);
 }
+export function hasAnyPrefix(id: unknown, prefixes: readonly string[]): boolean {
+  return prefixes.some((prefix) => hasPrefix(id, prefix));
+}
+/** The legacy flow reader accepts a child marker after a non-empty local root. */
+export function hasChildPrefix(id: string, prefix: string): boolean {
+  return hasPrefix(id, prefix) && id.indexOf('#') > prefix.length + 1;
+}
+/** The first explicit flow reference, retaining the legacy authored-link grammar. */
+export function firstFlowReference(text: string): string | undefined {
+  return /\[\[(flow:[^\]]+)\]\]/u.exec(text)?.[1];
+}
 export function stripPrefix(id: string, prefix: string): string;
 export function stripPrefix(id: string | null | undefined, prefix: string): string | undefined;
 export function stripPrefix(id: string | null | undefined, prefix: string): string | undefined {
@@ -203,6 +214,7 @@ export const hasChildPath = (id: unknown): id is `${string}#${string}` =>
 
 export const workspaceIdPattern = /^[a-z0-9][a-z0-9:-]*$/u;
 export const keyTermIdPattern = /^term:[a-z0-9-]+$/u;
+export const isAuthoredReference = (id: string): boolean => /^[a-z]+:[\w.#-]+$/u.test(id);
 export const isDisplayId = (id: string): boolean => /^[a-z]+:[a-z0-9-]+(?:#[a-z0-9-]+)?$/u.test(id);
 export const startsWithId = (id: string): boolean => /^[a-z]+:[a-z0-9]/u.test(id);
 export const isTextId = (id: string): boolean => /^[a-z]+:[\w-]/u.test(id) && !/\s/u.test(id);

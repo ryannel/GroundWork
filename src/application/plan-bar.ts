@@ -6,7 +6,7 @@ import { pageHref, type Outline } from '@/application/plan-pages';
 import { versionKey } from '@/application/plan-pages-screens-versions';
 import { planStage, type Stage } from '@/application/plan-story-cover-standing';
 import { shortDate } from '@/application/plan-viz-state';
-import { plainTitle } from '@/shared/plain-text';
+import { plainTitle } from '@/domain/plain-text';
 
 // What the plan's top bar says about the plan: where it stands, which teams it can be read as, and its versions.
 

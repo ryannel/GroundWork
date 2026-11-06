@@ -6,6 +6,7 @@ import { type Place, type Places, placesOf, type Where } from '@/application/lan
 import { firstSentence } from '@/application/plan-viz-text';
 import { domainHref } from '@/application/workspace-paths';
 import { localId } from '@/domain/ids';
+import { plain } from '@/domain/plain-text';
 import type { Concept } from '@/domain/plan/plan.generated';
 import type { Workspace } from '@/domain/workspace';
 import type {
@@ -15,7 +16,6 @@ import type {
   TermExample,
   TermFit,
 } from '@/domain/workspace-model';
-import { plain } from '@/shared/plain-text';
 
 export interface TermRow {
   readonly id: string;

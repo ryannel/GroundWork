@@ -1,6 +1,19 @@
 import { describe, expect, it } from 'vitest';
 
-import { clip, cutAtWord, plain, plainTitle } from './plain-text';
+import {
+  clip as genericClip,
+  cutAtWord,
+  plain as genericPlain,
+  plainTitle as genericTitle,
+} from './plain-text';
+
+const isReference = (id: string) => id === 'svc:orders';
+const plain = (text: string | null | undefined, label: (id: string) => string) =>
+  genericPlain(text, label, isReference);
+const plainTitle = (text: string | null | undefined, label: (id: string) => string) =>
+  genericTitle(text, label, isReference);
+const clip = (text: string, label: (id: string) => string, n?: number) =>
+  genericClip(text, label, isReference, n);
 
 const label = (id: string) => (id === 'svc:orders' ? 'Orders' : id);
 

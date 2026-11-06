@@ -1,7 +1,8 @@
 import type { Model } from '@/application/plan/derive';
 import type { ElementStatus } from '@/application/plan/derive-core';
 import { prop, typeOf } from '@/application/plan/ids';
-import { cutAtWord, plain } from '@/shared/plain-text';
+import { plain } from '@/domain/plain-text';
+import { cutAtWord } from '@/shared/plain-text';
 
 import { glyphOf, typeWord } from './plan-pages-entity';
 

@@ -1,0 +1,5 @@
+
+> groundwork@0.0.0 rebuild:parity
+> node --import ./tools/register.ts --conditions=react-server tools/explorer-parity.ts
+
+Explorer: 20 capabilities; none retired or proven.

@@ -1,6 +1,7 @@
 import type { Model } from '@/application/plan/derive';
 import { isRecord, type Rec } from '@/application/plan/ids';
 import { propLabel } from '@/application/plan-viz-journey-words';
+import { hasAnyPrefix } from '@/domain/ids';
 import { EntityChip } from '@/features/plan/common/entity-chip';
 import { ModelText } from '@/features/plan/common/model-text';
 
@@ -11,7 +12,7 @@ interface ValueProps {
   readonly value: unknown;
 }
 
-const ENTITY = /^(?:flow|scr|svc|api|gql|sch|msg|st|chg|dec):/u;
+const ENTITY_PREFIXES = ['flow', 'scr', 'svc', 'api', 'gql', 'sch', 'msg', 'st', 'chg', 'dec'];
 
 /** Each value with a key of its own, though two may be alike. */
 function keyed(values: readonly unknown[]): { readonly key: string; readonly value: unknown }[] {
@@ -74,7 +75,7 @@ export function JourneyValue({ model, value }: ValueProps) {
   if (Array.isArray(value)) return <Items items={value} model={model} />;
   if (isRecord(value)) return <Properties model={model} record={value} />;
   if (typeof value !== 'string') return <span className={styles.muted}>Not recorded</span>;
-  return ENTITY.test(value) ? (
+  return hasAnyPrefix(value, ENTITY_PREFIXES) ? (
     <EntityChip id={value} model={model} />
   ) : (
     <ModelText model={model} text={value} />

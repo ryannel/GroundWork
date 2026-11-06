@@ -1,0 +1,310 @@
+{
+  "original": {
+    "detected": 12865,
+    "total": 21116,
+    "score": 60.92536465239628
+  },
+  "estimate": {
+    "detected": 15864,
+    "total": 21080,
+    "score": 75.2561669829222
+  },
+  "updated": [
+    {
+      "file": "src/application/plan-viz-system-map-input.ts",
+      "detected": 133,
+      "missed": 39,
+      "updated": true
+    },
+    {
+      "file": "src/application/plan-viz-flow-key.ts",
+      "detected": 183,
+      "missed": 30,
+      "updated": true
+    },
+    {
+      "file": "src/application/plan-viz-store.ts",
+      "detected": 167,
+      "missed": 10,
+      "updated": true
+    },
+    {
+      "file": "src/application/workspace-area.ts",
+      "detected": 269,
+      "missed": 89,
+      "updated": true
+    },
+    {
+      "file": "src/application/workspace-domain.ts",
+      "detected": 76,
+      "missed": 9,
+      "updated": true
+    },
+    {
+      "file": "src/application/plan-viz-flow-narration.ts",
+      "detected": 166,
+      "missed": 19,
+      "updated": true
+    },
+    {
+      "file": "src/application/plan-viz-ladder-rungs.ts",
+      "detected": 222,
+      "missed": 112,
+      "updated": true
+    },
+    {
+      "file": "src/application/plan-viz-decision.ts",
+      "detected": 102,
+      "missed": 9,
+      "updated": true
+    },
+    {
+      "file": "src/application/scan-explorer/current-callers.ts",
+      "detected": 131,
+      "missed": 12,
+      "updated": true
+    },
+    {
+      "file": "src/application/plan-story-part.ts",
+      "detected": 165,
+      "missed": 49,
+      "updated": true
+    },
+    {
+      "file": "src/application/plan/mermaid.ts",
+      "detected": 275,
+      "missed": 44,
+      "updated": true
+    },
+    {
+      "file": "src/application/plan-story-changes-touched.ts",
+      "detected": 127,
+      "missed": 41,
+      "updated": true
+    },
+    {
+      "file": "src/application/plan-story-versions-words.ts",
+      "detected": 167,
+      "missed": 10,
+      "updated": true
+    },
+    {
+      "file": "src/application/landscape-map-input.ts",
+      "detected": 124,
+      "missed": 23,
+      "updated": true
+    },
+    {
+      "file": "src/application/plan-viz-flow-stops.ts",
+      "detected": 146,
+      "missed": 28,
+      "updated": true
+    },
+    {
+      "file": "src/application/plan-viz-flow-graph.ts",
+      "detected": 329,
+      "missed": 62,
+      "updated": true
+    },
+    {
+      "file": "src/application/plan-viz-flow-draw-edges.ts",
+      "detected": 201,
+      "missed": 18,
+      "updated": true
+    },
+    {
+      "file": "src/application/plan-viz-flow-changes.ts",
+      "detected": 117,
+      "missed": 53,
+      "updated": true
+    },
+    {
+      "file": "src/application/plan/graph-queries.ts",
+      "detected": 198,
+      "missed": 40,
+      "updated": true
+    },
+    {
+      "file": "src/application/today-handler.ts",
+      "detected": 296,
+      "missed": 27,
+      "updated": true
+    },
+    {
+      "file": "src/application/plan-viz-system-map-links.ts",
+      "detected": 309,
+      "missed": 36,
+      "updated": true
+    },
+    {
+      "file": "src/application/plan-viz-system-map-tips.ts",
+      "detected": 269,
+      "missed": 11,
+      "updated": true
+    },
+    {
+      "file": "src/application/plan-viz-ladder-order.ts",
+      "detected": 274,
+      "missed": 115,
+      "updated": true
+    },
+    {
+      "file": "src/application/plan/derive-owners.ts",
+      "detected": 290,
+      "missed": 35,
+      "updated": true
+    }
+  ],
+  "remaining": [
+    {
+      "file": "src/application/plan/derive-teams.ts",
+      "detected": 182,
+      "missed": 118,
+      "updated": false
+    },
+    {
+      "file": "src/application/plan-story-changes-records.ts",
+      "detected": 279,
+      "missed": 117,
+      "updated": false
+    },
+    {
+      "file": "src/domain/scan/discovery-inventory.ts",
+      "detected": 125,
+      "missed": 117,
+      "updated": false
+    },
+    {
+      "file": "src/application/area-map/resources.ts",
+      "detected": 254,
+      "missed": 112,
+      "updated": false
+    },
+    {
+      "file": "src/application/plan-pages-screens-changes.ts",
+      "detected": 41,
+      "missed": 101,
+      "updated": false
+    },
+    {
+      "file": "src/application/plan-viz-contracts.ts",
+      "detected": 83,
+      "missed": 100,
+      "updated": false
+    },
+    {
+      "file": "src/application/plan-viz-screens.ts",
+      "detected": 263,
+      "missed": 99,
+      "updated": false
+    },
+    {
+      "file": "src/application/plan/field-ladder.ts",
+      "detected": 191,
+      "missed": 96,
+      "updated": false
+    },
+    {
+      "file": "src/application/plan/check-handlers.ts",
+      "detected": 23,
+      "missed": 90,
+      "updated": false
+    },
+    {
+      "file": "src/application/plan-viz-ladder.ts",
+      "detected": 147,
+      "missed": 88,
+      "updated": false
+    },
+    {
+      "file": "src/application/plan/flow-sequence.ts",
+      "detected": 147,
+      "missed": 86,
+      "updated": false
+    },
+    {
+      "file": "src/application/plan-viz-sequence.ts",
+      "detected": 91,
+      "missed": 85,
+      "updated": false
+    },
+    {
+      "file": "src/application/plan-story-journey-behind.ts",
+      "detected": 92,
+      "missed": 84,
+      "updated": false
+    },
+    {
+      "file": "src/application/plan/derive-diff.ts",
+      "detected": 244,
+      "missed": 77,
+      "updated": false
+    },
+    {
+      "file": "src/application/plan/ui-journeys-interactions.ts",
+      "detected": 81,
+      "missed": 71,
+      "updated": false
+    },
+    {
+      "file": "src/application/plan/federation-policy.ts",
+      "detected": 180,
+      "missed": 71,
+      "updated": false
+    },
+    {
+      "file": "src/application/plan/check-federation-ops.ts",
+      "detected": 167,
+      "missed": 71,
+      "updated": false
+    },
+    {
+      "file": "src/application/plan-pages-entity-read.ts",
+      "detected": 143,
+      "missed": 71,
+      "updated": false
+    },
+    {
+      "file": "src/application/scan-explorer/visual-page.ts",
+      "detected": 25,
+      "missed": 69,
+      "updated": false
+    },
+    {
+      "file": "src/application/plan/federation-sdl.ts",
+      "detected": 192,
+      "missed": 69,
+      "updated": false
+    },
+    {
+      "file": "src/application/plan/impact-fields.ts",
+      "detected": 104,
+      "missed": 69,
+      "updated": false
+    },
+    {
+      "file": "src/application/plan-viz-system-map-scope.ts",
+      "detected": 132,
+      "missed": 67,
+      "updated": false
+    },
+    {
+      "file": "src/application/plan-pages-entity-extras.ts",
+      "detected": 12,
+      "missed": 67,
+      "updated": false
+    },
+    {
+      "file": "src/application/plan/check-federation-fields.ts",
+      "detected": 182,
+      "missed": 66,
+      "updated": false
+    },
+    {
+      "file": "src/application/plan/derive-contracts.ts",
+      "detected": 135,
+      "missed": 64,
+      "updated": false
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 import { Fragment, type ReactNode } from 'react';
 
-import { type Inline, parseInline, parseMarkdown } from '@/shared/markdown';
+import { type Inline, type ReferenceSyntax, parseInline, parseMarkdown } from '@/shared/markdown';
 
 /** Draws a citation [[id]]; without one the id shows as code. */
 type RenderRef = (id: string) => ReactNode;
@@ -8,6 +8,7 @@ type RenderRef = (id: string) => ReactNode;
 interface MarkdownProps {
   readonly text: string | null | undefined;
   readonly renderRef?: RenderRef;
+  readonly isReference: ReferenceSyntax;
 }
 
 const asCode: RenderRef = (id) => <code>{id}</code>;
@@ -65,8 +66,8 @@ function Runs({
 
 // Plan prose as React: paragraphs, lists and quotes, with each [[id]] drawn by renderRef. It renders bare
 // elements, so the caller's container sets the type.
-export function Markdown({ text, renderRef = asCode }: MarkdownProps) {
-  return parseMarkdown(text).map((block) => {
+export function Markdown({ text, renderRef = asCode, isReference }: MarkdownProps) {
+  return parseMarkdown(text, isReference).map((block) => {
     if (block.kind === 'list') {
       const items = block.items.map((item) => (
         <li key={item.key}>
@@ -85,6 +86,6 @@ export function Markdown({ text, renderRef = asCode }: MarkdownProps) {
 }
 
 /** One line of prose with no block around it: for a title or a table cell. */
-export function InlineMarkdown({ text, renderRef = asCode }: MarkdownProps) {
-  return <Runs inlines={parseInline(text ?? '')} renderRef={renderRef} />;
+export function InlineMarkdown({ text, renderRef = asCode, isReference }: MarkdownProps) {
+  return <Runs inlines={parseInline(text ?? '', isReference)} renderRef={renderRef} />;
 }

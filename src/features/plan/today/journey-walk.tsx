@@ -6,9 +6,9 @@ import {
 } from '@/application/today-journeys';
 import { journeyHref, todayReaderOf } from '@/application/today-reader';
 import { workspaceHref } from '@/application/workspace-paths';
+import { plain } from '@/domain/plain-text';
 import { ScenarioWalk } from '@/features/plan/chapters/journey/scenario-walk.client';
 import { EntityChip } from '@/features/plan/common/entity-chip';
-import { plain } from '@/shared/plain-text';
 import { PageHeader } from '@/ui/page-header';
 
 import styles from './journey-walk.module.css';

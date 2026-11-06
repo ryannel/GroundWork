@@ -6,6 +6,14 @@
       {
         "line": 7,
         "text": "const prefixSyntax = (text) => PREFIXES.has(text.split(':')[0]) && text.includes(':');"
+      },
+      {
+        "line": 10,
+        "text": "const head = normalised.startsWith('^') ? normalised.slice(1).split(':')[0] : '';"
+      },
+      {
+        "line": 16,
+        "text": "return (normalised.includes(':') && (known || generic)) || reference;"
       }
     ],
     "status": "adapter"
@@ -15,11 +23,11 @@
     "file": "eslint/identity-rules.mjs",
     "hits": [
       {
-        "line": 10,
+        "line": 20,
         "text": "/https?:\\/\\/(?:github\\.com|gitlab\\.com|bitbucket\\.org)\\/$/u.test(text);"
       },
       {
-        "line": 82,
+        "line": 86,
         "text": "if (node.regex && /github.*(?:blob|tree|issues|pull)/u.test(node.regex.pattern)) {"
       }
     ],
@@ -944,6 +952,165 @@
   },
   {
     "category": "id construction, parsing or literal",
+    "file": "src/application/landscape-map-input.test.ts",
+    "hits": [
+      {
+        "line": 9,
+        "text": "const domain = (id: string, team: string | null): Domain => ({"
+      },
+      {
+        "line": 21,
+        "text": "{ id: `svc:${id}`, name: id, type: 'service', does: null, tech: null, talksTo: [] },"
+      },
+      {
+        "line": 23,
+        "text": "id: `svc:${id}-external`,"
+      },
+      {
+        "line": 43,
+        "text": "{ id: 'actor:reader', name: 'Reader', summary: 'Reads', uses: ['svc:a'], customer: true },"
+      },
+      {
+        "line": 45,
+        "text": "domains: [domain('c', null), domain('b', 'team:b'), domain('a', null), domain('d', null)],"
+      },
+      {
+        "line": 47,
+        "text": "const plan: Plan = {"
+      },
+      {
+        "line": 50,
+        "text": "teams: [{ id: 'team:b', name: 'B' }],"
+      },
+      {
+        "line": 51,
+        "text": "services: ['a', 'b', 'c', 'd'].map((id) => ({ id: `svc:${id}`, name: id, kind: 'service' })),"
+      },
+      {
+        "line": 54,
+        "text": "id: 'if:b',"
+      },
+      {
+        "line": 55,
+        "text": "service: 'svc:b',"
+      },
+      {
+        "line": 57,
+        "text": "endpoints: [{ id: 'api:read', sig: 'GET /b' }],"
+      },
+      {
+        "line": 62,
+        "text": "{ id: 'stage:a', name: 'First', services: [{ svc: 'svc:a' }] },"
+      },
+      {
+        "line": 63,
+        "text": "{ id: 'stage:b', name: 'Second', services: [{ svc: 'svc:b' }] },"
+      },
+      {
+        "line": 68,
+        "text": "id: 'flow:read',"
+      },
+      {
+        "line": 70,
+        "text": "actor: 'reader',"
+      },
+      {
+        "line": 72,
+        "text": "{ id: 'flow:read#call', from: 'svc:a', to: 'svc:b', via: 'api:read', action: 'Read' },"
+      },
+      {
+        "line": 75,
+        "text": "{ id: 'flow:repeat', name: 'Again', actor: 'Reader', steps: [] },"
+      },
+      {
+        "line": 76,
+        "text": "{ id: 'flow:partner', name: 'Partner', actor: 'actor:partner', steps: [] },"
+      },
+      {
+        "line": 77,
+        "text": "{ id: 'flow:none', name: 'System work', actor: 'System', steps: [] },"
+      },
+      {
+        "line": 86,
+        "text": "['', 'System', 'reader', 'READER', 'actor:partner', 'New reader!'].map((name) =>"
+      },
+      {
+        "line": 89,
+        "text": ").toEqual([null, null, 'actor:reader', 'actor:reader', 'actor:partner', 'actor:new-reader-']);"
+      },
+      {
+        "line": 107,
+        "text": "id: 'sys:b',"
+      },
+      {
+        "line": 111,
+        "text": "team: 'team:b',"
+      },
+      {
+        "line": 119,
+        "text": "'svc:a': 'sys:a',"
+      },
+      {
+        "line": 120,
+        "text": "'svc:a-external': 'sys:a',"
+      },
+      {
+        "line": 121,
+        "text": "'svc:b': 'sys:b',"
+      },
+      {
+        "line": 122,
+        "text": "'svc:b-external': 'sys:b',"
+      },
+      {
+        "line": 123,
+        "text": "'svc:c': 'sys:c',"
+      },
+      {
+        "line": 124,
+        "text": "'svc:c-external': 'sys:c',"
+      },
+      {
+        "line": 125,
+        "text": "'svc:d': 'sys:d',"
+      },
+      {
+        "line": 126,
+        "text": "'svc:d-external': 'sys:d',"
+      },
+      {
+        "line": 130,
+        "text": "id: `svc:${id}-external`,"
+      },
+      {
+        "line": 133,
+        "text": "system: `sys:${id}`,"
+      },
+      {
+        "line": 141,
+        "text": "{ id: 'actor:reader', name: 'Reader', summary: 'Reads', customer: true },"
+      },
+      {
+        "line": 142,
+        "text": "{ id: 'actor:partner', name: 'partner', summary: null, customer: false },"
+      },
+      {
+        "line": 145,
+        "text": "{ from: 'actor:reader', to: 'svc:a', kind: 'use', via: '' },"
+      },
+      {
+        "line": 146,
+        "text": "{ from: 'actor:reader', to: 'svc:a', kind: 'use', via: 'Read' },"
+      },
+      {
+        "line": 147,
+        "text": "{ from: 'svc:a', to: 'svc:b', kind: 'api', via: 'b REST' },"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
     "file": "src/application/landscape-map-input.ts",
     "hits": [
       {
@@ -1500,15 +1667,15 @@
     "file": "src/application/plan-pages-entity-card.ts",
     "hits": [
       {
-        "line": 22,
+        "line": 23,
         "text": "readonly team: string | null;"
       },
       {
-        "line": 61,
+        "line": 62,
         "text": "const type = typeOf(id);"
       },
       {
-        "line": 77,
+        "line": 78,
         "text": "team: team === null ? null : model.label(team),"
       }
     ],
@@ -2755,6 +2922,169 @@
   },
   {
     "category": "id construction, parsing or literal",
+    "file": "src/application/plan-story-changes-touched.test.ts",
+    "hits": [
+      {
+        "line": 27,
+        "text": "records: ['sch:product', 'sch:search-doc', 'sch:order'],"
+      },
+      {
+        "line": 28,
+        "text": "flows: ['flow:publish-product'],"
+      },
+      {
+        "line": 29,
+        "text": "ladders: ['msg:product-changed'],"
+      },
+      {
+        "line": 30,
+        "text": "retired: ['sch:product-changed-v1'],"
+      },
+      {
+        "line": 32,
+        "text": "screens: ['scr:product-page'],"
+      },
+      {
+        "line": 34,
+        "text": "expect(changesOf(model, 'sch:product')).toEqual(['chg:dispatch-field']);"
+      },
+      {
+        "line": 37,
+        "text": ").toEqual(['team:catalogue', 'team:orders']);"
+      },
+      {
+        "line": 41,
+        "text": "id: 'sch:body',"
+      },
+      {
+        "line": 49,
+        "text": "ops: [{ modify: 'sch:body#id', set: { type: 'int' } }, { remove: 'api:products-update' }],"
+      },
+      {
+        "line": 52,
+        "text": "expect(altered.shapes).toEqual(['sch:body']);"
+      },
+      {
+        "line": 54,
+        "text": "[...altered.retired, ...altered.ladders].filter((id) => id === 'api:products-update'),"
+      },
+      {
+        "line": 57,
+        "text": "expect(altered.records).not.toContain('sch:body');"
+      },
+      {
+        "line": 64,
+        "text": "reachOf(model, changes, { id: 'flow:publish-product', changed: all, taken: new Set() }),"
+      },
+      {
+        "line": 66,
+        "text": "records: ['sch:product', 'sch:search-doc'],"
+      },
+      {
+        "line": 68,
+        "text": "ladders: ['msg:product-changed'],"
+      },
+      {
+        "line": 73,
+        "text": "reachOf(model, changes, { id: 'flow:publish-product', changed: new Set(), taken: new Set() }),"
+      },
+      {
+        "line": 74,
+        "text": ").toEqual({ ...empty, ladders: ['msg:product-changed'] });"
+      },
+      {
+        "line": 77,
+        "text": "id: 'flow:publish-product',"
+      },
+      {
+        "line": 78,
+        "text": "changed: new Set(['flow:publish-product#save']),"
+      },
+      {
+        "line": 79,
+        "text": "taken: new Set(['sch:product', 'msg:product-changed']),"
+      },
+      {
+        "line": 82,
+        "text": "expect(reachOf(model, changes, { id: 'flow:missing', changed: all, taken: new Set() })).toEqual("
+      },
+      {
+        "line": 90,
+        "text": "reachOf(model, changes, { id: 'flow:add-to-basket', changed: new Set(), taken: new Set() }),"
+      },
+      {
+        "line": 91,
+        "text": ").toEqual({ ...empty, screens: ['scr:basket'] });"
+      },
+      {
+        "line": 94,
+        "text": "id: 'flow:add-to-basket',"
+      },
+      {
+        "line": 96,
+        "text": "taken: new Set(['scr:basket']),"
+      },
+      {
+        "line": 102,
+        "text": "records: ['sch:order', 'sch:line'],"
+      },
+      {
+        "line": 103,
+        "text": "flows: ['flow:read'],"
+      },
+      {
+        "line": 104,
+        "text": "screens: ['scr:page'],"
+      },
+      {
+        "line": 105,
+        "text": "ladders: ['msg:changed'],"
+      },
+      {
+        "line": 106,
+        "text": "retired: ['st:old'],"
+      },
+      {
+        "line": 107,
+        "text": "shapes: ['sch:request'],"
+      },
+      {
+        "line": 109,
+        "text": "const reach = leftOver(changes, new Set(['sch:order', 'msg:changed']));"
+      },
+      {
+        "line": 111,
+        "text": "records: ['sch:line'],"
+      },
+      {
+        "line": 112,
+        "text": "screens: ['scr:page'],"
+      },
+      {
+        "line": 114,
+        "text": "retired: ['st:old'],"
+      },
+      {
+        "line": 115,
+        "text": "shapes: ['sch:request'],"
+      },
+      {
+        "line": 117,
+        "text": "expect(reachIds(reach)).toEqual(['sch:line', 'scr:page', 'st:old', 'sch:request']);"
+      },
+      {
+        "line": 118,
+        "text": "expect(topOf('h:read#tx/load')).toBe('h:read');"
+      },
+      {
+        "line": 119,
+        "text": "expect(topOf('sch:order')).toBe('sch:order');"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
     "file": "src/application/plan-story-changes-touched.ts",
     "hits": [
       {
@@ -2828,17 +3158,6 @@
       {
         "line": 132,
         "text": ": { team: plan.gatewayTeam, decides: !teams.includes(plan.gatewayTeam) },"
-      }
-    ],
-    "status": "adapter"
-  },
-  {
-    "category": "id construction, parsing or literal",
-    "file": "src/application/plan-story-journey-execution.ts",
-    "hits": [
-      {
-        "line": 27,
-        "text": "const FLOW_CITATION = /\\[\\[(flow:[^\\]]+)\\]\\]/u;"
       }
     ],
     "status": "adapter"
@@ -3011,6 +3330,197 @@
       {
         "line": 188,
         "text": "lines: model.plan.teams.map((t) => ({ team: t.id, bits: partLine(model, t.id) })),"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "src/application/plan-story-part.test.ts",
+    "hits": [
+      {
+        "line": 13,
+        "text": "const part = teamPart(model, 'team:catalogue');"
+      },
+      {
+        "line": 16,
+        "text": "services: ['svc:products', 'svc:product-admin', 'svc:search-indexer', 'svc:search-api'],"
+      },
+      {
+        "line": 40,
+        "text": "flow: 'flow:publish-product',"
+      },
+      {
+        "line": 41,
+        "text": "id: 'flow:publish-product#save',"
+      },
+      {
+        "line": 44,
+        "text": "from: 'svc:product-admin',"
+      },
+      {
+        "line": 45,
+        "text": "to: 'svc:products',"
+      },
+      {
+        "line": 46,
+        "text": "via: 'api:products-update',"
+      },
+      {
+        "line": 51,
+        "text": "flow: 'flow:publish-product',"
+      },
+      {
+        "line": 52,
+        "text": "id: 'flow:publish-product#index',"
+      },
+      {
+        "line": 55,
+        "text": "from: 'st:product-events',"
+      },
+      {
+        "line": 56,
+        "text": "to: 'svc:search-indexer',"
+      },
+      {
+        "line": 57,
+        "text": "via: 'msg:product-changed-v2',"
+      },
+      {
+        "line": 62,
+        "text": "flow: 'flow:publish-product',"
+      },
+      {
+        "line": 63,
+        "text": "id: 'flow:publish-product#announce-v2',"
+      },
+      {
+        "line": 66,
+        "text": "from: 'svc:products',"
+      },
+      {
+        "line": 67,
+        "text": "to: 'st:product-events',"
+      },
+      {
+        "line": 68,
+        "text": "via: 'msg:product-changed-v2',"
+      },
+      {
+        "line": 73,
+        "text": "flow: 'flow:publish-product',"
+      },
+      {
+        "line": 74,
+        "text": "id: 'flow:publish-product#orders',"
+      },
+      {
+        "line": 77,
+        "text": "from: 'st:product-events',"
+      },
+      {
+        "line": 78,
+        "text": "to: 'svc:order-api',"
+      },
+      {
+        "line": 79,
+        "text": "via: 'msg:product-changed-v2',"
+      },
+      {
+        "line": 85,
+        "text": "expect(otherChanges(model, teamPart(model, 'team:web'))).toEqual(['chg:shop-shows-date']);"
+      },
+      {
+        "line": 94,
+        "text": "modify: 'flow:place-order#create',"
+      },
+      {
+        "line": 97,
+        "text": "{ deprecate: 'flow:place-order#charge' },"
+      },
+      {
+        "line": 100,
+        "text": "const part = teamPart(modelOf(value), 'team:orders');"
+      },
+      {
+        "line": 102,
+        "text": "flow: 'flow:place-order',"
+      },
+      {
+        "line": 103,
+        "text": "id: 'flow:place-order#create',"
+      },
+      {
+        "line": 106,
+        "text": "from: 'svc:shop-bff',"
+      },
+      {
+        "line": 107,
+        "text": "to: 'svc:order-api',"
+      },
+      {
+        "line": 108,
+        "text": "via: 'api:orders-create',"
+      },
+      {
+        "line": 109,
+        "text": "caller: 'svc:shop-bff',"
+      },
+      {
+        "line": 112,
+        "text": "expect(part.steps.find((step) => step.id === 'flow:place-order#charge')).toMatchObject({"
+      },
+      {
+        "line": 126,
+        "text": "decider: 'team:catalogue',"
+      },
+      {
+        "line": 129,
+        "text": "{ id: 'q:open', question: 'Which colour?', status: 'open', decider: 'team:web' },"
+      },
+      {
+        "line": 130,
+        "text": "{ id: 'q:resolved', question: 'Which wording?', status: 'resolved', decider: 'team:web' },"
+      },
+      {
+        "line": 137,
+        "text": "owner: 'team:web',"
+      },
+      {
+        "line": 144,
+        "text": "owner: 'team:web',"
+      },
+      {
+        "line": 151,
+        "text": "owner: 'team:orders',"
+      },
+      {
+        "line": 158,
+        "text": "owner: 'team:web',"
+      },
+      {
+        "line": 165,
+        "text": "owner: 'team:web',"
+      },
+      {
+        "line": 170,
+        "text": "const part = teamPart(model, 'team:web');"
+      },
+      {
+        "line": 178,
+        "text": "expect(ids(teamPart(model, 'team:catalogue').decides)).toContain('q:cross');"
+      },
+      {
+        "line": 185,
+        "text": "'team:web',"
+      },
+      {
+        "line": 192,
+        "text": "'team:web',"
+      },
+      {
+        "line": 196,
+        "text": "const unknown = teamPart(modelOf(value), 'team:missing');"
       }
     ],
     "status": "adapter"
@@ -3431,6 +3941,29 @@
   },
   {
     "category": "id construction, parsing or literal",
+    "file": "src/application/plan-story-versions-words.test.ts",
+    "hits": [
+      {
+        "line": 72,
+        "text": "expect(decidedText(entry({ status: 'approved', approved_by: 'team:owners' }))).toBe("
+      },
+      {
+        "line": 73,
+        "text": "'Approved when team:owners merged the pull request',"
+      },
+      {
+        "line": 146,
+        "text": "expect(unmark('**Bold** and *light* with `code` and [[sys:shop]]')).toBe("
+      },
+      {
+        "line": 147,
+        "text": "'Bold and light with code and [[sys:shop]]',"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
     "file": "src/application/plan-story-versions-words.ts",
     "hits": [
       {
@@ -3544,19 +4077,15 @@
     "file": "src/application/plan-viz-compat.ts",
     "hits": [
       {
-        "line": 79,
+        "line": 80,
         "text": "readonly svc: string;"
       },
       {
-        "line": 90,
-        "text": "const isStep = (id: string): boolean => /^flow:[^#]+#/u.test(id);"
-      },
-      {
-        "line": 117,
+        "line": 118,
         "text": "c.who.filter((w) => w.movedBy === null).map((w) => ({ svc: w.svc, where: placeOf(w) })),"
       },
       {
-        "line": 120,
+        "line": 121,
         "text": "c.who.filter((w) => w.movedBy !== null).map((w) => ({ svc: w.svc, where: movedPlace(w) })),"
       }
     ],
@@ -3618,6 +4147,29 @@
       {
         "line": 211,
         "text": "h: frame.h,"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "src/application/plan-viz-decision.test.ts",
+    "hits": [
+      {
+        "line": 64,
+        "text": "expect(firstSentenceMd('  A [[sch:price]] **value**.\\n\\n More follows! ')).toBe("
+      },
+      {
+        "line": 65,
+        "text": "'A [[sch:price]] **value**.',"
+      },
+      {
+        "line": 106,
+        "text": "decision({ decider: 'team:pricing', reversibility: 'one-way', decide_by: '2026-11-05' }),"
+      },
+      {
+        "line": 110,
+        "text": "decider: 'team:pricing',"
       }
     ],
     "status": "adapter"
@@ -4050,6 +4602,181 @@
   },
   {
     "category": "id construction, parsing or literal",
+    "file": "src/application/plan-viz-flow-changes.test.ts",
+    "hits": [
+      {
+        "line": 15,
+        "text": "{ id: 'svc:a', name: 'A', kind: 'service' },"
+      },
+      {
+        "line": 16,
+        "text": "{ id: 'svc:b', name: 'B', kind: 'service' },"
+      },
+      {
+        "line": 20,
+        "text": "id: 'if:b',"
+      },
+      {
+        "line": 21,
+        "text": "service: 'svc:b',"
+      },
+      {
+        "line": 23,
+        "text": "endpoints: [{ id: 'api:read', sig: 'GET /records' }],"
+      },
+      {
+        "line": 27,
+        "text": "{ id: 'sch:record', name: 'Record', kind: 'dto', fields: [{ name: 'id', type: 'string' }] },"
+      },
+      {
+        "line": 31,
+        "text": "id: 'flow:read',"
+      },
+      {
+        "line": 35,
+        "text": "id: 'flow:read#call',"
+      },
+      {
+        "line": 36,
+        "text": "from: 'svc:a',"
+      },
+      {
+        "line": 37,
+        "text": "to: 'svc:b',"
+      },
+      {
+        "line": 38,
+        "text": "via: 'api:read',"
+      },
+      {
+        "line": 40,
+        "text": "reads: ['sch:record#id'],"
+      },
+      {
+        "line": 41,
+        "text": "writes: ['sch:record', 'sch:record#id'],"
+      },
+      {
+        "line": 43,
+        "text": "{ id: 'flow:read#keep', from: 'svc:b', to: 'svc:b', via: 'internal', action: 'Keep' },"
+      },
+      {
+        "line": 53,
+        "text": "ops: [{ modify: 'api:read', set: { sig: 'GET /v2/records' } }],"
+      },
+      {
+        "line": 59,
+        "text": "ops: [{ modify: 'sch:record#id', set: { type: 'uuid' } }],"
+      },
+      {
+        "line": 64,
+        "text": "ops: [{ modify: 'flow:read#call', set: { action: 'Read v2' } }],"
+      },
+      {
+        "line": 72,
+        "text": "into: 'flow:read',"
+      },
+      {
+        "line": 73,
+        "text": "after: 'flow:read#call',"
+      },
+      {
+        "line": 75,
+        "text": "id: 'flow:read#validate',"
+      },
+      {
+        "line": 76,
+        "text": "from: 'svc:b',"
+      },
+      {
+        "line": 77,
+        "text": "to: 'svc:b',"
+      },
+      {
+        "line": 84,
+        "text": "into: 'flow:read',"
+      },
+      {
+        "line": 87,
+        "text": "id: 'flow:read#finish',"
+      },
+      {
+        "line": 88,
+        "text": "from: 'svc:b',"
+      },
+      {
+        "line": 89,
+        "text": "to: 'svc:b',"
+      },
+      {
+        "line": 102,
+        "text": "const marks = changeMarkers(model, 'flow:read');"
+      },
+      {
+        "line": 103,
+        "text": "expect(marks.markers).toEqual({ 'flow:read#call': '◇', 'flow:read#keep': '◇' });"
+      },
+      {
+        "line": 105,
+        "text": "'flow:read#call': ['flow:read', 'sch:record'],"
+      },
+      {
+        "line": 106,
+        "text": "'flow:read#keep': ['flow:read'],"
+      },
+      {
+        "line": 108,
+        "text": "expect(marks.reasons['flow:read#call']).toContain('a new step follows: “Validate”');"
+      },
+      {
+        "line": 109,
+        "text": "expect(marks.reasons['flow:read#call']).toContain('GET /v2/records is modified');"
+      },
+      {
+        "line": 110,
+        "text": "expect(marks.reasons['flow:read#keep']).toEqual(['a new step follows: “flow:read#finish”']);"
+      },
+      {
+        "line": 111,
+        "text": "expect(marks.reasons['flow:read#call']?.some((reason) => /^[+~×−-]\\s/u.test(reason))).toBe("
+      },
+      {
+        "line": 114,
+        "text": "expect(changeMarkers(model, 'api:read')).toEqual({ markers: {}, reasons: {}, pins: {} });"
+      },
+      {
+        "line": 119,
+        "text": "const step = flowSteps(model, 'flow:read', 'asIs')[0]!;"
+      },
+      {
+        "line": 130,
+        "text": "expect(changeMarkers(model, 'flow:read')).toEqual({ markers: {}, reasons: {}, pins: {} });"
+      },
+      {
+        "line": 131,
+        "text": "expect(stepChanges(model, flowSteps(model, 'flow:read')[0]!)).toEqual([]);"
+      },
+      {
+        "line": 132,
+        "text": "expect(stepChanges(model, { ...flowSteps(model, 'flow:read')[0]!, via: '' })).toEqual([]);"
+      },
+      {
+        "line": 137,
+        "text": "{ id: 'chg:remove', title: 'Remove the call', ops: [{ remove: 'flow:read#call' }] },"
+      },
+      {
+        "line": 141,
+        "text": "changeMarkers({ ...model, diff: () => [] }, 'flow:read').reasons['flow:read#call'],"
+      },
+      {
+        "line": 145,
+        "text": "changeMarkers({ ...changed, diff: () => [] }, 'flow:read').reasons['flow:read#call'],"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
     "file": "src/application/plan-viz-flow-diagram.test.ts",
     "hits": [
       {
@@ -4134,6 +4861,153 @@
       {
         "line": 118,
         "text": "return { x, y, w: right - x, h: bottom - y };"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "src/application/plan-viz-flow-draw-edges.test.ts",
+    "hits": [
+      {
+        "line": 17,
+        "text": "id: `svc:${id}`,"
+      },
+      {
+        "line": 22,
+        "text": "{ id: 'sch:order', name: 'Order', kind: 'record', fields: [{ name: 'id', type: 'string' }] },"
+      },
+      {
+        "line": 23,
+        "text": "{ id: 'sch:cart', name: 'Cart', kind: 'record' },"
+      },
+      {
+        "line": 27,
+        "text": "id: 'flow:f',"
+      },
+      {
+        "line": 30,
+        "text": "{ id: 'flow:f#one', from: 'svc:a', to: 'svc:b', via: 'api:read', action: 'Read the order' },"
+      },
+      {
+        "line": 31,
+        "text": "{ id: 'flow:f#two', from: 'svc:a', to: 'svc:b', via: 'api:read', action: 'Read the cart' },"
+      },
+      {
+        "line": 40,
+        "text": "{ deprecate: 'flow:f#one' },"
+      },
+      {
+        "line": 43,
+        "text": "into: 'flow:f',"
+      },
+      {
+        "line": 45,
+        "text": "id: 'flow:f#new',"
+      },
+      {
+        "line": 46,
+        "text": "from: 'svc:a',"
+      },
+      {
+        "line": 47,
+        "text": "to: 'svc:c',"
+      },
+      {
+        "line": 48,
+        "text": "via: 'api:new',"
+      },
+      {
+        "line": 66,
+        "text": "from: 'svc:a',"
+      },
+      {
+        "line": 67,
+        "text": "to: 'svc:b',"
+      },
+      {
+        "line": 68,
+        "text": "via: 'api:read',"
+      },
+      {
+        "line": 83,
+        "text": "r: { x: 20, y: 20, w: 100, h: 40 },"
+      },
+      {
+        "line": 90,
+        "text": "markers: { 'flow:f#one': '◇' },"
+      },
+      {
+        "line": 99,
+        "text": "writes: ['sch:order#id', 'sch:order'],"
+      },
+      {
+        "line": 100,
+        "text": "reads: ['sch:cart', 'sch:cart', 'sch:missing'],"
+      },
+      {
+        "line": 102,
+        "text": ").toBe(' · writes Order · reads Cart, sch:missing');"
+      },
+      {
+        "line": 111,
+        "text": "from: 'svc:a',"
+      },
+      {
+        "line": 112,
+        "text": "to: 'svc:b',"
+      },
+      {
+        "line": 117,
+        "text": "ref: 'api:read',"
+      },
+      {
+        "line": 118,
+        "text": "vias: ['api:read'],"
+      },
+      {
+        "line": 128,
+        "text": "from: 'svc:a',"
+      },
+      {
+        "line": 129,
+        "text": "to: 'svc:b',"
+      },
+      {
+        "line": 134,
+        "text": "h: 40,"
+      },
+      {
+        "line": 147,
+        "text": "ref: 'flow:f#one',"
+      },
+      {
+        "line": 194,
+        "text": "expect(result.edges[0]).toMatchObject({ ref: 'flow:f#one', vias: [] });"
+      },
+      {
+        "line": 197,
+        "text": "expect(result.edges[0]).toMatchObject({ implicit: true, state: '', ref: 'flow:f#one' });"
+      },
+      {
+        "line": 215,
+        "text": "markers: { 'flow:f#one': '', 'flow:f#two': '◇' },"
+      },
+      {
+        "line": 217,
+        "text": "const result = drawEdges(ctx, [route([grouped], { to: 'st:db' })]);"
+      },
+      {
+        "line": 224,
+        "text": "ref: 'st:db',"
+      },
+      {
+        "line": 232,
+        "text": "const added = model.toBe.steps.find((step) => step.id === 'flow:f#new')!;"
+      },
+      {
+        "line": 236,
+        "text": "ref: 'svc:a',"
       }
     ],
     "status": "adapter"
@@ -4235,6 +5109,421 @@
   },
   {
     "category": "id construction, parsing or literal",
+    "file": "src/application/plan-viz-flow-graph.test.ts",
+    "hits": [
+      {
+        "line": 11,
+        "text": "id: `flow:read#${name}`,"
+      },
+      {
+        "line": 12,
+        "text": "from: 'svc:a',"
+      },
+      {
+        "line": 13,
+        "text": "to: 'svc:b',"
+      },
+      {
+        "line": 14,
+        "text": "via: 'api:get',"
+      },
+      {
+        "line": 23,
+        "text": "services: ['a', 'b', 'c'].map((id) => ({ id: `svc:${id}`, name: id, kind: 'service' })),"
+      },
+      {
+        "line": 25,
+        "text": "{ id: 'st:db', name: 'Orders', kind: 'database' },"
+      },
+      {
+        "line": 26,
+        "text": "{ id: 'st:cache', name: 'Prices', kind: 'cache' },"
+      },
+      {
+        "line": 27,
+        "text": "{ id: 'st:topic', name: 'Changed', kind: 'topic' },"
+      },
+      {
+        "line": 28,
+        "text": "{ id: 'st:queue', name: 'Queued', kind: 'queue' },"
+      },
+      {
+        "line": 29,
+        "text": "{ id: 'st:unused', name: 'Unused', kind: 'database' },"
+      },
+      {
+        "line": 33,
+        "text": "id: 'sch:order',"
+      },
+      {
+        "line": 36,
+        "text": "store: 'st:db',"
+      },
+      {
+        "line": 39,
+        "text": "{ id: 'sch:cart', name: 'Cart', kind: 'record', store: 'st:db' },"
+      },
+      {
+        "line": 40,
+        "text": "{ id: 'sch:price', name: 'Price', kind: 'record', store: 'st:cache' },"
+      },
+      {
+        "line": 41,
+        "text": "{ id: 'sch:unplaced', name: 'Unplaced', kind: 'dto' },"
+      },
+      {
+        "line": 45,
+        "text": "id: 'flow:read',"
+      },
+      {
+        "line": 49,
+        "text": "writes: ['sch:order#id', 'sch:order'],"
+      },
+      {
+        "line": 50,
+        "text": "reads: ['sch:cart', 'sch:price', 'sch:unplaced', 'sch:missing'],"
+      },
+      {
+        "line": 52,
+        "text": "step('two', { writes: ['sch:cart'] }),"
+      },
+      {
+        "line": 54,
+        "text": "from: 'svc:b',"
+      },
+      {
+        "line": 55,
+        "text": "to: 'svc:b',"
+      },
+      {
+        "line": 59,
+        "text": "step('publish', { from: 'svc:b', to: 'st:topic', via: 'msg:changed' }),"
+      },
+      {
+        "line": 61,
+        "text": "from: 'st:topic',"
+      },
+      {
+        "line": 62,
+        "text": "to: 'svc:c',"
+      },
+      {
+        "line": 63,
+        "text": "via: 'msg:changed',"
+      },
+      {
+        "line": 64,
+        "text": "writes: ['sch:order'],"
+      },
+      {
+        "line": 66,
+        "text": "step('queue', { from: 'svc:c', to: 'st:queue', via: 'msg:queued' }),"
+      },
+      {
+        "line": 67,
+        "text": "step('unmapped', { from: 'svc:unmapped', to: 'svc:a', via: '' }),"
+      },
+      {
+        "line": 68,
+        "text": "step('removed', { from: 'svc:b', to: 'svc:c', via: 'api:old' }),"
+      },
+      {
+        "line": 77,
+        "text": "{ modify: 'flow:read#two', set: { action: 'Read the new shape' } },"
+      },
+      {
+        "line": 78,
+        "text": "{ deprecate: 'flow:read#self' },"
+      },
+      {
+        "line": 79,
+        "text": "{ remove: 'flow:read#removed' },"
+      },
+      {
+        "line": 82,
+        "text": "into: 'flow:read',"
+      },
+      {
+        "line": 83,
+        "text": "value: step('new', { from: 'svc:a', to: 'svc:c', via: 'api:new' }),"
+      },
+      {
+        "line": 94,
+        "text": "const graph = buildGraph(model, 'flow:read', { mode: 'asIs' });"
+      },
+      {
+        "line": 95,
+        "text": "expect(graph?.nodes.get('svc:b')).toMatchObject({"
+      },
+      {
+        "line": 96,
+        "text": "id: 'svc:b',"
+      },
+      {
+        "line": 98,
+        "text": "endpoints: [{ via: 'api:get', steps: [0, 1] }],"
+      },
+      {
+        "line": 103,
+        "text": "h: 0,"
+      },
+      {
+        "line": 108,
+        "text": "const calls = graph?.edges.get('svc:a>svc:b|api:get');"
+      },
+      {
+        "line": 110,
+        "text": "key: 'svc:a>svc:b|api:get',"
+      },
+      {
+        "line": 111,
+        "text": "from: 'svc:a',"
+      },
+      {
+        "line": 112,
+        "text": "to: 'svc:b',"
+      },
+      {
+        "line": 114,
+        "text": "via: 'api:get',"
+      },
+      {
+        "line": 122,
+        "text": "[0, 'flow:read#one', 'Read the record'],"
+      },
+      {
+        "line": 123,
+        "text": "[1, 'flow:read#two', 'Read the record'],"
+      },
+      {
+        "line": 125,
+        "text": "expect(graph?.nodes.has('st:unused')).toBe(false);"
+      },
+      {
+        "line": 128,
+        "text": "const graph = buildGraph(model, 'flow:read', { mode: 'asIs' });"
+      },
+      {
+        "line": 129,
+        "text": "expect(graph?.nodes.get('st:topic')).toMatchObject({"
+      },
+      {
+        "line": 131,
+        "text": "events: ['msg:changed'],"
+      },
+      {
+        "line": 134,
+        "text": "expect(graph?.nodes.get('st:queue')).toMatchObject({"
+      },
+      {
+        "line": 136,
+        "text": "events: ['msg:queued'],"
+      },
+      {
+        "line": 139,
+        "text": "expect(graph?.edges.get('svc:b>st:topic|')).toMatchObject({"
+      },
+      {
+        "line": 142,
+        "text": "from: 'svc:b',"
+      },
+      {
+        "line": 143,
+        "text": "to: 'st:topic',"
+      },
+      {
+        "line": 145,
+        "text": "expect(graph?.edges.get('st:topic>svc:c|')).toMatchObject({"
+      },
+      {
+        "line": 147,
+        "text": "from: 'st:topic',"
+      },
+      {
+        "line": 148,
+        "text": "to: 'svc:c',"
+      },
+      {
+        "line": 150,
+        "text": "expect(graph?.nodes.get('svc:unmapped')?.kind).toBe('service');"
+      },
+      {
+        "line": 151,
+        "text": "expect(graph?.edges.get('svc:unmapped>svc:a|')?.kind).toBe('data');"
+      },
+      {
+        "line": 154,
+        "text": "const graph = buildGraph(model, 'flow:read', { mode: 'asIs' });"
+      },
+      {
+        "line": 155,
+        "text": "expect(graph?.nodes.get('st:db')).toMatchObject({ kind: 'store', sat: false });"
+      },
+      {
+        "line": 158,
+        "text": ".get('svc:b>st:db|')"
+      },
+      {
+        "line": 161,
+        "text": "{ text: 'writes Order', refs: ['sch:order#id', 'sch:order'], implicit: true, i: 0 },"
+      },
+      {
+        "line": 162,
+        "text": "{ text: 'writes Cart', refs: ['sch:cart'], implicit: true, i: 1 },"
+      },
+      {
+        "line": 164,
+        "text": "expect(graph?.edges.get('svc:c>st:db|')?.items[0]).toMatchObject({"
+      },
+      {
+        "line": 169,
+        "text": "expect(graph?.sats.get('st:cache')?.items[0]).toMatchObject({"
+      },
+      {
+        "line": 172,
+        "text": "refs: ['sch:price'],"
+      },
+      {
+        "line": 174,
+        "text": "expect(graph?.nodes.has('st:missing')).toBe(false);"
+      },
+      {
+        "line": 175,
+        "text": "expect(storeOf(model, 'sch:order#id')).toBe('st:db');"
+      },
+      {
+        "line": 176,
+        "text": "expect(storeOf(model, 'sch:unplaced')).toBeNull();"
+      },
+      {
+        "line": 177,
+        "text": "expect(storeOf(model, 'sch:missing')).toBeNull();"
+      },
+      {
+        "line": 178,
+        "text": "expect(storeOf(model, 'svc:a')).toBeNull();"
+      },
+      {
+        "line": 181,
+        "text": "const graph = buildGraph(model, 'flow:read', { mode: 'asIs' });"
+      },
+      {
+        "line": 182,
+        "text": "expect([...graph!.sats.keys()]).toEqual(['st:cache']);"
+      },
+      {
+        "line": 183,
+        "text": "expect(graph?.nodes.get('st:cache')?.sat).toBe(true);"
+      },
+      {
+        "line": 184,
+        "text": "expect(graph?.edges.has('svc:b>st:cache|')).toBe(false);"
+      },
+      {
+        "line": 186,
+        "text": "graph?.nodes.get('svc:b')?.sats.map(({ id, r, e }) => ({ id, r, actor: e.from })),"
+      },
+      {
+        "line": 187,
+        "text": ").toEqual([{ id: 'st:cache', r: { x: 0, y: 0, w: 0, h: 0 }, actor: 'svc:b' }]);"
+      },
+      {
+        "line": 188,
+        "text": "expect(graph?.nodes.get('st:db')?.sat).toBe(false);"
+      },
+      {
+        "line": 191,
+        "text": "const current = buildGraph(model, 'flow:read', { mode: 'asIs' })?.nodes.get('svc:b')?.selfs;"
+      },
+      {
+        "line": 193,
+        "text": "[2, 'flow:read#self', ['Refresh local state']],"
+      },
+      {
+        "line": 195,
+        "text": "const planned = buildGraph(model, 'flow:read', { mode: 'diff' })?.nodes.get('svc:b')?.selfs;"
+      },
+      {
+        "line": 199,
+        "text": "const graph = buildGraph(model, 'flow:read', { mode: 'asIs', only: new Set([0]) });"
+      },
+      {
+        "line": 200,
+        "text": "expect([...graph!.nodes.keys()]).toEqual(['svc:a', 'svc:b', 'st:db', 'st:cache']);"
+      },
+      {
+        "line": 201,
+        "text": "expect([...graph!.edges.keys()]).toEqual(['svc:a>svc:b|api:get']);"
+      },
+      {
+        "line": 202,
+        "text": "expect([...graph!.sats.keys()]).toEqual(['st:db', 'st:cache']);"
+      },
+      {
+        "line": 203,
+        "text": "expect(buildGraph(model, 'flow:read', { mode: 'asIs', only: new Set() })).toEqual({"
+      },
+      {
+        "line": 208,
+        "text": "expect(buildGraph(model, 'flow:missing', { mode: 'asIs' })).toBeNull();"
+      },
+      {
+        "line": 211,
+        "text": "const steps = flowSteps(model, 'flow:read', 'diff');"
+      },
+      {
+        "line": 213,
+        "text": "['flow:read#one', ''],"
+      },
+      {
+        "line": 214,
+        "text": "['flow:read#two', 'modified'],"
+      },
+      {
+        "line": 215,
+        "text": "['flow:read#self', 'deprecated'],"
+      },
+      {
+        "line": 216,
+        "text": "['flow:read#publish', 'added'],"
+      },
+      {
+        "line": 217,
+        "text": "['flow:read#consume', 'added'],"
+      },
+      {
+        "line": 218,
+        "text": "['flow:read#queue', 'added'],"
+      },
+      {
+        "line": 219,
+        "text": "['flow:read#unmapped', 'added'],"
+      },
+      {
+        "line": 220,
+        "text": "['flow:read#removed', 'removed'],"
+      },
+      {
+        "line": 221,
+        "text": "['flow:read#new', 'added'],"
+      },
+      {
+        "line": 225,
+        "text": "expect(actionOf({ ...steps[0]!, action: '' })).toBe('flow:read#one');"
+      },
+      {
+        "line": 229,
+        "text": "const graph = buildGraph(graphModel, 'flow:browse', { mode: 'toBe' });"
+      },
+      {
+        "line": 243,
+        "text": "fan.id === 'flow:browse#open' &&"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
     "file": "src/application/plan-viz-flow-graph.ts",
     "hits": [
       {
@@ -4264,6 +5553,352 @@
       {
         "line": 320,
         "text": "const hung = [...sats].map(([id, e]) => ({ id, e, r: { x: 0, y: 0, w: 0, h: 0 } }));"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "src/application/plan-viz-flow-key.test.ts",
+    "hits": [
+      {
+        "line": 13,
+        "text": "services: ['a', 'b'].map((id) => ({ id: `svc:${id}`, name: id, kind: 'service' })),"
+      },
+      {
+        "line": 14,
+        "text": "schemas: [{ id: 'sch:reply', name: 'Reply', kind: 'dto' }],"
+      },
+      {
+        "line": 17,
+        "text": "id: 'if:rest',"
+      },
+      {
+        "line": 18,
+        "text": "service: 'svc:b',"
+      },
+      {
+        "line": 20,
+        "text": "endpoints: [{ id: 'api:fetch', sig: 'GET /items', response: 'sch:reply' }],"
+      },
+      {
+        "line": 23,
+        "text": "flows: [{ id: 'flow:legend', name: 'Read items', steps }],"
+      },
+      {
+        "line": 27,
+        "text": "id: 'flow:legend#fetch',"
+      },
+      {
+        "line": 28,
+        "text": "from: 'svc:a',"
+      },
+      {
+        "line": 29,
+        "text": "to: 'svc:b',"
+      },
+      {
+        "line": 30,
+        "text": "via: 'api:fetch',"
+      },
+      {
+        "line": 37,
+        "text": "it.each(['api:fetch', 'gql:fetch'])("
+      },
+      {
+        "line": 40,
+        "text": "expect(flowKey(derive(plan([step({ via })])), 'flow:legend', diagram)).toEqual(["
+      },
+      {
+        "line": 47,
+        "text": "expect(flowKey(derive(plan([step({ via: 'msg:published' })])), 'flow:legend', diagram)).toEqual("
+      },
+      {
+        "line": 50,
+        "text": "const other = derive(plan([step({ via: 'svc:other' })]));"
+      },
+      {
+        "line": 51,
+        "text": "expect(flowKey(other, 'flow:legend', diagram)).toEqual([]);"
+      },
+      {
+        "line": 52,
+        "text": "expect(flowKey(other, 'flow:missing', diagram)).toEqual([]);"
+      },
+      {
+        "line": 54,
+        "text": "it.each([{ to: 'svc:a' }, { via: '' }, { via: 'internal' }])("
+      },
+      {
+        "line": 57,
+        "text": "const key = flowKey(derive(plan([step(overrides)])), 'flow:legend', diagram);"
+      },
+      {
+        "line": 62,
+        "text": "const model = derive(plan([step({ reads: ['sch:reply'], screen: 'scr:page' })]));"
+      },
+      {
+        "line": 63,
+        "text": "expect(flowKey(model, 'flow:legend', { ...diagram, walkable: true, marked: true })).toEqual(["
+      },
+      {
+        "line": 72,
+        "text": "expect(flowKey(model, 'flow:legend', { ...diagram, view: 'sequence', walkable: true })).toEqual("
+      },
+      {
+        "line": 79,
+        "text": "const writes = derive(plan([step({ via: 'internal', writes: ['sch:reply'] })]));"
+      },
+      {
+        "line": 80,
+        "text": "expect(flowKey(writes, 'flow:legend', diagram)).toEqual(["
+      },
+      {
+        "line": 89,
+        "text": "step({ id: 'flow:legend#again', beat: 'Load' }),"
+      },
+      {
+        "line": 92,
+        "text": "expect(flowKey(model, 'flow:legend', { ...diagram, view: 'sequence' })).toEqual(["
+      },
+      {
+        "line": 99,
+        "text": "flowKey(derive(plan([step({ via: 'unknown' })])), 'flow:legend', {"
+      },
+      {
+        "line": 106,
+        "text": "const value = plan([step(), step({ id: 'flow:legend#removed', via: 'msg:published' })]);"
+      },
+      {
+        "line": 112,
+        "text": "{ modify: 'flow:legend#fetch', set: { action: 'Read more items' } },"
+      },
+      {
+        "line": 113,
+        "text": "{ remove: 'flow:legend#removed' },"
+      },
+      {
+        "line": 116,
+        "text": "into: 'flow:legend',"
+      },
+      {
+        "line": 117,
+        "text": "value: step({ id: 'flow:legend#new', to: 'svc:new', via: 'api:new' }),"
+      },
+      {
+        "line": 123,
+        "text": "expect(flowKey(model, 'flow:legend', { ...diagram, mode: 'diff' })).toEqual(["
+      },
+      {
+        "line": 131,
+        "text": "expect(flowKey(model, 'flow:legend', diagram)).toEqual(["
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "src/application/plan-viz-flow-narration.test.ts",
+    "hits": [
+      {
+        "line": 15,
+        "text": "services: ['a', 'b', 'c'].map((id) => ({ id: `svc:${id}`, name: id, kind: 'service' })),"
+      },
+      {
+        "line": 18,
+        "text": "id: 'flow:read',"
+      },
+      {
+        "line": 21,
+        "text": "id: `flow:read#${String(index)}`,"
+      },
+      {
+        "line": 22,
+        "text": "from: 'svc:a',"
+      },
+      {
+        "line": 23,
+        "text": "to: 'svc:b',"
+      },
+      {
+        "line": 24,
+        "text": "via: 'api:read',"
+      },
+      {
+        "line": 40,
+        "text": "actor: null,"
+      },
+      {
+        "line": 47,
+        "text": "via: 'gql:read',"
+      },
+      {
+        "line": 51,
+        "text": "purges: ['st:cache'],"
+      },
+      {
+        "line": 52,
+        "text": "screen: 'scr:page#form',"
+      },
+      {
+        "line": 58,
+        "text": "route: { kind: 'pair', from: 'svc:a', to: 'svc:b' },"
+      },
+      {
+        "line": 59,
+        "text": "vias: ['gql:read'],"
+      },
+      {
+        "line": 61,
+        "text": "purges: ['st:cache'],"
+      },
+      {
+        "line": 63,
+        "text": "calls: [{ stepId: 'flow:read#0', via: 'gql:read', kase: 'hit' }],"
+      },
+      {
+        "line": 65,
+        "text": "openScreen: 'scr:page',"
+      },
+      {
+        "line": 70,
+        "text": "const list = steps({ from: 'svc:a', to: 'svc:a', via: 'internal', action: '' });"
+      },
+      {
+        "line": 72,
+        "text": "route: { kind: 'self', id: 'svc:a' },"
+      },
+      {
+        "line": 86,
+        "text": "writes: ['sch:order#id', 'sch:order'],"
+      },
+      {
+        "line": 87,
+        "text": "reads: ['sch:order#total', 'sch:cart#id', 'sch:cart'],"
+      },
+      {
+        "line": 88,
+        "text": "purges: ['st:cache'],"
+      },
+      {
+        "line": 89,
+        "text": "screen: 'scr:page#buy',"
+      },
+      {
+        "line": 91,
+        "text": "{ from: 'svc:b', to: 'svc:c', via: '', action: '', screen: 'scr:page#summary', fails: '' },"
+      },
+      {
+        "line": 96,
+        "text": "route: { kind: 'chain', ids: ['svc:a', 'svc:b', 'svc:c'] },"
+      },
+      {
+        "line": 97,
+        "text": "vias: ['api:read'],"
+      },
+      {
+        "line": 100,
+        "text": "openScreen: 'scr:page',"
+      },
+      {
+        "line": 106,
+        "text": "id: 'flow:read#0',"
+      },
+      {
+        "line": 108,
+        "text": "via: 'api:read',"
+      },
+      {
+        "line": 109,
+        "text": "writes: ['sch:order'],"
+      },
+      {
+        "line": 110,
+        "text": "reads: ['sch:cart'],"
+      },
+      {
+        "line": 111,
+        "text": "purges: ['st:cache'],"
+      },
+      {
+        "line": 115,
+        "text": "id: 'flow:read#1',"
+      },
+      {
+        "line": 116,
+        "text": "action: 'flow:read#1',"
+      },
+      {
+        "line": 128,
+        "text": "{ from: 'st:events', to: 'svc:a', via: 'msg:changed' },"
+      },
+      {
+        "line": 129,
+        "text": "{ from: 'st:events', to: 'svc:b', via: 'msg:changed' },"
+      },
+      {
+        "line": 131,
+        "text": "expect(narrate(list, stop([0, 1], { fan: 'st:events' }))).toMatchObject({"
+      },
+      {
+        "line": 132,
+        "text": "route: { kind: 'fan', from: 'st:events', to: ['svc:a', 'svc:b'] },"
+      },
+      {
+        "line": 133,
+        "text": "vias: ['msg:changed'],"
+      },
+      {
+        "line": 137,
+        "text": "route: { kind: 'fan', from: 'st:events', to: ['svc:a', 'svc:b'] },"
+      },
+      {
+        "line": 141,
+        "text": "const same = steps({ from: 'st:events', to: 'svc:a' }, { from: 'st:events', to: 'svc:a' });"
+      },
+      {
+        "line": 142,
+        "text": "expect(narrate(same, stop([0, 1], { fan: 'st:events' }))).toMatchObject({"
+      },
+      {
+        "line": 143,
+        "text": "route: { kind: 'fan', from: 'st:events', to: ['svc:a'] },"
+      },
+      {
+        "line": 153,
+        "text": "from: 'st:events',"
+      },
+      {
+        "line": 154,
+        "text": "to: `svc:target-${String(index)}`,"
+      },
+      {
+        "line": 155,
+        "text": "via: 'msg:changed',"
+      },
+      {
+        "line": 163,
+        "text": "{ fan: 'st:events' },"
+      },
+      {
+        "line": 170,
+        "text": "{ via: 'gql:read', screen: 'scr:one', fails: 'Unavailable' },"
+      },
+      {
+        "line": 171,
+        "text": "{ via: 'gql:other', case: 'miss', screen: 'scr:two', action: '', fails: 'Missing' },"
+      },
+      {
+        "line": 176,
+        "text": "{ stepId: 'flow:read#0', via: 'gql:read', kase: 'cold' },"
+      },
+      {
+        "line": 177,
+        "text": "{ stepId: 'flow:read#1', via: 'gql:other', kase: 'miss' },"
+      },
+      {
+        "line": 181,
+        "text": "{ action: 'flow:read#1', text: 'Missing' },"
       }
     ],
     "status": "adapter"
@@ -4519,6 +6154,197 @@
       {
         "line": 166,
         "text": "export function labelEdges(model: Model, graph: FlowGraph, { mode, rank }: Labelling): FlowGraph {"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "src/application/plan-viz-flow-stops.test.ts",
+    "hits": [
+      {
+        "line": 14,
+        "text": "{ id: 'svc:a', name: 'A', kind: 'service' },"
+      },
+      {
+        "line": 15,
+        "text": "{ id: 'svc:b', name: 'B', kind: 'service' },"
+      },
+      {
+        "line": 16,
+        "text": "{ id: 'svc:c', name: 'C', kind: 'service' },"
+      },
+      {
+        "line": 19,
+        "text": "{ id: 'st:data', name: 'Data', kind: 'database', owner: 'svc:b' },"
+      },
+      {
+        "line": 20,
+        "text": "{ id: 'st:topic', name: 'Events', kind: 'topic' },"
+      },
+      {
+        "line": 22,
+        "text": "flows: [{ id: 'flow:work', name: 'Work', steps }],"
+      },
+      {
+        "line": 27,
+        "text": "id: `flow:work#${id}`,"
+      },
+      {
+        "line": 30,
+        "text": "via: 'api:call',"
+      },
+      {
+        "line": 38,
+        "text": "call('call', 'svc:a', 'svc:b'),"
+      },
+      {
+        "line": 39,
+        "text": "call('write', 'svc:b', 'st:data', { via: 'internal' }),"
+      },
+      {
+        "line": 40,
+        "text": "call('publish', 'svc:b', 'st:topic'),"
+      },
+      {
+        "line": 41,
+        "text": "call('other', 'svc:a', 'svc:c'),"
+      },
+      {
+        "line": 43,
+        "text": "expect(stepStops(value, 'flow:work')).toEqual(["
+      },
+      {
+        "line": 47,
+        "text": "stepIds: ['flow:work#call', 'flow:work#write', 'flow:work#publish'],"
+      },
+      {
+        "line": 49,
+        "text": "actor: 'svc:b',"
+      },
+      {
+        "line": 56,
+        "text": "stepIds: ['flow:work#other'],"
+      },
+      {
+        "line": 58,
+        "text": "actor: 'svc:c',"
+      },
+      {
+        "line": 63,
+        "text": "expect(stepStops(value, 'flow:work', { singleSteps: true }).map((s) => s.indices)).toEqual(["
+      },
+      {
+        "line": 72,
+        "text": "call('first', 'st:topic', 'svc:b'),"
+      },
+      {
+        "line": 73,
+        "text": "call('second', 'st:topic', 'svc:c'),"
+      },
+      {
+        "line": 74,
+        "text": "call('internal', 'svc:c', 'svc:c'),"
+      },
+      {
+        "line": 77,
+        "text": "expect(stepStops(value, 'flow:work')).toEqual(["
+      },
+      {
+        "line": 81,
+        "text": "stepIds: ['flow:work#first', 'flow:work#second'],"
+      },
+      {
+        "line": 83,
+        "text": "actor: null,"
+      },
+      {
+        "line": 85,
+        "text": "fan: 'st:topic',"
+      },
+      {
+        "line": 90,
+        "text": "stepIds: ['flow:work#internal', 'flow:work#unknown'],"
+      },
+      {
+        "line": 92,
+        "text": "actor: 'svc:c',"
+      },
+      {
+        "line": 100,
+        "text": "call('one', 'svc:a', 'svc:b', { beat: 'Prepare' }),"
+      },
+      {
+        "line": 101,
+        "text": "call('two', 'svc:c', 'svc:a', { beat: 'Prepare' }),"
+      },
+      {
+        "line": 102,
+        "text": "call('three', 'svc:a', 'svc:a'),"
+      },
+      {
+        "line": 103,
+        "text": "call('four', 'svc:a', 'svc:a', { beat: 'Finish' }),"
+      },
+      {
+        "line": 107,
+        "text": "stepStops(value, 'flow:work').map(({ title, short, beat, indices }) => ({"
+      },
+      {
+        "line": 118,
+        "text": "steps[0]!.screen = 'scr:control';"
+      },
+      {
+        "line": 119,
+        "text": "expect(stepStops(model(steps), 'flow:work').map((s) => s.indices)).toEqual(["
+      },
+      {
+        "line": 128,
+        "text": "[call('one', 'svc:a', 'svc:a', { action: '' })],"
+      },
+      {
+        "line": 133,
+        "text": "ops: [{ modify: 'flow:work#one', set: { action: 'Changed' } }],"
+      },
+      {
+        "line": 137,
+        "text": "expect(stepStops(value, 'flow:work', { mode: 'asIs' })[0]?.title).toBe('flow:work#one');"
+      },
+      {
+        "line": 138,
+        "text": "expect(stepStops(value, 'flow:work')[0]?.title).toBe('Changed');"
+      },
+      {
+        "line": 140,
+        "text": "expect(defaultMode(value, 'flow:work')).toBe('asIs');"
+      },
+      {
+        "line": 143,
+        "text": "model([call('one', 'svc:a', 'svc:b'), call('two', 'svc:a', 'svc:c')]),"
+      },
+      {
+        "line": 144,
+        "text": "'flow:work',"
+      },
+      {
+        "line": 152,
+        "text": "call('one', 'svc:a', 'svc:a'),"
+      },
+      {
+        "line": 153,
+        "text": "call('two', 'svc:a', 'svc:b', { via: '' }),"
+      },
+      {
+        "line": 154,
+        "text": "call('three', 'svc:a', 'st:data'),"
+      },
+      {
+        "line": 155,
+        "text": "call('four', 'svc:c', 'svc:c'),"
+      },
+      {
+        "line": 157,
+        "text": "expect(stepStops(value, 'flow:work').map((s) => s.indices)).toEqual([[0, 1, 2], [3]]);"
       }
     ],
     "status": "adapter"
@@ -4805,6 +6631,33 @@
   },
   {
     "category": "id construction, parsing or literal",
+    "file": "src/application/plan-viz-ladder-order.test.ts",
+    "hits": [
+      {
+        "line": 20,
+        "text": "const event = 'msg:product-changed';"
+      },
+      {
+        "line": 35,
+        "text": "expect(versionNames(model, event, 'msg:product-changed-v2')).toEqual({"
+      },
+      {
+        "line": 47,
+        "text": "expect([undefined, '', 'svc:a', 'msg:a'].map(isConsumer)).toEqual([false, false, true, false]);"
+      },
+      {
+        "line": 75,
+        "text": "expect(ladderIds(model)).not.toContain('msg:product-changed-v2');"
+      },
+      {
+        "line": 162,
+        "text": "expect(versionNames(unnamed, event, 'msg:product-changed-v2')).toEqual({"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
     "file": "src/application/plan-viz-ladder-plans.test.ts",
     "hits": [
       {
@@ -4830,6 +6683,125 @@
       {
         "line": 40,
         "text": "expect(versionPair(model, 'sch:order-placed-v2')).toEqual({"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "src/application/plan-viz-ladder-rungs.test.ts",
+    "hits": [
+      {
+        "line": 9,
+        "text": "const event = 'msg:product-changed';"
+      },
+      {
+        "line": 16,
+        "text": "{ id: 'svc:provider', name: 'Provider', kind: 'service' },"
+      },
+      {
+        "line": 17,
+        "text": "{ id: 'svc:caller', name: 'Caller', kind: 'service' },"
+      },
+      {
+        "line": 21,
+        "text": "id: 'if:v1',"
+      },
+      {
+        "line": 22,
+        "text": "service: 'svc:provider',"
+      },
+      {
+        "line": 24,
+        "text": "endpoints: [{ id: 'api:v1', sig: 'GET /v1/items' }],"
+      },
+      {
+        "line": 29,
+        "text": "id: 'flow:fetch',"
+      },
+      {
+        "line": 33,
+        "text": "id: 'flow:fetch#call',"
+      },
+      {
+        "line": 34,
+        "text": "from: 'svc:caller',"
+      },
+      {
+        "line": 35,
+        "text": "to: 'svc:provider',"
+      },
+      {
+        "line": 36,
+        "text": "via: 'api:v1',"
+      },
+      {
+        "line": 49,
+        "text": "into: 'if:v1',"
+      },
+      {
+        "line": 50,
+        "text": "value: { id: 'api:v2', sig: 'GET /v2/items', supersedes: 'api:v1' },"
+      },
+      {
+        "line": 57,
+        "text": "ops: [{ modify: 'flow:fetch#call', set: { via: 'api:v2' } }],"
+      },
+      {
+        "line": 62,
+        "text": "ops: [{ deprecate: 'api:v1', replaced_by: 'api:v2' }],"
+      },
+      {
+        "line": 64,
+        "text": "{ id: 'chg:retire', title: 'Remove v1', ops: [{ remove: 'api:v1' }] },"
+      },
+      {
+        "line": 71,
+        "text": "expect(view?.chain).toEqual([event, 'msg:product-changed-v2']);"
+      },
+      {
+        "line": 79,
+        "text": "{ text: 'Search indexer', tone: 'who', id: 'svc:search-indexer' },"
+      },
+      {
+        "line": 83,
+        "text": "{ text: 'Order API', tone: 'who', id: 'svc:order-api' },"
+      },
+      {
+        "line": 143,
+        "text": "['team:catalogue'],"
+      },
+      {
+        "line": 144,
+        "text": "['team:catalogue'],"
+      },
+      {
+        "line": 145,
+        "text": "['team:orders'],"
+      },
+      {
+        "line": 146,
+        "text": "['team:catalogue'],"
+      },
+      {
+        "line": 147,
+        "text": "['team:catalogue'],"
+      },
+      {
+        "line": 187,
+        "text": "expect(ladderView(modelOf(value), 'msg:missing')).toBeNull();"
+      },
+      {
+        "line": 188,
+        "text": "expect(ladderView(modelOf(value), 'sch:product')).toBeNull();"
+      },
+      {
+        "line": 192,
+        "text": "const view = ladderView(modelOf(value), 'api:v1');"
+      },
+      {
+        "line": 203,
+        "text": "const kept = ladderView(modelOf(value), 'api:v1');"
       }
     ],
     "status": "adapter"
@@ -6299,6 +8271,297 @@
   },
   {
     "category": "id construction, parsing or literal",
+    "file": "src/application/plan-viz-store.test.ts",
+    "hits": [
+      {
+        "line": 22,
+        "text": "id: `svc:${name}`,"
+      },
+      {
+        "line": 28,
+        "text": "id: 'st:db',"
+      },
+      {
+        "line": 32,
+        "text": "owner: 'svc:owner',"
+      },
+      {
+        "line": 34,
+        "text": "{ svc: 'svc:reader', mode: 'read' },"
+      },
+      {
+        "line": 35,
+        "text": "{ svc: 'svc:writer', mode: 'write' },"
+      },
+      {
+        "line": 36,
+        "text": "{ svc: 'svc:both', mode: 'readwrite' },"
+      },
+      {
+        "line": 39,
+        "text": "{ id: 'st:other', name: 'Customers', kind: 'database' },"
+      },
+      {
+        "line": 40,
+        "text": "{ id: 'st:pipe', name: 'Events', kind: 'topic' },"
+      },
+      {
+        "line": 41,
+        "text": "{ id: 'st:removed', name: 'Retired', kind: 'cache', owner: '' },"
+      },
+      {
+        "line": 45,
+        "text": "id: 'sch:order',"
+      },
+      {
+        "line": 48,
+        "text": "store: 'st:db',"
+      },
+      {
+        "line": 51,
+        "text": "{ name: 'customer', type: 'string', ref: 'sch:customer#id' },"
+      },
+      {
+        "line": 52,
+        "text": "{ name: 'whole', type: 'string', ref: 'sch:customer' },"
+      },
+      {
+        "line": 53,
+        "text": "{ name: 'local', type: 'string', ref: 'sch:old#id' },"
+      },
+      {
+        "line": 54,
+        "text": "{ name: 'missing', type: 'string', ref: 'sch:missing#id' },"
+      },
+      {
+        "line": 58,
+        "text": "id: 'sch:old',"
+      },
+      {
+        "line": 61,
+        "text": "store: 'st:db',"
+      },
+      {
+        "line": 65,
+        "text": "id: 'sch:customer',"
+      },
+      {
+        "line": 68,
+        "text": "store: 'st:other',"
+      },
+      {
+        "line": 71,
+        "text": "{ id: 'sch:loose', name: 'Unplaced', kind: 'dto' },"
+      },
+      {
+        "line": 75,
+        "text": "id: 'flow:read',"
+      },
+      {
+        "line": 78,
+        "text": "id: `flow:read#${id}`,"
+      },
+      {
+        "line": 79,
+        "text": "from: 'svc:reader',"
+      },
+      {
+        "line": 80,
+        "text": "to: 'svc:owner',"
+      },
+      {
+        "line": 83,
+        "text": "reads: ['sch:order'],"
+      },
+      {
+        "line": 92,
+        "text": "{ remove: 'sch:old' },"
+      },
+      {
+        "line": 93,
+        "text": "{ remove: 'st:removed' },"
+      },
+      {
+        "line": 96,
+        "text": "value: { id: 'sch:new', name: 'New', kind: 'record', store: 'st:db', fields: [] },"
+      },
+      {
+        "line": 98,
+        "text": "{ add: 'store', value: { id: 'st:new', name: 'New store', kind: 'database' } },"
+      },
+      {
+        "line": 99,
+        "text": "{ modify: 'st:db', append: { access: [{ svc: 'svc:new', mode: 'read' }] } },"
+      },
+      {
+        "line": 128,
+        "text": "recordsOf(model, 'st:db', mode).map((record) => record.id);"
+      },
+      {
+        "line": 129,
+        "text": "expect(ids('asIs')).toEqual(['sch:order', 'sch:old']);"
+      },
+      {
+        "line": 130,
+        "text": "expect(ids('toBe')).toEqual(['sch:order', 'sch:new']);"
+      },
+      {
+        "line": 131,
+        "text": "expect(ids('diff')).toEqual(['sch:order', 'sch:new', 'sch:old']);"
+      },
+      {
+        "line": 132,
+        "text": "expect(recordsOf(model, 'st:db')).toEqual(recordsOf(model, 'st:db', 'diff'));"
+      },
+      {
+        "line": 133,
+        "text": "expect(recordsOf(model, 'st:missing')).toEqual([]);"
+      },
+      {
+        "line": 136,
+        "text": "expect(relationships(load(), 'st:db')).toEqual(["
+      },
+      {
+        "line": 138,
+        "text": "key: 'sch:order#customer',"
+      },
+      {
+        "line": 139,
+        "text": "from: { id: 'sch:order#customer', text: 'Order.customer' },"
+      },
+      {
+        "line": 140,
+        "text": "to: { id: 'sch:customer#id', text: 'Customer.id' },"
+      },
+      {
+        "line": 144,
+        "text": "key: 'sch:order#whole',"
+      },
+      {
+        "line": 145,
+        "text": "from: { id: 'sch:order#whole', text: 'Order.whole' },"
+      },
+      {
+        "line": 146,
+        "text": "to: { id: 'sch:customer', text: 'Customer' },"
+      },
+      {
+        "line": 150,
+        "text": "key: 'sch:order#local',"
+      },
+      {
+        "line": 151,
+        "text": "from: { id: 'sch:order#local', text: 'Order.local' },"
+      },
+      {
+        "line": 152,
+        "text": "to: { id: 'sch:old#id', text: 'Old.id' },"
+      },
+      {
+        "line": 156,
+        "text": "key: 'sch:order#missing',"
+      },
+      {
+        "line": 157,
+        "text": "from: { id: 'sch:order#missing', text: 'Order.missing' },"
+      },
+      {
+        "line": 158,
+        "text": "to: { id: null, text: 'sch:missing.id' },"
+      },
+      {
+        "line": 162,
+        "text": "expect(relationships(load(), 'st:other', 'asIs')).toEqual([]);"
+      },
+      {
+        "line": 166,
+        "text": "expect(accessRows(model, 'st:db')).toEqual(["
+      },
+      {
+        "line": 168,
+        "text": "svc: 'svc:owner',"
+      },
+      {
+        "line": 170,
+        "text": "steps: ['flow:read#a', 'flow:read#b', 'flow:read#c'],"
+      },
+      {
+        "line": 174,
+        "text": "{ svc: 'svc:reader', role: 'reads', steps: [], moreSteps: 0, fresh: false },"
+      },
+      {
+        "line": 175,
+        "text": "{ svc: 'svc:writer', role: 'writes', steps: [], moreSteps: 0, fresh: false },"
+      },
+      {
+        "line": 176,
+        "text": "{ svc: 'svc:both', role: 'reads and writes', steps: [], moreSteps: 0, fresh: false },"
+      },
+      {
+        "line": 177,
+        "text": "{ svc: 'svc:new', role: 'reads', steps: [], moreSteps: 0, fresh: true },"
+      },
+      {
+        "line": 179,
+        "text": "expect(accessRows(model, 'st:db', 'asIs').map((row) => row.svc)).not.toContain('svc:new');"
+      },
+      {
+        "line": 180,
+        "text": "expect(accessRows(model, 'st:db', 'toBe').every((row) => !row.fresh)).toBe(true);"
+      },
+      {
+        "line": 181,
+        "text": "expect(accessRows(model, 'st:missing')).toEqual([]);"
+      },
+      {
+        "line": 185,
+        "text": "expect(storeGlance(model, 'st:db')).toEqual({"
+      },
+      {
+        "line": 187,
+        "text": "owner: 'svc:owner',"
+      },
+      {
+        "line": 191,
+        "text": "expect(storeGlance(model, 'st:db', 'asIs')).toEqual({"
+      },
+      {
+        "line": 193,
+        "text": "owner: 'svc:owner',"
+      },
+      {
+        "line": 197,
+        "text": "expect(storeGlance(model, 'st:pipe')).toEqual({"
+      },
+      {
+        "line": 203,
+        "text": "expect(storeGlance(model, 'st:removed')).toEqual({"
+      },
+      {
+        "line": 209,
+        "text": "expect(storeGlance(model, 'st:missing')).toBeNull();"
+      },
+      {
+        "line": 210,
+        "text": "expect(storeGlance(model, 'svc:owner')).toBeNull();"
+      },
+      {
+        "line": 211,
+        "text": "expect(storeNode(model, 'st:new', 'asIs')).toBeNull();"
+      },
+      {
+        "line": 212,
+        "text": "expect(storeNode(model, 'st:new')?.name).toBe('New store');"
+      },
+      {
+        "line": 213,
+        "text": "expect(storeNode(model, 'st:removed')?.name).toBe('Retired');"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
     "file": "src/application/plan-viz-store.ts",
     "hits": [
       {
@@ -6474,6 +8737,337 @@
   },
   {
     "category": "id construction, parsing or literal",
+    "file": "src/application/plan-viz-system-map-input.test.ts",
+    "hits": [
+      {
+        "line": 12,
+        "text": "teams: [{ id: 'team:a', name: 'A team', colour: 3 }],"
+      },
+      {
+        "line": 13,
+        "text": "systems: [{ id: 'sys:one', name: 'One', team: 'team:a' }],"
+      },
+      {
+        "line": 16,
+        "text": "id: 'svc:a',"
+      },
+      {
+        "line": 19,
+        "text": "team: 'team:a',"
+      },
+      {
+        "line": 20,
+        "text": "system: 'sys:one',"
+      },
+      {
+        "line": 24,
+        "text": "{ id: 'svc:b', name: 'B', kind: 'service' },"
+      },
+      {
+        "line": 25,
+        "text": "{ id: 'svc:c', name: 'C', kind: 'service', team: 'team:a', system: 'sys:one' },"
+      },
+      {
+        "line": 28,
+        "text": "{ id: 'st:db', name: 'Orders', kind: 'database', owner: 'svc:a' },"
+      },
+      {
+        "line": 29,
+        "text": "{ id: 'st:topic', name: 'Events', kind: 'topic', owner: 'svc:a' },"
+      },
+      {
+        "line": 30,
+        "text": "{ id: 'st:queue', name: 'Queue', kind: 'queue' },"
+      },
+      {
+        "line": 32,
+        "text": "schemas: [{ id: 'sch:order', name: 'Order', kind: 'record', store: 'st:db' }],"
+      },
+      {
+        "line": 35,
+        "text": "id: 'if:a',"
+      },
+      {
+        "line": 36,
+        "text": "service: 'svc:a',"
+      },
+      {
+        "line": 39,
+        "text": "{ id: 'api:get', sig: 'GET /orders', response: 'sch:order' },"
+      },
+      {
+        "line": 40,
+        "text": "{ id: 'api:ping', sig: 'GET /ping' },"
+      },
+      {
+        "line": 46,
+        "text": "id: 'msg:changed',"
+      },
+      {
+        "line": 48,
+        "text": "topic: 'st:topic',"
+      },
+      {
+        "line": 49,
+        "text": "producer: 'svc:a',"
+      },
+      {
+        "line": 50,
+        "text": "consumers: ['svc:b'],"
+      },
+      {
+        "line": 52,
+        "text": "{ id: 'msg:blank', name: '   ', topic: 'st:queue', producer: 'svc:b', consumers: [] },"
+      },
+      {
+        "line": 56,
+        "text": "id: 'flow:read',"
+      },
+      {
+        "line": 59,
+        "text": "{ id: 'flow:read#get', from: 'svc:b', to: 'svc:a', via: 'api:get', action: 'Get orders' },"
+      },
+      {
+        "line": 61,
+        "text": "id: 'flow:read#ping',"
+      },
+      {
+        "line": 62,
+        "text": "from: 'svc:b',"
+      },
+      {
+        "line": 63,
+        "text": "to: 'svc:a',"
+      },
+      {
+        "line": 64,
+        "text": "via: 'api:ping',"
+      },
+      {
+        "line": 68,
+        "text": "id: 'flow:read#write',"
+      },
+      {
+        "line": 69,
+        "text": "from: 'svc:a',"
+      },
+      {
+        "line": 70,
+        "text": "to: 'st:db',"
+      },
+      {
+        "line": 73,
+        "text": "writes: ['sch:order'],"
+      },
+      {
+        "line": 76,
+        "text": "id: 'flow:read#publish',"
+      },
+      {
+        "line": 77,
+        "text": "from: 'svc:a',"
+      },
+      {
+        "line": 78,
+        "text": "to: 'st:topic',"
+      },
+      {
+        "line": 79,
+        "text": "via: 'msg:changed',"
+      },
+      {
+        "line": 91,
+        "text": "services: [{ svc: 'svc:a', from: ['api:get', 'st:db', 'if:a', 'svc:b', 'missing'] }],"
+      },
+      {
+        "line": 93,
+        "text": "{ id: 'stage:two', name: 'Next', services: [{ svc: 'svc:b', from: ['st:topic'] }] },"
+      },
+      {
+        "line": 100,
+        "text": "ops: [{ add: 'service', value: { id: 'svc:new', name: 'New', kind: 'service' } }],"
+      },
+      {
+        "line": 110,
+        "text": "id: 'svc:a',"
+      },
+      {
+        "line": 114,
+        "text": "team: 'team:a',"
+      },
+      {
+        "line": 116,
+        "text": "system: 'sys:one',"
+      },
+      {
+        "line": 119,
+        "text": "{ id: 'svc:b', name: 'B', kind: 'service', does: '', team: null, teamSlot: 8, system: null },"
+      },
+      {
+        "line": 121,
+        "text": "id: 'svc:c',"
+      },
+      {
+        "line": 125,
+        "text": "team: 'team:a',"
+      },
+      {
+        "line": 127,
+        "text": "system: 'sys:one',"
+      },
+      {
+        "line": 132,
+        "text": "id: 'sys:one',"
+      },
+      {
+        "line": 136,
+        "text": "team: 'team:a',"
+      },
+      {
+        "line": 144,
+        "text": "expect(systemMapInput(derive(mapPlan()), 'team:a').lens).toBe('team:a');"
+      },
+      {
+        "line": 145,
+        "text": "expect(result.services.some((service) => service.id === 'svc:new')).toBe(false);"
+      },
+      {
+        "line": 154,
+        "text": "id: 'st:db',"
+      },
+      {
+        "line": 158,
+        "text": "team: 'team:a',"
+      },
+      {
+        "line": 161,
+        "text": "owner: 'svc:a',"
+      },
+      {
+        "line": 165,
+        "text": "id: 'st:topic',"
+      },
+      {
+        "line": 169,
+        "text": "team: 'team:a',"
+      },
+      {
+        "line": 172,
+        "text": "owner: 'svc:a',"
+      },
+      {
+        "line": 176,
+        "text": "id: 'st:queue',"
+      },
+      {
+        "line": 180,
+        "text": "team: null,"
+      },
+      {
+        "line": 184,
+        "text": "carries: ['msg:blank'],"
+      },
+      {
+        "line": 195,
+        "text": "entries: [{ svc: 'svc:a', reads: ['api:get', 'st:db', 'if:a', 'svc:b', 'missing'] }],"
+      },
+      {
+        "line": 201,
+        "text": "entries: [{ svc: 'svc:b', reads: ['st:topic'] }],"
+      },
+      {
+        "line": 204,
+        "text": "expect(result.stageOf).toEqual({ 'svc:a': 0, 'svc:b': 1 });"
+      },
+      {
+        "line": 206,
+        "text": "'api:get': { type: 'endpoint', service: null, parent: 'if:a', topic: false },"
+      },
+      {
+        "line": 207,
+        "text": "'if:a': { type: 'interface', service: 'svc:a', parent: null, topic: false },"
+      },
+      {
+        "line": 208,
+        "text": "'st:db': { type: 'store', service: null, parent: null, topic: false },"
+      },
+      {
+        "line": 209,
+        "text": "'svc:b': { type: 'service', service: null, parent: null, topic: false },"
+      },
+      {
+        "line": 210,
+        "text": "'st:topic': { type: 'store', service: null, parent: null, topic: true },"
+      },
+      {
+        "line": 217,
+        "text": "from: 'svc:b',"
+      },
+      {
+        "line": 218,
+        "text": "to: 'svc:a',"
+      },
+      {
+        "line": 219,
+        "text": "via: 'api:get',"
+      },
+      {
+        "line": 220,
+        "text": "steps: ['flow:read#get'],"
+      },
+      {
+        "line": 225,
+        "text": "{ id: 'flow:read#get', from: 'svc:b', to: 'svc:a', via: 'api:get' },"
+      },
+      {
+        "line": 226,
+        "text": "{ id: 'flow:read#ping', from: 'svc:b', to: 'svc:a', via: 'api:ping' },"
+      },
+      {
+        "line": 227,
+        "text": "{ id: 'flow:read#write', from: 'svc:a', to: 'st:db', via: 'internal' },"
+      },
+      {
+        "line": 228,
+        "text": "{ id: 'flow:read#publish', from: 'svc:a', to: 'st:topic', via: 'msg:changed' },"
+      },
+      {
+        "line": 230,
+        "text": "expect(result.interfaceOf['api:get']).toBe('if:a');"
+      },
+      {
+        "line": 231,
+        "text": "expect(result.callWords?.['api:get']).toBe('REST call');"
+      },
+      {
+        "line": 232,
+        "text": "expect(result.carries?.['api:get']).toBe('Order');"
+      },
+      {
+        "line": 234,
+        "text": "'svc:a': 'A',"
+      },
+      {
+        "line": 235,
+        "text": "'st:db': 'Orders',"
+      },
+      {
+        "line": 236,
+        "text": "'sys:one': 'One',"
+      },
+      {
+        "line": 237,
+        "text": "'flow:read': 'Read orders',"
+      },
+      {
+        "line": 238,
+        "text": "'team:a': 'A team',"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
     "file": "src/application/plan-viz-system-map-input.ts",
     "hits": [
       {
@@ -6483,6 +9077,493 @@
       {
         "line": 71,
         "text": "entries: (s.services ?? []).map((x) => ({ svc: x.svc, reads: x.from ?? [] })),"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "src/application/plan-viz-system-map-links.test.ts",
+    "hits": [
+      {
+        "line": 16,
+        "text": "id: `svc:${id}`,"
+      },
+      {
+        "line": 20,
+        "text": "team: null,"
+      },
+      {
+        "line": 48,
+        "text": "const store = (id = 'st:db', extra: Partial<MapSatelliteIn> = {}): MapSatelliteIn => ({"
+      },
+      {
+        "line": 53,
+        "text": "team: null,"
+      },
+      {
+        "line": 56,
+        "text": "owner: 'svc:b',"
+      },
+      {
+        "line": 72,
+        "text": "interfaceOf: { 'api:get': 'if:b', 'api:put': 'if:b' },"
+      },
+      {
+        "line": 74,
+        "text": "edge('svc:a', 'svc:b', { via: 'api:get', steps: ['flow:read#one', 'flow:read#two'] }),"
+      },
+      {
+        "line": 75,
+        "text": "edge('svc:a', 'svc:b', { via: 'api:put', steps: ['flow:update#one'] }),"
+      },
+      {
+        "line": 82,
+        "text": "key: 'api|svc:a|svc:b|if:b',"
+      },
+      {
+        "line": 84,
+        "text": "a: 'svc:a',"
+      },
+      {
+        "line": 85,
+        "text": "b: 'svc:b',"
+      },
+      {
+        "line": 86,
+        "text": "row: 'if:b',"
+      },
+      {
+        "line": 87,
+        "text": "vias: new Set(['api:get', 'api:put']),"
+      },
+      {
+        "line": 88,
+        "text": "flows: new Set(['flow:read', 'flow:update']),"
+      },
+      {
+        "line": 92,
+        "text": "expect(result.rowsOf.get('svc:b')?.get('if:b')).toEqual({"
+      },
+      {
+        "line": 93,
+        "text": "id: 'if:b',"
+      },
+      {
+        "line": 94,
+        "text": "eps: new Set(['api:get', 'api:put']),"
+      },
+      {
+        "line": 97,
+        "text": "expect(result.kinds.get('svc:a')).toEqual(new Set(['api']));"
+      },
+      {
+        "line": 98,
+        "text": "expect(result.kinds.get('svc:b')).toEqual(new Set(['api']));"
+      },
+      {
+        "line": 99,
+        "text": "expect(result.kinds.get('svc:c')).toEqual(new Set());"
+      },
+      {
+        "line": 105,
+        "text": "edge('svc:a', 'svc:b', { via: 'api:one' }),"
+      },
+      {
+        "line": 106,
+        "text": "edge('svc:a', 'svc:b', { via: 'api:two' }),"
+      },
+      {
+        "line": 107,
+        "text": "edge('svc:a', 'missing'),"
+      },
+      {
+        "line": 108,
+        "text": "edge('missing', 'svc:a'),"
+      },
+      {
+        "line": 109,
+        "text": "edge('svc:a', 'svc:a'),"
+      },
+      {
+        "line": 115,
+        "text": "{ row: 'api:one', vias: new Set(['api:one']) },"
+      },
+      {
+        "line": 116,
+        "text": "{ row: 'api:two', vias: new Set(['api:two']) },"
+      },
+      {
+        "line": 118,
+        "text": "expect(aggregate(input({ edges: [edge('svc:a', 'svc:b')] }), SHOW_ALL).links[0]?.vias).toEqual("
+      },
+      {
+        "line": 122,
+        "text": "aggregate(input({ edges: [edge('svc:a', 'svc:b')] }), SHOW_ALL)"
+      },
+      {
+        "line": 123,
+        "text": ".rowsOf.get('svc:b')"
+      },
+      {
+        "line": 132,
+        "text": "store('st:incoming', { owner: 'missing' }),"
+      },
+      {
+        "line": 133,
+        "text": "store('st:outgoing', { owner: null }),"
+      },
+      {
+        "line": 134,
+        "text": "store('st:unused', { owner: null }),"
+      },
+      {
+        "line": 136,
+        "text": "edges: [edge('svc:a', 'st:db'), edge('svc:c', 'st:incoming'), edge('st:outgoing', 'svc:a')],"
+      },
+      {
+        "line": 141,
+        "text": "['st:db', 'svc:b'],"
+      },
+      {
+        "line": 142,
+        "text": "['st:incoming', 'svc:c'],"
+      },
+      {
+        "line": 143,
+        "text": "['st:outgoing', 'svc:a'],"
+      },
+      {
+        "line": 145,
+        "text": "expect(result.isTopic('st:db')).toBe(false);"
+      },
+      {
+        "line": 153,
+        "text": "edge('svc:a', 'st:db', { kind: 'data', read: true, steps: ['flow:read#one'] }),"
+      },
+      {
+        "line": 154,
+        "text": "edge('svc:a', 'st:db', { kind: 'data', write: true, steps: ['flow:write#one'] }),"
+      },
+      {
+        "line": 155,
+        "text": "edge('svc:b', 'st:db', { kind: 'data', read: true }),"
+      },
+      {
+        "line": 156,
+        "text": "edge('missing', 'st:db', { kind: 'data' }),"
+      },
+      {
+        "line": 157,
+        "text": "edge('svc:a', 'st:missing', { kind: 'data' }),"
+      },
+      {
+        "line": 164,
+        "text": "key: 'data|svc:a|st:db|',"
+      },
+      {
+        "line": 166,
+        "text": "a: 'svc:a',"
+      },
+      {
+        "line": 167,
+        "text": "b: 'st:db',"
+      },
+      {
+        "line": 170,
+        "text": "flows: new Set(['flow:read', 'flow:write']),"
+      },
+      {
+        "line": 174,
+        "text": "expect(result.kinds.get('svc:b')).toEqual(new Set(['data']));"
+      },
+      {
+        "line": 176,
+        "text": "input({ stores: [store()], edges: [edge('svc:a', 'st:db', { kind: 'data', read: true })] }),"
+      },
+      {
+        "line": 180,
+        "text": "a: 'svc:a',"
+      },
+      {
+        "line": 181,
+        "text": "b: 'svc:b',"
+      },
+      {
+        "line": 182,
+        "text": "vias: new Set(['st:db']),"
+      },
+      {
+        "line": 188,
+        "text": "stores: [store('st:topic', { topic: true })],"
+      },
+      {
+        "line": 190,
+        "text": "edge('svc:a', 'st:topic', { kind: 'msg', via: 'msg:published' }),"
+      },
+      {
+        "line": 191,
+        "text": "edge('st:topic', 'svc:c', { kind: 'msg', via: 'msg:published' }),"
+      },
+      {
+        "line": 192,
+        "text": "edge('svc:b', 'st:topic', { kind: 'msg' }),"
+      },
+      {
+        "line": 193,
+        "text": "edge('svc:a', 'svc:c', { kind: 'msg', via: 'msg:direct' }),"
+      },
+      {
+        "line": 194,
+        "text": "edge('missing', 'st:topic', { kind: 'msg' }),"
+      },
+      {
+        "line": 198,
+        "text": "expect(shown.isTopic('st:topic')).toBe(true);"
+      },
+      {
+        "line": 200,
+        "text": "{ a: 'svc:a', b: 'st:topic', vias: new Set(['msg:published']) },"
+      },
+      {
+        "line": 201,
+        "text": "{ a: 'st:topic', b: 'svc:c', vias: new Set(['msg:published']) },"
+      },
+      {
+        "line": 202,
+        "text": "{ a: 'svc:a', b: 'svc:c', vias: new Set(['msg:direct']) },"
+      },
+      {
+        "line": 206,
+        "text": "['svc:a', 'svc:b'],"
+      },
+      {
+        "line": 207,
+        "text": "['svc:b', 'svc:c'],"
+      },
+      {
+        "line": 208,
+        "text": "['svc:a', 'svc:c'],"
+      },
+      {
+        "line": 210,
+        "text": "expect(shown.kinds.get('svc:b')).toEqual(new Set(['msg']));"
+      },
+      {
+        "line": 213,
+        "text": "const steps = ['internal', 'lib:helper', 'api:get', 'msg:event'].map((via, index) => ({"
+      },
+      {
+        "line": 214,
+        "text": "id: `flow:work#${String(index)}`,"
+      },
+      {
+        "line": 215,
+        "text": "from: 'svc:a',"
+      },
+      {
+        "line": 216,
+        "text": "to: 'svc:b',"
+      },
+      {
+        "line": 223,
+        "text": "{ id: 'flow:work#self', from: 'svc:a', to: 'svc:a', via: '' },"
+      },
+      {
+        "line": 224,
+        "text": "{ id: 'flow:work#missing', from: 'missing', to: 'svc:b', via: '' },"
+      },
+      {
+        "line": 231,
+        "text": "key: 'api|svc:a|svc:b|',"
+      },
+      {
+        "line": 233,
+        "text": "a: 'svc:a',"
+      },
+      {
+        "line": 234,
+        "text": "b: 'svc:b',"
+      },
+      {
+        "line": 237,
+        "text": "flows: new Set(['flow:work']),"
+      },
+      {
+        "line": 244,
+        "text": "stores: [store(), store('st:topic', { topic: true })],"
+      },
+      {
+        "line": 246,
+        "text": "'svc:b': ref('service'),"
+      },
+      {
+        "line": 247,
+        "text": "'if:b': ref('interface', { service: 'svc:b' }),"
+      },
+      {
+        "line": 248,
+        "text": "'api:get': ref('endpoint', { parent: 'if:b' }),"
+      },
+      {
+        "line": 249,
+        "text": "'st:db': ref('store'),"
+      },
+      {
+        "line": 250,
+        "text": "'st:topic': ref('store', { topic: true }),"
+      },
+      {
+        "line": 259,
+        "text": "svc: 'svc:a',"
+      },
+      {
+        "line": 260,
+        "text": "reads: ['svc:b', 'if:b', 'api:get', 'st:db', 'st:topic', 'missing', 'svc:a'],"
+      },
+      {
+        "line": 262,
+        "text": "{ svc: 'missing', reads: ['svc:b'] },"
+      },
+      {
+        "line": 270,
+        "text": "key: 'api|svc:a|svc:b|',"
+      },
+      {
+        "line": 272,
+        "text": "a: 'svc:a',"
+      },
+      {
+        "line": 273,
+        "text": "b: 'svc:b',"
+      },
+      {
+        "line": 280,
+        "text": "key: 'api|svc:a|svc:b|if:b',"
+      },
+      {
+        "line": 282,
+        "text": "a: 'svc:a',"
+      },
+      {
+        "line": 283,
+        "text": "b: 'svc:b',"
+      },
+      {
+        "line": 284,
+        "text": "row: 'if:b',"
+      },
+      {
+        "line": 290,
+        "text": "key: 'data|svc:a|st:db|',"
+      },
+      {
+        "line": 292,
+        "text": "a: 'svc:a',"
+      },
+      {
+        "line": 293,
+        "text": "b: 'st:db',"
+      },
+      {
+        "line": 300,
+        "text": "key: 'msg|st:topic|svc:a|',"
+      },
+      {
+        "line": 302,
+        "text": "a: 'st:topic',"
+      },
+      {
+        "line": 303,
+        "text": "b: 'svc:a',"
+      },
+      {
+        "line": 310,
+        "text": "expect(result.rowsOf.get('svc:b')?.get('if:b')).toEqual({"
+      },
+      {
+        "line": 311,
+        "text": "id: 'if:b',"
+      },
+      {
+        "line": 313,
+        "text": "eps: new Set(['api:get']),"
+      },
+      {
+        "line": 319,
+        "text": ").toContainEqual({ kind: 'msg', a: 'svc:b', b: 'svc:a', vias: new Set(['st:topic']) });"
+      },
+      {
+        "line": 324,
+        "text": "stores: [store('st:owned', { owner: 'svc:a' }), store('st:unknown', { owner: null })],"
+      },
+      {
+        "line": 326,
+        "text": "'if:unknown': ref('interface'),"
+      },
+      {
+        "line": 327,
+        "text": "'api:orphan': ref('endpoint'),"
+      },
+      {
+        "line": 328,
+        "text": "'api:missing': ref('endpoint', { parent: 'if:missing' }),"
+      },
+      {
+        "line": 329,
+        "text": "'api:unowned': ref('endpoint', { parent: 'if:unknown' }),"
+      },
+      {
+        "line": 330,
+        "text": "'if:outside': ref('interface', { service: 'missing' }),"
+      },
+      {
+        "line": 331,
+        "text": "'st:owned': ref('store'),"
+      },
+      {
+        "line": 332,
+        "text": "'st:unknown': ref('store'),"
+      },
+      {
+        "line": 333,
+        "text": "'sch:other': ref('schema'),"
+      },
+      {
+        "line": 342,
+        "text": "svc: 'svc:a',"
+      },
+      {
+        "line": 344,
+        "text": "'if:unknown',"
+      },
+      {
+        "line": 345,
+        "text": "'api:orphan',"
+      },
+      {
+        "line": 346,
+        "text": "'api:missing',"
+      },
+      {
+        "line": 347,
+        "text": "'api:unowned',"
+      },
+      {
+        "line": 348,
+        "text": "'if:outside',"
+      },
+      {
+        "line": 349,
+        "text": "'st:owned',"
+      },
+      {
+        "line": 350,
+        "text": "'st:unknown',"
+      },
+      {
+        "line": 351,
+        "text": "'sch:other',"
       }
     ],
     "status": "adapter"
@@ -6953,6 +10034,209 @@
       {
         "line": 46,
         "text": "/** The tier a person gave each system, by `sys:` id. */"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "src/application/plan-viz-system-map-tips.test.ts",
+    "hits": [
+      {
+        "line": 25,
+        "text": "id: 'svc:shop',"
+      },
+      {
+        "line": 29,
+        "text": "team: 'team:web',"
+      },
+      {
+        "line": 32,
+        "text": "{ id: 'svc:products', name: 'Products', kind: 'service', does: '', team: null, teamSlot: 2 },"
+      },
+      {
+        "line": 34,
+        "text": "id: 'sys:shop',"
+      },
+      {
+        "line": 38,
+        "text": "team: 'team:web',"
+      },
+      {
+        "line": 42,
+        "text": "id: 'st:db',"
+      },
+      {
+        "line": 46,
+        "text": "team: null,"
+      },
+      {
+        "line": 64,
+        "text": "'sys:products': 'Catalogue',"
+      },
+      {
+        "line": 65,
+        "text": "'team:web': 'Web',"
+      },
+      {
+        "line": 66,
+        "text": "'if:products': 'Products API',"
+      },
+      {
+        "line": 67,
+        "text": "'api:a': 'Read product',"
+      },
+      {
+        "line": 68,
+        "text": "'api:b': 'Find product',"
+      },
+      {
+        "line": 69,
+        "text": "'msg:c': 'Changed',"
+      },
+      {
+        "line": 70,
+        "text": "'flow:buy': 'Buy',"
+      },
+      {
+        "line": 82,
+        "text": "const box = (ctx: Context, id = 'svc:shop') => serviceBox(ctx, id, { x: 0, y: 0, w: 184, col: 0 });"
+      },
+      {
+        "line": 86,
+        "text": "a: 'svc:shop',"
+      },
+      {
+        "line": 87,
+        "text": "b: 'svc:products',"
+      },
+      {
+        "line": 88,
+        "text": "shownA: 'sys:shop',"
+      },
+      {
+        "line": 89,
+        "text": "shownB: 'sys:products',"
+      },
+      {
+        "line": 90,
+        "text": "hostA: 'svc:shop',"
+      },
+      {
+        "line": 91,
+        "text": "hostB: 'svc:products',"
+      },
+      {
+        "line": 107,
+        "text": "expect(cardTip(ctx, { ...box(ctx), sys: 'sys:shop' })).toBe("
+      },
+      {
+        "line": 110,
+        "text": "expect(cardTip(ctx, box(ctx, 'svc:products'))).toBe('Products');"
+      },
+      {
+        "line": 112,
+        "text": "expect(cardTip(ctx, { ...box(ctx, 'st:db'), kind: 'store' })).toBe("
+      },
+      {
+        "line": 123,
+        "text": "const frame = { ...box(ctx, 'sys:shop'), parts: ['svc:shop', 'svc:products'] };"
+      },
+      {
+        "line": 153,
+        "text": "a: 'svc:shop',"
+      },
+      {
+        "line": 154,
+        "text": "b: 'svc:products',"
+      },
+      {
+        "line": 155,
+        "text": "hostA: 'svc:shop',"
+      },
+      {
+        "line": 156,
+        "text": "hostB: 'svc:products',"
+      },
+      {
+        "line": 165,
+        "text": "const ctx = context({ callWords: { 'api:a': 'GraphQL query', 'api:b': 'GraphQL query' } });"
+      },
+      {
+        "line": 167,
+        "text": "row: 'if:products',"
+      },
+      {
+        "line": 168,
+        "text": "vias: new Set(['api:a', 'api:b']),"
+      },
+      {
+        "line": 169,
+        "text": "flows: new Set(['flow:buy']),"
+      },
+      {
+        "line": 181,
+        "text": "line({ kind: 'msg', vias: new Set(['msg:c']), flows: new Set(['flow:buy']), noted: true }),"
+      },
+      {
+        "line": 186,
+        "text": "const value = line({ vias: new Set(['api:a', 'api:b']) });"
+      },
+      {
+        "line": 187,
+        "text": "expect(lineTip(context({ callWords: { 'api:a': 'REST call' } }), value)).toBe("
+      },
+      {
+        "line": 191,
+        "text": "lineTip(context({ callWords: { 'api:a': 'REST call', 'api:b': 'GraphQL query' } }), value),"
+      },
+      {
+        "line": 197,
+        "text": "'api:a': 'Product',"
+      },
+      {
+        "line": 198,
+        "text": "'api:b': 'Product',"
+      },
+      {
+        "line": 199,
+        "text": "'msg:c': 'Price changed',"
+      },
+      {
+        "line": 200,
+        "text": "'api:d': 'Alpha',"
+      },
+      {
+        "line": 201,
+        "text": "'api:e': 'Beta',"
+      },
+      {
+        "line": 203,
+        "text": "callWords: { 'api:a': 'REST call', 'api:b': 'REST call' },"
+      },
+      {
+        "line": 205,
+        "text": "expect(carried(ctx, line({ vias: new Set(['api:e', 'api:a', 'api:d', 'api:b']) }))).toEqual(["
+      },
+      {
+        "line": 211,
+        "text": "expect(pairTip(ctx, line({ vias: new Set(['api:a', 'api:b', 'msg:c']) }))).toBe("
+      },
+      {
+        "line": 214,
+        "text": "expect(pairTip(ctx, line({ vias: new Set(['api:a']) }))).toBe("
+      },
+      {
+        "line": 223,
+        "text": "vias: new Set(['msg:c']),"
+      },
+      {
+        "line": 224,
+        "text": "flows: new Set(['flow:buy']),"
+      },
+      {
+        "line": 237,
+        "text": "const vias = Array.from({ length: 10 }, (_, index) => `api:${String(index)}`);"
       }
     ],
     "status": "adapter"
@@ -9843,31 +13127,31 @@
     "file": "src/application/plan/derive-edges.ts",
     "hits": [
       {
-        "line": 34,
+        "line": 35,
         "text": "/** Effective consumers of a message in a graph: walked by a step if any, then declared and not yet walked. */"
       },
       {
-        "line": 47,
+        "line": 48,
         "text": "const point = (s: StepNode): StepPoint => ({ step: s.id, flow: s.$parent, from: s.from, to: s.to });"
       },
       {
-        "line": 160,
+        "line": 161,
         "text": "svc: e.from,"
       },
       {
-        "line": 212,
+        "line": 213,
         "text": "cell: (svc: string, st: string): StoreCell | null => index.get(`${svc}|${st}`) ?? null,"
       },
       {
-        "line": 219,
+        "line": 220,
         "text": ".map((s) => ({ step: s.id, flow: s.$parent, from: s.from })),"
       },
       {
-        "line": 242,
+        "line": 243,
         "text": "/** api: the sync calls steps make; a step on an operation also fans out to the subgraph services. */"
       },
       {
-        "line": 253,
+        "line": 254,
         "text": "/** msg: producer → topic, topic → each effective consumer. */"
       }
     ],
@@ -10100,6 +13384,641 @@
       {
         "line": 274,
         "text": "const isApi = typeOf(id) === 'endpoint';"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "src/application/plan/derive-owners.test.ts",
+    "hits": [
+      {
+        "line": 13,
+        "text": "{ id: 'team:a', name: 'A' },"
+      },
+      {
+        "line": 14,
+        "text": "{ id: 'team:b', name: 'B' },"
+      },
+      {
+        "line": 17,
+        "text": "{ id: 'svc:a', name: 'A', kind: 'service', team: 'team:a' },"
+      },
+      {
+        "line": 18,
+        "text": "{ id: 'svc:b', name: 'B', kind: 'service', team: 'team:b' },"
+      },
+      {
+        "line": 19,
+        "text": "{ id: 'svc:c', name: 'C', kind: 'ui', team: 'team:a' },"
+      },
+      {
+        "line": 22,
+        "text": "{ id: 'st:db', name: 'Records', kind: 'database', owner: 'svc:a' },"
+      },
+      {
+        "line": 23,
+        "text": "{ id: 'st:topic', name: 'Events', kind: 'topic', owner: 'svc:b' },"
+      },
+      {
+        "line": 24,
+        "text": "{ id: 'st:unowned', name: 'Unplaced', kind: 'database' },"
+      },
+      {
+        "line": 28,
+        "text": "id: 'sch:record',"
+      },
+      {
+        "line": 31,
+        "text": "store: 'st:db',"
+      },
+      {
+        "line": 37,
+        "text": "{ id: 'sch:request', name: 'Request', kind: 'dto' },"
+      },
+      {
+        "line": 38,
+        "text": "{ id: 'sch:response', name: 'Response', kind: 'dto' },"
+      },
+      {
+        "line": 39,
+        "text": "{ id: 'sch:payload', name: 'Payload', kind: 'payload' },"
+      },
+      {
+        "line": 40,
+        "text": "{ id: 'sch:unplaced', name: 'Unplaced', kind: 'dto' },"
+      },
+      {
+        "line": 42,
+        "text": "id: 'sch:gql',"
+      },
+      {
+        "line": 45,
+        "text": "graph: 'graph:g',"
+      },
+      {
+        "line": 48,
+        "text": "{ name: 'value', type: 'String', subgraphs: ['sg:b'] },"
+      },
+      {
+        "line": 49,
+        "text": "{ name: 'known', type: 'String', subgraphs: ['sg:missing', 'sg:b'] },"
+      },
+      {
+        "line": 54,
+        "text": "id: 'sch:other',"
+      },
+      {
+        "line": 57,
+        "text": "graph: 'graph:other',"
+      },
+      {
+        "line": 63,
+        "text": "id: 'if:b',"
+      },
+      {
+        "line": 64,
+        "text": "service: 'svc:b',"
+      },
+      {
+        "line": 67,
+        "text": "{ id: 'api:b', sig: 'POST /records', request: 'sch:request', response: 'sch:response' },"
+      },
+      {
+        "line": 73,
+        "text": "id: 'msg:changed',"
+      },
+      {
+        "line": 75,
+        "text": "topic: 'st:topic',"
+      },
+      {
+        "line": 76,
+        "text": "producer: 'svc:b',"
+      },
+      {
+        "line": 77,
+        "text": "payload: 'sch:payload',"
+      },
+      {
+        "line": 81,
+        "text": "{ id: 'h:b', component: 'svc:b', on: 'api:b', steps: [{ does: 'Read the request' }] },"
+      },
+      {
+        "line": 84,
+        "text": "{ id: 'graph:g', name: 'Graph', gateway: 'svc:a' },"
+      },
+      {
+        "line": 85,
+        "text": "{ id: 'graph:other', name: 'Other graph', gateway: 'svc:c' },"
+      },
+      {
+        "line": 88,
+        "text": "{ id: 'sg:b', name: 'B', graph: 'graph:g', service: 'svc:b' },"
+      },
+      {
+        "line": 89,
+        "text": "{ id: 'sg:c', name: 'C', graph: 'graph:g', service: 'svc:c' },"
+      },
+      {
+        "line": 90,
+        "text": "{ id: 'sg:other', name: 'Other', graph: 'graph:other', service: 'svc:a' },"
+      },
+      {
+        "line": 94,
+        "text": "id: 'gql:client',"
+      },
+      {
+        "line": 98,
+        "text": "graph: 'graph:g',"
+      },
+      {
+        "line": 99,
+        "text": "client: 'svc:c',"
+      },
+      {
+        "line": 102,
+        "text": "id: 'gql:screen',"
+      },
+      {
+        "line": 106,
+        "text": "graph: 'graph:g',"
+      },
+      {
+        "line": 107,
+        "text": "screens: ['scr:a#control'],"
+      },
+      {
+        "line": 110,
+        "text": "id: 'gql:unknown',"
+      },
+      {
+        "line": 114,
+        "text": "graph: 'graph:g',"
+      },
+      {
+        "line": 117,
+        "text": "id: 'gql:other',"
+      },
+      {
+        "line": 121,
+        "text": "graph: 'graph:other',"
+      },
+      {
+        "line": 122,
+        "text": "client: 'svc:a',"
+      },
+      {
+        "line": 127,
+        "text": "id: 'scr:a',"
+      },
+      {
+        "line": 129,
+        "text": "service: 'svc:a',"
+      },
+      {
+        "line": 130,
+        "text": "regions: [{ id: 'scr:a#control', name: 'Control' }],"
+      },
+      {
+        "line": 132,
+        "text": "{ id: 'scr:b', name: 'B page', service: 'svc:b' },"
+      },
+      {
+        "line": 136,
+        "text": "id: 'ui:single',"
+      },
+      {
+        "line": 138,
+        "text": "from: ['scr:a#control'],"
+      },
+      {
+        "line": 139,
+        "text": "to: 'scr:b',"
+      },
+      {
+        "line": 144,
+        "text": "id: 'ui:shared',"
+      },
+      {
+        "line": 146,
+        "text": "from: ['scr:a', 'scr:b'],"
+      },
+      {
+        "line": 147,
+        "text": "to: 'scr:b',"
+      },
+      {
+        "line": 152,
+        "text": "user_journeys: [{ id: 'uj:single', name: 'Continue', interactions: ['ui:single'] }],"
+      },
+      {
+        "line": 155,
+        "text": "id: 'flow:read',"
+      },
+      {
+        "line": 158,
+        "text": "{ id: 'flow:read#call', from: 'svc:a', to: 'svc:b', via: 'api:b', action: 'Read' },"
+      },
+      {
+        "line": 160,
+        "text": "id: 'flow:read#write',"
+      },
+      {
+        "line": 161,
+        "text": "from: 'svc:a',"
+      },
+      {
+        "line": 162,
+        "text": "to: 'st:db',"
+      },
+      {
+        "line": 165,
+        "text": "writes: ['sch:record'],"
+      },
+      {
+        "line": 170,
+        "text": "tests: [{ id: 'tst:proof', level: 'unit', name: 'Proof', proves: [], owner: 'team:b' }],"
+      },
+      {
+        "line": 171,
+        "text": "work_items: [{ id: 'wi:work', title: 'Work', team: 'team:a' }],"
+      },
+      {
+        "line": 172,
+        "text": "risks: [{ id: 'risk:gap', statement: 'A gap', owner: 'team:b' }],"
+      },
+      {
+        "line": 173,
+        "text": "questions: [{ id: 'q:owner', question: 'Who owns this?', status: 'open', decider: 'team:a' }],"
+      },
+      {
+        "line": 179,
+        "text": "{ modify: 'sch:record#id', set: { type: 'uuid' } },"
+      },
+      {
+        "line": 180,
+        "text": "{ remove: 'sch:record#old' },"
+      },
+      {
+        "line": 181,
+        "text": "{ add: 'field', into: 'sch:record', value: { name: 'new', type: 'string' } },"
+      },
+      {
+        "line": 182,
+        "text": "{ modify: 'sch:gql#value', set: { subgraphs: ['sg:c'] } },"
+      },
+      {
+        "line": 196,
+        "text": "'svc:a',"
+      },
+      {
+        "line": 197,
+        "text": "'if:b',"
+      },
+      {
+        "line": 198,
+        "text": "'api:b',"
+      },
+      {
+        "line": 199,
+        "text": "'st:db',"
+      },
+      {
+        "line": 200,
+        "text": "'msg:changed',"
+      },
+      {
+        "line": 201,
+        "text": "'h:b',"
+      },
+      {
+        "line": 202,
+        "text": "'sch:record',"
+      },
+      {
+        "line": 203,
+        "text": "'sch:request',"
+      },
+      {
+        "line": 204,
+        "text": "'sch:response',"
+      },
+      {
+        "line": 205,
+        "text": "'sch:payload',"
+      },
+      {
+        "line": 206,
+        "text": "'graph:g',"
+      },
+      {
+        "line": 207,
+        "text": "'sg:b',"
+      },
+      {
+        "line": 208,
+        "text": "'gql:client',"
+      },
+      {
+        "line": 209,
+        "text": "'gql:screen',"
+      },
+      {
+        "line": 210,
+        "text": "'scr:a#control',"
+      },
+      {
+        "line": 211,
+        "text": "'flow:read#call',"
+      },
+      {
+        "line": 212,
+        "text": "'flow:read#write',"
+      },
+      {
+        "line": 213,
+        "text": "'flow:read',"
+      },
+      {
+        "line": 217,
+        "text": "'svc:a': 'svc:a',"
+      },
+      {
+        "line": 218,
+        "text": "'if:b': 'svc:b',"
+      },
+      {
+        "line": 219,
+        "text": "'api:b': 'svc:b',"
+      },
+      {
+        "line": 220,
+        "text": "'st:db': 'svc:a',"
+      },
+      {
+        "line": 221,
+        "text": "'msg:changed': 'svc:b',"
+      },
+      {
+        "line": 222,
+        "text": "'h:b': 'svc:b',"
+      },
+      {
+        "line": 223,
+        "text": "'sch:record': 'svc:a',"
+      },
+      {
+        "line": 224,
+        "text": "'sch:request': 'svc:b',"
+      },
+      {
+        "line": 225,
+        "text": "'sch:response': 'svc:b',"
+      },
+      {
+        "line": 226,
+        "text": "'sch:payload': 'svc:b',"
+      },
+      {
+        "line": 227,
+        "text": "'graph:g': 'svc:a',"
+      },
+      {
+        "line": 228,
+        "text": "'sg:b': 'svc:b',"
+      },
+      {
+        "line": 229,
+        "text": "'gql:client': 'svc:c',"
+      },
+      {
+        "line": 230,
+        "text": "'gql:screen': 'svc:a',"
+      },
+      {
+        "line": 231,
+        "text": "'scr:a#control': 'svc:a',"
+      },
+      {
+        "line": 232,
+        "text": "'flow:read#call': 'svc:b',"
+      },
+      {
+        "line": 233,
+        "text": "'flow:read#write': 'svc:a',"
+      },
+      {
+        "line": 234,
+        "text": "'flow:read': 'svc:b',"
+      },
+      {
+        "line": 236,
+        "text": "for (const id of ['missing', 'st:unowned', 'sch:unplaced', 'gql:unknown']) {"
+      },
+      {
+        "line": 242,
+        "text": "expect(owners.ownerService('sch:gql#value')).toBe('svc:c');"
+      },
+      {
+        "line": 243,
+        "text": "expect(owners.ownerService('sch:gql#known')).toBe('svc:b');"
+      },
+      {
+        "line": 244,
+        "text": "expect(owners.ownerService('sch:gql#key')).toBe('svc:a');"
+      },
+      {
+        "line": 245,
+        "text": "expect(owners.descendants('sg:b')).toEqual(['sch:gql#value', 'sch:gql#known']);"
+      },
+      {
+        "line": 246,
+        "text": "expect(owners.descendants('sg:c')).toEqual(['sch:gql#value']);"
+      },
+      {
+        "line": 247,
+        "text": "expect(new Set(owners.descendants('graph:g'))).toEqual("
+      },
+      {
+        "line": 249,
+        "text": "'sg:b',"
+      },
+      {
+        "line": 250,
+        "text": "'sg:c',"
+      },
+      {
+        "line": 251,
+        "text": "'sch:gql',"
+      },
+      {
+        "line": 252,
+        "text": "'sch:gql#value',"
+      },
+      {
+        "line": 253,
+        "text": "'sch:gql#known',"
+      },
+      {
+        "line": 254,
+        "text": "'sch:gql#key',"
+      },
+      {
+        "line": 255,
+        "text": "'gql:client',"
+      },
+      {
+        "line": 256,
+        "text": "'gql:screen',"
+      },
+      {
+        "line": 257,
+        "text": "'gql:unknown',"
+      },
+      {
+        "line": 263,
+        "text": "expect(owners.descendants('sch:record')).toEqual(["
+      },
+      {
+        "line": 264,
+        "text": "'sch:record#id',"
+      },
+      {
+        "line": 265,
+        "text": "'sch:record#old',"
+      },
+      {
+        "line": 266,
+        "text": "'sch:record#new',"
+      },
+      {
+        "line": 268,
+        "text": "expect(owners.descendants('st:db')).toEqual(["
+      },
+      {
+        "line": 269,
+        "text": "'sch:record',"
+      },
+      {
+        "line": 270,
+        "text": "'sch:record#id',"
+      },
+      {
+        "line": 271,
+        "text": "'sch:record#old',"
+      },
+      {
+        "line": 272,
+        "text": "'sch:record#new',"
+      },
+      {
+        "line": 274,
+        "text": "expect(owners.descendants('if:b')).toEqual(['api:b']);"
+      },
+      {
+        "line": 275,
+        "text": "expect(owners.descendants('flow:read')).toEqual(['flow:read#call', 'flow:read#write']);"
+      },
+      {
+        "line": 276,
+        "text": "expect(owners.descendants('scr:a')).toEqual(['scr:a#control']);"
+      },
+      {
+        "line": 277,
+        "text": "expect(owners.descendants('api:b')).toEqual([]);"
+      },
+      {
+        "line": 279,
+        "text": "expect(owners.rollup('sch:record')).toEqual({"
+      },
+      {
+        "line": 296,
+        "text": "expect(owners.ownerService('ui:single')).toBe('svc:a');"
+      },
+      {
+        "line": 297,
+        "text": "expect(owners.ownerService('uj:single')).toBe('svc:a');"
+      },
+      {
+        "line": 298,
+        "text": "expect(owners.ownerTeam('ui:single')).toBe('team:a');"
+      },
+      {
+        "line": 299,
+        "text": "expect(owners.ownerService('ui:shared')).toBeNull();"
+      },
+      {
+        "line": 300,
+        "text": "expect(owners.ownerTeam('ui:shared')).toBeNull();"
+      },
+      {
+        "line": 301,
+        "text": "expect(owners.navigationTeams('ui:shared')).toEqual(['team:a', 'team:b']);"
+      },
+      {
+        "line": 306,
+        "text": "ops: [{ modify: 'ui:single', set: { from: ['scr:b'] } }],"
+      },
+      {
+        "line": 309,
+        "text": "expect(moved.ownerService('ui:single')).toBeNull();"
+      },
+      {
+        "line": 310,
+        "text": "expect(moved.ownerTeam('ui:single')).toBeNull();"
+      },
+      {
+        "line": 311,
+        "text": "value.services.find((service) => service.id === 'svc:b')!.team = 'team:a';"
+      },
+      {
+        "line": 313,
+        "text": "expect(sameTeam.ownerService('ui:single')).toBeNull();"
+      },
+      {
+        "line": 314,
+        "text": "expect(sameTeam.ownerTeam('ui:single')).toBe('team:a');"
+      },
+      {
+        "line": 319,
+        "text": "['team:a', 'svc:a', 'wi:work', 'tst:proof', 'risk:gap', 'q:owner', 'missing'].map((id) =>"
+      },
+      {
+        "line": 322,
+        "text": ").toEqual(['team:a', 'team:a', 'team:a', 'team:b', 'team:b', 'team:a', null]);"
+      },
+      {
+        "line": 323,
+        "text": "expect(owners.descendants('svc:b')).toContain('h:b');"
+      },
+      {
+        "line": 324,
+        "text": "expect(owners.descendants('svc:b')).not.toContain('svc:b');"
+      },
+      {
+        "line": 325,
+        "text": "expect(owners.descendants('svc:b')).not.toContain('flow:read');"
+      },
+      {
+        "line": 326,
+        "text": "expect(owners.descendants('svc:b')).not.toContain('flow:read#call');"
+      },
+      {
+        "line": 327,
+        "text": "expect(owners.descendants('team:a')).toContain('svc:a');"
+      },
+      {
+        "line": 328,
+        "text": "expect(owners.descendants('team:a')).not.toContain('team:a');"
+      },
+      {
+        "line": 329,
+        "text": "expect(owners.descendants('team:a')).not.toContain('team:b');"
+      },
+      {
+        "line": 330,
+        "text": "expect(owners.descendants('team:a')).not.toContain('flow:read');"
       }
     ],
     "status": "adapter"
@@ -12538,6 +16457,349 @@
   },
   {
     "category": "id construction, parsing or literal",
+    "file": "src/application/plan/graph-queries.test.ts",
+    "hits": [
+      {
+        "line": 13,
+        "text": "services: ['a', 'b', 'c'].map((id) => ({ id: `svc:${id}`, name: id, kind: 'service' })),"
+      },
+      {
+        "line": 16,
+        "text": "id: 'if:b',"
+      },
+      {
+        "line": 17,
+        "text": "service: 'svc:b',"
+      },
+      {
+        "line": 19,
+        "text": "endpoints: [{ id: 'api:b', sig: 'GET /b' }],"
+      },
+      {
+        "line": 24,
+        "text": "id: 'st:data',"
+      },
+      {
+        "line": 27,
+        "text": "owner: 'svc:b',"
+      },
+      {
+        "line": 29,
+        "text": "{ svc: 'svc:a', mode: 'read' },"
+      },
+      {
+        "line": 30,
+        "text": "{ svc: 'svc:c', mode: 'write' },"
+      },
+      {
+        "line": 34,
+        "text": "id: 'st:topic',"
+      },
+      {
+        "line": 37,
+        "text": "owner: 'svc:b',"
+      },
+      {
+        "line": 39,
+        "text": "{ svc: 'svc:a', mode: 'read' },"
+      },
+      {
+        "line": 40,
+        "text": "{ svc: 'svc:c', mode: 'readwrite' },"
+      },
+      {
+        "line": 44,
+        "text": "id: 'st:queue',"
+      },
+      {
+        "line": 48,
+        "text": "{ svc: 'svc:b', mode: 'write' },"
+      },
+      {
+        "line": 49,
+        "text": "{ svc: 'svc:c', mode: 'read' },"
+      },
+      {
+        "line": 55,
+        "text": "id: 'sch:data',"
+      },
+      {
+        "line": 58,
+        "text": "store: 'st:data',"
+      },
+      {
+        "line": 61,
+        "text": "{ id: 'sch:event', name: 'Event', kind: 'payload', store: 'st:topic' },"
+      },
+      {
+        "line": 62,
+        "text": "{ id: 'sch:unplaced', name: 'Unplaced', kind: 'dto' },"
+      },
+      {
+        "line": 64,
+        "text": "graphs: [{ id: 'graph:g', name: 'Graph', gateway: 'svc:b' }],"
+      },
+      {
+        "line": 67,
+        "text": "id: 'gql:read',"
+      },
+      {
+        "line": 71,
+        "text": "graph: 'graph:g',"
+      },
+      {
+        "line": 76,
+        "text": "id: 'msg:event',"
+      },
+      {
+        "line": 78,
+        "text": "producer: 'svc:b',"
+      },
+      {
+        "line": 79,
+        "text": "topic: 'st:topic',"
+      },
+      {
+        "line": 80,
+        "text": "consumers: ['svc:c', 'missing'],"
+      },
+      {
+        "line": 85,
+        "text": "id: 'flow:read',"
+      },
+      {
+        "line": 89,
+        "text": "id: 'flow:read#call',"
+      },
+      {
+        "line": 90,
+        "text": "from: 'svc:a',"
+      },
+      {
+        "line": 91,
+        "text": "to: 'svc:b',"
+      },
+      {
+        "line": 92,
+        "text": "via: 'api:b',"
+      },
+      {
+        "line": 94,
+        "text": "reads: ['sch:data#id', 'sch:event', 'sch:unplaced', 'missing'],"
+      },
+      {
+        "line": 95,
+        "text": "writes: ['sch:data'],"
+      },
+      {
+        "line": 96,
+        "text": "purges: ['st:data'],"
+      },
+      {
+        "line": 99,
+        "text": "id: 'flow:read#event',"
+      },
+      {
+        "line": 100,
+        "text": "from: 'st:topic',"
+      },
+      {
+        "line": 101,
+        "text": "to: 'svc:a',"
+      },
+      {
+        "line": 102,
+        "text": "via: 'msg:event',"
+      },
+      {
+        "line": 106,
+        "text": "id: 'flow:read#graph',"
+      },
+      {
+        "line": 107,
+        "text": "from: 'svc:c',"
+      },
+      {
+        "line": 108,
+        "text": "to: 'svc:b',"
+      },
+      {
+        "line": 109,
+        "text": "via: 'gql:read',"
+      },
+      {
+        "line": 111,
+        "text": "reads: ['sch:data'],"
+      },
+      {
+        "line": 114,
+        "text": "id: 'flow:read#internal',"
+      },
+      {
+        "line": 115,
+        "text": "from: 'svc:a',"
+      },
+      {
+        "line": 116,
+        "text": "to: 'svc:c',"
+      },
+      {
+        "line": 130,
+        "text": "calls: [{ from: 'svc:a', to: 'svc:b', via: 'api:b', kind: 'api', fanout: false }],"
+      },
+      {
+        "line": 132,
+        "text": "{ svc: 'svc:b', ref: 'sch:data#id', store: 'st:data', rw: 'read' },"
+      },
+      {
+        "line": 133,
+        "text": "{ svc: 'svc:b', ref: 'sch:event', store: null, rw: 'read' },"
+      },
+      {
+        "line": 134,
+        "text": "{ svc: 'svc:b', ref: 'sch:unplaced', store: null, rw: 'read' },"
+      },
+      {
+        "line": 135,
+        "text": "{ svc: 'svc:b', ref: 'missing', store: null, rw: 'read' },"
+      },
+      {
+        "line": 136,
+        "text": "{ svc: 'svc:b', ref: 'sch:data', store: 'st:data', rw: 'write' },"
+      },
+      {
+        "line": 138,
+        "text": "purges: [{ svc: 'svc:b', store: 'st:data' }],"
+      },
+      {
+        "line": 140,
+        "text": "services: ['svc:a', 'svc:b'],"
+      },
+      {
+        "line": 145,
+        "text": "calls: [{ from: 'st:topic', to: 'svc:a', via: 'msg:event', kind: 'msg', fanout: false }],"
+      },
+      {
+        "line": 146,
+        "text": "services: ['svc:a'],"
+      },
+      {
+        "line": 151,
+        "text": "refs: ['gql:read'],"
+      },
+      {
+        "line": 152,
+        "text": "operation: 'gql:read',"
+      },
+      {
+        "line": 157,
+        "text": "expect(actingService(g, { from: 'svc:a', to: 'st:data' })).toBe('svc:a');"
+      },
+      {
+        "line": 158,
+        "text": "expect(actingService(g, { from: 'missing', to: 'st:data' })).toBeNull();"
+      },
+      {
+        "line": 162,
+        "text": "expect(canAccess(store, 'svc:b', 'write')).toBe(true);"
+      },
+      {
+        "line": 163,
+        "text": "expect(canAccess(store, 'svc:a', 'read')).toBe(true);"
+      },
+      {
+        "line": 164,
+        "text": "expect(canAccess(store, 'svc:a', 'write')).toBe(false);"
+      },
+      {
+        "line": 165,
+        "text": "expect(canAccess(store, 'svc:c', 'read')).toBe(false);"
+      },
+      {
+        "line": 166,
+        "text": "expect(canAccess(graph().stores[1]!, 'svc:c', 'write')).toBe(true);"
+      },
+      {
+        "line": 167,
+        "text": "expect(canAccess(graph().stores[1]!, 'svc:c', 'read')).toBe(true);"
+      },
+      {
+        "line": 186,
+        "text": "{ from: 'svc:b', to: 'svc:a', kind: 'api', via: 'api:b' },"
+      },
+      {
+        "line": 187,
+        "text": "{ from: 'svc:b', to: 'svc:c', kind: 'api', via: 'gql:read' },"
+      },
+      {
+        "line": 188,
+        "text": "{ from: 'svc:c', to: 'svc:a', kind: 'api', via: null },"
+      },
+      {
+        "line": 189,
+        "text": "{ from: 'svc:b', to: 'svc:c', kind: 'msg', via: 'msg:event' },"
+      },
+      {
+        "line": 190,
+        "text": "{ from: 'svc:b', to: 'svc:a', kind: 'msg', via: 'msg:event' },"
+      },
+      {
+        "line": 191,
+        "text": "{ from: 'svc:b', to: 'svc:a', kind: 'data', via: 'st:data' },"
+      },
+      {
+        "line": 192,
+        "text": "{ from: 'svc:b', to: 'svc:c', kind: 'data', via: 'st:data' },"
+      },
+      {
+        "line": 193,
+        "text": "{ from: 'svc:c', to: 'svc:a', kind: 'msg', via: 'st:topic' },"
+      },
+      {
+        "line": 201,
+        "text": "svc: 'svc:c',"
+      },
+      {
+        "line": 203,
+        "text": "'svc:a',"
+      },
+      {
+        "line": 204,
+        "text": "'if:b',"
+      },
+      {
+        "line": 205,
+        "text": "'api:b',"
+      },
+      {
+        "line": 206,
+        "text": "'st:data',"
+      },
+      {
+        "line": 207,
+        "text": "'st:topic',"
+      },
+      {
+        "line": 208,
+        "text": "'st:queue',"
+      },
+      {
+        "line": 210,
+        "text": "'sch:data',"
+      },
+      {
+        "line": 218,
+        "text": "{ from: 'svc:a', to: 'svc:c', kind: 'api', via: null },"
+      },
+      {
+        "line": 219,
+        "text": "{ from: 'svc:b', to: 'svc:c', kind: 'data', via: 'st:data' },"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
     "file": "src/application/plan/graph-queries.ts",
     "hits": [
       {
@@ -13269,48 +17531,272 @@
     "file": "src/application/plan/mermaid.test.ts",
     "hits": [
       {
-        "line": 71,
+        "line": 72,
         "text": "const out = flowToMermaid(checkout, 'flow:place-order');"
       },
       {
-        "line": 96,
+        "line": 97,
         "text": "const out = flowToMermaid(checkout, 'flow:place-order', { mode: 'asIs' });"
       },
       {
-        "line": 100,
+        "line": 101,
         "text": "expect(flowToMermaid(checkout, 'flow:place-order')).toMatch("
       },
       {
-        "line": 103,
+        "line": 104,
         "text": "const job = flowToMermaid(checkout, 'flow:reindex-search', { mode: 'asIs' });"
       },
       {
-        "line": 109,
+        "line": 110,
         "text": "const out = flowToMermaid(checkout, 'flow:publish-product');"
       },
       {
-        "line": 127,
+        "line": 128,
         "text": "expect(bare.includes(';') || bare.includes('#'), d.where).toBe(false);"
       },
       {
-        "line": 132,
+        "line": 133,
         "text": "expect(mmText('see [[svc:orders]] and [[fld:order#total]]')).toBe('see orders and total');"
       },
       {
-        "line": 137,
+        "line": 138,
         "text": "expect(hasLine(flowToMermaid(checkout, 'flow:place-order'), 'else if it fails')).toBe(true);"
       },
       {
-        "line": 138,
+        "line": 139,
         "text": "expect(flowToMermaid(checkout, 'flow:publish-product', { mode: 'diff' })).toMatch("
       },
       {
-        "line": 152,
+        "line": 153,
         "text": "expect(flowToMermaid(checkout, 'flow:place-order')).toBe("
       },
       {
-        "line": 153,
+        "line": 154,
         "text": "flowToMermaid(checkout, 'flow:place-order'),"
+      },
+      {
+        "line": 165,
+        "text": "{ id: 'svc:web', name: 'Store **front**', kind: 'ui' },"
+      },
+      {
+        "line": 166,
+        "text": "{ id: 'svc:products', name: 'Products', kind: 'service' },"
+      },
+      {
+        "line": 167,
+        "text": "{ id: 'svc:worker', name: 'Worker', kind: 'job' },"
+      },
+      {
+        "line": 170,
+        "text": "{ id: 'st:events', name: 'Product events', kind: 'topic' },"
+      },
+      {
+        "line": 171,
+        "text": "{ id: 'st:db', name: 'Orders', kind: 'database' },"
+      },
+      {
+        "line": 172,
+        "text": "{ id: 'st:queue', name: 'Queue', kind: 'queue' },"
+      },
+      {
+        "line": 175,
+        "text": "{ id: 'sch:product', name: 'Product', kind: 'dto' },"
+      },
+      {
+        "line": 177,
+        "text": "id: 'sch:order',"
+      },
+      {
+        "line": 180,
+        "text": "store: 'st:db',"
+      },
+      {
+        "line": 186,
+        "text": "id: 'if:products',"
+      },
+      {
+        "line": 187,
+        "text": "service: 'svc:products',"
+      },
+      {
+        "line": 189,
+        "text": "endpoints: [{ id: 'api:get', sig: 'GET /products', response: 'sch:product' }],"
+      },
+      {
+        "line": 194,
+        "text": "id: 'msg:changed',"
+      },
+      {
+        "line": 197,
+        "text": "topic: 'st:events',"
+      },
+      {
+        "line": 198,
+        "text": "producer: 'svc:products',"
+      },
+      {
+        "line": 199,
+        "text": "consumers: ['svc:worker'],"
+      },
+      {
+        "line": 203,
+        "text": "{ id: 'scr:page', name: 'Product page', service: 'svc:web' },"
+      },
+      {
+        "line": 204,
+        "text": "{ id: 'scr:done', name: 'Receipt', service: 'svc:web' },"
+      },
+      {
+        "line": 206,
+        "text": "flows: [{ id: 'flow:sequence', name: 'Sequence', steps, ...extra }],"
+      },
+      {
+        "line": 210,
+        "text": "id: `flow:sequence#${name}`,"
+      },
+      {
+        "line": 211,
+        "text": "from: 'svc:web',"
+      },
+      {
+        "line": 212,
+        "text": "to: 'svc:products',"
+      },
+      {
+        "line": 213,
+        "text": "via: 'api:get',"
+      },
+      {
+        "line": 221,
+        "text": "sequencePlan([sequenceStep('fetch', { screen: 'scr:page', logic: 'Only if needed.' })], {"
+      },
+      {
+        "line": 222,
+        "text": "actor: 'Customer',"
+      },
+      {
+        "line": 226,
+        "text": "expect(flowToMermaid(m, 'flow:sequence', { mode: 'asIs' })).toBe("
+      },
+      {
+        "line": 245,
+        "text": "from: 'svc:products',"
+      },
+      {
+        "line": 246,
+        "text": "to: 'st:events',"
+      },
+      {
+        "line": 247,
+        "text": "via: 'msg:changed',"
+      },
+      {
+        "line": 251,
+        "text": "from: 'st:events',"
+      },
+      {
+        "line": 252,
+        "text": "to: 'svc:worker',"
+      },
+      {
+        "line": 253,
+        "text": "via: 'msg:changed',"
+      },
+      {
+        "line": 257,
+        "text": "from: 'svc:worker',"
+      },
+      {
+        "line": 258,
+        "text": "to: 'st:db',"
+      },
+      {
+        "line": 261,
+        "text": "writes: ['sch:order#id', 'sch:order'],"
+      },
+      {
+        "line": 264,
+        "text": "from: 'svc:worker',"
+      },
+      {
+        "line": 265,
+        "text": "to: 'svc:worker',"
+      },
+      {
+        "line": 271,
+        "text": "expect(flowToMermaid(m, 'flow:sequence')).toBe("
+      },
+      {
+        "line": 293,
+        "text": "expect(flowToMermaid(m, 'flow:sequence')).toBe("
+      },
+      {
+        "line": 315,
+        "text": "[sequenceStep('one'), sequenceStep('two', { action: '', via: 'api:unread' })],"
+      },
+      {
+        "line": 316,
+        "text": "{ actor: 'Customer' },"
+      },
+      {
+        "line": 319,
+        "text": "{ id: 'chg:remove', title: 'Stop fetching', ops: [{ remove: 'flow:sequence#one' }] },"
+      },
+      {
+        "line": 321,
+        "text": "const out = flowToMermaid(modelOf(value), 'flow:sequence', { mode: 'diff' });"
+      },
+      {
+        "line": 324,
+        "text": "expect(out).toContain('  S1->>S2: flow:sequence#35;two');"
+      },
+      {
+        "line": 325,
+        "text": "expect(out).not.toContain('api:unread');"
+      },
+      {
+        "line": 326,
+        "text": "expect(flowToMermaid(modelOf(value), 'flow:missing')).toBe('sequenceDiagram\\n  autonumber');"
+      },
+      {
+        "line": 333,
+        "text": "from: 'svc:web',"
+      },
+      {
+        "line": 334,
+        "text": "to: 'st:db',"
+      },
+      {
+        "line": 337,
+        "text": "reads: ['sch:order', 'sch:order#id'],"
+      },
+      {
+        "line": 338,
+        "text": "screen: 'scr:page',"
+      },
+      {
+        "line": 341,
+        "text": "from: 'svc:web',"
+      },
+      {
+        "line": 342,
+        "text": "to: 'st:queue',"
+      },
+      {
+        "line": 345,
+        "text": "screen: 'scr:done',"
+      },
+      {
+        "line": 348,
+        "text": "{ actor: 'Customer' },"
+      },
+      {
+        "line": 351,
+        "text": "expect(flowToMermaid(m, 'flow:sequence')).toBe("
+      },
+      {
+        "line": 369,
+        "text": "' **Bold** *light* __under__ ***strong*** `code` [label](https://example.com) [[sch:item#field]] <tag>;#\\n  more ',"
       }
     ],
     "status": "adapter"
@@ -16390,6 +20876,96 @@
     "status": "adapter"
   },
   {
+    "category": "id construction, parsing or literal",
+    "file": "src/application/scan-explorer/current-callers.test.ts",
+    "hits": [
+      {
+        "line": 33,
+        "text": "logicalId: `svc:${snapshot}`,"
+      },
+      {
+        "line": 90,
+        "text": "component: 'svc:provider',"
+      },
+      {
+        "line": 193,
+        "text": "const result = currentCallers(scans(), { component: 'svc:provider', limit: 20 });"
+      },
+      {
+        "line": 223,
+        "text": "expect(currentCallers(scans(), { component: 'svc:unrelated', limit: 20 }).items).toEqual([]);"
+      },
+      {
+        "line": 227,
+        "text": "const result = currentCallers([caller], { component: 'svc:provider', limit: 20 });"
+      },
+      {
+        "line": 236,
+        "text": "const first = currentCallers(inputs, { component: 'svc:provider', limit: 1 });"
+      },
+      {
+        "line": 245,
+        "text": "const last = currentCallers(inputs, { component: 'svc:provider', limit: 1, offset: 1 });"
+      },
+      {
+        "line": 249,
+        "text": "currentCallers(inputs, { component: 'svc:provider', limit: 1, offset: 5 }),"
+      },
+      {
+        "line": 254,
+        "text": "component: 'svc:provider',"
+      },
+      {
+        "line": 268,
+        "text": "currentCallers(scans(), { component: 'svc:provider', limit: 200, maxBytes: 2_000_000 }).items,"
+      },
+      {
+        "line": 272,
+        "text": "expect(() => currentCallers([], { component: 'svc:provider', limit })).toThrow('limit');"
+      },
+      {
+        "line": 275,
+        "text": "expect(() => currentCallers([], { component: 'svc:provider', limit: 1, offset })).toThrow("
+      },
+      {
+        "line": 280,
+        "text": "expect(() => currentCallers([], { component: 'svc:provider', limit: 1, maxBytes })).toThrow("
+      },
+      {
+        "line": 286,
+        "text": "const result = currentCallers([provider], { component: 'svc:provider', limit: 20 }, retained());"
+      },
+      {
+        "line": 307,
+        "text": "currentCallers([provider], { component: 'svc:provider', limit: 20 }, retained(false))"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "Git-host URL construction, parsing or literal",
+    "file": "src/application/scan-explorer/current-callers.test.ts",
+    "hits": [
+      {
+        "line": 215,
+        "text": "url: `https://github.com/org/caller/blob/${commit}/app/A%20file.ts#L10-L12`,"
+      },
+      {
+        "line": 220,
+        "text": "url: `https://github.com/org/provider/blob/${commit}/app/A%20file.ts#L10-L12`,"
+      },
+      {
+        "line": 298,
+        "text": "url: `https://github.com/org/provider/blob/${commit}/app/A%20file.ts#L10-L12`,"
+      },
+      {
+        "line": 303,
+        "text": "url: `https://code.example/org/retained/blob/${commit}/app/A%20file.ts#L10-L12`,"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
     "category": "Git-host URL construction, parsing or literal",
     "file": "src/application/scan-explorer/current-callers.ts",
     "hits": [
@@ -16646,36 +21222,347 @@
     "file": "src/application/today-handler.test.ts",
     "hits": [
       {
-        "line": 26,
+        "line": 28,
         "text": "const story = handlerStoryOf(model, 'api:pricing-get-price');"
       },
       {
-        "line": 28,
+        "line": 30,
         "text": "expect(handler?.id).toBe('h:pricing-get-price');"
       },
       {
-        "line": 29,
+        "line": 31,
         "text": "expect(drawn(handler?.steps ?? []).map((l) => l.trim())).toContain('Calls api:fx-get-rate');"
       },
       {
-        "line": 39,
+        "line": 41,
         "text": "const story = handlerStoryOf(model, 'api:pricing-get-price');"
       },
       {
-        "line": 43,
+        "line": 45,
         "text": "const call = flat(steps).find((s) => s.kind === 'link' && s.chip.id === 'api:fx-get-rate');"
       },
       {
-        "line": 44,
+        "line": 46,
         "text": "expect(call?.kind === 'link' && call.next.map(({ id }) => id)).toEqual(['h:fx-get-rate']);"
       },
       {
-        "line": 45,
+        "line": 47,
         "text": "expect(story?.stores.map(({ id }) => id)).toContain('st:pricing-db');"
       },
       {
-        "line": 49,
+        "line": 51,
         "text": "expect(handlerStoryOf(model, 'api:nothing-here')).toBeNull();"
+      },
+      {
+        "line": 57,
+        "text": "- if: the order is missing"
+      },
+      {
+        "line": 59,
+        "text": "else: [{ return: 'sch:order' }]"
+      },
+      {
+        "line": 61,
+        "text": "- if: a note exists"
+      },
+      {
+        "line": 69,
+        "text": "{ id: 'sys:a', name: 'Orders' },"
+      },
+      {
+        "line": 70,
+        "text": "{ id: 'sys:b', name: 'Records' },"
+      },
+      {
+        "line": 71,
+        "text": "{ id: 'sys:c', name: 'Delivery' },"
+      },
+      {
+        "line": 74,
+        "text": "{ id: 'svc:a', name: 'Orders', kind: 'service', system: 'sys:a' },"
+      },
+      {
+        "line": 75,
+        "text": "{ id: 'svc:b', name: 'Records', kind: 'service', system: 'sys:b' },"
+      },
+      {
+        "line": 76,
+        "text": "{ id: 'svc:c', name: 'Delivery', kind: 'service', system: 'sys:c' },"
+      },
+      {
+        "line": 77,
+        "text": "{ id: 'svc:outside', name: 'Partner', kind: 'external' },"
+      },
+      {
+        "line": 80,
+        "text": "{ id: 'st:delivery', name: 'Delivery records', kind: 'database', owner: 'svc:c' },"
+      },
+      {
+        "line": 81,
+        "text": "{ id: 'st:db', name: 'Orders database', kind: 'database', owner: 'svc:b' },"
+      },
+      {
+        "line": 82,
+        "text": "{ id: 'st:topic', name: 'Order events', kind: 'topic', owner: 'svc:a' },"
+      },
+      {
+        "line": 85,
+        "text": "{ id: 'sch:order', name: 'Order', kind: 'record', store: 'st:db' },"
+      },
+      {
+        "line": 86,
+        "text": "{ id: 'sch:shipment', name: 'Shipment', kind: 'record', store: 'st:delivery' },"
+      },
+      {
+        "line": 90,
+        "text": "id: 'if:a',"
+      },
+      {
+        "line": 91,
+        "text": "service: 'svc:a',"
+      },
+      {
+        "line": 93,
+        "text": "endpoints: [{ id: 'api:root', sig: 'POST /orders' }],"
+      },
+      {
+        "line": 96,
+        "text": "id: 'if:b',"
+      },
+      {
+        "line": 97,
+        "text": "service: 'svc:b',"
+      },
+      {
+        "line": 100,
+        "text": "{ id: 'api:child', sig: 'GET /orders' },"
+      },
+      {
+        "line": 101,
+        "text": "{ id: 'api:unread', sig: 'GET /unread' },"
+      },
+      {
+        "line": 105,
+        "text": "id: 'if:outside',"
+      },
+      {
+        "line": 106,
+        "text": "service: 'svc:outside',"
+      },
+      {
+        "line": 108,
+        "text": "endpoints: [{ id: 'api:outside', sig: 'POST /partner' }],"
+      },
+      {
+        "line": 113,
+        "text": "id: 'msg:created',"
+      },
+      {
+        "line": 115,
+        "text": "topic: 'st:topic',"
+      },
+      {
+        "line": 116,
+        "text": "producer: 'svc:a',"
+      },
+      {
+        "line": 117,
+        "text": "consumers: ['svc:c'],"
+      },
+      {
+        "line": 122,
+        "text": "id: 'h:root',"
+      },
+      {
+        "line": 123,
+        "text": "component: 'svc:a',"
+      },
+      {
+        "line": 124,
+        "text": "on: 'api:root',"
+      },
+      {
+        "line": 135,
+        "text": "{ call: 'api:child', does: 'Read the order' },"
+      },
+      {
+        "line": 136,
+        "text": "{ publish: 'msg:created' },"
+      },
+      {
+        "line": 137,
+        "text": "{ call: 'api:unread' },"
+      },
+      {
+        "line": 138,
+        "text": "{ call: 'api:outside' },"
+      },
+      {
+        "line": 139,
+        "text": "{ read: 'sch:order', from: 'st:db' },"
+      },
+      {
+        "line": 140,
+        "text": "{ write: 'sch:order', to: 'st:db', does: 'Keep the change' },"
+      },
+      {
+        "line": 147,
+        "text": "{ return: 'sch:order', does: 'Answers with the order' },"
+      },
+      {
+        "line": 152,
+        "text": "{ id: 'h:child', component: 'svc:b', on: 'api:child', steps: [{ call: 'api:root' }] },"
+      },
+      {
+        "line": 154,
+        "text": "id: 'h:created',"
+      },
+      {
+        "line": 155,
+        "text": "component: 'svc:c',"
+      },
+      {
+        "line": 156,
+        "text": "on: 'msg:created',"
+      },
+      {
+        "line": 157,
+        "text": "steps: [{ read: 'sch:shipment', from: 'st:delivery' }, { does: 'Prepare delivery' }],"
+      },
+      {
+        "line": 166,
+        "text": "const story = handlerStoryOf(derive(handlerPlan()), 'api:root');"
+      },
+      {
+        "line": 169,
+        "text": "id: 'h:root',"
+      },
+      {
+        "line": 170,
+        "text": "on: { id: 'api:root' },"
+      },
+      {
+        "line": 171,
+        "text": "component: { id: 'svc:a' },"
+      },
+      {
+        "line": 189,
+        "text": "const story = handlerStoryOf(derive(handlerPlan()), 'api:root')!;"
+      },
+      {
+        "line": 191,
+        "text": "const call = links.find((step) => step.chip.id === 'api:child')!;"
+      },
+      {
+        "line": 196,
+        "text": "reaches: 'svc:b',"
+      },
+      {
+        "line": 200,
+        "text": "expect(ids(call.next)).toEqual(['h:child']);"
+      },
+      {
+        "line": 206,
+        "text": "chip: { id: 'api:root' },"
+      },
+      {
+        "line": 208,
+        "text": "const event = links.find((step) => step.chip.id === 'msg:created')!;"
+      },
+      {
+        "line": 210,
+        "text": "expect(ids(event.next)).toEqual(['h:created']);"
+      },
+      {
+        "line": 211,
+        "text": "expect(ids(story.systems)).toEqual(['sys:b', 'sys:c']);"
+      },
+      {
+        "line": 212,
+        "text": "expect(ids(story.stores)).toEqual(['st:delivery', 'st:db']);"
+      },
+      {
+        "line": 213,
+        "text": "expect(ids(story.unread)).toEqual(['api:unread']);"
+      },
+      {
+        "line": 214,
+        "text": "expect(ids(story.outside)).toEqual(['api:outside']);"
+      },
+      {
+        "line": 216,
+        "text": "chip: { id: 'sch:order' },"
+      },
+      {
+        "line": 217,
+        "text": "store: { id: 'st:db' },"
+      },
+      {
+        "line": 218,
+        "text": "reaches: 'svc:b',"
+      },
+      {
+        "line": 224,
+        "text": "chip: { id: 'sch:order' },"
+      },
+      {
+        "line": 225,
+        "text": "store: { id: 'st:db' },"
+      },
+      {
+        "line": 230,
+        "text": "const root = handlerStoryOf(derive(handlerPlan()), 'api:root')!.handlers[0]!;"
+      },
+      {
+        "line": 254,
+        "text": "chip: { id: 'sch:order' },"
+      },
+      {
+        "line": 257,
+        "text": "{ text: 'Answers with the order', chip: { id: 'sch:order' } },"
+      },
+      {
+        "line": 280,
+        "text": "expect(handlerStoryOf(derive(value), 'api:root')?.handlers[0]?.code?.label).toBe(expected);"
+      },
+      {
+        "line": 286,
+        "text": "{ id: 'h:root', on: 'api:root', component: 'svc:a', steps: [{ call: 'api:c1' }] },"
+      },
+      {
+        "line": 288,
+        "text": "id: `h:c${String(index + 1)}`,"
+      },
+      {
+        "line": 289,
+        "text": "on: `api:c${String(index + 1)}`,"
+      },
+      {
+        "line": 290,
+        "text": "component: 'svc:b',"
+      },
+      {
+        "line": 291,
+        "text": "steps: [{ call: `api:c${String(index + 2)}` }],"
+      },
+      {
+        "line": 294,
+        "text": "let current = handlerStoryOf(derive(value), 'api:root')!.handlers[0]!;"
+      },
+      {
+        "line": 301,
+        "text": "expect(current.id).toBe('h:c4');"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "Git-host URL construction, parsing or literal",
+    "file": "src/application/today-handler.test.ts",
+    "hits": [
+      {
+        "line": 175,
+        "text": "url: 'https://github.com/org/orders/blob/abc/src/Root.cs#L10-L15',"
       }
     ],
     "status": "adapter"
@@ -17573,48 +22460,160 @@
     "file": "src/application/workspace-area.test.ts",
     "hits": [
       {
-        "line": 39,
+        "line": 40,
         "text": "area: 'sell',"
       },
       {
-        "line": 72,
+        "line": 73,
         "text": "area: 'sell',"
       },
       {
-        "line": 111,
+        "line": 112,
         "text": "const view = areaViewOf({ workspace, landscape, area: 'sell', explorer: null });"
       },
       {
-        "line": 121,
+        "line": 122,
         "text": "from: 'svc:shop-bff',"
       },
       {
-        "line": 122,
+        "line": 123,
         "text": "to: 'svc:products',"
       },
       {
-        "line": 125,
+        "line": 126,
         "text": "evidence: ['svc:products'],"
       },
       {
-        "line": 143,
+        "line": 144,
         "text": "{ component: 'svc:shop-bff', column: 0 },"
       },
       {
-        "line": 144,
+        "line": 145,
         "text": "{ component: 'svc:products', column: 1 },"
       },
       {
-        "line": 160,
+        "line": 161,
         "text": "area: 'sell',"
       },
       {
-        "line": 173,
+        "line": 174,
         "text": "area: 'sell',"
       },
       {
-        "line": 189,
+        "line": 190,
         "text": "area: 'sell',"
+      },
+      {
+        "line": 203,
+        "text": "area: 'sell',"
+      },
+      {
+        "line": 208,
+        "text": "area: landscape.areas[0],"
+      },
+      {
+        "line": 223,
+        "text": "expect(products?.components.find((component) => component.id === 'svc:products')).toMatchObject({"
+      },
+      {
+        "line": 224,
+        "text": "id: 'svc:products',"
+      },
+      {
+        "line": 234,
+        "text": "id: 'api:products-get',"
+      },
+      {
+        "line": 239,
+        "text": "response: 'sch:product',"
+      },
+      {
+        "line": 244,
+        "text": "id: 'api:products-update',"
+      },
+      {
+        "line": 248,
+        "text": "request: 'sch:product',"
+      },
+      {
+        "line": 249,
+        "text": "response: 'sch:product',"
+      },
+      {
+        "line": 252,
+        "text": "id: 'svc:product-admin',"
+      },
+      {
+        "line": 263,
+        "text": "id: 'st:products-db',"
+      },
+      {
+        "line": 271,
+        "text": "id: 'st:product-events',"
+      },
+      {
+        "line": 281,
+        "text": "products?.components.find((component) => component.id === 'svc:product-admin')?.dependencies,"
+      },
+      {
+        "line": 284,
+        "text": "id: 'svc:products',"
+      },
+      {
+        "line": 288,
+        "text": "endpointId: 'api:products-update',"
+      },
+      {
+        "line": 295,
+        "text": "?.components.find((component) => component.id === 'svc:shop-bff')?.dependencies,"
+      },
+      {
+        "line": 298,
+        "text": "id: 'svc:order-api',"
+      },
+      {
+        "line": 302,
+        "text": "endpointId: 'api:orders-create',"
+      },
+      {
+        "line": 321,
+        "text": "const component = areaViewOf({ workspace, model: today.model, landscape, area: 'sell', explorer })"
+      },
+      {
+        "line": 323,
+        "text": "?.components.find((item) => item.id === 'svc:products');"
+      },
+      {
+        "line": 337,
+        "text": "expect(areaViewOf({ workspace, landscape, area: 'missing', explorer: null })).toBeNull();"
+      },
+      {
+        "line": 338,
+        "text": "expect(areaViewOf({ workspace, landscape, area: 'fulfil', explorer: null })).toMatchObject({"
+      },
+      {
+        "line": 357,
+        "text": "{ ...component, id: 'lib:shared', type: 'library' as const },"
+      },
+      {
+        "line": 371,
+        "text": "area: 'sell',"
+      },
+      {
+        "line": 376,
+        "text": "'svc:products',"
+      },
+      {
+        "line": 377,
+        "text": "'svc:product-admin',"
+      },
+      {
+        "line": 378,
+        "text": "'st:products-db',"
+      },
+      {
+        "line": 379,
+        "text": "'st:product-events',"
       }
     ],
     "status": "adapter"
@@ -17624,8 +22623,12 @@
     "file": "src/application/workspace-area.test.ts",
     "hits": [
       {
-        "line": 84,
+        "line": 85,
         "text": "href: 'https://github.com/acme/shop',"
+      },
+      {
+        "line": 326,
+        "text": "href: 'https://github.com/acme/products',"
       }
     ],
     "status": "adapter"
@@ -17656,6 +22659,37 @@
       {
         "line": 138,
         "text": "href: homeUrlOf({ repo: name }),"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "src/application/workspace-domain.test.ts",
+    "hits": [
+      {
+        "line": 28,
+        "text": "team: { name: 'Catalogue', slot: 5 },"
+      },
+      {
+        "line": 37,
+        "text": "team: { name: 'Catalogue', slot: 5 },"
+      },
+      {
+        "line": 57,
+        "text": "id: 'flow:publish-product',"
+      },
+      {
+        "line": 114,
+        "text": "team: null,"
+      },
+      {
+        "line": 122,
+        "text": "{ team: null, repos: ['acme/mono/apps/catalogue'] },"
+      },
+      {
+        "line": 123,
+        "text": "{ team: null, repos: ['acme/mono/apps/catalogue'] },"
       }
     ],
     "status": "adapter"
@@ -19061,256 +24095,344 @@
     "file": "src/domain/ids.test.ts",
     "hits": [
       {
-        "line": 12,
+        "line": 15,
         "text": "idToToken,"
       },
       {
-        "line": 33,
+        "line": 37,
         "text": "tokenToId,"
       },
       {
-        "line": 40,
+        "line": 44,
         "text": "expect(id).toBe('h:apply#tx/queue/outbox');"
       },
       {
-        "line": 51,
+        "line": 55,
         "text": "expect(kindOf('sch:response#status')).toBe('field');"
       },
       {
-        "line": 52,
+        "line": 56,
         "text": "expect(kindOf('scr:editor#actions')).toBe('region');"
       },
       {
-        "line": 53,
+        "line": 57,
         "text": "expect(kindOf('sub:orders')).toBe('subscription');"
       },
       {
-        "line": 54,
+        "line": 58,
         "text": "expect(kindOf('term:sku')).toBe('keyTerm');"
       },
       {
-        "line": 55,
+        "line": 59,
         "text": "expect(kindOf('flow:checkout#reserve')).toBe('step');"
       },
       {
-        "line": 56,
+        "line": 60,
         "text": "expect(kindOf('sys:orders#invented-child')).toBeNull();"
       },
       {
-        "line": 57,
+        "line": 61,
         "text": "expect(kindOf('svc:orders#!invented-failure')).toBeNull();"
       },
       {
-        "line": 58,
+        "line": 62,
         "text": "expect(appendChild(childId(parent, 'tx'), 'read')).toBe('h:apply#tx/read');"
       },
       {
-        "line": 59,
+        "line": 63,
         "text": "expect(appendChild(parent, 'read')).toBe('h:apply#read');"
       },
       {
-        "line": 60,
+        "line": 64,
         "text": "expect(isWithinId('h:apply#tx/read', 'h:apply#tx')).toBe(true);"
       },
       {
-        "line": 61,
+        "line": 65,
         "text": "expect(isWithinId('h:apply#tx-other/read', 'h:apply#tx')).toBe(false);"
       },
       {
-        "line": 64,
+        "line": 68,
         "text": "it.each([null, 2, 'unknown:x', 'h:x#', 'h:x#tx//read', 'h:x#!', 'h:x#two words', 'h:x#a#b'])("
       },
       {
-        "line": 73,
+        "line": 77,
         "text": "expect(planEntityTypeOf('flow:x#read')).toBe('step');"
       },
       {
-        "line": 74,
+        "line": 78,
         "text": "expect(planEntityTypeOf('sch:x#id')).toBe('field');"
       },
       {
-        "line": 75,
+        "line": 79,
         "text": "expect(planEntityTypeOf('scr:x#button')).toBe('region');"
       },
       {
-        "line": 76,
+        "line": 80,
         "text": "expect(planEntityTypeOf('h:x#read')).toBeNull();"
       },
       {
-        "line": 77,
+        "line": 81,
         "text": "expect(planEntityTypeOf('api:x')).toBe('endpoint');"
       },
       {
-        "line": 80,
+        "line": 84,
         "text": "expect(idToToken('flow:cancel#publish')).toBe('flow-cancel.publish');"
       },
       {
-        "line": 81,
+        "line": 85,
         "text": "expect(tokenToId('flow-cancel.publish')).toBe('flow:cancel#publish');"
       },
       {
-        "line": 82,
+        "line": 86,
         "text": "expect(tokenToId('svc-orders')).toBe('svc:orders');"
       },
       {
-        "line": 84,
+        "line": 88,
         "text": "expect(tokenToId(token)).toBeNull();"
       },
       {
-        "line": 91,
+        "line": 95,
         "text": "expect(scopedId('care', 'h:x#tx/read')).toBe('care/h:x#tx/read');"
       },
       {
-        "line": 92,
+        "line": 96,
         "text": "expect(scopedId('care', 'other/h:x#tx/read')).toBe('other/h:x#tx/read');"
       },
       {
-        "line": 93,
+        "line": 97,
         "text": "expect(parentOf('flow:x#read')).toBe('flow:x');"
       },
       {
-        "line": 94,
+        "line": 98,
         "text": "expect(parentOf('flow:x')).toBeNull();"
       },
       {
-        "line": 96,
+        "line": 100,
         "text": "expect(prefixOf('svc:orders')).toBe('svc');"
       },
       {
-        "line": 98,
+        "line": 102,
         "text": "expect(hasPrefix('svc:orders', 'svc')).toBe(true);"
       },
       {
-        "line": 101,
+        "line": 105,
         "text": "expect(otherPrefix('svc:orders')).toBe('SVC:ORDERS');"
       },
       {
-        "line": 102,
+        "line": 106,
         "text": "expect(stripPrefix('svc:orders', 'svc')).toBe('orders');"
       },
       {
-        "line": 103,
+        "line": 107,
         "text": "expect(stripPrefix('st:orders', 'svc')).toBe('st:orders');"
       },
       {
-        "line": 107,
+        "line": 111,
         "text": "expect(childPathOf('h:x')).toBeUndefined();"
       },
       {
-        "line": 108,
+        "line": 112,
         "text": "expect(splitChildId('h:x#tx/read')).toEqual(['h:x', 'tx/read']);"
       },
       {
-        "line": 109,
+        "line": 113,
         "text": "expect(colonLocalId('svc:orders')).toBe('orders');"
       },
       {
-        "line": 111,
+        "line": 115,
         "text": "expect(localId('svc:orders')).toBe('orders');"
       },
       {
-        "line": 112,
+        "line": 116,
         "text": "expect(lastChildId('h:x#read')).toBe('read');"
       },
       {
-        "line": 113,
+        "line": 117,
         "text": "expect(isQualifiedId('svc:orders')).toBe(true);"
       },
       {
-        "line": 115,
+        "line": 119,
         "text": "expect(hasChildPath('h:x#read')).toBe(true);"
       },
       {
-        "line": 116,
+        "line": 120,
         "text": "expect(isDisplayId('svc:orders')).toBe(true);"
       },
       {
-        "line": 117,
+        "line": 121,
         "text": "expect(startsWithId('svc:orders')).toBe(true);"
       },
       {
-        "line": 118,
+        "line": 122,
         "text": "expect(isTextId('svc:orders')).toBe(true);"
       },
       {
-        "line": 119,
+        "line": 123,
         "text": "expect(isTextId('svc:orders are new')).toBe(false);"
       },
       {
-        "line": 126,
+        "line": 130,
         "text": "resolveAlias('h:old#tx/read', {"
       },
       {
-        "line": 127,
+        "line": 131,
         "text": "'h:old#tx/read': { to: 'h:middle#fetch' },"
       },
       {
-        "line": 128,
+        "line": 132,
         "text": "'h:middle#fetch': { to: 'h:new#load' },"
       },
       {
-        "line": 129,
+        "line": 133,
         "text": "'h:old': { to: 'h:other' },"
       },
       {
-        "line": 131,
+        "line": 135,
         "text": ").toEqual({ id: 'h:new#load', used: ['h:old#tx/read', 'h:middle#fetch'], problem: null });"
       },
       {
-        "line": 132,
+        "line": 136,
         "text": "expect(resolveAlias('svc:current', {}).used).toEqual([]);"
       },
       {
-        "line": 136,
+        "line": 140,
         "text": "expect(resolveAlias('h:old#tx/read', { 'h:old': { to: 'h:new' } })).toEqual({"
       },
       {
-        "line": 138,
+        "line": 142,
         "text": "used: ['h:old'],"
       },
       {
-        "line": 139,
+        "line": 143,
         "text": "problem: 'h:old#tx/read needs an explicit alias because h:old was retired',"
       },
       {
-        "line": 141,
+        "line": 145,
         "text": "expect(resolveAlias('h:old#tx/read', { 'h:old#tx': { to: 'h:new#queue' } }).used).toEqual(["
       },
       {
-        "line": 142,
+        "line": 146,
         "text": "'h:old#tx',"
       },
       {
-        "line": 144,
+        "line": 148,
         "text": "expect(resolveAlias('h:old#tx/read', { 'h:old#tx-other': { to: 'h:new#queue' } }).id).toBe("
       },
       {
-        "line": 145,
+        "line": 149,
         "text": "'h:old#tx/read',"
       },
       {
-        "line": 151,
+        "line": 155,
         "text": "resolveAlias('svc:old', { 'svc:old': { to: null, reason: 'Retired without replacement' } }),"
       },
       {
-        "line": 152,
+        "line": 156,
         "text": ").toEqual({ id: null, used: ['svc:old'], problem: 'Retired without replacement' });"
       },
       {
-        "line": 153,
+        "line": 157,
         "text": "expect(resolveAlias('svc:old', { 'svc:old': { to: null } }).problem).toBe("
       },
       {
-        "line": 154,
+        "line": 158,
         "text": "'Alias svc:old needs a reason',"
       },
       {
-        "line": 157,
+        "line": 161,
         "text": "resolveAlias('svc:a', { 'svc:a': { to: 'svc:b' }, 'svc:b': { to: 'svc:a' } }).problem,"
       },
       {
-        "line": 158,
+        "line": 162,
         "text": ").toBe('Alias cycle at svc:a');"
+      },
+      {
+        "line": 169,
+        "text": "expect(hasAnyPrefix('gql:read', ['api', 'gql'])).toBe(true);"
+      },
+      {
+        "line": 170,
+        "text": "expect(hasAnyPrefix('api:read', ['api', 'gql'])).toBe(true);"
+      },
+      {
+        "line": 171,
+        "text": "expect(hasAnyPrefix('api:', ['api'])).toBe(true);"
+      },
+      {
+        "line": 173,
+        "text": "expect(hasAnyPrefix('msg:read', ['api', 'gql'])).toBe(false);"
+      },
+      {
+        "line": 174,
+        "text": "expect(hasAnyPrefix('api:read', [])).toBe(false);"
+      },
+      {
+        "line": 180,
+        "text": "expect(hasChildPrefix('flow:read#one', 'flow')).toBe(true);"
+      },
+      {
+        "line": 181,
+        "text": "expect(hasChildPrefix('flow:read#', 'flow')).toBe(true);"
+      },
+      {
+        "line": 182,
+        "text": "expect(hasChildPrefix('flow:#one', 'flow')).toBe(false);"
+      },
+      {
+        "line": 183,
+        "text": "expect(hasChildPrefix('flow:read', 'flow')).toBe(false);"
+      },
+      {
+        "line": 185,
+        "text": "expect(hasChildPrefix('sch:read#one', 'flow')).toBe(false);"
+      },
+      {
+        "line": 188,
+        "text": "expect(firstFlowReference('[[svc:reader]] then [[flow:read]] and [[flow:save]]')).toBe("
+      },
+      {
+        "line": 189,
+        "text": "'flow:read',"
+      },
+      {
+        "line": 191,
+        "text": "expect(firstFlowReference('[[flow:]] then [[flow:read#one]]')).toBe('flow:read#one');"
+      },
+      {
+        "line": 192,
+        "text": "expect(firstFlowReference('[[outer [[flow:read]]')).toBe('flow:read');"
+      },
+      {
+        "line": 193,
+        "text": "expect(firstFlowReference('flow:read')).toBeUndefined();"
+      },
+      {
+        "line": 194,
+        "text": "expect(firstFlowReference('[[flow:read]')).toBeUndefined();"
+      },
+      {
+        "line": 203,
+        "text": "'svc:a',"
+      },
+      {
+        "line": 204,
+        "text": "'sch:Order#item_id',"
+      },
+      {
+        "line": 206,
+        "text": "'h:entry#step',"
+      },
+      {
+        "line": 207,
+        "text": "'h:entry#tx/read',"
+      },
+      {
+        "line": 208,
+        "text": "'h:entry#!failure',"
+      },
+      {
+        "line": 210,
+        "text": "'svc:',"
       }
     ],
     "status": "adapter"
@@ -19460,67 +24582,75 @@
         "text": "term: 'keyTerm',"
       },
       {
-        "line": 80,
+        "line": 78,
+        "text": "return hasPrefix(id, prefix) && id.indexOf('#') > prefix.length + 1;"
+      },
+      {
+        "line": 82,
+        "text": "return /\\[\\[(flow:[^\\]]+)\\]\\]/u.exec(text)?.[1];"
+      },
+      {
+        "line": 91,
         "text": "return id.split(':')[0] ?? '';"
       },
       {
-        "line": 85,
+        "line": 96,
         "text": "return id?.split('#', 1)[0];"
       },
       {
-        "line": 88,
+        "line": 99,
         "text": "return id.split('#')[1];"
       },
       {
-        "line": 100,
+        "line": 111,
         "text": "return typeof id === 'string' && id.indexOf('#') > 0 ? rootId(id) : null;"
       },
       {
-        "line": 138,
+        "line": 149,
         "text": "return Object.hasOwn(ID_PREFIXES, key);"
       },
       {
-        "line": 146,
+        "line": 157,
         "text": "const base = ID_PREFIXES[key];"
       },
       {
-        "line": 154,
+        "line": 165,
         "text": "export function idToToken(id: string): string {"
       },
       {
-        "line": 155,
+        "line": 166,
         "text": "return clean(id.replace(':', '-').replace('#', '.'));"
       },
       {
-        "line": 159,
+        "line": 170,
         "text": "export function tokenToId(token: string): string | null {"
       },
       {
-        "line": 162,
+        "line": 173,
         "text": "if (dash < 1 || dash === token.length - 1 || !Object.hasOwn(ID_PREFIXES, prefix)) return null;"
       },
       {
-        "line": 196,
+        "line": 207,
         "text": "export const colonLocalId = (id: string): string => id.split(':')[1] ?? id;"
       },
       {
-        "line": 197,
+        "line": 208,
         "text": "export const lastChildId = (id: string): string => id.split('#').pop() ?? id;"
       },
       {
-        "line": 199,
+        "line": 210,
         "text": "parent.includes('#') ? `${parent}/${child}` : childId(parent, child);"
       },
       {
-        "line": 200,
+        "line": 211,
         "text": "export const isQualifiedId = (id: string): boolean => id.includes(':');"
       },
       {
-        "line": 202,
+        "line": 213,
         "text": "typeof id === 'string' && id.includes('#');"
       },
       {
-        "line": 205,
+        "line": 216,
         "text": "export const keyTermIdPattern = /^term:[a-z0-9-]+$/u;"
       }
     ],
@@ -19563,6 +24693,37 @@
       {
         "line": 43,
         "text": "readonly area: string;"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "src/domain/plain-text.test.ts",
+    "hits": [
+      {
+        "line": 5,
+        "text": "const label = (id: string) => (id === 'svc:a' ? 'Orders' : `Unknown ${id}`);"
+      },
+      {
+        "line": 8,
+        "text": "expect(plain('# Heading\\n**Read** [[svc:a]]\\n\\n- [[unknown:x]]\\n- `code`', label)).toBe("
+      },
+      {
+        "line": 11,
+        "text": "expect(plainTitle('*Read* [[svc:a]] [docs](https://example.com)', label)).toBe("
+      },
+      {
+        "line": 14,
+        "text": "expect(clip('**Read** [[svc:a]]', label, 8)).toBe('Read Or…');"
+      },
+      {
+        "line": 20,
+        "text": "expect(plain('[[not an id]] [[h:x#tx/read]] [[sch:Order#item_id]]', label)).toBe("
+      },
+      {
+        "line": 21,
+        "text": "'[[not an id]] [[h:x#tx/read]] Unknown sch:Order#item_id',"
       }
     ],
     "status": "adapter"
@@ -24762,11 +29923,23 @@
     "hits": [
       {
         "line": 10,
+        "text": "const isReference = (id: string) => ['svc:orders', 'svc:x'].includes(id);"
+      },
+      {
+        "line": 19,
         "text": "kinds('See [[svc:orders]], `code`, **bold**, *em* and [docs](https://x.org/a).'),"
       },
       {
-        "line": 78,
+        "line": 87,
         "text": "inlineText(parseInline('**a** [[svc:x]] [t](https://u.v) https://w.x'), (id) =>"
+      },
+      {
+        "line": 97,
+        "text": "parseGenericInline('[[chapter one]] [[svc:a]]', (text) => text === 'chapter one'),"
+      },
+      {
+        "line": 100,
+        "text": "{ key: '15', kind: 'text', text: ' [[svc:a]]' },"
       }
     ],
     "status": "adapter"
@@ -24776,11 +29949,11 @@
     "file": "src/shared/markdown.test.ts",
     "hits": [
       {
-        "line": 27,
+        "line": 36,
         "text": "const runs = parseInline('Read https://github.com/a/b/blob/main/x.go. Then (https://y.org)');"
       },
       {
-        "line": 30,
+        "line": 39,
         "text": "href: 'https://github.com/a/b/blob/main/x.go',"
       }
     ],
@@ -24806,15 +29979,19 @@
     "file": "src/shared/plain-text.test.ts",
     "hits": [
       {
-        "line": 5,
-        "text": "const label = (id: string) => (id === 'svc:orders' ? 'Orders' : id);"
-      },
-      {
-        "line": 9,
-        "text": "expect(plain('# Head\\n**Bold** to [[svc:orders]]\\n\\n- one\\n- *two*\\n> said', label)).toBe("
+        "line": 10,
+        "text": "const isReference = (id: string) => id === 'svc:orders';"
       },
       {
         "line": 18,
+        "text": "const label = (id: string) => (id === 'svc:orders' ? 'Orders' : id);"
+      },
+      {
+        "line": 22,
+        "text": "expect(plain('# Head\\n**Bold** to [[svc:orders]]\\n\\n- one\\n- *two*\\n> said', label)).toBe("
+      },
+      {
+        "line": 31,
         "text": "expect(plainTitle('A > `b`  [[svc:orders]] **c', label)).toBe('A > b Orders c');"
       }
     ],
@@ -25072,20 +30249,32 @@
     "file": "src/ui/markdown.test.tsx",
     "hits": [
       {
-        "line": 16,
+        "line": 15,
+        "text": "isReference={(id) => id === 'svc:a'}"
+      },
+      {
+        "line": 17,
         "text": "'**Bold** *em* `code` [[svc:a]] <b>raw</b>\\n\\n- one\\n1. two\\n> said [x](https://x.org)'"
       },
       {
-        "line": 24,
+        "line": 25,
         "text": "'svc:a',"
       },
       {
-        "line": 33,
-        "text": "render(<InlineMarkdown renderRef={(id) => <i>{id}!</i>} text=\"[[svc:a]] https://e.com/x/y\" />);"
+        "line": 36,
+        "text": "isReference={(id) => id === 'svc:a'}"
       },
       {
-        "line": 34,
+        "line": 38,
+        "text": "text=\"[[svc:a]] https://e.com/x/y\""
+      },
+      {
+        "line": 41,
         "text": "expect(screen.getByText('svc:a!')).toBeTruthy();"
+      },
+      {
+        "line": 43,
+        "text": "render(<InlineMarkdown isReference={(id) => id === 'svc:a'} text={null} />);"
       }
     ],
     "status": "adapter"
@@ -25197,15 +30386,23 @@
     "file": "test/architecture.test.ts",
     "hits": [
       {
-        "line": 48,
+        "line": 39,
+        "text": "code: 'export const step = (id: string): boolean => /^flow:[^#]+#/u.exec(id) !== null;\\n',"
+      },
+      {
+        "line": 45,
+        "text": "code: 'export const flow = (text: string): unknown => /\\\\[\\\\[(flow:[^\\\\]]+)\\\\]\\\\]/u.exec(text);\\n',"
+      },
+      {
+        "line": 78,
         "text": "code: 'export const systemId = (slug: string): string => `sys:${slug}`;\\n',"
       },
       {
-        "line": 54,
+        "line": 84,
         "text": "code: \"export const slugOf = (id: string): string => id.replace(/^svc:/u, '');\\n\","
       },
       {
-        "line": 66,
+        "line": 96,
         "text": "code: \"export const root = (id: string): string => id.split('#')[0] ?? '';\\n\","
       }
     ],
@@ -25216,11 +30413,11 @@
     "file": "test/architecture.test.ts",
     "hits": [
       {
-        "line": 34,
+        "line": 64,
         "text": "code: 'export const home = (repo: string): string => `https://github.com/${repo}`;\\n',"
       },
       {
-        "line": 60,
+        "line": 90,
         "text": "code: 'export const issue = (repo: string): string => `https://github.com/${repo}/issues/1`;\\n',"
       }
     ],

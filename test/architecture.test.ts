@@ -22,6 +22,36 @@ const component = (body: string) =>
 
 const CASES: readonly Case[] = [
   {
+    name: 'non-capturing regex groups are not model prefixes',
+    file: 'src/application/ordinal-suffix.ts',
+    code: 'export const isOrdinal = (text: string): boolean => /^(?:st|nd)$/u.test(text);\n',
+    rule: null,
+  },
+  {
+    name: 'regular-expression prefix tests use the shared parser',
+    file: 'src/application/bad-regex-prefix.ts',
+    code: 'export const isCall = (id: string): boolean => /^(?:api|gql):/u.test(id);\n',
+    rule: 'groundwork/identity-boundary',
+  },
+  {
+    name: 'regular-expression child matching uses the shared parser',
+    file: 'src/application/bad-regex-child.ts',
+    code: 'export const step = (id: string): boolean => /^flow:[^#]+#/u.exec(id) !== null;\n',
+    rule: 'groundwork/identity-boundary',
+  },
+  {
+    name: 'flow-reference extraction uses the shared parser',
+    file: 'src/application/bad-regex-reference.ts',
+    code: 'export const flow = (text: string): unknown => /\\[\\[(flow:[^\\]]+)\\]\\]/u.exec(text);\n',
+    rule: 'groundwork/identity-boundary',
+  },
+  {
+    name: 'shared prefix classification is allowed',
+    file: 'src/application/shared-prefix.ts',
+    code: "import { hasAnyPrefix } from '@/domain/ids';\n\nexport const isCall = (id: string): boolean => hasAnyPrefix(id, ['api', 'gql']);\n",
+    rule: null,
+  },
+  {
     name: 'native package imports preserve the domain boundary',
     file: 'src/ui/bad-native-id.ts',
     code: "import { buildId } from '#domain/ids';\n\nexport const systemId = (slug: string): string => buildId('sys', slug);\n",

@@ -2,7 +2,7 @@ import type { Model } from '@/application/plan/derive';
 import { type FlowMode, type FlowStep, flowSteps, isNewLink } from '@/application/plan/flow-steps';
 import { prop, typeOf } from '@/application/plan/ids';
 import { type Rect, wrapText } from '@/application/plan-viz-flow-geometry';
-import { hasPrefix, rootId } from '@/domain/ids';
+import { hasAnyPrefix, hasPrefix, rootId } from '@/domain/ids';
 
 export type NodeKind = 'service' | 'topic' | 'store';
 export type HopKind = 'api' | 'msg' | 'data';
@@ -112,7 +112,7 @@ function nodeKind(model: Model, id: string): NodeKind {
 }
 
 const hopKind = (via: string): HopKind => {
-  if (/^(?:api|gql):/u.test(via)) return 'api';
+  if (hasAnyPrefix(via, ['api', 'gql'])) return 'api';
   return hasPrefix(via, 'msg') ? 'msg' : 'data';
 };
 

@@ -40,11 +40,12 @@ jobs:
         env:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
   batch:
+    name: batch (${{ matrix.index }})
     needs: plan
     if: needs.plan.outputs.matrix != '{"include":[]}'
     strategy:
       fail-fast: false
-      max-parallel: 8
+      max-parallel: 20
       matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
     runs-on: ubuntu-latest
     timeout-minutes: 90

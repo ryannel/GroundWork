@@ -1,7 +1,8 @@
 import type { Model } from '@/application/plan/derive';
 import { labelsOf, refLabel } from '@/application/plan/ref-label';
 import { isDisplayId } from '@/domain/ids';
-import { cutAtWord, plain } from '@/shared/plain-text';
+import { plain } from '@/domain/plain-text';
+import { cutAtWord } from '@/shared/plain-text';
 
 // The small wordings the data and decision vizzes share: numbers as words, counts, first sentences, enum values.
 

@@ -12,7 +12,7 @@ import {
 import type { Routed } from '@/application/plan-viz-flow-route';
 import { LINE } from '@/application/plan-viz-flow-size';
 import { rootId } from '@/domain/ids';
-import { plainTitle } from '@/shared/plain-text';
+import { plainTitle } from '@/domain/plain-text';
 
 /** What the drawing needs besides the graph. */
 export interface DrawCtx {

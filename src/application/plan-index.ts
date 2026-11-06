@@ -1,8 +1,8 @@
 import { derive, type Model } from '@/application/plan/derive';
 import type { BaseInfo } from '@/application/plan/plan-base';
+import { clip } from '@/domain/plain-text';
 import type { Workspace } from '@/domain/workspace';
 import { componentHomes } from '@/domain/workspace-links';
-import { clip } from '@/shared/plain-text';
 
 import type { PlanInput } from './plan-footprint';
 import { planHref } from './plan-pages';

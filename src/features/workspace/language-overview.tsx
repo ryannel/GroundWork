@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 
 import type { LanguagePage } from '@/application/language-page';
+import { isAuthoredReference } from '@/domain/ids';
 import { plural } from '@/shared/text';
 import { Callout } from '@/ui/callout';
 import { Markdown } from '@/ui/markdown';
@@ -31,7 +32,9 @@ export function LanguageOverview({ page }: { readonly page: LanguagePage }) {
         meta={`${plural(keyTerms, 'key term')}, ${plural(page.words.length, 'word')} in the code`}
         title="Language"
       />
-      {page.summary === null ? null : <Markdown text={page.summary} />}
+      {page.summary === null ? null : (
+        <Markdown isReference={isAuthoredReference} text={page.summary} />
+      )}
       <Source source={page.source} />
       {keyTerms === 0 ? (
         <Callout title="No key terms yet">
@@ -53,7 +56,9 @@ export function LanguageOverview({ page }: { readonly page: LanguagePage }) {
 export function DomainLanguage({ page }: { readonly page: LanguagePage }) {
   return (
     <>
-      {page.summary === null || page.summary === '' ? null : <Markdown text={page.summary} />}
+      {page.summary === null || page.summary === '' ? null : (
+        <Markdown isReference={isAuthoredReference} text={page.summary} />
+      )}
       <Suspense fallback={null}>
         <LanguageDirectory page={page} />
       </Suspense>

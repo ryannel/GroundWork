@@ -73,3 +73,31 @@ The architecture explicitly brings whole touched files under its 75% bar. The wo
 Eleven focused tests cover the partition, native Git failure, report validation and weighted score. A real two-mutation Stryker smoke run passed, and its completed JSON report passed the same validator used by CI. The final required check remains named `mutate`.
 
 The full local check with this batching change passes: 3,878 tests, the architecture suite, static checks, lint and coverage (96.96% lines; 86.26% branches). The refreshed inventory remains at zero uncentralised runtime operations. Build, page budgets and frozen-baseline comparisons are unchanged by this CI-only follow-up and retain the standalone-command head's recorded successful results. The completed batched CI mutation score must pass before merge.
+
+## Completed mutation failure and regression proof
+
+The completed 20-batch run at `188c0a7e` failed the unchanged 75% gate: 12,865 of 21,116 active mutants were detected (60.93%). This was a real test-quality gap across the 134 whole touched pure-layer files. No file was removed from scope and no threshold was lowered. The failure log is retained as `verification/pr2/mutation-completed-initial-failure.log` (GitHub run 42131932127).
+
+Regression tests now assert the public behaviour of ownership and placement gaps, caller bindings, handler narratives, flow geometry and grouping, data links, migration milestones and work-item warnings, change traceability, browser transport, store summaries, decisions, version words, workspace readers and Mermaid exports. The completed targeted runs and their source hashes are recorded in `mutation-targeted-runs.json`; `mutation-regression-estimate.json` is a diagnostic estimate only. A local whole-scope diagnostic was interrupted after a Vitest cache collision; its incomplete incremental output is excluded from the estimate and is not merge proof. The final CI aggregate must still complete and pass.
+
+The source audit also found eight prefix-regex sites: `plan-viz-flow-key.ts:31`, `plan-viz-flow-graph.ts:115`, `plan/flow-steps.ts:74`, `plan/derive-edges.ts:247`, `plan/derive-contracts.ts:104`, `features/plan/viz/journey/journey-value.tsx:78`, `plan-viz-compat.ts:91` and `plan-story-journey-execution.ts:33`. They now call the shared ID module with the existing authored-link grammar preserved. Architecture negatives reject grouped prefix tests, child tests and authored flow-link regexes; ordinary non-capturing text regexes remain valid.
+
+All 193 PR 1 baseline hashes remain unchanged (`baseline-integrity-regressions.json`). Both source worktrees remain clean at their recorded original revisions (`source-worktrees-regressions.json`). The production build and all 599 page budgets pass again, with the largest still 1,021 KB. Personal compares exactly; Acme has only the pre-existing precisely allowed 43-byte wrapper variation. No allowance has been added or broadened.
+
+The user has authorised merging completed PRs and continuing the stack. Proceed from each updated main in a fresh worktree, while keeping PR 7's human acceptance and the PR 9 cache decision as explicit human decisions.
+
+## Generic Markdown and model reference policy
+
+The strengthened regex check also caught `src/shared/markdown.ts:30`, whose legacy authored-reference validator belonged in the domain identity authority. The generic Markdown parser now receives a reference predicate; the UI passes it through without importing the model. Feature callers supply `isAuthoredReference` from `src/domain/ids.ts`. `src/domain/plain-text.ts` supplies the same policy to the generic plain-text helpers, retaining their existing model-facing signatures.
+
+The grammar is unchanged: arbitrary lower-case prefixes and the former word/dot/hash/hyphen body remain accepted, while spaces, slash child paths and failure markers remain visible literal text in this legacy Markdown reader. New canonical route and citation work must not silently broaden this legacy grammar. Tests prove both the exact grammar and that the generic parser can accept a caller's unrelated reference syntax. Focused tests pass (41 tests across six files), as does TypeScript.
+
+This correction and the earlier regex sites expand the complete mutation scope from the initial 134 files to 148. The earlier targeted estimate covered the original scope only and cannot establish the expanded scope's final score. All 148 files must pass the weighted CI gate. Failed local checks are retained beside the successful reruns; the first regression check caught formatting, and the next caught two test-style errors plus this final shared-layer validator.
+
+The corrected Markdown build passes, all 599 budgets pass again (maximum 1,021 KB), and the repeated Personal, Acme and Volvo comparisons each report zero unexplained differences. Personal and Volvo are exact matches; Acme retains only its existing allowance. The reports are `verification/pr2/markdown-<workspace>-comparison.json`. The build's earlier duplicate-directive failure is retained as `build-markdown-final.log`; `build-markdown-corrected.log` records the corrected result.
+
+The final inventory reports **zero** uncentralised runtime operations, retaining 8,060 literal/helper candidates and 1,612 consumer rows. All 20 explorer capabilities remain unproven and none is retired. `mutation-pending-scope.json` records the expanded 148 whole-file paths and source hashes; it is a scope record, not a passing score.
+
+The final complete local check passes (`check-markdown-corrected.log`): 4,084 tests in 520 test files, with the existing 27 files/125 tests skipped. Type coverage is 100%; pure-layer coverage is 97.48% lines and 87.65% branches. Lint, architecture tests and every static check pass. Duplication remains 0.38%. The expanded CI mutation gate remains required before merge.
+
+New terminal logs have trailing whitespace and terminal carriage returns normalised for Git; their outcomes and messages are retained. Raw local copies are under `/tmp/groundwork-pr2-raw-verification-logs`.
