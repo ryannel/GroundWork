@@ -3,10 +3,12 @@ import 'server-only';
 import { parse } from 'yaml';
 import type { z } from 'zod';
 
+import { legacyViewOf } from '@/application/legacy-view';
 import type { Domain, System, Workspace } from '@/domain/workspace';
 import { checkWorkspace } from '@/domain/workspace-check';
 import { pathIn, listFolder, readText } from '@/infrastructure/disk';
 
+import { readModelIfCanonical } from './canonical-model';
 import { readSystemNarratives } from './system-narratives';
 import { workspaceFolders } from './workspace-folders';
 import { untilEdited } from './workspace-memo';
@@ -20,7 +22,12 @@ const remembered = untilEdited<readonly Workspace[]>();
 export async function readWorkspaces(root?: string): Promise<readonly Workspace[]> {
   return remembered(root, 'workspaces', async () => {
     const found = await workspaceFolders(root);
-    return Promise.all([...found.values()].map(async (folder) => readWorkspace(folder)));
+    return Promise.all(
+      [...found].map(async ([id, folder]) => {
+        const model = await readModelIfCanonical(id, root);
+        return model === null ? readWorkspace(folder) : legacyViewOf(model).workspace;
+      }),
+    );
   });
 }
 

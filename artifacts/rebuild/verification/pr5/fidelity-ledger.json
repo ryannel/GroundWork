@@ -1,0 +1,436 @@
+{
+  "personal": {
+    "capture": "artifacts/rebuild/verification/pr5/comparison-complete/personal",
+    "allFactsExactlyEqualToPr4": true,
+    "factFields": [
+      "areaViews",
+      "attribution",
+      "authoredSystemEdges",
+      "codeHomes",
+      "derived",
+      "explorer",
+      "keyTerms",
+      "landscape",
+      "languages",
+      "lookupFacts",
+      "plan",
+      "plans",
+      "repositoryStates",
+      "scans",
+      "targets",
+      "workspace"
+    ],
+    "retainedTodayNodes": 8,
+    "routesWithIdenticalStatusHeadingsLinksAndPayload": 24,
+    "transportChangesSincePr4": [
+      {
+        "file": "route-261b2bba3795574b1e40.json.gz",
+        "route": "/",
+        "previousBytes": 29151,
+        "currentBytes": 29164,
+        "delta": 13
+      },
+      {
+        "file": "route-d27f1e2788e7e51292e6.json.gz",
+        "route": "/personal/",
+        "previousBytes": 31640,
+        "currentBytes": 31597,
+        "delta": -43
+      },
+      {
+        "file": "route-d1914e9ed927de457d05.json.gz",
+        "route": "/personal/journeys/",
+        "previousBytes": 29557,
+        "currentBytes": 29514,
+        "delta": -43
+      },
+      {
+        "file": "route-f221f4d7b4c7bc432779.json.gz",
+        "route": "/personal/plans/",
+        "previousBytes": 29892,
+        "currentBytes": 29849,
+        "delta": -43
+      },
+      {
+        "file": "route-35c2f4e59f52d4d9fbf1.json.gz",
+        "route": "/personal/programmes/",
+        "previousBytes": 29946,
+        "currentBytes": 29903,
+        "delta": -43
+      },
+      {
+        "file": "route-0021c27a2e73d2045b7c.json.gz",
+        "route": "/personal/side-projects/",
+        "previousBytes": 29565,
+        "currentBytes": 29577,
+        "delta": 12
+      },
+      {
+        "file": "route-cb002733d9297e597a4d.json.gz",
+        "route": "/personal/side-projects/allotment-log/",
+        "previousBytes": 55275,
+        "currentBytes": 55287,
+        "delta": 12
+      },
+      {
+        "file": "route-8aa717d138d5a1fc7e0b.json.gz",
+        "route": "/personal/side-projects/flows/",
+        "previousBytes": 25944,
+        "currentBytes": 25956,
+        "delta": 12
+      },
+      {
+        "file": "route-e818402d13566d98cc4a.json.gz",
+        "route": "/personal/side-projects/interfaces/",
+        "previousBytes": 29573,
+        "currentBytes": 29585,
+        "delta": 12
+      },
+      {
+        "file": "route-1d8745920b26fa96f628.json.gz",
+        "route": "/personal/side-projects/language/",
+        "previousBytes": 25748,
+        "currentBytes": 25760,
+        "delta": 12
+      },
+      {
+        "file": "route-0e121729c0edc86e3d01.json.gz",
+        "route": "/personal/side-projects/map/",
+        "previousBytes": 34532,
+        "currentBytes": 34544,
+        "delta": 12
+      },
+      {
+        "file": "route-b14cfbd61e133d1460d1.json.gz",
+        "route": "/personal/side-projects/plans/",
+        "previousBytes": 25975,
+        "currentBytes": 25987,
+        "delta": 12
+      },
+      {
+        "file": "route-9ef2dd71e26f9ae21443.json.gz",
+        "route": "/personal/side-projects/target/",
+        "previousBytes": 26700,
+        "currentBytes": 26712,
+        "delta": 12
+      },
+      {
+        "file": "route-4c363f7b30e4b25b5dc2.json.gz",
+        "route": "/personal/things/?id=st-allotment-db",
+        "previousBytes": 32892,
+        "currentBytes": 32849,
+        "delta": -43
+      },
+      {
+        "file": "route-1b1fccadc460a4e104c4.json.gz",
+        "route": "/personal/things/?id=svc-allotment-app",
+        "previousBytes": 37377,
+        "currentBytes": 37334,
+        "delta": -43
+      }
+    ],
+    "newDifferencesAreBytesOnly": true,
+    "unexplainedAtCaptureTime": 2
+  },
+  "acme": {
+    "capture": "artifacts/rebuild/verification/pr5/comparison-complete/acme",
+    "allFactsExactlyEqualToPr4": true,
+    "factFields": [
+      "areaViews",
+      "attribution",
+      "authoredSystemEdges",
+      "codeHomes",
+      "derived",
+      "explorer",
+      "keyTerms",
+      "landscape",
+      "languages",
+      "lookupFacts",
+      "plan",
+      "plans",
+      "repositoryStates",
+      "scans",
+      "targets",
+      "workspace"
+    ],
+    "retainedTodayNodes": 80,
+    "routesWithIdenticalStatusHeadingsLinksAndPayload": 35,
+    "transportChangesSincePr4": [
+      {
+        "file": "route-261b2bba3795574b1e40.json.gz",
+        "route": "/",
+        "previousBytes": 29151,
+        "currentBytes": 29164,
+        "delta": 13
+      },
+      {
+        "file": "route-5387805077e15b1937d9.json.gz",
+        "route": "/acme/",
+        "previousBytes": 43232,
+        "currentBytes": 43189,
+        "delta": -43
+      },
+      {
+        "file": "route-ef89c688670f88909aad.json.gz",
+        "route": "/acme/catalogue/",
+        "previousBytes": 34716,
+        "currentBytes": 34728,
+        "delta": 12
+      },
+      {
+        "file": "route-8d8347d739b5b69b3666.json.gz",
+        "route": "/acme/catalogue/flows/",
+        "previousBytes": 112661,
+        "currentBytes": 112673,
+        "delta": 12
+      },
+      {
+        "file": "route-d02ef6d42e51312da620.json.gz",
+        "route": "/acme/catalogue/interfaces/",
+        "previousBytes": 40547,
+        "currentBytes": 40559,
+        "delta": 12
+      },
+      {
+        "file": "route-8695f71d28aee9634f2f.json.gz",
+        "route": "/acme/catalogue/language/",
+        "previousBytes": 26945,
+        "currentBytes": 26957,
+        "delta": 12
+      },
+      {
+        "file": "route-10d143d9e6e81d289335.json.gz",
+        "route": "/acme/catalogue/map/",
+        "previousBytes": 46978,
+        "currentBytes": 46990,
+        "delta": 12
+      },
+      {
+        "file": "route-70370555f544e09df429.json.gz",
+        "route": "/acme/catalogue/plans/",
+        "previousBytes": 27129,
+        "currentBytes": 27184,
+        "delta": 55
+      },
+      {
+        "file": "route-4c02be800d98953c2acc.json.gz",
+        "route": "/acme/catalogue/products/",
+        "previousBytes": 157262,
+        "currentBytes": 157274,
+        "delta": 12
+      },
+      {
+        "file": "route-35ed255c17f3a1ddb01f.json.gz",
+        "route": "/acme/catalogue/target/",
+        "previousBytes": 27897,
+        "currentBytes": 27909,
+        "delta": 12
+      },
+      {
+        "file": "route-639fe7d6c385e2a73fc9.json.gz",
+        "route": "/acme/journeys/",
+        "previousBytes": 40389,
+        "currentBytes": 40346,
+        "delta": -43
+      },
+      {
+        "file": "route-a5d555b60865ca6553f6.json.gz",
+        "route": "/acme/language/",
+        "previousBytes": 44955,
+        "currentBytes": 44912,
+        "delta": -43
+      },
+      {
+        "file": "route-4478e3dd494569e83fbe.json.gz",
+        "route": "/acme/partners/",
+        "previousBytes": 36849,
+        "currentBytes": 36806,
+        "delta": -43
+      },
+      {
+        "file": "route-9cfabff74e65383b4393.json.gz",
+        "route": "/acme/programmes/",
+        "previousBytes": 36968,
+        "currentBytes": 36925,
+        "delta": -43
+      },
+      {
+        "file": "route-4f5901ed06540b959e16.json.gz",
+        "route": "/acme/things/?id=api-products-get",
+        "previousBytes": 46713,
+        "currentBytes": 46670,
+        "delta": -43
+      },
+      {
+        "file": "route-b74e9d9ab1170f2c9f39.json.gz",
+        "route": "/acme/things/?id=msg-product-changed",
+        "previousBytes": 52233,
+        "currentBytes": 52190,
+        "delta": -43
+      },
+      {
+        "file": "route-69e145634256e9eea7c9.json.gz",
+        "route": "/acme/things/?id=sch-product",
+        "previousBytes": 51123,
+        "currentBytes": 51080,
+        "delta": -43
+      },
+      {
+        "file": "route-7d4150c8474fdb6f87ae.json.gz",
+        "route": "/acme/things/?id=svc-products",
+        "previousBytes": 53141,
+        "currentBytes": 53098,
+        "delta": -43
+      }
+    ],
+    "newDifferencesAreBytesOnly": true,
+    "unexplainedAtCaptureTime": 1
+  },
+  "volvo-cars": {
+    "capture": "artifacts/rebuild/verification/pr5/comparison-complete/volvo-cars",
+    "allFactsExactlyEqualToPr4": true,
+    "factFields": [
+      "areaViews",
+      "attribution",
+      "authoredSystemEdges",
+      "codeHomes",
+      "derived",
+      "explorer",
+      "keyTerms",
+      "landscape",
+      "languages",
+      "lookupFacts",
+      "plan",
+      "plans",
+      "repositoryStates",
+      "scans",
+      "targets",
+      "workspace"
+    ],
+    "retainedTodayNodes": 16334,
+    "routesWithIdenticalStatusHeadingsLinksAndPayload": 129,
+    "transportChangesSincePr4": [
+      {
+        "file": "route-261b2bba3795574b1e40.json.gz",
+        "route": "/",
+        "previousBytes": 29151,
+        "currentBytes": 29164,
+        "delta": 13
+      },
+      {
+        "file": "route-3ae4b1ad7d8ef5f05b79.json.gz",
+        "route": "/volvo-cars/commercial-backbone/",
+        "previousBytes": 122524,
+        "currentBytes": 122536,
+        "delta": 12
+      },
+      {
+        "file": "route-5e1c6c106e3c3eba21c1.json.gz",
+        "route": "/volvo-cars/commercial-backbone/assortment/",
+        "previousBytes": 1033168,
+        "currentBytes": 1033180,
+        "delta": 12
+      },
+      {
+        "file": "route-912907e0040dff6cd2a8.json.gz",
+        "route": "/volvo-cars/commercial-backbone/flows/",
+        "previousBytes": 206972,
+        "currentBytes": 206984,
+        "delta": 12
+      },
+      {
+        "file": "route-2b7790c22c996ad4bccc.json.gz",
+        "route": "/volvo-cars/commercial-backbone/interfaces/",
+        "previousBytes": 504042,
+        "currentBytes": 504054,
+        "delta": 12
+      },
+      {
+        "file": "route-e00f500bd8af73d85754.json.gz",
+        "route": "/volvo-cars/commercial-backbone/language/",
+        "previousBytes": 131344,
+        "currentBytes": 131356,
+        "delta": 12
+      },
+      {
+        "file": "route-0a30e3374592fb5b66dc.json.gz",
+        "route": "/volvo-cars/commercial-backbone/map/",
+        "previousBytes": 929783,
+        "currentBytes": 929795,
+        "delta": 12
+      },
+      {
+        "file": "route-728ebef51a20cfeff519.json.gz",
+        "route": "/volvo-cars/commercial-backbone/plans/",
+        "previousBytes": 78345,
+        "currentBytes": 78357,
+        "delta": 12
+      },
+      {
+        "file": "route-9ee6593dd2e7c6f3efba.json.gz",
+        "route": "/volvo-cars/commercial-backbone/target/",
+        "previousBytes": 123282,
+        "currentBytes": 123294,
+        "delta": 12
+      },
+      {
+        "file": "route-871309667e3c5b4bb3ee.json.gz",
+        "route": "/volvo-cars/journeys/",
+        "previousBytes": 93715,
+        "currentBytes": 93672,
+        "delta": -43
+      },
+      {
+        "file": "route-a6fb6c2427433f7dfd10.json.gz",
+        "route": "/volvo-cars/partners/",
+        "previousBytes": 58777,
+        "currentBytes": 58734,
+        "delta": -43
+      },
+      {
+        "file": "route-66819131a4009c479277.json.gz",
+        "route": "/volvo-cars/people/",
+        "previousBytes": 74646,
+        "currentBytes": 74603,
+        "delta": -43
+      },
+      {
+        "file": "route-3a9321061c67a0298213.json.gz",
+        "route": "/volvo-cars/plans/",
+        "previousBytes": 75646,
+        "currentBytes": 75603,
+        "delta": -43
+      },
+      {
+        "file": "route-5e2473ce331617b773bc.json.gz",
+        "route": "/volvo-cars/reference/",
+        "previousBytes": 61973,
+        "currentBytes": 61930,
+        "delta": -43
+      },
+      {
+        "file": "route-2852d67c520228a04001.json.gz",
+        "route": "/volvo-cars/things/?id=h-assortment-admin-apply-car-plan",
+        "previousBytes": 1055783,
+        "currentBytes": 1055740,
+        "delta": -43
+      },
+      {
+        "file": "route-dd0dfd59d7952fb044b5.json.gz",
+        "route": "/volvo-cars/things/?id=sch-assortment-admin-classification",
+        "previousBytes": 555681,
+        "currentBytes": 555638,
+        "delta": -43
+      },
+      {
+        "file": "route-30a4a455a43d3edecfa3.json.gz",
+        "route": "/volvo-cars/value-flows/",
+        "previousBytes": 298650,
+        "currentBytes": 298607,
+        "delta": -43
+      }
+    ],
+    "newDifferencesAreBytesOnly": true,
+    "unexplainedAtCaptureTime": 1
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "originalBase": "441af89badd455e71a1ba3d18e6745469631a32d",
+  "integratedBase": "e630260d70907f51faf2822d589776e1a0126e17",
+  "upstreamPullRequest": "https://github.com/ryannel/GroundWork/pull/68",
+  "upstreamFiles": [
+    "AGENTS.md",
+    "docs/architecture.md",
+    "lefthook.yml",
+    "tools/checks/hooks.test.ts"
+  ],
+  "frozenApplicationFilesUnchanged": true,
+  "buildBudgetAndMutationInputsUnchanged": true,
+  "currentFullCheck": "The updated mandatory pre-push npm run check and the pull request CI validate the added hook tests. No duplicate explicit full check is run immediately before pushing."
+}

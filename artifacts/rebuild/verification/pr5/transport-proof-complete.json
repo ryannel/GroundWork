@@ -1,0 +1,162 @@
+[
+  {
+    "workspace": "personal",
+    "file": "route-d1914e9ed927de457d05.json.gz",
+    "route": "/personal/journeys/",
+    "previousBytes": 29557,
+    "previousReplayBytes": 29557,
+    "previousCaptureVsReplayDelta": 0,
+    "currentBytes": 29514,
+    "delta": -43,
+    "samples": {
+      "pr4": {
+        "bytes": 29557,
+        "raw": "route-d1914e9ed927de457d05-pr4-9a2ff17acdb901a0.html.gz",
+        "sha256": "9a2ff17acdb901a09b084f030ee40006ce8da6d58d043c75254e60453d2efde7"
+      },
+      "pr5": {
+        "bytes": 29514,
+        "raw": "route-d1914e9ed927de457d05-pr5-ac2092f89174a5c4.html.gz",
+        "sha256": "ac2092f89174a5c4decfbed75fd727d43f7ade7b2cb1c54e26b3fe4e06a3f636"
+      }
+    },
+    "observations": {
+      "pr4": [
+        29557
+      ],
+      "pr5": [
+        29514
+      ]
+    },
+    "identicalNormalisedHtmlAndFlight": true,
+    "knownDomBytes": 0,
+    "knownEscapedFlightBytes": 0,
+    "routerEntriesAdded": 0,
+    "wrapperDeltaBytes": -43,
+    "assetDeltaBytes": 0,
+    "wrapperCounts": {
+      "pr4": 11,
+      "pr5": 10
+    }
+  },
+  {
+    "workspace": "personal",
+    "file": "route-1b1fccadc460a4e104c4.json.gz",
+    "route": "/personal/things/?id=svc-allotment-app",
+    "previousBytes": 37377,
+    "previousReplayBytes": 37377,
+    "previousCaptureVsReplayDelta": 0,
+    "currentBytes": 37334,
+    "delta": -43,
+    "samples": {
+      "pr4": {
+        "bytes": 37377,
+        "raw": "route-1b1fccadc460a4e104c4-pr4-b2612f1565fa1611.html.gz",
+        "sha256": "b2612f1565fa1611f8c81bfb0cdce50a478d2b0d25867e76589ae7f409df4d04"
+      },
+      "pr5": {
+        "bytes": 37334,
+        "raw": "route-1b1fccadc460a4e104c4-pr5-194d59cada21a66b.html.gz",
+        "sha256": "194d59cada21a66b791a4b1759680ac3c4bc4ddc26e7cb3ab89bd98092c766d8"
+      }
+    },
+    "observations": {
+      "pr4": [
+        37377
+      ],
+      "pr5": [
+        37334
+      ]
+    },
+    "identicalNormalisedHtmlAndFlight": true,
+    "knownDomBytes": 0,
+    "knownEscapedFlightBytes": 0,
+    "routerEntriesAdded": 0,
+    "wrapperDeltaBytes": -43,
+    "assetDeltaBytes": 0,
+    "wrapperCounts": {
+      "pr4": 12,
+      "pr5": 11
+    }
+  },
+  {
+    "workspace": "acme",
+    "file": "route-639fe7d6c385e2a73fc9.json.gz",
+    "route": "/acme/journeys/",
+    "previousBytes": 40389,
+    "previousReplayBytes": 40389,
+    "previousCaptureVsReplayDelta": 0,
+    "currentBytes": 40346,
+    "delta": -43,
+    "samples": {
+      "pr4": {
+        "bytes": 40389,
+        "raw": "route-639fe7d6c385e2a73fc9-pr4-d27b7366b0c4a64a.html.gz",
+        "sha256": "d27b7366b0c4a64aa8aef493b804a93a6fffcd149298f4429ed4a13418bf0695"
+      },
+      "pr5": {
+        "bytes": 40346,
+        "raw": "route-639fe7d6c385e2a73fc9-pr5-0f506d83852f4732.html.gz",
+        "sha256": "0f506d83852f47326496a6d0ffd04f24e0d6db637861fea69fc232717ccb7488"
+      }
+    },
+    "observations": {
+      "pr4": [
+        40389
+      ],
+      "pr5": [
+        40346
+      ]
+    },
+    "identicalNormalisedHtmlAndFlight": true,
+    "knownDomBytes": 0,
+    "knownEscapedFlightBytes": 0,
+    "routerEntriesAdded": 0,
+    "wrapperDeltaBytes": -43,
+    "assetDeltaBytes": 0,
+    "wrapperCounts": {
+      "pr4": 13,
+      "pr5": 12
+    }
+  },
+  {
+    "workspace": "volvo-cars",
+    "file": "route-5e2473ce331617b773bc.json.gz",
+    "route": "/volvo-cars/reference/",
+    "previousBytes": 61973,
+    "previousReplayBytes": 61973,
+    "previousCaptureVsReplayDelta": 0,
+    "currentBytes": 61930,
+    "delta": -43,
+    "samples": {
+      "pr4": {
+        "bytes": 61973,
+        "raw": "route-5e2473ce331617b773bc-pr4-d5934a2295d1f9e7.html.gz",
+        "sha256": "d5934a2295d1f9e717e63ad20eca14045d63df2a3e59b74fe744dd2033c86c86"
+      },
+      "pr5": {
+        "bytes": 61930,
+        "raw": "route-5e2473ce331617b773bc-pr5-091e909bdb7f4187.html.gz",
+        "sha256": "091e909bdb7f4187ea3999d6ba40bd81165163f6f7b03292d8a5648c7575b5e3"
+      }
+    },
+    "observations": {
+      "pr4": [
+        61973
+      ],
+      "pr5": [
+        61930
+      ]
+    },
+    "identicalNormalisedHtmlAndFlight": true,
+    "knownDomBytes": 0,
+    "knownEscapedFlightBytes": 0,
+    "routerEntriesAdded": 0,
+    "wrapperDeltaBytes": -43,
+    "assetDeltaBytes": 0,
+    "wrapperCounts": {
+      "pr4": 16,
+      "pr5": 15
+    }
+  }
+]

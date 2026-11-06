@@ -2,9 +2,8 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import type { ReactNode } from 'react';
 
-import { findWorkspace, workspaceHref } from '@/application/workspace-paths';
+import { workspaceHref } from '@/application/workspace-paths';
 import { workspaceRegistrations } from '@/infrastructure/workspace-folders';
-import { readWorkspaces } from '@/infrastructure/workspace-store';
 import { ScopeProvider } from '@/ui/scope-switcher.client';
 
 interface Params {
@@ -18,8 +17,9 @@ export async function generateMetadata({
   readonly params: Promise<Params>;
 }): Promise<Metadata> {
   const { workspace: id } = await params;
-  const workspace = findWorkspace(await readWorkspaces(), id);
-  if (workspace === null) return {};
+  const registered = await workspaceRegistrations();
+  const workspace = registered.find((entry) => entry.id === id);
+  if (workspace === undefined) return {};
   const { name } = workspace;
   return { title: { default: name, template: `%s · ${name}` } };
 }

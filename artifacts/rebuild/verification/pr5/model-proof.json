@@ -1,0 +1,142 @@
+{
+  "fixture": "Handwritten synthetic examples, not claims about a company.",
+  "before": {
+    "counts": {
+      "domains": 1,
+      "systems": 1,
+      "components": 5,
+      "entries": 11,
+      "handlers": 4,
+      "steps": 27,
+      "evidence": 23,
+      "edges": 11,
+      "gaps": 14
+    },
+    "selectedFlowBytes": 24653,
+    "nodeIds": [
+      "h:confirm#load",
+      "h:confirm#missing",
+      "h:confirm#missing/not-found",
+      "h:confirm#missing/known",
+      "h:confirm#already-confirmed",
+      "h:confirm#already-confirmed/unchanged",
+      "h:confirm#tx",
+      "h:confirm#tx/save",
+      "h:confirm#tx/queue",
+      "h:confirm#lines",
+      "h:confirm#lines/reserve",
+      "h:confirm#enrich",
+      "h:confirm#enrich/order",
+      "h:confirm#enrich/payment",
+      "h:confirm#deliver",
+      "h:confirm#deliver/send",
+      "h:confirm#deliver/failed",
+      "h:confirm#cleanup",
+      "h:confirm#cleanup/flush",
+      "h:confirm#cleanup/log-failed",
+      "h:confirm#cleanup/release",
+      "h:confirm#pause",
+      "h:confirm#done",
+      "h:confirm#!db-down"
+    ],
+    "failure": "{\n  \"id\": \"db-down\",\n  \"when\": \"The database is unavailable\",\n  \"return\": 503,\n  \"cites\": [\n    {\n      \"kind\": \"code\",\n      \"repo\": \"example/orders\",\n      \"commit\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\n      \"path\": \"apps/ordering/src/Confirm.ts\",\n      \"lines\": [\n        70,\n        72\n      ]\n    }\n  ]\n}"
+  },
+  "after": {
+    "counts": {
+      "domains": 1,
+      "systems": 1,
+      "components": 5,
+      "entries": 10,
+      "handlers": 4,
+      "steps": 28,
+      "evidence": 23,
+      "edges": 11,
+      "gaps": 13
+    },
+    "selectedFlowBytes": 25438,
+    "nodeIds": [
+      "h:confirm#load",
+      "h:confirm#missing",
+      "h:confirm#missing/not-found",
+      "h:confirm#missing/known",
+      "h:confirm#already-confirmed",
+      "h:confirm#already-confirmed/unchanged",
+      "h:confirm#tx",
+      "h:confirm#tx/save",
+      "h:confirm#tx/audit",
+      "h:confirm#tx/queue",
+      "h:confirm#lines",
+      "h:confirm#lines/reserve",
+      "h:confirm#enrich",
+      "h:confirm#enrich/order",
+      "h:confirm#enrich/payment",
+      "h:confirm#deliver",
+      "h:confirm#deliver/send",
+      "h:confirm#deliver/failed",
+      "h:confirm#cleanup",
+      "h:confirm#cleanup/flush",
+      "h:confirm#cleanup/log-failed",
+      "h:confirm#cleanup/release",
+      "h:confirm#pause",
+      "h:confirm#done",
+      "h:confirm#!db-down"
+    ],
+    "failure": "{\n  \"id\": \"db-down\",\n  \"when\": \"The database is unavailable\",\n  \"return\": 502,\n  \"cites\": [\n    {\n      \"kind\": \"code\",\n      \"repo\": \"example/orders\",\n      \"commit\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\n      \"path\": \"apps/ordering/src/Confirm.ts\",\n      \"lines\": [\n        70,\n        72\n      ]\n    }\n  ]\n}"
+  },
+  "serialisableRoundTrip": true,
+  "allLeavesCited": true,
+  "beforeAndAfterValidate": true,
+  "explicitDrills": [
+    {
+      "site": "h:confirm#lines/reserve",
+      "label": "api:charge",
+      "href": "/model-fixture/entries/?id=api-charge"
+    },
+    {
+      "site": "h:confirm#enrich/payment",
+      "label": "api:charge",
+      "href": "/model-fixture/entries/?id=api-charge"
+    },
+    {
+      "site": "h:confirm#deliver/send",
+      "label": "sub:on-confirmed",
+      "href": "/model-fixture/entries/?id=sub-on-confirmed"
+    }
+  ],
+  "externalCall": {
+    "id": "api:charge",
+    "title": "api:charge",
+    "kind": "endpoint",
+    "component": "Payments (external)",
+    "summary": null,
+    "callers": [
+      {
+        "label": "Ordering API",
+        "site": "h:confirm#lines/reserve"
+      },
+      {
+        "label": "Ordering API",
+        "site": "h:confirm#enrich/payment"
+      }
+    ],
+    "effects": [],
+    "handlers": [],
+    "gaps": [
+      "api:charge: No handler detail is recorded."
+    ]
+  },
+  "unknownJob": {
+    "id": "job:unknown",
+    "title": "job:unknown",
+    "kind": "job",
+    "component": "Ordering API",
+    "summary": null,
+    "callers": [],
+    "effects": [],
+    "handlers": [],
+    "gaps": [
+      "job:unknown: No handler detail is recorded.",
+      "job:unknown: No schedule or trigger is recorded."
+    ]
+  }
+}

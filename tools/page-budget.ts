@@ -4,7 +4,10 @@
 // built site, follows its links from the home page, weighs each page once, and stops the site.
 import { spawn } from 'node:child_process';
 import { createServer } from 'node:net';
+import path from 'node:path';
 import { setTimeout as sleep } from 'node:timers/promises';
+
+import { workspaceRegistrations } from '@/infrastructure/workspace-folders';
 
 import { judge, kilobytes, pageLinks, type PageSize } from './page-budget-rules';
 
@@ -12,6 +15,16 @@ import { judge, kilobytes, pageLinks, type PageSize } from './page-budget-rules'
 const LIMIT = 1024 * 1024;
 const TOP = 10;
 const AT_ONCE = 8;
+// Query-driven flows are not reached by the path-only link crawler.
+const SEEDS = [
+  '/',
+  '/model-fixture/entries/?id=api-confirm',
+  '/model-fixture/entries/?id=api-confirm&plan=plan-confirm&version=before',
+  '/model-fixture/entries/?id=api-confirm&plan=plan-confirm&version=after',
+  '/model-fixture/entries/?id=sub-on-confirmed',
+  '/model-fixture/entries/?id=api-charge',
+  '/model-fixture/entries/?id=job-unknown',
+];
 
 async function freePort(): Promise<number> {
   return new Promise((resolve, reject) => {
@@ -40,29 +53,32 @@ async function ready(origin: string, tries: number): Promise<void> {
 
 async function weigh(
   url: URL,
+  required: boolean,
 ): Promise<{ readonly size: PageSize; readonly links: readonly string[] } | null> {
   const response = await fetch(url);
   if (!response.ok || !(response.headers.get('content-type') ?? '').includes('text/html')) {
-    if (response.status >= 500) {
-      throw new Error(`${url.pathname} failed: ${String(response.status)}`);
+    if (required || response.status >= 500) {
+      throw new Error(`${url.pathname}${url.search} failed: ${String(response.status)}`);
     }
     return null;
   }
   const html = await response.text();
   return {
-    size: { page: url.pathname, bytes: Buffer.byteLength(html) },
+    size: { page: `${url.pathname}${url.search}`, bytes: Buffer.byteLength(html) },
     links: pageLinks(html, url),
   };
 }
 
 async function crawl(origin: string): Promise<PageSize[]> {
-  const seen = new Set(['/']);
+  const seen = new Set(SEEDS);
   const sizes: PageSize[] = [];
-  let queue = ['/'];
+  let queue = SEEDS;
   while (queue.length > 0) {
     const batch = queue.slice(0, AT_ONCE);
     queue = queue.slice(AT_ONCE);
-    const results = await Promise.all(batch.map(async (page) => weigh(new URL(page, origin))));
+    const results = await Promise.all(
+      batch.map(async (page) => weigh(new URL(page, origin), SEEDS.includes(page))),
+    );
     for (const result of results) {
       if (result === null) continue;
       sizes.push(result.size);
@@ -92,11 +108,17 @@ function report(all: readonly PageSize[]): void {
 
 const port = await freePort();
 const origin = `http://127.0.0.1:${String(port)}`;
+const registered = await workspaceRegistrations();
+const folders = new Set([
+  ...registered.map((workspace) => workspace.folder),
+  path.resolve('test/fixtures/model'),
+]);
 const site = spawn(
   'node_modules/.bin/next',
   ['start', '--port', String(port), '--hostname', '127.0.0.1'],
   {
     stdio: ['ignore', 'ignore', 'inherit'],
+    env: { ...process.env, GROUNDWORK_WORKSPACES: [...folders].join(path.delimiter) },
   },
 );
 try {

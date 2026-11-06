@@ -84,6 +84,15 @@ describe('model identities', () => {
     expect(idToToken('flow:cancel#publish')).toBe('flow-cancel.publish');
     expect(tokenToId('flow-cancel.publish')).toBe('flow:cancel#publish');
     expect(tokenToId('svc-orders')).toBe('svc:orders');
+    for (const id of [
+      'dom:orders',
+      'plan:confirm',
+      'sub:on-confirmed',
+      'job:relay',
+      'ui:confirm',
+    ]) {
+      expect(tokenToId(idToToken(id))).toBe(id);
+    }
     for (const token of ['svc-', '-orders', 'unknown-orders', 'orders']) {
       expect(tokenToId(token)).toBeNull();
     }
