@@ -1,0 +1,11 @@
+summary: Words agreed for this synthetic fixture.
+source: { title: Fixture glossary }
+groups: [{ id: orders, name: Orders }]
+terms:
+  - id: term:order
+    name: Order
+    group: orders
+    means: A request to buy the selected items.
+    aliases: [Purchase]
+    anchors: [{ to: 'con:order', fit: same }]
+    examples: [{ context: everyday, sentence: The customer confirms an order. }]

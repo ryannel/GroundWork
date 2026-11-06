@@ -1,0 +1,12 @@
+summary: Keep one ordering boundary.
+stages: [{ id: confirm, name: Confirm order, term: 'term:order', owners: ['sys:ordering'] }]
+shifts:
+  [
+    {
+      id: consolidate,
+      name: Consolidate,
+      today: Separate writers,
+      target: One writer,
+      cites: ['sys:ordering'],
+    },
+  ]

@@ -1,4 +1,4 @@
-/* Generated from schema/plan.schema.json by tools/generate-plan-types.ts. Do not edit: run `npm run generate`. */
+/* Generated from schema/legacy-plan.schema.json by tools/generate-plan-types.ts. Do not edit: run `npm run generate`. */
 
 /**
  * This interface was referenced by `Plan`'s JSON-Schema

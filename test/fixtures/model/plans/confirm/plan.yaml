@@ -1,0 +1,18 @@
+meta: { id: 'plan:confirm', title: Explain confirmation, programme: 'prog:orders', status: draft }
+problem: { summary: The fixture needs an explicit confirmation label. }
+changes:
+  - id: chg:label
+    title: Label confirmation
+    ops:
+      - { modify: 'h:confirm#tx/save', set: { say: Save the confirmed order } }
+      - { modify: 'sch:order#status', set: { note: The confirmed state } }
+      - { modify: 'scr:checkout#confirm', set: { name: Confirm order } }
+      - { modify: 'h:confirm#!db-down', set: { return: 502 } }
+      - {
+          add: step,
+          into: 'h:confirm#tx',
+          after: 'h:confirm#tx/save',
+          value: { id: audit, does: Record confirmation, cites: ['ev:source'] },
+        }
+      - { deprecate: 'api:legacy', replaced_by: 'api:confirm', reason: Fixture replacement }
+      - { remove: 'job:manual', reason: No longer needed in this synthetic plan }

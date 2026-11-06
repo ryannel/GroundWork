@@ -1,0 +1,22 @@
+
+> groundwork@0.0.0 check:quick
+> node --import ./tools/register.ts tools/checks/quick.ts
+
+Checking 66 task files.
+Checking formatting...
+All matched files use Prettier code style!
+Format: 0.6s
+Configuration changed: also run npm run check before handover.
+Lint: 7.7s
+Types: 2.9s
+
+ RUN  v5.0.4 /Users/RNEL/.codex/worktrees/rebuild-pr3/groundWork
+
+
+ Test Files  231 passed (231)
+   Affected  231 of 550 test files (related to 12 files)
+      Tests  2126 passed (2126)
+   Start at  04:53:50
+   Duration  44.67s (tests 44%, import 40%, environment 14%, setup 1%)
+
+Related tests: 48.3s

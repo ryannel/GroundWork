@@ -1,0 +1,7 @@
+id: ev:closure
+complete: false
+dependencies:
+  - ev:dependency
+searches:
+  - Confirm
+containingScope: apps/ordering

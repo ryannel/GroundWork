@@ -47,16 +47,18 @@ function isUri(text: string): boolean {
 
 async function compile(): Promise<Validators> {
   const schema: unknown = JSON.parse(
-    await readText(pathIn(process.cwd(), 'schema', 'plan.schema.json')),
+    await readText(pathIn(process.cwd(), 'schema', 'legacy-plan.schema.json')),
   );
   const id = prop(schema, '$id');
-  if (!isRecord(schema) || typeof id !== 'string') throw new Error('plan.schema.json has no $id');
+  if (!isRecord(schema) || typeof id !== 'string') {
+    throw new Error('legacy-plan.schema.json has no $id');
+  }
   const ajv = new Ajv2020({ allErrors: true, strict: false, discriminator: true, verbose: true });
   addFormats(ajv);
   ajv.addFormat('uri', isUri);
   ajv.addSchema(schema);
   const plan = ajv.getSchema<Plan>(id);
-  if (plan === undefined) throw new Error('plan.schema.json did not compile');
+  if (plan === undefined) throw new Error('legacy-plan.schema.json did not compile');
   return { plan, def: <T>(name: string) => ajv.getSchema<T>(`${id}#/$defs/${name}`) };
 }
 
@@ -103,7 +105,7 @@ export async function checkPlanData(
 export async function planDef<T>(name: string): Promise<ValidateFunction<T>> {
   const { def } = await validators();
   const check = def<T>(name);
-  if (check === undefined) throw new Error(`plan.schema.json has no $defs/${name}`);
+  if (check === undefined) throw new Error(`legacy-plan.schema.json has no $defs/${name}`);
   return check;
 }
 

@@ -1,0 +1,13 @@
+- id: h:invalid
+  component: svc:ordering
+  on: api:confirm
+  steps:
+    - { id: missing-store, read: 'sch:order', cites: ['ev:source'] }
+    - { id: two-effects, call: 'api:confirm', publish: 'msg:confirmed', cites: ['ev:source'] }
+    - { id: uncited, return: 404 }
+    - id: duplicate
+      parallel:
+        - { lane: First, steps: [{ id: same, does: First computation }] }
+        - { lane: Second, steps: [{ id: same, does: Second computation }] }
+  failures:
+    - { id: db-down, when: Unavailable, return: 503 }

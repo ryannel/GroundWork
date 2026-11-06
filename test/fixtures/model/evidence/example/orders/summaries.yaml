@@ -1,0 +1,19 @@
+kind: summary
+id: ev:summary
+host: ev:host
+source: ev:source
+implementation: Confirm
+context:
+  arguments: []
+  captures: []
+  typeArguments: []
+  configuration: []
+  policy: []
+operations: []
+effects:
+  state: unresolved
+  reason: missing_evidence
+  gap: ev:gap
+frontiers: []
+cites:
+  - ev:source

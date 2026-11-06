@@ -1,0 +1,6 @@
+kind: file
+id: ev:file
+path: apps/ordering/src/Confirm.ts
+blob: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+language: typescript
+selectedForParsing: true

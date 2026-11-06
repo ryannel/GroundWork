@@ -1,0 +1,13 @@
+kind: java_call_binding
+id: ev:binding
+call: ev:call
+caller: null
+receiver: null
+receiverType: null
+methodName: confirm
+argumentTypes: []
+target: null
+signature: confirm()
+resolution: unresolved
+reason: Synthetic unresolved call
+guards: []

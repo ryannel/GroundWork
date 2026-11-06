@@ -1,0 +1,7 @@
+kind: effect
+id: ev:effect
+phase: committed
+resource: st:orders
+source: ev:source
+cites:
+  - ev:source

@@ -1,0 +1,7 @@
+id: prog:orders
+title: Reliable orders
+outcome: Confirmed orders have one writer.
+scenarios: [{ id: 'sc:confirm', title: Customer confirms an order, flows: ['flow:confirm'] }]
+decisions: [{ id: 'dec:writer', title: One writer, status: proposed }]
+questions: [{ id: 'q:timing', question: When should delivery start?, status: open }]
+milestones: [{ id: 'ms:confirm', name: Confirmation works }]

@@ -1,0 +1,8 @@
+kind: source
+id: old-source-id
+file: ev:file
+lines: [0, 8]
+host: ev:host
+authority: declared
+commit: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+path: src/Confirm.ts

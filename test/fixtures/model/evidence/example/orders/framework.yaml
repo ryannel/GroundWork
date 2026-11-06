@@ -1,0 +1,14 @@
+kind: source_framework_binding
+id: ev:route
+source: ev:source
+cites:
+  - ev:source
+language: python
+framework: fastapi
+role: http_entry
+name: confirm
+target_source: null
+declaration: '@app.post("/confirm")'
+status: partial
+limitations:
+  - Synthetic cross-language contract example

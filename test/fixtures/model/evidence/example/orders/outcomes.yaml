@@ -1,0 +1,20 @@
+kind: outcome
+id: ev:outcome
+action: ev:action
+result: pending
+visibleState:
+  state: unresolved
+  reason: missing_evidence
+  gap: ev:gap
+effects:
+  state: supported
+  value:
+    - ev:effect
+  cites:
+    - ev:source
+timing: eventual
+continuation:
+  kind: unresolved
+  gap: ev:gap
+cites:
+  - ev:source

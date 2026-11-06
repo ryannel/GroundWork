@@ -1,0 +1,11 @@
+kind: journey
+id: ev:journey
+actor: ev:actor
+goal: Confirm an order
+authority: authored
+steps:
+  - action: ev:action
+    outcome: ev:outcome
+transitions: []
+cites:
+  - ev:source

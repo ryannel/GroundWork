@@ -1,0 +1,8 @@
+kind: contract
+id: ev:contract
+shape:
+  kind: scalar
+  name: string
+  spelling: string
+cites:
+  - ev:source

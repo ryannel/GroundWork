@@ -1,0 +1,6 @@
+kind: host
+id: ev:host
+component: svc:ordering
+environment: server
+cites:
+  - ev:source

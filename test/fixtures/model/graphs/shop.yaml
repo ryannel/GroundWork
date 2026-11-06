@@ -1,0 +1,12 @@
+id: graph:shop
+name: Shop graph
+gateway: svc:ordering
+subgraphs:
+  - {
+      id: 'sg:orders',
+      graph: 'graph:shop',
+      component: 'svc:ordering',
+      batching: dataloader,
+      cites: ['ev:source'],
+    }
+cites: ['ev:source']

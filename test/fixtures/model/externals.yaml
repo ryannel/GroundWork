@@ -1,0 +1,7 @@
+externals:
+  - {
+      id: 'ext:payments',
+      name: Payments,
+      summary: Synthetic payment provider,
+      cites: ['ev:source'],
+    }

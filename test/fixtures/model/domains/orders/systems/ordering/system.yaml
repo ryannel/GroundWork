@@ -1,0 +1,37 @@
+id: sys:ordering
+name: Ordering
+purpose: Confirm orders and arrange delivery.
+team: team:orders
+runs_on: [sys:platform]
+mapped: true
+homes:
+  orders: { repo: example/orders, path: apps/ordering }
+components:
+  - id: svc:ordering
+    name: Ordering API
+    kind: service
+    homes: [orders]
+    uses: [lib:messaging]
+    does: Confirms orders.
+    cites: ['orders:src/Confirm.ts#L1-80']
+  - { id: 'app:shop', name: Shop, kind: app, form: web, homes: [orders] }
+  - id: st:orders
+    name: Orders database
+    kind: store
+    form: database
+    tech: PostgreSQL
+    owner: { id: 'svc:ordering', cites: ['ev:source'] }
+  - { id: 'st:unknown-owner', name: Unowned fixture cache, kind: store, form: cache }
+  - { id: 'top:confirmed', name: Order confirmations, kind: topic, form: stream }
+connections:
+  - to: sys:delivery
+    says: Publishes confirmed orders for delivery.
+    backs: ['h:confirm#tx/queue']
+relationships:
+  - id: rel:payments
+    from: svc:ordering
+    to: ext:payments
+    kind: call
+    says: Configures the payment client.
+    reason: Only client registration is available in this synthetic example.
+    cites: ['ev:source']
