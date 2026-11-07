@@ -1,0 +1,16 @@
+- id: svc:card-provider
+  name: Card provider
+  does: Charges cards
+  proposed: null
+  reason: Legacy external does not distinguish a vendor from an unmapped company system.
+  key: identity/svc:card-provider
+  fingerprint: 18e11f894b285a244c1233d6456db94eecd500e50646722552692814d43f3faf
+  status: pending
+- id: svc:identity-provider
+  name: Identity provider
+  does: Checks passwords
+  proposed: null
+  reason: Legacy external does not distinguish a vendor from an unmapped company system.
+  key: identity/svc:identity-provider
+  fingerprint: 39ea2d2327b686e4cf5c680920a00be0120c907a81a45b59e653bbfba7efc27f
+  status: pending

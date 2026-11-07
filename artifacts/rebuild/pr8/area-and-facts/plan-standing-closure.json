@@ -1,0 +1,2360 @@
+{
+  "candidate": ".workspaces/rebuild/pr8/area-audit/volvo-cars-facts-arguments",
+  "reports": [
+    {
+      "changes": [
+        {
+          "currentOps": [
+            {
+              "detail": "The current model has no such target.",
+              "op": 0,
+              "state": "missing",
+              "target": "sch:fae-application-create-request#salesChannel"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 1,
+              "state": "missing",
+              "target": "sch:fae-finance-application-event#salesChannel"
+            },
+            {
+              "detail": "The current model agrees with 0 of 1 requested facts.",
+              "op": 2,
+              "state": "missing",
+              "target": "h:fae-create-application"
+            }
+          ],
+          "id": "chg:application-carries-sales-channel",
+          "nativeState": "missing",
+          "oldOps": [
+            {
+              "detail": "today has no sch:fae-application-create-request#salesChannel",
+              "op": 0,
+              "state": "missing",
+              "target": "sch:fae-application-create-request#salesChannel"
+            },
+            {
+              "detail": "today has no sch:fae-finance-application-event#salesChannel",
+              "op": 1,
+              "state": "missing",
+              "target": "sch:fae-finance-application-event#salesChannel"
+            },
+            {
+              "detail": "today says none of the 1",
+              "op": 2,
+              "state": "missing",
+              "target": "h:fae-create-application"
+            }
+          ],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [
+            {
+              "detail": "The current model has no such target.",
+              "op": 0,
+              "state": "missing",
+              "target": "sch:fae-bank-create-application-request#salesChannel"
+            },
+            {
+              "detail": "The current model agrees with 0 of 1 requested facts.",
+              "op": 1,
+              "state": "missing",
+              "target": "h:fae-bank-create-application"
+            }
+          ],
+          "id": "chg:bank-integration-forwards-channel",
+          "nativeState": "missing",
+          "oldOps": [
+            {
+              "detail": "today has no sch:fae-bank-create-application-request#salesChannel",
+              "op": 0,
+              "state": "missing",
+              "target": "sch:fae-bank-create-application-request#salesChannel"
+            },
+            {
+              "detail": "today says none of the 1",
+              "op": 1,
+              "state": "missing",
+              "target": "h:fae-bank-create-application"
+            }
+          ],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [],
+          "id": "chg:ziklo-applies-right-to-return",
+          "nativeState": "unverified",
+          "oldOps": [],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [
+            {
+              "detail": "The current model agrees with 0 of 1 requested facts.",
+              "op": 0,
+              "state": "missing",
+              "target": "h:conditional-order-post-checkout-v2"
+            }
+          ],
+          "id": "chg:checkout-sends-online-channel",
+          "nativeState": "missing",
+          "oldOps": [
+            {
+              "detail": "today says none of the 1",
+              "op": 0,
+              "state": "missing",
+              "target": "h:conditional-order-post-checkout-v2"
+            }
+          ],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [
+            {
+              "detail": "The current model agrees with 0 of 2 requested facts.",
+              "op": 0,
+              "state": "missing",
+              "target": "msg:fae-finance-application-create"
+            },
+            {
+              "detail": "The current model agrees with 0 of 2 requested facts.",
+              "op": 1,
+              "state": "missing",
+              "target": "msg:fae-finance-application-update"
+            },
+            {
+              "detail": "The current model agrees with 0 of 1 requested facts.",
+              "op": 2,
+              "state": "missing",
+              "target": "msg:fae-finance-application-reject"
+            }
+          ],
+          "id": "chg:event-correlation",
+          "nativeState": "missing",
+          "oldOps": [
+            {
+              "detail": "today says none of the 2",
+              "op": 0,
+              "state": "missing",
+              "target": "msg:fae-finance-application-create"
+            },
+            {
+              "detail": "today says none of the 2",
+              "op": 1,
+              "state": "missing",
+              "target": "msg:fae-finance-application-update"
+            },
+            {
+              "detail": "today says none of the 1",
+              "op": 2,
+              "state": "missing",
+              "target": "msg:fae-finance-application-reject"
+            }
+          ],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [],
+          "id": "chg:early-crm-release",
+          "nativeState": "unverified",
+          "oldOps": [],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [],
+          "id": "chg:vcep-updates-same-opportunity",
+          "nativeState": "unverified",
+          "oldOps": [],
+          "oldState": "missing"
+        }
+      ],
+      "oldEmpty": {
+        "overlaps": [],
+        "status": {},
+        "warnings": []
+      },
+      "readings": [],
+      "rows": [
+        {
+          "after": "95d8abad3963050f6b41de712ee63fd5ec0352c97076fb04ec53d4d6769ee152",
+          "afterRows": 9,
+          "before": "5ab0cfc44937e998ba229058da03cdd0e983c57a09a54876657708a69b0fa9ef",
+          "beforeRows": 9,
+          "differences": [
+            {
+              "after": "3286e4121d3df2c2aa7bed92d24e90283c3ae6f6f29447887f303ec55ecc2e6a",
+              "before": "bc066c33cef3f2750500433738572ce5d2eb68276b65a15368de17e026b27402",
+              "file": "work",
+              "path": "/5/blockers/0/label"
+            },
+            {
+              "after": "e8cf97ee86ce8af661bbb4a7b0d6a656835b5e03472b4185219d54911878d8e3",
+              "before": "339ff3e73b0afbb9670c2ccf8a0632835355368cbc924b40281d43a52f55fd76",
+              "file": "work",
+              "path": "/8/blockers/0/label"
+            },
+            {
+              "after": "95ba846989ba847e38ba482efeb790ddd2e18849568388604512bff2cd0e9a38",
+              "before": "f689cdbf254816fc5bd4c8321d19b8f5b12c3c7ea1b96f5f454c5a82cbeb0424",
+              "file": "work",
+              "path": "/8/blockers/1/label"
+            }
+          ],
+          "family": "work"
+        },
+        {
+          "after": "e5ab6e1e53bc27d1b75a4dffa8148b4bd93a24707e7543e6327a9c2359cc0772",
+          "afterRows": 2,
+          "before": "e5ab6e1e53bc27d1b75a4dffa8148b4bd93a24707e7543e6327a9c2359cc0772",
+          "beforeRows": 2,
+          "differences": [],
+          "family": "milestones"
+        },
+        {
+          "after": "6d96917e1fd987951f0c5728560a67c2d69d26b1ff8cd8bd92d7bba5bdde1b45",
+          "afterRows": 6,
+          "before": "6d96917e1fd987951f0c5728560a67c2d69d26b1ff8cd8bd92d7bba5bdde1b45",
+          "beforeRows": 6,
+          "differences": [],
+          "family": "teams"
+        }
+      ],
+      "slug": "care-se-financing-status"
+    },
+    {
+      "changes": [
+        {
+          "currentOps": [],
+          "id": "chg:care-on-stock-cars",
+          "nativeState": "unverified",
+          "oldOps": [],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [
+            {
+              "detail": "The current model has no such target.",
+              "op": 0,
+              "state": "missing",
+              "target": "sch:conditional-order-checkout-v2-response#reservationExpiresAt"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 1,
+              "state": "missing",
+              "target": "scr:checkout-individual#reservation-time"
+            }
+          ],
+          "id": "chg:checkout-shows-reservation-time",
+          "nativeState": "missing",
+          "oldOps": [
+            {
+              "detail": "today has no sch:conditional-order-checkout-v2-response#reservationExpiresAt",
+              "op": 0,
+              "state": "missing",
+              "target": "sch:conditional-order-checkout-v2-response#reservationExpiresAt"
+            },
+            {
+              "detail": "today has no scr:checkout-individual#reservation-time",
+              "op": 1,
+              "state": "missing",
+              "target": "scr:checkout-individual#reservation-time"
+            }
+          ],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [],
+          "id": "chg:online-recovery",
+          "nativeState": "unverified",
+          "oldOps": [],
+          "oldState": "missing"
+        }
+      ],
+      "oldEmpty": {
+        "overlaps": [],
+        "status": {},
+        "warnings": []
+      },
+      "readings": [
+        "care-se-stock-reservation"
+      ],
+      "rows": [
+        {
+          "after": "735635afe7bf6070115a644d4908b00752ecc348ba163288bed17d40587d529c",
+          "afterRows": 4,
+          "before": "ed9f4fe8a359c5815127392fec4c2ebd4590a82f4bb49387c0d9f1e5665ffc0e",
+          "beforeRows": 4,
+          "differences": [
+            {
+              "after": "57823879dd451e6710260749ba0de6cca36408253e63152627986b94a62ec078",
+              "before": "d524860d65964de5dde27cb871b8c7fb7a501779d172216978154ea6e43dcc71",
+              "file": "work",
+              "path": "/2/blockers/0/label"
+            },
+            {
+              "after": "9896badd88d01ae3d9f5f0609c23dc85e2c3f61642c51e1229149e2e318c57fe",
+              "before": "4800cc8b85b417f05b8f9ca98c25595be25b0d195b6e8dd88d21f468e862d67f",
+              "file": "work",
+              "path": "/3/blockers/0/label"
+            }
+          ],
+          "family": "work"
+        },
+        {
+          "after": "9887f53348c13b994dcbfd942bfbee09425c35cc4a470f7b095d33c3c6c7a7f0",
+          "afterRows": 1,
+          "before": "9887f53348c13b994dcbfd942bfbee09425c35cc4a470f7b095d33c3c6c7a7f0",
+          "beforeRows": 1,
+          "differences": [],
+          "family": "milestones"
+        },
+        {
+          "after": "8e05dc0d922bd9ca1518a665c5f64300244a54167038f00d751f862487d71366",
+          "afterRows": 3,
+          "before": "8e05dc0d922bd9ca1518a665c5f64300244a54167038f00d751f862487d71366",
+          "beforeRows": 3,
+          "differences": [],
+          "family": "teams"
+        }
+      ],
+      "slug": "care-se-online"
+    },
+    {
+      "changes": [
+        {
+          "currentOps": [],
+          "id": "chg:ziklo-order-lookup",
+          "nativeState": "unverified",
+          "oldOps": [],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [],
+          "id": "chg:ziklo-application-details",
+          "nativeState": "unverified",
+          "oldOps": [],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [],
+          "id": "chg:ziklo-order-change-quote",
+          "nativeState": "unverified",
+          "oldOps": [],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [],
+          "id": "chg:ziklo-application-revision",
+          "nativeState": "unverified",
+          "oldOps": [],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [],
+          "id": "chg:fae-ziklo-revision",
+          "nativeState": "unverified",
+          "oldOps": [],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [],
+          "id": "chg:tacdis-proposal-versions",
+          "nativeState": "unverified",
+          "oldOps": [],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [
+            {
+              "detail": "The current model has no such target.",
+              "op": 0,
+              "state": "missing",
+              "target": "app:retail-sales-tool"
+            }
+          ],
+          "id": "chg:sales-tool-order-change",
+          "nativeState": "missing",
+          "oldOps": [
+            {
+              "detail": "today has no svc:retail-sales-tool",
+              "op": 0,
+              "state": "missing",
+              "target": "svc:retail-sales-tool"
+            }
+          ],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [],
+          "id": "chg:dbp-order-change",
+          "nativeState": "unverified",
+          "oldOps": [],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [],
+          "id": "chg:checkout-revision",
+          "nativeState": "unverified",
+          "oldOps": [],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [],
+          "id": "chg:vcep-revision-binding",
+          "nativeState": "unverified",
+          "oldOps": [],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [],
+          "id": "chg:vista-change-execution",
+          "nativeState": "unverified",
+          "oldOps": [],
+          "oldState": "missing"
+        }
+      ],
+      "oldEmpty": {
+        "overlaps": [],
+        "status": {},
+        "warnings": []
+      },
+      "readings": [
+        "care-se-financing-status",
+        "care-se-sales-tool"
+      ],
+      "rows": [
+        {
+          "after": "28c16191794c21d2fe0e00c5a6a58bab6e194713383f11ae5d2a07a11c4f1831",
+          "afterRows": 10,
+          "before": "5b22d9614f13b1000c33c11e99c5455cd61ab415195477931c4306a9634274f9",
+          "beforeRows": 10,
+          "differences": [
+            {
+              "after": "08001a43efe9dbdd60b398bf033044b0d0c25b1a5e87771fa2dca11f554e374c",
+              "before": "665e73c549b6f434347f51067bc6be36fb9d5106978e4d5912966bb8afc96db6",
+              "file": "work",
+              "path": "/0/blockers/0/label"
+            },
+            {
+              "after": "08001a43efe9dbdd60b398bf033044b0d0c25b1a5e87771fa2dca11f554e374c",
+              "before": "665e73c549b6f434347f51067bc6be36fb9d5106978e4d5912966bb8afc96db6",
+              "file": "work",
+              "path": "/1/blockers/0/label"
+            },
+            {
+              "after": "99786cb39861979ad45004ab7619e66f7d9b59ab9fbfd1b30b0559ca1f0d98e0",
+              "before": "8c843bd374c70fd69879759211814691bdaa67fbb39baf4afae974bdf8eb79b3",
+              "file": "work",
+              "path": "/3/blockers/0/label"
+            },
+            {
+              "after": "6c4a3c1cbe6595e692d133c1f4e29dc94db5e3677557ed365e5aecd73ef690ef",
+              "before": "3ba94791fcaea03b5b2b0ff04a40a295cbcb85dc5838ff6d4608c4cf7b000828",
+              "file": "work",
+              "path": "/4/blockers/0/label"
+            },
+            {
+              "after": "aab0d208d3eeca359db8617900764510b25aeb3f0956536390aca476ed3f841c",
+              "before": "9c9b50ded795cf6f7466361999db01423cd07ba80ee35cba46f28008634bb369",
+              "file": "work",
+              "path": "/8/blockers/0/label"
+            },
+            {
+              "after": "c80915d5a6736854e7e67795a0d7f1e67211c3a12012a9f0d23764808cc7fe0d",
+              "before": "09e145a3897d7c034d8c5deec841a0d716cc76fa9c208c123ddd546e02ebb1cc",
+              "file": "work",
+              "path": "/9/blockers/0/label"
+            }
+          ],
+          "family": "work"
+        },
+        {
+          "after": "bfbe4b61224e1643a47efd582b72bdd44fc60f975e75958624831c78b4b54859",
+          "afterRows": 3,
+          "before": "bfbe4b61224e1643a47efd582b72bdd44fc60f975e75958624831c78b4b54859",
+          "beforeRows": 3,
+          "differences": [],
+          "family": "milestones"
+        },
+        {
+          "after": "006503e1c072e86ffa34b9103cbf479d5e7f60a2edd7e9db9ef700e7e2d2eb16",
+          "afterRows": 6,
+          "before": "006503e1c072e86ffa34b9103cbf479d5e7f60a2edd7e9db9ef700e7e2d2eb16",
+          "beforeRows": 6,
+          "differences": [],
+          "family": "teams"
+        }
+      ],
+      "slug": "care-se-order-change"
+    },
+    {
+      "changes": [
+        {
+          "currentOps": [
+            {
+              "detail": "The current model has no such target.",
+              "op": 0,
+              "state": "missing",
+              "target": "sys:retail-sales-tool"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 1,
+              "state": "missing",
+              "target": "app:retail-sales-tool"
+            }
+          ],
+          "id": "chg:sales-tool-exists",
+          "nativeState": "missing",
+          "oldOps": [
+            {
+              "detail": "today has no sys:retail-sales-tool",
+              "op": 0,
+              "state": "missing",
+              "target": "sys:retail-sales-tool"
+            },
+            {
+              "detail": "today has no svc:retail-sales-tool",
+              "op": 1,
+              "state": "missing",
+              "target": "svc:retail-sales-tool"
+            }
+          ],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [],
+          "id": "chg:tacdis-proposal-from-tool",
+          "nativeState": "unverified",
+          "oldOps": [],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [],
+          "id": "chg:dbp-carries-opportunity",
+          "nativeState": "unverified",
+          "oldOps": [],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [
+            {
+              "detail": "The current model has no such target.",
+              "op": 0,
+              "state": "missing",
+              "target": "sch:cart-service-cart-input#digitalBusinessProposalId"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 1,
+              "state": "missing",
+              "target": "sch:cart-service-cart#digitalBusinessProposalId"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 2,
+              "state": "missing",
+              "target": "sch:conditional-order-checkout-v2-request#digitalBusinessProposalId"
+            },
+            {
+              "detail": "The current model agrees with 0 of 1 requested facts.",
+              "op": 3,
+              "state": "missing",
+              "target": "h:conditional-order-post-checkout-v2"
+            }
+          ],
+          "id": "chg:checkout-reuses-opportunity",
+          "nativeState": "missing",
+          "oldOps": [
+            {
+              "detail": "today has no sch:cart-service-cart-input#digitalBusinessProposalId",
+              "op": 0,
+              "state": "missing",
+              "target": "sch:cart-service-cart-input#digitalBusinessProposalId"
+            },
+            {
+              "detail": "today has no sch:cart-service-cart#digitalBusinessProposalId",
+              "op": 1,
+              "state": "missing",
+              "target": "sch:cart-service-cart#digitalBusinessProposalId"
+            },
+            {
+              "detail": "today has no sch:conditional-order-checkout-v2-request#digitalBusinessProposalId",
+              "op": 2,
+              "state": "missing",
+              "target": "sch:conditional-order-checkout-v2-request#digitalBusinessProposalId"
+            },
+            {
+              "detail": "today says none of the 1",
+              "op": 3,
+              "state": "missing",
+              "target": "h:conditional-order-post-checkout-v2"
+            }
+          ],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [],
+          "id": "chg:vcep-walk-in-opportunity",
+          "nativeState": "unverified",
+          "oldOps": [],
+          "oldState": "missing"
+        }
+      ],
+      "oldEmpty": {
+        "overlaps": [],
+        "status": {},
+        "warnings": []
+      },
+      "readings": [
+        "care-se-financing-status"
+      ],
+      "rows": [
+        {
+          "after": "0704ba19b3aa5ce9400b5e65883967b78e5262455714e56d14a2d54d961459e7",
+          "afterRows": 7,
+          "before": "611b6c28e2eaef989f40c3cd961cb77ee0ac0b3b471637b6014e8d75f9969f1e",
+          "beforeRows": 7,
+          "differences": [
+            {
+              "after": "7eaaf9e7bee9d37247506eb572e93dc4f00acb3ed5b62d8a7116c143a4018180",
+              "before": "57813a7952f5f4fa7b6a60e3436131bfdccc1bd8ddf21dfb744aac2465b1f017",
+              "file": "work",
+              "path": "/5/blockers/1/label"
+            }
+          ],
+          "family": "work"
+        },
+        {
+          "after": "c91a40797d89d08d75148c2fa0d316cee577ddf221a27795549de26ac17bf099",
+          "afterRows": 2,
+          "before": "c91a40797d89d08d75148c2fa0d316cee577ddf221a27795549de26ac17bf099",
+          "beforeRows": 2,
+          "differences": [],
+          "family": "milestones"
+        },
+        {
+          "after": "764f7e030c90632bf353046fee54e3876b7ff3a3ed82ff8d4453e0d77ec0e3f6",
+          "afterRows": 4,
+          "before": "764f7e030c90632bf353046fee54e3876b7ff3a3ed82ff8d4453e0d77ec0e3f6",
+          "beforeRows": 4,
+          "differences": [],
+          "family": "teams"
+        }
+      ],
+      "slug": "care-se-sales-tool"
+    },
+    {
+      "changes": [
+        {
+          "currentOps": [],
+          "id": "chg:cle-sweden-reservations",
+          "nativeState": "unverified",
+          "oldOps": [],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [
+            {
+              "detail": "The current model has no such target.",
+              "op": 0,
+              "state": "missing",
+              "target": "sch:cle-reserve-request#ReserveUntil"
+            }
+          ],
+          "id": "chg:cle-renewable-reservations",
+          "nativeState": "missing",
+          "oldOps": [
+            {
+              "detail": "today has no sch:cle-reserve-request#ReserveUntil",
+              "op": 0,
+              "state": "missing",
+              "target": "sch:cle-reserve-request#ReserveUntil"
+            }
+          ],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [
+            {
+              "detail": "The current model agrees with 0 of 1 requested facts.",
+              "op": 0,
+              "state": "missing",
+              "target": "h:conditional-order-post-checkout-v2"
+            }
+          ],
+          "id": "chg:checkout-reserves-se",
+          "nativeState": "missing",
+          "oldOps": [
+            {
+              "detail": "today says none of the 1",
+              "op": 0,
+              "state": "missing",
+              "target": "h:conditional-order-post-checkout-v2"
+            }
+          ],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [
+            {
+              "detail": "The current model has no such target.",
+              "op": 0,
+              "state": "missing",
+              "target": "sub:conditional-order-fae-finance-application-update"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 1,
+              "state": "missing",
+              "target": "h:conditional-order-on-finance-application-update"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 2,
+              "state": "missing",
+              "target": "sub:conditional-order-fae-finance-application-reject"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 3,
+              "state": "missing",
+              "target": "h:conditional-order-on-finance-application-reject"
+            }
+          ],
+          "id": "chg:renew-and-release",
+          "nativeState": "missing",
+          "oldOps": [
+            {
+              "detail": "today says none of the 1",
+              "op": 0,
+              "state": "missing",
+              "target": "msg:fae-finance-application-update"
+            },
+            {
+              "detail": "today says none of the 1",
+              "op": 1,
+              "state": "missing",
+              "target": "msg:fae-finance-application-reject"
+            },
+            {
+              "detail": "today has no h:conditional-order-on-finance-application-update",
+              "op": 2,
+              "state": "missing",
+              "target": "h:conditional-order-on-finance-application-update"
+            },
+            {
+              "detail": "today has no h:conditional-order-on-finance-application-reject",
+              "op": 3,
+              "state": "missing",
+              "target": "h:conditional-order-on-finance-application-reject"
+            }
+          ],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [],
+          "id": "chg:ziklo-shows-reservation",
+          "nativeState": "unverified",
+          "oldOps": [],
+          "oldState": "missing"
+        }
+      ],
+      "oldEmpty": {
+        "overlaps": [],
+        "status": {},
+        "warnings": []
+      },
+      "readings": [
+        "care-se-financing-status"
+      ],
+      "rows": [
+        {
+          "after": "8c7b90840020728bcd54b44774c73946ef202c56ed2f476e6c0017268a0df88d",
+          "afterRows": 7,
+          "before": "358962e5331b198f5ad506aac85fd35bb73b7a4412bfbac0c27a3be5277dfa72",
+          "beforeRows": 7,
+          "differences": [
+            {
+              "after": "57823879dd451e6710260749ba0de6cca36408253e63152627986b94a62ec078",
+              "before": "d524860d65964de5dde27cb871b8c7fb7a501779d172216978154ea6e43dcc71",
+              "file": "work",
+              "path": "/1/blockers/0/label"
+            },
+            {
+              "after": "9896badd88d01ae3d9f5f0609c23dc85e2c3f61642c51e1229149e2e318c57fe",
+              "before": "4800cc8b85b417f05b8f9ca98c25595be25b0d195b6e8dd88d21f468e862d67f",
+              "file": "work",
+              "path": "/5/blockers/0/label"
+            },
+            {
+              "after": "e2e01e49873ba5496f5eb01acc36b77b063fed59ef97be6c07555d3645bd27a8",
+              "before": "1a9b870329db340cb49537058991e6a1039de25453fcfe3021869487030c8ca0",
+              "file": "work",
+              "path": "/5/blockers/1/label"
+            }
+          ],
+          "family": "work"
+        },
+        {
+          "after": "291c4a269b9e87809ab5b118edb59ef56372b663a1a7b8ec07567086d2da5120",
+          "afterRows": 2,
+          "before": "291c4a269b9e87809ab5b118edb59ef56372b663a1a7b8ec07567086d2da5120",
+          "beforeRows": 2,
+          "differences": [],
+          "family": "milestones"
+        },
+        {
+          "after": "1b18d44b016c4313095300893f1756da0e2947d1406e2a1450fd5786f1643edb",
+          "afterRows": 3,
+          "before": "1b18d44b016c4313095300893f1756da0e2947d1406e2a1450fd5786f1643edb",
+          "beforeRows": 3,
+          "differences": [],
+          "family": "teams"
+        }
+      ],
+      "slug": "care-se-stock-reservation"
+    },
+    {
+      "changes": [
+        {
+          "currentOps": [
+            {
+              "detail": "The current model has no such target.",
+              "op": 0,
+              "state": "missing",
+              "target": "con:version"
+            },
+            {
+              "detail": "The current model agrees with 0 of 1 requested facts.",
+              "op": 1,
+              "state": "missing",
+              "target": "sch:assortment-variant-version"
+            },
+            {
+              "detail": "The current model agrees with 0 of 1 requested facts.",
+              "op": 2,
+              "state": "missing",
+              "target": "sch:assortment-variant-version#ValidFrom"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 3,
+              "state": "missing",
+              "target": "sch:assortment-variant-version#Id"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 4,
+              "state": "missing",
+              "target": "sch:assortment-variant-version#ViewHash"
+            },
+            {
+              "detail": "The current model agrees with 0 of 3 requested facts.",
+              "op": 5,
+              "state": "missing",
+              "target": "sch:assortment-variant-version#SourceEvent"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 6,
+              "state": "missing",
+              "target": "sch:assortment-product-version"
+            }
+          ],
+          "id": "chg:assortment-version-records",
+          "nativeState": "missing",
+          "oldOps": [
+            {
+              "detail": "today says none of the 1",
+              "op": 0,
+              "state": "missing",
+              "target": "sch:assortment-variant-version"
+            },
+            {
+              "detail": "today says none of the 1",
+              "op": 1,
+              "state": "missing",
+              "target": "sch:assortment-variant-version#ValidFrom"
+            },
+            {
+              "detail": "today has no sch:assortment-variant-version#Id",
+              "op": 2,
+              "state": "missing",
+              "target": "sch:assortment-variant-version#Id"
+            },
+            {
+              "detail": "today has no sch:assortment-variant-version#ViewHash",
+              "op": 3,
+              "state": "missing",
+              "target": "sch:assortment-variant-version#ViewHash"
+            },
+            {
+              "detail": "today says none of the 3",
+              "op": 4,
+              "state": "missing",
+              "target": "sch:assortment-variant-version#SourceEvent"
+            },
+            {
+              "detail": "today has no sch:assortment-product-version",
+              "op": 5,
+              "state": "missing",
+              "target": "sch:assortment-product-version"
+            }
+          ],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [
+            {
+              "detail": "The current model agrees with 0 of 2 requested facts.",
+              "op": 0,
+              "state": "missing",
+              "target": "flow:assortment-cache-pds-upsert#write-both"
+            }
+          ],
+          "id": "chg:assortment-worker-records-versions",
+          "nativeState": "missing",
+          "oldOps": [
+            {
+              "detail": "today says none of the 2",
+              "op": 0,
+              "state": "missing",
+              "target": "flow:assortment-cache-pds-upsert#write-both"
+            }
+          ],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [
+            {
+              "detail": "The current model agrees with 0 of 2 requested facts.",
+              "op": 0,
+              "state": "missing",
+              "target": "flow:mas-commercial-item-update#refresh-views"
+            }
+          ],
+          "id": "chg:assortment-records-sku-updates",
+          "nativeState": "missing",
+          "oldOps": [
+            {
+              "detail": "today says none of the 2",
+              "op": 0,
+              "state": "missing",
+              "target": "flow:mas-commercial-item-update#refresh-views"
+            }
+          ],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [
+            {
+              "detail": "The current model has no such target.",
+              "op": 0,
+              "state": "missing",
+              "target": "sch:assortment-variant-view#Status"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 1,
+              "state": "missing",
+              "target": "sch:assortment-variant-view#ValidFrom"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 2,
+              "state": "missing",
+              "target": "sch:assortment-variant-view#ValidTo"
+            },
+            {
+              "detail": "The current model agrees with 1 of 5 requested facts.",
+              "op": 3,
+              "state": "partial",
+              "target": "api:assortment-variant-get"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 4,
+              "state": "missing",
+              "target": "flow:assortment-read-current-view#history-read"
+            }
+          ],
+          "id": "chg:assortment-api-asof-variant",
+          "nativeState": "partial",
+          "oldOps": [
+            {
+              "detail": "today has no sch:assortment-variant-view#Status",
+              "op": 0,
+              "state": "missing",
+              "target": "sch:assortment-variant-view#Status"
+            },
+            {
+              "detail": "today has no sch:assortment-variant-view#ValidFrom",
+              "op": 1,
+              "state": "missing",
+              "target": "sch:assortment-variant-view#ValidFrom"
+            },
+            {
+              "detail": "today has no sch:assortment-variant-view#ValidTo",
+              "op": 2,
+              "state": "missing",
+              "target": "sch:assortment-variant-view#ValidTo"
+            },
+            {
+              "detail": "today says none of the 3",
+              "op": 3,
+              "state": "missing",
+              "target": "api:assortment-variant-get"
+            },
+            {
+              "detail": "today has no flow:assortment-read-current-view#history-read",
+              "op": 4,
+              "state": "missing",
+              "target": "flow:assortment-read-current-view#history-read"
+            }
+          ],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [
+            {
+              "detail": "The current model agrees with 0 of 2 requested facts.",
+              "op": 0,
+              "state": "missing",
+              "target": "flow:assortment-cache-pds-upsert#remove-omitted"
+            },
+            {
+              "detail": "The current model agrees with 0 of 2 requested facts.",
+              "op": 1,
+              "state": "missing",
+              "target": "flow:assortment-cache-pds-delete#remove-hot"
+            }
+          ],
+          "id": "chg:assortment-retire-tombstones",
+          "nativeState": "missing",
+          "oldOps": [
+            {
+              "detail": "today says none of the 2",
+              "op": 0,
+              "state": "missing",
+              "target": "flow:assortment-cache-pds-upsert#remove-omitted"
+            },
+            {
+              "detail": "today says none of the 2",
+              "op": 1,
+              "state": "missing",
+              "target": "flow:assortment-cache-pds-delete#remove-hot"
+            }
+          ],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [
+            {
+              "detail": "The current model has no such target.",
+              "op": 0,
+              "state": "missing",
+              "target": "sch:assortment-product-view#Status"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 1,
+              "state": "missing",
+              "target": "sch:assortment-product-view#ValidFrom"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 2,
+              "state": "missing",
+              "target": "sch:assortment-product-view#ValidTo"
+            },
+            {
+              "detail": "The current model agrees with 1 of 4 requested facts.",
+              "op": 3,
+              "state": "partial",
+              "target": "api:assortment-product-get"
+            },
+            {
+              "detail": "The current model agrees with 1 of 4 requested facts.",
+              "op": 4,
+              "state": "partial",
+              "target": "api:assortment-products-batch"
+            },
+            {
+              "detail": "The current model agrees with 1 of 4 requested facts.",
+              "op": 5,
+              "state": "partial",
+              "target": "api:assortment-variants-batch"
+            }
+          ],
+          "id": "chg:assortment-api-asof-products-batch",
+          "nativeState": "partial",
+          "oldOps": [
+            {
+              "detail": "today has no sch:assortment-product-view#Status",
+              "op": 0,
+              "state": "missing",
+              "target": "sch:assortment-product-view#Status"
+            },
+            {
+              "detail": "today has no sch:assortment-product-view#ValidFrom",
+              "op": 1,
+              "state": "missing",
+              "target": "sch:assortment-product-view#ValidFrom"
+            },
+            {
+              "detail": "today has no sch:assortment-product-view#ValidTo",
+              "op": 2,
+              "state": "missing",
+              "target": "sch:assortment-product-view#ValidTo"
+            },
+            {
+              "detail": "today says none of the 2",
+              "op": 3,
+              "state": "missing",
+              "target": "api:assortment-product-get"
+            },
+            {
+              "detail": "today says none of the 2",
+              "op": 4,
+              "state": "missing",
+              "target": "api:assortment-products-batch"
+            },
+            {
+              "detail": "today says none of the 2",
+              "op": 5,
+              "state": "missing",
+              "target": "api:assortment-variants-batch"
+            }
+          ],
+          "oldState": "missing"
+        }
+      ],
+      "oldEmpty": {
+        "overlaps": [],
+        "status": {},
+        "warnings": []
+      },
+      "readings": [],
+      "rows": [
+        {
+          "after": "e85cf92b6127ad1d651258a3a4b8b56d833a1b4c268a5b6f1c4bc9e04863a8d8",
+          "afterRows": 6,
+          "before": "e85cf92b6127ad1d651258a3a4b8b56d833a1b4c268a5b6f1c4bc9e04863a8d8",
+          "beforeRows": 6,
+          "differences": [],
+          "family": "work"
+        },
+        {
+          "after": "6604b270600af059793b4f5c8fbbce5d9bb7d61dea7ac1dd86587b1035ffbcec",
+          "afterRows": 2,
+          "before": "6604b270600af059793b4f5c8fbbce5d9bb7d61dea7ac1dd86587b1035ffbcec",
+          "beforeRows": 2,
+          "differences": [],
+          "family": "milestones"
+        },
+        {
+          "after": "2dc73d3259c4e06bd11ad21dbf05bb81e1a3f2716448839244172d9be1d7df1f",
+          "afterRows": 1,
+          "before": "2dc73d3259c4e06bd11ad21dbf05bb81e1a3f2716448839244172d9be1d7df1f",
+          "beforeRows": 1,
+          "differences": [],
+          "family": "teams"
+        }
+      ],
+      "slug": "immutable-ids"
+    },
+    {
+      "changes": [
+        {
+          "currentOps": [
+            {
+              "detail": "The current model has no such target.",
+              "op": 0,
+              "state": "missing",
+              "target": "sch:sourced-term"
+            },
+            {
+              "detail": "The current model agrees with 0 of 2 requested facts.",
+              "op": 1,
+              "state": "missing",
+              "target": "sch:gpe-financing-product-dto"
+            },
+            {
+              "detail": "The current model agrees with 0 of 2 requested facts.",
+              "op": 2,
+              "state": "missing",
+              "target": "sch:gpe-financing-product-dto#source"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 3,
+              "state": "missing",
+              "target": "sch:gpe-financing-product-dto#markets"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 4,
+              "state": "missing",
+              "target": "sch:gpe-financing-product-dto#customerTypes"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 5,
+              "state": "missing",
+              "target": "api:gpe-get-financing-product-terms"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 6,
+              "state": "missing",
+              "target": "flow:resolve-financing-product-terms"
+            }
+          ],
+          "id": "chg:gpe-financing-product-terms",
+          "nativeState": "missing",
+          "oldOps": [
+            {
+              "detail": "today has no sch:sourced-term",
+              "op": 0,
+              "state": "missing",
+              "target": "sch:sourced-term"
+            },
+            {
+              "detail": "today says none of the 2",
+              "op": 1,
+              "state": "missing",
+              "target": "sch:gpe-financing-product-dto"
+            },
+            {
+              "detail": "today says none of the 2",
+              "op": 2,
+              "state": "missing",
+              "target": "sch:gpe-financing-product-dto#source"
+            },
+            {
+              "detail": "today has no sch:gpe-financing-product-dto#markets",
+              "op": 3,
+              "state": "missing",
+              "target": "sch:gpe-financing-product-dto#markets"
+            },
+            {
+              "detail": "today has no sch:gpe-financing-product-dto#customerTypes",
+              "op": 4,
+              "state": "missing",
+              "target": "sch:gpe-financing-product-dto#customerTypes"
+            },
+            {
+              "detail": "today has no api:gpe-get-financing-product-terms",
+              "op": 5,
+              "state": "missing",
+              "target": "api:gpe-get-financing-product-terms"
+            },
+            {
+              "detail": "today has no flow:resolve-financing-product-terms",
+              "op": 6,
+              "state": "missing",
+              "target": "flow:resolve-financing-product-terms"
+            }
+          ],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [
+            {
+              "detail": "The current model has no such target.",
+              "op": 0,
+              "state": "missing",
+              "target": "api:fae-list-financing-products"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 1,
+              "state": "missing",
+              "target": "api:fae-get-financing-product-terms"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 2,
+              "state": "missing",
+              "target": "flow:fae-serve-financing-products"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 3,
+              "state": "missing",
+              "target": "flow:fae-serve-financing-product-terms"
+            }
+          ],
+          "id": "chg:fae-serve-generic-financing-products",
+          "nativeState": "missing",
+          "oldOps": [
+            {
+              "detail": "today has no api:fae-list-financing-products",
+              "op": 0,
+              "state": "missing",
+              "target": "api:fae-list-financing-products"
+            },
+            {
+              "detail": "today has no api:fae-get-financing-product-terms",
+              "op": 1,
+              "state": "missing",
+              "target": "api:fae-get-financing-product-terms"
+            },
+            {
+              "detail": "today has no flow:fae-serve-financing-products",
+              "op": 2,
+              "state": "missing",
+              "target": "flow:fae-serve-financing-products"
+            },
+            {
+              "detail": "today has no flow:fae-serve-financing-product-terms",
+              "op": 3,
+              "state": "missing",
+              "target": "flow:fae-serve-financing-product-terms"
+            }
+          ],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [
+            {
+              "detail": "The current model has no such target.",
+              "op": 0,
+              "state": "missing",
+              "target": "sch:term#sourceKey"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 1,
+              "state": "missing",
+              "target": "sch:create-term-payload#sourceKey"
+            },
+            {
+              "detail": "The current model agrees with 0 of 2 requested facts.",
+              "op": 2,
+              "state": "missing",
+              "target": "flow:admin-create-finance#create-term"
+            }
+          ],
+          "id": "chg:fo-sourced-terms",
+          "nativeState": "missing",
+          "oldOps": [
+            {
+              "detail": "today has no sch:term#sourceKey",
+              "op": 0,
+              "state": "missing",
+              "target": "sch:term#sourceKey"
+            },
+            {
+              "detail": "today has no sch:create-term-payload#sourceKey",
+              "op": 1,
+              "state": "missing",
+              "target": "sch:create-term-payload#sourceKey"
+            },
+            {
+              "detail": "today says none of the 2",
+              "op": 2,
+              "state": "missing",
+              "target": "flow:admin-create-finance#create-term"
+            }
+          ],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [
+            {
+              "detail": "The current model has no such target.",
+              "op": 0,
+              "state": "missing",
+              "target": "sch:sourced-term-snapshot"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 1,
+              "state": "missing",
+              "target": "api:fo-admin-get-sourced-terms"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 2,
+              "state": "missing",
+              "target": "flow:admin-pick-sourced-options"
+            },
+            {
+              "detail": "The current model agrees with 0 of 3 requested facts.",
+              "op": 3,
+              "state": "missing",
+              "target": "flow:activate-financing-offer#activate"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 4,
+              "state": "missing",
+              "target": "flow:activate-financing-offer#fetch-sourced-terms"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 5,
+              "state": "missing",
+              "target": "flow:activate-financing-offer#check-options"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 6,
+              "state": "missing",
+              "target": "flow:activate-financing-offer#store-offer"
+            },
+            {
+              "detail": "The current model agrees with 0 of 4 requested facts.",
+              "op": 7,
+              "state": "missing",
+              "target": "api:fo-admin-activate-template"
+            },
+            {
+              "detail": "The current model agrees with 0 of 1 requested facts.",
+              "op": 8,
+              "state": "missing",
+              "target": "flow:activate-financing-offer"
+            }
+          ],
+          "id": "chg:fo-sourced-template-options",
+          "nativeState": "missing",
+          "oldOps": [
+            {
+              "detail": "today has no sch:sourced-term-snapshot",
+              "op": 0,
+              "state": "missing",
+              "target": "sch:sourced-term-snapshot"
+            },
+            {
+              "detail": "today has no api:fo-admin-get-sourced-terms",
+              "op": 1,
+              "state": "missing",
+              "target": "api:fo-admin-get-sourced-terms"
+            },
+            {
+              "detail": "today has no flow:admin-pick-sourced-options",
+              "op": 2,
+              "state": "missing",
+              "target": "flow:admin-pick-sourced-options"
+            },
+            {
+              "detail": "today says none of the 3",
+              "op": 3,
+              "state": "missing",
+              "target": "flow:activate-financing-offer#activate"
+            },
+            {
+              "detail": "today has no flow:activate-financing-offer#fetch-sourced-terms",
+              "op": 4,
+              "state": "missing",
+              "target": "flow:activate-financing-offer#fetch-sourced-terms"
+            },
+            {
+              "detail": "today has no flow:activate-financing-offer#check-options",
+              "op": 5,
+              "state": "missing",
+              "target": "flow:activate-financing-offer#check-options"
+            },
+            {
+              "detail": "today has no flow:activate-financing-offer#store-offer",
+              "op": 6,
+              "state": "missing",
+              "target": "flow:activate-financing-offer#store-offer"
+            },
+            {
+              "detail": "today says none of the 4",
+              "op": 7,
+              "state": "missing",
+              "target": "api:fo-admin-activate-template"
+            },
+            {
+              "detail": "today says none of the 1",
+              "op": 8,
+              "state": "missing",
+              "target": "flow:activate-financing-offer"
+            }
+          ],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [
+            {
+              "detail": "The current model agrees with 0 of 2 requested facts.",
+              "op": 0,
+              "state": "missing",
+              "target": "api:gpe-configuration-get-financing-products"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 1,
+              "state": "missing",
+              "target": "api:gpe-get-financing-product"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 2,
+              "state": "missing",
+              "target": "sch:gpe-financing-products-response#unavailableSources"
+            },
+            {
+              "detail": "The current model agrees with 0 of 1 requested facts.",
+              "op": 3,
+              "state": "missing",
+              "target": "sch:redis-financing-products"
+            },
+            {
+              "detail": "The current model agrees with 0 of 2 requested facts.",
+              "op": 4,
+              "state": "missing",
+              "target": "sch:redis-financing-products#Products"
+            },
+            {
+              "detail": "The current model agrees with 0 of 3 requested facts.",
+              "op": 5,
+              "state": "missing",
+              "target": "flow:gpe-price-data-import-financing-products#read-products"
+            },
+            {
+              "detail": "The current model agrees with 0 of 1 requested facts.",
+              "op": 6,
+              "state": "missing",
+              "target": "flow:gpe-price-data-import-financing-products"
+            },
+            {
+              "detail": "The current model agrees with 0 of 2 requested facts.",
+              "op": 7,
+              "state": "missing",
+              "target": "flow:list-financing-products#read-redis"
+            },
+            {
+              "detail": "The current model agrees with 0 of 4 requested facts.",
+              "op": 8,
+              "state": "missing",
+              "target": "flow:list-financing-products#read-fae"
+            },
+            {
+              "detail": "The current model agrees with 0 of 2 requested facts.",
+              "op": 9,
+              "state": "missing",
+              "target": "flow:list-financing-products#merge"
+            },
+            {
+              "detail": "The current model agrees with 0 of 1 requested facts.",
+              "op": 10,
+              "state": "missing",
+              "target": "flow:list-financing-products"
+            }
+          ],
+          "id": "chg:gpe-financing-product-scope",
+          "nativeState": "missing",
+          "oldOps": [
+            {
+              "detail": "today says none of the 2",
+              "op": 0,
+              "state": "missing",
+              "target": "api:gpe-configuration-get-financing-products"
+            },
+            {
+              "detail": "today has no api:gpe-get-financing-product",
+              "op": 1,
+              "state": "missing",
+              "target": "api:gpe-get-financing-product"
+            },
+            {
+              "detail": "today has no sch:gpe-financing-products-response#unavailableSources",
+              "op": 2,
+              "state": "missing",
+              "target": "sch:gpe-financing-products-response#unavailableSources"
+            },
+            {
+              "detail": "today says none of the 1",
+              "op": 3,
+              "state": "missing",
+              "target": "sch:redis-financing-products"
+            },
+            {
+              "detail": "today says none of the 2",
+              "op": 4,
+              "state": "missing",
+              "target": "sch:redis-financing-products#Products"
+            },
+            {
+              "detail": "today says none of the 3",
+              "op": 5,
+              "state": "missing",
+              "target": "flow:gpe-price-data-import-financing-products#read-products"
+            },
+            {
+              "detail": "today says none of the 1",
+              "op": 6,
+              "state": "missing",
+              "target": "flow:gpe-price-data-import-financing-products"
+            },
+            {
+              "detail": "today says none of the 2",
+              "op": 7,
+              "state": "missing",
+              "target": "flow:list-financing-products#read-redis"
+            },
+            {
+              "detail": "today says none of the 4",
+              "op": 8,
+              "state": "missing",
+              "target": "flow:list-financing-products#read-fae"
+            },
+            {
+              "detail": "today says none of the 2",
+              "op": 9,
+              "state": "missing",
+              "target": "flow:list-financing-products#merge"
+            },
+            {
+              "detail": "today says none of the 1",
+              "op": 10,
+              "state": "missing",
+              "target": "flow:list-financing-products"
+            }
+          ],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [
+            {
+              "detail": "The current model agrees with 0 of 2 requested facts.",
+              "op": 0,
+              "state": "missing",
+              "target": "flow:admin-create-finance#create-finance"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 1,
+              "state": "missing",
+              "target": "flow:admin-create-finance#check-product"
+            },
+            {
+              "detail": "The current model agrees with 0 of 1 requested facts.",
+              "op": 2,
+              "state": "missing",
+              "target": "api:fo-admin-create-finance"
+            },
+            {
+              "detail": "The current model agrees with 0 of 1 requested facts.",
+              "op": 3,
+              "state": "missing",
+              "target": "flow:admin-create-finance"
+            }
+          ],
+          "id": "chg:fo-validate-financing-product",
+          "nativeState": "missing",
+          "oldOps": [
+            {
+              "detail": "today says none of the 2",
+              "op": 0,
+              "state": "missing",
+              "target": "flow:admin-create-finance#create-finance"
+            },
+            {
+              "detail": "today has no flow:admin-create-finance#check-product",
+              "op": 1,
+              "state": "missing",
+              "target": "flow:admin-create-finance#check-product"
+            },
+            {
+              "detail": "today says none of the 1",
+              "op": 2,
+              "state": "missing",
+              "target": "api:fo-admin-create-finance"
+            },
+            {
+              "detail": "today says none of the 1",
+              "op": 3,
+              "state": "missing",
+              "target": "flow:admin-create-finance"
+            }
+          ],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [
+            {
+              "detail": "The current model has no such target.",
+              "op": 0,
+              "state": "missing",
+              "target": "sch:financing-product#Terms"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 1,
+              "state": "missing",
+              "target": "api:price-core-list-financing-products-v2"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 2,
+              "state": "missing",
+              "target": "api:price-core-get-financing-product-terms"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 3,
+              "state": "missing",
+              "target": "sch:price-core-terms-excel-upload"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 4,
+              "state": "missing",
+              "target": "sch:price-core-terms-import-result"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 5,
+              "state": "missing",
+              "target": "api:price-core-import-terms"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 6,
+              "state": "missing",
+              "target": "flow:price-core-seed-financing-product-terms"
+            }
+          ],
+          "id": "chg:price-core-financing-product-terms",
+          "nativeState": "missing",
+          "oldOps": [
+            {
+              "detail": "today has no sch:financing-product#Terms",
+              "op": 0,
+              "state": "missing",
+              "target": "sch:financing-product#Terms"
+            },
+            {
+              "detail": "today has no api:price-core-list-financing-products-v2",
+              "op": 1,
+              "state": "missing",
+              "target": "api:price-core-list-financing-products-v2"
+            },
+            {
+              "detail": "today has no api:price-core-get-financing-product-terms",
+              "op": 2,
+              "state": "missing",
+              "target": "api:price-core-get-financing-product-terms"
+            },
+            {
+              "detail": "today has no sch:price-core-terms-excel-upload",
+              "op": 3,
+              "state": "missing",
+              "target": "sch:price-core-terms-excel-upload"
+            },
+            {
+              "detail": "today has no sch:price-core-terms-import-result",
+              "op": 4,
+              "state": "missing",
+              "target": "sch:price-core-terms-import-result"
+            },
+            {
+              "detail": "today has no api:price-core-import-terms",
+              "op": 5,
+              "state": "missing",
+              "target": "api:price-core-import-terms"
+            },
+            {
+              "detail": "today has no flow:price-core-seed-financing-product-terms",
+              "op": 6,
+              "state": "missing",
+              "target": "flow:price-core-seed-financing-product-terms"
+            }
+          ],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [
+            {
+              "detail": "The current model has no such target.",
+              "op": 0,
+              "state": "missing",
+              "target": "sch:redis-financing-product-terms"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 1,
+              "state": "missing",
+              "target": "flow:gpe-price-data-refresh-price-core-terms"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 2,
+              "state": "missing",
+              "target": "flow:resolve-financing-product-terms#read-price-core"
+            }
+          ],
+          "id": "chg:gpe-read-price-core-terms",
+          "nativeState": "missing",
+          "oldOps": [
+            {
+              "detail": "today has no sch:redis-financing-product-terms",
+              "op": 0,
+              "state": "missing",
+              "target": "sch:redis-financing-product-terms"
+            },
+            {
+              "detail": "today has no flow:gpe-price-data-refresh-price-core-terms",
+              "op": 1,
+              "state": "missing",
+              "target": "flow:gpe-price-data-refresh-price-core-terms"
+            },
+            {
+              "detail": "today has no flow:resolve-financing-product-terms#read-price-core",
+              "op": 2,
+              "state": "missing",
+              "target": "flow:resolve-financing-product-terms#read-price-core"
+            }
+          ],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [
+            {
+              "detail": "The current model agrees with 0 of 2 requested facts.",
+              "op": 0,
+              "state": "missing",
+              "target": "flow:price-core-author-financing-product#create"
+            },
+            {
+              "detail": "The current model agrees with 0 of 1 requested facts.",
+              "op": 1,
+              "state": "missing",
+              "target": "api:price-core-create-financing-product"
+            },
+            {
+              "detail": "The current model agrees with 0 of 2 requested facts.",
+              "op": 2,
+              "state": "missing",
+              "target": "api:price-core-update-financing-product"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 3,
+              "state": "missing",
+              "target": "flow:price-core-edit-financing-product-terms"
+            }
+          ],
+          "id": "chg:price-core-authored-terms",
+          "nativeState": "missing",
+          "oldOps": [
+            {
+              "detail": "today says none of the 2",
+              "op": 0,
+              "state": "missing",
+              "target": "flow:price-core-author-financing-product#create"
+            },
+            {
+              "detail": "today says none of the 1",
+              "op": 1,
+              "state": "missing",
+              "target": "api:price-core-create-financing-product"
+            },
+            {
+              "detail": "today says none of the 2",
+              "op": 2,
+              "state": "missing",
+              "target": "api:price-core-update-financing-product"
+            },
+            {
+              "detail": "today has no flow:price-core-edit-financing-product-terms",
+              "op": 3,
+              "state": "missing",
+              "target": "flow:price-core-edit-financing-product-terms"
+            }
+          ],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [
+            {
+              "detail": "The current model still records this target.",
+              "op": 0,
+              "state": "missing",
+              "target": "sch:static-storefront-finances"
+            }
+          ],
+          "id": "chg:fo-retire-static-storefront-finances",
+          "nativeState": "missing",
+          "oldOps": [
+            {
+              "detail": "today still has sch:static-storefront-finances",
+              "op": 0,
+              "state": "missing",
+              "target": "sch:static-storefront-finances"
+            }
+          ],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [
+            {
+              "detail": "The current model has no such target.",
+              "op": 0,
+              "state": "missing",
+              "target": "sch:redis-announced-terms"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 1,
+              "state": "missing",
+              "target": "flow:gpe-price-data-refresh-price-core-terms#save-terms"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 2,
+              "state": "missing",
+              "target": "flow:gpe-price-data-announce-terms-change"
+            },
+            {
+              "detail": "The current model agrees with 0 of 1 requested facts.",
+              "op": 3,
+              "state": "missing",
+              "target": "msg:gpe-financing-products-updated"
+            }
+          ],
+          "id": "chg:gpe-publish-on-terms-change",
+          "nativeState": "missing",
+          "oldOps": [
+            {
+              "detail": "today has no sch:redis-announced-terms",
+              "op": 0,
+              "state": "missing",
+              "target": "sch:redis-announced-terms"
+            },
+            {
+              "detail": "today has no flow:gpe-price-data-refresh-price-core-terms#save-terms",
+              "op": 1,
+              "state": "missing",
+              "target": "flow:gpe-price-data-refresh-price-core-terms#save-terms"
+            },
+            {
+              "detail": "today has no flow:gpe-price-data-announce-terms-change",
+              "op": 2,
+              "state": "missing",
+              "target": "flow:gpe-price-data-announce-terms-change"
+            },
+            {
+              "detail": "today says none of the 1",
+              "op": 3,
+              "state": "missing",
+              "target": "msg:gpe-financing-products-updated"
+            }
+          ],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [
+            {
+              "detail": "The current model has no such target.",
+              "op": 0,
+              "state": "missing",
+              "target": "sub:financing-offers-price-financing-products-updated-public"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 1,
+              "state": "missing",
+              "target": "sch:pending-terms-recheck"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 2,
+              "state": "missing",
+              "target": "sch:terms-change-warning"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 3,
+              "state": "missing",
+              "target": "api:fo-admin-list-terms-change-warnings"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 4,
+              "state": "missing",
+              "target": "sch:financing-offer-terms-changed-event"
+            },
+            {
+              "detail": "The current model agrees with 0 of 1 requested facts.",
+              "op": 5,
+              "state": "missing",
+              "target": "sch:financing-offers-event#payload"
+            },
+            {
+              "detail": "The current model agrees with 0 of 1 requested facts.",
+              "op": 6,
+              "state": "missing",
+              "target": "sch:financing-offer-archived-event#Reason"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 7,
+              "state": "missing",
+              "target": "flow:fo-react-to-terms-change"
+            }
+          ],
+          "id": "chg:fo-react-to-terms-change",
+          "nativeState": "missing",
+          "oldOps": [
+            {
+              "detail": "today says none of the 1",
+              "op": 0,
+              "state": "missing",
+              "target": "st:price-financing-products-updated-public"
+            },
+            {
+              "detail": "today says none of the 1",
+              "op": 1,
+              "state": "missing",
+              "target": "msg:price-financing-products-updated-public"
+            },
+            {
+              "detail": "today has no sch:pending-terms-recheck",
+              "op": 2,
+              "state": "missing",
+              "target": "sch:pending-terms-recheck"
+            },
+            {
+              "detail": "today has no sch:terms-change-warning",
+              "op": 3,
+              "state": "missing",
+              "target": "sch:terms-change-warning"
+            },
+            {
+              "detail": "today has no api:fo-admin-list-terms-change-warnings",
+              "op": 4,
+              "state": "missing",
+              "target": "api:fo-admin-list-terms-change-warnings"
+            },
+            {
+              "detail": "today has no sch:financing-offer-terms-changed-event",
+              "op": 5,
+              "state": "missing",
+              "target": "sch:financing-offer-terms-changed-event"
+            },
+            {
+              "detail": "today says none of the 1",
+              "op": 6,
+              "state": "missing",
+              "target": "sch:financing-offers-event#payload"
+            },
+            {
+              "detail": "today says none of the 1",
+              "op": 7,
+              "state": "missing",
+              "target": "sch:financing-offer-archived-event#Reason"
+            },
+            {
+              "detail": "today has no flow:fo-react-to-terms-change",
+              "op": 8,
+              "state": "missing",
+              "target": "flow:fo-react-to-terms-change"
+            }
+          ],
+          "oldState": "missing"
+        }
+      ],
+      "oldEmpty": {
+        "overlaps": [],
+        "status": {},
+        "warnings": []
+      },
+      "readings": [],
+      "rows": [
+        {
+          "after": "0ac735e4d5ffd0aaa10409fef5abbb57bb7309cbc75198cecb57dddc17b11c79",
+          "afterRows": 16,
+          "before": "0ac735e4d5ffd0aaa10409fef5abbb57bb7309cbc75198cecb57dddc17b11c79",
+          "beforeRows": 16,
+          "differences": [],
+          "family": "work"
+        },
+        {
+          "after": "2f1354fdd7194b4749782d55581d31e2dde872b6df4f866ccd6308b2ebef9bb0",
+          "afterRows": 4,
+          "before": "2f1354fdd7194b4749782d55581d31e2dde872b6df4f866ccd6308b2ebef9bb0",
+          "beforeRows": 4,
+          "differences": [],
+          "family": "milestones"
+        },
+        {
+          "after": "b936e0ec9bc02a611521f7463a32350ffc845a1c568b605aff16a5ffacc3dc0c",
+          "afterRows": 3,
+          "before": "b936e0ec9bc02a611521f7463a32350ffc845a1c568b605aff16a5ffacc3dc0c",
+          "beforeRows": 3,
+          "differences": [],
+          "family": "teams"
+        }
+      ],
+      "slug": "sourced-financing-terms"
+    },
+    {
+      "changes": [
+        {
+          "currentOps": [
+            {
+              "detail": "The current model has no such target.",
+              "op": 0,
+              "state": "missing",
+              "target": "svc:breakdown-coverage-check"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 1,
+              "state": "missing",
+              "target": "flow:check-breakdown-coverage"
+            }
+          ],
+          "id": "chg:breakdown-coverage-check",
+          "nativeState": "missing",
+          "oldOps": [
+            {
+              "detail": "today has no svc:breakdown-coverage-check",
+              "op": 0,
+              "state": "missing",
+              "target": "svc:breakdown-coverage-check"
+            },
+            {
+              "detail": "today has no flow:check-breakdown-coverage",
+              "op": 1,
+              "state": "missing",
+              "target": "flow:check-breakdown-coverage"
+            }
+          ],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [
+            {
+              "detail": "The current model has no such target.",
+              "op": 0,
+              "state": "missing",
+              "target": "sch:assortment-code-product-types"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 1,
+              "state": "missing",
+              "target": "api:assortment-product-types-by-codes"
+            }
+          ],
+          "id": "chg:assortment-types-by-code",
+          "nativeState": "missing",
+          "oldOps": [
+            {
+              "detail": "today has no sch:assortment-code-product-types",
+              "op": 0,
+              "state": "missing",
+              "target": "sch:assortment-code-product-types"
+            },
+            {
+              "detail": "today has no api:assortment-product-types-by-codes",
+              "op": 1,
+              "state": "missing",
+              "target": "api:assortment-product-types-by-codes"
+            }
+          ],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [
+            {
+              "detail": "The current model has no such target.",
+              "op": 0,
+              "state": "missing",
+              "target": "sch:offer-product#category"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 1,
+              "state": "missing",
+              "target": "sch:offer-package#category"
+            },
+            {
+              "detail": "The current model agrees with 0 of 1 requested facts.",
+              "op": 2,
+              "state": "missing",
+              "target": "flow:render-price-breakdown#query-price-breakdown"
+            }
+          ],
+          "id": "chg:offer-product-category",
+          "nativeState": "missing",
+          "oldOps": [
+            {
+              "detail": "today has no sch:offer-product#category",
+              "op": 0,
+              "state": "missing",
+              "target": "sch:offer-product#category"
+            },
+            {
+              "detail": "today has no sch:offer-package#category",
+              "op": 1,
+              "state": "missing",
+              "target": "sch:offer-package#category"
+            },
+            {
+              "detail": "today says none of the 1",
+              "op": 2,
+              "state": "missing",
+              "target": "flow:render-price-breakdown#query-price-breakdown"
+            }
+          ],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [
+            {
+              "detail": "The current model has no such target.",
+              "op": 0,
+              "state": "missing",
+              "target": "sch:offer-product#source"
+            },
+            {
+              "detail": "The current model has no such target.",
+              "op": 1,
+              "state": "missing",
+              "target": "flow:render-price-breakdown#derive-products-from-car-key"
+            },
+            {
+              "detail": "The current model agrees with 0 of 1 requested facts.",
+              "op": 2,
+              "state": "missing",
+              "target": "flow:render-price-breakdown#query-price-breakdown"
+            }
+          ],
+          "id": "chg:offer-products-from-car-key",
+          "nativeState": "missing",
+          "oldOps": [
+            {
+              "detail": "today has no sch:offer-product#source",
+              "op": 0,
+              "state": "missing",
+              "target": "sch:offer-product#source"
+            },
+            {
+              "detail": "today has no flow:render-price-breakdown#derive-products-from-car-key",
+              "op": 1,
+              "state": "missing",
+              "target": "flow:render-price-breakdown#derive-products-from-car-key"
+            },
+            {
+              "detail": "today says none of the 1",
+              "op": 2,
+              "state": "missing",
+              "target": "flow:render-price-breakdown#query-price-breakdown"
+            }
+          ],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [
+            {
+              "detail": "The current model has no such target.",
+              "op": 0,
+              "state": "missing",
+              "target": "flow:gpe-price-configuration-calculation#price-additional-products-by-core-type"
+            },
+            {
+              "detail": "The current model agrees with 0 of 1 requested facts.",
+              "op": 1,
+              "state": "missing",
+              "target": "sch:gpe-price-response#items"
+            },
+            {
+              "detail": "The current model agrees with 0 of 1 requested facts.",
+              "op": 2,
+              "state": "missing",
+              "target": "flow:gpe-price-configuration-calculation#assemble-response"
+            }
+          ],
+          "id": "chg:gpe-additional-product-type-fallback",
+          "nativeState": "missing",
+          "oldOps": [
+            {
+              "detail": "today has no flow:gpe-price-configuration-calculation#price-additional-products-by-core-type",
+              "op": 0,
+              "state": "missing",
+              "target": "flow:gpe-price-configuration-calculation#price-additional-products-by-core-type"
+            },
+            {
+              "detail": "today says none of the 1",
+              "op": 1,
+              "state": "missing",
+              "target": "sch:gpe-price-response#items"
+            },
+            {
+              "detail": "today says none of the 1",
+              "op": 2,
+              "state": "missing",
+              "target": "flow:gpe-price-configuration-calculation#assemble-response"
+            }
+          ],
+          "oldState": "missing"
+        },
+        {
+          "currentOps": [
+            {
+              "detail": "The current model agrees with 0 of 1 requested facts.",
+              "op": 0,
+              "state": "missing",
+              "target": "flow:render-price-breakdown#calculate-price"
+            }
+          ],
+          "id": "chg:pricing-prices-derived-products",
+          "nativeState": "missing",
+          "oldOps": [
+            {
+              "detail": "today says none of the 1",
+              "op": 0,
+              "state": "missing",
+              "target": "flow:render-price-breakdown#calculate-price"
+            }
+          ],
+          "oldState": "missing"
+        }
+      ],
+      "oldEmpty": {
+        "overlaps": [],
+        "status": {},
+        "warnings": []
+      },
+      "readings": [],
+      "rows": [
+        {
+          "after": "aae5856cc5c4452419b002bb6d8fe27c6005b12ecaf8566b9636cc475ba02697",
+          "afterRows": 8,
+          "before": "aae5856cc5c4452419b002bb6d8fe27c6005b12ecaf8566b9636cc475ba02697",
+          "beforeRows": 8,
+          "differences": [],
+          "family": "work"
+        },
+        {
+          "after": "7bebba61653b660b22a825dacd682fe113b5b2c17f9ed78c23942f1cb17a2b01",
+          "afterRows": 2,
+          "before": "7bebba61653b660b22a825dacd682fe113b5b2c17f9ed78c23942f1cb17a2b01",
+          "beforeRows": 2,
+          "differences": [],
+          "family": "milestones"
+        },
+        {
+          "after": "235129d759e08418426c302da44876a0cd1e1c70c25b991811daed0a6fc12435",
+          "afterRows": 3,
+          "before": "235129d759e08418426c302da44876a0cd1e1c70c25b991811daed0a6fc12435",
+          "beforeRows": 3,
+          "differences": [],
+          "family": "teams"
+        }
+      ],
+      "slug": "unify-price-breakdown"
+    }
+  ]
+}

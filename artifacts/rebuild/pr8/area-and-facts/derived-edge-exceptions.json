@@ -1,0 +1,1374 @@
+{
+  "reports": [
+    {
+      "exactNativeRows": 0,
+      "held": 0,
+      "nonIdentical": [
+        {
+          "cause": "legacy-owner-implied-access",
+          "declaredAccess": [],
+          "handlerSites": [],
+          "id": "data|svc:allotment-app|st:allotment-db",
+          "legacyOnlyModes": [
+            "read",
+            "write"
+          ],
+          "nativeModes": [],
+          "oldOwner": "svc:allotment-app",
+          "oldSha256": "15af07f3b9fff4ef6735ef6deffeff0e6218b1cb04435cb6b3d55b3290d71546",
+          "pointer": "/derived/componentEdges/0",
+          "priorReview": "artifacts/rebuild/verification/pr4/fidelity-ledger.json"
+        }
+      ],
+      "total": 1,
+      "workspace": "personal"
+    },
+    {
+      "exactNativeRows": 0,
+      "held": 0,
+      "nonIdentical": [
+        {
+          "cause": "authored-flow-only",
+          "id": "api|svc:order-desk|svc:order-api|api:orders-cancel",
+          "oldSha256": "5c3adbc93561df4c0f2803bad6b539239ce3db66141419d3d2eed1203b9f6dcb",
+          "pointer": "/derived/componentEdges/0",
+          "sourceSites": [
+            {
+              "id": "flow:cancel-order#cancel",
+              "native": "flow:cancel-order#cancel",
+              "retained": true
+            }
+          ]
+        },
+        {
+          "cause": "authored-flow-only",
+          "id": "api|svc:shop-web|svc:shop-bff|api:bff-place-order",
+          "oldSha256": "b81df9d1b40d3891ca8e174aca55f65083d9568e991a441af3927b0df4cd3cc7",
+          "pointer": "/derived/componentEdges/1",
+          "sourceSites": [
+            {
+              "id": "flow:place-order#submit",
+              "native": "flow:place-order#submit",
+              "retained": true
+            }
+          ]
+        },
+        {
+          "cause": "authored-flow-only",
+          "id": "api|svc:shop-bff|svc:order-api|api:orders-create",
+          "oldSha256": "2837caa256d308e0d879e4489003b0eca82e895554e85ca14cdc9d0ea82690b8",
+          "pointer": "/derived/componentEdges/2",
+          "sourceSites": [
+            {
+              "id": "flow:place-order#create",
+              "native": "flow:place-order#create",
+              "retained": true
+            }
+          ]
+        },
+        {
+          "cause": "authored-flow-only",
+          "id": "api|svc:order-api|svc:payments|api:payments-charge",
+          "oldSha256": "61d3d3bfa5ad82731e33a52557c29c1a5eff79c7e30ddd3f61d34dd7de124355",
+          "pointer": "/derived/componentEdges/3",
+          "sourceSites": [
+            {
+              "id": "flow:place-order#charge",
+              "native": "flow:place-order#charge",
+              "retained": true
+            }
+          ]
+        },
+        {
+          "cause": "authored-flow-only",
+          "id": "api|svc:payments|svc:card-provider|api:card-charge",
+          "oldSha256": "fa2963a9ccd6134f8dfc9d6137e1d06f2730bc239f4d6d1f23fe05c443ba131c",
+          "pointer": "/derived/componentEdges/4",
+          "sourceSites": [
+            {
+              "id": "flow:place-order#card",
+              "native": "flow:place-order#card",
+              "retained": true
+            }
+          ]
+        },
+        {
+          "cause": "authored-flow-only",
+          "id": "api|svc:product-admin|svc:products|api:products-update",
+          "oldSha256": "f660396a1a7213cf4867caaf170f52d76979fdc72533d712b14fc70e30f5cea6",
+          "pointer": "/derived/componentEdges/5",
+          "sourceSites": [
+            {
+              "id": "flow:publish-product#save",
+              "native": "flow:publish-product#save",
+              "retained": true
+            }
+          ]
+        },
+        {
+          "cause": "authored-flow-only",
+          "id": "msg|svc:products|st:product-events|msg:product-changed",
+          "oldSha256": "c6fcb344f40cf786cac8759469875a20fc7a392206f9092e4981b8eea085d902",
+          "pointer": "/derived/componentEdges/6",
+          "sourceSites": [
+            {
+              "id": "flow:publish-product#announce",
+              "native": "flow:publish-product#announce",
+              "retained": true
+            }
+          ]
+        },
+        {
+          "cause": "authored-flow-only",
+          "id": "msg|st:product-events|svc:search-indexer|msg:product-changed",
+          "oldSha256": "1674ade5d4a0ccb069bdf1c41a2c44d2308c6bfb903d66ca3bfcbc977a768c76",
+          "pointer": "/derived/componentEdges/7",
+          "sourceSites": [
+            {
+              "id": "flow:publish-product#index",
+              "native": "flow:publish-product#index",
+              "retained": true
+            }
+          ]
+        },
+        {
+          "cause": "authored-flow-only",
+          "id": "msg|svc:order-api|st:order-events|msg:order-placed",
+          "oldSha256": "c14d5501712f81588bf127b9c59cbaf22c623ee8050c1c8a6bd5cc9cef57e7d1",
+          "pointer": "/derived/componentEdges/8",
+          "sourceSites": [
+            {
+              "id": "flow:place-order#publish",
+              "native": "flow:place-order#publish",
+              "retained": true
+            }
+          ]
+        },
+        {
+          "cause": "authored-flow-only",
+          "id": "msg|st:order-events|svc:order-mailer|msg:order-placed",
+          "oldSha256": "7a6c87d86fc1be984c3980a93c33b6f5a4907f27316b4691b693d1fdf7307f47",
+          "pointer": "/derived/componentEdges/9",
+          "sourceSites": [
+            {
+              "id": "flow:place-order#email",
+              "native": "flow:place-order#email",
+              "retained": true
+            }
+          ]
+        },
+        {
+          "cause": "authored-flow-only",
+          "id": "data|svc:products|st:products-db",
+          "oldSha256": "e08f95b06025859b4a8425cdc1f7da33a0d05a5b3b1f4826bb093252b1597dc8",
+          "pointer": "/derived/componentEdges/10",
+          "sourceSites": [
+            {
+              "id": "flow:publish-product#save",
+              "native": "flow:publish-product#save",
+              "retained": true
+            }
+          ]
+        },
+        {
+          "cause": "authored-flow-only",
+          "id": "data|svc:search-indexer|st:search-index",
+          "oldSha256": "622459026041cc0ddfe0b37ad2839a02de2daf8b2805c5d3d29f8bd7a5b6b4e6",
+          "pointer": "/derived/componentEdges/11",
+          "sourceSites": [
+            {
+              "id": "flow:publish-product#index",
+              "native": "flow:publish-product#index",
+              "retained": true
+            }
+          ]
+        },
+        {
+          "cause": "accepted-uncited-access-gap",
+          "id": "data|svc:search-api|st:search-index",
+          "oldSha256": "c3cdfda3887419e3b813a194a75368183037b717335c0c41299cd4d4d05f83e0",
+          "pointer": "/derived/componentEdges/12",
+          "reviewKey": "contract-edge/4f9b1d52ec8e889ef384a4bd951174cbdce3c75cdc6b5f817c6f80ce494303cf"
+        },
+        {
+          "cause": "authored-flow-only",
+          "id": "data|svc:order-api|st:orders-db",
+          "oldSha256": "707839ee83f8738a9112a44bfaef85637541a88d0f0566fa8ec659cee791eac9",
+          "pointer": "/derived/componentEdges/13",
+          "sourceSites": [
+            {
+              "id": "flow:cancel-order#cancel",
+              "native": "flow:cancel-order#cancel",
+              "retained": true
+            },
+            {
+              "id": "flow:place-order#create",
+              "native": "flow:place-order#create",
+              "retained": true
+            },
+            {
+              "id": "flow:place-order#publish",
+              "native": "flow:place-order#publish",
+              "retained": true
+            }
+          ]
+        },
+        {
+          "cause": "legacy-owner-implied-access",
+          "declaredAccess": [],
+          "handlerSites": [],
+          "id": "data|svc:shop-bff|st:basket-cache",
+          "legacyOnlyModes": [
+            "read",
+            "write"
+          ],
+          "nativeModes": [],
+          "oldOwner": "svc:shop-bff",
+          "oldSha256": "8200e44b9faa02cc80d0515c4a75dad9fe94584f58916097979e0744a8f822a0",
+          "pointer": "/derived/componentEdges/14",
+          "priorReview": "artifacts/rebuild/verification/pr4/fidelity-ledger.json"
+        }
+      ],
+      "total": 15,
+      "workspace": "acme"
+    },
+    {
+      "exactNativeRows": 1648,
+      "held": 0,
+      "nonIdentical": [
+        {
+          "cause": "authored-flow-only",
+          "id": "api|svc:offer-admin-ui|svc:financing-offers|api:fo-admin-create-template",
+          "oldSha256": "105b9df9e054f5c79116d2e6c88ec02888853f1da7278169c9e6d8ff9bb2ab4b",
+          "pointer": "/derived/componentEdges/0",
+          "sourceSites": [
+            {
+              "id": "flow:activate-financing-offer#create-template",
+              "native": "flow:activate-financing-offer#create-template",
+              "retained": true
+            }
+          ]
+        },
+        {
+          "cause": "authored-flow-only",
+          "id": "api|svc:offer-admin-ui|svc:financing-offers|api:fo-admin-activate-template",
+          "oldSha256": "09981ff0dcfcb87a370473811fb820f89ca8358febc67d586809d211ab39ba7c",
+          "pointer": "/derived/componentEdges/1",
+          "sourceSites": [
+            {
+              "id": "flow:activate-financing-offer#activate",
+              "native": "flow:activate-financing-offer#activate",
+              "retained": true
+            }
+          ]
+        },
+        {
+          "cause": "authored-flow-only",
+          "id": "api|svc:offer-admin-ui|svc:financing-offers|api:fo-admin-create-term",
+          "oldSha256": "8003c35299fc651ce383b09dde19928297c0185a3291ce0b6aa9d74855b3f1a8",
+          "pointer": "/derived/componentEdges/2",
+          "sourceSites": [
+            {
+              "id": "flow:admin-create-finance#create-term",
+              "native": "flow:admin-create-finance#create-term",
+              "retained": true
+            }
+          ]
+        },
+        {
+          "cause": "authored-flow-only",
+          "id": "api|svc:offer-admin-ui|svc:financing-offers|api:fo-admin-create-finance-type",
+          "oldSha256": "8d5567a34c3d6fc2a7f43669a4c780d3d9694a9eeb5dff7f04579a43da8cb13d",
+          "pointer": "/derived/componentEdges/3",
+          "sourceSites": [
+            {
+              "id": "flow:admin-create-finance#create-type",
+              "native": "flow:admin-create-finance#create-type",
+              "retained": true
+            }
+          ]
+        },
+        {
+          "cause": "authored-flow-only",
+          "id": "api|svc:offer-admin-ui|svc:financing-offers|api:fo-admin-create-finance",
+          "oldSha256": "a73b8c7b126dc835c5c0b8d608fcd60aad0d4457484177a92b815337de37169f",
+          "pointer": "/derived/componentEdges/4",
+          "sourceSites": [
+            {
+              "id": "flow:admin-create-finance#create-finance",
+              "native": "flow:admin-create-finance#create-finance",
+              "retained": true
+            }
+          ]
+        },
+        {
+          "cause": "authored-flow-only",
+          "id": "api|svc:pricing-dgs|svc:assortment-api|api:assortment-market-auth-entries",
+          "oldSha256": "701a49632f63a4b7085e46027568910cebdd2f7781389cf6b55cf9291e3ca6e7",
+          "pointer": "/derived/componentEdges/5",
+          "sourceSites": [
+            {
+              "id": "flow:assortment-maintains-market-availability#read",
+              "native": "flow:assortment-maintains-market-availability#read",
+              "retained": true
+            }
+          ]
+        },
+        {
+          "cause": "authored-flow-only",
+          "id": "api|svc:assortment-gateway|svc:assortment-api|api:assortment-product-get",
+          "oldSha256": "564c1f3efdd0353bef8a61b7b56c7c1ace2d946006c1130e86708d5e4d64064a",
+          "pointer": "/derived/componentEdges/6",
+          "sourceSites": [
+            {
+              "id": "flow:assortment-read-current-view#request",
+              "native": "flow:assortment-read-current-view#request",
+              "retained": true
+            }
+          ]
+        },
+        {
+          "cause": "authored-flow-only",
+          "id": "api|svc:gpe-price-data|svc:price-data-management|api:price-core-list-financing-products",
+          "oldSha256": "34b647e77f6fc32acd4bb734a26048f1a73c84145aea03333e4811997060abdf",
+          "pointer": "/derived/componentEdges/15",
+          "sourceSites": [
+            {
+              "id": "flow:gpe-price-data-import-financing-products#read-products",
+              "native": "flow:gpe-price-data-import-financing-products#read-products",
+              "retained": true
+            }
+          ]
+        },
+        {
+          "cause": "authored-flow-only",
+          "id": "api|svc:assortment-api|svc:product-mapper|api:mapper-sync-products",
+          "oldSha256": "6d8e7659ccb2b63e1ff05063375dae726c9f9696a5c447033ca7ae2bf15ddb05",
+          "pointer": "/derived/componentEdges/17",
+          "sourceSites": [
+            {
+              "id": "flow:mapper-full-sync-products#start",
+              "native": "flow:mapper-full-sync-products#start",
+              "retained": true
+            }
+          ]
+        },
+        {
+          "cause": "authored-flow-only",
+          "id": "api|svc:product-mapper|svc:product-mapper|api:mapper-resolve-car-products",
+          "oldSha256": "121f632ddcfc5fc33118a1a7f1f50599298722a266d4643b56634cd691fe8b89",
+          "pointer": "/derived/componentEdges/18",
+          "sourceSites": [
+            {
+              "id": "flow:mapper-resolve-car-products#resolve-products",
+              "native": "flow:mapper-resolve-car-products#resolve-products",
+              "retained": true
+            }
+          ]
+        },
+        {
+          "cause": "authored-flow-only",
+          "id": "api|svc:product-mapper|svc:product-mapper|api:mapper-resolve-variant-collections",
+          "oldSha256": "106f050b5eb3c1eda72bdc3c14f3518dbda5b7670e3fb0873d07040faffd7ed0",
+          "pointer": "/derived/componentEdges/19",
+          "sourceSites": [
+            {
+              "id": "flow:mapper-resolve-car-products#resolve-collections",
+              "native": "flow:mapper-resolve-car-products#resolve-collections",
+              "retained": true
+            }
+          ]
+        },
+        {
+          "cause": "authored-flow-only",
+          "id": "api|svc:assortment-api|svc:product-mapper|api:mapper-resolve-variants",
+          "oldSha256": "6f96d545a821124aabfbc7069357f7ede150bf0d7049745e60826a314acb4bd8",
+          "pointer": "/derived/componentEdges/20",
+          "sourceSites": [
+            {
+              "id": "flow:mapper-resolve-current-variants#request",
+              "native": "flow:mapper-resolve-current-variants#request",
+              "retained": true
+            }
+          ]
+        },
+        {
+          "cause": "authored-flow-only",
+          "id": "api|svc:pricing-dgs|svc:assortment-gateway|api:assortment-pds-products-by-classification",
+          "oldSha256": "20a1a8da5e380b84eefffdef7922e49c9c324cad8df09e6e0c905d44014166a9",
+          "pointer": "/derived/componentEdges/25",
+          "sourceSites": [
+            {
+              "id": "flow:pricing-dgs-maps-price-response-codes#list-products-by-classification",
+              "native": "flow:pricing-dgs-maps-price-response-codes#list-products-by-classification",
+              "retained": true
+            }
+          ]
+        },
+        {
+          "cause": "authored-flow-only",
+          "id": "api|svc:product-details-service|svc:prism-api|api:prism-enrich-products",
+          "oldSha256": "359379b41f76029aa93ba74614e70f9ade906f598b3af29d3c11c1424da0bd7c",
+          "pointer": "/derived/componentEdges/26",
+          "sourceSites": [
+            {
+              "id": "flow:prism-enrich-by-variant-id#request",
+              "native": "flow:prism-enrich-by-variant-id#request",
+              "retained": true
+            }
+          ]
+        },
+        {
+          "cause": "authored-flow-only",
+          "id": "api|svc:product-admin|svc:product-service|api:ps-admin-v2-product-create",
+          "oldSha256": "205b8f2ffc220e60623867ec560d17330badb906f8b64f14f746a2bfb37f036d",
+          "pointer": "/derived/componentEdges/27",
+          "sourceSites": [
+            {
+              "id": "flow:ps-product-lifecycle#create",
+              "native": "flow:ps-product-lifecycle#create",
+              "retained": true
+            }
+          ]
+        },
+        {
+          "cause": "authored-flow-only",
+          "id": "api|svc:product-admin|svc:product-service|api:ps-admin-product-update",
+          "oldSha256": "85f7d2901a1b39d003472387b26b47cbabb607da9cd438e9d87620c220505460",
+          "pointer": "/derived/componentEdges/28",
+          "sourceSites": [
+            {
+              "id": "flow:ps-product-lifecycle#update",
+              "native": "flow:ps-product-lifecycle#update",
+              "retained": true
+            }
+          ]
+        },
+        {
+          "cause": "authored-flow-only",
+          "id": "api|svc:product-admin|svc:product-service|api:ps-admin-v2-product-delete",
+          "oldSha256": "1b8be6fc5d8a81a2c22ae537dd6292728f958d117dc693c54ddcb61fa1e61677",
+          "pointer": "/derived/componentEdges/29",
+          "sourceSites": [
+            {
+              "id": "flow:ps-product-lifecycle#delete",
+              "native": "flow:ps-product-lifecycle#delete",
+              "retained": true
+            }
+          ]
+        },
+        {
+          "cause": "authored-flow-only",
+          "id": "api|svc:product-admin|svc:product-service|api:ps-admin-v2-variant-create",
+          "oldSha256": "b058e9f2a473b55bfde9ae0cc4cfadec06b38fd7e1c541ab0c8cdcda71a051ca",
+          "pointer": "/derived/componentEdges/30",
+          "sourceSites": [
+            {
+              "id": "flow:ps-variant-lifecycle#create",
+              "native": "flow:ps-variant-lifecycle#create",
+              "retained": true
+            }
+          ]
+        },
+        {
+          "cause": "authored-flow-only",
+          "id": "api|svc:product-admin|svc:product-service|api:ps-admin-v2-variant-update",
+          "oldSha256": "752779548f37f693598274581305d918b65dd3c011fe03e1a037e2b5141befc2",
+          "pointer": "/derived/componentEdges/31",
+          "sourceSites": [
+            {
+              "id": "flow:ps-variant-lifecycle#update-rule",
+              "native": "flow:ps-variant-lifecycle#update-rule",
+              "retained": true
+            }
+          ]
+        },
+        {
+          "cause": "authored-flow-only",
+          "id": "api|svc:product-admin|svc:product-service|api:ps-admin-v2-variant-delete",
+          "oldSha256": "f67d168d846c9bd794ab8e8bf6f66c0c39f3c277e720b84081b52f235e2f6b6f",
+          "pointer": "/derived/componentEdges/32",
+          "sourceSites": [
+            {
+              "id": "flow:ps-variant-lifecycle#delete",
+              "native": "flow:ps-variant-lifecycle#delete",
+              "retained": true
+            }
+          ]
+        },
+        {
+          "cause": "authored-flow-only",
+          "id": "api|svc:car-configuration-dgs|svc:car-configuration-dgs|api:car-configuration-offer-by-token",
+          "oldSha256": "ecdaddb3e4f4d12cf59865ae8707c9a1ed66e3247f12cbfe462c0717b7b76e89",
+          "pointer": "/derived/componentEdges/38",
+          "sourceSites": [
+            {
+              "id": "flow:render-price-breakdown#query-price-breakdown",
+              "native": "flow:render-price-breakdown#query-price-breakdown",
+              "retained": true
+            }
+          ]
+        },
+        {
+          "cause": "accepted-unmapped-producer",
+          "id": "msg|svc:translation-volvo-tms|st:volvo-tms-translation-events|msg:volvo-tms-translation-event",
+          "message": "msg:volvo-tms-translation-event",
+          "oldSha256": "e254582642b6cd0d31e68b46db5c5c77a451663ce33fb9523718f670d6df4250",
+          "pointer": "/derived/componentEdges/314",
+          "reviewKey": "contract-edge/fe26c783b987582815b22d6a3371bac1608d5411133052d0dd01f1a5ec19a710",
+          "topic": "top:volvo-tms-translation-events"
+        },
+        {
+          "cause": "accepted-unmapped-producer",
+          "id": "msg|svc:cbv-document-adapter|st:vcc-cbvdocadapter-documentrules-updated|msg:cbvdocadapter-documentrules-updated",
+          "message": "msg:cbvdocadapter-documentrules-updated",
+          "oldSha256": "26f5a9298e821ff26fa83639adfa5dabbe4d6bac86fcec423be61412b8ec5c46",
+          "pointer": "/derived/componentEdges/355",
+          "reviewKey": "contract-edge/9305993d7aa0022969b4b49ff54572134c74c7d76c3326ab903ab9c4cd0f08dc",
+          "topic": "top:vcc-cbvdocadapter-documentrules-updated"
+        },
+        {
+          "cause": "accepted-unmapped-producer",
+          "id": "msg|svc:cbv-document-adapter|st:vcc-cbvdocadapter-templaterules-updated|msg:cbvdocadapter-templaterules-updated",
+          "message": "msg:cbvdocadapter-templaterules-updated",
+          "oldSha256": "5987b14e89f80c62c595e9e8d2194b40bc398bcdae86002d8897d91a801980c1",
+          "pointer": "/derived/componentEdges/357",
+          "reviewKey": "contract-edge/a0d54846fb121d64b0830a3b0165b5bc4a41abece95c1d2b42d0cb000ea8b569",
+          "topic": "top:vcc-cbvdocadapter-templaterules-updated"
+        },
+        {
+          "cause": "authored-flow-only",
+          "id": "data|svc:product-mapper|st:product-mapper-db",
+          "oldSha256": "ac296501facb18560a54eaa0b79497db8819db1fba9d01c22a25b93348f4ae00",
+          "pointer": "/derived/componentEdges/373",
+          "sourceSites": [
+            {
+              "id": "flow:mapper-full-sync-products#start",
+              "native": "flow:mapper-full-sync-products#start",
+              "retained": true
+            },
+            {
+              "id": "flow:mapper-full-sync-products#store",
+              "native": "flow:mapper-full-sync-products#store",
+              "retained": true
+            },
+            {
+              "id": "flow:mapper-project-product-events#replace-product-variants",
+              "native": "flow:mapper-project-product-events#replace-product-variants",
+              "retained": true
+            },
+            {
+              "id": "flow:mapper-project-product-events#delete-product-variants",
+              "native": "flow:mapper-project-product-events#delete-product-variants",
+              "retained": true
+            },
+            {
+              "id": "flow:mapper-project-product-events#sync-binary-cache",
+              "native": "flow:mapper-project-product-events#sync-binary-cache",
+              "retained": true
+            },
+            {
+              "id": "flow:mapper-resolve-car-products#resolve-products",
+              "native": "flow:mapper-resolve-car-products#resolve-products",
+              "retained": true
+            },
+            {
+              "id": "flow:mapper-resolve-car-products#resolve-collections",
+              "native": "flow:mapper-resolve-car-products#resolve-collections",
+              "retained": true
+            },
+            {
+              "id": "flow:mapper-resolve-current-variants#load-candidates",
+              "native": "flow:mapper-resolve-current-variants#load-candidates",
+              "retained": true
+            },
+            {
+              "id": "flow:mapper-resolve-current-variants#match-rules",
+              "native": "flow:mapper-resolve-current-variants#match-rules",
+              "retained": true
+            }
+          ]
+        },
+        {
+          "cause": "legacy-owner-implied-access",
+          "declaredAccess": [
+            {
+              "mode": "write",
+              "svc": "svc:marketing-feeds-cache-worker"
+            }
+          ],
+          "handlerSites": [
+            {
+              "handler": "h:marketing-feeds-cache-worker-sync-cars",
+              "kind": "write",
+              "path": [
+                "steps",
+                1,
+                "then",
+                0,
+                "try",
+                2,
+                "do",
+                1,
+                "do",
+                0,
+                "try",
+                2
+              ]
+            },
+            {
+              "handler": "h:marketing-feeds-cache-worker-sync-cars",
+              "kind": "write",
+              "path": [
+                "steps",
+                1,
+                "then",
+                0,
+                "try",
+                2,
+                "do",
+                2
+              ]
+            },
+            {
+              "handler": "h:marketing-feeds-cache-worker-sync-cars",
+              "kind": "write",
+              "path": [
+                "steps",
+                1,
+                "then",
+                1,
+                "try",
+                2,
+                "do",
+                1,
+                "do",
+                0,
+                "try",
+                2
+              ]
+            },
+            {
+              "handler": "h:marketing-feeds-cache-worker-sync-cars",
+              "kind": "write",
+              "path": [
+                "steps",
+                1,
+                "then",
+                1,
+                "try",
+                2,
+                "do",
+                2
+              ]
+            }
+          ],
+          "id": "data|svc:marketing-feeds-cache-worker|st:marketing-feeds-redis",
+          "legacyOnlyModes": [
+            "read"
+          ],
+          "nativeModes": [
+            "write"
+          ],
+          "oldOwner": "svc:marketing-feeds-cache-worker",
+          "oldSha256": "1c7b19949449d875e8d29366d32ec9eadc84fb1661ea9edb81256fa82337c657",
+          "pointer": "/derived/componentEdges/379",
+          "priorReview": null
+        },
+        {
+          "cause": "legacy-owner-implied-access",
+          "declaredAccess": [
+            {
+              "mode": "write",
+              "svc": "svc:prins-ingestion"
+            }
+          ],
+          "handlerSites": [
+            {
+              "handler": "h:prins-ingestion-generate-files",
+              "kind": "write",
+              "path": [
+                "steps",
+                7,
+                "do",
+                1
+              ]
+            },
+            {
+              "handler": "h:prins-ingestion-generate-files",
+              "kind": "write",
+              "path": [
+                "steps",
+                8,
+                "do",
+                0
+              ]
+            },
+            {
+              "handler": "h:prins-ingestion-generate-files",
+              "kind": "write",
+              "path": [
+                "steps",
+                10,
+                "do",
+                1
+              ]
+            },
+            {
+              "handler": "h:prins-ingestion-generate-files",
+              "kind": "write",
+              "path": [
+                "steps",
+                11,
+                "do",
+                0
+              ]
+            },
+            {
+              "handler": "h:prins-ingestion-refresh-feature-cache",
+              "kind": "write",
+              "path": [
+                "steps",
+                5,
+                "then",
+                0
+              ]
+            }
+          ],
+          "id": "data|svc:prins-ingestion|st:prins-ingestion-blob",
+          "legacyOnlyModes": [
+            "read"
+          ],
+          "nativeModes": [
+            "write"
+          ],
+          "oldOwner": "svc:prins-ingestion",
+          "oldSha256": "de10a5ea3cac2968b18ab0e18b3d45e084ce01848b93bf01d836b8974dd4faef",
+          "pointer": "/derived/componentEdges/389",
+          "priorReview": null
+        },
+        {
+          "cause": "legacy-owner-implied-access",
+          "declaredAccess": [],
+          "handlerSites": [],
+          "id": "data|svc:cdn-akamai|st:akamai-edge-cache",
+          "legacyOnlyModes": [
+            "read",
+            "write"
+          ],
+          "nativeModes": [],
+          "oldOwner": "svc:cdn-akamai",
+          "oldSha256": "1e02c401ffca5c997eb0e1ea47a0c179fb8440dc1612173f736cca12b1f4686a",
+          "pointer": "/derived/componentEdges/438",
+          "priorReview": null
+        },
+        {
+          "cause": "legacy-owner-implied-access",
+          "declaredAccess": [
+            {
+              "mode": "write",
+              "svc": "svc:tyre-label-enrichment"
+            }
+          ],
+          "handlerSites": [
+            {
+              "handler": "h:tyre-label-enrichment-weekly",
+              "kind": "write",
+              "path": [
+                "steps",
+                1,
+                "do",
+                3
+              ]
+            }
+          ],
+          "id": "data|svc:tyre-label-enrichment|st:tyre-label-images",
+          "legacyOnlyModes": [
+            "read"
+          ],
+          "nativeModes": [
+            "write"
+          ],
+          "oldOwner": "svc:tyre-label-enrichment",
+          "oldSha256": "be51373e66589679079d6e2ff0716cd3e8018c9edde2b58ffabdd2b6b62704f2",
+          "pointer": "/derived/componentEdges/444",
+          "priorReview": null
+        },
+        {
+          "cause": "legacy-owner-implied-access",
+          "declaredAccess": [
+            {
+              "mode": "write",
+              "svc": "svc:fae-data-synchronizer"
+            }
+          ],
+          "handlerSites": [
+            {
+              "handler": "h:fae-data-synchronizer-reconcile-finance-products",
+              "kind": "write",
+              "path": [
+                "steps",
+                4,
+                "then",
+                1
+              ]
+            }
+          ],
+          "id": "data|svc:fae-data-synchronizer|st:fae-product-group-cache",
+          "legacyOnlyModes": [
+            "read"
+          ],
+          "nativeModes": [
+            "write"
+          ],
+          "oldOwner": "svc:fae-data-synchronizer",
+          "oldSha256": "4a554638574c788edcb2a9f3fca7b1213860a5d5ba41b2ae34c62875eeef43ee",
+          "pointer": "/derived/componentEdges/452",
+          "priorReview": null
+        },
+        {
+          "cause": "legacy-internal-step-inferred-write",
+          "id": "data|svc:fae-integration|st:fae-product-group-cache",
+          "legacyDerivation": "src/application/plan/derive-edges.ts:333",
+          "nativeModes": [
+            "read"
+          ],
+          "oldSha256": "5294db1ea5a181637717aa7857d86e430cd8d991d73c7168cdc73c6c17609322",
+          "pointer": "/derived/componentEdges/453",
+          "sourceSites": [
+            {
+              "id": "flow:fae-serve-product-groups#read-cache",
+              "native": "flow:fae-serve-product-groups#read-cache",
+              "reads": [
+                "sch:fae-product-group"
+              ]
+            }
+          ]
+        },
+        {
+          "cause": "legacy-owner-implied-access",
+          "declaredAccess": [
+            {
+              "mode": "read",
+              "svc": "svc:fae-bank-integration"
+            }
+          ],
+          "handlerSites": [
+            {
+              "handler": "h:fae-bank-calculate",
+              "kind": "read",
+              "path": [
+                "steps",
+                4
+              ]
+            },
+            {
+              "handler": "h:fae-bank-calculate-conditions",
+              "kind": "read",
+              "path": [
+                "steps",
+                1,
+                "else",
+                0
+              ]
+            },
+            {
+              "handler": "h:fae-bank-check-product-eligibility",
+              "kind": "read",
+              "path": [
+                "steps",
+                1
+              ]
+            },
+            {
+              "handler": "h:fae-bank-create-quote",
+              "kind": "read",
+              "path": [
+                "steps",
+                4
+              ]
+            },
+            {
+              "handler": "h:fae-bank-get-finance-products",
+              "kind": "read",
+              "path": [
+                "steps",
+                3
+              ]
+            },
+            {
+              "handler": "h:fae-bank-get-quote-conditions",
+              "kind": "read",
+              "path": [
+                "steps",
+                4,
+                "else",
+                0
+              ]
+            },
+            {
+              "handler": "h:fae-bank-search-finance-products",
+              "kind": "read",
+              "path": [
+                "steps",
+                2
+              ]
+            }
+          ],
+          "id": "data|svc:fae-bank-integration|st:fae-finance-product-cache",
+          "legacyOnlyModes": [
+            "write"
+          ],
+          "nativeModes": [
+            "read"
+          ],
+          "oldOwner": "svc:fae-bank-integration",
+          "oldSha256": "2f77356213c5a9503592d886d0328dc7b2f2e395bd3a29a66d0796a9253cb664",
+          "pointer": "/derived/componentEdges/457",
+          "priorReview": null
+        },
+        {
+          "cause": "legacy-owner-implied-access",
+          "declaredAccess": [
+            {
+              "mode": "read",
+              "svc": "svc:car-configuration-dgs"
+            }
+          ],
+          "handlerSites": [
+            {
+              "handler": "h:car-configuration-car-by-token",
+              "kind": "read",
+              "path": [
+                "steps",
+                2,
+                "else",
+                0,
+                "then",
+                1,
+                "then",
+                1,
+                "then",
+                0
+              ]
+            },
+            {
+              "handler": "h:car-configuration-modify-token-for-order-change",
+              "kind": "read",
+              "path": [
+                "steps",
+                1,
+                "else",
+                0,
+                "then",
+                1,
+                "then",
+                1,
+                "then",
+                0
+              ]
+            },
+            {
+              "handler": "h:car-configuration-offer-by-token",
+              "kind": "read",
+              "path": [
+                "steps",
+                1,
+                "else",
+                0,
+                "then",
+                1,
+                "then",
+                1,
+                "then",
+                0
+              ]
+            }
+          ],
+          "id": "data|svc:car-configuration-dgs|st:car-configuration-token-s3",
+          "legacyOnlyModes": [
+            "write"
+          ],
+          "nativeModes": [
+            "read"
+          ],
+          "oldOwner": "svc:car-configuration-dgs",
+          "oldSha256": "defbde76bed2ad20ce12758aae5ae5654796aa4625fb088febb458e335e263f8",
+          "pointer": "/derived/componentEdges/468",
+          "priorReview": null
+        },
+        {
+          "cause": "legacy-internal-step-inferred-write",
+          "id": "data|svc:gpe-configuration|st:gpe-configuration-redis",
+          "legacyDerivation": "src/application/plan/derive-edges.ts:333",
+          "nativeModes": [
+            "read"
+          ],
+          "oldSha256": "721c309323a4945619cbbfb1a3bc61de8a1fe024c855174155202446bd0a18f6",
+          "pointer": "/derived/componentEdges/486",
+          "sourceSites": [
+            {
+              "id": "flow:list-financing-products#read-redis",
+              "native": "flow:list-financing-products#read-redis",
+              "reads": [
+                "sch:redis-financing-products"
+              ]
+            }
+          ]
+        },
+        {
+          "cause": "legacy-internal-step-inferred-write",
+          "id": "data|svc:prism-api|st:prism-db",
+          "legacyDerivation": "src/application/plan/derive-edges.ts:333",
+          "nativeModes": [
+            "read"
+          ],
+          "oldSha256": "a51d1d47ac4051c99b5cc32f1ced1a28fb31c4019435a70079a087f4f48b9846",
+          "pointer": "/derived/componentEdges/497",
+          "sourceSites": [
+            {
+              "id": "flow:prism-enrich-by-variant-id#resolve-current",
+              "native": "flow:prism-enrich-by-variant-id#resolve-current",
+              "reads": [
+                "sch:prism-product-projection",
+                "sch:prism-local-product-version"
+              ]
+            },
+            {
+              "id": "flow:prism-enrich-by-variant-id#resolve-publish-date",
+              "native": "flow:prism-enrich-by-variant-id#resolve-publish-date",
+              "reads": [
+                "sch:prism-product-projection",
+                "sch:prism-local-product-version"
+              ]
+            }
+          ]
+        },
+        {
+          "cause": "legacy-owner-implied-access",
+          "declaredAccess": [],
+          "handlerSites": [],
+          "id": "data|svc:prism-api|st:product-enrichment-dgs-response-redis",
+          "legacyOnlyModes": [
+            "read",
+            "write"
+          ],
+          "nativeModes": [],
+          "oldOwner": "svc:prism-api",
+          "oldSha256": "252b2ea1eb8eb1798b66dece9a36df3c6014fcc122042de50235b2bf338b087c",
+          "pointer": "/derived/componentEdges/500",
+          "priorReview": "artifacts/rebuild/verification/pr4/fidelity-ledger.json"
+        },
+        {
+          "cause": "legacy-owner-implied-access",
+          "declaredAccess": [],
+          "handlerSites": [
+            {
+              "handler": "h:rdm-get-partner",
+              "kind": "read",
+              "path": [
+                "steps",
+                9,
+                "then",
+                0
+              ]
+            },
+            {
+              "handler": "h:rdm-get-partner",
+              "kind": "read",
+              "path": [
+                "steps",
+                9,
+                "else",
+                0
+              ]
+            },
+            {
+              "handler": "h:rdm-list-partners",
+              "kind": "read",
+              "path": [
+                "steps",
+                14
+              ]
+            },
+            {
+              "handler": "h:rdm-partner-facility-by-location",
+              "kind": "read",
+              "path": [
+                "steps",
+                9
+              ]
+            }
+          ],
+          "id": "data|svc:rdm-commercial-partner|st:rdm-partners",
+          "legacyOnlyModes": [
+            "write"
+          ],
+          "nativeModes": [
+            "read"
+          ],
+          "oldOwner": "svc:rdm-commercial-partner",
+          "oldSha256": "1e3f8921a283fef7fb38b654f2ea16a9d423e8c06e8c0b7c2bfb4d3894720f1d",
+          "pointer": "/derived/componentEdges/512",
+          "priorReview": null
+        },
+        {
+          "cause": "legacy-owner-implied-access",
+          "declaredAccess": [],
+          "handlerSites": [
+            {
+              "handler": "h:rdm-list-partners",
+              "kind": "read",
+              "path": [
+                "steps",
+                10,
+                "then",
+                1,
+                "then",
+                0
+              ]
+            },
+            {
+              "handler": "h:rdm-list-partners",
+              "kind": "read",
+              "path": [
+                "steps",
+                10,
+                "then",
+                1,
+                "else",
+                0
+              ]
+            }
+          ],
+          "id": "data|svc:rdm-commercial-partner|st:rdm-retailer-territories",
+          "legacyOnlyModes": [
+            "write"
+          ],
+          "nativeModes": [
+            "read"
+          ],
+          "oldOwner": "svc:rdm-commercial-partner",
+          "oldSha256": "347488bdba6aeb20f3fb5d4365e69890b36bbd52f700253cc1df87ec6a3c8fef",
+          "pointer": "/derived/componentEdges/513",
+          "priorReview": null
+        },
+        {
+          "cause": "legacy-owner-implied-access",
+          "declaredAccess": [],
+          "handlerSites": [
+            {
+              "handler": "h:rdm-distribution-point-address-line1",
+              "kind": "read",
+              "path": [
+                "steps",
+                0
+              ]
+            },
+            {
+              "handler": "h:rdm-distribution-point-address-line2",
+              "kind": "read",
+              "path": [
+                "steps",
+                0
+              ]
+            },
+            {
+              "handler": "h:rdm-distribution-point-city",
+              "kind": "read",
+              "path": [
+                "steps",
+                0
+              ]
+            },
+            {
+              "handler": "h:rdm-distribution-point-country",
+              "kind": "read",
+              "path": [
+                "steps",
+                0
+              ]
+            },
+            {
+              "handler": "h:rdm-distribution-point-country-code",
+              "kind": "read",
+              "path": [
+                "steps",
+                0
+              ]
+            },
+            {
+              "handler": "h:rdm-distribution-point-is-sales-company-stock-location",
+              "kind": "read",
+              "path": [
+                "steps",
+                0
+              ]
+            },
+            {
+              "handler": "h:rdm-distribution-point-latitude",
+              "kind": "read",
+              "path": [
+                "steps",
+                0
+              ]
+            },
+            {
+              "handler": "h:rdm-distribution-point-longitude",
+              "kind": "read",
+              "path": [
+                "steps",
+                0
+              ]
+            },
+            {
+              "handler": "h:rdm-distribution-point-postal-code",
+              "kind": "read",
+              "path": [
+                "steps",
+                0
+              ]
+            },
+            {
+              "handler": "h:rdm-distribution-point-zone",
+              "kind": "read",
+              "path": [
+                "steps",
+                0
+              ]
+            }
+          ],
+          "id": "data|svc:rdm-commercial-partner|st:rdm-tms-distribution-points",
+          "legacyOnlyModes": [
+            "write"
+          ],
+          "nativeModes": [
+            "read"
+          ],
+          "oldOwner": "svc:rdm-commercial-partner",
+          "oldSha256": "b27a7e45c4d251cf6e67a5299e6c503773ccb3c5d24e8a20ec2be4ac8200eb40",
+          "pointer": "/derived/componentEdges/514",
+          "priorReview": null
+        },
+        {
+          "cause": "legacy-owner-implied-access",
+          "declaredAccess": [],
+          "handlerSites": [],
+          "id": "data|svc:leads-forms|st:forms-backend-postgres",
+          "legacyOnlyModes": [
+            "read",
+            "write"
+          ],
+          "nativeModes": [],
+          "oldOwner": "svc:leads-forms",
+          "oldSha256": "0e1650674c987bbe7288448b1db4094a3f8672c4538e2b38b29c423361247b10",
+          "pointer": "/derived/componentEdges/536",
+          "priorReview": "artifacts/rebuild/verification/pr4/fidelity-ledger.json"
+        },
+        {
+          "cause": "legacy-owner-implied-access",
+          "declaredAccess": [],
+          "handlerSites": [],
+          "id": "data|svc:leads-forms|st:forms-backend-images",
+          "legacyOnlyModes": [
+            "read",
+            "write"
+          ],
+          "nativeModes": [],
+          "oldOwner": "svc:leads-forms",
+          "oldSha256": "6af49cc4845c4fb61645694e105463bebbc6428ba2fd75a03ea4f9c2522a94a9",
+          "pointer": "/derived/componentEdges/539",
+          "priorReview": "artifacts/rebuild/verification/pr4/fidelity-ledger.json"
+        },
+        {
+          "cause": "legacy-owner-implied-access",
+          "declaredAccess": [],
+          "handlerSites": [],
+          "id": "data|svc:leads-forms|st:forms-backend-redis",
+          "legacyOnlyModes": [
+            "read",
+            "write"
+          ],
+          "nativeModes": [],
+          "oldOwner": "svc:leads-forms",
+          "oldSha256": "acfdec90c22bfd61d20f8a5bcdc2f246873768eb640d64a8eaa107cf858ca83f",
+          "pointer": "/derived/componentEdges/542",
+          "priorReview": "artifacts/rebuild/verification/pr4/fidelity-ledger.json"
+        },
+        {
+          "cause": "legacy-owner-implied-access",
+          "declaredAccess": [],
+          "handlerSites": [
+            {
+              "handler": "h:leads-api-create-lead",
+              "kind": "write",
+              "path": [
+                "steps",
+                8
+              ]
+            },
+            {
+              "handler": "h:leads-api-market-settings-history",
+              "kind": "write",
+              "path": [
+                "steps",
+                1
+              ]
+            },
+            {
+              "handler": "h:leads-api-settings-fallback-refresh",
+              "kind": "write",
+              "path": [
+                "steps",
+                1
+              ]
+            }
+          ],
+          "id": "data|svc:leads-api|st:leads-redis",
+          "legacyOnlyModes": [
+            "read"
+          ],
+          "nativeModes": [
+            "write"
+          ],
+          "oldOwner": "svc:leads-api",
+          "oldSha256": "567b45993fa3430bb0545f6893811425d21ad388aa3d6f7b53465d3d55206061",
+          "pointer": "/derived/componentEdges/555",
+          "priorReview": null
+        },
+        {
+          "cause": "legacy-owner-implied-access",
+          "declaredAccess": [],
+          "handlerSites": [],
+          "id": "data|svc:leads-integration-layer|st:leads-integration-layer-lock-redis",
+          "legacyOnlyModes": [
+            "read",
+            "write"
+          ],
+          "nativeModes": [],
+          "oldOwner": "svc:leads-integration-layer",
+          "oldSha256": "46cd183ce51870d91b03fe11f6b93746ab9372519f7f5210b41ffe3d7a06a48b",
+          "pointer": "/derived/componentEdges/558",
+          "priorReview": null
+        },
+        {
+          "cause": "legacy-owner-implied-access",
+          "declaredAccess": [],
+          "handlerSites": [],
+          "id": "data|svc:leads-api|st:lead-capture-ai-bot-vectors",
+          "legacyOnlyModes": [
+            "read",
+            "write"
+          ],
+          "nativeModes": [],
+          "oldOwner": "svc:leads-api",
+          "oldSha256": "e28c88a5ff0bd007e619346eb482537869ca5d1d6f2ec946205074538b6ad8fa",
+          "pointer": "/derived/componentEdges/559",
+          "priorReview": "artifacts/rebuild/verification/pr4/fidelity-ledger.json"
+        }
+      ],
+      "total": 1693,
+      "workspace": "volvo-cars"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+- id: st:orders-db
+  owner: svc:order-api
+  reason: No cited executable component is established as the resource owner.
+  key: owner/st:orders-db
+  fingerprint: de6aeca7729833be003528e5e9be2631be9af762f62c864b18bddc979a7ad947
+  status: pending
+- id: st:products-db
+  owner: svc:products
+  reason: No cited executable component is established as the resource owner.
+  key: owner/st:products-db
+  fingerprint: 23f3ee739056e35cd3e433dfe0a9c1c7b31c4f9094a082f11f86114a0071648c
+  status: pending
+- id: st:search-index
+  owner: svc:search-indexer
+  reason: No cited executable component is established as the resource owner.
+  key: owner/st:search-index
+  fingerprint: 865ca629df25daee01b71be12d8ed29e75a77b5f8250d0030e8b02c71173bbb9
+  status: pending
+- id: top:order-events
+  owner: svc:order-api
+  reason: No cited executable component is established as the resource owner.
+  key: owner/top:order-events
+  fingerprint: ac887b2f26c25fa02b7cdfcdb4bd9b20c4b86d4c6b7f07f14686052e74132fd2
+  status: pending

@@ -1,0 +1,12 @@
+id: sys:payments
+name: Payments
+team: team:payments
+components:
+  - id: svc:payments
+    name: Payments
+    kind: service
+    tech: Java
+    does: Takes payment for an order
+homes:
+  acme-payments:
+    repo: acme/payments

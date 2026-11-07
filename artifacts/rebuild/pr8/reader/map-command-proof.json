@@ -1,0 +1,3169 @@
+{
+  "folder": "/var/folders/3p/w3qkjl6s3yvgcrg1hcq40w380000gp/T/groundwork-map-commands-rIDb0d",
+  "results": [
+    {
+      "command": "find",
+      "result": [
+        {
+          "id": "h:confirm",
+          "kind": "handler",
+          "data": {
+            "id": "h:confirm",
+            "component": "svc:ordering",
+            "on": "api:confirm",
+            "summary": "Confirms an order, then queues and publishes its notification.",
+            "cites": [
+              {
+                "kind": "code",
+                "repo": "example/orders",
+                "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "path": "apps/ordering/src/Confirm.ts",
+                "lines": [
+                  1,
+                  80
+                ]
+              }
+            ],
+            "steps": [
+              {
+                "id": "load",
+                "read": "sch:order",
+                "from": "st:orders",
+                "cites": [
+                  {
+                    "kind": "code",
+                    "repo": "example/orders",
+                    "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "path": "apps/ordering/src/Confirm.ts",
+                    "lines": [
+                      5,
+                      7
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "missing",
+                "say": "Check the order exists",
+                "if": "The order does not exist",
+                "then": [
+                  {
+                    "id": "not-found",
+                    "return": 404,
+                    "cites": [
+                      {
+                        "kind": "code",
+                        "repo": "example/orders",
+                        "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "path": "apps/ordering/src/Confirm.ts",
+                        "lines": [
+                          8,
+                          10
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "else": [
+                  {
+                    "id": "known",
+                    "does": "Continue with the order",
+                    "cites": [
+                      {
+                        "kind": "code",
+                        "repo": "example/orders",
+                        "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "path": "apps/ordering/src/Confirm.ts",
+                        "lines": [
+                          11,
+                          11
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "already-confirmed",
+                "if": "The order is already confirmed",
+                "then": [
+                  {
+                    "id": "unchanged",
+                    "return": 200,
+                    "cites": [
+                      {
+                        "kind": "code",
+                        "repo": "example/orders",
+                        "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "path": "apps/ordering/src/Confirm.ts",
+                        "lines": [
+                          11,
+                          11
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "tx",
+                "transaction": true,
+                "steps": [
+                  {
+                    "id": "save",
+                    "write": "sch:order#status",
+                    "to": "st:orders",
+                    "cites": [
+                      {
+                        "kind": "code",
+                        "repo": "example/orders",
+                        "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "path": "apps/ordering/src/Confirm.ts",
+                        "lines": [
+                          12,
+                          16
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "id": "queue",
+                    "does": "Queue the notification",
+                    "cites": [
+                      {
+                        "kind": "code",
+                        "repo": "example/orders",
+                        "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "path": "apps/ordering/src/Confirm.ts",
+                        "lines": [
+                          17,
+                          19
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "lines",
+                "each": "Order line",
+                "steps": [
+                  {
+                    "id": "reserve",
+                    "call": "api:charge",
+                    "async": false,
+                    "when": "Payment is required",
+                    "cites": [
+                      {
+                        "kind": "code",
+                        "repo": "example/orders",
+                        "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "path": "apps/ordering/src/Confirm.ts",
+                        "lines": [
+                          22,
+                          27
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "enrich",
+                "parallel": [
+                  {
+                    "lane": "Order facts",
+                    "steps": [
+                      {
+                        "id": "order",
+                        "read": "sch:order",
+                        "from": "st:orders",
+                        "cites": [
+                          {
+                            "kind": "code",
+                            "repo": "example/orders",
+                            "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                            "path": "apps/ordering/src/Confirm.ts",
+                            "lines": [
+                              30,
+                              33
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "lane": "Payment facts",
+                    "steps": [
+                      {
+                        "id": "payment",
+                        "call": "api:charge",
+                        "cites": [
+                          {
+                            "kind": "code",
+                            "repo": "example/orders",
+                            "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                            "path": "apps/ordering/src/Confirm.ts",
+                            "lines": [
+                              34,
+                              37
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "deliver",
+                "retry": {
+                  "until": "Acknowledged",
+                  "times": 3,
+                  "exhausted": [
+                    {
+                      "id": "failed",
+                      "return": 503,
+                      "cites": [
+                        {
+                          "kind": "code",
+                          "repo": "example/orders",
+                          "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                          "path": "apps/ordering/src/Confirm.ts",
+                          "lines": [
+                            45,
+                            46
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "steps": [
+                  {
+                    "id": "send",
+                    "publish": "msg:confirmed",
+                    "causes": "h:on-confirmed",
+                    "async": true,
+                    "cites": [
+                      {
+                        "kind": "code",
+                        "repo": "example/orders",
+                        "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "path": "apps/ordering/src/Confirm.ts",
+                        "lines": [
+                          40,
+                          44
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "cleanup",
+                "try": [
+                  {
+                    "id": "flush",
+                    "does": "Flush the log",
+                    "cites": [
+                      {
+                        "kind": "code",
+                        "repo": "example/orders",
+                        "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "path": "apps/ordering/src/Confirm.ts",
+                        "lines": [
+                          50,
+                          52
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "catch": [
+                  {
+                    "id": "log-failed",
+                    "does": "Record the logging failure",
+                    "cites": [
+                      {
+                        "kind": "code",
+                        "repo": "example/orders",
+                        "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "path": "apps/ordering/src/Confirm.ts",
+                        "lines": [
+                          53,
+                          54
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "finally": [
+                  {
+                    "id": "release",
+                    "does": "Release the handle",
+                    "cites": [
+                      {
+                        "kind": "code",
+                        "repo": "example/orders",
+                        "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "path": "apps/ordering/src/Confirm.ts",
+                        "lines": [
+                          55,
+                          57
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "pause",
+                "wait": "1s",
+                "cites": [
+                  {
+                    "kind": "code",
+                    "repo": "example/orders",
+                    "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "path": "apps/ordering/src/Confirm.ts",
+                    "lines": [
+                      60,
+                      61
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "done",
+                "return": 200,
+                "cites": [
+                  {
+                    "kind": "code",
+                    "repo": "example/orders",
+                    "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "path": "apps/ordering/src/Confirm.ts",
+                    "lines": [
+                      64,
+                      65
+                    ]
+                  }
+                ]
+              }
+            ],
+            "failures": [
+              {
+                "id": "db-down",
+                "when": "The database is unavailable",
+                "return": 503,
+                "cites": [
+                  {
+                    "kind": "code",
+                    "repo": "example/orders",
+                    "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "path": "apps/ordering/src/Confirm.ts",
+                    "lines": [
+                      70,
+                      72
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "parent": "sys:ordering",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        },
+        {
+          "id": "h:on-confirmed#receive",
+          "kind": "step",
+          "data": {
+            "id": "receive",
+            "does": "Receive the confirmation",
+            "cites": [
+              {
+                "kind": "evidence",
+                "id": "ev:source"
+              }
+            ]
+          },
+          "parent": "h:on-confirmed",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        },
+        {
+          "id": "api:confirm",
+          "kind": "endpoint",
+          "data": {
+            "id": "api:confirm",
+            "method": "POST",
+            "path": "/orders/{id}/confirm",
+            "request": "sch:confirm",
+            "response": "sch:order",
+            "errors": [
+              {
+                "status": 404,
+                "when": "The order does not exist"
+              }
+            ]
+          },
+          "parent": "if:orders",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        },
+        {
+          "id": "api:grpc-confirm",
+          "kind": "endpoint",
+          "data": {
+            "id": "api:grpc-confirm",
+            "rpc": "fixture.Ordering/Confirm",
+            "request": "sch:confirm"
+          },
+          "parent": "if:grpc",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        },
+        {
+          "id": "dom:orders#confirm",
+          "kind": "stage",
+          "data": {
+            "id": "confirm",
+            "name": "Confirm order",
+            "term": "term:order",
+            "owners": [
+              "sys:ordering"
+            ]
+          },
+          "parent": "dom:orders",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": null,
+            "component": null
+          }
+        },
+        {
+          "id": "flow:confirm",
+          "kind": "flow",
+          "data": {
+            "id": "flow:confirm",
+            "name": "Confirm an order",
+            "actor": "actor:customer",
+            "trigger": "The customer confirms the order.",
+            "outcome": "The order is confirmed.",
+            "steps": [
+              {
+                "id": "submit",
+                "from": "app:shop",
+                "to": "svc:ordering",
+                "via": "api:confirm",
+                "action": "Confirms the order",
+                "handler_step": "h:confirm#tx/save",
+                "screen": "scr:checkout#confirm",
+                "cites": [
+                  {
+                    "kind": "evidence",
+                    "id": "ev:source"
+                  }
+                ]
+              }
+            ]
+          },
+          "parent": "model-fixture",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": null,
+            "system": null,
+            "component": null
+          }
+        },
+        {
+          "id": "flow:confirm#submit",
+          "kind": "step",
+          "data": {
+            "id": "submit",
+            "from": "app:shop",
+            "to": "svc:ordering",
+            "via": "api:confirm",
+            "action": "Confirms the order",
+            "handler_step": "h:confirm#tx/save",
+            "screen": "scr:checkout#confirm",
+            "cites": [
+              {
+                "kind": "evidence",
+                "id": "ev:source"
+              }
+            ]
+          },
+          "parent": "flow:confirm",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": null,
+            "system": null,
+            "component": null
+          }
+        },
+        {
+          "id": "h:confirm#!db-down",
+          "kind": "failure",
+          "data": {
+            "id": "db-down",
+            "when": "The database is unavailable",
+            "return": 503,
+            "cites": [
+              {
+                "kind": "code",
+                "repo": "example/orders",
+                "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "path": "apps/ordering/src/Confirm.ts",
+                "lines": [
+                  70,
+                  72
+                ]
+              }
+            ]
+          },
+          "parent": "h:confirm",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        },
+        {
+          "id": "h:confirm#already-confirmed",
+          "kind": "step",
+          "data": {
+            "id": "already-confirmed",
+            "if": "The order is already confirmed",
+            "then": [
+              {
+                "id": "unchanged",
+                "return": 200,
+                "cites": [
+                  {
+                    "kind": "code",
+                    "repo": "example/orders",
+                    "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "path": "apps/ordering/src/Confirm.ts",
+                    "lines": [
+                      11,
+                      11
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "parent": "h:confirm",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        },
+        {
+          "id": "h:confirm#already-confirmed/unchanged",
+          "kind": "step",
+          "data": {
+            "id": "unchanged",
+            "return": 200,
+            "cites": [
+              {
+                "kind": "code",
+                "repo": "example/orders",
+                "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "path": "apps/ordering/src/Confirm.ts",
+                "lines": [
+                  11,
+                  11
+                ]
+              }
+            ]
+          },
+          "parent": "h:confirm#already-confirmed",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        },
+        {
+          "id": "h:confirm#cleanup",
+          "kind": "step",
+          "data": {
+            "id": "cleanup",
+            "try": [
+              {
+                "id": "flush",
+                "does": "Flush the log",
+                "cites": [
+                  {
+                    "kind": "code",
+                    "repo": "example/orders",
+                    "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "path": "apps/ordering/src/Confirm.ts",
+                    "lines": [
+                      50,
+                      52
+                    ]
+                  }
+                ]
+              }
+            ],
+            "catch": [
+              {
+                "id": "log-failed",
+                "does": "Record the logging failure",
+                "cites": [
+                  {
+                    "kind": "code",
+                    "repo": "example/orders",
+                    "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "path": "apps/ordering/src/Confirm.ts",
+                    "lines": [
+                      53,
+                      54
+                    ]
+                  }
+                ]
+              }
+            ],
+            "finally": [
+              {
+                "id": "release",
+                "does": "Release the handle",
+                "cites": [
+                  {
+                    "kind": "code",
+                    "repo": "example/orders",
+                    "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "path": "apps/ordering/src/Confirm.ts",
+                    "lines": [
+                      55,
+                      57
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "parent": "h:confirm",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        },
+        {
+          "id": "h:confirm#deliver",
+          "kind": "step",
+          "data": {
+            "id": "deliver",
+            "retry": {
+              "until": "Acknowledged",
+              "times": 3,
+              "exhausted": [
+                {
+                  "id": "failed",
+                  "return": 503,
+                  "cites": [
+                    {
+                      "kind": "code",
+                      "repo": "example/orders",
+                      "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                      "path": "apps/ordering/src/Confirm.ts",
+                      "lines": [
+                        45,
+                        46
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "steps": [
+              {
+                "id": "send",
+                "publish": "msg:confirmed",
+                "causes": "h:on-confirmed",
+                "async": true,
+                "cites": [
+                  {
+                    "kind": "code",
+                    "repo": "example/orders",
+                    "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "path": "apps/ordering/src/Confirm.ts",
+                    "lines": [
+                      40,
+                      44
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "parent": "h:confirm",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        },
+        {
+          "id": "h:confirm#deliver/failed",
+          "kind": "step",
+          "data": {
+            "id": "failed",
+            "return": 503,
+            "cites": [
+              {
+                "kind": "code",
+                "repo": "example/orders",
+                "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "path": "apps/ordering/src/Confirm.ts",
+                "lines": [
+                  45,
+                  46
+                ]
+              }
+            ]
+          },
+          "parent": "h:confirm#deliver",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        },
+        {
+          "id": "h:confirm#deliver/send",
+          "kind": "step",
+          "data": {
+            "id": "send",
+            "publish": "msg:confirmed",
+            "causes": "h:on-confirmed",
+            "async": true,
+            "cites": [
+              {
+                "kind": "code",
+                "repo": "example/orders",
+                "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "path": "apps/ordering/src/Confirm.ts",
+                "lines": [
+                  40,
+                  44
+                ]
+              }
+            ]
+          },
+          "parent": "h:confirm#deliver",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        },
+        {
+          "id": "h:confirm#done",
+          "kind": "step",
+          "data": {
+            "id": "done",
+            "return": 200,
+            "cites": [
+              {
+                "kind": "code",
+                "repo": "example/orders",
+                "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "path": "apps/ordering/src/Confirm.ts",
+                "lines": [
+                  64,
+                  65
+                ]
+              }
+            ]
+          },
+          "parent": "h:confirm",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        },
+        {
+          "id": "h:confirm#enrich",
+          "kind": "step",
+          "data": {
+            "id": "enrich",
+            "parallel": [
+              {
+                "lane": "Order facts",
+                "steps": [
+                  {
+                    "id": "order",
+                    "read": "sch:order",
+                    "from": "st:orders",
+                    "cites": [
+                      {
+                        "kind": "code",
+                        "repo": "example/orders",
+                        "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "path": "apps/ordering/src/Confirm.ts",
+                        "lines": [
+                          30,
+                          33
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "lane": "Payment facts",
+                "steps": [
+                  {
+                    "id": "payment",
+                    "call": "api:charge",
+                    "cites": [
+                      {
+                        "kind": "code",
+                        "repo": "example/orders",
+                        "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "path": "apps/ordering/src/Confirm.ts",
+                        "lines": [
+                          34,
+                          37
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "parent": "h:confirm",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        },
+        {
+          "id": "h:confirm#enrich/order",
+          "kind": "step",
+          "data": {
+            "id": "order",
+            "read": "sch:order",
+            "from": "st:orders",
+            "cites": [
+              {
+                "kind": "code",
+                "repo": "example/orders",
+                "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "path": "apps/ordering/src/Confirm.ts",
+                "lines": [
+                  30,
+                  33
+                ]
+              }
+            ]
+          },
+          "parent": "h:confirm#enrich",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        },
+        {
+          "id": "h:confirm#enrich/payment",
+          "kind": "step",
+          "data": {
+            "id": "payment",
+            "call": "api:charge",
+            "cites": [
+              {
+                "kind": "code",
+                "repo": "example/orders",
+                "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "path": "apps/ordering/src/Confirm.ts",
+                "lines": [
+                  34,
+                  37
+                ]
+              }
+            ]
+          },
+          "parent": "h:confirm#enrich",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        },
+        {
+          "id": "h:confirm#lines",
+          "kind": "step",
+          "data": {
+            "id": "lines",
+            "each": "Order line",
+            "steps": [
+              {
+                "id": "reserve",
+                "call": "api:charge",
+                "async": false,
+                "when": "Payment is required",
+                "cites": [
+                  {
+                    "kind": "code",
+                    "repo": "example/orders",
+                    "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "path": "apps/ordering/src/Confirm.ts",
+                    "lines": [
+                      22,
+                      27
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "parent": "h:confirm",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        },
+        {
+          "id": "h:confirm#lines/reserve",
+          "kind": "step",
+          "data": {
+            "id": "reserve",
+            "call": "api:charge",
+            "async": false,
+            "when": "Payment is required",
+            "cites": [
+              {
+                "kind": "code",
+                "repo": "example/orders",
+                "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "path": "apps/ordering/src/Confirm.ts",
+                "lines": [
+                  22,
+                  27
+                ]
+              }
+            ]
+          },
+          "parent": "h:confirm#lines",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        }
+      ]
+    },
+    {
+      "command": "show",
+      "result": {
+        "fact": {
+          "id": "api:confirm",
+          "kind": "endpoint",
+          "data": {
+            "id": "api:confirm",
+            "method": "POST",
+            "path": "/orders/{id}/confirm",
+            "request": "sch:confirm",
+            "response": "sch:order",
+            "errors": [
+              {
+                "status": 404,
+                "when": "The order does not exist"
+              }
+            ]
+          },
+          "parent": "if:orders",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        },
+        "sources": [],
+        "out": [
+          {
+            "from": "svc:ordering",
+            "to": "st:orders",
+            "kind": "read",
+            "via": "sch:order",
+            "site": "h:confirm#load",
+            "handler": "h:confirm",
+            "entry": "api:confirm",
+            "cites": [
+              {
+                "kind": "code",
+                "repo": "example/orders",
+                "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "path": "apps/ordering/src/Confirm.ts",
+                "lines": [
+                  5,
+                  7
+                ]
+              }
+            ],
+            "source": "handler"
+          },
+          {
+            "from": "svc:ordering",
+            "to": "st:orders",
+            "kind": "write",
+            "via": "sch:order#status",
+            "site": "h:confirm#tx/save",
+            "handler": "h:confirm",
+            "entry": "api:confirm",
+            "cites": [
+              {
+                "kind": "code",
+                "repo": "example/orders",
+                "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "path": "apps/ordering/src/Confirm.ts",
+                "lines": [
+                  12,
+                  16
+                ]
+              }
+            ],
+            "source": "handler"
+          },
+          {
+            "from": "svc:ordering",
+            "to": "ext:payments",
+            "kind": "call",
+            "via": "api:charge",
+            "site": "h:confirm#lines/reserve",
+            "handler": "h:confirm",
+            "entry": "api:confirm",
+            "cites": [
+              {
+                "kind": "code",
+                "repo": "example/orders",
+                "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "path": "apps/ordering/src/Confirm.ts",
+                "lines": [
+                  22,
+                  27
+                ]
+              }
+            ],
+            "source": "handler"
+          },
+          {
+            "from": "svc:ordering",
+            "to": "st:orders",
+            "kind": "read",
+            "via": "sch:order",
+            "site": "h:confirm#enrich/order",
+            "handler": "h:confirm",
+            "entry": "api:confirm",
+            "cites": [
+              {
+                "kind": "code",
+                "repo": "example/orders",
+                "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "path": "apps/ordering/src/Confirm.ts",
+                "lines": [
+                  30,
+                  33
+                ]
+              }
+            ],
+            "source": "handler"
+          },
+          {
+            "from": "svc:ordering",
+            "to": "ext:payments",
+            "kind": "call",
+            "via": "api:charge",
+            "site": "h:confirm#enrich/payment",
+            "handler": "h:confirm",
+            "entry": "api:confirm",
+            "cites": [
+              {
+                "kind": "code",
+                "repo": "example/orders",
+                "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "path": "apps/ordering/src/Confirm.ts",
+                "lines": [
+                  34,
+                  37
+                ]
+              }
+            ],
+            "source": "handler"
+          },
+          {
+            "from": "svc:ordering",
+            "to": "top:confirmed",
+            "kind": "publish",
+            "via": "msg:confirmed",
+            "site": "h:confirm#deliver/send",
+            "handler": "h:confirm",
+            "entry": "api:confirm",
+            "cites": [
+              {
+                "kind": "code",
+                "repo": "example/orders",
+                "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "path": "apps/ordering/src/Confirm.ts",
+                "lines": [
+                  40,
+                  44
+                ]
+              }
+            ],
+            "source": "handler"
+          },
+          {
+            "from": "svc:ordering",
+            "to": "svc:ordering",
+            "kind": "causes",
+            "via": "h:on-confirmed",
+            "site": "h:confirm#deliver/send",
+            "handler": "h:confirm",
+            "entry": "api:confirm",
+            "cites": [
+              {
+                "kind": "code",
+                "repo": "example/orders",
+                "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "path": "apps/ordering/src/Confirm.ts",
+                "lines": [
+                  40,
+                  44
+                ]
+              }
+            ],
+            "source": "handler"
+          }
+        ],
+        "in": [
+          {
+            "from": "app:shop",
+            "to": "svc:ordering",
+            "kind": "call",
+            "via": "api:confirm",
+            "site": "h:click#submit",
+            "handler": "h:click",
+            "entry": "ui:confirm",
+            "cites": [
+              {
+                "kind": "evidence",
+                "id": "ev:source"
+              }
+            ],
+            "source": "handler"
+          }
+        ],
+        "handlers": [
+          "h:confirm"
+        ],
+        "gaps": [],
+        "freshness": [
+          {
+            "format": "groundwork-evidence/v2",
+            "repo": "example/orders",
+            "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "scannedAt": "2026-11-06T00:00:00Z",
+            "language": "typescript",
+            "trackedFiles": 1,
+            "selectedFiles": 1,
+            "passes": [
+              "source",
+              "discovery"
+            ],
+            "scanner": {
+              "name": "handwritten-fixture",
+              "version": "1"
+            }
+          }
+        ],
+        "href": "/model-fixture/entries/?id=api%3Aconfirm"
+      }
+    },
+    {
+      "command": "callers",
+      "result": [
+        {
+          "from": "app:shop",
+          "to": "svc:ordering",
+          "kind": "call",
+          "via": "api:confirm",
+          "site": "h:click#submit",
+          "handler": "h:click",
+          "entry": "ui:confirm",
+          "cites": [
+            {
+              "kind": "evidence",
+              "id": "ev:source"
+            }
+          ],
+          "source": "handler"
+        }
+      ]
+    },
+    {
+      "command": "calls",
+      "result": [
+        {
+          "from": "svc:ordering",
+          "to": "st:orders",
+          "kind": "read",
+          "via": "sch:order",
+          "site": "h:confirm#load",
+          "handler": "h:confirm",
+          "entry": "api:confirm",
+          "cites": [
+            {
+              "kind": "code",
+              "repo": "example/orders",
+              "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "path": "apps/ordering/src/Confirm.ts",
+              "lines": [
+                5,
+                7
+              ]
+            }
+          ],
+          "source": "handler"
+        },
+        {
+          "from": "svc:ordering",
+          "to": "st:orders",
+          "kind": "write",
+          "via": "sch:order#status",
+          "site": "h:confirm#tx/save",
+          "handler": "h:confirm",
+          "entry": "api:confirm",
+          "cites": [
+            {
+              "kind": "code",
+              "repo": "example/orders",
+              "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "path": "apps/ordering/src/Confirm.ts",
+              "lines": [
+                12,
+                16
+              ]
+            }
+          ],
+          "source": "handler"
+        },
+        {
+          "from": "svc:ordering",
+          "to": "ext:payments",
+          "kind": "call",
+          "via": "api:charge",
+          "site": "h:confirm#lines/reserve",
+          "handler": "h:confirm",
+          "entry": "api:confirm",
+          "cites": [
+            {
+              "kind": "code",
+              "repo": "example/orders",
+              "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "path": "apps/ordering/src/Confirm.ts",
+              "lines": [
+                22,
+                27
+              ]
+            }
+          ],
+          "source": "handler"
+        },
+        {
+          "from": "svc:ordering",
+          "to": "st:orders",
+          "kind": "read",
+          "via": "sch:order",
+          "site": "h:confirm#enrich/order",
+          "handler": "h:confirm",
+          "entry": "api:confirm",
+          "cites": [
+            {
+              "kind": "code",
+              "repo": "example/orders",
+              "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "path": "apps/ordering/src/Confirm.ts",
+              "lines": [
+                30,
+                33
+              ]
+            }
+          ],
+          "source": "handler"
+        },
+        {
+          "from": "svc:ordering",
+          "to": "ext:payments",
+          "kind": "call",
+          "via": "api:charge",
+          "site": "h:confirm#enrich/payment",
+          "handler": "h:confirm",
+          "entry": "api:confirm",
+          "cites": [
+            {
+              "kind": "code",
+              "repo": "example/orders",
+              "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "path": "apps/ordering/src/Confirm.ts",
+              "lines": [
+                34,
+                37
+              ]
+            }
+          ],
+          "source": "handler"
+        },
+        {
+          "from": "svc:ordering",
+          "to": "top:confirmed",
+          "kind": "publish",
+          "via": "msg:confirmed",
+          "site": "h:confirm#deliver/send",
+          "handler": "h:confirm",
+          "entry": "api:confirm",
+          "cites": [
+            {
+              "kind": "code",
+              "repo": "example/orders",
+              "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "path": "apps/ordering/src/Confirm.ts",
+              "lines": [
+                40,
+                44
+              ]
+            }
+          ],
+          "source": "handler"
+        },
+        {
+          "from": "svc:ordering",
+          "to": "svc:ordering",
+          "kind": "causes",
+          "via": "h:on-confirmed",
+          "site": "h:confirm#deliver/send",
+          "handler": "h:confirm",
+          "entry": "api:confirm",
+          "cites": [
+            {
+              "kind": "code",
+              "repo": "example/orders",
+              "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "path": "apps/ordering/src/Confirm.ts",
+              "lines": [
+                40,
+                44
+              ]
+            }
+          ],
+          "source": "handler"
+        },
+        {
+          "from": "top:confirmed",
+          "to": "svc:ordering",
+          "kind": "consume",
+          "via": "msg:confirmed",
+          "site": "sub:on-confirmed",
+          "handler": null,
+          "entry": null,
+          "cites": [],
+          "source": "subscription"
+        }
+      ]
+    },
+    {
+      "command": "owns",
+      "result": [
+        {
+          "id": "lib:messaging",
+          "kind": "library",
+          "data": {
+            "id": "lib:messaging",
+            "name": "Messaging",
+            "does": "Sends messages",
+            "cites": [
+              {
+                "kind": "evidence",
+                "id": "ev:source"
+              }
+            ]
+          },
+          "parent": "model-fixture",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": null,
+            "system": null,
+            "component": null
+          }
+        },
+        {
+          "id": "ext:payments",
+          "kind": "external",
+          "data": {
+            "id": "ext:payments",
+            "name": "Payments",
+            "summary": "Synthetic payment provider",
+            "cites": [
+              {
+                "kind": "evidence",
+                "id": "ev:source"
+              }
+            ]
+          },
+          "parent": "model-fixture",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": null,
+            "system": null,
+            "component": null
+          }
+        },
+        {
+          "id": "ext:notifications",
+          "kind": "external",
+          "data": {
+            "id": "ext:notifications",
+            "name": "Notifications",
+            "summary": "Synthetic notification provider",
+            "cites": [
+              {
+                "kind": "evidence",
+                "id": "ev:source"
+              }
+            ]
+          },
+          "parent": "model-fixture",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": null,
+            "system": null,
+            "component": null
+          }
+        },
+        {
+          "id": "graph:shop",
+          "kind": "graph",
+          "data": {
+            "id": "graph:shop",
+            "name": "Shop graph",
+            "gateway": "svc:ordering",
+            "subgraphs": [
+              {
+                "id": "sg:orders",
+                "graph": "graph:shop",
+                "component": "svc:ordering",
+                "batching": "dataloader",
+                "cites": [
+                  {
+                    "kind": "evidence",
+                    "id": "ev:source"
+                  }
+                ]
+              }
+            ],
+            "cites": [
+              {
+                "kind": "evidence",
+                "id": "ev:source"
+              }
+            ]
+          },
+          "parent": "model-fixture",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": null,
+            "system": null,
+            "component": null
+          }
+        },
+        {
+          "id": "sg:orders",
+          "kind": "subgraph",
+          "data": {
+            "id": "sg:orders",
+            "graph": "graph:shop",
+            "component": "svc:ordering",
+            "batching": "dataloader",
+            "cites": [
+              {
+                "kind": "evidence",
+                "id": "ev:source"
+              }
+            ]
+          },
+          "parent": "graph:shop",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": null,
+            "system": null,
+            "component": "svc:ordering"
+          }
+        },
+        {
+          "id": "flow:confirm#submit",
+          "kind": "step",
+          "data": {
+            "id": "submit",
+            "from": "app:shop",
+            "to": "svc:ordering",
+            "via": "api:confirm",
+            "action": "Confirms the order",
+            "handler_step": "h:confirm#tx/save",
+            "screen": "scr:checkout#confirm",
+            "cites": [
+              {
+                "kind": "evidence",
+                "id": "ev:source"
+              }
+            ]
+          },
+          "parent": "flow:confirm",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": null,
+            "system": null,
+            "component": null
+          }
+        },
+        {
+          "id": "jny:buy",
+          "kind": "journey",
+          "data": {
+            "id": "jny:buy",
+            "name": "Buy items",
+            "actor": "actor:customer",
+            "interactions": [
+              "ui:confirm"
+            ],
+            "flows": [
+              "flow:confirm"
+            ],
+            "cites": [
+              {
+                "kind": "evidence",
+                "id": "ev:source"
+              }
+            ]
+          },
+          "parent": "model-fixture",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": null,
+            "system": null,
+            "component": null
+          }
+        },
+        {
+          "id": "con:order",
+          "kind": "concept",
+          "data": {
+            "id": "con:order",
+            "name": "Order",
+            "means": "A confirmed request to buy.",
+            "born_in": "svc:ordering",
+            "aka": [
+              {
+                "in": "svc:ordering",
+                "as": "Order",
+                "at": "sch:order"
+              }
+            ],
+            "cites": [
+              {
+                "kind": "evidence",
+                "id": "ev:source"
+              }
+            ]
+          },
+          "parent": "dom:orders",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": null,
+            "component": null
+          }
+        },
+        {
+          "id": "svc:ordering",
+          "kind": "service",
+          "data": {
+            "id": "svc:ordering",
+            "name": "Ordering API",
+            "kind": "service",
+            "homes": [
+              "orders"
+            ],
+            "uses": [
+              "lib:messaging"
+            ],
+            "does": "Confirms orders.",
+            "cites": [
+              {
+                "kind": "code",
+                "repo": "example/orders",
+                "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "path": "apps/ordering/src/Confirm.ts",
+                "lines": [
+                  1,
+                  80
+                ]
+              }
+            ]
+          },
+          "parent": "sys:ordering",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        },
+        {
+          "id": "sch:confirm#order-id",
+          "kind": "field",
+          "data": {
+            "id": "order-id",
+            "name": "orderId",
+            "type": "string",
+            "required": true,
+            "note": "Stable order id",
+            "cites": [
+              {
+                "kind": "evidence",
+                "id": "ev:source"
+              }
+            ]
+          },
+          "parent": "sch:confirm",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": null
+          }
+        },
+        {
+          "id": "h:confirm",
+          "kind": "handler",
+          "data": {
+            "id": "h:confirm",
+            "component": "svc:ordering",
+            "on": "api:confirm",
+            "summary": "Confirms an order, then queues and publishes its notification.",
+            "cites": [
+              {
+                "kind": "code",
+                "repo": "example/orders",
+                "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "path": "apps/ordering/src/Confirm.ts",
+                "lines": [
+                  1,
+                  80
+                ]
+              }
+            ],
+            "steps": [
+              {
+                "id": "load",
+                "read": "sch:order",
+                "from": "st:orders",
+                "cites": [
+                  {
+                    "kind": "code",
+                    "repo": "example/orders",
+                    "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "path": "apps/ordering/src/Confirm.ts",
+                    "lines": [
+                      5,
+                      7
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "missing",
+                "say": "Check the order exists",
+                "if": "The order does not exist",
+                "then": [
+                  {
+                    "id": "not-found",
+                    "return": 404,
+                    "cites": [
+                      {
+                        "kind": "code",
+                        "repo": "example/orders",
+                        "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "path": "apps/ordering/src/Confirm.ts",
+                        "lines": [
+                          8,
+                          10
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "else": [
+                  {
+                    "id": "known",
+                    "does": "Continue with the order",
+                    "cites": [
+                      {
+                        "kind": "code",
+                        "repo": "example/orders",
+                        "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "path": "apps/ordering/src/Confirm.ts",
+                        "lines": [
+                          11,
+                          11
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "already-confirmed",
+                "if": "The order is already confirmed",
+                "then": [
+                  {
+                    "id": "unchanged",
+                    "return": 200,
+                    "cites": [
+                      {
+                        "kind": "code",
+                        "repo": "example/orders",
+                        "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "path": "apps/ordering/src/Confirm.ts",
+                        "lines": [
+                          11,
+                          11
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "tx",
+                "transaction": true,
+                "steps": [
+                  {
+                    "id": "save",
+                    "write": "sch:order#status",
+                    "to": "st:orders",
+                    "cites": [
+                      {
+                        "kind": "code",
+                        "repo": "example/orders",
+                        "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "path": "apps/ordering/src/Confirm.ts",
+                        "lines": [
+                          12,
+                          16
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "id": "queue",
+                    "does": "Queue the notification",
+                    "cites": [
+                      {
+                        "kind": "code",
+                        "repo": "example/orders",
+                        "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "path": "apps/ordering/src/Confirm.ts",
+                        "lines": [
+                          17,
+                          19
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "lines",
+                "each": "Order line",
+                "steps": [
+                  {
+                    "id": "reserve",
+                    "call": "api:charge",
+                    "async": false,
+                    "when": "Payment is required",
+                    "cites": [
+                      {
+                        "kind": "code",
+                        "repo": "example/orders",
+                        "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "path": "apps/ordering/src/Confirm.ts",
+                        "lines": [
+                          22,
+                          27
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "enrich",
+                "parallel": [
+                  {
+                    "lane": "Order facts",
+                    "steps": [
+                      {
+                        "id": "order",
+                        "read": "sch:order",
+                        "from": "st:orders",
+                        "cites": [
+                          {
+                            "kind": "code",
+                            "repo": "example/orders",
+                            "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                            "path": "apps/ordering/src/Confirm.ts",
+                            "lines": [
+                              30,
+                              33
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "lane": "Payment facts",
+                    "steps": [
+                      {
+                        "id": "payment",
+                        "call": "api:charge",
+                        "cites": [
+                          {
+                            "kind": "code",
+                            "repo": "example/orders",
+                            "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                            "path": "apps/ordering/src/Confirm.ts",
+                            "lines": [
+                              34,
+                              37
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "deliver",
+                "retry": {
+                  "until": "Acknowledged",
+                  "times": 3,
+                  "exhausted": [
+                    {
+                      "id": "failed",
+                      "return": 503,
+                      "cites": [
+                        {
+                          "kind": "code",
+                          "repo": "example/orders",
+                          "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                          "path": "apps/ordering/src/Confirm.ts",
+                          "lines": [
+                            45,
+                            46
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "steps": [
+                  {
+                    "id": "send",
+                    "publish": "msg:confirmed",
+                    "causes": "h:on-confirmed",
+                    "async": true,
+                    "cites": [
+                      {
+                        "kind": "code",
+                        "repo": "example/orders",
+                        "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "path": "apps/ordering/src/Confirm.ts",
+                        "lines": [
+                          40,
+                          44
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "cleanup",
+                "try": [
+                  {
+                    "id": "flush",
+                    "does": "Flush the log",
+                    "cites": [
+                      {
+                        "kind": "code",
+                        "repo": "example/orders",
+                        "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "path": "apps/ordering/src/Confirm.ts",
+                        "lines": [
+                          50,
+                          52
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "catch": [
+                  {
+                    "id": "log-failed",
+                    "does": "Record the logging failure",
+                    "cites": [
+                      {
+                        "kind": "code",
+                        "repo": "example/orders",
+                        "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "path": "apps/ordering/src/Confirm.ts",
+                        "lines": [
+                          53,
+                          54
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "finally": [
+                  {
+                    "id": "release",
+                    "does": "Release the handle",
+                    "cites": [
+                      {
+                        "kind": "code",
+                        "repo": "example/orders",
+                        "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "path": "apps/ordering/src/Confirm.ts",
+                        "lines": [
+                          55,
+                          57
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "pause",
+                "wait": "1s",
+                "cites": [
+                  {
+                    "kind": "code",
+                    "repo": "example/orders",
+                    "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "path": "apps/ordering/src/Confirm.ts",
+                    "lines": [
+                      60,
+                      61
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "done",
+                "return": 200,
+                "cites": [
+                  {
+                    "kind": "code",
+                    "repo": "example/orders",
+                    "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "path": "apps/ordering/src/Confirm.ts",
+                    "lines": [
+                      64,
+                      65
+                    ]
+                  }
+                ]
+              }
+            ],
+            "failures": [
+              {
+                "id": "db-down",
+                "when": "The database is unavailable",
+                "return": 503,
+                "cites": [
+                  {
+                    "kind": "code",
+                    "repo": "example/orders",
+                    "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "path": "apps/ordering/src/Confirm.ts",
+                    "lines": [
+                      70,
+                      72
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "parent": "sys:ordering",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        },
+        {
+          "id": "h:confirm#load",
+          "kind": "step",
+          "data": {
+            "id": "load",
+            "read": "sch:order",
+            "from": "st:orders",
+            "cites": [
+              {
+                "kind": "code",
+                "repo": "example/orders",
+                "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "path": "apps/ordering/src/Confirm.ts",
+                "lines": [
+                  5,
+                  7
+                ]
+              }
+            ]
+          },
+          "parent": "h:confirm",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        },
+        {
+          "id": "h:confirm#missing",
+          "kind": "step",
+          "data": {
+            "id": "missing",
+            "say": "Check the order exists",
+            "if": "The order does not exist",
+            "then": [
+              {
+                "id": "not-found",
+                "return": 404,
+                "cites": [
+                  {
+                    "kind": "code",
+                    "repo": "example/orders",
+                    "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "path": "apps/ordering/src/Confirm.ts",
+                    "lines": [
+                      8,
+                      10
+                    ]
+                  }
+                ]
+              }
+            ],
+            "else": [
+              {
+                "id": "known",
+                "does": "Continue with the order",
+                "cites": [
+                  {
+                    "kind": "code",
+                    "repo": "example/orders",
+                    "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "path": "apps/ordering/src/Confirm.ts",
+                    "lines": [
+                      11,
+                      11
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "parent": "h:confirm",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        },
+        {
+          "id": "h:confirm#missing/not-found",
+          "kind": "step",
+          "data": {
+            "id": "not-found",
+            "return": 404,
+            "cites": [
+              {
+                "kind": "code",
+                "repo": "example/orders",
+                "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "path": "apps/ordering/src/Confirm.ts",
+                "lines": [
+                  8,
+                  10
+                ]
+              }
+            ]
+          },
+          "parent": "h:confirm#missing",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        },
+        {
+          "id": "h:confirm#missing/known",
+          "kind": "step",
+          "data": {
+            "id": "known",
+            "does": "Continue with the order",
+            "cites": [
+              {
+                "kind": "code",
+                "repo": "example/orders",
+                "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "path": "apps/ordering/src/Confirm.ts",
+                "lines": [
+                  11,
+                  11
+                ]
+              }
+            ]
+          },
+          "parent": "h:confirm#missing",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        },
+        {
+          "id": "h:confirm#already-confirmed",
+          "kind": "step",
+          "data": {
+            "id": "already-confirmed",
+            "if": "The order is already confirmed",
+            "then": [
+              {
+                "id": "unchanged",
+                "return": 200,
+                "cites": [
+                  {
+                    "kind": "code",
+                    "repo": "example/orders",
+                    "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "path": "apps/ordering/src/Confirm.ts",
+                    "lines": [
+                      11,
+                      11
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "parent": "h:confirm",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        },
+        {
+          "id": "h:confirm#already-confirmed/unchanged",
+          "kind": "step",
+          "data": {
+            "id": "unchanged",
+            "return": 200,
+            "cites": [
+              {
+                "kind": "code",
+                "repo": "example/orders",
+                "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "path": "apps/ordering/src/Confirm.ts",
+                "lines": [
+                  11,
+                  11
+                ]
+              }
+            ]
+          },
+          "parent": "h:confirm#already-confirmed",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        },
+        {
+          "id": "h:confirm#tx",
+          "kind": "step",
+          "data": {
+            "id": "tx",
+            "transaction": true,
+            "steps": [
+              {
+                "id": "save",
+                "write": "sch:order#status",
+                "to": "st:orders",
+                "cites": [
+                  {
+                    "kind": "code",
+                    "repo": "example/orders",
+                    "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "path": "apps/ordering/src/Confirm.ts",
+                    "lines": [
+                      12,
+                      16
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "queue",
+                "does": "Queue the notification",
+                "cites": [
+                  {
+                    "kind": "code",
+                    "repo": "example/orders",
+                    "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "path": "apps/ordering/src/Confirm.ts",
+                    "lines": [
+                      17,
+                      19
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "parent": "h:confirm",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        },
+        {
+          "id": "h:confirm#tx/save",
+          "kind": "step",
+          "data": {
+            "id": "save",
+            "write": "sch:order#status",
+            "to": "st:orders",
+            "cites": [
+              {
+                "kind": "code",
+                "repo": "example/orders",
+                "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "path": "apps/ordering/src/Confirm.ts",
+                "lines": [
+                  12,
+                  16
+                ]
+              }
+            ]
+          },
+          "parent": "h:confirm#tx",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        },
+        {
+          "id": "h:confirm#tx/queue",
+          "kind": "step",
+          "data": {
+            "id": "queue",
+            "does": "Queue the notification",
+            "cites": [
+              {
+                "kind": "code",
+                "repo": "example/orders",
+                "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "path": "apps/ordering/src/Confirm.ts",
+                "lines": [
+                  17,
+                  19
+                ]
+              }
+            ]
+          },
+          "parent": "h:confirm#tx",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        },
+        {
+          "id": "h:confirm#lines",
+          "kind": "step",
+          "data": {
+            "id": "lines",
+            "each": "Order line",
+            "steps": [
+              {
+                "id": "reserve",
+                "call": "api:charge",
+                "async": false,
+                "when": "Payment is required",
+                "cites": [
+                  {
+                    "kind": "code",
+                    "repo": "example/orders",
+                    "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "path": "apps/ordering/src/Confirm.ts",
+                    "lines": [
+                      22,
+                      27
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "parent": "h:confirm",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        },
+        {
+          "id": "h:confirm#lines/reserve",
+          "kind": "step",
+          "data": {
+            "id": "reserve",
+            "call": "api:charge",
+            "async": false,
+            "when": "Payment is required",
+            "cites": [
+              {
+                "kind": "code",
+                "repo": "example/orders",
+                "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "path": "apps/ordering/src/Confirm.ts",
+                "lines": [
+                  22,
+                  27
+                ]
+              }
+            ]
+          },
+          "parent": "h:confirm#lines",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        },
+        {
+          "id": "h:confirm#enrich",
+          "kind": "step",
+          "data": {
+            "id": "enrich",
+            "parallel": [
+              {
+                "lane": "Order facts",
+                "steps": [
+                  {
+                    "id": "order",
+                    "read": "sch:order",
+                    "from": "st:orders",
+                    "cites": [
+                      {
+                        "kind": "code",
+                        "repo": "example/orders",
+                        "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "path": "apps/ordering/src/Confirm.ts",
+                        "lines": [
+                          30,
+                          33
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "lane": "Payment facts",
+                "steps": [
+                  {
+                    "id": "payment",
+                    "call": "api:charge",
+                    "cites": [
+                      {
+                        "kind": "code",
+                        "repo": "example/orders",
+                        "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "path": "apps/ordering/src/Confirm.ts",
+                        "lines": [
+                          34,
+                          37
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "parent": "h:confirm",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        },
+        {
+          "id": "h:confirm#enrich/order",
+          "kind": "step",
+          "data": {
+            "id": "order",
+            "read": "sch:order",
+            "from": "st:orders",
+            "cites": [
+              {
+                "kind": "code",
+                "repo": "example/orders",
+                "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "path": "apps/ordering/src/Confirm.ts",
+                "lines": [
+                  30,
+                  33
+                ]
+              }
+            ]
+          },
+          "parent": "h:confirm#enrich",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        },
+        {
+          "id": "h:confirm#enrich/payment",
+          "kind": "step",
+          "data": {
+            "id": "payment",
+            "call": "api:charge",
+            "cites": [
+              {
+                "kind": "code",
+                "repo": "example/orders",
+                "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "path": "apps/ordering/src/Confirm.ts",
+                "lines": [
+                  34,
+                  37
+                ]
+              }
+            ]
+          },
+          "parent": "h:confirm#enrich",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        },
+        {
+          "id": "h:confirm#deliver",
+          "kind": "step",
+          "data": {
+            "id": "deliver",
+            "retry": {
+              "until": "Acknowledged",
+              "times": 3,
+              "exhausted": [
+                {
+                  "id": "failed",
+                  "return": 503,
+                  "cites": [
+                    {
+                      "kind": "code",
+                      "repo": "example/orders",
+                      "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                      "path": "apps/ordering/src/Confirm.ts",
+                      "lines": [
+                        45,
+                        46
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "steps": [
+              {
+                "id": "send",
+                "publish": "msg:confirmed",
+                "causes": "h:on-confirmed",
+                "async": true,
+                "cites": [
+                  {
+                    "kind": "code",
+                    "repo": "example/orders",
+                    "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "path": "apps/ordering/src/Confirm.ts",
+                    "lines": [
+                      40,
+                      44
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "parent": "h:confirm",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        },
+        {
+          "id": "h:confirm#deliver/send",
+          "kind": "step",
+          "data": {
+            "id": "send",
+            "publish": "msg:confirmed",
+            "causes": "h:on-confirmed",
+            "async": true,
+            "cites": [
+              {
+                "kind": "code",
+                "repo": "example/orders",
+                "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "path": "apps/ordering/src/Confirm.ts",
+                "lines": [
+                  40,
+                  44
+                ]
+              }
+            ]
+          },
+          "parent": "h:confirm#deliver",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        },
+        {
+          "id": "h:confirm#deliver/failed",
+          "kind": "step",
+          "data": {
+            "id": "failed",
+            "return": 503,
+            "cites": [
+              {
+                "kind": "code",
+                "repo": "example/orders",
+                "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "path": "apps/ordering/src/Confirm.ts",
+                "lines": [
+                  45,
+                  46
+                ]
+              }
+            ]
+          },
+          "parent": "h:confirm#deliver",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        },
+        {
+          "id": "h:confirm#cleanup",
+          "kind": "step",
+          "data": {
+            "id": "cleanup",
+            "try": [
+              {
+                "id": "flush",
+                "does": "Flush the log",
+                "cites": [
+                  {
+                    "kind": "code",
+                    "repo": "example/orders",
+                    "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "path": "apps/ordering/src/Confirm.ts",
+                    "lines": [
+                      50,
+                      52
+                    ]
+                  }
+                ]
+              }
+            ],
+            "catch": [
+              {
+                "id": "log-failed",
+                "does": "Record the logging failure",
+                "cites": [
+                  {
+                    "kind": "code",
+                    "repo": "example/orders",
+                    "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "path": "apps/ordering/src/Confirm.ts",
+                    "lines": [
+                      53,
+                      54
+                    ]
+                  }
+                ]
+              }
+            ],
+            "finally": [
+              {
+                "id": "release",
+                "does": "Release the handle",
+                "cites": [
+                  {
+                    "kind": "code",
+                    "repo": "example/orders",
+                    "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "path": "apps/ordering/src/Confirm.ts",
+                    "lines": [
+                      55,
+                      57
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "parent": "h:confirm",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        },
+        {
+          "id": "h:confirm#cleanup/flush",
+          "kind": "step",
+          "data": {
+            "id": "flush",
+            "does": "Flush the log",
+            "cites": [
+              {
+                "kind": "code",
+                "repo": "example/orders",
+                "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "path": "apps/ordering/src/Confirm.ts",
+                "lines": [
+                  50,
+                  52
+                ]
+              }
+            ]
+          },
+          "parent": "h:confirm#cleanup",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        },
+        {
+          "id": "h:confirm#cleanup/log-failed",
+          "kind": "step",
+          "data": {
+            "id": "log-failed",
+            "does": "Record the logging failure",
+            "cites": [
+              {
+                "kind": "code",
+                "repo": "example/orders",
+                "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "path": "apps/ordering/src/Confirm.ts",
+                "lines": [
+                  53,
+                  54
+                ]
+              }
+            ]
+          },
+          "parent": "h:confirm#cleanup",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        },
+        {
+          "id": "h:confirm#cleanup/release",
+          "kind": "step",
+          "data": {
+            "id": "release",
+            "does": "Release the handle",
+            "cites": [
+              {
+                "kind": "code",
+                "repo": "example/orders",
+                "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "path": "apps/ordering/src/Confirm.ts",
+                "lines": [
+                  55,
+                  57
+                ]
+              }
+            ]
+          },
+          "parent": "h:confirm#cleanup",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        },
+        {
+          "id": "h:confirm#pause",
+          "kind": "step",
+          "data": {
+            "id": "pause",
+            "wait": "1s",
+            "cites": [
+              {
+                "kind": "code",
+                "repo": "example/orders",
+                "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "path": "apps/ordering/src/Confirm.ts",
+                "lines": [
+                  60,
+                  61
+                ]
+              }
+            ]
+          },
+          "parent": "h:confirm",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        },
+        {
+          "id": "h:confirm#done",
+          "kind": "step",
+          "data": {
+            "id": "done",
+            "return": 200,
+            "cites": [
+              {
+                "kind": "code",
+                "repo": "example/orders",
+                "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "path": "apps/ordering/src/Confirm.ts",
+                "lines": [
+                  64,
+                  65
+                ]
+              }
+            ]
+          },
+          "parent": "h:confirm",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        },
+        {
+          "id": "h:confirm#!db-down",
+          "kind": "failure",
+          "data": {
+            "id": "db-down",
+            "when": "The database is unavailable",
+            "return": 503,
+            "cites": [
+              {
+                "kind": "code",
+                "repo": "example/orders",
+                "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "path": "apps/ordering/src/Confirm.ts",
+                "lines": [
+                  70,
+                  72
+                ]
+              }
+            ]
+          },
+          "parent": "h:confirm",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        },
+        {
+          "id": "h:on-confirmed#receive",
+          "kind": "step",
+          "data": {
+            "id": "receive",
+            "does": "Receive the confirmation",
+            "cites": [
+              {
+                "kind": "evidence",
+                "id": "ev:source"
+              }
+            ]
+          },
+          "parent": "h:on-confirmed",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        },
+        {
+          "id": "h:relay#run",
+          "kind": "step",
+          "data": {
+            "id": "run",
+            "does": "Check the outbox",
+            "cites": [
+              {
+                "kind": "evidence",
+                "id": "ev:source"
+              }
+            ]
+          },
+          "parent": "h:relay",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "svc:ordering"
+          }
+        },
+        {
+          "id": "h:click#submit",
+          "kind": "step",
+          "data": {
+            "id": "submit",
+            "call": "api:confirm",
+            "cites": [
+              {
+                "kind": "evidence",
+                "id": "ev:source"
+              }
+            ]
+          },
+          "parent": "h:click",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": "app:shop"
+          }
+        },
+        {
+          "id": "rel:notifications",
+          "kind": "relationship",
+          "data": {
+            "id": "rel:notifications",
+            "from": "svc:ordering",
+            "to": "ext:notifications",
+            "kind": "call",
+            "says": "Configures the notification client.",
+            "reason": "Only client registration is available in this synthetic example.",
+            "cites": [
+              {
+                "kind": "evidence",
+                "id": "ev:source"
+              }
+            ]
+          },
+          "parent": "sys:ordering",
+          "place": {
+            "workspace": "model-fixture",
+            "domain": "dom:orders",
+            "system": "sys:ordering",
+            "component": null
+          }
+        }
+      ]
+    },
+    {
+      "command": "repos",
+      "result": {
+        "homes": [
+          {
+            "id": "sys:ordering",
+            "home": {
+              "key": "orders",
+              "repo": "example/orders",
+              "path": "apps/ordering"
+            },
+            "pins": [
+              {
+                "format": "groundwork-evidence/v2",
+                "repo": "example/orders",
+                "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "scannedAt": "2026-11-06T00:00:00Z",
+                "language": "typescript",
+                "trackedFiles": 1,
+                "selectedFiles": 1,
+                "passes": [
+                  "source",
+                  "discovery"
+                ],
+                "scanner": {
+                  "name": "handwritten-fixture",
+                  "version": "1"
+                }
+              }
+            ]
+          },
+          {
+            "id": "svc:ordering",
+            "home": {
+              "key": "orders",
+              "repo": "example/orders",
+              "path": "apps/ordering"
+            },
+            "pins": [
+              {
+                "format": "groundwork-evidence/v2",
+                "repo": "example/orders",
+                "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "scannedAt": "2026-11-06T00:00:00Z",
+                "language": "typescript",
+                "trackedFiles": 1,
+                "selectedFiles": 1,
+                "passes": [
+                  "source",
+                  "discovery"
+                ],
+                "scanner": {
+                  "name": "handwritten-fixture",
+                  "version": "1"
+                }
+              }
+            ]
+          },
+          {
+            "id": "app:shop",
+            "home": {
+              "key": "orders",
+              "repo": "example/orders",
+              "path": "apps/ordering"
+            },
+            "pins": [
+              {
+                "format": "groundwork-evidence/v2",
+                "repo": "example/orders",
+                "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "scannedAt": "2026-11-06T00:00:00Z",
+                "language": "typescript",
+                "trackedFiles": 1,
+                "selectedFiles": 1,
+                "passes": [
+                  "source",
+                  "discovery"
+                ],
+                "scanner": {
+                  "name": "handwritten-fixture",
+                  "version": "1"
+                }
+              }
+            ]
+          },
+          {
+            "id": "st:orders",
+            "home": {
+              "key": "orders",
+              "repo": "example/orders",
+              "path": "apps/ordering"
+            },
+            "pins": [
+              {
+                "format": "groundwork-evidence/v2",
+                "repo": "example/orders",
+                "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "scannedAt": "2026-11-06T00:00:00Z",
+                "language": "typescript",
+                "trackedFiles": 1,
+                "selectedFiles": 1,
+                "passes": [
+                  "source",
+                  "discovery"
+                ],
+                "scanner": {
+                  "name": "handwritten-fixture",
+                  "version": "1"
+                }
+              }
+            ]
+          },
+          {
+            "id": "st:unknown-owner",
+            "home": {
+              "key": "orders",
+              "repo": "example/orders",
+              "path": "apps/ordering"
+            },
+            "pins": [
+              {
+                "format": "groundwork-evidence/v2",
+                "repo": "example/orders",
+                "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "scannedAt": "2026-11-06T00:00:00Z",
+                "language": "typescript",
+                "trackedFiles": 1,
+                "selectedFiles": 1,
+                "passes": [
+                  "source",
+                  "discovery"
+                ],
+                "scanner": {
+                  "name": "handwritten-fixture",
+                  "version": "1"
+                }
+              }
+            ]
+          },
+          {
+            "id": "top:confirmed",
+            "home": {
+              "key": "orders",
+              "repo": "example/orders",
+              "path": "apps/ordering"
+            },
+            "pins": [
+              {
+                "format": "groundwork-evidence/v2",
+                "repo": "example/orders",
+                "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "scannedAt": "2026-11-06T00:00:00Z",
+                "language": "typescript",
+                "trackedFiles": 1,
+                "selectedFiles": 1,
+                "passes": [
+                  "source",
+                  "discovery"
+                ],
+                "scanner": {
+                  "name": "handwritten-fixture",
+                  "version": "1"
+                }
+              }
+            ]
+          }
+        ],
+        "repositories": [
+          {
+            "format": "groundwork-evidence/v2",
+            "repo": "example/orders",
+            "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "scannedAt": "2026-11-06T00:00:00Z",
+            "language": "typescript",
+            "trackedFiles": 1,
+            "selectedFiles": 1,
+            "passes": [
+              "source",
+              "discovery"
+            ],
+            "scanner": {
+              "name": "handwritten-fixture",
+              "version": "1"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "command": "md",
+      "result": {
+        "wrote": "../../../../../../var/folders/3p/w3qkjl6s3yvgcrg1hcq40w380000gp/T/groundwork-map-commands-rIDb0d/MAP.md"
+      }
+    }
+  ],
+  "markdown": "# Model contract fixture: system map\n\n- example/orders: read at `aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa` on 2026-11-06T00:00:00Z.\n\n## Orders (`dom:orders`)\n\n### Ordering (`sys:ordering`)\n\nConfirm orders and arrange delivery.\n\n- `svc:ordering` Ordering API — example/orders/apps/ordering\n- `app:shop` Shop — example/orders/apps/ordering\n- `st:orders` Orders database — example/orders/apps/ordering\n- `st:unknown-owner` Unowned fixture cache — example/orders/apps/ordering\n- `top:confirmed` Order confirmations — example/orders/apps/ordering\n\n## Recorded exchanges\n\n- `svc:ordering` → `st:orders`: read via `sch:order` at `h:confirm#load`.\n- `svc:ordering` → `st:orders`: write via `sch:order#status` at `h:confirm#tx/save`.\n- `svc:ordering` → `ext:payments`: call via `api:charge` at `h:confirm#lines/reserve`.\n- `svc:ordering` → `st:orders`: read via `sch:order` at `h:confirm#enrich/order`.\n- `svc:ordering` → `ext:payments`: call via `api:charge` at `h:confirm#enrich/payment`.\n- `svc:ordering` → `top:confirmed`: publish via `msg:confirmed` at `h:confirm#deliver/send`.\n- `svc:ordering` → `svc:ordering`: causes via `h:on-confirmed` at `h:confirm#deliver/send`.\n- `app:shop` → `svc:ordering`: call via `api:confirm` at `h:click#submit`.\n- `top:confirmed` → `svc:ordering`: consume via `msg:confirmed` at `sub:on-confirmed`.\n- `app:shop` → `svc:ordering`: call via `gql:order` at `gql:order`.\n- `svc:ordering` → `ext:notifications`: call via `ext:notifications` at `rel:notifications`.\n\n## Gaps\n\n- `st:unknown-owner`: No cited resource owner is recorded.\n- `top:confirmed`: No cited resource owner is recorded.\n- `api:legacy`: No caller is recorded.\n- `api:legacy`: No handler detail is recorded.\n- `api:order-query`: No handler detail is recorded.\n- `api:grpc-confirm`: No caller is recorded.\n- `api:grpc-confirm`: No handler detail is recorded.\n- `api:charge`: No handler detail is recorded.\n- `job:nightly`: No handler detail is recorded.\n- `job:manual`: No handler detail is recorded.\n- `job:unknown`: No handler detail is recorded.\n- `job:unknown`: No schedule or trigger is recorded.\n- `sch:confirm#unknown`: No field type is recorded.\n- `sys:ordering`: The stated connection has no recorded execution backing.\n"
+}

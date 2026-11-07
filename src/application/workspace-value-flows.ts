@@ -1,3 +1,4 @@
+import { stripPrefix } from '@/domain/ids';
 import type { AuthoredLandscape, LandscapeValueFlow } from '@/domain/landscape';
 import type { Workspace } from '@/domain/workspace';
 
@@ -78,7 +79,7 @@ export function searchValueFlows(
     .split(/[^\p{L}\p{N}]+/u)
     .filter(Boolean);
   return areas
-    .filter((entry) => area === '' || entry.id === area)
+    .filter((entry) => area === '' || stripPrefix(entry.id, 'area') === stripPrefix(area, 'area'))
     .map((entry) => ({
       ...entry,
       flows: entry.flows.filter((flow) => words.every((word) => flow.search.includes(word))),

@@ -5,7 +5,7 @@ import { Suspense, useEffect, useSyncExternalStore } from 'react';
 import type { Reader } from '@/application/today-reader';
 
 import { HoverCard } from './inspector/hover-card.client';
-import { Thing } from './inspector/thing.client';
+import { NativeThingLoader } from './inspector/native-thing.client';
 import { usePicked } from './inspector/use-picked';
 import { adopt, close, open, openId, serverOpenId, subscribe } from './inspector-history';
 import styles from './inspector.module.css';
@@ -70,7 +70,7 @@ export function Inspector({ reader }: InspectorProps) {
       >
         {id === null ? null : (
           <Suspense fallback={<p className={styles.note}>{loading(reader)}</p>}>
-            <Thing id={id} key={id} reader={reader} />
+            <NativeThingLoader id={id} key={id} reader={reader} />
           </Suspense>
         )}
       </aside>

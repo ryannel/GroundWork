@@ -1,0 +1,1087 @@
+{
+  "reports": [
+    {
+      "counts": {
+        "infrastructure": {
+          "differentStructured": 0,
+          "distinctMissing": 0,
+          "missing": 0,
+          "retainedInProse": 0
+        },
+        "tech": {
+          "differentStructured": 1,
+          "distinctMissing": 1,
+          "missing": 1,
+          "retainedInProse": 0
+        }
+      },
+      "jobClassification": {
+        "roleMissing": [
+          {
+            "id": "svc:bike-fit-cli",
+            "nativeRoles": [],
+            "path": "domains/side-projects/systems/bike-fit/system.yaml",
+            "sourceId": "svc:bike-fit-cli"
+          }
+        ],
+        "total": 1
+      },
+      "rows": [
+        {
+          "field": "tech",
+          "id": "lib:geometry",
+          "kind": "library",
+          "line": 15,
+          "path": "domains/side-projects/systems/bike-fit/system.yaml",
+          "retainedInProse": false,
+          "source": "Python",
+          "sourceId": "svc:geometry"
+        }
+      ],
+      "workspace": "personal"
+    },
+    {
+      "counts": {
+        "infrastructure": {
+          "differentStructured": 0,
+          "distinctMissing": 0,
+          "missing": 0,
+          "retainedInProse": 0
+        },
+        "tech": {
+          "differentStructured": 0,
+          "distinctMissing": 0,
+          "missing": 0,
+          "retainedInProse": 0
+        }
+      },
+      "jobClassification": {
+        "roleMissing": [
+          {
+            "id": "svc:search-indexer",
+            "nativeRoles": [],
+            "path": "domains/catalogue/systems/search/system.yaml",
+            "sourceId": "svc:search-indexer"
+          },
+          {
+            "id": "svc:order-mailer",
+            "nativeRoles": [],
+            "path": "domains/orders/systems/ordering/system.yaml",
+            "sourceId": "svc:order-mailer"
+          }
+        ],
+        "total": 2
+      },
+      "rows": [],
+      "workspace": "acme"
+    },
+    {
+      "counts": {
+        "infrastructure": {
+          "differentStructured": 5,
+          "distinctMissing": 5,
+          "missing": 5,
+          "retainedInProse": 0
+        },
+        "tech": {
+          "differentStructured": 90,
+          "distinctMissing": 87,
+          "missing": 87,
+          "retainedInProse": 3
+        }
+      },
+      "jobClassification": {
+        "roleMissing": [
+          {
+            "id": "svc:eligibility-cache-worker",
+            "nativeRoles": [
+              "worker"
+            ],
+            "path": "domains/commercial-backbone/systems/assortment/system.yaml",
+            "sourceId": "svc:eligibility-cache-worker"
+          },
+          {
+            "id": "svc:carfeatures-cache-worker",
+            "nativeRoles": [
+              "worker"
+            ],
+            "path": "domains/commercial-backbone/systems/assortment/system.yaml",
+            "sourceId": "svc:carfeatures-cache-worker"
+          },
+          {
+            "id": "svc:cce-car-spec-adapter-migrator",
+            "nativeRoles": [],
+            "path": "domains/commercial-backbone/systems/car-configuration-engine/system.yaml",
+            "sourceId": "svc:cce-car-spec-adapter-migrator"
+          },
+          {
+            "id": "svc:cce-filter-service-migrate",
+            "nativeRoles": [],
+            "path": "domains/commercial-backbone/systems/car-configuration-engine/system.yaml",
+            "sourceId": "svc:cce-filter-service-migrate"
+          },
+          {
+            "id": "svc:lead-capture-ai-bot-ingestion",
+            "nativeRoles": [],
+            "path": "domains/shopping/systems/leads/system.yaml",
+            "sourceId": "svc:lead-capture-ai-bot-ingestion"
+          }
+        ],
+        "total": 18
+      },
+      "rows": [
+        {
+          "field": "tech",
+          "id": "sys:product-data-cpam",
+          "kind": "system",
+          "line": 436,
+          "path": "domains/commercial-backbone/systems/assortment/system.yaml",
+          "retainedInProse": false,
+          "source": "SOAP/XML POST over HTTPS through the Volvo API gateway (https://gw.api.volvocars.biz/cpam/service/FullFeatures) · typed HttpClient CpamClient with standard resilience handler · header user-key",
+          "sourceId": "svc:product-data-cpam"
+        },
+        {
+          "field": "tech",
+          "id": "ext:listings-autotrader",
+          "kind": "external",
+          "line": 472,
+          "path": "domains/commercial-backbone/systems/assortment/system.yaml",
+          "retainedInProse": false,
+          "source": "Pulls the CSV feed over HTTPS (GET /api/marketing-feeds/partners/autotrader/stock/{market}); we never call it",
+          "sourceId": "svc:listings-autotrader"
+        },
+        {
+          "field": "tech",
+          "id": "ext:ads-google",
+          "kind": "external",
+          "line": 479,
+          "path": "domains/commercial-backbone/systems/assortment/system.yaml",
+          "retainedInProse": false,
+          "source": "Pulls the CSV feeds over HTTPS; we never call it",
+          "sourceId": "svc:ads-google"
+        },
+        {
+          "field": "tech",
+          "id": "ext:ads-meta",
+          "kind": "external",
+          "line": 485,
+          "path": "domains/commercial-backbone/systems/assortment/system.yaml",
+          "retainedInProse": false,
+          "source": "Pulls the CSV feeds over HTTPS; we never call it",
+          "sourceId": "svc:ads-meta"
+        },
+        {
+          "field": "tech",
+          "id": "sys:product-data-pcg",
+          "kind": "system",
+          "line": 540,
+          "path": "domains/commercial-backbone/systems/assortment/system.yaml",
+          "retainedInProse": false,
+          "source": "REST over HTTPS via Volvo API gateway (`https://gw.api.volvocars.net/pcg-i/v1`), Azure AD bearer + `pcg-key` header · PcgClient",
+          "sourceId": "svc:product-data-pcg"
+        },
+        {
+          "field": "tech",
+          "id": "sys:plm-prins",
+          "kind": "system",
+          "line": 564,
+          "path": "domains/commercial-backbone/systems/assortment/system.yaml",
+          "retainedInProse": false,
+          "source": "GraphQL over HTTPS · Authorization AppKey header · Polly retry",
+          "sourceId": "svc:plm-prins"
+        },
+        {
+          "field": "tech",
+          "id": "sys:product-addons-eligibility",
+          "kind": "system",
+          "line": 775,
+          "path": "domains/commercial-backbone/systems/assortment/system.yaml",
+          "retainedInProse": false,
+          "source": "HTTP REST; Azure AD client-credentials token",
+          "sourceId": "svc:product-addons-eligibility"
+        },
+        {
+          "field": "tech",
+          "id": "sys:cce-glpk-solver",
+          "kind": "system",
+          "line": 32,
+          "path": "domains/commercial-backbone/systems/car-configuration-engine/system.yaml",
+          "retainedInProse": false,
+          "source": "REST · Our Studio rust-multi-solver-api (image ourstudio/rust-multi-solver-api:glpk-0.1.13, source ourstudio-se/rust-glpk-api) · X-API-KEY header · GLPK_URL",
+          "sourceId": "svc:cce-glpk-solver"
+        },
+        {
+          "field": "tech",
+          "id": "ext:error-tracking-sentry",
+          "kind": "external",
+          "line": 266,
+          "path": "domains/commercial-backbone/systems/car-configuration-engine/system.yaml",
+          "retainedInProse": false,
+          "source": "Sentry Go SDK (internal/app/sentry.go)",
+          "sourceId": "svc:error-tracking-sentry"
+        },
+        {
+          "field": "infrastructure",
+          "id": "ext:error-tracking-sentry",
+          "kind": "external",
+          "line": 268,
+          "path": "domains/commercial-backbone/systems/car-configuration-engine/system.yaml",
+          "retainedInProse": false,
+          "source": true,
+          "sourceId": "svc:error-tracking-sentry"
+        },
+        {
+          "field": "tech",
+          "id": "sys:product-data-prins",
+          "kind": "system",
+          "line": 295,
+          "path": "domains/commercial-backbone/systems/car-configuration-engine/system.yaml",
+          "retainedInProse": false,
+          "source": "GraphQL over HTTPS (machinebox/graphql client), header Authorization AppKey <key> · prins-prod.azurewebsites.net/graphql",
+          "sourceId": "svc:product-data-prins"
+        },
+        {
+          "field": "tech",
+          "id": "sys:identity-vts",
+          "kind": "system",
+          "line": 315,
+          "path": "domains/commercial-backbone/systems/car-configuration-engine/system.yaml",
+          "retainedInProse": false,
+          "source": "RS256 JWTs (public key in VTS_CRT, issuer VTS_ISSUER) · token revocation list over HTTP at TRL_URL + TRL_DOMAIN",
+          "sourceId": "svc:identity-vts"
+        },
+        {
+          "field": "tech",
+          "id": "sys:crm-vcep",
+          "kind": "system",
+          "line": 25,
+          "path": "domains/commercial-backbone/systems/cart/system.yaml",
+          "retainedInProse": false,
+          "source": "REST over the GRIP partner gateway (gw.partner.api.volvocars.biz/vcep/interest/v2), OAuth2 client credentials (registration grip, client_secret_post) plus an Azure API Management subscription key; OpportunityClient",
+          "sourceId": "svc:crm-vcep"
+        },
+        {
+          "field": "tech",
+          "id": "sys:identity-connect",
+          "kind": "system",
+          "line": 32,
+          "path": "domains/commercial-backbone/systems/cart/system.yaml",
+          "retainedInProse": false,
+          "source": "OpenID Connect issuer https://connect-auth.volvocars.biz (QA qa-connect-auth.volvocars.biz); keys found through OIDC discovery by JwtIssuerAuthenticationManagerResolver",
+          "sourceId": "svc:identity-connect"
+        },
+        {
+          "field": "tech",
+          "id": "sys:factory-orders-vista",
+          "kind": "system",
+          "line": 59,
+          "path": "domains/commercial-backbone/systems/conditional-order/system.yaml",
+          "retainedInProse": false,
+          "source": "REST through the Volvo API gateway (gw.api.volvocars.biz/nvista/order-api) · VistaClient · Azure AD token",
+          "sourceId": "svc:factory-orders-vista"
+        },
+        {
+          "field": "tech",
+          "id": "sys:connected-services-partner-api",
+          "kind": "system",
+          "line": 66,
+          "path": "domains/commercial-backbone/systems/conditional-order/system.yaml",
+          "retainedInProse": false,
+          "source": "REST (cepsvctoken.eu.prod.c3.volvocars.com/services-partner) · KycClient · Volvo ID user token",
+          "sourceId": "svc:connected-services-partner-api"
+        },
+        {
+          "field": "tech",
+          "id": "ext:warehouse-snowflake",
+          "kind": "external",
+          "line": 68,
+          "path": "domains/commercial-backbone/systems/discounts/system.yaml",
+          "retainedInProse": false,
+          "source": "Snowflake SQL REST API v2 (volvocars-enterprise.snowflakecomputing.com, account vcg_dm) with an Azure AD client-credentials token",
+          "sourceId": "svc:warehouse-snowflake"
+        },
+        {
+          "field": "tech",
+          "id": "ext:schema-registry-hive",
+          "kind": "external",
+          "line": 121,
+          "path": "domains/commercial-backbone/systems/federated-graph/system.yaml",
+          "retainedInProse": false,
+          "source": "GraphQL Hive (The Guild), SaaS",
+          "sourceId": "svc:schema-registry-hive"
+        },
+        {
+          "field": "infrastructure",
+          "id": "ext:schema-registry-hive",
+          "kind": "external",
+          "line": 123,
+          "path": "domains/commercial-backbone/systems/federated-graph/system.yaml",
+          "retainedInProse": false,
+          "source": true,
+          "sourceId": "svc:schema-registry-hive"
+        },
+        {
+          "field": "tech",
+          "id": "ext:cdn-akamai",
+          "kind": "external",
+          "line": 128,
+          "path": "domains/commercial-backbone/systems/federated-graph/system.yaml",
+          "retainedInProse": false,
+          "source": "Akamai CDN",
+          "sourceId": "svc:cdn-akamai"
+        },
+        {
+          "field": "tech",
+          "id": "sys:identity-volvo-id",
+          "kind": "system",
+          "line": 134,
+          "path": "domains/commercial-backbone/systems/federated-graph/system.yaml",
+          "retainedInProse": true,
+          "source": "PingFederate",
+          "sourceId": "svc:identity-volvo-id"
+        },
+        {
+          "field": "tech",
+          "id": "sys:product-data-kdp",
+          "kind": "system",
+          "line": 182,
+          "path": "domains/commercial-backbone/systems/federated-graph/system.yaml",
+          "retainedInProse": false,
+          "source": "REST through the Volvo API gateway (`https://gw.api.volvocars.net/kdp`), Azure AD password-grant token plus user keys; client `kdp.restAPI`",
+          "sourceId": "svc:product-data-kdp"
+        },
+        {
+          "field": "tech",
+          "id": "sys:plm-teamcenter",
+          "kind": "system",
+          "line": 189,
+          "path": "domains/commercial-backbone/systems/federated-graph/system.yaml",
+          "retainedInProse": false,
+          "source": "REST through the Volvo API gateway (`https://gw.api.volvocars.biz/tcfilemanagent/tcfilemanagement/api`), user key and auth key headers; client `teamcenter.api`",
+          "sourceId": "svc:plm-teamcenter"
+        },
+        {
+          "field": "tech",
+          "id": "sys:emissions-data-reda",
+          "kind": "system",
+          "line": 196,
+          "path": "domains/commercial-backbone/systems/federated-graph/system.yaml",
+          "retainedInProse": false,
+          "source": "REST over HTTPS through the Volvo API gateway (gw.api.volvocars.biz/response-relay), user-key header",
+          "sourceId": "svc:emissions-data-reda"
+        },
+        {
+          "field": "tech",
+          "id": "ext:bank-santander",
+          "kind": "external",
+          "line": 91,
+          "path": "domains/commercial-backbone/systems/finance/system.yaml",
+          "retainedInProse": false,
+          "source": "REST over HTTPS, OAuth2 client credentials plus X-IBM-Client-Id header · ProductsApiClient, RouteApiClient, SimulationApiClient from cds-finance-engine-scf-adapter",
+          "sourceId": "svc:bank-santander"
+        },
+        {
+          "field": "tech",
+          "id": "ext:bank-zenith",
+          "kind": "external",
+          "line": 98,
+          "path": "domains/commercial-backbone/systems/finance/system.yaml",
+          "retainedInProse": false,
+          "source": "SOAP 1.2 over HTTPS (Feign SOAPEncoder/JAXB), AuthHeader username and password · ProductsApiClient and QuoteApiClient from cds-finance-engine-zenith-adapter",
+          "sourceId": "svc:bank-zenith"
+        },
+        {
+          "field": "tech",
+          "id": "ext:bank-ziklo",
+          "kind": "external",
+          "line": 105,
+          "path": "domains/commercial-backbone/systems/finance/system.yaml",
+          "retainedInProse": false,
+          "source": "REST over HTTPS, API key (X-API-Key) plus OAuth over mutual TLS · ZikloApiClientFactory (unified QuotesApi and ApplicationApi from cds-finance-engine-financingparty-adapter)",
+          "sourceId": "svc:bank-ziklo"
+        },
+        {
+          "field": "tech",
+          "id": "sys:finance-vcc-pl",
+          "kind": "system",
+          "line": 112,
+          "path": "domains/commercial-backbone/systems/finance/system.yaml",
+          "retainedInProse": false,
+          "source": "REST over HTTPS, API key (apiKey) · PolandApiClientFactory (unified QuotesApi and ApplicationApi)",
+          "sourceId": "svc:finance-vcc-pl"
+        },
+        {
+          "field": "tech",
+          "id": "sys:identity-spin",
+          "kind": "system",
+          "line": 118,
+          "path": "domains/commercial-backbone/systems/finance/system.yaml",
+          "retainedInProse": false,
+          "source": "REST through the Volvo API gateway, API key (user-key) plus Azure AD OAuth · SpinApiClientFactory (SpinClient from cds-ecom-spin-api-adapter)",
+          "sourceId": "svc:identity-spin"
+        },
+        {
+          "field": "tech",
+          "id": "ext:psp-stripe",
+          "kind": "external",
+          "line": 46,
+          "path": "domains/commercial-backbone/systems/payment/system.yaml",
+          "retainedInProse": false,
+          "source": "Stripe webhooks (signed events)",
+          "sourceId": "svc:psp-stripe"
+        },
+        {
+          "field": "tech",
+          "id": "lib:payment-service",
+          "kind": "library",
+          "line": 129,
+          "path": "domains/commercial-backbone/systems/payment/system.yaml",
+          "retainedInProse": false,
+          "source": "Java 25 · Maven multi-module libraries (Spring Boot 3, Spring Data MongoDB, Feign, Spring Cloud Config) · published to GitHub Packages",
+          "sourceId": "svc:payment-service"
+        },
+        {
+          "field": "tech",
+          "id": "ext:launchdarkly",
+          "kind": "external",
+          "line": 205,
+          "path": "domains/commercial-backbone/systems/price/system.yaml",
+          "retainedInProse": false,
+          "source": "LaunchDarkly server SDK via GPECommon.LaunchDarkly (LAUNCHDARKLY_SDK_KEY, application gpe-external-price)",
+          "sourceId": "svc:feature-flags-launchdarkly"
+        },
+        {
+          "field": "infrastructure",
+          "id": "ext:launchdarkly",
+          "kind": "external",
+          "line": 207,
+          "path": "domains/commercial-backbone/systems/price/system.yaml",
+          "retainedInProse": false,
+          "source": true,
+          "sourceId": "svc:feature-flags-launchdarkly"
+        },
+        {
+          "field": "tech",
+          "id": "ext:identity-azure-ad",
+          "kind": "external",
+          "line": 212,
+          "path": "domains/commercial-backbone/systems/price/system.yaml",
+          "retainedInProse": false,
+          "source": "OpenID Connect · ASP.NET JwtBearer (\"Azure\" scheme)",
+          "sourceId": "svc:identity-azure-ad"
+        },
+        {
+          "field": "infrastructure",
+          "id": "ext:identity-azure-ad",
+          "kind": "external",
+          "line": 214,
+          "path": "domains/commercial-backbone/systems/price/system.yaml",
+          "retainedInProse": false,
+          "source": true,
+          "sourceId": "svc:identity-azure-ad"
+        },
+        {
+          "field": "tech",
+          "id": "ext:identity-microsoft-graph",
+          "kind": "external",
+          "line": 219,
+          "path": "domains/commercial-backbone/systems/price/system.yaml",
+          "retainedInProse": false,
+          "source": "REST, axios GET with the user's Azure AD token (scope User.Read)",
+          "sourceId": "svc:identity-microsoft-graph"
+        },
+        {
+          "field": "infrastructure",
+          "id": "ext:identity-microsoft-graph",
+          "kind": "external",
+          "line": 221,
+          "path": "domains/commercial-backbone/systems/price/system.yaml",
+          "retainedInProse": false,
+          "source": true,
+          "sourceId": "svc:identity-microsoft-graph"
+        },
+        {
+          "field": "tech",
+          "id": "sys:insurance-provider-ipip",
+          "kind": "system",
+          "line": 238,
+          "path": "domains/commercial-backbone/systems/price/system.yaml",
+          "retainedInProse": false,
+          "source": "REST over HTTPS · NSwag-generated IpipProxy from ipip.json · Azure AD token for IPIP_AZURE_SCOPE · circuit breaker \"InsuranceProxy\"",
+          "sourceId": "svc:insurance-provider-ipip"
+        },
+        {
+          "field": "tech",
+          "id": "ext:translation-smartling",
+          "kind": "external",
+          "line": 117,
+          "path": "domains/commercial-backbone/systems/product-enrichment/system.yaml",
+          "retainedInProse": false,
+          "source": "Smartling translation SaaS via Smartling .NET SDK",
+          "sourceId": "svc:translation-smartling"
+        },
+        {
+          "field": "tech",
+          "id": "ext:ai-azure-vision",
+          "kind": "external",
+          "line": 142,
+          "path": "domains/commercial-backbone/systems/product-enrichment/system.yaml",
+          "retainedInProse": false,
+          "source": "Azure.AI.Vision.ImageAnalysis SDK · ImageAnalysisClient with key credential (AiServicesConfiguration.Endpoint/Key) · ImageAnalysisClientWrapper",
+          "sourceId": "svc:ai-azure-vision"
+        },
+        {
+          "field": "tech",
+          "id": "ext:ai-azure-content-safety",
+          "kind": "external",
+          "line": 149,
+          "path": "domains/commercial-backbone/systems/product-enrichment/system.yaml",
+          "retainedInProse": false,
+          "source": "Azure.AI.ContentSafety SDK · ContentSafetyClient with key credential (same AI services endpoint) · ContentSafetyClientWrapper",
+          "sourceId": "svc:ai-azure-content-safety"
+        },
+        {
+          "field": "tech",
+          "id": "ext:ai-azure-openai",
+          "kind": "external",
+          "line": 156,
+          "path": "domains/commercial-backbone/systems/product-enrichment/system.yaml",
+          "retainedInProse": false,
+          "source": "Azure.AI.OpenAI SDK · ChatClient on deployment AiServicesConfiguration.DeploymentName (default gpt-4.1) · AzureAiClient, AltTextLLMClient",
+          "sourceId": "svc:ai-azure-openai"
+        },
+        {
+          "field": "tech",
+          "id": "ext:translation-azure-translator",
+          "kind": "external",
+          "line": 163,
+          "path": "domains/commercial-backbone/systems/product-enrichment/system.yaml",
+          "retainedInProse": false,
+          "source": "REST over HTTPS · typed HttpClient TranslationClient · headers Ocp-Apim-Subscription-Key and Ocp-Apim-Subscription-Region europe · POST translate?api-version=3.0&from=en · 3 retries with exponential back-off",
+          "sourceId": "svc:translation-azure-translator"
+        },
+        {
+          "field": "tech",
+          "id": "sys:translation-volvo-tms",
+          "kind": "system",
+          "line": 196,
+          "path": "domains/commercial-backbone/systems/product-enrichment/system.yaml",
+          "retainedInProse": false,
+          "source": "REST over HTTPS via the Volvo API gateway (`gw.consumer.api.volvocars.com/translate/` and `/translation-delivery/`), `VCC-Api-Key` and `project-token` headers · Kafka events",
+          "sourceId": "svc:translation-volvo-tms"
+        },
+        {
+          "field": "tech",
+          "id": "sys:salesforce-vcep-http-events",
+          "kind": "system",
+          "line": 22,
+          "path": "domains/commercial-backbone/systems/salesforce-emea/system.yaml",
+          "retainedInProse": false,
+          "source": "Named-credential HTTP boundary; implementation unscanned",
+          "sourceId": "svc:salesforce-vcep-http-events"
+        },
+        {
+          "field": "tech",
+          "id": "ext:tax-provider-polk",
+          "kind": "external",
+          "line": 52,
+          "path": "domains/commercial-backbone/systems/tax/system.yaml",
+          "retainedInProse": false,
+          "source": "SOAP over HTTPS · WCF connected service PolkServiceProxy (DACALCServiceSoap) · AuthHeader user and password plus request credentials · company code 37 · 1-minute timeout",
+          "sourceId": "svc:tax-provider-polk"
+        },
+        {
+          "field": "tech",
+          "id": "ext:tax-provider-agita",
+          "kind": "external",
+          "line": 59,
+          "path": "domains/commercial-backbone/systems/tax/system.yaml",
+          "retainedInProse": false,
+          "source": "REST over HTTPS · typed HttpClient AgitaProxy · bearer token from Agita's login endpoint (AgitaAuthenticationHandler, cached in memory) · circuit breaker",
+          "sourceId": "svc:tax-provider-agita"
+        },
+        {
+          "field": "tech",
+          "id": "ext:tax-provider-sovos",
+          "kind": "external",
+          "line": 66,
+          "path": "domains/commercial-backbone/systems/tax/system.yaml",
+          "retainedInProse": false,
+          "source": "REST over HTTPS through the internal proxy dsp-sales-addons-backend · NSwag client SovosTaxesProxy from SovosTaxes.json · Azure AD token for SOVOS_PROXY_RESOURCE_ID · circuit breaker",
+          "sourceId": "svc:tax-provider-sovos"
+        },
+        {
+          "field": "tech",
+          "id": "sys:fleet-risk-assessment-ram",
+          "kind": "system",
+          "line": 133,
+          "path": "domains/fleet/systems/fleet-account-management/system.yaml",
+          "retainedInProse": false,
+          "source": "REST (VolvoCars.RiskAssessment.Api client 3.0.0)",
+          "sourceId": "svc:fleet-risk-assessment-ram"
+        },
+        {
+          "field": "tech",
+          "id": "sys:fleet-asset",
+          "kind": "system",
+          "line": 139,
+          "path": "domains/fleet/systems/fleet-account-management/system.yaml",
+          "retainedInProse": false,
+          "source": "REST, Azure AD bearer token",
+          "sourceId": "svc:fleet-asset"
+        },
+        {
+          "field": "tech",
+          "id": "sys:fleet-discount",
+          "kind": "system",
+          "line": 145,
+          "path": "domains/fleet/systems/fleet-account-management/system.yaml",
+          "retainedInProse": false,
+          "source": "REST",
+          "sourceId": "svc:fleet-discount"
+        },
+        {
+          "field": "tech",
+          "id": "ext:rockar",
+          "kind": "external",
+          "line": 50,
+          "path": "domains/shopping/systems/car-selector/system.yaml",
+          "retainedInProse": true,
+          "source": "FusionAuth passwordless login, Apollo GraphQL",
+          "sourceId": "svc:rockar"
+        },
+        {
+          "field": "tech",
+          "id": "ext:google-maps",
+          "kind": "external",
+          "line": 56,
+          "path": "domains/shopping/systems/car-selector/system.yaml",
+          "retainedInProse": false,
+          "source": "Google Maps JavaScript API (Places, Geocoder)",
+          "sourceId": "svc:google-maps"
+        },
+        {
+          "field": "tech",
+          "id": "sys:crm-cdb",
+          "kind": "system",
+          "line": 27,
+          "path": "domains/shopping/systems/customer/system.yaml",
+          "retainedInProse": false,
+          "source": "GraphQL (consumer-graphql) and REST (/consumer) behind the Volvo partner API gateway gw.partner.api.volvocars.biz; OAuth2 client credentials from the gateway's token endpoint plus an ocp-apim-subscription-key header",
+          "sourceId": "svc:crm-cdb"
+        },
+        {
+          "field": "tech",
+          "id": "sys:cep-contact-preferences",
+          "kind": "system",
+          "line": 19,
+          "path": "domains/shopping/systems/customer-profile/system.yaml",
+          "retainedInProse": false,
+          "source": "HTTPS API; provider implementation unscanned",
+          "sourceId": "svc:cep-contact-preferences"
+        },
+        {
+          "field": "tech",
+          "id": "sys:cep-car-privacy",
+          "kind": "system",
+          "line": 25,
+          "path": "domains/shopping/systems/customer-profile/system.yaml",
+          "retainedInProse": false,
+          "source": "HTTPS API; provider implementation unscanned",
+          "sourceId": "svc:cep-car-privacy"
+        },
+        {
+          "field": "tech",
+          "id": "sys:cep-scopes-grants",
+          "kind": "system",
+          "line": 31,
+          "path": "domains/shopping/systems/customer-profile/system.yaml",
+          "retainedInProse": false,
+          "source": "HTTPS API; provider implementation unscanned",
+          "sourceId": "svc:cep-scopes-grants"
+        },
+        {
+          "field": "tech",
+          "id": "sys:owner-data-request",
+          "kind": "system",
+          "line": 47,
+          "path": "domains/shopping/systems/data-portals/system.yaml",
+          "retainedInProse": false,
+          "source": "HTTPS",
+          "sourceId": "svc:owner-data-request"
+        },
+        {
+          "field": "tech",
+          "id": "sys:owner-data-consent",
+          "kind": "system",
+          "line": 53,
+          "path": "domains/shopping/systems/data-portals/system.yaml",
+          "retainedInProse": false,
+          "source": "HTTPS",
+          "sourceId": "svc:owner-data-consent"
+        },
+        {
+          "field": "tech",
+          "id": "sys:passport-experience",
+          "kind": "system",
+          "line": 59,
+          "path": "domains/shopping/systems/data-portals/system.yaml",
+          "retainedInProse": false,
+          "source": "HTTPS",
+          "sourceId": "svc:passport-experience"
+        },
+        {
+          "field": "tech",
+          "id": "sys:developer-portal-bff",
+          "kind": "system",
+          "line": 65,
+          "path": "domains/shopping/systems/data-portals/system.yaml",
+          "retainedInProse": false,
+          "source": "HTTPS",
+          "sourceId": "svc:developer-portal-bff"
+        },
+        {
+          "field": "tech",
+          "id": "sys:developer-keycloak",
+          "kind": "system",
+          "line": 71,
+          "path": "domains/shopping/systems/data-portals/system.yaml",
+          "retainedInProse": false,
+          "source": "Keycloak OpenID Connect",
+          "sourceId": "svc:developer-keycloak"
+        },
+        {
+          "field": "tech",
+          "id": "ext:salesforce-velp",
+          "kind": "external",
+          "line": 32,
+          "path": "domains/shopping/systems/employee-car-booking/system.yaml",
+          "retainedInProse": false,
+          "source": "Salesforce REST API, composite and SOQL, OAuth client credentials",
+          "sourceId": "svc:salesforce-velp"
+        },
+        {
+          "field": "tech",
+          "id": "ext:otp-twilio-verify",
+          "kind": "external",
+          "line": 38,
+          "path": "domains/shopping/systems/employee-car-booking/system.yaml",
+          "retainedInProse": false,
+          "source": "Twilio Node SDK",
+          "sourceId": "svc:otp-twilio-verify"
+        },
+        {
+          "field": "tech",
+          "id": "sys:employee-vehicle-inventory-api",
+          "kind": "system",
+          "line": 44,
+          "path": "domains/shopping/systems/employee-car-booking/system.yaml",
+          "retainedInProse": false,
+          "source": "HTTP boundary identified from invoked pinned client code",
+          "sourceId": "svc:employee-vehicle-inventory-api"
+        },
+        {
+          "field": "tech",
+          "id": "sys:employee-vehicle-price-partner-api",
+          "kind": "system",
+          "line": 50,
+          "path": "domains/shopping/systems/employee-car-booking/system.yaml",
+          "retainedInProse": false,
+          "source": "HTTP boundary identified from invoked pinned client code",
+          "sourceId": "svc:employee-vehicle-price-partner-api"
+        },
+        {
+          "field": "tech",
+          "id": "ext:signicat",
+          "kind": "external",
+          "line": 63,
+          "path": "domains/shopping/systems/fleet-sales/system.yaml",
+          "retainedInProse": false,
+          "source": "Signicat Assure API (SaaS)",
+          "sourceId": "svc:signicat"
+        },
+        {
+          "field": "tech",
+          "id": "sys:fleet-rule-engine",
+          "kind": "system",
+          "line": 90,
+          "path": "domains/shopping/systems/fleet-sales/system.yaml",
+          "retainedInProse": false,
+          "source": "HTTP boundary identified from invoked pinned client code",
+          "sourceId": "svc:fleet-rule-engine"
+        },
+        {
+          "field": "tech",
+          "id": "sys:fleet-leasing-api",
+          "kind": "system",
+          "line": 96,
+          "path": "domains/shopping/systems/fleet-sales/system.yaml",
+          "retainedInProse": false,
+          "source": "HTTP boundary identified from invoked pinned client code",
+          "sourceId": "svc:fleet-leasing-api"
+        },
+        {
+          "field": "tech",
+          "id": "sys:fleet-business-wholesale-orders",
+          "kind": "system",
+          "line": 102,
+          "path": "domains/shopping/systems/fleet-sales/system.yaml",
+          "retainedInProse": false,
+          "source": "HTTP boundary identified from invoked pinned client code",
+          "sourceId": "svc:fleet-business-wholesale-orders"
+        },
+        {
+          "field": "tech",
+          "id": "sys:fleet-business-add-ons",
+          "kind": "system",
+          "line": 108,
+          "path": "domains/shopping/systems/fleet-sales/system.yaml",
+          "retainedInProse": false,
+          "source": "HTTP boundary identified from invoked pinned client code",
+          "sourceId": "svc:fleet-business-add-ons"
+        },
+        {
+          "field": "tech",
+          "id": "sys:fleet-telematics-api",
+          "kind": "system",
+          "line": 114,
+          "path": "domains/shopping/systems/fleet-sales/system.yaml",
+          "retainedInProse": false,
+          "source": "HTTP boundary identified from invoked pinned client code",
+          "sourceId": "svc:fleet-telematics-api"
+        },
+        {
+          "field": "tech",
+          "id": "sys:fleet-legacy-subscription-status",
+          "kind": "system",
+          "line": 120,
+          "path": "domains/shopping/systems/fleet-sales/system.yaml",
+          "retainedInProse": false,
+          "source": "HTTP boundary identified from invoked pinned client code",
+          "sourceId": "svc:fleet-legacy-subscription-status"
+        },
+        {
+          "field": "tech",
+          "id": "ext:salesforce-apac-leads",
+          "kind": "external",
+          "line": 99,
+          "path": "domains/shopping/systems/leads/system.yaml",
+          "retainedInProse": false,
+          "source": "Salesforce REST API v48.0 · OAuth2",
+          "sourceId": "svc:salesforce-apac-leads"
+        },
+        {
+          "field": "tech",
+          "id": "ext:urban-science",
+          "kind": "external",
+          "line": 105,
+          "path": "domains/shopping/systems/leads/system.yaml",
+          "retainedInProse": false,
+          "source": "ADF XML over HTTPS",
+          "sourceId": "svc:urban-science"
+        },
+        {
+          "field": "tech",
+          "id": "ext:activix",
+          "kind": "external",
+          "line": 111,
+          "path": "domains/shopping/systems/leads/system.yaml",
+          "retainedInProse": false,
+          "source": "JSON over HTTPS with HMAC header",
+          "sourceId": "svc:activix"
+        },
+        {
+          "field": "tech",
+          "id": "ext:rockar",
+          "kind": "external",
+          "line": 94,
+          "path": "domains/shopping/systems/marketing-pages/system.yaml",
+          "retainedInProse": true,
+          "source": "FusionAuth and Apollo GraphQL (Rockar)",
+          "sourceId": "svc:part-exchange-rockar"
+        },
+        {
+          "field": "tech",
+          "id": "sys:media-asset-download-hosts",
+          "kind": "system",
+          "line": 62,
+          "path": "domains/shopping/systems/media-site/system.yaml",
+          "retainedInProse": false,
+          "source": "HTTPS file delivery from Aprimo CDN, media-downloads.volvocars.com and Cision media bank",
+          "sourceId": "svc:media-asset-download-hosts"
+        },
+        {
+          "field": "tech",
+          "id": "sys:cbv-document-adapter",
+          "kind": "system",
+          "line": 26,
+          "path": "domains/shopping/systems/terms-and-conditions/system.yaml",
+          "retainedInProse": false,
+          "source": "Kafka producer on AWS MSK (vcc.cbvdocadapter.*)",
+          "sourceId": "svc:cbv-document-adapter"
+        },
+        {
+          "field": "tech",
+          "id": "ext:payments-cox-automotive",
+          "kind": "external",
+          "line": 114,
+          "path": "domains/shopping/systems/us-retail-sites/system.yaml",
+          "retainedInProse": false,
+          "source": "REST, OAuth client credentials",
+          "sourceId": "svc:payments-cox-automotive"
+        },
+        {
+          "field": "tech",
+          "id": "ext:wallet-google",
+          "kind": "external",
+          "line": 120,
+          "path": "domains/shopping/systems/us-retail-sites/system.yaml",
+          "retainedInProse": false,
+          "source": "REST, Google service account OAuth",
+          "sourceId": "svc:wallet-google"
+        },
+        {
+          "field": "tech",
+          "id": "ext:wallet-apple",
+          "kind": "external",
+          "line": 126,
+          "path": "domains/shopping/systems/us-retail-sites/system.yaml",
+          "retainedInProse": false,
+          "source": "Signed .pkpass files",
+          "sourceId": "svc:wallet-apple"
+        },
+        {
+          "field": "tech",
+          "id": "sys:hh-accessibility-form",
+          "kind": "system",
+          "line": 132,
+          "path": "domains/shopping/systems/us-retail-sites/system.yaml",
+          "retainedInProse": false,
+          "source": "HTTPS form POST",
+          "sourceId": "svc:hh-accessibility-form"
+        },
+        {
+          "field": "tech",
+          "id": "sys:cms-volvo-content-delivery",
+          "kind": "system",
+          "line": 38,
+          "path": "domains/shopping/systems/volvo-cars-website/system.yaml",
+          "retainedInProse": false,
+          "source": "HTTPS · content delivery and dictionaries",
+          "sourceId": "svc:cms-volvo-content-delivery"
+        },
+        {
+          "field": "tech",
+          "id": "sys:cms-volvo-content-management",
+          "kind": "system",
+          "line": 44,
+          "path": "domains/shopping/systems/volvo-cars-website/system.yaml",
+          "retainedInProse": false,
+          "source": "HTTPS",
+          "sourceId": "svc:cms-volvo-content-management"
+        },
+        {
+          "field": "tech",
+          "id": "ext:consent-onetrust",
+          "kind": "external",
+          "line": 157,
+          "path": "domains/shopping/systems/website-platform/system.yaml",
+          "retainedInProse": false,
+          "source": "OneTrust cookie consent SDK (cdn.cookielaw.org)",
+          "sourceId": "svc:consent-onetrust"
+        },
+        {
+          "field": "tech",
+          "id": "ext:search-elastic",
+          "kind": "external",
+          "line": 163,
+          "path": "domains/shopping/systems/website-platform/system.yaml",
+          "retainedInProse": false,
+          "source": "Elastic Cloud search applications",
+          "sourceId": "svc:search-elastic"
+        },
+        {
+          "field": "tech",
+          "id": "ext:chat-salesforce",
+          "kind": "external",
+          "line": 169,
+          "path": "domains/shopping/systems/website-platform/system.yaml",
+          "retainedInProse": false,
+          "source": "Salesforce Embedded Service (Digital Engagement)",
+          "sourceId": "svc:chat-salesforce"
+        },
+        {
+          "field": "tech",
+          "id": "ext:chat-quiq",
+          "kind": "external",
+          "line": 175,
+          "path": "domains/shopping/systems/website-platform/system.yaml",
+          "retainedInProse": false,
+          "source": "Quiq web chat ({tenant}.quiq-api.com)",
+          "sourceId": "svc:chat-quiq"
+        },
+        {
+          "field": "tech",
+          "id": "ext:ci-github-actions",
+          "kind": "external",
+          "line": 181,
+          "path": "domains/shopping/systems/website-platform/system.yaml",
+          "retainedInProse": false,
+          "source": "GitHub REST API via Octokit (GitHub App)",
+          "sourceId": "svc:ci-github-actions"
+        },
+        {
+          "field": "tech",
+          "id": "sys:owner-digital-twin",
+          "kind": "system",
+          "line": 187,
+          "path": "domains/shopping/systems/website-platform/system.yaml",
+          "retainedInProse": false,
+          "source": "gRPC over TLS",
+          "sourceId": "svc:owner-digital-twin"
+        },
+        {
+          "field": "tech",
+          "id": "sys:owner-digital-key",
+          "kind": "system",
+          "line": 193,
+          "path": "domains/shopping/systems/website-platform/system.yaml",
+          "retainedInProse": false,
+          "source": "HTTPS",
+          "sourceId": "svc:owner-digital-key"
+        },
+        {
+          "field": "tech",
+          "id": "ext:it-tecture",
+          "kind": "external",
+          "line": 48,
+          "path": "domains/shopping/systems/webstore/system.yaml",
+          "retainedInProse": false,
+          "source": "Third-party SaaS",
+          "sourceId": "svc:it-tecture"
+        },
+        {
+          "field": "tech",
+          "id": "sys:owner-subscription-manager",
+          "kind": "system",
+          "line": 54,
+          "path": "domains/shopping/systems/webstore/system.yaml",
+          "retainedInProse": false,
+          "source": "HTTPS",
+          "sourceId": "svc:owner-subscription-manager"
+        },
+        {
+          "field": "tech",
+          "id": "sys:owner-soft-offer",
+          "kind": "system",
+          "line": 60,
+          "path": "domains/shopping/systems/webstore/system.yaml",
+          "retainedInProse": false,
+          "source": "HTTPS",
+          "sourceId": "svc:owner-soft-offer"
+        }
+      ],
+      "workspace": "volvo-cars"
+    }
+  ]
+}

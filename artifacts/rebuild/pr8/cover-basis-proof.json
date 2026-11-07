@@ -1,0 +1,53 @@
+{
+  "format": 1,
+  "cause": "Captured native cover omitted selected basis and historical check warnings.",
+  "correction": "Read existing native base metadata; preserve previous-format date as history requiring recheck, show actual native edit/drift and landed basis; name and link actual ancestors as proposed/unverified context.",
+  "sourceSha256": {
+    "src/application/model-plan-pages.ts": "9b03d8ba901b5ca1fe61b46d01c2e44587cfab65fffe4c3356cfdb8262e82c3d",
+    "src/infrastructure/model-plan-data.ts": "471af6c957788f5c240d8d4759243edee350ce7ee99a2850332804f5acc4fde1",
+    "src/infrastructure/model-plan-data.test.ts": "1041d03dece0e395887ecc1ed047cdf8e60b368c5fc570c0221d0b7faac01d16",
+    "src/features/plan/model-plan-page.tsx": "243c3f9c494e92bc4bc44ca09c43e34080f045a8f16951af586f56fbd81f4905",
+    "src/features/plan/model-plan-basis.tsx": "a02e7b1ae5271d0b0c8c244927eaea29faf01cad860c0d079197428f0f607154",
+    "src/features/plan/model-plan-basis.test.tsx": "c7ff10e5f8e2e2d2ae77df3cd35c20a9e1991136a073f730d465313d059eb69a",
+    "src/app/[workspace]/plans/[plan]/native-routes.test.tsx": "94597f2fa59a5f475792326b673e11416713d84b8f70cb4b7b931fe9af1c347e"
+  },
+  "checks": {
+    "unitAndRoute": {
+      "tests": 19,
+      "files": 3
+    },
+    "data": {
+      "tests": 4,
+      "files": 1
+    },
+    "realLifecycleReader": {
+      "tests": 4,
+      "files": 1
+    },
+    "eslint": 0,
+    "incrementalTypecheck": 0
+  },
+  "logs": [
+    {
+      "file": "artifacts/rebuild/pr8/cover-basis-reader-tests.log",
+      "sha256": "c9fca82359e94e1a2641018a097e66753a8e86f99d3f8ccf727ab4f361ab683b"
+    },
+    {
+      "file": "artifacts/rebuild/pr8/cover-basis-ui-tests.log",
+      "sha256": "990caff6cdf237757cd9b18157c31a0cb39e0779d3a2e203cb8866fe478908a1"
+    },
+    {
+      "file": "artifacts/rebuild/pr8/cover-basis-data-tests.log",
+      "sha256": "76856d6374f80a4fae0f005df29c2ecb4abddf616c5a4cd3a4516b14f4f4019b"
+    },
+    {
+      "file": "artifacts/rebuild/pr8/cover-basis-lint.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "artifacts/rebuild/pr8/cover-basis-types.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "capture": "Existing offline capture proves omission, not new markup. A corrected production build and affected route check are required."
+}

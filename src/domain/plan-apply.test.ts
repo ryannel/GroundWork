@@ -48,6 +48,7 @@ describe('canonical plan overlays', () => {
     );
     expect(JSON.stringify(model)).toBe(before);
     expect(after).not.toBe(model);
+    expect(after.evidence).toBe(model.evidence);
     await expect(validateModel(after)).resolves.toEqual([]);
     const index = indexOf(after);
     expect(index.get('h:confirm#tx/save')?.data.say).toBe('Save the confirmed order');
@@ -65,6 +66,16 @@ describe('canonical plan overlays', () => {
       (step) => step.id === 'tx',
     )?.steps;
     expect(steps?.map((step) => step.id)).toEqual(['save', 'audit', 'queue']);
+  });
+  it('keeps an explicitly changed evidence record private even when addressed through an alias', () => {
+    const before: WorkspaceModel = {
+      ...model,
+      aliases: { ...model.aliases, 'ev:old-source': { to: 'ev:source' } },
+    };
+    const after = apply(opsOf([{ deprecate: 'ev:old-source' }]), before);
+    expect(after.evidence).not.toBe(before.evidence);
+    expect(indexOf(after).get('ev:old-source')?.data.deprecated).toBe(true);
+    expect(indexOf(before).get('ev:source')?.data.deprecated).toBeUndefined();
   });
   it('resolves new shorthand spans from the declared handler without guessing a file', async () => {
     const after = apply(

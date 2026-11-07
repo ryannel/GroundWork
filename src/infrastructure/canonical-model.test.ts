@@ -5,10 +5,9 @@ import path from 'node:path';
 import { afterAll, expect, it, vi } from 'vitest';
 
 import { acmeFiles, writeWorkspace } from '@/../test/workspace-kit';
-import { legacyLosses } from '@/application/legacy-view';
 
 import { readModelIfCanonical } from './canonical-model';
-import { readWorkspaces } from './workspace-store';
+import { readLegacyWorkspace, readWorkspaces } from './workspace-store';
 
 vi.mock(import('server-only'), () => ({}));
 
@@ -25,11 +24,11 @@ it('keeps legacy workspaces on their existing reader', async () => {
   expect(workspace?.domains.map((domain) => domain.id)).toContain('orders');
 });
 
-it('carries the canonical fixture through workspace discovery without losing its authored fields', async () => {
+it('keeps canonical facts available without a legacy workspace projection', async () => {
   const model = await readModelIfCanonical('model-fixture', root);
-  expect(model).not.toBeNull();
+  expect(model?.domains[0]?.id).toBe('dom:orders');
+  expect(model?.flows[0]?.steps[0]?.action).toBeDefined();
+  await expect(readLegacyWorkspace('model-fixture', root)).resolves.toBeNull();
   const workspaces = await readWorkspaces(root);
-  const workspace = workspaces.find((entry) => entry.id === 'model-fixture');
-  expect(workspace?.domains[0]?.id).toBe('orders');
-  expect(legacyLosses(model, workspace)).toEqual([]);
+  expect(workspaces.map((workspace) => workspace.id)).toEqual(['acme']);
 });

@@ -262,3 +262,16 @@ describe('authored landscape layout', () => {
     expect(view.nodes[3]!.y + view.nodes[3]!.height).toBeLessThan(view.height);
   });
 });
+
+it('draws canonical area identities at the existing route and keeps absent review metadata visible', () => {
+  const view = areaLandscapeOf(
+    { id: 'model-fixture', name: 'Model fixture' },
+    {
+      areas: [{ id: 'area:orders', name: 'Orders', purpose: 'Confirm purchases' }],
+    },
+  );
+  expect(view.nodes[0]).toMatchObject({ id: 'area:orders', href: '/model-fixture/areas/orders/' });
+  expect(view.facts).toContain('Review date not recorded');
+  expect(view.scope).toBe('Scope not recorded.');
+  expect(view.limitation).toBe('Limitations not recorded.');
+});

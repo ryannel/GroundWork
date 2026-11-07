@@ -1,0 +1,162 @@
+{
+  "format": 1,
+  "purpose": "Text inventory proof for the exact compressed factual receipts. Each byte digest is of the compressed file, independently from its decoded JSON. Recorded differences remain explicit and are reconciled by the separate baseline comparison.",
+  "sourceHashes": [
+    {
+      "file": "tools/rebuild/fact-lineage.ts",
+      "sha256": "96a87774ae49ef0e00b2b986d50961262c83e82a908d7f59971940ccdb89052d"
+    },
+    {
+      "file": "tools/rebuild/lineage.ts",
+      "sha256": "447634cb98fd01bb699cbdd8f6fde9b348c68fbd1fcff9e08abd91336119df43"
+    },
+    {
+      "file": "tools/rebuild/model-facts.ts",
+      "sha256": "fa6ca407a4fccb4f0a0dcd71cb787b709ed18cda6e51bbce104f2173e9f222dc"
+    },
+    {
+      "file": "src/infrastructure/model-index.ts",
+      "sha256": "e87664319c7834b118f3e8ae1bf08264d164be0293343fe7b1968234443eca84"
+    },
+    {
+      "file": "src/infrastructure/model-plan-context.ts",
+      "sha256": "0d586cba84a38a726871e5ef3957f170855abd00f32430a23bdd3bc14d62bf21"
+    }
+  ],
+  "artifacts": [
+    {
+      "file": "artifacts/rebuild/pr8/area-and-facts/factual-lineage-volvo-cars.json.gz",
+      "compressedSha256": "540a99c8e9b64ec94dd2f8fe5f289a59d803dcd5c6e1b89df4687e14974549da",
+      "compressedBytes": 18738,
+      "decodedSha256": "aba3c2a17ec8898ab6c81904aa030afed629d9686826f4876402b471f1c97ddf",
+      "observed": {
+        "workspace": "volvo-cars",
+        "homes": {
+          "rows": 177,
+          "missing": []
+        },
+        "identities": {
+          "aliases": 351,
+          "missing": 0,
+          "total": 16334
+        },
+        "metadata": {
+          "issues": [
+            {
+              "at": "actors/actor:product-editor/customer",
+              "was": false
+            },
+            {
+              "at": "actors/actor:offer-editor/customer",
+              "was": false
+            },
+            {
+              "at": "actors/actor:financing-admin/customer",
+              "was": false
+            },
+            {
+              "at": "actors/actor:price-admin/customer",
+              "was": false
+            },
+            {
+              "at": "teams/team:digital-business-proposal/contacts",
+              "now": [
+                {
+                  "name": "Hampus Elinder"
+                }
+              ],
+              "was": [
+                {
+                  "name": "Hampus Elinder",
+                  "role": null
+                }
+              ]
+            },
+            {
+              "at": "domain/fleet/name",
+              "was": "Fleet"
+            },
+            {
+              "at": "domain/fleet/purpose",
+              "was": "Where companies that buy cars for their staff hold their accounts, agreements and users."
+            }
+          ],
+          "uncoveredJourneys": []
+        },
+        "oldDerivedEdges": {
+          "exact": 1648,
+          "flowOnly": 25,
+          "total": 1693,
+          "unmatched": 45,
+          "unsupported": 10
+        },
+        "repositoryStates": {
+          "missing": [],
+          "total": 177
+        },
+        "scans": {
+          "missing": 0,
+          "rows": 116,
+          "total": 116
+        }
+      }
+    },
+    {
+      "file": "artifacts/rebuild/pr8/area-and-facts/catalogue-volvo-cars.json.gz",
+      "compressedSha256": "f7663e1c5420392c5cb2e5612dd8737b8c3c33cd4a1dcbf233f52791f62b9d33",
+      "compressedBytes": 294905,
+      "decodedSha256": "64ef9cfd66fdc4c2b6df09974b9bd8745d14ee214d4fea2d16aa254f589d7aeb",
+      "observed": {
+        "workspace": "volvo-cars",
+        "rows": 6310,
+        "failures": 0,
+        "exactMatches": 6307,
+        "reconciliations": [
+          {
+            "after": "418602572ad619922766e45b529f8b84d8ec499e96dd3ff0edc432af34f4f0e8",
+            "before": "21715d3d6cc9bb8be0a92c469bd77730b9a6156c9720413fd38daba66bc823a6",
+            "choices": [
+              {
+                "after": "sys:product-data-cpam",
+                "before": "svc:product-data-cpam",
+                "cause": "Approved native identity alias.",
+                "path": "/targets/0/stages/0/owners/0"
+              },
+              {
+                "after": "sys:plm-prins",
+                "before": "svc:plm-prins",
+                "cause": "Approved native identity alias.",
+                "path": "/targets/0/stages/0/owners/1"
+              }
+            ],
+            "equal": true,
+            "id": "commercial-backbone",
+            "pointer": "/targets/0/stages"
+          },
+          {
+            "after": "82c746642d5ec56a3fb45c5f42c2fbd3f971715293a70e38cbb127777726636f",
+            "before": "25a010d8ce6e919c90bb78d06946e2648999679ae65640c935661325fc4dd1c7",
+            "choices": [],
+            "equal": true,
+            "id": "volvo-cars",
+            "pointer": "/keyTerms/source"
+          },
+          {
+            "after": "6b3f54b492b84315b67428d58e74ecb176c91c24cdb7c690983d00c2264b3826",
+            "before": "2efd3e651b558c659f7c25a0fb3da87b5614cbed47e82b4663411b35882402dc",
+            "choices": [],
+            "equal": true,
+            "id": "volvo-cars",
+            "pointer": "/keyTerms/terms"
+          }
+        ],
+        "representationDefaultCount": 29,
+        "capturedModel": {
+          "file": "facts-ff795bb7beb89253c898.json.gz",
+          "sha256": "4f2db12f214b6c1068750c42eac7429204b4a68bb0bb8ce57fc752661f3aa922"
+        },
+        "frozenFileSha256": "6a3140d3f4dab9f81d1da5539dc3a09f16bf6e697dc76afa2d592426b23d71ba"
+      }
+    }
+  ]
+}

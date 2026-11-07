@@ -113,14 +113,13 @@ function createLookup(model: WorkspaceModel): Lookup {
       alias === undefined ? [] : [[id, alias]],
     ),
   );
-  const nodes = entitiesIn(model).map((node) => ({
-    ...node,
-    place: {
-      ...node.place,
-      component:
-        node.place.component === null ? null : resolveAlias(node.place.component, aliases).id,
-    },
-  }));
+  const nodes = entitiesIn(model).map((node) => {
+    if (node.place.component === null) return node;
+    const component = resolveAlias(node.place.component, aliases).id;
+    return component === node.place.component
+      ? node
+      : { ...node, place: { ...node.place, component } };
+  });
   const byId = new Map<string, ModelEntity>();
   for (const node of nodes) {
     if (byId.has(node.id)) throw new Error(`Duplicate model id: ${node.id}`);

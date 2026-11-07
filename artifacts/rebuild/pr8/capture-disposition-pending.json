@@ -1,0 +1,83 @@
+{
+  "format": 1,
+  "pending": [
+    {
+      "file": "tools/rebuild/baseline.ts",
+      "previousSourceSha256": "f84d99ca01a8d85a99994c6a7ed86bf89ecc1e195529caed44d1cf660bd32a7f",
+      "currentSourceSha256": "f84d99ca01a8d85a99994c6a7ed86bf89ecc1e195529caed44d1cf660bd32a7f",
+      "evidence": [
+        {
+          "file": "tools/rebuild/baseline.ts",
+          "line": 16,
+          "text": "const manifest = await capture({"
+        }
+      ],
+      "pending": "Bind the final capture or compare receipt and exact source once the capture tools freeze."
+    },
+    {
+      "file": "tools/rebuild/compare.ts",
+      "previousSourceSha256": "6fa6c7afd0eb5a97092db7a30b051b6f0d368790a140d59f63b004ba5cb83900",
+      "currentSourceSha256": "6fa6c7afd0eb5a97092db7a30b051b6f0d368790a140d59f63b004ba5cb83900",
+      "evidence": [
+        {
+          "file": "tools/rebuild/compare.ts",
+          "line": 37,
+          "text": "? await capture({"
+        }
+      ],
+      "pending": "Bind the final capture or compare receipt and exact source once the capture tools freeze."
+    },
+    {
+      "file": "tools/rebuild/capture.ts",
+      "previousSourceSha256": "42bd31790a16d521f32ec1b1abaada37e67fb5398e6693aed21460f4ea679d23",
+      "currentSourceSha256": "42bd31790a16d521f32ec1b1abaada37e67fb5398e6693aed21460f4ea679d23",
+      "evidence": [
+        {
+          "file": "tools/rebuild/capture.ts",
+          "line": 54,
+          "text": "const files = await captureFacts(options.workspace, options.out);"
+        }
+      ],
+      "pending": "Bind the final capture or compare receipt and exact source once the capture tools freeze."
+    },
+    {
+      "file": "tools/rebuild/facts-only.ts",
+      "previousSourceSha256": "4647096e5f11e33a69c3b2fc203a19c43c6845400b443a7fb4ab6cceb523172b",
+      "currentSourceSha256": "4647096e5f11e33a69c3b2fc203a19c43c6845400b443a7fb4ab6cceb523172b",
+      "evidence": [
+        {
+          "file": "tools/rebuild/facts-only.ts",
+          "line": 16,
+          "text": "const receipt = await captureFactFiles({ workspace, asOf: baseline.asOf, out });"
+        }
+      ],
+      "pending": "Bind the final capture or compare receipt and exact source once the capture tools freeze."
+    },
+    {
+      "file": "tools/rebuild/facts.ts",
+      "previousSourceSha256": "4b5a46c800a57bedf84eaa14802215035ed040e6cf2c4b488519f0520fb78c85",
+      "currentSourceSha256": "4b5a46c800a57bedf84eaa14802215035ed040e6cf2c4b488519f0520fb78c85",
+      "evidence": [
+        {
+          "file": "tools/rebuild/facts.ts",
+          "line": 9,
+          "text": "const index = await readCanonicalModelIndex(workspaceId);"
+        }
+      ],
+      "pending": "Bind the final capture or compare receipt and exact source once the capture tools freeze."
+    },
+    {
+      "file": "tools/rebuild/routes.ts",
+      "previousSourceSha256": "a330b1f93f82006aab2e69e8aa021e747d5f0a6ac5a41c8f8e2a0063d83e1a4b",
+      "currentSourceSha256": "a330b1f93f82006aab2e69e8aa021e747d5f0a6ac5a41c8f8e2a0063d83e1a4b",
+      "evidence": [
+        {
+          "file": "tools/rebuild/routes.ts",
+          "line": 8,
+          "text": "const index = await readCanonicalModelIndex(id);"
+        }
+      ],
+      "pending": "Bind the final capture or compare receipt and exact source once the capture tools freeze."
+    }
+  ]
+}

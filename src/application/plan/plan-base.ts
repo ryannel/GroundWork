@@ -23,6 +23,8 @@ export interface BaseInfo {
   readonly landedOn: string | null;
   /** When the plan's changes were last read against today. */
   readonly checkedOn: string | null;
+  /** Last check in the previous model format; it cannot establish native drift. */
+  readonly previousCheckedOn?: string;
   /** The plan has been written again since it was checked (or its check did not keep which version it read). */
   readonly edited: boolean;
   /** The things the plan changes that today has changed since it was checked. */

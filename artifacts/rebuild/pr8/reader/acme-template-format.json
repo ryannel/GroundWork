@@ -1,0 +1,26 @@
+{
+  "files": 35,
+  "parsedDataIdentical": true,
+  "representationOnly": [
+    {
+      "file": "domains/catalogue/systems/products/system.yaml",
+      "before": "651b3ac5233a896925e46e04f4b9498124df5eee8cbe0941c2284c92f3b424c1",
+      "after": "a611a10b19d9fead70f814d84ea927c0d49e08d1028853152668dfbcbcb80673"
+    },
+    {
+      "file": "domains/orders/systems/ordering/contracts.yaml",
+      "before": "7dafc358f74454b2214e5703c1280a2e1a0a66c280cf3d1f2cd274b4ebb7e0f9",
+      "after": "0ad3c6a86f6cc64a01629fa42d029ed03c3da74aee60bcbcc7a544962f91d0fe"
+    },
+    {
+      "file": "domains/orders/target.yaml",
+      "before": "7744ecae13fefbdda5ea97e11f6525323dccb45a04d80dd700473a9a93645b4f",
+      "after": "4763ef4b6c0bd7a4917b07407b0128744e0523c6543ea230629e6b0201846151"
+    },
+    {
+      "file": "workspace.yaml",
+      "before": "0079a84b267228e96b6934f4fbc3a7b264dc271ca6a8123219cee2732f20e868",
+      "after": "e947c761b5c0d3195b5b27f600e17d4a360f488ffc1bb5ec25b34175c494af0d"
+    }
+  ]
+}

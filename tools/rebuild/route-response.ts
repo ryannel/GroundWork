@@ -1,4 +1,7 @@
 // Reads one local route response within a deadline as inert comparison data.
+import type { PageSize } from '@/../tools/page-budget-rules';
+import { isRecord } from '@/application/plan/ids';
+
 import { htmlFields } from './html';
 
 export interface RouteCapture {
@@ -27,11 +30,16 @@ function localRoute(origin: string, route: string): URL {
   return url;
 }
 
-export async function captureRoute(origin: string, route: string): Promise<RouteCapture> {
+export async function captureRoute(
+  origin: string,
+  route: string,
+  recordBody?: (body: string) => Promise<void>,
+): Promise<RouteCapture> {
   const url = localRoute(origin, route);
   const response = await fetch(url, { redirect: 'manual', signal: AbortSignal.timeout(120_000) });
   if (response.status >= 500) throw new Error(`${route}: HTTP ${String(response.status)}`);
   const body = await response.text();
+  await recordBody?.(body);
   const type = response.headers.get('content-type')?.split(';')[0] ?? '';
   if (type === 'application/json') {
     return {
@@ -52,4 +60,22 @@ export async function captureRoute(origin: string, route: string): Promise<Route
     htmlBytes: Buffer.byteLength(body),
     ...htmlFields(body, url),
   };
+}
+
+/** Completed captures are also page-budget evidence, including query-selected entry flows. */
+export function capturedPageSize(value: unknown): PageSize | null {
+  if (!isRecord(value) || typeof value.route !== 'string') {
+    throw new Error('The completed route capture is missing its address.');
+  }
+  if (value.type === 'application/json' && value.htmlBytes === null) return null;
+  const bytes = value.htmlBytes;
+  if (
+    value.type !== 'text/html' ||
+    typeof bytes !== 'number' ||
+    !Number.isSafeInteger(bytes) ||
+    bytes < 0
+  ) {
+    throw new Error(`The completed route capture has no valid HTML measurement: ${value.route}`);
+  }
+  return { page: value.route, bytes };
 }

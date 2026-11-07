@@ -1,0 +1,526 @@
+{
+  "format": 1,
+  "original": {
+    "file": "artifacts/rebuild/pr8/original-candidates.json",
+    "sha256": "8bb91071c6ae2e9168573f6d20d496cc8551e3e3ee626c3b06d64371d69f17c2",
+    "rows": 1697
+  },
+  "dispositions": [
+    {
+      "file": "src/application/landscape-domains.ts",
+      "sourceSha256": "dcc829c339ca3b58352aa9e99a14589ffd88392f10130a0615081eed7f47e4df",
+      "role": "support",
+      "reason": "Builds the shared domain drawing from its bounded input and supplies stable line identity and labels. The requested bindings are domainMapFrom, lineIdOf, lineWordsOf. Other legacy exports remain visible separately in the fact trace.",
+      "evidence": [
+        {
+          "file": "src/application/landscape-domains.ts",
+          "line": 214,
+          "text": "export function domainMapFrom("
+        },
+        {
+          "file": "src/application/landscape-domains.ts",
+          "line": 96,
+          "text": "export const lineIdOf = (x: string, y: string): string => endsOf(x, y).join('|');"
+        },
+        {
+          "file": "src/application/landscape-domains.ts",
+          "line": 243,
+          "text": "export function lineWordsOf("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-current-views.md",
+          "sha256": "c084814b586def71c6315696813e97c754a00e8bdd1c7ee764491e4d560c6c36"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/mixed-binding-audit.json",
+          "sha256": "62a73f63e521868ac732a3c217dc45e1223deab423bd0a85a831d73346b6b2b2"
+        }
+      ]
+    },
+    {
+      "file": "src/application/language-page.ts",
+      "sourceSha256": "5fc69b289dc23620b144e274f1da1c1856f0f90818f1f64e8b4a3b40aaa9d1af",
+      "role": "consumer",
+      "reason": "Projects the selected native domain and language lookup into bounded language rows. The requested bindings are domainLanguageOf, languagePageFrom. Other legacy exports remain visible separately in the fact trace.",
+      "evidence": [
+        {
+          "file": "src/application/language-page.ts",
+          "line": 258,
+          "text": "export function domainLanguageOf("
+        },
+        {
+          "file": "src/application/language-page.ts",
+          "line": 236,
+          "text": "export function languagePageFrom(lookup: LanguageLookup, domains: readonly Place[]): LanguagePage {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-workspace-catalogues.md",
+          "sha256": "16400b3f5ee1a3604b75fa079e8ed11568669a3f955a12714fea05752b3bfef1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/mixed-binding-audit.json",
+          "sha256": "62a73f63e521868ac732a3c217dc45e1223deab423bd0a85a831d73346b6b2b2"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/plan-pages-search.ts",
+      "sourceSha256": "1eff036776f8564f6d128e12cd5105d2f9e30cfc15f55b3b41e511dfbc430969",
+      "role": "support",
+      "reason": "Builds and groups palette records and searches the supplied record list and navigation outline. The requested bindings are outlineScreens, paletteGroups, screenEntry, searchPalette. Other legacy exports remain visible separately in the fact trace.",
+      "evidence": [
+        {
+          "file": "src/application/plan-pages-search.ts",
+          "line": 93,
+          "text": "export function outlineScreens(outline: Outline): PaletteEntry[] {"
+        },
+        {
+          "file": "src/application/plan-pages-search.ts",
+          "line": 195,
+          "text": "export function paletteGroups(entries: readonly PaletteEntry[]): PaletteGroup[] {"
+        },
+        {
+          "file": "src/application/plan-pages-search.ts",
+          "line": 105,
+          "text": "export function screenEntry(page: {"
+        },
+        {
+          "file": "src/application/plan-pages-search.ts",
+          "line": 157,
+          "text": "export function searchPalette("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/inspection-handoff.md",
+          "sha256": "bfa1179dd36b207a3709bb76e9d74caeb1449aa217045a19a386fe01b8778fdb"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/mixed-binding-audit.json",
+          "sha256": "62a73f63e521868ac732a3c217dc45e1223deab423bd0a85a831d73346b6b2b2"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan-viz-ladder-order.ts",
+      "sourceSha256": "831714cb8247e3a3673019816f28da7cd0be69afbe8412cef6b9d5ac79d708e3",
+      "role": "support",
+      "reason": "Formats a list of already selected words for a sentence. The requested bindings are andList. Other legacy exports remain visible separately in the fact trace.",
+      "evidence": [
+        {
+          "file": "src/application/plan-viz-ladder-order.ts",
+          "line": 99,
+          "text": "export function andList(xs: readonly string[]): string {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-plan-cutover.md",
+          "sha256": "1365e27dcf1b64c5a8408922dcc39fb4da1c92cb4ff3b106f825c8cd5a87f49f"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/mixed-binding-audit.json",
+          "sha256": "62a73f63e521868ac732a3c217dc45e1223deab423bd0a85a831d73346b6b2b2"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan-viz-screens.ts",
+      "sourceSha256": "21dd9727d4ca01b237d30782a82b86146ecec6da7e48d9bd3904a4d22d08cdee",
+      "role": "support",
+      "reason": "Forms an asset address from the chosen base and authored file path. The requested bindings are assetUrl. Other legacy exports remain visible separately in the fact trace.",
+      "evidence": [
+        {
+          "file": "src/application/plan-viz-screens.ts",
+          "line": 39,
+          "text": "export function assetUrl(base: string, path: string | null | undefined): string {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-plan-cutover.md",
+          "sha256": "1365e27dcf1b64c5a8408922dcc39fb4da1c92cb4ff3b106f825c8cd5a87f49f"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/mixed-binding-audit.json",
+          "sha256": "62a73f63e521868ac732a3c217dc45e1223deab423bd0a85a831d73346b6b2b2"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan-viz-teams.ts",
+      "sourceSha256": "9fb056a8a32416ddf5a6666bf56cf6d99a489f34865ce38c72c2774e123b6a7d",
+      "role": "support",
+      "reason": "Tests whether a numeric colour slot uses a ring. The requested bindings are isRinged. Other legacy exports remain visible separately in the fact trace.",
+      "evidence": [
+        {
+          "file": "src/application/plan-viz-teams.ts",
+          "line": 26,
+          "text": "export function isRinged(slot: number): boolean {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-workspace-catalogues.md",
+          "sha256": "16400b3f5ee1a3604b75fa079e8ed11568669a3f955a12714fea05752b3bfef1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/mixed-binding-audit.json",
+          "sha256": "62a73f63e521868ac732a3c217dc45e1223deab423bd0a85a831d73346b6b2b2"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan-viz-text.ts",
+      "sourceSha256": "5624faa412c958b02d1edbad9ce13144323205c44c8feff0dec5fefcb4569f9f",
+      "role": "support",
+      "reason": "Formats record counts and selects the first sentence of supplied text. The requested bindings are countOf, countWord, firstSentence. Other legacy exports remain visible separately in the fact trace.",
+      "evidence": [
+        {
+          "file": "src/application/plan-viz-text.ts",
+          "line": 29,
+          "text": "export const countOf = (n: number, one: string, many = `${one}s`): string =>"
+        },
+        {
+          "file": "src/application/plan-viz-text.ts",
+          "line": 33,
+          "text": "export const countWord = (n: number, one: string, many = `${one}s`): string =>"
+        },
+        {
+          "file": "src/application/plan-viz-text.ts",
+          "line": 37,
+          "text": "export function firstSentence(text: string | null | undefined): string {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-current-views.md",
+          "sha256": "c084814b586def71c6315696813e97c754a00e8bdd1c7ee764491e4d560c6c36"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/mixed-binding-audit.json",
+          "sha256": "62a73f63e521868ac732a3c217dc45e1223deab423bd0a85a831d73346b6b2b2"
+        }
+      ]
+    },
+    {
+      "file": "src/application/reference/model.ts",
+      "sourceSha256": "1934e58b71647a620279890a2479186a3b93ce70bda68eab7da452d85b5eb357",
+      "role": "support",
+      "reason": "Provides literal labels for the reference display modes. The requested bindings are SHOW_WORD, SHOWS. Other legacy exports remain visible separately in the fact trace.",
+      "evidence": [
+        {
+          "file": "src/application/reference/model.ts",
+          "line": 11,
+          "text": "export const SHOW_WORD: Readonly<Record<Show, string>> = {"
+        },
+        {
+          "file": "src/application/reference/model.ts",
+          "line": 7,
+          "text": "export const SHOWS = ['asis', 'tobe', 'diff'] as const;"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-workspace-catalogues.md",
+          "sha256": "16400b3f5ee1a3604b75fa079e8ed11568669a3f955a12714fea05752b3bfef1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/mixed-binding-audit.json",
+          "sha256": "62a73f63e521868ac732a3c217dc45e1223deab423bd0a85a831d73346b6b2b2"
+        }
+      ]
+    },
+    {
+      "file": "src/application/today-journeys.ts",
+      "sourceSha256": "90fcbe8c27087b167991fd7c6af48b9ead918f6bbb824894213ddba9cd1b09c7",
+      "role": "support",
+      "reason": "Builds the headline and authored journey claim from the supplied bounded journey record. The requested bindings are journeyClaim, journeysHeadline. Other legacy exports remain visible separately in the fact trace.",
+      "evidence": [
+        {
+          "file": "src/application/today-journeys.ts",
+          "line": 151,
+          "text": "export function journeyClaim(journey: TodayJourney): string {"
+        },
+        {
+          "file": "src/application/today-journeys.ts",
+          "line": 139,
+          "text": "export function journeysHeadline(journeys: readonly TodayJourney[]): string {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-workspace-catalogues.md",
+          "sha256": "16400b3f5ee1a3604b75fa079e8ed11568669a3f955a12714fea05752b3bfef1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/mixed-binding-audit.json",
+          "sha256": "62a73f63e521868ac732a3c217dc45e1223deab423bd0a85a831d73346b6b2b2"
+        }
+      ]
+    },
+    {
+      "file": "src/application/workspace-area-relationships.ts",
+      "sourceSha256": "d41d986ea03557f80c6a836d0af80bace0a56743a6953341aab4d1db72c07fdf",
+      "role": "support",
+      "reason": "Formats API and resource relationship explanations from selected endpoints and names. The requested bindings are apiRelationshipDetail, resourceRelationshipDetail. Other legacy exports remain visible separately in the fact trace.",
+      "evidence": [
+        {
+          "file": "src/application/workspace-area-relationships.ts",
+          "line": 85,
+          "text": "export function apiRelationshipDetail("
+        },
+        {
+          "file": "src/application/workspace-area-relationships.ts",
+          "line": 208,
+          "text": "export function resourceRelationshipDetail(from: string, to: string, label: string): string {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/area-and-facts/handoff.md",
+          "sha256": "44ddaee13533d324bf593af729af1ab366834165e857c1e873e226a6f5640b86"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/mixed-binding-audit.json",
+          "sha256": "62a73f63e521868ac732a3c217dc45e1223deab423bd0a85a831d73346b6b2b2"
+        }
+      ]
+    },
+    {
+      "file": "src/application/workspace-library-plans.ts",
+      "sourceSha256": "fefad8fa86ed3e9a1a1f67364820c91a78840be6369dd23f030eed78228f6e29",
+      "role": "support",
+      "reason": "Provides literal headings for plan status groups. The requested bindings are GROUP_NAMES. Other legacy exports remain visible separately in the fact trace.",
+      "evidence": [
+        {
+          "file": "src/application/workspace-library-plans.ts",
+          "line": 37,
+          "text": "export const GROUP_NAMES: Readonly<Record<PlanGroup, string>> = {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/mixed-binding-audit.json",
+          "sha256": "62a73f63e521868ac732a3c217dc45e1223deab423bd0a85a831d73346b6b2b2"
+        }
+      ]
+    },
+    {
+      "file": "src/application/workspace-value-flows.ts",
+      "sourceSha256": "f2b5e25c12ffe9f03e8be75d08b3564a03d1b4ea854de5fb90f4b74b1a7b4e88",
+      "role": "support",
+      "reason": "Filters the supplied area flow list using the search text. The requested bindings are searchValueFlows. Other legacy exports remain visible separately in the fact trace.",
+      "evidence": [
+        {
+          "file": "src/application/workspace-value-flows.ts",
+          "line": 72,
+          "text": "export function searchValueFlows("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-current-views.md",
+          "sha256": "c084814b586def71c6315696813e97c754a00e8bdd1c7ee764491e4d560c6c36"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/mixed-binding-audit.json",
+          "sha256": "62a73f63e521868ac732a3c217dc45e1223deab423bd0a85a831d73346b6b2b2"
+        }
+      ]
+    },
+    {
+      "file": "src/domain/workspace-check.ts",
+      "sourceSha256": "8dba20f370c3c2e752d95efb8c2bb12c894972d6cd22c522231cb3899e69cbb5",
+      "role": "support",
+      "reason": "Exposes literal reserved address segments to canonical workspace scaffolding and navigation. The requested bindings are RESERVED_PAGES, RESERVED_SYSTEM_PAGES, RESERVED_WORKSPACES. Other legacy exports remain visible separately in the fact trace.",
+      "evidence": [
+        {
+          "file": "src/domain/workspace-check.ts",
+          "line": 57,
+          "text": "export const RESERVED_PAGES: readonly string[] = ["
+        },
+        {
+          "file": "src/domain/workspace-check.ts",
+          "line": 75,
+          "text": "export const RESERVED_SYSTEM_PAGES: readonly string[] = ['flows', 'map', 'language', 'interfaces'];"
+        },
+        {
+          "file": "src/domain/workspace-check.ts",
+          "line": 72,
+          "text": "export const RESERVED_WORKSPACES: readonly string[] = ['design'];"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/mixed-binding-audit.json",
+          "sha256": "62a73f63e521868ac732a3c217dc45e1223deab423bd0a85a831d73346b6b2b2"
+        }
+      ]
+    },
+    {
+      "file": "src/domain/workspace.ts",
+      "sourceSha256": "461a96c2f50a85665f74536e536f84fb2da32c7232df9e6d2b6953f004e331e9",
+      "role": "support",
+      "reason": "Exposes the literal system tiers used in canonical workspace scaffolding. The requested bindings are SYSTEM_TIERS. Other legacy exports remain visible separately in the fact trace.",
+      "evidence": [
+        {
+          "file": "src/domain/workspace.ts",
+          "line": 26,
+          "text": "export const SYSTEM_TIERS = ['channel', 'gateway', 'forward', 'backend', 'upstream'] as const;"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/mixed-binding-audit.json",
+          "sha256": "62a73f63e521868ac732a3c217dc45e1223deab423bd0a85a831d73346b6b2b2"
+        }
+      ]
+    },
+    {
+      "file": "src/features/plan/inspector/entity-details.tsx",
+      "sourceSha256": "40b52469238d53e22d450bc50c497edf99b673263d056c13b26af6980fef1b28",
+      "role": "support",
+      "reason": "Renders bounded inspector details through the supplied native text renderer. The requested bindings are EntityDetailsContent. Other legacy exports remain visible separately in the fact trace.",
+      "evidence": [
+        {
+          "file": "src/features/plan/inspector/entity-details.tsx",
+          "line": 77,
+          "text": "export function EntityDetailsContent({"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/inspection-handoff.md",
+          "sha256": "bfa1179dd36b207a3709bb76e9d74caeb1449aa217045a19a386fe01b8778fdb"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/mixed-binding-audit.json",
+          "sha256": "62a73f63e521868ac732a3c217dc45e1223deab423bd0a85a831d73346b6b2b2"
+        }
+      ]
+    },
+    {
+      "file": "src/features/plan/today/journey-index.tsx",
+      "sourceSha256": "8df1e1219f2b1ddf61ac6c06b8da416dfb72b8c5d7cb7b9e47e082a1c1cbc3d6",
+      "role": "support",
+      "reason": "Renders the bounded journey list and headline supplied by the native route. The requested bindings are JourneyIndexView. Other legacy exports remain visible separately in the fact trace.",
+      "evidence": [
+        {
+          "file": "src/features/plan/today/journey-index.tsx",
+          "line": 22,
+          "text": "export function JourneyIndexView({"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-workspace-catalogues.md",
+          "sha256": "16400b3f5ee1a3604b75fa079e8ed11568669a3f955a12714fea05752b3bfef1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/mixed-binding-audit.json",
+          "sha256": "62a73f63e521868ac732a3c217dc45e1223deab423bd0a85a831d73346b6b2b2"
+        }
+      ]
+    },
+    {
+      "file": "src/features/plan/today/reference-pages.tsx",
+      "sourceSha256": "3dbe69e2fbb079f79eff7927f36e4cc5ced1b5e6dae7bcfdad7301bb8fe8c214",
+      "role": "consumer",
+      "reason": "Renders the canonical reference catalogue and selected page from the native route values. The requested bindings are ModelTodayCatalogue, ModelTodayReference. Other legacy exports remain visible separately in the fact trace.",
+      "evidence": [
+        {
+          "file": "src/features/plan/today/reference-pages.tsx",
+          "line": 86,
+          "text": "export function ModelTodayCatalogue({"
+        },
+        {
+          "file": "src/features/plan/today/reference-pages.tsx",
+          "line": 30,
+          "text": "export function ModelTodayReference({"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-workspace-catalogues.md",
+          "sha256": "16400b3f5ee1a3604b75fa079e8ed11568669a3f955a12714fea05752b3bfef1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/mixed-binding-audit.json",
+          "sha256": "62a73f63e521868ac732a3c217dc45e1223deab423bd0a85a831d73346b6b2b2"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/features/plan/today/today-overlays.tsx",
+      "sourceSha256": "c7e9c0a08527c89678a860fbfce9b72ad3addc069ff6a67bb17f2bc8eff53c17",
+      "role": "consumer",
+      "reason": "Builds current native overlay inputs and runs current workspace search through the native browser reader. The requested bindings are ModelTodayOverlays, TodaySearch. Other legacy exports remain visible separately in the fact trace.",
+      "evidence": [
+        {
+          "file": "src/features/plan/today/today-overlays.tsx",
+          "line": 69,
+          "text": "export function ModelTodayOverlays({"
+        },
+        {
+          "file": "src/features/plan/today/today-overlays.tsx",
+          "line": 84,
+          "text": "export function TodaySearch() {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/inspection-handoff.md",
+          "sha256": "bfa1179dd36b207a3709bb76e9d74caeb1449aa217045a19a386fe01b8778fdb"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/mixed-binding-audit.json",
+          "sha256": "62a73f63e521868ac732a3c217dc45e1223deab423bd0a85a831d73346b6b2b2"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/features/plan/today/today-thing.tsx",
+      "sourceSha256": "4e527e3c003d107e68c23122ae10a12efa047915abef150c8626b09fd59c17fb",
+      "role": "support",
+      "reason": "Provides the shared thing page frame around the selected native content. The requested bindings are TodayThingFrame. Other legacy exports remain visible separately in the fact trace.",
+      "evidence": [
+        {
+          "file": "src/features/plan/today/today-thing.tsx",
+          "line": 43,
+          "text": "export function TodayThingFrame({"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/inspection-handoff.md",
+          "sha256": "bfa1179dd36b207a3709bb76e9d74caeb1449aa217045a19a386fe01b8778fdb"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/mixed-binding-audit.json",
+          "sha256": "62a73f63e521868ac732a3c217dc45e1223deab423bd0a85a831d73346b6b2b2"
+        }
+      ]
+    }
+  ],
+  "unproved": []
+}

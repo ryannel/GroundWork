@@ -21,13 +21,20 @@ export function List({
 interface ListItemProps {
   readonly children: ReactNode;
   readonly chosen?: boolean;
+  /** Position when a sequence moves its current selection between rows. */
+  readonly position?: number;
   /** An anchor to link to the row. */
   readonly id?: string;
 }
 
-export function ListItem({ children, chosen = false, id }: ListItemProps) {
+export function ListItem({ children, chosen = false, id, position }: ListItemProps) {
   return (
-    <li className={styles.item} data-chosen={chosen ? '' : undefined} id={id}>
+    <li
+      className={styles.item}
+      data-chosen={chosen ? '' : undefined}
+      data-walk-at={position}
+      id={id}
+    >
       {children}
     </li>
   );

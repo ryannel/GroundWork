@@ -1,0 +1,25 @@
+id: flow:publish-product
+name: Publish a product
+actor: Merchandiser
+trigger: A merchandiser saves a product.
+outcome: The product can be found by search.
+steps:
+  - id: save
+    from: app:product-admin
+    to: svc:products
+    via: api:products-update
+    action: Save the product
+    writes:
+      - sch:product
+  - id: announce
+    from: svc:products
+    to: top:product-events
+    via: msg:product-changed
+    action: Announce the change
+  - id: index
+    from: top:product-events
+    to: svc:search-indexer
+    via: msg:product-changed
+    action: Index the product
+    writes:
+      - sch:search-doc

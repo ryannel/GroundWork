@@ -27,7 +27,7 @@ export async function authoredFiles(folder: string): Promise<readonly MigrationF
   );
   const names = chunks.flat();
   const selected = names.filter((name) =>
-    /^(?:workspace\.yaml|(?:landscape|language|aliases|externals|libraries)\.yaml|(?:domains|flows|journeys|programmes|plans)\/.*\.(?:ya?ml|json))$/u.test(
+    /^(?:workspace\.yaml|(?:landscape|language|aliases|externals|libraries|story)\.yaml|(?:domains|flows|journeys|programmes|plans)\/.*\.(?:ya?ml|json))$/u.test(
       name,
     ),
   );

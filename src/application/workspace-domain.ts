@@ -10,8 +10,9 @@ import { buildId } from '@/domain/ids';
 import { type Domain, homeLabel, systemDoes, type Workspace } from '@/domain/workspace';
 import { plural } from '@/shared/text';
 
+import { teamOf } from './legacy-workspace-paths';
 import { roleOf } from './workspace-landscape';
-import { domainFlowHref, domainHref, systemHref, teamOf, workspaceHref } from './workspace-paths';
+import { domainFlowHref, domainHref, systemHref, workspaceHref } from './workspace-paths';
 
 // A domain page teaches how its systems work together: what the domain is for, the map of its components with the
 // systems one step outside, the journeys that run through it, each system, and what it offers, announces and keeps.

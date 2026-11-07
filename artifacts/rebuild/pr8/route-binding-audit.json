@@ -1,0 +1,466 @@
+{
+  "format": 1,
+  "purpose": "Per-route audit on current source and requested bindings. Asset and registry support are identified by their actual call. App test candidates remain separate evidence.",
+  "rows": [
+    {
+      "file": "src/app/[workspace]/[domain]/(overview)/flows/[flow]/page.tsx",
+      "sourceSha256": "272639f1a9086b7f54be60d5cf073ac3169cea02c608d4a8cb817f5fd87dfefc",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/app/[workspace]/[domain]/(overview)/flows/layout.tsx",
+      "sourceSha256": "3acb129d805991fd9039c99bc6d3a587bc2b82a477278a96ea957e5858853a02",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/app/[workspace]/[domain]/(overview)/flows/page.tsx",
+      "sourceSha256": "06d43a63d2d8cd78011b6435345e2be2945867cac20396782a5a30d54f160de6",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/app/[workspace]/[domain]/(overview)/interfaces/page.tsx",
+      "sourceSha256": "a8aa9bb51300b5796c37a3fda690cf660c28919a4085f1b70f0abaac93bfaf96",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/app/[workspace]/[domain]/(overview)/language/page.tsx",
+      "sourceSha256": "6703ccae067d8d87ea46cd7b99ff2f87e10affcef52cae30fb1a09616402e5a5",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/app/[workspace]/[domain]/(overview)/layout.tsx",
+      "sourceSha256": "b5582177c304e8fa19ae5dbbcd90436c9206505da6be99a89c9047996dfae795",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/app/[workspace]/[domain]/(overview)/map/page.tsx",
+      "sourceSha256": "0df7c85fc32f1e2199f11a419da6bdd43b08efbcd285c1ac630298e84b4c3b43",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/app/[workspace]/[domain]/(overview)/page.tsx",
+      "sourceSha256": "f4a3482f1cc4e0603b9bcd8b940fe8adfa494eca52da1b2e925deb7a60455d04",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/app/[workspace]/[domain]/(overview)/plans/page.tsx",
+      "sourceSha256": "7a26d233fe506975d6eb620a8aab8e949ed28b41778b4b3ff7e672c3debca7ea",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/app/[workspace]/[domain]/(overview)/target/page.tsx",
+      "sourceSha256": "95f9c6f933833bfc049cefb5be4ea298a84fa7c5845faef31150023ac58956d4",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/app/[workspace]/[domain]/[system]/flows/[flow]/page.tsx",
+      "sourceSha256": "0a5099f94e38c4b3dc8a4f5b77fe49878ef1388685a11eff841c5a9b04922f2f",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/app/[workspace]/[domain]/[system]/layout.tsx",
+      "sourceSha256": "184f34f0857750c645cf06c16ecc857d76b8ade2c97565a450a85a02748b61e8",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/app/[workspace]/[domain]/[system]/page.tsx",
+      "sourceSha256": "e0459af15f7b207da26593884faf0e046bffe97179e68b89ac9f370cd6964ae4",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/app/[workspace]/areas/[area]/map.json/route.ts",
+      "sourceSha256": "2b624afb75d70566ec22c5a1461d4ee07dd9603d681a4e017010f0cc7df220e8",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/app/[workspace]/areas/[area]/page.tsx",
+      "sourceSha256": "fc6deea37cf51a3205bbabb2d015fc683f9969723bcdbfc8de108e5bda5cd79e",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/app/[workspace]/assets/[...file]/route.ts",
+      "sourceSha256": "efa3faae0e31af128b0ec7daa682a94ea9f6eac3c256a4bf5374f34ff5304755",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/app/[workspace]/entries/page.tsx",
+      "sourceSha256": "99ea418b5aa640aeb00f0c235e9c98fe2293537d6ecce6191a216ecc36fab6f5",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/app/[workspace]/evidence.json/route.ts",
+      "sourceSha256": "bc2b659fffd2e386fa3d125b935c547d78e4ffd519a43bea01d1eb776342e52d",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/app/[workspace]/explorer/data/[file]/route.ts",
+      "sourceSha256": "fea43e8ec7b501e91831cf6e954c66d635dfa5b88da6828f151f525d606886c8",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/app/[workspace]/explorer/page.tsx",
+      "sourceSha256": "c61e49021e31c864b4799c8d88b4fd78254eaf1e43aea7255204a6f848f9a201",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/app/[workspace]/journeys/[key]/page.tsx",
+      "sourceSha256": "b2bccc4106ae7de29d9df96edd9bc77f8e7a8741cea6723fdedbfb24862ae67e",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/app/[workspace]/journeys/page.tsx",
+      "sourceSha256": "fe864cf8ec781a224f6f96ba3b149ef6089cd91a7f35d664f3b549d5f8a93ec8",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/app/[workspace]/language/page.tsx",
+      "sourceSha256": "f5457f018eea0f47a9736562d32630a97fa5f760f7235392fde7931eab6847cd",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/app/[workspace]/layout.tsx",
+      "sourceSha256": "4914230209423eac5753a1e4eb9ac0bb76de434500e137481a05dff52c9db6ab",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/app/[workspace]/model.json/route.ts",
+      "sourceSha256": "f6f18809b0a680c6290568cd50dbdfe88a94c6caa3c1a1d4f09b2f6cc20028bb",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/app/[workspace]/page.tsx",
+      "sourceSha256": "ef24096ba30c3c4b6dd4fd61222929f68a17265d39eb10ab71bfdc4557272095",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/app/[workspace]/partners/[team]/page.tsx",
+      "sourceSha256": "59e02d76e88666d2444575bfaf4e8c462791de1fa0f4fcc841ec05272fe214c3",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/app/[workspace]/partners/page.tsx",
+      "sourceSha256": "feed7ed1bc88be69afcce0fe837fcc9ad34736bd43fccb860c2a1bac11769576",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/app/[workspace]/people/page.tsx",
+      "sourceSha256": "8fff91415c3b5da6042f8d1bbc5f1ab5ed0d66106754c43f29342a2fdf174bbd",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/app/[workspace]/plans/[plan]/[chapter]/[screen]/page.tsx",
+      "sourceSha256": "b616340b287636d4029f081b684d97a35ac2fe9e0c163bc2a59498e06af80330",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/app/[workspace]/plans/[plan]/assets/[...file]/route.ts",
+      "sourceSha256": "82638a3a22fb6005ce961cec1f90d005e002c05360a08d2233db10fad5c88774",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/app/[workspace]/plans/[plan]/mockups/[...file]/route.ts",
+      "sourceSha256": "e4904d7ea5dc10baedb4a2db8187c9c31348b28d6051a5d027bed7b4333c28d7",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/app/[workspace]/plans/[plan]/page.tsx",
+      "sourceSha256": "bd331ebeec34477abc5b4a366fe87717a68a3627479afb090c4f5b16db8fd3b0",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/app/[workspace]/plans/[plan]/plan.json/route.ts",
+      "sourceSha256": "317831a71e4e290d270296ce8ac68b5c24e42e91063f408ebafa96b084a380b9",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/app/[workspace]/plans/[plan]/revisions/[version]/plan.json/route.ts",
+      "sourceSha256": "7a73b0e1c9de369f1ee671bdc5b4390a680ec9a89a28fbe8a8c5900a4302b31f",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/app/[workspace]/plans/[plan]/things/page.tsx",
+      "sourceSha256": "d64c22a9e208b9ab5f942b6b7a24a2d7f0fd81f63413d6c43444d5d8f1e340aa",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/app/[workspace]/plans/page.tsx",
+      "sourceSha256": "18e9ea63ed6f4386ff8bf4ce55a64ff0cd32d203d14100d29790cd5107dedc97",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/app/[workspace]/programmes/[programme]/page.tsx",
+      "sourceSha256": "c1a5131305d00538851821f945b491e7c818bd2e18b4afb3c553515ab81689f4",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/app/[workspace]/programmes/page.tsx",
+      "sourceSha256": "a7543ec263f53e9daef60f225d63621633e296bbc205de231be5641f2555ca77",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/app/[workspace]/reference/[kind]/page.tsx",
+      "sourceSha256": "b2bb5e002821e5f8f0ae876a9ed4a476be1374d428f0199e2010f9b1f54c77bc",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/app/[workspace]/reference/page.tsx",
+      "sourceSha256": "898c6957b3afbe2d95e9b62a0ff4de9ec2bd56adc4a7ae2674a2bd9e00ba69d4",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/app/[workspace]/things/page.tsx",
+      "sourceSha256": "ea47d9a089aa89108c5c2961a6b40e92483487c56b417d77165d45b94dd60137",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/app/[workspace]/value-flows/page.tsx",
+      "sourceSha256": "cf4eddf633d22e9dabab263d0858dcf14ad5051fb7d7685e9cc0c0519787a1ba",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/app/design/page.tsx",
+      "sourceSha256": "809ca4b52d73481d38be99915f598d7afbff041d6de7a9b127ae6cc1856e0db2",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/app/layout.tsx",
+      "sourceSha256": "61931afafa8d6b12d29df5f895b06db91db8260d1631b97cf81edeaaa06bfae5",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/app/page.tsx",
+      "sourceSha256": "f48617f809919647be7d8c31aee55d7f469a39cf6d9c9ab0adba178cd63fdd89",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    }
+  ]
+}

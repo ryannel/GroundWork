@@ -1,0 +1,77 @@
+{
+  "format": 1,
+  "file": "src/application/entry-flow-paths.ts",
+  "sourceSha256": "1b40e4c30db3bda96d3f0dd4267cd5b18a51b3eb6c628f21014f5724df1cfb1e",
+  "role": "ID and address support outside model-consumer candidate set",
+  "decision": "Remove only the unnecessary reviewed-consumer row. Preserve this exact support review and current ID-reference evidence; do not widen consumer discovery or accept unknown reviewed keys.",
+  "consumerDiscovery": {
+    "originalRows": 1697,
+    "inOriginal": false,
+    "inCurrent": false,
+    "reason": "No old/current model type, fact reader, index or data-backed operation. Only domain/ids.idToToken plus supplied strings and URLSearchParams."
+  },
+  "identityInventory": {
+    "file": "artifacts/rebuild/ids-and-urls-candidates.json",
+    "sha256": "04619bde8ae52c959ddb93c5ba7bffef79484884f3bc6de5f7ace17908c507ae",
+    "rows": [
+      {
+        "category": "id construction, parsing or literal",
+        "file": "src/application/entry-flow-paths.ts",
+        "hits": [
+          {
+            "line": 1,
+            "text": "import { idToToken } from '@/domain/ids';"
+          },
+          {
+            "line": 13,
+            "text": "if (address.entry !== undefined) query.set('id', idToToken(address.entry));"
+          },
+          {
+            "line": 14,
+            "text": "if (address.plan !== undefined) query.set('plan', idToToken(address.plan));"
+          },
+          {
+            "line": 16,
+            "text": "if (address.domain !== undefined) query.set('domain', idToToken(address.domain));"
+          }
+        ],
+        "status": "adapter"
+      }
+    ],
+    "currentReferenceHits": [
+      {
+        "line": 1,
+        "text": "import { idToToken } from '@/domain/ids';"
+      },
+      {
+        "line": 15,
+        "text": "if (address.entry !== undefined) query.set('id', idToToken(address.entry));"
+      },
+      {
+        "line": 16,
+        "text": "if (address.plan !== undefined) query.set('plan', idToToken(address.plan));"
+      },
+      {
+        "line": 18,
+        "text": "if (address.domain !== undefined) query.set('domain', idToToken(address.domain));"
+      },
+      {
+        "line": 19,
+        "text": "if (address.system !== undefined) query.set('system', idToToken(address.system));"
+      }
+    ],
+    "uncentralisedRuntimeFindings": 0,
+    "note": "Generated broad candidate lines predate the current scope helper edits because later scans used --consumers-only. Current source references above use the central helper; regenerate normal inventory at final freeze. Literal/helper candidate status is not a runtime violation."
+  },
+  "proofs": [
+    {
+      "file": "artifacts/rebuild/pr8/system-overview-budget.json",
+      "sha256": "95a4109392837678ab6d53e44f1215f89b101d611ef2f3794e28b12fab8bce49"
+    },
+    {
+      "file": "artifacts/rebuild/pr8/system-overview-budget.md",
+      "sha256": "9fbcf02f8535f3c48e555e35998e4805de88163a6ea10c6c72a5f7d5a03ddf0f"
+    }
+  ],
+  "frozenOriginalSha256": "8bb91071c6ae2e9168573f6d20d496cc8551e3e3ee626c3b06d64371d69f17c2"
+}

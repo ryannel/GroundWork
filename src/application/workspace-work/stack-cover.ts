@@ -1,6 +1,6 @@
 import type { BaseInfo } from '@/application/plan/plan-base';
 import type { OverlapKind } from '@/application/plan/plan-stack';
-import { thingHref } from '@/application/plan-pages-things';
+import { thingHref } from '@/application/thing-paths';
 import { programmeHref } from '@/application/workspace-paths';
 
 import type { WorkCardVM } from './work-card';

@@ -1,0 +1,549 @@
+{
+  "previous": ".workspaces/rebuild/pr8/http-release",
+  "candidate": ".workspaces/rebuild/pr8/http-release-fixed",
+  "releases": [
+    {
+      "workspace": "personal",
+      "manifest": "3cc4a8c387c94851a26f39392f0e38704658bb818ea47f8990ce453d535fb16c",
+      "unchangedFiles": 23,
+      "checked": [
+        {
+          "route": "/personal/things/?id=lib-geometry",
+          "file": "route-14d6b7830ccbf7f38f54.json.gz",
+          "before": "f581d62d04fbd788ec35bb80c8fc997ecb40974856714d2b7b84d60a18475d86",
+          "after": "f581d62d04fbd788ec35bb80c8fc997ecb40974856714d2b7b84d60a18475d86",
+          "bytes": [
+            38712,
+            38712
+          ]
+        },
+        {
+          "route": "/personal/things/?id=st-allotment-db",
+          "file": "route-4c363f7b30e4b25b5dc2.json.gz",
+          "before": "92ad9de4be9b8aeb6a1cdc005bdd63befa5237ad42160ee1979a1731cca7429a",
+          "after": "92ad9de4be9b8aeb6a1cdc005bdd63befa5237ad42160ee1979a1731cca7429a",
+          "bytes": [
+            45142,
+            45142
+          ]
+        },
+        {
+          "route": "/personal/things/?id=svc-allotment-app",
+          "file": "route-1b1fccadc460a4e104c4.json.gz",
+          "before": "3cbf8bb904c1a0320411310058c2b310a8b183cc547aa4165c1f84b55beddf3b",
+          "after": "3cbf8bb904c1a0320411310058c2b310a8b183cc547aa4165c1f84b55beddf3b",
+          "bytes": [
+            46017,
+            46017
+          ]
+        },
+        {
+          "route": "/",
+          "file": "route-261b2bba3795574b1e40.json.gz",
+          "before": "4d7097ba8965ac86c11391528199677b473cd5882afc2f48299fd674e45eef5c",
+          "after": "4d7097ba8965ac86c11391528199677b473cd5882afc2f48299fd674e45eef5c",
+          "bytes": [
+            29295,
+            29295
+          ]
+        },
+        {
+          "route": "/personal/",
+          "file": "route-d27f1e2788e7e51292e6.json.gz",
+          "before": "ba89596ae80e2a45618236735741c9687381e2e5d9ae967ec537a1913e084f74",
+          "after": "ba89596ae80e2a45618236735741c9687381e2e5d9ae967ec537a1913e084f74",
+          "bytes": [
+            32552,
+            32552
+          ]
+        },
+        {
+          "route": "/personal/model.json",
+          "file": "route-4bfca9e2c634b07b5fa2.json.gz",
+          "before": "03cbcf5a4295fde96ffaec18ca0fc9910f0aa2721843cf507add5851d57fe9bf",
+          "after": "03cbcf5a4295fde96ffaec18ca0fc9910f0aa2721843cf507add5851d57fe9bf",
+          "bytes": [
+            null,
+            null
+          ]
+        }
+      ]
+    },
+    {
+      "workspace": "acme",
+      "manifest": "edf66aa0d5ed8dc0a829de6a0cfdd82f87501efa8e91069fe7d67d6df23fe7aa",
+      "unchangedFiles": 34,
+      "checked": [
+        {
+          "route": "/acme/things/?id=api-products-get",
+          "file": "route-4f5901ed06540b959e16.json.gz",
+          "before": "3e67f91676ce5807c0f74cab8e54fd9871772477d68adb3180cafc4cf1fbeff4",
+          "after": "3e67f91676ce5807c0f74cab8e54fd9871772477d68adb3180cafc4cf1fbeff4",
+          "bytes": [
+            56875,
+            56875
+          ]
+        },
+        {
+          "route": "/acme/things/?id=ext-card-provider",
+          "file": "route-df9ab3eb98216d267269.json.gz",
+          "before": "ef162444c8d37622550f4ec1a73cca3c36fe9350c6b8edd99d69b5f4313dad4d",
+          "after": "ef162444c8d37622550f4ec1a73cca3c36fe9350c6b8edd99d69b5f4313dad4d",
+          "bytes": [
+            48515,
+            48515
+          ]
+        },
+        {
+          "route": "/acme/things/?id=flow-cancel-order",
+          "file": "route-4801f586052a3cfff9a1.json.gz",
+          "before": "638857fd3dfa63d85e27a4aadbf44aceafca315413b856fba22f9ff70d06fa8b",
+          "after": "638857fd3dfa63d85e27a4aadbf44aceafca315413b856fba22f9ff70d06fa8b",
+          "bytes": [
+            76427,
+            76427
+          ]
+        },
+        {
+          "route": "/acme/things/?id=msg-product-changed",
+          "file": "route-b74e9d9ab1170f2c9f39.json.gz",
+          "before": "a0d712e25ef2b1ad6805c977eeba98df078be843f77c0f4c657c12ba43195ae4",
+          "after": "a0d712e25ef2b1ad6805c977eeba98df078be843f77c0f4c657c12ba43195ae4",
+          "bytes": [
+            58557,
+            58557
+          ]
+        },
+        {
+          "route": "/acme/things/?id=sch-product",
+          "file": "route-69e145634256e9eea7c9.json.gz",
+          "before": "77b114ae7e65f3f0c17e2a5d594a103ed39dc927355126a01a392a59d3849474",
+          "after": "77b114ae7e65f3f0c17e2a5d594a103ed39dc927355126a01a392a59d3849474",
+          "bytes": [
+            73348,
+            73348
+          ]
+        },
+        {
+          "route": "/acme/things/?id=scr-product-page",
+          "file": "route-ee1f29cdf25971236ce8.json.gz",
+          "before": "6236e13f6fa8d6e055e2279b938c62f9f4386bb559de05aaff9cddd045628746",
+          "after": "6236e13f6fa8d6e055e2279b938c62f9f4386bb559de05aaff9cddd045628746",
+          "bytes": [
+            63443,
+            63443
+          ]
+        },
+        {
+          "route": "/acme/things/?id=st-products-db",
+          "file": "route-a1df0b2f33adaa9cda23.json.gz",
+          "before": "09be01cbd922885a27f5c47a7b1afc4a2c632335af854dc26f2dd195b2d918a7",
+          "after": "09be01cbd922885a27f5c47a7b1afc4a2c632335af854dc26f2dd195b2d918a7",
+          "bytes": [
+            52420,
+            52420
+          ]
+        },
+        {
+          "route": "/acme/things/?id=svc-products",
+          "file": "route-7d4150c8474fdb6f87ae.json.gz",
+          "before": "39879294c639e28baaa6fe9903eab1dfb553f2d10b6cfdd8900f30b93c4bfcf6",
+          "after": "39879294c639e28baaa6fe9903eab1dfb553f2d10b6cfdd8900f30b93c4bfcf6",
+          "bytes": [
+            63868,
+            63868
+          ]
+        },
+        {
+          "route": "/",
+          "file": "route-261b2bba3795574b1e40.json.gz",
+          "before": "4d7097ba8965ac86c11391528199677b473cd5882afc2f48299fd674e45eef5c",
+          "after": "4d7097ba8965ac86c11391528199677b473cd5882afc2f48299fd674e45eef5c",
+          "bytes": [
+            29295,
+            29295
+          ]
+        },
+        {
+          "route": "/acme/",
+          "file": "route-5387805077e15b1937d9.json.gz",
+          "before": "632f9fa16ea46352dfc05c27c5db07dfcab8dd2d954d91512470bfd0091e16c1",
+          "after": "632f9fa16ea46352dfc05c27c5db07dfcab8dd2d954d91512470bfd0091e16c1",
+          "bytes": [
+            42704,
+            42704
+          ]
+        },
+        {
+          "route": "/acme/model.json",
+          "file": "route-9543bbd0fb469f9651fb.json.gz",
+          "before": "782ceb66297ac9985f9aab9ada9dfcc86e452c5aaea3b798fca72a43c3903fdc",
+          "after": "782ceb66297ac9985f9aab9ada9dfcc86e452c5aaea3b798fca72a43c3903fdc",
+          "bytes": [
+            null,
+            null
+          ]
+        }
+      ]
+    },
+    {
+      "workspace": "volvo-cars",
+      "manifest": "2911faa0f8957d08ceaa5485023f4a7bce696b873f623b0ddfa547c23b320fec",
+      "unchangedFiles": 306,
+      "checked": [
+        {
+          "route": "/volvo-cars/programmes/care-se/",
+          "file": "route-1814dcc739dcd531299d.json.gz",
+          "before": "596b27677a86bbabc79b62763367947831295778fb0d879be2d6600b2cc5d4bd",
+          "after": "6cccadfbc013793f2d1e962d6bd644c5287a84ee1b686141d272be2e6e767bd9",
+          "bytes": [
+            503776,
+            478528
+          ]
+        },
+        {
+          "route": "/volvo-cars/things/?id=api-assortment-admin-classification-create",
+          "file": "route-858cdd1340f4e7514855.json.gz",
+          "before": "28c11bba54d5feb360badd11135843de28615dbb8d3e6b2a68071cc1c47f15d0",
+          "after": "28c11bba54d5feb360badd11135843de28615dbb8d3e6b2a68071cc1c47f15d0",
+          "bytes": [
+            140107,
+            140107
+          ]
+        },
+        {
+          "route": "/volvo-cars/things/?id=flow-activate-financing-offer",
+          "file": "route-cd2bab9c31fc3cb29f61.json.gz",
+          "before": "5d069f8075d0001bca00516127ead10213000707793a10a228d6da138ddc05f8",
+          "after": "5d069f8075d0001bca00516127ead10213000707793a10a228d6da138ddc05f8",
+          "bytes": [
+            231840,
+            231840
+          ]
+        },
+        {
+          "route": "/volvo-cars/things/?id=gql-get-car-by-car-key-for-stock-feed-v2",
+          "file": "route-a005761544e3e1b0e348.json.gz",
+          "before": "e8ef0c4f158c71b148d114d9328b89ecc747dc205110253bb3d82b4d3c6e94ad",
+          "after": "e8ef0c4f158c71b148d114d9328b89ecc747dc205110253bb3d82b4d3c6e94ad",
+          "bytes": [
+            213073,
+            213073
+          ]
+        },
+        {
+          "route": "/volvo-cars/things/?id=h-assortment-admin-apply-car-plan",
+          "file": "route-2852d67c520228a04001.json.gz",
+          "before": "243cd05af81620ee7d8b5e42549dfc087da82a7823a3d494df21c1c198cc0556",
+          "after": "243cd05af81620ee7d8b5e42549dfc087da82a7823a3d494df21c1c198cc0556",
+          "bytes": [
+            265515,
+            265515
+          ]
+        },
+        {
+          "route": "/volvo-cars/things/?id=lib-payment-service",
+          "file": "route-c6e694c3a628a6797113.json.gz",
+          "before": "27787832669afe17941ac24cdff470d5a89a984a9d3393f39e100fe6c88af5d4",
+          "after": "27787832669afe17941ac24cdff470d5a89a984a9d3393f39e100fe6c88af5d4",
+          "bytes": [
+            123897,
+            123897
+          ]
+        },
+        {
+          "route": "/volvo-cars/things/?id=msg-assortment-classification-changed",
+          "file": "route-151af0354f9b819dc21a.json.gz",
+          "before": "1846c8a0ecb8b100b3be4267facf378c7a04db42ef41e2984f021f6598f9afab",
+          "after": "1846c8a0ecb8b100b3be4267facf378c7a04db42ef41e2984f021f6598f9afab",
+          "bytes": [
+            143223,
+            143223
+          ]
+        },
+        {
+          "route": "/volvo-cars/things/?id=sch-assortment-admin-classification",
+          "file": "route-dd0dfd59d7952fb044b5.json.gz",
+          "before": "5976b78e3a82323f4ed13cf9882986f264f92ccc1fc75f6171ff0fd4f2c2e2d6",
+          "after": "5976b78e3a82323f4ed13cf9882986f264f92ccc1fc75f6171ff0fd4f2c2e2d6",
+          "bytes": [
+            209172,
+            209172
+          ]
+        },
+        {
+          "route": "/volvo-cars/things/?id=scr-product-catalog-ui-car-code-mapping",
+          "file": "route-a4df55469950b653516a.json.gz",
+          "before": "6e937c4cff0deb0c2a01e095d1f4ff3ca9a0b93a32eff16865db89e68d02a3d9",
+          "after": "6e937c4cff0deb0c2a01e095d1f4ff3ca9a0b93a32eff16865db89e68d02a3d9",
+          "bytes": [
+            104668,
+            104668
+          ]
+        },
+        {
+          "route": "/volvo-cars/things/?id=st-assortment-classifications-events",
+          "file": "route-f8d01d08102a309e1ccc.json.gz",
+          "before": "e535589e1aca5b1ecdad7a7b2bc38d1172dfde52cf9304d1310d80b703a84b8d",
+          "after": "e535589e1aca5b1ecdad7a7b2bc38d1172dfde52cf9304d1310d80b703a84b8d",
+          "bytes": [
+            169324,
+            169324
+          ]
+        },
+        {
+          "route": "/volvo-cars/things/?id=svc-assortment-admin-api",
+          "file": "route-75a393b5caaa2701c12b.json.gz",
+          "before": "e0b0656f6a70299c2917cb3cc81e436e554feca90b13ee8d36038c43048e9587",
+          "after": "e0b0656f6a70299c2917cb3cc81e436e554feca90b13ee8d36038c43048e9587",
+          "bytes": [
+            358679,
+            358679
+          ]
+        },
+        {
+          "route": "/volvo-cars/things/?id=top-assortment-classifications-events",
+          "file": "route-c23ae969624cc7a3f4ff.json.gz",
+          "before": "d94a2570be72f4e5cee37d3154ab5ab0f1b63ede6c1e2aa03e0ebba18be4893a",
+          "after": "d94a2570be72f4e5cee37d3154ab5ab0f1b63ede6c1e2aa03e0ebba18be4893a",
+          "bytes": [
+            169326,
+            169326
+          ]
+        },
+        {
+          "route": "/",
+          "file": "route-261b2bba3795574b1e40.json.gz",
+          "before": "4d7097ba8965ac86c11391528199677b473cd5882afc2f48299fd674e45eef5c",
+          "after": "4d7097ba8965ac86c11391528199677b473cd5882afc2f48299fd674e45eef5c",
+          "bytes": [
+            29295,
+            29295
+          ]
+        },
+        {
+          "route": "/volvo-cars/",
+          "file": "route-b2bcc18b9738cdfe3f73.json.gz",
+          "before": "13bb77cbd9af4efc3a5eacb888e85dc14679fd8b0e95e3def5691afe661e2d39",
+          "after": "13bb77cbd9af4efc3a5eacb888e85dc14679fd8b0e95e3def5691afe661e2d39",
+          "bytes": [
+            104428,
+            104428
+          ]
+        },
+        {
+          "route": "/volvo-cars/model.json",
+          "file": "route-699792733a805c19f774.json.gz",
+          "before": "000d1dadeb40a855f593b09c4c7de61bb0d4e434f5b2b69dcf4bdf39c8a3b299",
+          "after": "000d1dadeb40a855f593b09c4c7de61bb0d4e434f5b2b69dcf4bdf39c8a3b299",
+          "bytes": [
+            null,
+            null
+          ]
+        }
+      ]
+    }
+  ],
+  "resolutions": [
+    {
+      "url": "/volvo-cars/things/?id=ext%3Aai-azure-content-safety",
+      "id": "ext:ai-azure-content-safety",
+      "name": "Azure AI Content Safety",
+      "bytes": 126655,
+      "sha256": "e64fff21eca0ed7afd23e35998e98b8087bab14ed2b6c64b63ea7f7e227412ed"
+    },
+    {
+      "url": "/volvo-cars/things/?id=ext%3Aai-azure-openai",
+      "id": "ext:ai-azure-openai",
+      "name": "Azure OpenAI",
+      "bytes": 134908,
+      "sha256": "a61cf193e6849aa3de0182b37a5a13dc26dfb90380d0da8911173a4a440183d3"
+    },
+    {
+      "url": "/volvo-cars/things/?id=ext%3Aai-azure-vision",
+      "id": "ext:ai-azure-vision",
+      "name": "Azure AI Vision (Image Analysis)",
+      "bytes": 127554,
+      "sha256": "fd0f79527bccb6c1f4682b79639e42e4008426cc97147a39131a815b4093556c"
+    },
+    {
+      "url": "/volvo-cars/things/?id=ext%3Abank-santander",
+      "id": "ext:bank-santander",
+      "name": "Santander Consumer Bank",
+      "bytes": 186266,
+      "sha256": "65b1b37a631a38d0702851d90fef7878520e89cea0203243dead8a3bb977583b"
+    },
+    {
+      "url": "/volvo-cars/things/?id=ext%3Abank-zenith",
+      "id": "ext:bank-zenith",
+      "name": "Zenith (SOL Leasing)",
+      "bytes": 171989,
+      "sha256": "19bf4e7e300ee4d829022b9c9355d18b4534bb286dbe48f90410acc5cf8aef89"
+    },
+    {
+      "url": "/volvo-cars/things/?id=ext%3Abank-ziklo",
+      "id": "ext:bank-ziklo",
+      "name": "Ziklo Bank",
+      "bytes": 166900,
+      "sha256": "83bb5065935b028155ccc97e360f46bc252fa50e2ae868c174d5b3d8485ebe41"
+    },
+    {
+      "url": "/volvo-cars/things/?id=ext%3Aidentity-azure-ad",
+      "id": "ext:identity-azure-ad",
+      "name": "Microsoft Entra ID (Azure AD)",
+      "bytes": 386270,
+      "sha256": "45d808521cb907fca04a7ebb4ecddfb67f8d1793e25176a872154623ce6ea208"
+    },
+    {
+      "url": "/volvo-cars/things/?id=ext%3Aidentity-microsoft-graph",
+      "id": "ext:identity-microsoft-graph",
+      "name": "Microsoft Graph",
+      "bytes": 166957,
+      "sha256": "71082c4e3c4560734cf02daf04eb36841601c49cbd63110230f2319a9c1d4558"
+    },
+    {
+      "url": "/volvo-cars/things/?id=ext%3Alaunchdarkly",
+      "id": "ext:launchdarkly",
+      "name": "LaunchDarkly",
+      "bytes": 824735,
+      "sha256": "7a02f15f74b26fdcc7accc237509f053fd4f7edb2aaabd913913c7bbb94fc9be"
+    },
+    {
+      "url": "/volvo-cars/things/?id=ext%3Apsp-stripe",
+      "id": "ext:psp-stripe",
+      "name": "Stripe",
+      "bytes": 213803,
+      "sha256": "a54124f3030827188ac45e993a295e0218b5293c44e8d8876d590531d39aae7a"
+    },
+    {
+      "url": "/volvo-cars/things/?id=ext%3Aschema-registry-hive",
+      "id": "ext:schema-registry-hive",
+      "name": "GraphQL Hive",
+      "bytes": 142226,
+      "sha256": "826116c5fab0bec3c8dae44e7cb30aeacd33346c69d31fd710c0577f7eae4dbf"
+    },
+    {
+      "url": "/volvo-cars/things/?id=ext%3Atax-provider-agita",
+      "id": "ext:tax-provider-agita",
+      "name": "Agita",
+      "bytes": 136620,
+      "sha256": "33658038df367cbae5a201b22d226e7d7c04b47b00bfbb225f927a032d1e41bf"
+    },
+    {
+      "url": "/volvo-cars/things/?id=ext%3Atax-provider-polk",
+      "id": "ext:tax-provider-polk",
+      "name": "Polk FCAI drive-away price calculator (S&P Global Mobility)",
+      "bytes": 132503,
+      "sha256": "ebe35b278560e6454f9a229225a17bb0beca412be044068ae86870cfe2906ef8"
+    },
+    {
+      "url": "/volvo-cars/things/?id=ext%3Atax-provider-sovos",
+      "id": "ext:tax-provider-sovos",
+      "name": "Sovos (sales tax)",
+      "bytes": 134778,
+      "sha256": "7a29008bd7de26dd09674d09161899bf94de01dffe44e5da6ebae9dc088f2e6e"
+    },
+    {
+      "url": "/volvo-cars/things/?id=ext%3Atranslation-azure-translator",
+      "id": "ext:translation-azure-translator",
+      "name": "Azure AI Translator (via the Volvo Cars API gateway)",
+      "bytes": 135828,
+      "sha256": "fd73e64d2e35cfb75f51889d2a20dd049a26f0bc93c4f2f4a17df7ea1f333dae"
+    },
+    {
+      "url": "/volvo-cars/things/?id=ext%3Atranslation-smartling",
+      "id": "ext:translation-smartling",
+      "name": "Smartling",
+      "bytes": 127001,
+      "sha256": "d837c090ce80fc763e83ba7272ae709ff59e599e64416a539bcdc318cb3e5632"
+    },
+    {
+      "url": "/volvo-cars/things/?id=ext%3Awarehouse-snowflake",
+      "id": "ext:warehouse-snowflake",
+      "name": "Snowflake (Volvo Cars enterprise)",
+      "bytes": 133517,
+      "sha256": "6e11204f23b0eb10f204b5c9f1f3617358a5a0d5db57c512624ac87b6cb75022"
+    }
+  ],
+  "programme": {
+    "route": "/volvo-cars/programmes/care-se/",
+    "localIdsRenderedAsText": [
+      "dec:follow-up-owner",
+      "dec:initiated-order-change",
+      "dec:proposal-publisher",
+      "dec:reservation-length",
+      "dec:retailer-status-channel",
+      "dec:revised-contract-replaces",
+      "dec:supported-order-changes",
+      "dec:unfulfillable-deal-owner",
+      "ms:one-deal-visible",
+      "ms:order-change",
+      "ms:stock-cars-online",
+      "ms:walk-in-sale",
+      "q:additional-information-text",
+      "q:delivering-teams",
+      "q:financing-change-submission",
+      "q:online-business-proposal",
+      "q:opportunity-through-proposal",
+      "q:opportunity-update-access",
+      "q:proposal-fixed-quote",
+      "q:reservation-rules",
+      "q:retailer-crm-readiness",
+      "q:sales-tool-owner",
+      "q:vcrs-proposal-versions",
+      "q:vista-feasibility",
+      "q:ziklo-capabilities",
+      "sc:decline-after-signing",
+      "sc:online-purchase",
+      "sc:order-change",
+      "sc:partial-change",
+      "sc:repeated-statuses",
+      "sc:retailer-walk-in"
+    ]
+  },
+  "budget": {
+    "over": [],
+    "heaviest": [
+      {
+        "page": "/volvo-cars/things/?id=ext%3Alaunchdarkly",
+        "bytes": 824735
+      },
+      {
+        "page": "/volvo-cars/programmes/care-se/",
+        "bytes": 478528
+      },
+      {
+        "page": "/volvo-cars/things/?id=ext%3Aidentity-azure-ad",
+        "bytes": 386270
+      },
+      {
+        "page": "/volvo-cars/things/?id=svc-assortment-admin-api",
+        "bytes": 358679
+      },
+      {
+        "page": "/volvo-cars/things/?id=h-assortment-admin-apply-car-plan",
+        "bytes": 265515
+      },
+      {
+        "page": "/volvo-cars/things/?id=flow-activate-financing-offer",
+        "bytes": 231840
+      },
+      {
+        "page": "/volvo-cars/things/?id=ext%3Apsp-stripe",
+        "bytes": 213803
+      },
+      {
+        "page": "/volvo-cars/things/?id=gql-get-car-by-car-key-for-stock-feed-v2",
+        "bytes": 213073
+      },
+      {
+        "page": "/volvo-cars/things/?id=sch-assortment-admin-classification",
+        "bytes": 209172
+      },
+      {
+        "page": "/volvo-cars/things/?id=ext%3Abank-santander",
+        "bytes": 186266
+      }
+    ]
+  }
+}

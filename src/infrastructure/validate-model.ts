@@ -8,6 +8,7 @@ import {
   type IndexedPlan,
   type ProposedEffect,
 } from '@/application/plans-index';
+import { programmeDeciderProblems } from '@/application/programme-deciders';
 import { hasPrefix, rootId } from '@/domain/ids';
 import {
   modelText,
@@ -230,6 +231,14 @@ async function validateFragments(
       ...queueProblems(index),
       ...interfaceSystemProblems(index),
       ...operationClientProblems(index),
+      ...model.programmes.flatMap((programme) =>
+        programmeDeciderProblems(programme, (id) => index.get(id)?.kind === 'team').map(
+          ({ path: segments, message }) => ({
+            at: `${programme.id}/${segments.join('/')}`,
+            message,
+          }),
+        ),
+      ),
     ];
   } catch (error) {
     return [{ at: model.id, message: error instanceof Error ? error.message : String(error) }];
@@ -304,10 +313,26 @@ interface PlanBatchCheck {
   readonly plans: readonly CheckedModelPlan[];
   readonly problems: readonly ModelProblem[];
 }
+/** A stored before model is strict historical current, never inherited proposed context. */
+async function frozenPlanCheck(
+  plan: ModelPlan,
+  frozen: WorkspaceModel,
+): Promise<Pick<CheckedModelPlan, 'problems' | 'proposals'>> {
+  const problems = await validateModel(frozen);
+  if (problems.length > 0) return { problems, proposals: [] };
+  const result = await projectedPlan(plan, frozen);
+  return { problems: result.problems, proposals: result.projection?.proposals ?? [] };
+}
+
+export interface PlanValidationOptions {
+  readonly frozenBases?: ReadonlyMap<string, WorkspaceModel>;
+  readonly selected?: readonly string[];
+}
 /** Check current once, then validate each explicit proposed stack without retaining every large model. */
 export async function validatePlanProjections(
   plans: readonly ModelPlan[],
   current: WorkspaceModel,
+  options: PlanValidationOptions = {},
 ): Promise<PlanBatchCheck> {
   const currentProblems = await validateModel(current);
   if (currentProblems.length > 0) return { plans: [], problems: currentProblems };
@@ -316,6 +341,8 @@ export async function validatePlanProjections(
     return { plans: [], problems: [{ at: current.id, message: 'Duplicate plan identity.' }] };
   }
   const checked = new Map<string, CheckedModelPlan>();
+  const landed =
+    options.frozenBases === undefined ? undefined : new Set(options.frozenBases.keys());
   const inspect = async (plan: ModelPlan): Promise<CheckedModelPlan> => {
     const existing = checked.get(plan.meta.id);
     if (existing !== undefined) return existing;
@@ -334,7 +361,12 @@ export async function validatePlanProjections(
           schema.map((error) => ({ at: `${plan.meta.id}${error.path}`, message: error.message })),
         );
       }
-      const ancestors = inheritedPlanOrder(plan, registry);
+      const frozen = options.frozenBases?.get(plan.meta.id);
+      if (frozen !== undefined) {
+        const result = await frozenPlanCheck(plan, frozen);
+        return record(result.problems, result.proposals);
+      }
+      const ancestors = inheritedPlanOrder(plan, registry, landed);
       const failed = await ancestors.reduce<Promise<CheckedModelPlan | null>>(
         async (previous, ancestor) => {
           const failure = await previous;
@@ -367,7 +399,11 @@ export async function validatePlanProjections(
       ]);
     }
   };
-  await plans.reduce(async (previous, plan) => {
+  const selected =
+    options.selected === undefined
+      ? plans
+      : plans.filter((plan) => options.selected?.includes(plan.meta.id) === true);
+  await selected.reduce(async (previous, plan) => {
     await previous;
     await inspect(plan);
   }, Promise.resolve());

@@ -97,11 +97,52 @@ function packOverview(
   };
 }
 
+/** Some boundaries appear only on a saved connection, outside the core bands. */
+function supportingBoundaries(
+  boundaries: NonNullable<AreaView['boundaries']>,
+  narrative: LandscapeValueFlow,
+  nodes: readonly ValueFlowNode[],
+  y: number,
+): readonly ValueFlowNode[] {
+  const support: ValueFlowNode[] = [];
+  const drawn = new Set(nodes.flatMap((node) => node.members));
+  for (const boundary of boundaries) {
+    if (drawn.has(boundary.id)) continue;
+    support.push({
+      component: boundary,
+      system: boundary.name,
+      id: `support:${boundary.id}`,
+      x: 80,
+      y,
+      width: 280,
+      height: 140,
+      rank: narrative.columns?.find((entry) => entry.system === boundary.id)?.column ?? 0,
+      band: `support:${boundary.id}`,
+      supporting: true,
+      collapsed: true,
+      members: [boundary.id],
+      systemId: boundary.id,
+    });
+  }
+  return support;
+}
+
 /** Meaning supplies the order. Space, rather than omissions, separates the core work from its support. */
 function overviewLayout(view: AreaView, narrative: LandscapeValueFlow): ValueFlowDrawing {
-  const all = view.systems.flatMap((system) =>
-    system.components.map((component) => ({ component, system: system.name, systemId: system.id })),
-  );
+  const all = [
+    ...view.systems.flatMap((system) =>
+      system.components.map((component) => ({
+        component,
+        system: system.name,
+        systemId: system.id,
+      })),
+    ),
+    ...(view.boundaries ?? []).map((component) => ({
+      component,
+      system: component.name,
+      systemId: component.id,
+    })),
+  ];
   const orderedCore = narrative.bands.flatMap((band) => band.nodes.map((node) => node.component));
   const core = new Set(orderedCore);
   const authoredOrder = new Map(orderedCore.map((id, index) => [id, index]));
@@ -115,8 +156,8 @@ function overviewLayout(view: AreaView, narrative: LandscapeValueFlow): ValueFlo
         [responsible.get(edge.from), responsible.get(edge.to)].includes(id) &&
         owner.get(edge.from) !== owner.get(edge.to),
     ).length;
-  const anchors = new Map(
-    view.systems.map((system) => {
+  const anchors = new Map([
+    ...view.systems.map((system) => {
       const candidates = all.filter(
         (item) => item.systemId === system.id && core.has(item.component.id),
       );
@@ -131,9 +172,10 @@ function overviewLayout(view: AreaView, narrative: LandscapeValueFlow): ValueFlo
           }
           return difference;
         })[0]?.component.id,
-      ];
+      ] as const;
     }),
-  );
+    ...(view.boundaries ?? []).map((boundary) => [boundary.id, boundary.id] as const),
+  ]);
   const systemBands = bandsBySystem(narrative, owner);
   const headings: ValueFlowHeading[] = [];
   let y = 32;
@@ -243,7 +285,10 @@ function overviewLayout(view: AreaView, narrative: LandscapeValueFlow): ValueFlo
     );
     y += 120 + Math.ceil(shown.length / 6) * 170;
   }
-  return packOverview(shifted, headings);
+  return packOverview(
+    [...shifted, ...supportingBoundaries(view.boundaries ?? [], narrative, shifted, y)],
+    headings,
+  );
 }
 
 function drawingSize(opened: ReadonlyMap<string, ValueFlowDrawing>, node: ValueFlowNode) {

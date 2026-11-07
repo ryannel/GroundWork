@@ -1,6 +1,7 @@
 import { createReport, type Issue, type Report } from '@/application/plan/check-context';
 import { qualifiedProblem } from '@/application/plan/check-neighbours';
 import { citationsIn, qualifiedOf, typeOf, walkStrings } from '@/application/plan/ids';
+import { programmeDeciderProblems } from '@/application/programme-deciders';
 import type { PathSegment } from '@/domain/plan/plan-ids';
 import type { Neighbours } from '@/domain/plan/plan-neighbours';
 import type { Programme } from '@/domain/plan/plan.generated';
@@ -62,17 +63,6 @@ function refsOf(programme: Programme): [readonly PathSegment[], string, readonly
   ];
 }
 
-function deciders(programme: Programme): [readonly PathSegment[], string][] {
-  const decided = (key: string, list: readonly { readonly decider?: string }[] | undefined) =>
-    (list ?? []).flatMap((item, i): [readonly PathSegment[], string][] =>
-      item.decider === undefined ? [] : [[[key, i, 'decider'], item.decider]],
-    );
-  return [
-    ...decided('decisions', programme.decisions),
-    ...decided('questions', programme.questions),
-  ];
-}
-
 function definedOnce(programme: Programme, rep: Report): ReadonlySet<string> {
   const ids = new Set<string>();
   for (const entry of entriesOf(programme)) {
@@ -96,8 +86,8 @@ function checkNamed(
       rep.error(path, `${id} is no ${types.join(' or ')} in this programme; fix the id`);
     }
   }
-  for (const [path, team] of deciders(programme)) {
-    if (!at.teams.has(team)) rep.error(path, `${team} is not in workspace.yaml; fix the team id`);
+  for (const { path, message } of programmeDeciderProblems(programme, (id) => at.teams.has(id))) {
+    rep.error(path, message);
   }
   for (const [i, milestone] of (programme.milestones ?? []).entries()) {
     if (milestone.serves === undefined) continue;

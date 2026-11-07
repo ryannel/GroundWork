@@ -1,54 +1,35 @@
-import { derive, type Model } from '@/application/plan/derive';
-import type { LegacyPlacements } from '@/application/plan/derive-placement';
-import type { Inherited } from '@/application/plan/stack-base';
-import type { PlanStanding } from '@/application/plan/work-standing';
-import type { Page } from '@/application/plan-pages';
-import { THINGS_SCREEN } from '@/application/plan-pages-things';
-import type { IssueStatus } from '@/domain/plan/plan-status';
-import type { Plan } from '@/domain/plan/plan.generated';
+import { modelContextOf, type ModelPayload } from '@/application/model-reader';
+import type { Page } from '@/application/plan-navigation';
+import { THINGS_SCREEN } from '@/application/thing-paths';
+import { modelRecord } from '@/domain/workspace-model';
 
-// The browser shares a fresh plan.json read, however many things ask for it (the inspector, the palette), and works the
-// rest out with the same derive() the build used. It resolves to null when the plan cannot be had. A workspace's
-// model.json is the same document of today, with no work items and so no status.
+import { modelRequestOf } from './model-request';
 
-interface Payload {
-  readonly plan: Plan;
-  readonly placements?: LegacyPlacements;
-  readonly status?: IssueStatus | null;
-  readonly inherited?: Inherited | null;
-  readonly standing?: PlanStanding | null;
+// This recognises the transport envelope; canonical schemas are checked at the server's load boundary.
+function isNativeModel(value: unknown): boolean {
+  const model = modelRecord(value);
+  if (model === null) return false;
+  if (model.format !== undefined && model.format !== 2) return false;
+  return (
+    typeof model.id === 'string' &&
+    [
+      'domains',
+      'evidence',
+      'libraries',
+      'externals',
+      'graphs',
+      'flows',
+      'journeys',
+      'programmes',
+      'problems',
+    ].every((key) => Array.isArray(model[key]))
+  );
 }
-
-const isPayload = (value: unknown): value is Payload =>
-  typeof value === 'object' && value !== null && 'plan' in value;
-
-interface CachedModel {
-  readonly promise: Promise<Model | null>;
-  readonly expires: number;
-}
-
-// Pending reads always share a promise. Settled data is fresh for a minute; failures retry after five seconds.
-const models = new Map<string, CachedModel>();
-const FRESH_MS = 60_000;
-const RETRY_MS = 5000;
-const MAX_MODELS = 20;
-
-async function fetchModel(src: string): Promise<Model | null> {
-  try {
-    const response = await fetch(src, { cache: 'no-store' });
-    if (!response.ok) return null;
-    const body: unknown = await response.json();
-    if (!isPayload(body)) return null;
-    return derive(body.plan, {
-      placements: body.placements ?? {},
-      status: body.status ?? {},
-      today: new Date(),
-      inherited: body.inherited ?? undefined,
-      standing: body.standing ?? undefined,
-    });
-  } catch {
-    return null;
-  }
+function isNativePayload(value: unknown): value is ModelPayload {
+  const data = modelRecord(value);
+  if (data === null) return false;
+  if (isNativeModel(data.model)) return true;
+  return modelRecord(data.plan) !== null && isNativeModel(data.before) && isNativeModel(data.after);
 }
 
 // plan.json sits beside the cover, one level up from the things page and two from a screen; a relative address
@@ -60,29 +41,7 @@ export function planJsonOf(page: Page): string {
     : '../../plan.json';
 }
 
-interface Pending {
-  readonly model: Promise<Model | null>;
-}
-
-const addressOf = (relative: string): string => new URL(relative, globalThis.location.href).href;
-
-// use() needs the very same promise on every render, which an async function cannot give, so it takes this
-// holder instead: one promise per address, however often asked.
-export function pendingModel(relative: string): Pending {
-  const src = addressOf(relative);
-  const known = models.get(src);
-  if (known !== undefined && known.expires > Date.now()) return { model: known.promise };
-  const promise = fetchModel(src);
-  const entry = { promise, expires: Number.POSITIVE_INFINITY };
-  models.delete(src);
-  models.set(src, entry);
-  void promise.then((model) => {
-    if (models.get(src) !== entry) return;
-    models.set(src, { promise, expires: Date.now() + (model === null ? RETRY_MS : FRESH_MS) });
-    for (const [address, cached] of models) {
-      if (models.size <= MAX_MODELS) break;
-      if (cached.expires !== Number.POSITIVE_INFINITY) models.delete(address);
-    }
-  });
-  return { model: promise };
-}
+/** The browser builds query indices over supplied facts; it never replays operations. */
+export const pendingNativeModel = modelRequestOf((value) =>
+  isNativePayload(value) ? modelContextOf(value) : null,
+);

@@ -109,12 +109,27 @@ function project(
   };
 }
 
+/** Saved overview exchanges keep their own direction even before the recorded sites load. */
+function authoredOverviewConnections(
+  narrative: LandscapeValueFlow,
+  nodes: readonly ValueFlowNode[],
+  corePairs: ReadonlySet<string>,
+): readonly ValueFlowConnection[] {
+  const collapsed = nodes.filter((node) => node.collapsed);
+  return (narrative.overview ?? []).flatMap((connection) => {
+    const edge = project({ ...connection, detail: connection.label, supporting: false }, collapsed);
+    if (edge === undefined || corePairs.has(`${edge.from}|${edge.to}|${edge.kind}`)) return [];
+    return [edge];
+  });
+}
+
 /** Keep exact direction and row identities when folding resources into their service cards. */
 export function valueFlowConnections(
   narrative: LandscapeValueFlow,
   nodes: readonly ValueFlowNode[],
   technical: AreaView['technicalRelationships'],
   platform: ReadonlySet<string> = new Set(),
+  showAuthoredOverview = false,
 ): readonly ValueFlowConnection[] {
   const components = nodes.flatMap((node) => [
     node.component,
@@ -145,6 +160,7 @@ export function valueFlowConnections(
     return edge === undefined ? [] : [edge];
   });
   const pairs = new Set(main.map((edge) => `${edge.from}|${edge.to}|${edge.kind}`));
+  const overview = showAuthoredOverview ? authoredOverviewConnections(narrative, nodes, pairs) : [];
   const exact = technical.flatMap((connection) => {
     const edge = project(
       { ...connection, evidence: [], supporting: true, platform: platform.has(connection.to) },
@@ -161,7 +177,7 @@ export function valueFlowConnections(
     ];
   });
   const grouped = new Map<string, ValueFlowConnection[]>();
-  for (const edge of [...main, ...exact]) {
+  for (const edge of [...main, ...overview, ...exact]) {
     grouped.set(edge.id, [...(grouped.get(edge.id) ?? []), edge]);
   }
   return [...grouped]

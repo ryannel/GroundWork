@@ -2,6 +2,7 @@ import type { Core, Indexed } from '@/application/plan/derive-core';
 import type { Register } from '@/application/plan/derive-register';
 import { dayOf, isoDay, memo, textOf, tie } from '@/application/plan/derive-values';
 import { prop, strings, typeOf } from '@/application/plan/ids';
+import { workOrderOf } from '@/application/work-order';
 import type { IssueStatus } from '@/domain/plan/plan-status';
 import { SIZE_WEIGHT } from '@/domain/plan/plan-vocab';
 import type { Question, WorkItem } from '@/domain/plan/plan.generated';
@@ -76,23 +77,8 @@ function workOf(core: Core): Work {
 }
 
 /** Work items in dependency order (deps first), ties by milestone then authored order. */
-function topoOrderOf({ core, msRank, depsOf }: Work): string[] {
-  const order: string[] = [];
-  const done = new Set<string>();
-  const pending = core.workItems.toSorted((a, b) =>
-    tie(
-      msRank(a.milestone) - msRank(b.milestone),
-      core.workItems.indexOf(a) - core.workItems.indexOf(b),
-    ),
-  );
-  while (pending.length > 0) {
-    const i = pending.findIndex((w) => depsOf(w.id).every((d) => done.has(d)));
-    const next = i === -1 ? undefined : pending.splice(i, 1)[0];
-    if (next === undefined) break;
-    order.push(next.id);
-    done.add(next.id);
-  }
-  return [...order, ...pending.map((w) => w.id)]; // cycle members (invalid plans) go last
+function topoOrderOf({ core }: Work): string[] {
+  return workOrderOf(core.workItems, core.milestones).map((item) => item.id);
 }
 
 /** For each item, the weight of the heaviest chain ending in it and the dependency that chain came through. */

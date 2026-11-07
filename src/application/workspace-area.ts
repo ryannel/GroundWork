@@ -37,6 +37,15 @@ export interface AreaComponentView {
   readonly id: string;
   readonly name: string;
   readonly kind: ComponentType;
+  readonly modelKind?: 'service' | 'app' | 'store' | 'topic' | 'library' | 'external';
+  readonly roles?: readonly ('api' | 'worker' | 'job')[];
+  readonly entries?: readonly {
+    readonly id: string;
+    readonly kind: string;
+    readonly name: string;
+    readonly href: string;
+  }[];
+  readonly citations?: readonly { readonly label: string; readonly href: string }[];
   readonly infrastructure?: boolean;
   readonly summary: string;
   readonly technology?: string | null;
@@ -46,6 +55,13 @@ export interface AreaComponentView {
   readonly endpoints: readonly AreaEndpointView[];
   readonly resources: readonly AreaResourceView[];
   readonly dependencies: readonly AreaDependencyView[];
+}
+
+/** A drawing anchor for a real boundary, never a component invented inside that boundary. */
+export interface AreaBoundaryView extends AreaComponentView {
+  readonly kind: 'external';
+  readonly boundaryKind: 'system' | 'external';
+  readonly gaps: readonly string[];
 }
 
 export interface AreaCallerView {
@@ -58,7 +74,7 @@ export interface AreaCallerView {
 export interface AreaEndpointView {
   readonly id: string;
   readonly signature: string;
-  readonly protocol?: 'rest' | 'grpc' | 'graphql' | 'https';
+  readonly protocol?: 'rest' | 'grpc' | 'graphql' | 'https' | 'sdk';
   readonly version?: string;
   readonly summary: string;
   readonly request: string | null;
@@ -96,6 +112,12 @@ export interface AreaSystemView {
 }
 
 export interface AreaView {
+  readonly boundaries?: readonly AreaBoundaryView[];
+  readonly gaps?: readonly {
+    readonly id: string;
+    readonly kind: string;
+    readonly message: string;
+  }[];
   readonly valueFlow?: LandscapeValueFlow | undefined;
   readonly workspace: { readonly id: string; readonly name: string; readonly href: string };
   readonly area: LandscapeArea;

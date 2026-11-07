@@ -2,8 +2,9 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-import { entityCard, type EntityCard } from '@/application/plan-pages-entity-card';
-import { pendingModel } from '@/features/plan/plan-model';
+import { modelEntityCard } from '@/application/model-entity-card';
+import type { EntityCard } from '@/application/plan-pages-entity-card';
+import { pendingNativeModel } from '@/features/plan/plan-model';
 import { Badge } from '@/ui/badge';
 
 import styles from './hover-card.module.css';
@@ -48,8 +49,9 @@ function useCard(src: string, target: HTMLElement | null): EntityCard | null {
   useEffect((): (() => void) | undefined => {
     if (id === null) return;
     let live = true;
-    void pendingModel(src).model.then((model) => {
-      if (live) setRead({ id, card: model === null ? null : entityCard(model, id) });
+    void pendingNativeModel(src).model.then((native) => {
+      if (!live) return;
+      setRead({ id, card: native === null ? null : modelEntityCard(native, id) });
     });
     return () => {
       live = false;

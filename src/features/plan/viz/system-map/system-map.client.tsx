@@ -1,5 +1,11 @@
 'use client';
 
+import { useMemo } from 'react';
+
+import {
+  unpackModelSystemMap,
+  type ModelSystemMapWire,
+} from '@/application/model-system-map-transport';
 import type { SystemMapInput } from '@/application/plan-viz-system-map-types';
 import { useStopFocus } from '@/features/plan/viz/stops/stop-focus.client';
 import { ZoomPane } from '@/features/plan/viz/zoompane/zoom-pane.client';
@@ -62,15 +68,18 @@ function MapPane({ input, focus, outside }: MapPaneProps) {
   );
 }
 
-interface SystemMapViewProps {
-  readonly input: SystemMapInput;
-  /** What the dotted cards of a scoped map are, for the key: "outside this domain, one step away". */
+type SystemMapViewProps = {
+  /** What the dotted cards of a scoped map are, for the key. */
   readonly outside?: string | null;
-}
+} & (
+  | { readonly input: SystemMapInput; readonly packed?: never }
+  | { readonly packed: ModelSystemMapWire; readonly input?: never }
+);
 
-/** The system map: what the reader chose to see, drawn and traced as the pointer moves. A stop of the page can pick the lines. */
-export function SystemMapView({ input, outside }: SystemMapViewProps) {
+/** The system map draws from a bounded, serialisable view; native maps share repeated strings. */
+export function SystemMapView({ input, packed, outside }: SystemMapViewProps) {
   const stop = useStopFocus();
   const focus = focusOf(stop);
-  return <MapPane focus={focus} input={input} outside={outside ?? null} />;
+  const drawing = useMemo(() => input ?? unpackModelSystemMap(packed), [input, packed]);
+  return <MapPane focus={focus} input={drawing} outside={outside ?? null} />;
 }

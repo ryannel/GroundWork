@@ -1,13 +1,11 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { domainScopeOf } from '@/application/model-scope';
-import { mapScopeOf } from '@/application/today-scope';
-import { domainViewOf } from '@/application/workspace-domain';
-import { targetViewOf } from '@/application/workspace-target';
+import { modelDomainViewOf } from '@/application/model-domain';
+import { modelTargetOf } from '@/application/model-target';
 import { TargetFlowView } from '@/features/plan';
 import { DomainTab, DomainTarget } from '@/features/workspace';
-import { todayData } from '@/infrastructure/today-data';
+import { readCanonicalModelIndex } from '@/infrastructure/model-index';
 
 interface Params {
   readonly workspace: string;
@@ -19,21 +17,21 @@ export const metadata: Metadata = { title: 'Target architecture' };
 
 export default async function DomainTargetRoute({ params }: { readonly params: Promise<Params> }) {
   const { workspace: id, domain } = await params;
-  const data = await todayData(id);
-  const view = data === null ? null : domainViewOf(data.workspace, data.today.model, domain);
-  const scope = data === null ? null : domainScopeOf(data.workspace, domain);
-  if (data === null || view === null || scope === null) notFound();
-  const target = targetViewOf(data.today, domain, mapScopeOf(data.workspace, scope).places);
+  const native = await readCanonicalModelIndex(id);
+  if (native === null) notFound();
+  const view = modelDomainViewOf(native, domain);
+  if (view === null) notFound();
+  const target = modelTargetOf(native, domain);
   return (
     <>
       <DomainTab
-        says={`Where ${view.name} is heading: the flow it aims for, who should own each step, and how today differs.`}
+        says={`Where ${view.name} is heading: its authored target and shifts from today.`}
         title="Target architecture"
         view={view}
       />
       <DomainTarget
-        flow={target === null ? null : <TargetFlowView flow={target.flow} />}
         target={target}
+        flow={target === null ? null : <TargetFlowView flow={target.flow} />}
       />
     </>
   );

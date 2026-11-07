@@ -1,0 +1,255 @@
+{
+  "afterTargetSha256": "8f3c4e4b6776b8f999d5d173a663c34a10c471f918253b76bc0e54ad88b800a4",
+  "beforeTargetSha256": "396a42848d32a34cd8043d87e99b85e610275624b8fc8764ab4789cf38f5a844",
+  "changedCaptureFiles": [
+    "facts-307a96daddfc9fa901e0.json.gz",
+    "facts-31f02872dd9f171b23f0.json.gz",
+    "facts-3603482bd9417131fd2e.json.gz",
+    "facts-406ad541a8bf91380160.json.gz",
+    "facts-4f8b0e03897a4531b523.json.gz",
+    "facts-90667743840a9cb7107a.json.gz",
+    "facts-98b407f9586a90cd3885.json.gz",
+    "facts-9cfebbcce7b416099925.json.gz",
+    "facts-b3e390c9339353c72f8f.json.gz",
+    "facts-b553df7478757752406e.json.gz",
+    "facts-c823a5841567c5c3b511.json.gz",
+    "facts-c93f384036520f825ebb.json.gz",
+    "facts-e214377a6f9bff851f0b.json.gz",
+    "facts-e24581dd368847daf73c.json.gz",
+    "facts-eb1b0771e0c53f5db8e8.json.gz",
+    "facts-fb87bf5bc7e705bdea44.json.gz",
+    "facts-ff795bb7beb89253c898.json.gz",
+    "facts.json.gz"
+  ],
+  "checkedRuntimeEntries": 1604,
+  "checksummedShards": 165,
+  "correctedCapture": ".workspaces/rebuild/pr8/area-audit/volvo-facts-target-corrected",
+  "correctedChannelSources": [
+    "Offer",
+    "Content"
+  ],
+  "correctedRuntime": "/private/tmp/rebuild-pr8-volvo-runtime-02",
+  "correctedTargetLines": 11,
+  "currentIndexedFactsExact": true,
+  "factsSha256": "105b7c3642ad895387d0a602435062a483edb7c44fbd4dd6f60756561e320acf",
+  "modelShards": [
+    {
+      "afterSha256": "4f2db12f214b6c1068750c42eac7429204b4a68bb0bb8ce57fc752661f3aa922",
+      "beforeSha256": "993fecf93fed7d2d1bb0268d5a1b1b549eb342d657db7b5e816d494391a28ef7",
+      "delta": {
+        "after": "eea3d01758bfdcb29423d883bfafd222b4d06113cac43688f556bbbae4dac863",
+        "before": "97b908f0332c2df12b7caf1cd6ed6d6bbd61be394c8e10bffa94ee8803a01f63",
+        "file": "facts-ff795bb7beb89253c898.json.gz",
+        "path": "/domains/0/target/stages/8/from/1"
+      },
+      "file": "facts-ff795bb7beb89253c898.json.gz",
+      "scope": "current"
+    },
+    {
+      "afterSha256": "4f2db12f214b6c1068750c42eac7429204b4a68bb0bb8ce57fc752661f3aa922",
+      "beforeSha256": "993fecf93fed7d2d1bb0268d5a1b1b549eb342d657db7b5e816d494391a28ef7",
+      "delta": {
+        "after": "eea3d01758bfdcb29423d883bfafd222b4d06113cac43688f556bbbae4dac863",
+        "before": "97b908f0332c2df12b7caf1cd6ed6d6bbd61be394c8e10bffa94ee8803a01f63",
+        "file": "facts-406ad541a8bf91380160.json.gz",
+        "path": "/domains/0/target/stages/8/from/1"
+      },
+      "file": "facts-406ad541a8bf91380160.json.gz",
+      "scope": "care-se-financing-status/before"
+    },
+    {
+      "afterSha256": "6b2dc601ca08e73737bfe617a8920b803f238cff43e726aeef3ced30b036d2fe",
+      "beforeSha256": "934e30d640a94881fdcb2e2b94f672b57d09122aa4fc0d161a759246c15c5f01",
+      "delta": {
+        "after": "eea3d01758bfdcb29423d883bfafd222b4d06113cac43688f556bbbae4dac863",
+        "before": "97b908f0332c2df12b7caf1cd6ed6d6bbd61be394c8e10bffa94ee8803a01f63",
+        "file": "facts-307a96daddfc9fa901e0.json.gz",
+        "path": "/domains/0/target/stages/8/from/1"
+      },
+      "file": "facts-307a96daddfc9fa901e0.json.gz",
+      "scope": "care-se-financing-status/after"
+    },
+    {
+      "afterSha256": "13d5110186d91bb78bbd46c66fc30e20d079a9fbccb172f0e0cc706e0d3a7c6c",
+      "beforeSha256": "4fc55088728adf5a690c28c0bfe3e25a799a1df3d162f98f9d58563818fe7e16",
+      "delta": {
+        "after": "eea3d01758bfdcb29423d883bfafd222b4d06113cac43688f556bbbae4dac863",
+        "before": "97b908f0332c2df12b7caf1cd6ed6d6bbd61be394c8e10bffa94ee8803a01f63",
+        "file": "facts-fb87bf5bc7e705bdea44.json.gz",
+        "path": "/domains/0/target/stages/8/from/1"
+      },
+      "file": "facts-fb87bf5bc7e705bdea44.json.gz",
+      "scope": "care-se-online/before"
+    },
+    {
+      "afterSha256": "27a608dc9fbbeac97afb6e38fec75414d912501e670a9ea619cb54ed287d4c96",
+      "beforeSha256": "1fdb20e676c123dae204e634bedc62705612a345876b94481b030664c645ea7c",
+      "delta": {
+        "after": "eea3d01758bfdcb29423d883bfafd222b4d06113cac43688f556bbbae4dac863",
+        "before": "97b908f0332c2df12b7caf1cd6ed6d6bbd61be394c8e10bffa94ee8803a01f63",
+        "file": "facts-3603482bd9417131fd2e.json.gz",
+        "path": "/domains/0/target/stages/8/from/1"
+      },
+      "file": "facts-3603482bd9417131fd2e.json.gz",
+      "scope": "care-se-online/after"
+    },
+    {
+      "afterSha256": "7a0b43389aca200c7c52e284b24a925fce8e195d8ead0b10174a9bc42e34c9d7",
+      "beforeSha256": "e4ffd753cf2adedad6942af7b4d074f07ad460e385b2ce804ba0b96c89bd431e",
+      "delta": {
+        "after": "eea3d01758bfdcb29423d883bfafd222b4d06113cac43688f556bbbae4dac863",
+        "before": "97b908f0332c2df12b7caf1cd6ed6d6bbd61be394c8e10bffa94ee8803a01f63",
+        "file": "facts-90667743840a9cb7107a.json.gz",
+        "path": "/domains/0/target/stages/8/from/1"
+      },
+      "file": "facts-90667743840a9cb7107a.json.gz",
+      "scope": "care-se-order-change/before"
+    },
+    {
+      "afterSha256": "18616ab23389743d36e6f1f31893fe7de0c94d701a02ed04e07bfdca19444fec",
+      "beforeSha256": "20b62fce57c4a2d788c5ac4a9f59675ec69896f6d3145553c65b53875b0b53f7",
+      "delta": {
+        "after": "eea3d01758bfdcb29423d883bfafd222b4d06113cac43688f556bbbae4dac863",
+        "before": "97b908f0332c2df12b7caf1cd6ed6d6bbd61be394c8e10bffa94ee8803a01f63",
+        "file": "facts-b553df7478757752406e.json.gz",
+        "path": "/domains/0/target/stages/8/from/1"
+      },
+      "file": "facts-b553df7478757752406e.json.gz",
+      "scope": "care-se-order-change/after"
+    },
+    {
+      "afterSha256": "13d5110186d91bb78bbd46c66fc30e20d079a9fbccb172f0e0cc706e0d3a7c6c",
+      "beforeSha256": "4fc55088728adf5a690c28c0bfe3e25a799a1df3d162f98f9d58563818fe7e16",
+      "delta": {
+        "after": "eea3d01758bfdcb29423d883bfafd222b4d06113cac43688f556bbbae4dac863",
+        "before": "97b908f0332c2df12b7caf1cd6ed6d6bbd61be394c8e10bffa94ee8803a01f63",
+        "file": "facts-c823a5841567c5c3b511.json.gz",
+        "path": "/domains/0/target/stages/8/from/1"
+      },
+      "file": "facts-c823a5841567c5c3b511.json.gz",
+      "scope": "care-se-sales-tool/before"
+    },
+    {
+      "afterSha256": "7a0b43389aca200c7c52e284b24a925fce8e195d8ead0b10174a9bc42e34c9d7",
+      "beforeSha256": "e4ffd753cf2adedad6942af7b4d074f07ad460e385b2ce804ba0b96c89bd431e",
+      "delta": {
+        "after": "eea3d01758bfdcb29423d883bfafd222b4d06113cac43688f556bbbae4dac863",
+        "before": "97b908f0332c2df12b7caf1cd6ed6d6bbd61be394c8e10bffa94ee8803a01f63",
+        "file": "facts-4f8b0e03897a4531b523.json.gz",
+        "path": "/domains/0/target/stages/8/from/1"
+      },
+      "file": "facts-4f8b0e03897a4531b523.json.gz",
+      "scope": "care-se-sales-tool/after"
+    },
+    {
+      "afterSha256": "6b2dc601ca08e73737bfe617a8920b803f238cff43e726aeef3ced30b036d2fe",
+      "beforeSha256": "934e30d640a94881fdcb2e2b94f672b57d09122aa4fc0d161a759246c15c5f01",
+      "delta": {
+        "after": "eea3d01758bfdcb29423d883bfafd222b4d06113cac43688f556bbbae4dac863",
+        "before": "97b908f0332c2df12b7caf1cd6ed6d6bbd61be394c8e10bffa94ee8803a01f63",
+        "file": "facts-e214377a6f9bff851f0b.json.gz",
+        "path": "/domains/0/target/stages/8/from/1"
+      },
+      "file": "facts-e214377a6f9bff851f0b.json.gz",
+      "scope": "care-se-stock-reservation/before"
+    },
+    {
+      "afterSha256": "13d5110186d91bb78bbd46c66fc30e20d079a9fbccb172f0e0cc706e0d3a7c6c",
+      "beforeSha256": "4fc55088728adf5a690c28c0bfe3e25a799a1df3d162f98f9d58563818fe7e16",
+      "delta": {
+        "after": "eea3d01758bfdcb29423d883bfafd222b4d06113cac43688f556bbbae4dac863",
+        "before": "97b908f0332c2df12b7caf1cd6ed6d6bbd61be394c8e10bffa94ee8803a01f63",
+        "file": "facts-31f02872dd9f171b23f0.json.gz",
+        "path": "/domains/0/target/stages/8/from/1"
+      },
+      "file": "facts-31f02872dd9f171b23f0.json.gz",
+      "scope": "care-se-stock-reservation/after"
+    },
+    {
+      "afterSha256": "4f2db12f214b6c1068750c42eac7429204b4a68bb0bb8ce57fc752661f3aa922",
+      "beforeSha256": "993fecf93fed7d2d1bb0268d5a1b1b549eb342d657db7b5e816d494391a28ef7",
+      "delta": {
+        "after": "eea3d01758bfdcb29423d883bfafd222b4d06113cac43688f556bbbae4dac863",
+        "before": "97b908f0332c2df12b7caf1cd6ed6d6bbd61be394c8e10bffa94ee8803a01f63",
+        "file": "facts-9cfebbcce7b416099925.json.gz",
+        "path": "/domains/0/target/stages/8/from/1"
+      },
+      "file": "facts-9cfebbcce7b416099925.json.gz",
+      "scope": "immutable-ids/before"
+    },
+    {
+      "afterSha256": "ad3aa489ce55862dfb95fae88b3cee8fe0c655a734d1d1405194cfd5a2d3a3a9",
+      "beforeSha256": "959acbdd9e672eba9403ae22ac21890aab11d92729a47393c8a10ef19cd664d9",
+      "delta": {
+        "after": "eea3d01758bfdcb29423d883bfafd222b4d06113cac43688f556bbbae4dac863",
+        "before": "97b908f0332c2df12b7caf1cd6ed6d6bbd61be394c8e10bffa94ee8803a01f63",
+        "file": "facts-98b407f9586a90cd3885.json.gz",
+        "path": "/domains/0/target/stages/8/from/1"
+      },
+      "file": "facts-98b407f9586a90cd3885.json.gz",
+      "scope": "immutable-ids/after"
+    },
+    {
+      "afterSha256": "4f2db12f214b6c1068750c42eac7429204b4a68bb0bb8ce57fc752661f3aa922",
+      "beforeSha256": "993fecf93fed7d2d1bb0268d5a1b1b549eb342d657db7b5e816d494391a28ef7",
+      "delta": {
+        "after": "eea3d01758bfdcb29423d883bfafd222b4d06113cac43688f556bbbae4dac863",
+        "before": "97b908f0332c2df12b7caf1cd6ed6d6bbd61be394c8e10bffa94ee8803a01f63",
+        "file": "facts-e24581dd368847daf73c.json.gz",
+        "path": "/domains/0/target/stages/8/from/1"
+      },
+      "file": "facts-e24581dd368847daf73c.json.gz",
+      "scope": "sourced-financing-terms/before"
+    },
+    {
+      "afterSha256": "1938003090b5c1dcba5796df85fea463a1f0f3faead8e39dc17df7d0d4abfb97",
+      "beforeSha256": "76e91637a3558816fa502c813f25c8496252b409d421dc095dd6a34bacf3a1e1",
+      "delta": {
+        "after": "eea3d01758bfdcb29423d883bfafd222b4d06113cac43688f556bbbae4dac863",
+        "before": "97b908f0332c2df12b7caf1cd6ed6d6bbd61be394c8e10bffa94ee8803a01f63",
+        "file": "facts-c93f384036520f825ebb.json.gz",
+        "path": "/domains/0/target/stages/8/from/1"
+      },
+      "file": "facts-c93f384036520f825ebb.json.gz",
+      "scope": "sourced-financing-terms/after"
+    },
+    {
+      "afterSha256": "4f2db12f214b6c1068750c42eac7429204b4a68bb0bb8ce57fc752661f3aa922",
+      "beforeSha256": "993fecf93fed7d2d1bb0268d5a1b1b549eb342d657db7b5e816d494391a28ef7",
+      "delta": {
+        "after": "eea3d01758bfdcb29423d883bfafd222b4d06113cac43688f556bbbae4dac863",
+        "before": "97b908f0332c2df12b7caf1cd6ed6d6bbd61be394c8e10bffa94ee8803a01f63",
+        "file": "facts-b3e390c9339353c72f8f.json.gz",
+        "path": "/domains/0/target/stages/8/from/1"
+      },
+      "file": "facts-b3e390c9339353c72f8f.json.gz",
+      "scope": "unify-price-breakdown/before"
+    },
+    {
+      "afterSha256": "0764a0fea2c1e5da183698635c9f22fbf75336ff7a055773d75e7947e57e0283",
+      "beforeSha256": "a1718dc23490159f3574208a5ce2fbce79abd199b25e2d815e3aa47bae574604",
+      "delta": {
+        "after": "eea3d01758bfdcb29423d883bfafd222b4d06113cac43688f556bbbae4dac863",
+        "before": "97b908f0332c2df12b7caf1cd6ed6d6bbd61be394c8e10bffa94ee8803a01f63",
+        "file": "facts-eb1b0771e0c53f5db8e8.json.gz",
+        "path": "/domains/0/target/stages/8/from/1"
+      },
+      "file": "facts-eb1b0771e0c53f5db8e8.json.gz",
+      "scope": "unify-price-breakdown/after"
+    }
+  ],
+  "operationsReviewed": 125,
+  "originalTargetLines": 10,
+  "planOverlays": 8,
+  "runtime": "/private/tmp/rebuild-pr8-volvo-runtime-01",
+  "runtimeChanges": [
+    "domains/commercial-backbone/target.yaml"
+  ],
+  "sourceFrom": [
+    "offer",
+    "content"
+  ],
+  "sourceLine": 70,
+  "sourcePath": "domains/commercial-backbone/target.yaml",
+  "targetEdits": []
+}

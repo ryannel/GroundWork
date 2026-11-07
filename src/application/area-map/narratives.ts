@@ -4,6 +4,7 @@ import type { SystemNarratives } from '@/domain/system-narrative';
 import type { System } from '@/domain/workspace';
 
 export interface AreaNarratives {
+  readonly basis?: string;
   readonly stories: SystemNarratives['stories'];
   readonly notice: string | null;
 }

@@ -1,0 +1,133 @@
+{
+  "differences": [
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "072ea419a7a1e244817ed1a33663cb9728bfc193f519daf23c48d140e00827e7",
+      "file": "facts.json.gz",
+      "path": "/plans/0/before/handlerEdges",
+      "reason": "Every frozen effect in this plan side resolves through its original ordered source path to the canonical step, retained control context and pinned native execution query. This exact removal of the legacy carrier is covered by artifacts/rebuild/pr8/area-and-facts/plan-effect-closure.json.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "d6ad1dd37267b541f74be516811b5fccdeabefc4aed98a3102ec1d138a6e8f5f",
+      "file": "facts.json.gz",
+      "path": "/plans/0/after/handlerEdges",
+      "reason": "Every frozen effect in this plan side resolves through its original ordered source path to the canonical step, retained control context and pinned native execution query. This exact removal of the legacy carrier is covered by artifacts/rebuild/pr8/area-and-facts/plan-effect-closure.json.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "ef7c509c10427826f03ba41fc86c9ebd50a099f6cf9c95017eb2778ad109fbdd",
+      "file": "facts.json.gz",
+      "path": "/plans/1/before/handlerEdges",
+      "reason": "Every frozen effect in this plan side resolves through its original ordered source path to the canonical step, retained control context and pinned native execution query. This exact removal of the legacy carrier is covered by artifacts/rebuild/pr8/area-and-facts/plan-effect-closure.json.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "ef7c509c10427826f03ba41fc86c9ebd50a099f6cf9c95017eb2778ad109fbdd",
+      "file": "facts.json.gz",
+      "path": "/plans/1/after/handlerEdges",
+      "reason": "Every frozen effect in this plan side resolves through its original ordered source path to the canonical step, retained control context and pinned native execution query. This exact removal of the legacy carrier is covered by artifacts/rebuild/pr8/area-and-facts/plan-effect-closure.json.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "0ce874773a86d5cf54bf99a747aa461c6c40f9ffa49397cd0e72cbe79df09458",
+      "file": "facts.json.gz",
+      "path": "/plans/2/before/handlerEdges",
+      "reason": "Every frozen effect in this plan side resolves through its original ordered source path to the canonical step, retained control context and pinned native execution query. This exact removal of the legacy carrier is covered by artifacts/rebuild/pr8/area-and-facts/plan-effect-closure.json.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "0ce874773a86d5cf54bf99a747aa461c6c40f9ffa49397cd0e72cbe79df09458",
+      "file": "facts.json.gz",
+      "path": "/plans/2/after/handlerEdges",
+      "reason": "Every frozen effect in this plan side resolves through its original ordered source path to the canonical step, retained control context and pinned native execution query. This exact removal of the legacy carrier is covered by artifacts/rebuild/pr8/area-and-facts/plan-effect-closure.json.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "ef7c509c10427826f03ba41fc86c9ebd50a099f6cf9c95017eb2778ad109fbdd",
+      "file": "facts.json.gz",
+      "path": "/plans/3/before/handlerEdges",
+      "reason": "Every frozen effect in this plan side resolves through its original ordered source path to the canonical step, retained control context and pinned native execution query. This exact removal of the legacy carrier is covered by artifacts/rebuild/pr8/area-and-facts/plan-effect-closure.json.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "7f145418bfb99b3f276c06a5bc1b91472ebf7b09b83f504c8cd67746d6fcfd5d",
+      "file": "facts.json.gz",
+      "path": "/plans/3/after/handlerEdges",
+      "reason": "Every frozen effect in this plan side resolves through its original ordered source path to the canonical step, retained control context and pinned native execution query. This exact removal of the legacy carrier is covered by artifacts/rebuild/pr8/area-and-facts/plan-effect-closure.json.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "6827db90a26a5182fbb6d4fef3fe02ad3c67f1af2ebdb4777600a7f6f999e039",
+      "file": "facts.json.gz",
+      "path": "/plans/4/before/handlerEdges",
+      "reason": "Every frozen effect in this plan side resolves through its original ordered source path to the canonical step, retained control context and pinned native execution query. This exact removal of the legacy carrier is covered by artifacts/rebuild/pr8/area-and-facts/plan-effect-closure.json.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "ef7c509c10427826f03ba41fc86c9ebd50a099f6cf9c95017eb2778ad109fbdd",
+      "file": "facts.json.gz",
+      "path": "/plans/4/after/handlerEdges",
+      "reason": "Every frozen effect in this plan side resolves through its original ordered source path to the canonical step, retained control context and pinned native execution query. This exact removal of the legacy carrier is covered by artifacts/rebuild/pr8/area-and-facts/plan-effect-closure.json.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "9fabce4220ecb88cd5f194c07d76282dd9a4b97bf95e12adb1000dd1fc0b02b0",
+      "file": "facts.json.gz",
+      "path": "/plans/5/before/handlerEdges",
+      "reason": "Every frozen effect in this plan side resolves through its original ordered source path to the canonical step, retained control context and pinned native execution query. This exact removal of the legacy carrier is covered by artifacts/rebuild/pr8/area-and-facts/plan-effect-closure.json.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "9fabce4220ecb88cd5f194c07d76282dd9a4b97bf95e12adb1000dd1fc0b02b0",
+      "file": "facts.json.gz",
+      "path": "/plans/5/after/handlerEdges",
+      "reason": "Every frozen effect in this plan side resolves through its original ordered source path to the canonical step, retained control context and pinned native execution query. This exact removal of the legacy carrier is covered by artifacts/rebuild/pr8/area-and-facts/plan-effect-closure.json.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "9fabce4220ecb88cd5f194c07d76282dd9a4b97bf95e12adb1000dd1fc0b02b0",
+      "file": "facts.json.gz",
+      "path": "/plans/6/before/handlerEdges",
+      "reason": "Every frozen effect in this plan side resolves through its original ordered source path to the canonical step, retained control context and pinned native execution query. This exact removal of the legacy carrier is covered by artifacts/rebuild/pr8/area-and-facts/plan-effect-closure.json.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "9fabce4220ecb88cd5f194c07d76282dd9a4b97bf95e12adb1000dd1fc0b02b0",
+      "file": "facts.json.gz",
+      "path": "/plans/6/after/handlerEdges",
+      "reason": "Every frozen effect in this plan side resolves through its original ordered source path to the canonical step, retained control context and pinned native execution query. This exact removal of the legacy carrier is covered by artifacts/rebuild/pr8/area-and-facts/plan-effect-closure.json.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "6fb3b670b63282fbd407d7287c111aa458f1bb93768423ef458687dd9f392285",
+      "file": "facts.json.gz",
+      "path": "/plans/7/before/handlerEdges",
+      "reason": "Every frozen effect in this plan side resolves through its original ordered source path to the canonical step, retained control context and pinned native execution query. This exact removal of the legacy carrier is covered by artifacts/rebuild/pr8/area-and-facts/plan-effect-closure.json.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "6fb3b670b63282fbd407d7287c111aa458f1bb93768423ef458687dd9f392285",
+      "file": "facts.json.gz",
+      "path": "/plans/7/after/handlerEdges",
+      "reason": "Every frozen effect in this plan side resolves through its original ordered source path to the canonical step, retained control context and pinned native execution query. This exact removal of the legacy carrier is covered by artifacts/rebuild/pr8/area-and-facts/plan-effect-closure.json.",
+      "workspace": "volvo-cars"
+    }
+  ],
+  "format": 1
+}

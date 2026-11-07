@@ -2,23 +2,23 @@
 
 import { useId } from 'react';
 
-import type { Model } from '@/application/plan/derive';
 import { ledgerOf } from '@/application/plan/revision-ledger';
+import type { ModelPlan } from '@/domain/workspace-model';
 
 import styles from './version-jump.module.css';
 
 interface VersionJumpProps {
-  readonly model: Model;
+  readonly plan: Pick<ModelPlan, 'meta'>;
   /** The version shown, null for the one being read. */
   readonly value: string | null;
   readonly onChange: (version: string | null) => void;
 }
 
 // Opens the thing as it stood at another revision of the plan. Only versions with a snapshot kept can be had.
-export function VersionJump({ model, value, onChange }: VersionJumpProps) {
+export function VersionJump({ plan, value, onChange }: VersionJumpProps) {
   const id = useId();
-  const own = model.plan.meta.version;
-  const others = ledgerOf(model.plan).filter((r) => r.version !== own);
+  const own = plan.meta.version;
+  const others = ledgerOf(plan).filter((r) => r.version !== own);
   if (others.length === 0) return null;
   return (
     <div className={styles.jump} data-on={value === null ? undefined : ''}>

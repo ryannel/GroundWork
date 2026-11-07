@@ -1,0 +1,2276 @@
+{
+  "format": 1,
+  "original": {
+    "file": "artifacts/rebuild/pr8/original-candidates.json",
+    "sha256": "8bb91071c6ae2e9168573f6d20d496cc8551e3e3ee626c3b06d64371d69f17c2",
+    "rows": 1697
+  },
+  "dispositions": [
+    {
+      "file": "src/features/plan/plan-pages.tsx",
+      "sourceSha256": null,
+      "role": "consumer",
+      "status": "deleted",
+      "reason": "The obsolete render wrapper is absent after its native replacement passed the recorded actual HTTP and focused proof. Its prior whole-source hash is retained in the obsolete-wrapper receipt.",
+      "evidence": [
+        {
+          "file": "src/features/plan/model-plan-page.tsx",
+          "line": 62,
+          "text": "export interface ModelPlanPageProps {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/replaced-legacy-views.log",
+          "sha256": "5bde3557dda9a3d4b9ff470567881cbefd240d59680cd39ae84d8828eb6869ac"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/obsolete-render-wrappers.json",
+          "sha256": "ec337d22e7f3efdf1e27d64155f4ab875a0213e32db6751ccd6a69af2684ebd9"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ]
+    },
+    {
+      "file": "src/features/plan/plan-shell.tsx",
+      "sourceSha256": null,
+      "role": "consumer",
+      "status": "deleted",
+      "reason": "The obsolete render wrapper is absent after its native replacement passed the recorded actual HTTP and focused proof. Its prior whole-source hash is retained in the obsolete-wrapper receipt.",
+      "evidence": [
+        {
+          "file": "src/features/plan/plan-frame.tsx",
+          "line": 28,
+          "text": "export function PlanFrame({"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/replaced-legacy-views.log",
+          "sha256": "5bde3557dda9a3d4b9ff470567881cbefd240d59680cd39ae84d8828eb6869ac"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/obsolete-render-wrappers.json",
+          "sha256": "ec337d22e7f3efdf1e27d64155f4ab875a0213e32db6751ccd6a69af2684ebd9"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ]
+    },
+    {
+      "file": "src/features/plan/remember/remember.tsx",
+      "sourceSha256": null,
+      "role": "consumer",
+      "status": "deleted",
+      "reason": "The obsolete render wrapper is absent after its native replacement passed the recorded actual HTTP and focused proof. Its prior whole-source hash is retained in the obsolete-wrapper receipt.",
+      "evidence": [
+        {
+          "file": "src/features/plan/model-plan-page.tsx",
+          "line": 62,
+          "text": "export interface ModelPlanPageProps {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/replaced-legacy-views.log",
+          "sha256": "5bde3557dda9a3d4b9ff470567881cbefd240d59680cd39ae84d8828eb6869ac"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/obsolete-render-wrappers.json",
+          "sha256": "ec337d22e7f3efdf1e27d64155f4ab875a0213e32db6751ccd6a69af2684ebd9"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ]
+    },
+    {
+      "file": "src/features/plan/thing-page/thing-page.tsx",
+      "sourceSha256": null,
+      "role": "consumer",
+      "status": "deleted",
+      "reason": "The obsolete render wrapper is absent after its native replacement passed the recorded actual HTTP and focused proof. Its prior whole-source hash is retained in the obsolete-wrapper receipt.",
+      "evidence": [
+        {
+          "file": "src/features/plan/model-plan-page.tsx",
+          "line": 62,
+          "text": "export interface ModelPlanPageProps {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/replaced-legacy-views.log",
+          "sha256": "5bde3557dda9a3d4b9ff470567881cbefd240d59680cd39ae84d8828eb6869ac"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/obsolete-render-wrappers.json",
+          "sha256": "ec337d22e7f3efdf1e27d64155f4ab875a0213e32db6751ccd6a69af2684ebd9"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ]
+    },
+    {
+      "file": "src/features/plan/today/journey-walk.tsx",
+      "sourceSha256": null,
+      "role": "consumer",
+      "status": "deleted",
+      "reason": "The obsolete render wrapper is absent after its native replacement passed the recorded actual HTTP and focused proof. Its prior whole-source hash is retained in the obsolete-wrapper receipt.",
+      "evidence": [
+        {
+          "file": "src/features/plan/today/model-journey.tsx",
+          "line": 11,
+          "text": "export function ModelJourney({"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/replaced-legacy-views.log",
+          "sha256": "5bde3557dda9a3d4b9ff470567881cbefd240d59680cd39ae84d8828eb6869ac"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/obsolete-render-wrappers.json",
+          "sha256": "ec337d22e7f3efdf1e27d64155f4ab875a0213e32db6751ccd6a69af2684ebd9"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ]
+    },
+    {
+      "file": "src/features/plan/today/today-map.tsx",
+      "sourceSha256": null,
+      "role": "consumer",
+      "status": "deleted",
+      "reason": "The obsolete render wrapper is absent after its native replacement passed the recorded actual HTTP and focused proof. Its prior whole-source hash is retained in the obsolete-wrapper receipt.",
+      "evidence": [
+        {
+          "file": "src/features/plan/viz/system-map/system-map.client.tsx",
+          "line": 80,
+          "text": "export function SystemMapView({ input, packed, outside }: SystemMapViewProps) {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/replaced-legacy-views.log",
+          "sha256": "5bde3557dda9a3d4b9ff470567881cbefd240d59680cd39ae84d8828eb6869ac"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/obsolete-render-wrappers.json",
+          "sha256": "ec337d22e7f3efdf1e27d64155f4ab875a0213e32db6751ccd6a69af2684ebd9"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ]
+    },
+    {
+      "file": "src/features/plan/today/handler-story.tsx",
+      "sourceSha256": null,
+      "role": "consumer",
+      "status": "deleted",
+      "reason": "The obsolete render wrapper is absent after its native replacement passed the recorded actual HTTP and focused proof. Its prior whole-source hash is retained in the obsolete-wrapper receipt.",
+      "evidence": [
+        {
+          "file": "src/features/plan/today/model-today-thing.tsx",
+          "line": 20,
+          "text": "export function ModelTodayThing({"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/replaced-legacy-views.log",
+          "sha256": "5bde3557dda9a3d4b9ff470567881cbefd240d59680cd39ae84d8828eb6869ac"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/obsolete-render-wrappers.json",
+          "sha256": "ec337d22e7f3efdf1e27d64155f4ab875a0213e32db6751ccd6a69af2684ebd9"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ]
+    },
+    {
+      "file": "src/features/plan/today/store-contents.tsx",
+      "sourceSha256": null,
+      "role": "consumer",
+      "status": "deleted",
+      "reason": "The obsolete render wrapper is absent after its native replacement passed the recorded actual HTTP and focused proof. Its prior whole-source hash is retained in the obsolete-wrapper receipt.",
+      "evidence": [
+        {
+          "file": "src/features/plan/today/model-today-thing.tsx",
+          "line": 20,
+          "text": "export function ModelTodayThing({"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/replaced-legacy-views.log",
+          "sha256": "5bde3557dda9a3d4b9ff470567881cbefd240d59680cd39ae84d8828eb6869ac"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/obsolete-render-wrappers.json",
+          "sha256": "ec337d22e7f3efdf1e27d64155f4ab875a0213e32db6751ccd6a69af2684ebd9"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ]
+    },
+    {
+      "file": "src/features/plan/today/thing-inside.tsx",
+      "sourceSha256": null,
+      "role": "consumer",
+      "status": "deleted",
+      "reason": "The obsolete render wrapper is absent after its native replacement passed the recorded actual HTTP and focused proof. Its prior whole-source hash is retained in the obsolete-wrapper receipt.",
+      "evidence": [
+        {
+          "file": "src/features/plan/today/model-today-thing.tsx",
+          "line": 20,
+          "text": "export function ModelTodayThing({"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/replaced-legacy-views.log",
+          "sha256": "5bde3557dda9a3d4b9ff470567881cbefd240d59680cd39ae84d8828eb6869ac"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/obsolete-render-wrappers.json",
+          "sha256": "ec337d22e7f3efdf1e27d64155f4ab875a0213e32db6751ccd6a69af2684ebd9"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ]
+    },
+    {
+      "file": "src/features/plan/today/today-evidence.tsx",
+      "sourceSha256": null,
+      "role": "consumer",
+      "status": "deleted",
+      "reason": "The obsolete render wrapper is absent after its native replacement passed the recorded actual HTTP and focused proof. Its prior whole-source hash is retained in the obsolete-wrapper receipt.",
+      "evidence": [
+        {
+          "file": "src/features/plan/today/model-today-thing.tsx",
+          "line": 20,
+          "text": "export function ModelTodayThing({"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/replaced-legacy-views.log",
+          "sha256": "5bde3557dda9a3d4b9ff470567881cbefd240d59680cd39ae84d8828eb6869ac"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/obsolete-render-wrappers.json",
+          "sha256": "ec337d22e7f3efdf1e27d64155f4ab875a0213e32db6751ccd6a69af2684ebd9"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ]
+    },
+    {
+      "file": "src/features/plan/today/today-wayfinding.tsx",
+      "sourceSha256": null,
+      "role": "consumer",
+      "status": "deleted",
+      "reason": "The obsolete render wrapper is absent after its native replacement passed the recorded actual HTTP and focused proof. Its prior whole-source hash is retained in the obsolete-wrapper receipt.",
+      "evidence": [
+        {
+          "file": "src/features/plan/today/model-today-thing.tsx",
+          "line": 20,
+          "text": "export function ModelTodayThing({"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/replaced-legacy-views.log",
+          "sha256": "5bde3557dda9a3d4b9ff470567881cbefd240d59680cd39ae84d8828eb6869ac"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/obsolete-render-wrappers.json",
+          "sha256": "ec337d22e7f3efdf1e27d64155f4ab875a0213e32db6751ccd6a69af2684ebd9"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ]
+    },
+    {
+      "file": "src/app/[workspace]/[domain]/(overview)/map/page.tsx",
+      "sourceSha256": "b47c4a0213ab1d86a0eaaf3928506ce6319ff51a2524add11fc2f597329c9506",
+      "role": "consumer",
+      "reason": "The native route uses the canonical selected scope and the lossless packed system-map drawing input.",
+      "evidence": [
+        {
+          "file": "src/app/[workspace]/[domain]/(overview)/map/page.tsx",
+          "line": 5,
+          "text": "import { modelSystemMapWire } from '@/application/model-system-map-input';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/map-budget/actual-transport.log",
+          "sha256": "9e2fc758333a030adc3de81a80d6e2bd4db66322b7d091005c67ab5769d8150d"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/map-budget/focused-tests.log",
+          "sha256": "608f27548ee02af1c715397e8bb9d465bb7dde8012ce689c72325fbfa85823a4"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/app/[workspace]/[domain]/[system]/layout.tsx",
+      "sourceSha256": "ec9e446d1d02b56b8d363f594417e8c073cc5638f8015b981d296b35fb059696",
+      "role": "consumer",
+      "reason": "The native system retains all catalogue heads, exact notes/counts and real inspector paths while narrative detail renders on request from complete plain records. Shared preview defaults remain unchanged.",
+      "evidence": [
+        {
+          "file": "src/app/[workspace]/[domain]/[system]/layout.tsx",
+          "line": 88,
+          "text": "export default async function SystemLayout({"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/system-residual-budget.json",
+          "sha256": "7307c4602a5b04ceb4a2ff03d44d532db01e80d703284fa45be0b76a73fb553d"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/system-residual-budget.md",
+          "sha256": "6355dcb46ff96a6fe5170616e3e2ddb204dafde6ec9fe5b125e0d0e511c79e44"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/system-residual-cross-review.json",
+          "sha256": "38b03da037424be0d84bd2c0b9360682e684ba347dd2a8d6ced75c76bfde9efe"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/app/[workspace]/programmes/[programme]/page.tsx",
+      "sourceSha256": "d2fcb4b85feeef4e4a3c7ef42ed7fe54adff6f53b4581d45fcf7085d19aee76d",
+      "role": "consumer",
+      "reason": "The native page retains all records through exact detail or selected-plan links while bounding the initial graph, team and programme content.",
+      "evidence": [
+        {
+          "file": "src/app/[workspace]/programmes/[programme]/page.tsx",
+          "line": 18,
+          "text": "export async function generateMetadata({"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/non-map-pages/focused-tests.log",
+          "sha256": "b8b0846b238f00b5cf4f518b586833ff8801da740d316af97163850c847990aa"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/non-map-pages/handoff.md",
+          "sha256": "f368335f9c2a94bfbf73f51052b32a8a6bde27a378bf40ebb3f4fdf04b17e7ab"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/entry-flow-page.ts",
+      "sourceSha256": "e13813e2bb558e4d9a9cd34356d43010408957efd1849fb0e4a5f6a87867ab06",
+      "role": "consumer",
+      "reason": "The native system overview keeps complete canonical records and exact counted gaps, with bounded lists and canonical scope links; the receipt pins these exact sources and focused proofs.",
+      "evidence": [
+        {
+          "file": "src/application/entry-flow-page.ts",
+          "line": 143,
+          "text": "export function entryFlowPlanId(query: SearchParams): string | null {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/system-overview-budget.json",
+          "sha256": "95a4109392837678ab6d53e44f1215f89b101d611ef2f3794e28b12fab8bce49"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/system-overview-budget.md",
+          "sha256": "9fbcf02f8535f3c48e555e35998e4805de88163a6ea10c6c72a5f7d5a03ddf0f"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/model-entity-card.ts",
+      "sourceSha256": "b1796398db22f7209111436a00275451c4dfbf5ec5214a4ed9a4356e87d6dd16",
+      "role": "consumer",
+      "reason": "Reads native inspector records to build the bounded hover card.",
+      "evidence": [
+        {
+          "file": "src/application/model-entity-card.ts",
+          "line": 10,
+          "text": "export function modelEntityCard(context: ModelQueryContext, id: string): EntityCard | null {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/inspection-focused-tests.log",
+          "sha256": "82628c24ea90e0bc41f5b1ad3f86ed7ef2da2723bc936002ffbfe355137fa905"
+        },
+        {
+          "file": "src/application/model-entity-card.test.ts",
+          "sha256": "a8ee31547f06f0677a1efb85721eaf58c7c6586487037b4508652f8fce9d57c3"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/model-flow.ts",
+      "sourceSha256": "fb07a35e5894bd58c4c425ca98dce5833d628a8ba41c946cfcaed4da5d144b8a",
+      "role": "consumer",
+      "reason": "The current native projection and citation lookup remain in use. The cleanup removes unused exposed helpers without changing the runtime record inputs.",
+      "evidence": [
+        {
+          "file": "src/application/model-flow.ts",
+          "line": 107,
+          "text": "export function modelFlowMermaidOf(flow: ModelFlowView): string {"
+        },
+        {
+          "file": "src/application/model-flow.ts",
+          "line": 92,
+          "text": "export function modelFlowOf(index: ModelIndex, id: string): ModelFlowView | null {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/inspection-focused-tests.log",
+          "sha256": "82628c24ea90e0bc41f5b1ad3f86ed7ef2da2723bc936002ffbfe355137fa905"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/model-inspection.ts",
+      "sourceSha256": "348c9bcaf03ec00af15b531c1a572b580bbc654b8904ebc3dedaf8feacccc104",
+      "role": "consumer",
+      "reason": "The current native projection and citation lookup remain in use. The cleanup removes unused exposed helpers without changing the runtime record inputs.",
+      "evidence": [
+        {
+          "file": "src/application/model-inspection.ts",
+          "line": 480,
+          "text": "export function modelInspectionOf("
+        },
+        {
+          "file": "src/application/model-inspection.ts",
+          "line": 78,
+          "text": "export function modelInspectionRecords("
+        },
+        {
+          "file": "src/application/model-inspection.ts",
+          "line": 151,
+          "text": "export function modelInspectionRef("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/inspection-focused-tests.log",
+          "sha256": "82628c24ea90e0bc41f5b1ad3f86ed7ef2da2723bc936002ffbfe355137fa905"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/model-reference.ts",
+      "sourceSha256": "0f6745b028f791e5e586a84596aca28a597f5bbf941b8f2326d7ad3902c45399",
+      "role": "consumer",
+      "reason": "The native system overview keeps complete canonical records and exact counted gaps, with bounded lists and canonical scope links; the receipt pins these exact sources and focused proofs.",
+      "evidence": [
+        {
+          "file": "src/application/model-reference.ts",
+          "line": 77,
+          "text": "export function modelReferenceOf(index: ModelIndex): readonly ModelReferenceEntry[] {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/system-overview-budget.json",
+          "sha256": "95a4109392837678ab6d53e44f1215f89b101d611ef2f3794e28b12fab8bce49"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/system-overview-budget.md",
+          "sha256": "9fbcf02f8535f3c48e555e35998e4805de88163a6ea10c6c72a5f7d5a03ddf0f"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/model-system-map-input.ts",
+      "sourceSha256": "1afbe551d9b4311930711b6dd6cb12e1d7bec4f2bbd5684360a045155a2c30da",
+      "role": "consumer",
+      "reason": "The selected native map is packed for transport. Exact current records, order and both drawings match for all six measured Volvo scopes.",
+      "evidence": [
+        {
+          "file": "src/application/model-system-map-input.ts",
+          "line": 197,
+          "text": "export function modelSystemMapWire("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/map-budget/actual-transport.log",
+          "sha256": "9e2fc758333a030adc3de81a80d6e2bd4db66322b7d091005c67ab5769d8150d"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/map-budget/focused-tests.log",
+          "sha256": "608f27548ee02af1c715397e8bb9d465bb7dde8012ce689c72325fbfa85823a4"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/model-system.ts",
+      "sourceSha256": "1d6eb41126f7f9887e8ff3aae2b066ad2b6c0683a495d00297de2b3ebdde68c8",
+      "role": "consumer",
+      "reason": "The native system overview keeps complete canonical records and exact counted gaps, with bounded lists and canonical scope links; the receipt pins these exact sources and focused proofs.",
+      "evidence": [
+        {
+          "file": "src/application/model-system.ts",
+          "line": 57,
+          "text": "export function modelSystemAt("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/system-overview-budget.json",
+          "sha256": "95a4109392837678ab6d53e44f1215f89b101d611ef2f3794e28b12fab8bce49"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/system-overview-budget.md",
+          "sha256": "9fbcf02f8535f3c48e555e35998e4805de88163a6ea10c6c72a5f7d5a03ddf0f"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/plan-index.ts",
+      "sourceSha256": "df1deb72d907acb6827ad4f51f7aa9d70ae0f6307cd45ec1b4884bffa089696b",
+      "role": "retirement",
+      "reason": "Retains the remaining old reader, fixture or presentation bindings. Independently shared metadata or UI helpers were moved to their native callers before wrapper removal.",
+      "evidence": [
+        {
+          "file": "src/application/plan-index.ts",
+          "line": 17,
+          "text": "export interface PlanRowInput extends PlanInput {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/replaced-legacy-views.log",
+          "sha256": "5bde3557dda9a3d4b9ff470567881cbefd240d59680cd39ae84d8828eb6869ac"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-active-roots.md",
+          "sha256": "91114ee104569ea33aa3bf1c81a64d303ed91339b755b6e52fcd5881c8c700ad"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/application/plan-pages-things.ts",
+      "sourceSha256": "f169308e68ce964fd08813c98cb81933d218a8220a7010ec2d75212a74d1a921",
+      "role": "retirement",
+      "reason": "Retains the remaining old reader, fixture or presentation bindings. Independently shared metadata or UI helpers were moved to their native callers before wrapper removal.",
+      "evidence": [
+        {
+          "file": "src/application/plan-pages-things.ts",
+          "line": 44,
+          "text": "export const topThingIds = (model: Model): string[] =>"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/replaced-legacy-views.log",
+          "sha256": "5bde3557dda9a3d4b9ff470567881cbefd240d59680cd39ae84d8828eb6869ac"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-active-roots.md",
+          "sha256": "91114ee104569ea33aa3bf1c81a64d303ed91339b755b6e52fcd5881c8c700ad"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/application/plan-pages.ts",
+      "sourceSha256": "38f9600e847f94b4e4f7d910bd656d0308180f1894cd4ce1edb1badedc00a479",
+      "role": "retirement",
+      "reason": "Retains the remaining old reader, fixture or presentation bindings. Independently shared metadata or UI helpers were moved to their native callers before wrapper removal.",
+      "evidence": [
+        {
+          "file": "src/application/plan-pages.ts",
+          "line": 7,
+          "text": "export type {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/replaced-legacy-views.log",
+          "sha256": "5bde3557dda9a3d4b9ff470567881cbefd240d59680cd39ae84d8828eb6869ac"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-active-roots.md",
+          "sha256": "91114ee104569ea33aa3bf1c81a64d303ed91339b755b6e52fcd5881c8c700ad"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/application/plan-story-recap.ts",
+      "sourceSha256": "bdb86547de498a2ea7ad6d0507b11e857a43fa1aa92160bfb65d776c0c70f31a",
+      "role": "retirement",
+      "reason": "Retains the remaining old reader, fixture or presentation bindings. Independently shared metadata or UI helpers were moved to their native callers before wrapper removal.",
+      "evidence": [
+        {
+          "file": "src/application/plan-story-recap.ts",
+          "line": 2,
+          "text": "export function isFragment(text: string): boolean {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/replaced-legacy-views.log",
+          "sha256": "5bde3557dda9a3d4b9ff470567881cbefd240d59680cd39ae84d8828eb6869ac"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-active-roots.md",
+          "sha256": "91114ee104569ea33aa3bf1c81a64d303ed91339b755b6e52fcd5881c8c700ad"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/application/plan-viz-system-map-types.ts",
+      "sourceSha256": "f0da1ca17b2477994d38ebc9278cb1e69980baa02d323666313cdfb3c94d823e",
+      "role": "support",
+      "reason": "Defines the bounded drawing input used by the exact native map transport proof.",
+      "evidence": [
+        {
+          "file": "src/application/plan-viz-system-map-types.ts",
+          "line": 111,
+          "text": "export const SHOW_ALL: MapShow = { parts: true, ifs: true, topics: true, stores: true };"
+        },
+        {
+          "file": "src/application/plan-viz-system-map-types.ts",
+          "line": 112,
+          "text": "export const SHOW_OVERVIEW: MapShow = { parts: false, ifs: false, topics: false, stores: false };"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/map-budget/actual-transport.log",
+          "sha256": "9e2fc758333a030adc3de81a80d6e2bd4db66322b7d091005c67ab5769d8150d"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/map-budget/focused-tests.log",
+          "sha256": "608f27548ee02af1c715397e8bb9d465bb7dde8012ce689c72325fbfa85823a4"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ]
+    },
+    {
+      "file": "src/application/workspace-library.ts",
+      "sourceSha256": "af429e3df83c2c989a9d0dbf8b0f6e8a0810ff7563648de0255db3e42bbc91a4",
+      "role": "retirement",
+      "reason": "Retains the remaining old reader, fixture or presentation bindings. Independently shared metadata or UI helpers were moved to their native callers before wrapper removal.",
+      "evidence": [
+        {
+          "file": "src/application/workspace-library.ts",
+          "line": 9,
+          "text": "export type { Library, WorkspaceCard, WorkspaceLink } from './workspace-card';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/replaced-legacy-views.log",
+          "sha256": "5bde3557dda9a3d4b9ff470567881cbefd240d59680cd39ae84d8828eb6869ac"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-active-roots.md",
+          "sha256": "91114ee104569ea33aa3bf1c81a64d303ed91339b755b6e52fcd5881c8c700ad"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/features/plan/inspector/entity-details.tsx",
+      "sourceSha256": "a048641ac8a915c8b30f310db066cadbb8dfb6c62c0117a16787959ef286ef46",
+      "role": "support",
+      "reason": "The bounded EntityDetailsContent renderer accepts the native text callback. The old wrapper remains outside the active native path.",
+      "evidence": [
+        {
+          "file": "src/features/plan/inspector/entity-details.tsx",
+          "line": 72,
+          "text": "export function EntityDetailsContent({"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/inspection-focused-tests.log",
+          "sha256": "82628c24ea90e0bc41f5b1ad3f86ed7ef2da2723bc936002ffbfe355137fa905"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ]
+    },
+    {
+      "file": "src/features/plan/inspector/hover-card.client.tsx",
+      "sourceSha256": "4099da16ac7aaa0cc01c2e95ce46a81e94052282ccb36b87ad3fba0b23ccfaf1",
+      "role": "consumer",
+      "reason": "Loads native browser facts for the requested hover card.",
+      "evidence": [
+        {
+          "file": "src/features/plan/inspector/hover-card.client.tsx",
+          "line": 95,
+          "text": "export function HoverCard({"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/inspection-focused-tests.log",
+          "sha256": "82628c24ea90e0bc41f5b1ad3f86ed7ef2da2723bc936002ffbfe355137fa905"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/features/plan/inspector/native-progress.tsx",
+      "sourceSha256": "d1a69507bad6d74a731727ee7ef0479707c9090bed0fa4af1f8c75e449d4ba51",
+      "role": "support",
+      "reason": "Renders independent actual progress records in the selected native inspector scope.",
+      "evidence": [
+        {
+          "file": "src/features/plan/inspector/native-progress.tsx",
+          "line": 30,
+          "text": "export function NativeProgress({"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-cli-focused-tests.log",
+          "sha256": "eca4b1f9b1032543b69bba0383b683ba58f2c25e3e0fdc489ba280cae4a9700d"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/non-map-pages/focused-tests.log",
+          "sha256": "b8b0846b238f00b5cf4f518b586833ff8801da740d316af97163850c847990aa"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ]
+    },
+    {
+      "file": "src/features/plan/model-plan-assets.tsx",
+      "sourceSha256": "9506ec9bc669453199f7ac0200c901b163f2ad4fe49a0a3006aa0255398a99e4",
+      "role": "support",
+      "reason": "Renders the supplied authored assets, source links and explicit origin gaps.",
+      "evidence": [
+        {
+          "file": "src/features/plan/model-plan-assets.tsx",
+          "line": 10,
+          "text": "export function ModelPlanAssets({ assets }: { readonly assets: readonly ModelAsset[] }) {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/features/plan/model-plan-assets.test.tsx",
+          "sha256": "e0d89b346c7e6759f85e7ed0543b866a5c6fbe8827cfac14c2aef4acc8ab4457"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-plan-handoff.md",
+          "sha256": "095bca2c0c566ecb421884f5d0e00b05ee1b236c06c80dada8ded131a27b321f"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ]
+    },
+    {
+      "file": "src/features/plan/model-plan-page.tsx",
+      "sourceSha256": "243c3f9c494e92bc4bc44ca09c43e34080f045a8f16951af586f56fbd81f4905",
+      "role": "consumer",
+      "reason": "The native plan cover reads the selected basis and independent check history; previous-format dates require recheck, and ancestor titles retain real folder links and proposed status.",
+      "evidence": [
+        {
+          "file": "src/features/plan/model-plan-page.tsx",
+          "line": 592,
+          "text": "export function ModelPlanPage(props: ModelPlanPageProps) {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/cover-basis-proof.json",
+          "sha256": "999c1069fd1799fce76cb703e47973e1fcc8dd427917d93e16378dc2031efdb0"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/plan-offline-audit.json",
+          "sha256": "cddadeb19a9169360b78fa4515daf88459c1f3be9a539258bbb9428b4936babc"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/features/plan/model-plan-progress.tsx",
+      "sourceSha256": "da13166ca04421373e9783202b0e490ea0c38dca40f28de52584d3c3b00f11de",
+      "role": "consumer",
+      "reason": "The native page retains all records through exact detail or selected-plan links while bounding the initial graph, team and programme content.",
+      "evidence": [
+        {
+          "file": "src/features/plan/model-plan-progress.tsx",
+          "line": 260,
+          "text": "export function ModelPlanPart({"
+        },
+        {
+          "file": "src/features/plan/model-plan-progress.tsx",
+          "line": 56,
+          "text": "export function ModelPlanProgressFeed({"
+        },
+        {
+          "file": "src/features/plan/model-plan-progress.tsx",
+          "line": 175,
+          "text": "export function ModelPlanWork({"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/non-map-pages/focused-tests.log",
+          "sha256": "b8b0846b238f00b5cf4f518b586833ff8801da740d316af97163850c847990aa"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/non-map-pages/handoff.md",
+          "sha256": "f368335f9c2a94bfbf73f51052b32a8a6bde27a378bf40ebb3f4fdf04b17e7ab"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/features/plan/model-workspace-work.tsx",
+      "sourceSha256": "85fe34c33a0b1f32e1c42df3114332f705e24a1a3cbd9d652f3c8ee3e71352d0",
+      "role": "consumer",
+      "reason": "The native page retains all records through exact detail or selected-plan links while bounding the initial graph, team and programme content.",
+      "evidence": [
+        {
+          "file": "src/features/plan/model-workspace-work.tsx",
+          "line": 104,
+          "text": "export function ModelPartnerPageView({"
+        },
+        {
+          "file": "src/features/plan/model-workspace-work.tsx",
+          "line": 129,
+          "text": "export function ModelProgrammePageView({"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/non-map-pages/focused-tests.log",
+          "sha256": "b8b0846b238f00b5cf4f518b586833ff8801da740d316af97163850c847990aa"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/non-map-pages/handoff.md",
+          "sha256": "f368335f9c2a94bfbf73f51052b32a8a6bde27a378bf40ebb3f4fdf04b17e7ab"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/features/plan/screen-bodies.tsx",
+      "sourceSha256": "4ed2a90cbb2e169efea64b40dbbb23ec5d5c69aabf37b51e8bd99798e70afbd0",
+      "role": "retirement",
+      "reason": "Retains the remaining old reader, fixture or presentation bindings. Independently shared metadata or UI helpers were moved to their native callers before wrapper removal.",
+      "evidence": [
+        {
+          "file": "src/features/plan/screen-bodies.tsx",
+          "line": 8,
+          "text": "export interface BodyProps {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/replaced-legacy-views.log",
+          "sha256": "5bde3557dda9a3d4b9ff470567881cbefd240d59680cd39ae84d8828eb6869ac"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-active-roots.md",
+          "sha256": "91114ee104569ea33aa3bf1c81a64d303ed91339b755b6e52fcd5881c8c700ad"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/features/plan/today/model-journey.tsx",
+      "sourceSha256": "e23588767f325acaee891a5b5efb991bcb43151340aa188d63870956d915ed7f",
+      "role": "consumer",
+      "reason": "Walks the selected canonical authored journey and its actual flow links.",
+      "evidence": [
+        {
+          "file": "src/features/plan/today/model-journey.tsx",
+          "line": 11,
+          "text": "export function ModelJourney({"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/application/model-journeys.test.ts",
+          "sha256": "522e4521e9af2b7a0bb170c930153c4878fdf5fbd1c39b8aa9d29f91e780b6d8"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/replaced-legacy-views.log",
+          "sha256": "5bde3557dda9a3d4b9ff470567881cbefd240d59680cd39ae84d8828eb6869ac"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/features/plan/today/model-today-flow.tsx",
+      "sourceSha256": "ad7f442940aa753f44a47551307aa5656cbb46d55ef6197ec053d95362fd27ea",
+      "role": "consumer",
+      "reason": "Walks the selected canonical authored flow and retains its full step facts and citations.",
+      "evidence": [
+        {
+          "file": "src/features/plan/today/model-today-flow.tsx",
+          "line": 114,
+          "text": "export function ModelTodayFlow({"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/features/plan/today/model-today-flow.test.tsx",
+          "sha256": "6fdef8b07f3a2ea20c87b367a7712f115c691b9a8902ed57096499c563a0fa15"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-system-handoff.md",
+          "sha256": "828cc57add7a95c45e211ffc5b039f5f8727328318f00d16a38c2bd8f7301009"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/features/plan/today/reference-pages.tsx",
+      "sourceSha256": "5105872e555af2e4efea84ec4a51a4e93d27793722a3f7aa26df70adc158127b",
+      "role": "consumer",
+      "reason": "The native reference page renders canonical rows and exact grouped operation gaps.",
+      "evidence": [
+        {
+          "file": "src/features/plan/today/reference-pages.tsx",
+          "line": 86,
+          "text": "export function ModelTodayCatalogue({"
+        },
+        {
+          "file": "src/features/plan/today/reference-pages.tsx",
+          "line": 30,
+          "text": "export function ModelTodayReference({"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/listing-budget.json",
+          "sha256": "47c597ec0635d06fd471ee95cef73bbe1981e52699b7dadf08f397ee5ed378b3"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/features/plan/today/today-overlays.tsx",
+      "sourceSha256": "56a84a122edd4085922c6b3c0bf499c319c4fd7ee05f0937f168a56025de154e",
+      "role": "consumer",
+      "reason": "The native overlay receives canonical navigation and loads browser facts on demand.",
+      "evidence": [
+        {
+          "file": "src/features/plan/today/today-overlays.tsx",
+          "line": 53,
+          "text": "export function ModelTodayOverlays({"
+        },
+        {
+          "file": "src/features/plan/today/today-overlays.tsx",
+          "line": 68,
+          "text": "export function TodaySearch() {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inspection-focused-tests.log",
+          "sha256": "82628c24ea90e0bc41f5b1ad3f86ed7ef2da2723bc936002ffbfe355137fa905"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/features/plan/today/today-thing.tsx",
+      "sourceSha256": "40d62a7891aeab4a1beb264bdb5c5c3d5738f80f63f20cc0c5d142bfb3a3ecff",
+      "role": "support",
+      "reason": "Only the bounded TodayThingFrame remains after the obsolete current-record wrapper was replaced.",
+      "evidence": [
+        {
+          "file": "src/features/plan/today/today-thing.tsx",
+          "line": 6,
+          "text": "export function TodayThingFrame({"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/replaced-legacy-views.log",
+          "sha256": "5bde3557dda9a3d4b9ff470567881cbefd240d59680cd39ae84d8828eb6869ac"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/non-map-pages/focused-tests.log",
+          "sha256": "b8b0846b238f00b5cf4f518b586833ff8801da740d316af97163850c847990aa"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ]
+    },
+    {
+      "file": "src/features/plan/viz/system-map/system-map.client.tsx",
+      "sourceSha256": "72b19b0512156674b719a0e7fdaea21e0b4293d78ae15eb11ee40bf628bd0a31",
+      "role": "support",
+      "reason": "Unpacks the lossless native drawing input for the existing client map.",
+      "evidence": [
+        {
+          "file": "src/features/plan/viz/system-map/system-map.client.tsx",
+          "line": 80,
+          "text": "export function SystemMapView({ input, packed, outside }: SystemMapViewProps) {"
+        },
+        {
+          "file": "src/features/plan/viz/system-map/system-map.client.tsx",
+          "line": 6,
+          "text": "unpackModelSystemMap,"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/map-budget/actual-transport.log",
+          "sha256": "9e2fc758333a030adc3de81a80d6e2bd4db66322b7d091005c67ab5769d8150d"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/map-budget/focused-tests.log",
+          "sha256": "608f27548ee02af1c715397e8bb9d465bb7dde8012ce689c72325fbfa85823a4"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ]
+    },
+    {
+      "file": "src/infrastructure/model-plan-base.ts",
+      "sourceSha256": "755dabf4e7c03457af745a22c7c37d63c461a6479effbd2b7f56c9cbc8978501",
+      "role": "consumer",
+      "reason": "Reads and checks the native selected plan basis while preserving the original lock history.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/model-plan-base.ts",
+          "line": 77,
+          "text": "export async function readModelFrozenBases("
+        },
+        {
+          "file": "src/infrastructure/model-plan-base.ts",
+          "line": 61,
+          "text": "export async function readModelPlanBase("
+        },
+        {
+          "file": "src/infrastructure/model-plan-base.ts",
+          "line": 44,
+          "text": "export async function readModelPlanBaseMarkers("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/reader/additive-lifecycle.json",
+          "sha256": "616ce0e62ff59096275e33f9e346df006c24d4ced4f105e5e49ad58bf802fccd"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/projection-focused.log",
+          "sha256": "8f079127230b83b1686291a4979104e1e392d4cab5d0834215f019806bc7f138"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/infrastructure/model-plan-data.ts",
+      "sourceSha256": "471af6c957788f5c240d8d4759243edee350ce7ee99a2850332804f5acc4fde1",
+      "role": "consumer",
+      "reason": "The native plan cover reads the selected basis and independent check history; previous-format dates require recheck, and ancestor titles retain real folder links and proposed status.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/model-plan-data.ts",
+          "line": 34,
+          "text": "export async function modelPlanData("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/cover-basis-proof.json",
+          "sha256": "999c1069fd1799fce76cb703e47973e1fcc8dd427917d93e16378dc2031efdb0"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/plan-offline-audit.json",
+          "sha256": "cddadeb19a9169360b78fa4515daf88459c1f3be9a539258bbb9428b4936babc"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/infrastructure/model-plan-lock.ts",
+      "sourceSha256": "49fb25e52d8f662827a863267f5e479bfc656cd856e6940c497c8a59cc996756",
+      "role": "consumer",
+      "reason": "Reads and checks the native selected plan basis while preserving the original lock history.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/model-plan-lock.ts",
+          "line": 72,
+          "text": "export function modelPlanCheckOf("
+        },
+        {
+          "file": "src/infrastructure/model-plan-lock.ts",
+          "line": 28,
+          "text": "export function modelPlanLockOf("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/reader/additive-lifecycle.json",
+          "sha256": "616ce0e62ff59096275e33f9e346df006c24d4ced4f105e5e49ad58bf802fccd"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/projection-focused.log",
+          "sha256": "8f079127230b83b1686291a4979104e1e392d4cab5d0834215f019806bc7f138"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/infrastructure/model-standing.ts",
+      "sourceSha256": "fc4cc632b0237c20d36409ae8305e5781788b12a8cc565f1d038a2b887cc6788",
+      "role": "consumer",
+      "reason": "Reads canonical current facts and independently recorded work to compute plan standing.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/model-standing.ts",
+          "line": 22,
+          "text": "export async function readModelStanding("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-cli-focused-tests.log",
+          "sha256": "eca4b1f9b1032543b69bba0383b683ba58f2c25e3e0fdc489ba280cae4a9700d"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/infrastructure/model-workspace-work.ts",
+      "sourceSha256": "b103c39b90aafa1b19f55bee3835514065bc79bc5d3d3ce47c63dd3d5a1c69ae",
+      "role": "consumer",
+      "reason": "Reads authored plan metadata and independent progress for the native partner and programme views.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/model-workspace-work.ts",
+          "line": 11,
+          "text": "export async function readModelWorkspaceWork("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/application/model-workspace-work.test.ts",
+          "sha256": "252faecafa7f42358f89a06503c183b631cefdcfc10f1683e699e4cdc7c8d901"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/non-map-pages/focused-tests.log",
+          "sha256": "b8b0846b238f00b5cf4f518b586833ff8801da740d316af97163850c847990aa"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/infrastructure/plan-base-store.ts",
+      "sourceSha256": "115291e17ae40a17468bf0d180b3a1fbb780fc3a1119f0fa0d8c38880a3c2cf8",
+      "role": "retirement",
+      "reason": "Retains the remaining old reader, fixture or presentation bindings. Independently shared metadata or UI helpers were moved to their native callers before wrapper removal.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/plan-base-store.ts",
+          "line": 21,
+          "text": "export interface BaseReading {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/replaced-legacy-views.log",
+          "sha256": "5bde3557dda9a3d4b9ff470567881cbefd240d59680cd39ae84d8828eb6869ac"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-active-roots.md",
+          "sha256": "91114ee104569ea33aa3bf1c81a64d303ed91339b755b6e52fcd5881c8c700ad"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/infrastructure/plan-store.ts",
+      "sourceSha256": "02228ce0d4b917cc59aab772bcb185df396f2362d63d64c15d1bbd43c587ea0b",
+      "role": "retirement",
+      "reason": "Retains the remaining old reader, fixture or presentation bindings. Independently shared metadata or UI helpers were moved to their native callers before wrapper removal.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/plan-store.ts",
+          "line": 66,
+          "text": "export interface PlanRead extends PlanCheck {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/replaced-legacy-views.log",
+          "sha256": "5bde3557dda9a3d4b9ff470567881cbefd240d59680cd39ae84d8828eb6869ac"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-active-roots.md",
+          "sha256": "91114ee104569ea33aa3bf1c81a64d303ed91339b755b6e52fcd5881c8c700ad"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "tools/rebuild/consumer-inventory.ts",
+      "sourceSha256": "da2dbbf299e4a51a692b6a7def8ea7406ae5c9cea88ffc166412eceed04789a7",
+      "role": "support",
+      "reason": "Inventories current source, requested native bindings and proof metadata while preserving the complete frozen original denominator.",
+      "evidence": [
+        {
+          "file": "tools/rebuild/consumer-inventory.ts",
+          "line": 759,
+          "text": "export function candidateRows(value: unknown): readonly Candidate[] {"
+        },
+        {
+          "file": "tools/rebuild/consumer-inventory.ts",
+          "line": 677,
+          "text": "export function consumerInventory("
+        },
+        {
+          "file": "tools/rebuild/consumer-inventory.ts",
+          "line": 815,
+          "text": "export function inventoryReview(value: unknown): {"
+        },
+        {
+          "file": "tools/rebuild/consumer-inventory.ts",
+          "line": 43,
+          "text": "export async function readInventorySource(file: string): Promise<string | null> {"
+        },
+        {
+          "file": "tools/rebuild/consumer-inventory.ts",
+          "line": 56,
+          "text": "export const sourceHash = (text: string): string => createHash('sha256').update(text).digest('hex');"
+        },
+        {
+          "file": "tools/rebuild/consumer-inventory.ts",
+          "line": 51,
+          "text": "export function usesCanonicalModel(text: string): boolean {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "tools/rebuild/consumer-inventory.test.ts",
+          "sha256": "450bcd9903ef5ad26efbcd42d70d95618e6f2b24988c9c8c92de99dae6b5e570"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-tests.log",
+          "sha256": "165cbc0b9fbb63c949abcea5d710af38a44a29fe7c56a872c7ae4f300aed39dc"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ]
+    },
+    {
+      "file": "tools/rebuild/fact-lineage.ts",
+      "sourceSha256": "96a87774ae49ef0e00b2b986d50961262c83e82a908d7f59971940ccdb89052d",
+      "role": "support",
+      "reason": "Compares frozen snapshot facts and citations with the canonical index.",
+      "evidence": [
+        {
+          "file": "tools/rebuild/lineage.ts",
+          "line": 18,
+          "text": "const citations = citationLineage(frozen, index);"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/inventory-compressed-proof-receipt.json",
+          "sha256": "363ca1684f8194982a7f1eebb0cd6785aed21b76541128527dadb66a38ce1d79"
+        },
+        {
+          "file": "tools/rebuild/fact-lineage.test.ts",
+          "sha256": "90f7707379159fee1cc331cc2806e4d174dd31d4a6308e059cb799eff4299196"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ]
+    },
+    {
+      "file": "tools/rebuild/inventory.ts",
+      "sourceSha256": "e69cc0f5f7897a0e50d0a22b47ba706a75fad735c74cebddf5a23a9bd6baf0c6",
+      "role": "support",
+      "reason": "Inventories current source, requested native bindings and proof metadata while preserving the complete frozen original denominator.",
+      "evidence": [
+        {
+          "file": "tools/rebuild/inventory.ts",
+          "line": 2,
+          "text": "import { execFileSync } from 'node:child_process';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "tools/rebuild/consumer-inventory.test.ts",
+          "sha256": "450bcd9903ef5ad26efbcd42d70d95618e6f2b24988c9c8c92de99dae6b5e570"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-tests.log",
+          "sha256": "165cbc0b9fbb63c949abcea5d710af38a44a29fe7c56a872c7ae4f300aed39dc"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ]
+    },
+    {
+      "file": "tools/rebuild/lineage.ts",
+      "sourceSha256": "447634cb98fd01bb699cbdd8f6fde9b348c68fbd1fcff9e08abd91336119df43",
+      "role": "support",
+      "reason": "The offline lineage command reads the immutable baseline and the selected native index.",
+      "evidence": [
+        {
+          "file": "tools/rebuild/lineage.ts",
+          "line": 16,
+          "text": "const index = await readCanonicalModelIndex(workspace);"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/inventory-compressed-proof-receipt.json",
+          "sha256": "363ca1684f8194982a7f1eebb0cd6785aed21b76541128527dadb66a38ce1d79"
+        },
+        {
+          "file": "tools/rebuild/fact-lineage.test.ts",
+          "sha256": "90f7707379159fee1cc331cc2806e4d174dd31d4a6308e059cb799eff4299196"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ]
+    },
+    {
+      "file": "tools/rebuild/model-facts.ts",
+      "sourceSha256": "fa6ca407a4fccb4f0a0dcd71cb787b709ed18cda6e51bbce104f2173e9f222dc",
+      "role": "consumer",
+      "reason": "Captures canonical authored and derived facts with checked evidence shards and exact before and after plan records.",
+      "evidence": [
+        {
+          "file": "tools/rebuild/model-facts.ts",
+          "line": 226,
+          "text": "export function factChecksums(value: unknown): ReadonlyMap<string, string> {"
+        },
+        {
+          "file": "tools/rebuild/model-facts.ts",
+          "line": 162,
+          "text": "export async function writeModelFacts("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/inventory-compressed-proof-receipt.json",
+          "sha256": "363ca1684f8194982a7f1eebb0cd6785aed21b76541128527dadb66a38ce1d79"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/area-and-facts/volvo-plan-replay.json",
+          "sha256": "484b70f0aac83a7ed2d187c57ce55b321c6cf63226a7a9180d8c17a3f7287260"
+        },
+        {
+          "file": "tools/rebuild/model-facts.test.ts",
+          "sha256": "3fb1530e740b5090a4962259ff3f3452613008d8980a2fa9eff1938382a23af5"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "tools/rebuild/model-routes.ts",
+      "sourceSha256": "b9eb4904c56a865b9298559c929ecef0913f2aca2b52820af7ebab66daab9191",
+      "role": "consumer",
+      "reason": "Selects canonical current and actual plan and revision addresses for capture.",
+      "evidence": [
+        {
+          "file": "tools/rebuild/model-routes.ts",
+          "line": 79,
+          "text": "export function selectedModelRoutes("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "tools/rebuild/model-routes.test.ts",
+          "sha256": "921496af1370be7e7467ea96a44c5d954312005bde6547084847da9d79c62759"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-plan-routes-volvo.json",
+          "sha256": "b02f2ee25af902469d10d98a7f9b199111e0f050ea7144b80cf4f0699b7be560"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/model-gap-summary.ts",
+      "sourceSha256": "2afa75849147cd8619fef491a768453bcb398a36e578ecd346dbae2453916a3c",
+      "role": "support",
+      "reason": "The native system overview keeps complete canonical records and exact counted gaps, with bounded lists and canonical scope links; the receipt pins these exact sources and focused proofs.",
+      "evidence": [
+        {
+          "file": "src/application/model-gap-summary.ts",
+          "line": 8,
+          "text": "export function modelGapSummary(gaps: readonly ModelGap[]): readonly ModelGapSummary[] {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/system-overview-budget.json",
+          "sha256": "95a4109392837678ab6d53e44f1215f89b101d611ef2f3794e28b12fab8bce49"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/system-overview-budget.md",
+          "sha256": "9fbcf02f8535f3c48e555e35998e4805de88163a6ea10c6c72a5f7d5a03ddf0f"
+        }
+      ]
+    },
+    {
+      "file": "src/application/model-catalogue.ts",
+      "sourceSha256": "c95a21ca4df132b8a4821bc4e867f6a9ea2782e1b3a063b4741eef5c1b087510",
+      "role": "consumer",
+      "reason": "The native system overview keeps complete canonical records and exact counted gaps, with bounded lists and canonical scope links; the receipt pins these exact sources and focused proofs.",
+      "evidence": [
+        {
+          "file": "src/application/model-catalogue.ts",
+          "line": 26,
+          "text": "export function modelOfferedBy(index: ModelIndex, id: string): readonly string[] {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/system-overview-budget.json",
+          "sha256": "95a4109392837678ab6d53e44f1215f89b101d611ef2f3794e28b12fab8bce49"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/system-overview-budget.md",
+          "sha256": "9fbcf02f8535f3c48e555e35998e4805de88163a6ea10c6c72a5f7d5a03ddf0f"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/features/workspace/model-system-content.tsx",
+      "sourceSha256": "0fc4e1ae900d21f989911c0b3fbbffa354843e8a14fa2ec7a3f9fa8f98bdaffd",
+      "role": "consumer",
+      "reason": "The native system retains all catalogue heads, exact notes/counts and real inspector paths while narrative detail renders on request from complete plain records. Shared preview defaults remain unchanged.",
+      "evidence": [
+        {
+          "file": "src/features/workspace/model-system-content.tsx",
+          "line": 15,
+          "text": "export function ModelSystemOverview({"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/system-residual-budget.json",
+          "sha256": "7307c4602a5b04ceb4a2ff03d44d532db01e80d703284fa45be0b76a73fb553d"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/system-residual-budget.md",
+          "sha256": "6355dcb46ff96a6fe5170616e3e2ddb204dafde6ec9fe5b125e0d0e511c79e44"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/system-residual-cross-review.json",
+          "sha256": "38b03da037424be0d84bd2c0b9360682e684ba347dd2a8d6ced75c76bfde9efe"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/features/workspace/model-system-content.test.tsx",
+      "sourceSha256": "04819eb7dd17e0b0670d9693b02d9680197bb1dab300443110666e697e2d8ba3",
+      "role": "support",
+      "reason": "The native system retains all catalogue heads, exact notes/counts and real inspector paths while narrative detail renders on request from complete plain records. Shared preview defaults remain unchanged.",
+      "evidence": [
+        {
+          "file": "src/features/workspace/model-system-content.test.tsx",
+          "line": 14,
+          "text": "it('retains inferred story text, sources and caveats without manufacturing execution or flows', () => {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/system-residual-budget.json",
+          "sha256": "7307c4602a5b04ceb4a2ff03d44d532db01e80d703284fa45be0b76a73fb553d"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/system-residual-budget.md",
+          "sha256": "6355dcb46ff96a6fe5170616e3e2ddb204dafde6ec9fe5b125e0d0e511c79e44"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/system-residual-cross-review.json",
+          "sha256": "38b03da037424be0d84bd2c0b9360682e684ba347dd2a8d6ced75c76bfde9efe"
+        }
+      ]
+    },
+    {
+      "file": "src/application/entry-flow.test.ts",
+      "sourceSha256": "4fa4b3e96c6bbe2268fc969fbfb5adc3513f184d04a6854aa4b0cd669958d51d",
+      "role": "support",
+      "reason": "The native system overview keeps complete canonical records and exact counted gaps, with bounded lists and canonical scope links; the receipt pins these exact sources and focused proofs.",
+      "evidence": [
+        {
+          "file": "src/application/entry-flow.test.ts",
+          "line": 42,
+          "text": "it('retains every handler identity and authored order, with no runtime index in the serialised projection', () => {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/system-overview-budget.json",
+          "sha256": "95a4109392837678ab6d53e44f1215f89b101d611ef2f3794e28b12fab8bce49"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/system-overview-budget.md",
+          "sha256": "9fbcf02f8535f3c48e555e35998e4805de88163a6ea10c6c72a5f7d5a03ddf0f"
+        }
+      ]
+    },
+    {
+      "file": "src/application/model-plan-pages.ts",
+      "sourceSha256": "9b03d8ba901b5ca1fe61b46d01c2e44587cfab65fffe4c3356cfdb8262e82c3d",
+      "role": "consumer",
+      "reason": "The native plan cover reads the selected basis and independent check history; previous-format dates require recheck, and ancestor titles retain real folder links and proposed status.",
+      "evidence": [
+        {
+          "file": "src/application/model-plan-pages.ts",
+          "line": 59,
+          "text": "export function modelPlanOpTarget(op: ModelOp): string {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/cover-basis-proof.json",
+          "sha256": "999c1069fd1799fce76cb703e47973e1fcc8dd427917d93e16378dc2031efdb0"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/plan-offline-audit.json",
+          "sha256": "cddadeb19a9169360b78fa4515daf88459c1f3be9a539258bbb9428b4936babc"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/infrastructure/model-plan-data.test.ts",
+      "sourceSha256": "1041d03dece0e395887ecc1ed047cdf8e60b368c5fc570c0221d0b7faac01d16",
+      "role": "support",
+      "reason": "The native plan cover reads the selected basis and independent check history; previous-format dates require recheck, and ancestor titles retain real folder links and proposed status.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/model-plan-data.test.ts",
+          "line": 65,
+          "text": "it('uses canonical context names and actual folder slugs while preserving independent progress metadata', async () => {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/cover-basis-proof.json",
+          "sha256": "999c1069fd1799fce76cb703e47973e1fcc8dd427917d93e16378dc2031efdb0"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/plan-offline-audit.json",
+          "sha256": "cddadeb19a9169360b78fa4515daf88459c1f3be9a539258bbb9428b4936babc"
+        }
+      ]
+    },
+    {
+      "file": "src/features/plan/model-plan-basis.tsx",
+      "sourceSha256": "a02e7b1ae5271d0b0c8c244927eaea29faf01cad860c0d079197428f0f607154",
+      "role": "consumer",
+      "reason": "The native plan cover reads the selected basis and independent check history; previous-format dates require recheck, and ancestor titles retain real folder links and proposed status.",
+      "evidence": [
+        {
+          "file": "src/features/plan/model-plan-basis.tsx",
+          "line": 10,
+          "text": "export function ModelPlanBasisNotice({"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/cover-basis-proof.json",
+          "sha256": "999c1069fd1799fce76cb703e47973e1fcc8dd427917d93e16378dc2031efdb0"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/plan-offline-audit.json",
+          "sha256": "cddadeb19a9169360b78fa4515daf88459c1f3be9a539258bbb9428b4936babc"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/features/plan/model-plan-basis.test.tsx",
+      "sourceSha256": "c7ff10e5f8e2e2d2ae77df3cd35c20a9e1991136a073f730d465313d059eb69a",
+      "role": "support",
+      "reason": "The native plan cover reads the selected basis and independent check history; previous-format dates require recheck, and ancestor titles retain real folder links and proposed status.",
+      "evidence": [
+        {
+          "file": "src/features/plan/model-plan-basis.test.tsx",
+          "line": 13,
+          "text": "it('keeps the previous-format check date visible without claiming its drift hashes describe the native model', () => {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/cover-basis-proof.json",
+          "sha256": "999c1069fd1799fce76cb703e47973e1fcc8dd427917d93e16378dc2031efdb0"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/plan-offline-audit.json",
+          "sha256": "cddadeb19a9169360b78fa4515daf88459c1f3be9a539258bbb9428b4936babc"
+        }
+      ]
+    },
+    {
+      "file": "src/app/[workspace]/plans/[plan]/native-routes.test.tsx",
+      "sourceSha256": "94597f2fa59a5f475792326b673e11416713d84b8f70cb4b7b931fe9af1c347e",
+      "role": "support",
+      "reason": "The native plan cover reads the selected basis and independent check history; previous-format dates require recheck, and ancestor titles retain real folder links and proposed status.",
+      "evidence": [
+        {
+          "file": "src/app/[workspace]/plans/[plan]/native-routes.test.tsx",
+          "line": 49,
+          "text": "it('uses native data for the cover and its metadata from the selected projection', async () => {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/cover-basis-proof.json",
+          "sha256": "999c1069fd1799fce76cb703e47973e1fcc8dd427917d93e16378dc2031efdb0"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/plan-offline-audit.json",
+          "sha256": "cddadeb19a9169360b78fa4515daf88459c1f3be9a539258bbb9428b4936babc"
+        }
+      ]
+    },
+    {
+      "file": "tools/rebuild/baseline.ts",
+      "sourceSha256": "f84d99ca01a8d85a99994c6a7ed86bf89ecc1e195529caed44d1cf660bd32a7f",
+      "role": "consumer",
+      "reason": "The ordinary command reaches canonical current and selected native plan readers; completed native captures and focused captured-budget checks pin execution. Final comparison and budget outcomes remain separate mandatory gates.",
+      "evidence": [
+        {
+          "file": "tools/rebuild/baseline.ts",
+          "line": 16,
+          "text": "const manifest = await capture({"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/capture-native-reader-proof.json",
+          "sha256": "618ad5fba079bed34480d637b59dd0a616047d63818d2dbecf95fdf00c0f6e57"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "tools/rebuild/capture.ts",
+      "sourceSha256": "42bd31790a16d521f32ec1b1abaada37e67fb5398e6693aed21460f4ea679d23",
+      "role": "consumer",
+      "reason": "The ordinary command reaches canonical current and selected native plan readers; completed native captures and focused captured-budget checks pin execution. Final comparison and budget outcomes remain separate mandatory gates.",
+      "evidence": [
+        {
+          "file": "tools/rebuild/capture.ts",
+          "line": 103,
+          "text": "export async function capture(options: {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/capture-native-reader-proof.json",
+          "sha256": "618ad5fba079bed34480d637b59dd0a616047d63818d2dbecf95fdf00c0f6e57"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "tools/rebuild/compare.ts",
+      "sourceSha256": "4d27cb6f29c8146fbcbf92497c192e133824ccb321e1035bd250db4051815ffa",
+      "role": "consumer",
+      "reason": "The ordinary command reaches canonical current and selected native plan readers; completed native captures and focused captured-budget checks pin execution. Final comparison and budget outcomes remain separate mandatory gates.",
+      "evidence": [
+        {
+          "file": "tools/rebuild/compare.ts",
+          "line": 11,
+          "text": "import { argumentsOf, capture, manifestOf } from './capture';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/capture-native-reader-proof.json",
+          "sha256": "618ad5fba079bed34480d637b59dd0a616047d63818d2dbecf95fdf00c0f6e57"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "tools/rebuild/facts-only.ts",
+      "sourceSha256": "4647096e5f11e33a69c3b2fc203a19c43c6845400b443a7fb4ab6cceb523172b",
+      "role": "consumer",
+      "reason": "The ordinary command reaches canonical current and selected native plan readers; completed native captures and focused captured-budget checks pin execution. Final comparison and budget outcomes remain separate mandatory gates.",
+      "evidence": [
+        {
+          "file": "tools/rebuild/facts-only.ts",
+          "line": 16,
+          "text": "const receipt = await captureFactFiles({ workspace, asOf: baseline.asOf, out });"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/capture-native-reader-proof.json",
+          "sha256": "618ad5fba079bed34480d637b59dd0a616047d63818d2dbecf95fdf00c0f6e57"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "tools/rebuild/facts.ts",
+      "sourceSha256": "4b5a46c800a57bedf84eaa14802215035ed040e6cf2c4b488519f0520fb78c85",
+      "role": "consumer",
+      "reason": "The ordinary command reaches canonical current and selected native plan readers; completed native captures and focused captured-budget checks pin execution. Final comparison and budget outcomes remain separate mandatory gates.",
+      "evidence": [
+        {
+          "file": "tools/rebuild/facts.ts",
+          "line": 8,
+          "text": "export async function captureFacts(workspaceId: string, out: string): Promise<readonly string[]> {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/capture-native-reader-proof.json",
+          "sha256": "618ad5fba079bed34480d637b59dd0a616047d63818d2dbecf95fdf00c0f6e57"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "tools/rebuild/routes.ts",
+      "sourceSha256": "a330b1f93f82006aab2e69e8aa021e747d5f0a6ac5a41c8f8e2a0063d83e1a4b",
+      "role": "consumer",
+      "reason": "The ordinary command reaches canonical current and selected native plan readers; completed native captures and focused captured-budget checks pin execution. Final comparison and budget outcomes remain separate mandatory gates.",
+      "evidence": [
+        {
+          "file": "tools/rebuild/routes.ts",
+          "line": 7,
+          "text": "export async function selectedRoutes(id: string): Promise<readonly string[]> {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/capture-native-reader-proof.json",
+          "sha256": "618ad5fba079bed34480d637b59dd0a616047d63818d2dbecf95fdf00c0f6e57"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "tools/migrate-model/contracts.ts",
+      "sourceSha256": "09c8c1703569113510f1097ededd4af0b9758a4ea79cab86645658f10eb21682",
+      "role": "support",
+      "reason": "The isolated deterministic migration retains observed authored contract, plan and placement fields, validated through the canonical contracts. Source data and generated output remain separate.",
+      "evidence": [
+        {
+          "file": "tools/migrate-model/contracts.ts",
+          "line": 34,
+          "text": "export function taggedType(value: unknown): unknown {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/area-and-facts/migration-metadata-final.json",
+          "sha256": "29e60022ebcf9d2dc1d85620d6efe1d81ba50212772fb32c1721ea1b4ce296a1"
+        }
+      ]
+    },
+    {
+      "file": "tools/migrate-model/plans.ts",
+      "sourceSha256": "9a5081af6ef175633fe95ae3c0f098d04d0830f7ceb83882ac62245e42072a69",
+      "role": "support",
+      "reason": "The isolated deterministic migration retains observed authored contract, plan and placement fields, validated through the canonical contracts. Source data and generated output remain separate.",
+      "evidence": [
+        {
+          "file": "tools/migrate-model/plans.ts",
+          "line": 39,
+          "text": "export function migrateFlowStep(value: unknown): Node {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/area-and-facts/migration-metadata-final.json",
+          "sha256": "29e60022ebcf9d2dc1d85620d6efe1d81ba50212772fb32c1721ea1b4ce296a1"
+        }
+      ]
+    },
+    {
+      "file": "tools/migrate-model/workspace.ts",
+      "sourceSha256": "39457f2485d7bc5a5b76cf7952690419a6936440d9c7b88fe32f01afdb3ce8f1",
+      "role": "support",
+      "reason": "The isolated deterministic migration retains observed authored contract, plan and placement fields, validated through the canonical contracts. Source data and generated output remain separate.",
+      "evidence": [
+        {
+          "file": "tools/migrate-model/workspace.ts",
+          "line": 581,
+          "text": "export function migrateWorkspace("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/area-and-facts/migration-metadata-final.json",
+          "sha256": "29e60022ebcf9d2dc1d85620d6efe1d81ba50212772fb32c1721ea1b4ce296a1"
+        }
+      ]
+    },
+    {
+      "file": "tools/migrate-model/preflight.ts",
+      "sourceSha256": "c4e79e15be5a25dd49a9eed318ea4a22c597848cb5d558f6188176a621d87bc6",
+      "role": "support",
+      "reason": "The isolated migration preflight validates canonical workspace fragments and native plan documents; it does not read a registered workspace through an old runtime model.",
+      "evidence": [
+        {
+          "file": "tools/migrate-model/preflight.ts",
+          "line": 12,
+          "text": "export async function migrationProblems("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/area-and-facts/migration-metadata-final.json",
+          "sha256": "29e60022ebcf9d2dc1d85620d6efe1d81ba50212772fb32c1721ea1b4ce296a1"
+        },
+        {
+          "file": "tools/migrate-model/runner.test.ts",
+          "sha256": "92bb1d29a5f2c2d3bcff990651e7fba61eeb23940adb7464074123f90cfc9629"
+        }
+      ]
+    },
+    {
+      "file": "src/features/workspace/model-system-narratives.client.tsx",
+      "sourceSha256": "da6b265c71f9e1cb88735ad61bc30636ce75b56b2b788353a45069a46838faba",
+      "role": "consumer",
+      "reason": "The native system retains all catalogue heads, exact notes/counts and real inspector paths while narrative detail renders on request from complete plain records. Shared preview defaults remain unchanged.",
+      "evidence": [
+        {
+          "file": "src/features/workspace/model-system-narratives.client.tsx",
+          "line": 107,
+          "text": "export function ModelSystemNarratives({"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/system-residual-budget.json",
+          "sha256": "7307c4602a5b04ceb4a2ff03d44d532db01e80d703284fa45be0b76a73fb553d"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/system-residual-budget.md",
+          "sha256": "6355dcb46ff96a6fe5170616e3e2ddb204dafde6ec9fe5b125e0d0e511c79e44"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/system-residual-cross-review.json",
+          "sha256": "38b03da037424be0d84bd2c0b9360682e684ba347dd2a8d6ced75c76bfde9efe"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/features/workspace/catalogue-list.tsx",
+      "sourceSha256": "954553db0f1845c83ef2af3993d6b50adf4244824b220e56528186fb650f7839",
+      "role": "consumer",
+      "reason": "The native system retains all catalogue heads, exact notes/counts and real inspector paths while narrative detail renders on request from complete plain records. Shared preview defaults remain unchanged.",
+      "evidence": [
+        {
+          "file": "src/features/workspace/catalogue-list.tsx",
+          "line": 102,
+          "text": "export function CatalogueList({"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/system-residual-budget.json",
+          "sha256": "7307c4602a5b04ceb4a2ff03d44d532db01e80d703284fa45be0b76a73fb553d"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/system-residual-budget.md",
+          "sha256": "6355dcb46ff96a6fe5170616e3e2ddb204dafde6ec9fe5b125e0d0e511c79e44"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/system-residual-cross-review.json",
+          "sha256": "38b03da037424be0d84bd2c0b9360682e684ba347dd2a8d6ced75c76bfde9efe"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/features/workspace/system-page.tsx",
+      "sourceSha256": "11282a161057413c03bb383a015b398727368a9c0fae5bcf0593cd6225d5d5bb",
+      "role": "consumer",
+      "reason": "The native system retains all catalogue heads, exact notes/counts and real inspector paths while narrative detail renders on request from complete plain records. Shared preview defaults remain unchanged.",
+      "evidence": [
+        {
+          "file": "src/features/workspace/system-page.tsx",
+          "line": 111,
+          "text": "export function SystemPage({"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/system-residual-budget.json",
+          "sha256": "7307c4602a5b04ceb4a2ff03d44d532db01e80d703284fa45be0b76a73fb553d"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/system-residual-budget.md",
+          "sha256": "6355dcb46ff96a6fe5170616e3e2ddb204dafde6ec9fe5b125e0d0e511c79e44"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/system-residual-cross-review.json",
+          "sha256": "38b03da037424be0d84bd2c0b9360682e684ba347dd2a8d6ced75c76bfde9efe"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/model-area-facts.ts",
+      "sourceSha256": "81d7c279377f483ee827acb2f843f3d0290d7ca2f7a7c7053a2efa427fe9a35a",
+      "role": "consumer",
+      "reason": "The native area card carries an explicit recorded infrastructure flag without inferring one from historical boundary context. Exact real area frames remain unchanged (zero current true flags); the owning fixture proves explicit true propagation.",
+      "evidence": [
+        {
+          "file": "src/application/model-area-facts.ts",
+          "line": 155,
+          "text": "...(node.data.infrastructure === true ? { infrastructure: true } : {}),"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/area-and-facts/infrastructure-propagation.json",
+          "sha256": "618bb672fb4a3604849d39d3c6589b559ede24624ccd4fdbc9b22f70f4ecfb7d"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/model-area.test.ts",
+      "sourceSha256": "a7b4792f0e48ed45e9822a83f29a89e8ce7bc9bb79d8837af837d6572b903c26",
+      "role": "support",
+      "reason": "The native area card carries an explicit recorded infrastructure flag without inferring one from historical boundary context. Exact real area frames remain unchanged (zero current true flags); the owning fixture proves explicit true propagation.",
+      "evidence": [
+        {
+          "file": "src/application/model-area.test.ts",
+          "line": 206,
+          "text": "it('preserves an explicit infrastructure flag through the native area card and map transport', () => {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/area-and-facts/infrastructure-propagation.json",
+          "sha256": "618bb672fb4a3604849d39d3c6589b559ede24624ccd4fdbc9b22f70f4ecfb7d"
+        }
+      ]
+    }
+  ],
+  "outsideCandidateSet": [
+    {
+      "file": "src/features/plan/today/today-stops.client.tsx",
+      "sourceSha256": null,
+      "role": "consumer",
+      "status": "deleted",
+      "reason": "The obsolete render wrapper is absent after its native replacement passed the recorded actual HTTP and focused proof. Its prior whole-source hash is retained in the obsolete-wrapper receipt.",
+      "evidence": [
+        {
+          "file": "src/features/plan/today/model-journey.tsx",
+          "line": 11,
+          "text": "export function ModelJourney({"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/replaced-legacy-views.log",
+          "sha256": "5bde3557dda9a3d4b9ff470567881cbefd240d59680cd39ae84d8828eb6869ac"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/obsolete-render-wrappers.json",
+          "sha256": "ec337d22e7f3efdf1e27d64155f4ab875a0213e32db6751ccd6a69af2684ebd9"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ]
+    },
+    {
+      "file": "src/features/plan/today/ref-chips.tsx",
+      "sourceSha256": null,
+      "role": "consumer",
+      "status": "deleted",
+      "reason": "The obsolete render wrapper is absent after its native replacement passed the recorded actual HTTP and focused proof. Its prior whole-source hash is retained in the obsolete-wrapper receipt.",
+      "evidence": [
+        {
+          "file": "src/features/plan/today/model-today-thing.tsx",
+          "line": 20,
+          "text": "export function ModelTodayThing({"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/replaced-legacy-views.log",
+          "sha256": "5bde3557dda9a3d4b9ff470567881cbefd240d59680cd39ae84d8828eb6869ac"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/obsolete-render-wrappers.json",
+          "sha256": "ec337d22e7f3efdf1e27d64155f4ab875a0213e32db6751ccd6a69af2684ebd9"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ]
+    },
+    {
+      "file": "src/features/plan/today/today-section.tsx",
+      "sourceSha256": null,
+      "role": "consumer",
+      "status": "deleted",
+      "reason": "The obsolete render wrapper is absent after its native replacement passed the recorded actual HTTP and focused proof. Its prior whole-source hash is retained in the obsolete-wrapper receipt.",
+      "evidence": [
+        {
+          "file": "src/features/plan/today/model-today-thing.tsx",
+          "line": 20,
+          "text": "export function ModelTodayThing({"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/replaced-legacy-views.log",
+          "sha256": "5bde3557dda9a3d4b9ff470567881cbefd240d59680cd39ae84d8828eb6869ac"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/obsolete-render-wrappers.json",
+          "sha256": "ec337d22e7f3efdf1e27d64155f4ab875a0213e32db6751ccd6a69af2684ebd9"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        }
+      ]
+    }
+  ],
+  "pendingCaptureSources": [],
+  "held": [],
+  "pendingMigrationSources": [],
+  "scope": "Exact reviewed replacement proposal only; root applies by file after independent review. Original1697denominator unchanged. The ID/address helper remains separately outsideConsumerSet. Full compare/build/budget remain separate gates.",
+  "outsideConsumerSet": [
+    {
+      "file": "src/application/entry-flow-paths.ts",
+      "sourceSha256": "1b40e4c30db3bda96d3f0dd4267cd5b18a51b3eb6c628f21014f5724df1cfb1e",
+      "role": "support",
+      "reason": "The native system overview keeps complete canonical records and exact counted gaps, with bounded lists and canonical scope links; the receipt pins these exact sources and focused proofs.",
+      "evidence": [
+        {
+          "file": "src/application/entry-flow-paths.ts",
+          "line": 13,
+          "text": "export function entryFlowHref(workspace: string, address: EntryFlowAddress = {}): string {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/system-overview-budget.json",
+          "sha256": "95a4109392837678ab6d53e44f1215f89b101d611ef2f3794e28b12fab8bce49"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/system-overview-budget.md",
+          "sha256": "9fbcf02f8535f3c48e555e35998e4805de88163a6ea10c6c72a5f7d5a03ddf0f"
+        }
+      ],
+      "classification": "ID/address support, not a discovered model consumer",
+      "review": {
+        "file": "artifacts/rebuild/pr8/entry-address-support-review.json",
+        "sha256": "ba3280bb2a2923dc627bab95312ffe58e63474df37f251d09a37e024d8c87dc7"
+      }
+    }
+  ]
+}

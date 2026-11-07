@@ -28,8 +28,14 @@ export interface MigrationIdentities {
 function mappedId(id: string, prefix: string): string {
   return buildId(prefix, localId(id));
 }
+function journeyIdentity(value: Node | null): readonly [string, string] | null {
+  const journey = modelRecord(value?.journey) ?? value;
+  const id = modelText(journey?.id);
+  return id === null ? null : [id, 'jny'];
+}
 function fileIdentity(file: MigrationFile): readonly [string, string] | null {
   const value = modelRecord(file.value);
+  if (file.path.startsWith('journeys/')) return journeyIdentity(value);
   const id = modelText(value?.id) ?? modelText(modelRecord(value?.meta)?.id);
   if (id === null) return null;
   if (file.path.endsWith('/domain.yaml')) return [id, 'dom'];

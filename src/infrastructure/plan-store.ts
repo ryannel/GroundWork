@@ -2,8 +2,6 @@ import 'server-only';
 
 import path from 'node:path';
 
-import { parse } from 'yaml';
-
 import type { Issue } from '@/application/plan/check-context';
 import { neighbourOf } from '@/application/plan/check-neighbours';
 import { isRecord, prop, strings } from '@/application/plan/ids';
@@ -33,8 +31,7 @@ import {
 import type { Fanout } from '@/domain/plan/plan-graph';
 import type { Neighbour, Neighbours } from '@/domain/plan/plan-neighbours';
 import type { IssueStatus } from '@/domain/plan/plan-status';
-import type { Progress } from '@/domain/plan/plan.generated';
-import { pathIn, listFolder, readText, readTextIfAny } from '@/infrastructure/disk';
+import { pathIn, listFolder } from '@/infrastructure/disk';
 
 import {
   type BaseReading,
@@ -44,32 +41,19 @@ import {
   readPlanBase,
   readPlanLock,
 } from './plan-base-store';
-import {
-  checkPlanData,
-  defProblems,
-  planDef,
-  type PlanCheck,
-  shapePlanData,
-} from './plan-validator';
+import { checkPlanData, type PlanCheck, shapePlanData } from './plan-validator';
+import { planFolder, readRaw } from './plan-yaml';
 import { listProgrammes, readProgrammeRaw } from './programme-store';
-import { workspaceFolder } from './workspace-folders';
+import { readProgress } from './progress-store';
 import { untilEdited } from './workspace-memo';
+
+export { readProgress } from './progress-store';
 
 // <workspace>/plans/<slug>/plan.yaml
 //   revisions/<version>.yaml   the plan as it stood at that version
 //   progress.yaml              what has happened to its work items and milestones, oldest first
 //   base.yaml, base.lock.json  see plan-base-store
 // A plan file holds what the plan changes; it is read onto its base (today, or its kept copy once landed).
-// A workspace no folder holds has no plans: its plan folder is a path that is not there.
-async function planFolder(
-  root: string | undefined,
-  workspace: string,
-  slug: string,
-): Promise<string> {
-  const folder = await workspaceFolder(workspace, root);
-  return pathIn(folder ?? pathIn(root ?? '', '.no-such-workspace', workspace), 'plans', slug);
-}
-
 async function folders(folder: string): Promise<string[]> {
   const entries = await listFolder(folder);
   return entries
@@ -142,22 +126,6 @@ export async function readOverlaps(workspace: string, root?: string): Promise<re
 
 async function neighboursOf(at: At): Promise<Neighbours> {
   return { slug: at.slug, ...(await readNeighbourIndex(at.workspace, at.root)) };
-}
-
-async function readRaw(
-  file: string,
-): Promise<{ readonly data: unknown } | { readonly error: Issue }> {
-  try {
-    return {
-      data: parse(await readText(file), {
-        prettyErrors: true,
-        uniqueKeys: true,
-      }),
-    };
-  } catch (error) {
-    const message = error instanceof Error ? error.message : String(error);
-    return { error: { path: '(root)', message } };
-  }
 }
 
 /** Every version of the plan, as written, so they all draw the same part of today. */
@@ -508,32 +476,6 @@ export async function readRevision(
     pathIn(folder, 'revisions', `${path.basename(at.version)}.yaml`),
     atOf(at.workspace, at.slug, options, options.check === true),
   );
-}
-
-/** What reading a plan's progress.yaml found: the record, or why it cannot be read. */
-export interface ProgressRead {
-  readonly progress: Progress;
-  readonly errors: readonly Issue[];
-}
-
-const NO_PROGRESS: Progress = { events: [] };
-
-/** plans/<slug>/progress.yaml, checked against the schema; an empty record when the plan has none. */
-export async function readProgress(
-  workspace: string,
-  slug: string,
-  root?: string,
-): Promise<ProgressRead> {
-  const file = pathIn(await planFolder(root, workspace, slug), 'progress.yaml');
-  if ((await readTextIfAny(file)) === null) return { progress: NO_PROGRESS, errors: [] };
-  const raw = await readRaw(file);
-  if ('error' in raw) return { progress: NO_PROGRESS, errors: [raw.error] };
-  const check = await planDef<Progress>('progress');
-  if (check(raw.data)) return { progress: raw.data, errors: [] };
-  return {
-    progress: NO_PROGRESS,
-    errors: defProblems(check).map((message) => ({ path: '(root)', message })),
-  };
 }
 
 /** GitHub issue state per work item, from the GitHub events in progress.yaml; empty when it has none. */

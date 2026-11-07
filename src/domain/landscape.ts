@@ -1,3 +1,5 @@
+import type { ModelData } from './workspace-model';
+
 /** An authored entrance into the technical model. It is a view, not a model level. */
 export interface LandscapeArea {
   readonly id: string;
@@ -5,8 +7,8 @@ export interface LandscapeArea {
   readonly purpose: string;
   readonly activities: readonly string[];
   readonly boundary: string;
-  readonly confidence: 'low' | 'medium' | 'high';
-  readonly evidenceCount: number;
+  readonly confidence?: 'low' | 'medium' | 'high';
+  readonly evidenceCount?: number;
 }
 
 export type LandscapeRelationshipKind = 'exchange' | 'transition' | 'support';
@@ -47,7 +49,9 @@ export interface LandscapeAreaDetail {
 }
 
 /** A saved, evidence-backed explanation of a directed exchange. */
-export interface LandscapeFlowConnection {
+export interface LandscapeFlowConnection extends Partial<
+  Pick<ModelData<'LandscapeConnection'>, 'cites' | 'backs'>
+> {
   readonly from: string;
   readonly to: string;
   readonly label: string;

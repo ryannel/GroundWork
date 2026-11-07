@@ -1,0 +1,11 @@
+id: sys:accounts
+name: Accounts
+team: team:web
+components:
+  - id: svc:accounts
+    name: Accounts
+    kind: service
+    does: Signs customers in
+homes:
+  acme-accounts:
+    repo: acme/accounts

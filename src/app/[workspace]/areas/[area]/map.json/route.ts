@@ -1,8 +1,6 @@
 import { packAreaMapView } from '@/application/area-map/transport';
-import { areaViewOf } from '@/application/workspace-area';
-import { readExplorerManifest } from '@/infrastructure/service-explorer-files';
-import { todayData } from '@/infrastructure/today-data';
-import { readAuthoredLandscape } from '@/infrastructure/workspace-landscape';
+import { modelAreaViewOf } from '@/application/model-area';
+import { readCanonicalModelIndex } from '@/infrastructure/model-index';
 
 interface Params {
   readonly workspace: string;
@@ -15,20 +13,9 @@ export async function GET(
   { params }: { readonly params: Promise<Params> },
 ): Promise<Response> {
   const { workspace, area } = await params;
-  const [data, landscape, explorer] = await Promise.all([
-    todayData(workspace),
-    readAuthoredLandscape(workspace),
-    readExplorerManifest(workspace),
-  ]);
-  if (data === null || landscape === null) return new Response('No such area', { status: 404 });
-  const view = areaViewOf({
-    workspace: data.workspace,
-    model: data.today.model,
-    attribution: data.today.attribution,
-    landscape,
-    area,
-    explorer,
-  });
+  const index = await readCanonicalModelIndex(workspace);
+  if (index === null) return new Response('No such area', { status: 404 });
+  const view = modelAreaViewOf(index, area);
   return view === null
     ? new Response('No such area', { status: 404 })
     : Response.json(packAreaMapView(view));

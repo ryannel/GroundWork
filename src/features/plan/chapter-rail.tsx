@@ -1,4 +1,4 @@
-import { planHref, type Outline, type Page } from '@/application/plan-pages';
+import { planHref, type Outline, type Page } from '@/application/plan-navigation';
 import { NavRail } from '@/ui/nav-rail';
 
 import { RailCut, type RailHidden } from './progress/rail-cut.client';

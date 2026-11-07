@@ -1,0 +1,69 @@
+interfaces:
+  - id: if:orders-rest
+    cites:
+      [
+        acme-ordering:src/main/kotlin/orders/OrderController.kt@9a8b7c6d5e4f3a2b1c0d9e8f7a6b5c4d3e2f1a0b#L20-140 OrderController,
+      ]
+    kind: rest
+    component: svc:order-api
+    entries:
+      - id: api:orders-create
+        sig: POST /orders
+        response: sch:order
+        auth: service token
+        idempotent: true
+        cites:
+          [
+            acme-ordering:src/main/kotlin/orders/OrderController.kt@9a8b7c6d5e4f3a2b1c0d9e8f7a6b5c4d3e2f1a0b#L34-61 OrderController.create,
+          ]
+        method: POST
+        path: /orders
+      - id: api:orders-cancel
+        sig: POST /orders/{id}/cancel
+        response: sch:order
+        auth: staff SSO
+        idempotent: true
+        method: POST
+        path: /orders/{id}/cancel
+schemas:
+  - id: sch:order
+    name: Order
+    kind: record
+    store: st:orders-db
+    fields:
+      - name: id
+        type: uuid
+        required: true
+        key: true
+        id: id
+      - name: status
+        type:
+          enum:
+            - placed
+            - paid
+            - cancelled
+        required: true
+        id: status
+      - name: total_cents
+        type: int
+        required: true
+        id: total_cents
+  - id: sch:order-placed-v1
+    name: order.placed v1
+    kind: payload
+    fields:
+      - name: order_id
+        type: uuid
+        required: true
+        id: order_id
+messages:
+  - id: msg:order-placed
+    name: order.placed
+    version: v1
+    topic: top:order-events
+    payload: sch:order-placed-v1
+    key: order_id
+subscriptions: []
+jobs: []
+interactions: []
+operations: []

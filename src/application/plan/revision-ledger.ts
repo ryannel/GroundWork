@@ -4,12 +4,15 @@ import type { Plan } from '@/domain/plan/plan.generated';
 export type RevisionEntry = NonNullable<Plan['meta']['revisions']>[number];
 
 /** Anything with a ledger: a whole plan, or just its meta. */
-type Ledgered =
-  | { readonly meta?: { readonly revisions?: readonly RevisionEntry[] | undefined } | undefined }
+type RevisionIdentity = Pick<RevisionEntry, 'version' | 'status' | 'date'>;
+
+type Ledgered<Entry extends RevisionIdentity = RevisionEntry> =
+  | { readonly meta?: { readonly revisions?: readonly Entry[] | undefined } | undefined }
   | null
   | undefined;
 
-export const ledgerOf = (plan: Ledgered): readonly RevisionEntry[] => plan?.meta?.revisions ?? [];
+export const ledgerOf = <Entry extends RevisionIdentity>(plan: Ledgered<Entry>): readonly Entry[] =>
+  plan?.meta?.revisions ?? [];
 
 function partsOf(v: unknown): number[] {
   const text = typeof v === 'string' || typeof v === 'number' ? String(v) : '';

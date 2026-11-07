@@ -1,0 +1,64 @@
+{
+  "format": 1,
+  "source": "ae181acca9cd6cbf699cf3e2fb7e62f06da81259f5b9a2bf7ed9f6abf2ead827",
+  "sourcePath": "retained Acme journeys/buy.yaml:1-28",
+  "sourceSha256": "4adb4fe527c82fb9f33507234cc08cda0224a218070e1f65d8588b83354eed18",
+  "actorResolution": "Exact declared Customer in workspace.yaml:21-27",
+  "outputPairs": [
+    "/private/tmp/rebuild-pr8-acme-native-06",
+    "/private/tmp/rebuild-pr8-acme-native-07"
+  ],
+  "byteIdentical": true,
+  "fileCount": 35,
+  "changed": [
+    {
+      "path": "aliases.yaml",
+      "before": "03ebadd8e365a3c5f9c1f6e6358dd00ef12b00b4a6f83787ba4b07092c346f96",
+      "after": "1f34479d7d0211ba181a163e7e8f1c958ce1b54c3153f3186a07267fb68ca1e7"
+    },
+    {
+      "path": "journeys/buy.yaml",
+      "before": "c7ff8b66b0d9f2de49db79e072056c06803566bc1992d75c8a7005c36a1a93f7",
+      "after": "3ea8300eacadbe3962c3f101ee57f2d339a3c4e6a3263e33922470326e9a19d8"
+    }
+  ],
+  "identities": 96,
+  "identityHash": "dd20786e513582e15fb0cb5552d24a0fe83522be59e166839df7c01d5b00a3fa",
+  "mapShown": 96,
+  "oldAlias": "uj:buy",
+  "aliasTarget": "jny:buy",
+  "journey": {
+    "id": "jny:buy",
+    "name": "Buy a product",
+    "interactions": [
+      "ui:add-to-basket",
+      "ui:place-order"
+    ],
+    "actor": "actor:customer",
+    "flows": [
+      "flow:place-order"
+    ]
+  },
+  "sourceReceiptByteIdentical": true,
+  "declaredSupportingSteps": [
+    {
+      "interaction": "ui:place-order",
+      "steps": [
+        "flow:place-order#submit",
+        "flow:place-order#create"
+      ]
+    }
+  ],
+  "unresolved": [],
+  "problems": [],
+  "template": {
+    "path": "test/fixtures/acme-model",
+    "parsedFactsEqual": true,
+    "files": 35,
+    "retainedStoryAndScansBytesEqual": true,
+    "changedFormattedSha256": {
+      "aliases.yaml": "1f34479d7d0211ba181a163e7e8f1c958ce1b54c3153f3186a07267fb68ca1e7",
+      "journeys/buy.yaml": "3ea8300eacadbe3962c3f101ee57f2d339a3c4e6a3263e33922470326e9a19d8"
+    }
+  }
+}

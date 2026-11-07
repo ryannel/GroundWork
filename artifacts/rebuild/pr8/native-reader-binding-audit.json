@@ -1,0 +1,566 @@
+{
+  "format": 1,
+  "rows": [
+    {
+      "file": "src/application/model-area-facts.ts",
+      "sourceSha256": "6dd8cd0319761cf0a37680a4c29dfa5d74d0e3e747f1ae51acfda9718d1b7537",
+      "factBindings": [
+        "modelAreaBoundaryOf",
+        "modelAreaComponentOf"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/model-area.ts",
+      "sourceSha256": "85c993d85ac020f50fd4fd50695bc0fd8d0b114fff9e81f80511d45ed380791d",
+      "factBindings": [
+        "modelAreaViewOf"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/model-assets.ts",
+      "sourceSha256": "3218111ed5b4a64b05effcd72f9e6e76c9f1fb7a2b1d018ab4f7a905f3bf0a32",
+      "factBindings": [
+        "modelAssetsOf"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/model-catalogue.ts",
+      "sourceSha256": "2412d420a112c408498887dd5ae7fc6cc19d0900d73128eb9b4238223a863a7f",
+      "factBindings": [
+        "modelCatalogueOf",
+        "modelOfferedBy"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/model-chip.ts",
+      "sourceSha256": "70184b3a8184690f4b95337423205c39498b5dd56b61454fad8894cc0711f9e5",
+      "factBindings": [
+        "modelChipOf",
+        "modelKindPresentation"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/model-domain.ts",
+      "sourceSha256": "8e0f08a2735cee3f39da652048dbaa024b01cf5e007dd58fe64a4419a446dc82",
+      "factBindings": [
+        "modelDomainNavOf",
+        "modelDomainOf",
+        "modelDomainViewOf",
+        "modelDomainWordsOf",
+        "modelFlowEntriesOf",
+        "modelJourneyCardsOf",
+        "modelJourneyRecordsOf",
+        "modelNeighboursOf",
+        "modelSystemCataloguesOf"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/model-flow.ts",
+      "sourceSha256": "4915ad6f0cd7fb8c654a26522d5e73a3994072eb38b77944c6747d1bd0bd55bc",
+      "factBindings": [
+        "modelFlowMermaidOf",
+        "modelFlowOf"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/model-graphql.ts",
+      "sourceSha256": "01b4dfb776a8395adf71a47eb698456ad79f612ce5ecb793561417f859f9ea84",
+      "factBindings": [
+        "graphqlGaps",
+        "graphqlReaches",
+        "selectedGraphFields"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/model-index.ts",
+      "sourceSha256": "ec73253b0d5d867b5c683d475b945462d1bb05c52914ffc2ba4064deedc48240",
+      "factBindings": [
+        "indexOf"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/model-inspection.ts",
+      "sourceSha256": "e291cfe48207a20b0d56fdea536def8ff9a435c7356adbe451944e5d80d70319",
+      "factBindings": [
+        "modelInspectionOf",
+        "modelInspectionRecords",
+        "modelInspectionRef"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/model-journeys.ts",
+      "sourceSha256": "6ba32199b924e686cf5f2a97f053e03b9ed964c7588276bd1ee4a991ab46acbc",
+      "factBindings": [
+        "modelJourneyAt",
+        "modelJourneyIndexOf",
+        "modelJourneysOf",
+        "modelJourneyWalkOf"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/model-landscape.ts",
+      "sourceSha256": "2e50ce7ba580ee8b9e4752cbc16bb1a4f881bc1528e0e8559f139d839fd833dc",
+      "factBindings": [
+        "modelLandscapeOf"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/model-language.ts",
+      "sourceSha256": "0a67514b5d538bad80b5819047f7ec502830605fb4737dfb21d1253c5e02aaf7",
+      "factBindings": [
+        "modelLanguageOf"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/model-map.ts",
+      "sourceSha256": "d9b8a4b4e870bb4fc05e3705fffdcfe4348d6d752c7f82ae27a4bc37f532d495",
+      "factBindings": [
+        "modelCounts",
+        "modelMarkdownOf"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/model-narratives.ts",
+      "sourceSha256": "cabaef9e6e4492093290e593cd9a8393fbdcc4e8f20331c07d23d9f99cb85d0d",
+      "factBindings": [
+        "modelNarrativeProblems"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/model-navigation.ts",
+      "sourceSha256": "e8396bbdd67cd3dcb7558af39c34fe77dd517497a991efa4e7d63e60484f13e8",
+      "factBindings": [
+        "modelWorkspaceNavOf"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/model-pages.ts",
+      "sourceSha256": "ca069cb64c24d98c4bfece783f58a97f904a1ccdc7ce035e8d284dd62e162593",
+      "factBindings": [
+        "modelPageLinks",
+        "modelWorkspaceScreens"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/model-plan-footprint.ts",
+      "sourceSha256": "bbd11f1b570033cf7a9f6c5dce1a1c60aec4623cd4804f96b7ea87988ca01450",
+      "factBindings": [
+        "modelPlanDomainsOf",
+        "modelPlanFootprintOf"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/model-plan-pages.ts",
+      "sourceSha256": "e932b23cb9d8837dc5eb9fa29866e556b32d722c58a063888b460b3964c7f95c",
+      "factBindings": [
+        "modelAheadStop",
+        "modelPlanBar",
+        "modelPlanFocus",
+        "modelPlanOpTarget",
+        "modelPlanOutline",
+        "modelPlanOutlineFromCurrent",
+        "modelPlanScreen"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/model-plan-standing.ts",
+      "sourceSha256": "30bbed5fe39223fd82e25706c0808b5df61e2f8dd8fd188f82a5254a7650743c",
+      "factBindings": [
+        "modelStandingContextOf",
+        "modelStandingOf",
+        "modelStandingScopes"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/model-progress.ts",
+      "sourceSha256": "70e5669dc4f744005fbe38b8231f1c4da7c6a7d6b077bdd6c025785915d24735",
+      "factBindings": [
+        "modelPlanProgressOf",
+        "modelProgressRecords"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/model-reader.ts",
+      "sourceSha256": "b42715de803e684a6df6ca4fb930e4ed61a6c01f9f00781c24dd79143bdd61fa",
+      "factBindings": [
+        "currentModelPayload",
+        "modelContextOf",
+        "selectedPlanPayload"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/model-realisation.ts",
+      "sourceSha256": "14960ff612a99ed5086b576780847f2c2c210173a13d4406d444bbea129993cc",
+      "factBindings": [
+        "modelRealisationOf"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/model-reference.ts",
+      "sourceSha256": "1c47db8845eb43561ce74a08f05742127f481c069a2284868040eed2d1657b5b",
+      "factBindings": [
+        "modelReferenceOf",
+        "modelReferencePage"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/model-search.ts",
+      "sourceSha256": "a00bf27e7c7fa2f3e2d7c111a82adc0368de75901b7eeb33f65b4b2195ed5e1c",
+      "factBindings": [
+        "modelPaletteEntries"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/model-system-map-input.ts",
+      "sourceSha256": "91875a8199cafa7f03591a5d5e02165cfc64acbe6e11fbfdbd727b1f2ea3024f",
+      "factBindings": [
+        "modelSystemMapInput"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/model-system-plans.ts",
+      "sourceSha256": "ca239d758c8fa27a31e9fecd54616f7e9fe8086c28bfccc3d8482c1916dd8989",
+      "factBindings": [
+        "modelSystemPlanProgress",
+        "modelSystemPlansOf"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/model-system.ts",
+      "sourceSha256": "51ba29a1dceca13cc2e5ca5d97d2c791a9988c2cab6afc7001bf30fe62cfa375",
+      "factBindings": [
+        "modelSystemAt",
+        "modelSystemFlowOf",
+        "modelSystemViewOf"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/model-target.ts",
+      "sourceSha256": "4490d00aea01a080eb09ca393893ecf9bff7c587a4877a7cb3280799d8b2f6bd",
+      "factBindings": [
+        "modelTargetOf"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/model-team.ts",
+      "sourceSha256": "b79d3f1591cb819ed2bff86e3b8645515173cf91d5aa890a2c14705790ae74cd",
+      "factBindings": [
+        "modelTeamSlotOf"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/model-transport.ts",
+      "sourceSha256": "779fdd6096b722dbad90590f36bfdb3407ebd5fb1a660d2c2d08f53fa5f54ce6",
+      "factBindings": [
+        "evidenceTransportOf",
+        "referenceCollector"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/model-value-flows.ts",
+      "sourceSha256": "f158da0895bd9fc568f0db154b0ed8a011dd30a80fd5fd77836e68b738005bce",
+      "factBindings": [
+        "modelValueFlowsOf"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/model-workspace-work.ts",
+      "sourceSha256": "5db834ebb6491b693406606b1a55ee2dafe8359cf81e8cdeae1259c312953678",
+      "factBindings": [
+        "modelPartnerOf",
+        "modelPartnerRowsOf",
+        "modelProgrammeOf",
+        "modelProgrammeRowsOf",
+        "modelWorkLabelsOf"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/infrastructure/model-evidence.ts",
+      "sourceSha256": "0f39e808080c49fe8ed795d35a7546ad8b2948600b741257e388d78789d83a0d",
+      "factBindings": [
+        "readModelEvidence"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/infrastructure/model-index.ts",
+      "sourceSha256": "e87664319c7834b118f3e8ae1bf08264d164be0293343fe7b1968234443eca84",
+      "factBindings": [
+        "readCanonicalModelIndex"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/infrastructure/model-narratives.ts",
+      "sourceSha256": "b79b9680f73d892a44aef525945e6919136a683ecf644fb7ff11e7964b877caa",
+      "factBindings": [
+        "modelNarrativePacket"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/infrastructure/model-plan-base.ts",
+      "sourceSha256": "c0a5a0b4c8fb2f3b0529a35b6ffe27ae51ab647bb9e45c07e7a4a8646b7cfbeb",
+      "factBindings": [
+        "readModelFrozenBases",
+        "readModelPlanBase",
+        "readModelPlanBaseMarkers"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/infrastructure/model-plan-context.ts",
+      "sourceSha256": "0d586cba84a38a726871e5ef3957f170855abd00f32430a23bdd3bc14d62bf21",
+      "factBindings": [
+        "readModelPlanProgress",
+        "readSelectedPlanContext",
+        "readSelectedRevisionContext"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/infrastructure/model-plans.ts",
+      "sourceSha256": "c83abb39acb21e9be1c5ef2ef53fb81479305cad023571433bcc3c2a6e74615c",
+      "factBindings": [
+        "readModelPlanEntries",
+        "readModelPlanEntry",
+        "readModelPlanRevisions",
+        "readModelPlans"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/infrastructure/model-schema.ts",
+      "sourceSha256": "57914d4a760cdc7f13ba94ea47b4e52f4ddd0bf3425a9e358cf23e8962715f08",
+      "factBindings": [
+        "modelProblems",
+        "modelValidator",
+        "projectionModelValidator",
+        "resolvedModelValidator"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/infrastructure/model-workspace-nav.ts",
+      "sourceSha256": "dbb56091fc8ec59861269691e52859387f3bfc837bf294dacfb8614b3b5c8e6e",
+      "factBindings": [
+        "readModelWorkspaceNav"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "tools/map.ts",
+      "sourceSha256": "01e973acc97541e05362c12939c5edde1cf51b1cee610a55234b0199d61d88f4",
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "knownCommandSource": true,
+      "pendingFreshCandidate": false
+    },
+    {
+      "file": "tools/model-map-query.ts",
+      "sourceSha256": "442c49bc7e32ca161206179eaf893be7b2d304440d21864e9e5a1d42da59d1da",
+      "factBindings": [
+        "modelMapQueries"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "knownCommandSource": true,
+      "pendingFreshCandidate": false
+    },
+    {
+      "file": "tools/model-map.ts",
+      "sourceSha256": "8f25046081cb37a228f256e9d75265936921257a3f179f1199a010f7b813efd7",
+      "factBindings": [
+        "modelMapOf"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "knownCommandSource": true,
+      "pendingFreshCandidate": false
+    },
+    {
+      "file": "tools/workspace.ts",
+      "sourceSha256": "d1797b62d948714002c837c4214cb3492171796cca780c58cb19beb1a3cdc032",
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "knownCommandSource": true,
+      "pendingFreshCandidate": false
+    },
+    {
+      "file": "tools/plan-base.ts",
+      "sourceSha256": "1b6b1d4537d45bf073e9273cb71fc3ecb7085e0bf5e29c5ecb97a3879e60aacf",
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "knownCommandSource": true,
+      "pendingFreshCandidate": false
+    },
+    {
+      "file": "tools/progress.ts",
+      "sourceSha256": "a60d8d654cef45cb2c2dad1c9a33ea782abf7ca2878ec272dbfc87d8c4a457d8",
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "knownCommandSource": true,
+      "pendingFreshCandidate": false
+    },
+    {
+      "file": "tools/system-narrative.ts",
+      "sourceSha256": "7862daadcd20f8bb7e688a7c2748980496523023a9b9979c56aa966c717e5e87",
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "knownCommandSource": true,
+      "pendingFreshCandidate": false
+    },
+    {
+      "file": "tools/rebuild/baseline.ts",
+      "sourceSha256": "f84d99ca01a8d85a99994c6a7ed86bf89ecc1e195529caed44d1cf660bd32a7f",
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "knownCommandSource": true,
+      "pendingFreshCandidate": true
+    },
+    {
+      "file": "tools/rebuild/compare.ts",
+      "sourceSha256": "6fa6c7afd0eb5a97092db7a30b051b6f0d368790a140d59f63b004ba5cb83900",
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "knownCommandSource": true,
+      "pendingFreshCandidate": true
+    },
+    {
+      "file": "tools/rebuild/capture.ts",
+      "sourceSha256": "42bd31790a16d521f32ec1b1abaada37e67fb5398e6693aed21460f4ea679d23",
+      "factBindings": [
+        "argumentsOf",
+        "capture",
+        "captureFactFiles",
+        "manifestOf",
+        "routeList"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "knownCommandSource": true,
+      "pendingFreshCandidate": false
+    },
+    {
+      "file": "tools/rebuild/facts-only.ts",
+      "sourceSha256": "4647096e5f11e33a69c3b2fc203a19c43c6845400b443a7fb4ab6cceb523172b",
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "knownCommandSource": true,
+      "pendingFreshCandidate": true
+    },
+    {
+      "file": "tools/rebuild/facts.ts",
+      "sourceSha256": "4b5a46c800a57bedf84eaa14802215035ed040e6cf2c4b488519f0520fb78c85",
+      "factBindings": [
+        "captureFacts"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "knownCommandSource": true,
+      "pendingFreshCandidate": false
+    },
+    {
+      "file": "tools/rebuild/routes.ts",
+      "sourceSha256": "a330b1f93f82006aab2e69e8aa021e747d5f0a6ac5a41c8f8e2a0063d83e1a4b",
+      "factBindings": [
+        "selectedRoutes"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "knownCommandSource": true,
+      "pendingFreshCandidate": false
+    },
+    {
+      "file": "tools/rebuild/check-plan-routes.ts",
+      "sourceSha256": "1db538d99616a2df5b4ab3d56013f181af6fd8fbaf019c178f18d64d65e73359",
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "knownCommandSource": true,
+      "pendingFreshCandidate": false
+    }
+  ]
+}

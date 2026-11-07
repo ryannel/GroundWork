@@ -1,10 +1,9 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { flowSlug, workspaceHref } from '@/application/workspace-paths';
-import { systemViewOf } from '@/application/workspace-system';
-import { TodayFlow } from '@/features/plan';
-import { todayData } from '@/infrastructure/today-data';
+import { modelSystemFlowOf } from '@/application/model-system';
+import { ModelTodayFlow } from '@/features/plan';
+import { readCanonicalModelIndex } from '@/infrastructure/model-index';
 
 interface Params {
   readonly workspace: string;
@@ -13,25 +12,23 @@ interface Params {
   readonly flow: string;
 }
 
-async function systemFlowAt({ workspace: id, domain, system, flow }: Params) {
-  const data = await todayData(id);
-  const view = data === null ? null : systemViewOf(data.workspace, data.today, { domain, system });
-  return { data, chosen: view?.flows.find((each) => flowSlug(each.id) === flow) };
-}
-
 export async function generateMetadata({
   params,
 }: {
   readonly params: Promise<Params>;
 }): Promise<Metadata> {
-  const { chosen } = await systemFlowAt(await params);
-  return { title: chosen?.name ?? 'Flows' };
+  const at = await params;
+  const native = await readCanonicalModelIndex(at.workspace);
+  if (native === null) return { title: 'Flows' };
+  return { title: modelSystemFlowOf(native, at, at.flow)?.name ?? 'Flows' };
 }
 
 // One flow through the system, beside the list of all of them.
 export default async function SystemFlowRoute({ params }: { readonly params: Promise<Params> }) {
   const at = await params;
-  const { data, chosen } = await systemFlowAt(at);
-  if (data === null || chosen === undefined) notFound();
-  return <TodayFlow base={workspaceHref(at.workspace)} id={chosen.id} model={data.today.model} />;
+  const native = await readCanonicalModelIndex(at.workspace);
+  if (native === null) notFound();
+  const flow = modelSystemFlowOf(native, at, at.flow);
+  if (flow === null) notFound();
+  return <ModelTodayFlow flow={flow} />;
 }

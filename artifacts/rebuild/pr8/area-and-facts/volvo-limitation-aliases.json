@@ -1,0 +1,33 @@
+{
+  "changes": [
+    {
+      "after": "7cffe712ac7aabc167ca91a3f11756008ddda7f38b1da1e32a9ee9bee1e0a58a",
+      "baselinePath": "/landscape/details/4/valueFlow/limitations",
+      "before": "38c87b40fefb76cdeb5a2a045e0495ef78a3fc801759c6ee41551bf594afe94f",
+      "changes": [
+        {
+          "after": "The Webstore shared-session package indicates cart creation, but no exact Storefront API invocation is structured for app:storefront. Its current recorded Cart-system edge is only a Connect signing-key lookup.",
+          "before": "The Webstore shared-session package indicates cart creation, but no exact Storefront API invocation is structured for svc:storefront. Its current recorded Cart-system edge is only a Connect signing-key lookup."
+        }
+      ],
+      "nativeId": "area:buy"
+    },
+    {
+      "after": "acc53780321248a2de58bea5877fd1ee981a7540bfebeffc06061a024c076005",
+      "baselinePath": "/landscape/details/7/valueFlow/limitations",
+      "before": "6237bee17b0f81f39a1623407db8c45d7df7e8bf17e50ca3aab37e118ab2e647",
+      "changes": [
+        {
+          "after": "Volvo ID change/delete consumption is source-backed. The original assignment of these messages and topics to sys:identity-volvo-id is not proved by the captured publisher code; keep owner and producer unknown unless independent publication evidence is found.",
+          "before": "Volvo ID change/delete consumption is source-backed. The original assignment of these messages and topics to svc:identity-volvo-id is not proved by the captured publisher code; keep owner and producer unknown unless independent publication evidence is found."
+        }
+      ],
+      "nativeId": "area:fleet"
+    }
+  ],
+  "frozenFacts": "e5a5a9795b7ceca57083bc067955b1affd908f076585b980551ca5568466f2ca",
+  "input": "/private/tmp/rebuild-pr8-volvo-runtime-01",
+  "previouslyUnmatched": 2,
+  "problems": [],
+  "rows": 14
+}

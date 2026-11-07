@@ -1,13 +1,19 @@
-import { qualifiedOf, typeOf } from '@/application/plan/ids';
 import { latestEvent, sourceUrl } from '@/application/plan/progress';
 import type { ChangeRealisation } from '@/application/plan/realisation';
-import type {
-  Milestone,
-  Plan,
-  Progress,
-  ProgressEvent,
-  WorkItem,
-} from '@/domain/plan/plan.generated';
+import { qualifiedOf, kindOf } from '@/domain/ids';
+import type { ProgressEvent } from '@/domain/plan/plan.generated';
+import type { ModelPlan } from '@/domain/workspace-model';
+
+export interface StandingProgress {
+  readonly events: readonly ProgressEvent[];
+}
+
+type WorkItem = NonNullable<ModelPlan['work_items']>[number];
+type Milestone = NonNullable<ModelPlan['milestones']>[number];
+export type StandingPlan = Pick<
+  ModelPlan,
+  'work_items' | 'milestones' | 'decisions' | 'questions'
+> & { readonly teams?: readonly { readonly id: string; readonly name: string }[] };
 
 // Where each piece of a plan's work stands, from progress.yaml: what its team has promised (commitment), what has
 // happened (progress) and when we last heard. The two are never mixed, and realisation (whether today now says
@@ -239,7 +245,9 @@ export interface PlanWork {
   readonly milestones?: readonly Pick<Milestone, 'id'>[] | undefined;
 }
 
-function eventsBySubject(progress: Progress): ReadonlyMap<string, readonly ProgressEvent[]> {
+function eventsBySubject(
+  progress: StandingProgress,
+): ReadonlyMap<string, readonly ProgressEvent[]> {
   const by = new Map<string, ProgressEvent[]>();
   for (const event of progress.events) {
     by.set(event.subject, [...(by.get(event.subject) ?? []), event]);
@@ -250,7 +258,7 @@ function eventsBySubject(progress: Progress): ReadonlyMap<string, readonly Progr
 /** The commitment of each work item, and the rolled-up commitment of each milestone, by id. */
 export function commitmentsOf(
   plan: PlanWork,
-  progress: Progress,
+  progress: StandingProgress,
 ): Readonly<Record<string, CommitmentState | null>> {
   const by = eventsBySubject(progress);
   const stateOf = (id: string): CommitmentState | null =>
@@ -266,12 +274,12 @@ export function commitmentsOf(
 const STOPPED: ReadonlySet<string | null> = new Set(['declined', 'withdrawn']);
 
 interface Reading {
-  readonly plan: Plan;
+  readonly plan: StandingPlan;
   readonly commitments: Readonly<Record<string, CommitmentState | null>>;
   readonly elsewhere: Elsewhere;
 }
 
-function localLabel(plan: Plan, id: string): string {
+function localLabel(plan: StandingPlan, id: string): string {
   const named = [
     ...(plan.work_items ?? []).map((w) => [w.id, w.title] as const),
     ...(plan.milestones ?? []).map((m) => [m.id, m.name] as const),
@@ -292,7 +300,7 @@ function stoppedBy(r: Reading, id: string, kind: 'depends-on' | 'after'): BlockR
 }
 
 /** A question's status here, read as open while the decision that answers it is not accepted. */
-function questionStatus(plan: Plan, id: string): string | null {
+function questionStatus(plan: StandingPlan, id: string): string | null {
   const question = (plan.questions ?? []).find((q) => q.id === id);
   if (question === undefined) return null;
   const answer = (plan.decisions ?? []).find((d) => d.id === question.answered_by);
@@ -301,7 +309,7 @@ function questionStatus(plan: Plan, id: string): string | null {
 
 function gateStatus(r: Reading, id: string): string | null {
   if (qualifiedOf(id) !== null) return r.elsewhere.statuses[id] ?? null;
-  if (typeOf(id) === 'question') return questionStatus(r.plan, id);
+  if (kindOf(id) === 'question') return questionStatus(r.plan, id);
   return (r.plan.decisions ?? []).find((d) => d.id === id)?.status ?? null;
 }
 
@@ -309,7 +317,7 @@ const UNDECIDED: ReadonlySet<string | null> = new Set(['proposed', 'deferred']);
 
 /** An open question, or a decision not yet made, that a work item waits on. */
 function gatedBy(r: Reading, id: string): BlockReason | null {
-  const type = typeOf(qualifiedOf(id)?.id ?? id);
+  const type = kindOf(qualifiedOf(id)?.id ?? id);
   const status = gateStatus(r, id);
   if (type === 'question' && status === 'open') {
     return { kind: 'question', id, label: labelOf(r, id), state: status };
@@ -327,17 +335,17 @@ function itemBlockers(r: Reading, item: WorkItem): BlockReason[] {
   ];
 }
 
-function teamOf(item: WorkItem, plan: Plan, teams: readonly StandingTeam[]): StandingTeam {
+function teamOf(item: WorkItem, plan: StandingPlan, teams: readonly StandingTeam[]): StandingTeam {
   const known = teams.find((t) => t.id === item.team);
   if (known !== undefined) return known;
-  const named = plan.teams.find((t) => t.id === item.team)?.name;
+  const named = (plan.teams ?? []).find((t) => t.id === item.team)?.name;
   return { id: item.team, name: named ?? item.team, partner: false };
 }
 
 /** Where every work item, milestone and team of a plan stands, from its progress record. No realisation. */
 export function standingOf(
-  plan: Plan,
-  progress: Progress,
+  plan: StandingPlan,
+  progress: StandingProgress,
   context: StandingContext,
 ): Omit<PlanStanding, 'changes'> {
   const by = eventsBySubject(progress);

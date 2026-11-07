@@ -1,0 +1,18 @@
+side-projects:
+  to: dom:side-projects
+  reason: Canonical model identity.
+allotment-log:
+  to: sys:allotment-log
+  reason: Canonical model identity.
+svc:allotment-app:
+  to: app:allotment-app
+  reason: Canonical model identity.
+svc:weather-api:
+  to: ext:weather-api
+  reason: Canonical model identity.
+bike-fit:
+  to: sys:bike-fit
+  reason: Canonical model identity.
+svc:geometry:
+  to: lib:geometry
+  reason: Canonical model identity.

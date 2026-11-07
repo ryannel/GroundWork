@@ -1,0 +1,3179 @@
+{
+  "format": 1,
+  "rows": [
+    {
+      "file": "src/application/plan-story-cover-base.ts",
+      "sourceSha256": "9bc6d39f4c13c022c4b45422ce40c43b617814b063191375c51944124637b92e",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 6,
+          "text": "import { baseLine } from '@/application/plan-story-cover-base';",
+          "target": "src/application/plan-story-cover-base.ts",
+          "symbols": [
+            "baseLine"
+          ],
+          "file": "src/features/plan/chapters/cover/cover-screen.tsx"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan-story-versions-checks.ts",
+      "sourceSha256": "390d28b4972e84d40f5fe4aee851428b2024eaf8e43f71cc38278dd58e6c6dd4",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 4,
+          "text": "import { type CheckView, checkViews } from '@/application/plan-story-versions-checks';",
+          "target": "src/application/plan-story-versions-checks.ts",
+          "symbols": [
+            "checkViews"
+          ],
+          "file": "src/application/plan-story-versions-view.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan-story-versions-pair.ts",
+      "sourceSha256": "59feb4c31a6bf95354e396c996f482a436802fce6fabaf98ebd5522322a6e4bc",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 16,
+          "text": "import { nameIn, type Pair, pairOf, type View } from '@/application/plan-story-versions-pair';",
+          "target": "src/application/plan-story-versions-pair.ts",
+          "symbols": [
+            "nameIn",
+            "pairOf"
+          ],
+          "file": "src/application/plan-story-versions-view.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan-story-versions-words.ts",
+      "sourceSha256": "5f744bca3a64b045b783141348266c4e51ab20b390afec8d00056a5503108e27",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 4,
+          "text": "import {",
+          "target": "src/application/plan-story-versions-words.ts",
+          "symbols": [
+            "dayText",
+            "decidedText",
+            "statusLook",
+            "whenOf"
+          ],
+          "file": "src/application/plan-story-versions-history.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan-viz-dag-layout.ts",
+      "sourceSha256": "7023517d21b93e5aafeac72e7e341bd50a808f6670f48401324a53f9a430d069",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 3,
+          "text": "import {",
+          "target": "src/application/plan-viz-dag-layout.ts",
+          "symbols": [
+            "COL_GAP",
+            "NODE_H",
+            "NODE_W",
+            "orthogonal"
+          ],
+          "file": "src/application/plan-viz-dag-edges.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan-viz-flow-place.ts",
+      "sourceSha256": "66253946029fc10c7feb7ecf22ba582b30672319c87a569b244c26540d43fffe",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 7,
+          "text": "import { placeColumns, rankNodes } from '@/application/plan-viz-flow-place';",
+          "target": "src/application/plan-viz-flow-place.ts",
+          "symbols": [
+            "placeColumns",
+            "rankNodes"
+          ],
+          "file": "src/application/plan-viz-flow-diagram.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan-viz-flow-route.ts",
+      "sourceSha256": "a3a63f46e43c0d554b859a8f78cff935b1bac199a536caea9e75c129964d18a7",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 8,
+          "text": "import { type Routed, routeEdges } from '@/application/plan-viz-flow-route';",
+          "target": "src/application/plan-viz-flow-route.ts",
+          "symbols": [
+            "routeEdges"
+          ],
+          "file": "src/application/plan-viz-flow-diagram.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan-viz-journey-words.ts",
+      "sourceSha256": "0685de3ecd180213a9a0679129675badb967759f6374fcf6e021c487486299a7",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 3,
+          "text": "import { type JourneyMode, rowTitle } from '@/application/plan-viz-journey-words';",
+          "target": "src/application/plan-viz-journey-words.ts",
+          "symbols": [
+            "rowTitle"
+          ],
+          "file": "src/application/plan-story-journey-walk.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan-viz-screen-flow-layout.ts",
+      "sourceSha256": "4580705aa53fcf31ff0c60b4a9f764db9115fd7a01af0c5a4f354147a7b4e861",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 4,
+          "text": "import {",
+          "target": "src/application/plan-viz-screen-flow-layout.ts",
+          "symbols": [
+            "layoutScreenFlow"
+          ],
+          "file": "src/application/plan-viz-screen-catalogue.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan-viz-source.ts",
+      "sourceSha256": "b54d75b30525c190e99639ef2988b99c2bb17132b1dfb81ceb2accbdea14cd2d",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 4,
+          "text": "import { sourceLabel } from '@/application/plan-viz-source';",
+          "target": "src/application/plan-viz-source.ts",
+          "symbols": [
+            "sourceLabel"
+          ],
+          "file": "src/features/plan/viz/endpoint/endpoint-row.tsx"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan-viz-waterfall-text.ts",
+      "sourceSha256": "89122237ebcf198f5f2667cc2e3b5a9afd3a14b39bdb5e1dae99e577446cb918",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 7,
+          "text": "import { keyText } from '@/application/plan-viz-waterfall-text';",
+          "target": "src/application/plan-viz-waterfall-text.ts",
+          "symbols": [
+            "keyText"
+          ],
+          "file": "src/application/plan-story-journey-behind.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/apply-add.ts",
+      "sourceSha256": "937b093ca8e84c30441d2255a301f730384fbc8ebe8f4005c2d2dd56e46f3894",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 24,
+          "text": "import {",
+          "target": "src/application/plan/stack-base.ts",
+          "symbols": [
+            "NOTHING_INHERITED",
+            "stackedBase",
+            "stackOnto"
+          ],
+          "file": "src/infrastructure/plan-store.ts"
+        },
+        {
+          "line": 1,
+          "text": "import { applyOps } from '@/application/plan/apply-ops';",
+          "target": "src/application/plan/apply-ops.ts",
+          "symbols": [
+            "applyOps"
+          ],
+          "file": "src/application/plan/stack-base.ts"
+        },
+        {
+          "line": 1,
+          "text": "import { applyAdd, newRecord } from '@/application/plan/apply-add';",
+          "target": "src/application/plan/apply-add.ts",
+          "symbols": [
+            "applyAdd",
+            "newRecord"
+          ],
+          "file": "src/application/plan/apply-ops.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/apply-modify.ts",
+      "sourceSha256": "f18dbcc7b1501149bcd1d2c0af270d739bfcf1f9833f707c12a13dec3dcaee4e",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 24,
+          "text": "import {",
+          "target": "src/application/plan/stack-base.ts",
+          "symbols": [
+            "NOTHING_INHERITED",
+            "stackedBase",
+            "stackOnto"
+          ],
+          "file": "src/infrastructure/plan-store.ts"
+        },
+        {
+          "line": 1,
+          "text": "import { applyOps } from '@/application/plan/apply-ops';",
+          "target": "src/application/plan/apply-ops.ts",
+          "symbols": [
+            "applyOps"
+          ],
+          "file": "src/application/plan/stack-base.ts"
+        },
+        {
+          "line": 2,
+          "text": "import { applyTargeted } from '@/application/plan/apply-modify';",
+          "target": "src/application/plan/apply-modify.ts",
+          "symbols": [
+            "applyTargeted"
+          ],
+          "file": "src/application/plan/apply-ops.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/apply-ops.ts",
+      "sourceSha256": "92cc6007220cc5801a04525024c9ad5207547a50c3f74122233ddd67ee20eae3",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 24,
+          "text": "import {",
+          "target": "src/application/plan/stack-base.ts",
+          "symbols": [
+            "NOTHING_INHERITED",
+            "stackedBase",
+            "stackOnto"
+          ],
+          "file": "src/infrastructure/plan-store.ts"
+        },
+        {
+          "line": 1,
+          "text": "import { applyOps } from '@/application/plan/apply-ops';",
+          "target": "src/application/plan/apply-ops.ts",
+          "symbols": [
+            "applyOps"
+          ],
+          "file": "src/application/plan/stack-base.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/check-context.ts",
+      "sourceSha256": "72dff809ff00f2899d2a1c9d9fb366aa550990ce95b4b58099b304c825da7ac2",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 21,
+          "text": "import { type Findings, validatePlan } from '@/application/plan/validate-plan';",
+          "target": "src/application/plan/validate-plan.ts",
+          "symbols": [
+            "validatePlan"
+          ],
+          "file": "src/application/plan/derive.ts"
+        },
+        {
+          "line": 1,
+          "text": "import {",
+          "target": "src/application/plan/check-context.ts",
+          "symbols": [
+            "createContext",
+            "createReport"
+          ],
+          "file": "src/application/plan/validate-plan.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/check-decisions.ts",
+      "sourceSha256": "6247f13bf942b19b29cd5008dfbfb2afa52f5d21f8c61a662aaec13448fc46a0",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 21,
+          "text": "import { type Findings, validatePlan } from '@/application/plan/validate-plan';",
+          "target": "src/application/plan/validate-plan.ts",
+          "symbols": [
+            "validatePlan"
+          ],
+          "file": "src/application/plan/derive.ts"
+        },
+        {
+          "line": 8,
+          "text": "import { checkDecisions } from '@/application/plan/check-decisions';",
+          "target": "src/application/plan/check-decisions.ts",
+          "symbols": [
+            "checkDecisions"
+          ],
+          "file": "src/application/plan/validate-plan.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/check-delivery.ts",
+      "sourceSha256": "f1f3b441d88bdeee28aed35bc4b29f5f766e59c26422ea847616252e939be8da",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 21,
+          "text": "import { type Findings, validatePlan } from '@/application/plan/validate-plan';",
+          "target": "src/application/plan/validate-plan.ts",
+          "symbols": [
+            "validatePlan"
+          ],
+          "file": "src/application/plan/derive.ts"
+        },
+        {
+          "line": 9,
+          "text": "import { checkDelivery } from '@/application/plan/check-delivery';",
+          "target": "src/application/plan/check-delivery.ts",
+          "symbols": [
+            "checkDelivery"
+          ],
+          "file": "src/application/plan/validate-plan.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/check-federation-ops.ts",
+      "sourceSha256": "fa3347b35a395aef198e4d00a0512a91304d88be5ca424b5bd2085cd4a5517cc",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 21,
+          "text": "import { type Findings, validatePlan } from '@/application/plan/validate-plan';",
+          "target": "src/application/plan/validate-plan.ts",
+          "symbols": [
+            "validatePlan"
+          ],
+          "file": "src/application/plan/derive.ts"
+        },
+        {
+          "line": 10,
+          "text": "import { checkFederation } from '@/application/plan/check-federation';",
+          "target": "src/application/plan/check-federation.ts",
+          "symbols": [
+            "checkFederation"
+          ],
+          "file": "src/application/plan/validate-plan.ts"
+        },
+        {
+          "line": 2,
+          "text": "import { checkOperations } from '@/application/plan/check-federation-ops';",
+          "target": "src/application/plan/check-federation-ops.ts",
+          "symbols": [
+            "checkOperations"
+          ],
+          "file": "src/application/plan/check-federation.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/check-federation-scope.ts",
+      "sourceSha256": "3bda9f2c04418584c4404c2730a757e06e894b591160d852ed5de6712149c913",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 21,
+          "text": "import { type Findings, validatePlan } from '@/application/plan/validate-plan';",
+          "target": "src/application/plan/validate-plan.ts",
+          "symbols": [
+            "validatePlan"
+          ],
+          "file": "src/application/plan/derive.ts"
+        },
+        {
+          "line": 10,
+          "text": "import { checkFederation } from '@/application/plan/check-federation';",
+          "target": "src/application/plan/check-federation.ts",
+          "symbols": [
+            "checkFederation"
+          ],
+          "file": "src/application/plan/validate-plan.ts"
+        },
+        {
+          "line": 3,
+          "text": "import { createScopes, type Scope } from '@/application/plan/check-federation-scope';",
+          "target": "src/application/plan/check-federation-scope.ts",
+          "symbols": [
+            "createScopes"
+          ],
+          "file": "src/application/plan/check-federation.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/check-federation.ts",
+      "sourceSha256": "74fefdeca8a6413f4cce2c486b152f4cd013be14a6f164935490e3a9f5d82979",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 21,
+          "text": "import { type Findings, validatePlan } from '@/application/plan/validate-plan';",
+          "target": "src/application/plan/validate-plan.ts",
+          "symbols": [
+            "validatePlan"
+          ],
+          "file": "src/application/plan/derive.ts"
+        },
+        {
+          "line": 10,
+          "text": "import { checkFederation } from '@/application/plan/check-federation';",
+          "target": "src/application/plan/check-federation.ts",
+          "symbols": [
+            "checkFederation"
+          ],
+          "file": "src/application/plan/validate-plan.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/check-handlers.ts",
+      "sourceSha256": "f163120e9025cf025f6b0348984cbbd9dce1c99b3524760e2e43da1dacbda178",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 21,
+          "text": "import { type Findings, validatePlan } from '@/application/plan/validate-plan';",
+          "target": "src/application/plan/validate-plan.ts",
+          "symbols": [
+            "validatePlan"
+          ],
+          "file": "src/application/plan/derive.ts"
+        },
+        {
+          "line": 11,
+          "text": "import { checkHandlers } from '@/application/plan/check-handlers';",
+          "target": "src/application/plan/check-handlers.ts",
+          "symbols": [
+            "checkHandlers"
+          ],
+          "file": "src/application/plan/validate-plan.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/check-messages.ts",
+      "sourceSha256": "4c90014fbd24c59bd6006f4a6140d03e6dd7ce2dc671de4753c42a3f0c7daa7a",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 21,
+          "text": "import { type Findings, validatePlan } from '@/application/plan/validate-plan';",
+          "target": "src/application/plan/validate-plan.ts",
+          "symbols": [
+            "validatePlan"
+          ],
+          "file": "src/application/plan/derive.ts"
+        },
+        {
+          "line": 12,
+          "text": "import { checkMessageKeys } from '@/application/plan/check-messages';",
+          "target": "src/application/plan/check-messages.ts",
+          "symbols": [
+            "checkMessageKeys"
+          ],
+          "file": "src/application/plan/validate-plan.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/check-neighbours.ts",
+      "sourceSha256": "8c279cb15fc67a8f34ded38241db9bb585129725c53a2ae1c631b515d933a6ea",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 6,
+          "text": "import { neighbourOf } from '@/application/plan/check-neighbours';",
+          "target": "src/application/plan/check-neighbours.ts",
+          "symbols": [
+            "neighbourOf"
+          ],
+          "file": "src/infrastructure/plan-store.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/check-programme.ts",
+      "sourceSha256": "8c8e9dad5bc9123e736292a424b782b6099b0f9e39ddd8a646d8729aac87d32c",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 4,
+          "text": "import { checkProgramme } from '@/application/plan/check-programme';",
+          "target": "src/application/plan/check-programme.ts",
+          "symbols": [
+            "checkProgramme"
+          ],
+          "file": "src/infrastructure/workspace-programmes.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/check-records.ts",
+      "sourceSha256": "e2214f91258aba1cfdce22df8349d366f8fca27a2cb60590f564cd6e8e61f3b5",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 21,
+          "text": "import { type Findings, validatePlan } from '@/application/plan/validate-plan';",
+          "target": "src/application/plan/validate-plan.ts",
+          "symbols": [
+            "validatePlan"
+          ],
+          "file": "src/application/plan/derive.ts"
+        },
+        {
+          "line": 14,
+          "text": "import {",
+          "target": "src/application/plan/check-records.ts",
+          "symbols": [
+            "checkFields",
+            "checkMapLines",
+            "checkRecords",
+            "checkSystems"
+          ],
+          "file": "src/application/plan/validate-plan.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/check-screens.ts",
+      "sourceSha256": "d4844eed98e62ffe06002b9c82e679f1f810033cb831d30f073e1b7d0fd58aa7",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 21,
+          "text": "import { type Findings, validatePlan } from '@/application/plan/validate-plan';",
+          "target": "src/application/plan/validate-plan.ts",
+          "symbols": [
+            "validatePlan"
+          ],
+          "file": "src/application/plan/derive.ts"
+        },
+        {
+          "line": 21,
+          "text": "import { checkNavigation, checkScreens } from '@/application/plan/check-screens';",
+          "target": "src/application/plan/check-screens.ts",
+          "symbols": [
+            "checkNavigation",
+            "checkScreens"
+          ],
+          "file": "src/application/plan/validate-plan.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/check-steps.ts",
+      "sourceSha256": "c8c3fd130a710cdd1b8b258d749e840ec463a41e82544b230b0a8516891a1f21",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 21,
+          "text": "import { type Findings, validatePlan } from '@/application/plan/validate-plan';",
+          "target": "src/application/plan/validate-plan.ts",
+          "symbols": [
+            "validatePlan"
+          ],
+          "file": "src/application/plan/derive.ts"
+        },
+        {
+          "line": 23,
+          "text": "import { checkSteps } from '@/application/plan/check-steps';",
+          "target": "src/application/plan/check-steps.ts",
+          "symbols": [
+            "checkSteps"
+          ],
+          "file": "src/application/plan/validate-plan.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/check-text.ts",
+      "sourceSha256": "478ebe8871c0ba521ca329f5f016e6e09840d6e6df5541dd6489aa6ed727d6d4",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 21,
+          "text": "import { type Findings, validatePlan } from '@/application/plan/validate-plan';",
+          "target": "src/application/plan/validate-plan.ts",
+          "symbols": [
+            "validatePlan"
+          ],
+          "file": "src/application/plan/derive.ts"
+        },
+        {
+          "line": 24,
+          "text": "import { checkText } from '@/application/plan/check-text';",
+          "target": "src/application/plan/check-text.ts",
+          "symbols": [
+            "checkText"
+          ],
+          "file": "src/application/plan/validate-plan.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/compat-contracts.ts",
+      "sourceSha256": "50265b4cbf37f27e4e75f6230003c494292aab31d78f925a64d51a9ec39d3cbf",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';",
+          "target": "src/application/plan/derive-compose.ts",
+          "symbols": [
+            "compose"
+          ],
+          "file": "src/application/plan/derive.ts"
+        },
+        {
+          "line": 15,
+          "text": "import {",
+          "target": "src/application/plan/federation-members.ts",
+          "symbols": [
+            "createFederationMembers"
+          ],
+          "file": "src/application/plan/derive-compose.ts"
+        },
+        {
+          "line": 1,
+          "text": "import { createCompat } from '@/application/plan/compat';",
+          "target": "src/application/plan/compat.ts",
+          "symbols": [
+            "createCompat"
+          ],
+          "file": "src/application/plan/federation-members.ts"
+        },
+        {
+          "line": 2,
+          "text": "import {",
+          "target": "src/application/plan/compat-kinds.ts",
+          "symbols": [
+            "deprecation",
+            "ofContract",
+            "ofInterface",
+            "ofStore",
+            "touched"
+          ],
+          "file": "src/application/plan/compat.ts"
+        },
+        {
+          "line": 1,
+          "text": "import { contractCompat } from '@/application/plan/compat-contracts';",
+          "target": "src/application/plan/compat-contracts.ts",
+          "symbols": [
+            "contractCompat"
+          ],
+          "file": "src/application/plan/compat-kinds.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/compat-judge.ts",
+      "sourceSha256": "c6e53a8ddff6d2407e05d8679232a7d2dafe0a29b7d6e963280cb7797ca62119",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';",
+          "target": "src/application/plan/derive-compose.ts",
+          "symbols": [
+            "compose"
+          ],
+          "file": "src/application/plan/derive.ts"
+        },
+        {
+          "line": 15,
+          "text": "import {",
+          "target": "src/application/plan/federation-members.ts",
+          "symbols": [
+            "createFederationMembers"
+          ],
+          "file": "src/application/plan/derive-compose.ts"
+        },
+        {
+          "line": 1,
+          "text": "import { createCompat } from '@/application/plan/compat';",
+          "target": "src/application/plan/compat.ts",
+          "symbols": [
+            "createCompat"
+          ],
+          "file": "src/application/plan/federation-members.ts"
+        },
+        {
+          "line": 1,
+          "text": "import { type Compat, merge, nothing } from '@/application/plan/compat-judge';",
+          "target": "src/application/plan/compat-judge.ts",
+          "symbols": [
+            "merge",
+            "nothing"
+          ],
+          "file": "src/application/plan/compat.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/compat-kinds.ts",
+      "sourceSha256": "ddcca08a4b00e1064b288700bd6c3a29ff07d5542cddea06bfc39ce35e7de88a",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';",
+          "target": "src/application/plan/derive-compose.ts",
+          "symbols": [
+            "compose"
+          ],
+          "file": "src/application/plan/derive.ts"
+        },
+        {
+          "line": 15,
+          "text": "import {",
+          "target": "src/application/plan/federation-members.ts",
+          "symbols": [
+            "createFederationMembers"
+          ],
+          "file": "src/application/plan/derive-compose.ts"
+        },
+        {
+          "line": 1,
+          "text": "import { createCompat } from '@/application/plan/compat';",
+          "target": "src/application/plan/compat.ts",
+          "symbols": [
+            "createCompat"
+          ],
+          "file": "src/application/plan/federation-members.ts"
+        },
+        {
+          "line": 2,
+          "text": "import {",
+          "target": "src/application/plan/compat-kinds.ts",
+          "symbols": [
+            "deprecation",
+            "ofContract",
+            "ofInterface",
+            "ofStore",
+            "touched"
+          ],
+          "file": "src/application/plan/compat.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/compat-net.ts",
+      "sourceSha256": "21f5677f8c580afbb7df65247af35570ceddaa55cf44908e981bdf1931a83e99",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';",
+          "target": "src/application/plan/derive-compose.ts",
+          "symbols": [
+            "compose"
+          ],
+          "file": "src/application/plan/derive.ts"
+        },
+        {
+          "line": 15,
+          "text": "import {",
+          "target": "src/application/plan/federation-members.ts",
+          "symbols": [
+            "createFederationMembers"
+          ],
+          "file": "src/application/plan/derive-compose.ts"
+        },
+        {
+          "line": 1,
+          "text": "import { createCompat } from '@/application/plan/compat';",
+          "target": "src/application/plan/compat.ts",
+          "symbols": [
+            "createCompat"
+          ],
+          "file": "src/application/plan/federation-members.ts"
+        },
+        {
+          "line": 10,
+          "text": "import { netDiff, type NetRow } from '@/application/plan/compat-net';",
+          "target": "src/application/plan/compat-net.ts",
+          "symbols": [
+            "netDiff"
+          ],
+          "file": "src/application/plan/compat.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/compat-people.ts",
+      "sourceSha256": "f600e839151071902a78173b7b17c8bb04eff6ab6cb138a0cde1be3b5fb72b77",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';",
+          "target": "src/application/plan/derive-compose.ts",
+          "symbols": [
+            "compose"
+          ],
+          "file": "src/application/plan/derive.ts"
+        },
+        {
+          "line": 15,
+          "text": "import {",
+          "target": "src/application/plan/federation-members.ts",
+          "symbols": [
+            "createFederationMembers"
+          ],
+          "file": "src/application/plan/derive-compose.ts"
+        },
+        {
+          "line": 1,
+          "text": "import { createCompat } from '@/application/plan/compat';",
+          "target": "src/application/plan/compat.ts",
+          "symbols": [
+            "createCompat"
+          ],
+          "file": "src/application/plan/federation-members.ts"
+        },
+        {
+          "line": 11,
+          "text": "import { changedSteps } from '@/application/plan/compat-people';",
+          "target": "src/application/plan/compat-people.ts",
+          "symbols": [
+            "changedSteps"
+          ],
+          "file": "src/application/plan/compat.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/compat-rules.ts",
+      "sourceSha256": "a7b0ede85ecf1612a7df179be87287af5ec13fcf248b2ecd3efcc7f522171a58",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';",
+          "target": "src/application/plan/derive-compose.ts",
+          "symbols": [
+            "compose"
+          ],
+          "file": "src/application/plan/derive.ts"
+        },
+        {
+          "line": 15,
+          "text": "import {",
+          "target": "src/application/plan/federation-members.ts",
+          "symbols": [
+            "createFederationMembers"
+          ],
+          "file": "src/application/plan/derive-compose.ts"
+        },
+        {
+          "line": 1,
+          "text": "import { createCompat } from '@/application/plan/compat';",
+          "target": "src/application/plan/compat.ts",
+          "symbols": [
+            "createCompat"
+          ],
+          "file": "src/application/plan/federation-members.ts"
+        },
+        {
+          "line": 12,
+          "text": "import { propRows } from '@/application/plan/compat-rules';",
+          "target": "src/application/plan/compat-rules.ts",
+          "symbols": [
+            "propRows"
+          ],
+          "file": "src/application/plan/compat.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/compat-schema.ts",
+      "sourceSha256": "15b010855df15a8ea9f8483e56ea32a9db7d98a2ca484fc7e7f107391d3c8545",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';",
+          "target": "src/application/plan/derive-compose.ts",
+          "symbols": [
+            "compose"
+          ],
+          "file": "src/application/plan/derive.ts"
+        },
+        {
+          "line": 15,
+          "text": "import {",
+          "target": "src/application/plan/federation-members.ts",
+          "symbols": [
+            "createFederationMembers"
+          ],
+          "file": "src/application/plan/derive-compose.ts"
+        },
+        {
+          "line": 1,
+          "text": "import { createCompat } from '@/application/plan/compat';",
+          "target": "src/application/plan/compat.ts",
+          "symbols": [
+            "createCompat"
+          ],
+          "file": "src/application/plan/federation-members.ts"
+        },
+        {
+          "line": 13,
+          "text": "import { createSchemaCompat, type Env } from '@/application/plan/compat-schema';",
+          "target": "src/application/plan/compat-schema.ts",
+          "symbols": [
+            "createSchemaCompat"
+          ],
+          "file": "src/application/plan/compat.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/compat.ts",
+      "sourceSha256": "d8132cb758e355746d7e03869ebc908d20c5320b2e055d861beadaf8fdfce8e0",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';",
+          "target": "src/application/plan/derive-compose.ts",
+          "symbols": [
+            "compose"
+          ],
+          "file": "src/application/plan/derive.ts"
+        },
+        {
+          "line": 15,
+          "text": "import {",
+          "target": "src/application/plan/federation-members.ts",
+          "symbols": [
+            "createFederationMembers"
+          ],
+          "file": "src/application/plan/derive-compose.ts"
+        },
+        {
+          "line": 1,
+          "text": "import { createCompat } from '@/application/plan/compat';",
+          "target": "src/application/plan/compat.ts",
+          "symbols": [
+            "createCompat"
+          ],
+          "file": "src/application/plan/federation-members.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/derive-compose.ts",
+      "sourceSha256": "d74c253d0e0e9dba80d62688fa7b123386dfa1200cf818a72a82534843470dea",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';",
+          "target": "src/application/plan/derive-compose.ts",
+          "symbols": [
+            "compose"
+          ],
+          "file": "src/application/plan/derive.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/derive-contracts.ts",
+      "sourceSha256": "498458d1bfe242fb18a67501932dce980bc83b06d5f69ad9fc2b8ffc573015bc",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';",
+          "target": "src/application/plan/derive-compose.ts",
+          "symbols": [
+            "compose"
+          ],
+          "file": "src/application/plan/derive.ts"
+        },
+        {
+          "line": 2,
+          "text": "import { type CoverageQueries, createCoverage } from '@/application/plan/derive-coverage';",
+          "target": "src/application/plan/derive-coverage.ts",
+          "symbols": [
+            "createCoverage"
+          ],
+          "file": "src/application/plan/derive-compose.ts"
+        },
+        {
+          "line": 1,
+          "text": "import { createContracts, type UncontractedLink } from '@/application/plan/derive-contracts';",
+          "target": "src/application/plan/derive-contracts.ts",
+          "symbols": [
+            "createContracts"
+          ],
+          "file": "src/application/plan/derive-coverage.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/derive-core.ts",
+      "sourceSha256": "ceef69c7a498a4803defba0d79d0aa1520db023102ba713200c6cbea915037df",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';",
+          "target": "src/application/plan/derive-compose.ts",
+          "symbols": [
+            "compose"
+          ],
+          "file": "src/application/plan/derive.ts"
+        },
+        {
+          "line": 1,
+          "text": "import { type Core, createCore } from '@/application/plan/derive-core';",
+          "target": "src/application/plan/derive-core.ts",
+          "symbols": [
+            "createCore"
+          ],
+          "file": "src/application/plan/derive-compose.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/derive-coverage.ts",
+      "sourceSha256": "913e9e2d6729792e3052ef30c9000937b492c08db402f8d5944de6e9862b5c28",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';",
+          "target": "src/application/plan/derive-compose.ts",
+          "symbols": [
+            "compose"
+          ],
+          "file": "src/application/plan/derive.ts"
+        },
+        {
+          "line": 2,
+          "text": "import { type CoverageQueries, createCoverage } from '@/application/plan/derive-coverage';",
+          "target": "src/application/plan/derive-coverage.ts",
+          "symbols": [
+            "createCoverage"
+          ],
+          "file": "src/application/plan/derive-compose.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/derive-delivery.ts",
+      "sourceSha256": "2a70ab8a4046133362c58a071a766ca29a0fb3ee995ebb52b2d28383abff2465",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';",
+          "target": "src/application/plan/derive-compose.ts",
+          "symbols": [
+            "compose"
+          ],
+          "file": "src/application/plan/derive.ts"
+        },
+        {
+          "line": 3,
+          "text": "import { createDelivery, type Delivery } from '@/application/plan/derive-delivery';",
+          "target": "src/application/plan/derive-delivery.ts",
+          "symbols": [
+            "createDelivery"
+          ],
+          "file": "src/application/plan/derive-compose.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/derive-diff.ts",
+      "sourceSha256": "9703aca7bca263f4182863b37c63e9e18d60dba30f8ec37eeb7fbf785bbeb98e",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';",
+          "target": "src/application/plan/derive-compose.ts",
+          "symbols": [
+            "compose"
+          ],
+          "file": "src/application/plan/derive.ts"
+        },
+        {
+          "line": 4,
+          "text": "import { createDiff, type DiffQueries } from '@/application/plan/derive-diff';",
+          "target": "src/application/plan/derive-diff.ts",
+          "symbols": [
+            "createDiff"
+          ],
+          "file": "src/application/plan/derive-compose.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/derive-domain.ts",
+      "sourceSha256": "4a509af2efc00995da998885f76d69013093a4d561f62d6d7cdfd9a068f83cc4",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 6,
+          "text": "import { createDomain, type DomainQueries } from '@/application/plan/derive-domain';",
+          "target": "src/application/plan/derive-domain.ts",
+          "symbols": [
+            "createDomain"
+          ],
+          "file": "src/application/plan/derive.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/derive-edges.ts",
+      "sourceSha256": "4236bc30c181552477772372c2a836a43b2410aed340a654bd4512ea5735549a",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';",
+          "target": "src/application/plan/derive-compose.ts",
+          "symbols": [
+            "compose"
+          ],
+          "file": "src/application/plan/derive.ts"
+        },
+        {
+          "line": 5,
+          "text": "import { createEdges, type EdgeQueries } from '@/application/plan/derive-edges';",
+          "target": "src/application/plan/derive-edges.ts",
+          "symbols": [
+            "createEdges"
+          ],
+          "file": "src/application/plan/derive-compose.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/derive-glossary.ts",
+      "sourceSha256": "420594429e564c3122d7b01dc8647bd2ca210a002419c2e2cabdbe8389bd92b6",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 8,
+          "text": "import { createGlossary, type GlossaryQueries } from '@/application/plan/derive-glossary';",
+          "target": "src/application/plan/derive-glossary.ts",
+          "symbols": [
+            "createGlossary"
+          ],
+          "file": "src/application/plan/derive.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/derive-handler-edges.ts",
+      "sourceSha256": "b9711327d958ccbae5762a673af1f4e550dc2f9f93e9cb32cc171ce1a994a018",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';",
+          "target": "src/application/plan/derive-compose.ts",
+          "symbols": [
+            "compose"
+          ],
+          "file": "src/application/plan/derive.ts"
+        },
+        {
+          "line": 5,
+          "text": "import { createEdges, type EdgeQueries } from '@/application/plan/derive-edges';",
+          "target": "src/application/plan/derive-edges.ts",
+          "symbols": [
+            "createEdges"
+          ],
+          "file": "src/application/plan/derive-compose.ts"
+        },
+        {
+          "line": 13,
+          "text": "import { putHandlerEdges } from '@/application/plan/derive-handler-edges';",
+          "target": "src/application/plan/derive-handler-edges.ts",
+          "symbols": [
+            "putHandlerEdges"
+          ],
+          "file": "src/application/plan/derive-edges.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/derive-handlers.ts",
+      "sourceSha256": "180056843cd84873e97fb254b418d3e8d3673cf3f2bf4e12b812170e179891ee",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';",
+          "target": "src/application/plan/derive-compose.ts",
+          "symbols": [
+            "compose"
+          ],
+          "file": "src/application/plan/derive.ts"
+        },
+        {
+          "line": 6,
+          "text": "import { createHandlers, type HandlerQueries } from '@/application/plan/derive-handlers';",
+          "target": "src/application/plan/derive-handlers.ts",
+          "symbols": [
+            "createHandlers"
+          ],
+          "file": "src/application/plan/derive-compose.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/derive-health.ts",
+      "sourceSha256": "71a15c47ddb51384862b60c73c04eab52f0477e2c6c6dbc742140a0e51f4f2be",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 10,
+          "text": "import { createHealth, type HealthQueries } from '@/application/plan/derive-health';",
+          "target": "src/application/plan/derive-health.ts",
+          "symbols": [
+            "createHealth"
+          ],
+          "file": "src/application/plan/derive.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/derive-ladder.ts",
+      "sourceSha256": "6ae7243b04c63feb276605ae30b406d43061c56eaad9a1ff54455c146e9f96cc",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';",
+          "target": "src/application/plan/derive-compose.ts",
+          "symbols": [
+            "compose"
+          ],
+          "file": "src/application/plan/derive.ts"
+        },
+        {
+          "line": 7,
+          "text": "import { createLadder } from '@/application/plan/derive-ladder';",
+          "target": "src/application/plan/derive-ladder.ts",
+          "symbols": [
+            "createLadder"
+          ],
+          "file": "src/application/plan/derive-compose.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/derive-owners.ts",
+      "sourceSha256": "902b777695216440bc8e9922ddac9a62115c3ab7b610448813b6a0b7d7fda317",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';",
+          "target": "src/application/plan/derive-compose.ts",
+          "symbols": [
+            "compose"
+          ],
+          "file": "src/application/plan/derive.ts"
+        },
+        {
+          "line": 8,
+          "text": "import { createOwners, type Owners } from '@/application/plan/derive-owners';",
+          "target": "src/application/plan/derive-owners.ts",
+          "symbols": [
+            "createOwners"
+          ],
+          "file": "src/application/plan/derive-compose.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/derive-placement.ts",
+      "sourceSha256": "bf4e60c3194c96b50cf5acaa88904102425dd0fb01722181345336bc833d1d9c",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 12,
+          "text": "import { placementOf, type LegacyPlace } from '@/application/plan/derive-placement';",
+          "target": "src/application/plan/derive-placement.ts",
+          "symbols": [
+            "placementOf"
+          ],
+          "file": "src/application/plan/derive.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/derive-register.ts",
+      "sourceSha256": "86a3bd359d1292c0bd402481725853198b35a6b82f0a417b62ebb97fbcdf5977",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';",
+          "target": "src/application/plan/derive-compose.ts",
+          "symbols": [
+            "compose"
+          ],
+          "file": "src/application/plan/derive.ts"
+        },
+        {
+          "line": 10,
+          "text": "import { createRegister, type Register } from '@/application/plan/derive-register';",
+          "target": "src/application/plan/derive-register.ts",
+          "symbols": [
+            "createRegister"
+          ],
+          "file": "src/application/plan/derive-compose.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/derive-screens.ts",
+      "sourceSha256": "f0098f21e343b46a8b2b9a7f24b14f5a8461f30a7aebff93963fdafe9e5946e9",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 14,
+          "text": "import { createScreens, type ScreenQueries } from '@/application/plan/derive-screens';",
+          "target": "src/application/plan/derive-screens.ts",
+          "symbols": [
+            "createScreens"
+          ],
+          "file": "src/application/plan/derive.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/derive-story.ts",
+      "sourceSha256": "b649d09584f89c18050e2470733cb34d4510e137a6728f9e71f5f8db9e017a65",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';",
+          "target": "src/application/plan/derive-compose.ts",
+          "symbols": [
+            "compose"
+          ],
+          "file": "src/application/plan/derive.ts"
+        },
+        {
+          "line": 11,
+          "text": "import { createStory, type StoryQueries } from '@/application/plan/derive-story';",
+          "target": "src/application/plan/derive-story.ts",
+          "symbols": [
+            "createStory"
+          ],
+          "file": "src/application/plan/derive-compose.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/derive-teams.ts",
+      "sourceSha256": "8c79b380a22b19445aec4e1605e016236bbe0c4a2bbe473f1917828f1052d2d0",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';",
+          "target": "src/application/plan/derive-compose.ts",
+          "symbols": [
+            "compose"
+          ],
+          "file": "src/application/plan/derive.ts"
+        },
+        {
+          "line": 12,
+          "text": "import { createTeams, type TeamQueries } from '@/application/plan/derive-teams';",
+          "target": "src/application/plan/derive-teams.ts",
+          "symbols": [
+            "createTeams"
+          ],
+          "file": "src/application/plan/derive-compose.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/derive-words.ts",
+      "sourceSha256": "e6189bfc2451e261ec11b5cba6e08c1a0f54729e4bd980e14ec8d1435149ea8a",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';",
+          "target": "src/application/plan/derive-compose.ts",
+          "symbols": [
+            "compose"
+          ],
+          "file": "src/application/plan/derive.ts"
+        },
+        {
+          "line": 13,
+          "text": "import { createWords } from '@/application/plan/derive-words';",
+          "target": "src/application/plan/derive-words.ts",
+          "symbols": [
+            "createWords"
+          ],
+          "file": "src/application/plan/derive-compose.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/federation-blast.ts",
+      "sourceSha256": "ee8f2d6082ef278d25f214b1fae80bea117a2c02054d4cadfe3c28ff1e5e2eee",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';",
+          "target": "src/application/plan/derive-compose.ts",
+          "symbols": [
+            "compose"
+          ],
+          "file": "src/application/plan/derive.ts"
+        },
+        {
+          "line": 15,
+          "text": "import {",
+          "target": "src/application/plan/federation-members.ts",
+          "symbols": [
+            "createFederationMembers"
+          ],
+          "file": "src/application/plan/derive-compose.ts"
+        },
+        {
+          "line": 8,
+          "text": "import {",
+          "target": "src/application/plan/federation-model.ts",
+          "symbols": [
+            "createFederation",
+            "createOperationLookups"
+          ],
+          "file": "src/application/plan/federation-members.ts"
+        },
+        {
+          "line": 3,
+          "text": "import {",
+          "target": "src/application/plan/federation-blast.ts",
+          "symbols": [
+            "blastRadius",
+            "fieldOwners"
+          ],
+          "file": "src/application/plan/federation-model.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/federation-cache.ts",
+      "sourceSha256": "921fcad0f1b1c0b90acfa216fa946d915d20c13248ffa1d18dd036e3fb366289",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';",
+          "target": "src/application/plan/derive-compose.ts",
+          "symbols": [
+            "compose"
+          ],
+          "file": "src/application/plan/derive.ts"
+        },
+        {
+          "line": 15,
+          "text": "import {",
+          "target": "src/application/plan/federation-members.ts",
+          "symbols": [
+            "createFederationMembers"
+          ],
+          "file": "src/application/plan/derive-compose.ts"
+        },
+        {
+          "line": 8,
+          "text": "import {",
+          "target": "src/application/plan/federation-model.ts",
+          "symbols": [
+            "createFederation",
+            "createOperationLookups"
+          ],
+          "file": "src/application/plan/federation-members.ts"
+        },
+        {
+          "line": 9,
+          "text": "import { type CacheCase, type CachePath, cachePath } from '@/application/plan/federation-cache';",
+          "target": "src/application/plan/federation-cache.ts",
+          "symbols": [
+            "cachePath"
+          ],
+          "file": "src/application/plan/federation-model.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/federation-diff.ts",
+      "sourceSha256": "4907345436af741358fd23a896c7b50fc5b172d197142707c262b3cb3ab55940",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';",
+          "target": "src/application/plan/derive-compose.ts",
+          "symbols": [
+            "compose"
+          ],
+          "file": "src/application/plan/derive.ts"
+        },
+        {
+          "line": 15,
+          "text": "import {",
+          "target": "src/application/plan/federation-members.ts",
+          "symbols": [
+            "createFederationMembers"
+          ],
+          "file": "src/application/plan/derive-compose.ts"
+        },
+        {
+          "line": 7,
+          "text": "import { createGraphDiff, type GraphDiff } from '@/application/plan/federation-diff';",
+          "target": "src/application/plan/federation-diff.ts",
+          "symbols": [
+            "createGraphDiff"
+          ],
+          "file": "src/application/plan/federation-members.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/federation-fanout.ts",
+      "sourceSha256": "4c7454744db31e2c92dcaa21c05db3be3aa2b733099bd677890d172af0da3d15",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';",
+          "target": "src/application/plan/derive-compose.ts",
+          "symbols": [
+            "compose"
+          ],
+          "file": "src/application/plan/derive.ts"
+        },
+        {
+          "line": 14,
+          "text": "import { federatedFanout } from '@/application/plan/federation-fanout';",
+          "target": "src/application/plan/federation-fanout.ts",
+          "symbols": [
+            "federatedFanout"
+          ],
+          "file": "src/application/plan/derive-compose.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/federation-members.ts",
+      "sourceSha256": "370a9d354a48787ba9f1a5d80ef1bf41adb97e74426fefe48a0aaf1a68020fd3",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';",
+          "target": "src/application/plan/derive-compose.ts",
+          "symbols": [
+            "compose"
+          ],
+          "file": "src/application/plan/derive.ts"
+        },
+        {
+          "line": 15,
+          "text": "import {",
+          "target": "src/application/plan/federation-members.ts",
+          "symbols": [
+            "createFederationMembers"
+          ],
+          "file": "src/application/plan/derive-compose.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/federation-model.ts",
+      "sourceSha256": "ba738eb3d694f9a64a3dd1e2356d8393a4c90fe12f3edbd84f551ecc17d335bf",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';",
+          "target": "src/application/plan/derive-compose.ts",
+          "symbols": [
+            "compose"
+          ],
+          "file": "src/application/plan/derive.ts"
+        },
+        {
+          "line": 15,
+          "text": "import {",
+          "target": "src/application/plan/federation-members.ts",
+          "symbols": [
+            "createFederationMembers"
+          ],
+          "file": "src/application/plan/derive-compose.ts"
+        },
+        {
+          "line": 8,
+          "text": "import {",
+          "target": "src/application/plan/federation-model.ts",
+          "symbols": [
+            "createFederation",
+            "createOperationLookups"
+          ],
+          "file": "src/application/plan/federation-members.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/federation-place.ts",
+      "sourceSha256": "56b1ba9e5fcf31d495d369ec99ad6df4069a9aa46f6a4982bfe64e9f4612a7fb",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 3,
+          "text": "import { invalidators } from '@/application/plan/federation-policy';",
+          "target": "src/application/plan/federation-policy.ts",
+          "symbols": [
+            "invalidators"
+          ],
+          "file": "src/application/plan-viz-graph-caches.ts"
+        },
+        {
+          "line": 11,
+          "text": "import { queryPlan } from '@/application/plan/federation-plan';",
+          "target": "src/application/plan/federation-plan.ts",
+          "symbols": [
+            "queryPlan"
+          ],
+          "file": "src/application/plan/federation-policy.ts"
+        },
+        {
+          "line": 10,
+          "text": "import {",
+          "target": "src/application/plan/federation-place.ts",
+          "symbols": [
+            "createPlanCtx",
+            "newFetch",
+            "ownersOf",
+            "resolveIn",
+            "teamOf"
+          ],
+          "file": "src/application/plan/federation-plan.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/federation-plan.ts",
+      "sourceSha256": "6207dd1288633e2c3646324457ca54334a8e80a619002faadb4fcea9f6f829dc",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 3,
+          "text": "import { invalidators } from '@/application/plan/federation-policy';",
+          "target": "src/application/plan/federation-policy.ts",
+          "symbols": [
+            "invalidators"
+          ],
+          "file": "src/application/plan-viz-graph-caches.ts"
+        },
+        {
+          "line": 11,
+          "text": "import { queryPlan } from '@/application/plan/federation-plan';",
+          "target": "src/application/plan/federation-plan.ts",
+          "symbols": [
+            "queryPlan"
+          ],
+          "file": "src/application/plan/federation-policy.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/federation-policy.ts",
+      "sourceSha256": "726d2f29b5c401fc4559c9bb94d0ffd7ca18af9f4de21c65a47f4eb4913afc6d",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 3,
+          "text": "import { invalidators } from '@/application/plan/federation-policy';",
+          "target": "src/application/plan/federation-policy.ts",
+          "symbols": [
+            "invalidators"
+          ],
+          "file": "src/application/plan-viz-graph-caches.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/federation-tiers.ts",
+      "sourceSha256": "7913794ef9da22d2cec800593187f25de17f10e698659c19e8c4fd84035647e4",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';",
+          "target": "src/application/plan/derive-compose.ts",
+          "symbols": [
+            "compose"
+          ],
+          "file": "src/application/plan/derive.ts"
+        },
+        {
+          "line": 15,
+          "text": "import {",
+          "target": "src/application/plan/federation-members.ts",
+          "symbols": [
+            "createFederationMembers"
+          ],
+          "file": "src/application/plan/derive-compose.ts"
+        },
+        {
+          "line": 8,
+          "text": "import {",
+          "target": "src/application/plan/federation-model.ts",
+          "symbols": [
+            "createFederation",
+            "createOperationLookups"
+          ],
+          "file": "src/application/plan/federation-members.ts"
+        },
+        {
+          "line": 9,
+          "text": "import { type CacheCase, type CachePath, cachePath } from '@/application/plan/federation-cache';",
+          "target": "src/application/plan/federation-cache.ts",
+          "symbols": [
+            "cachePath"
+          ],
+          "file": "src/application/plan/federation-model.ts"
+        },
+        {
+          "line": 5,
+          "text": "import {",
+          "target": "src/application/plan/federation-tiers.ts",
+          "symbols": [
+            "fieldDataTier",
+            "operationDataTier",
+            "responseTiers"
+          ],
+          "file": "src/application/plan/federation-cache.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/federation-tree.ts",
+      "sourceSha256": "75e0dd6cd10cedbeb4360822817de7d524accbbcd2f9ff0e3a451b8f27ec3657",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 3,
+          "text": "import { invalidators } from '@/application/plan/federation-policy';",
+          "target": "src/application/plan/federation-policy.ts",
+          "symbols": [
+            "invalidators"
+          ],
+          "file": "src/application/plan-viz-graph-caches.ts"
+        },
+        {
+          "line": 13,
+          "text": "import { selectionTree, type TreeNode } from '@/application/plan/federation-tree';",
+          "target": "src/application/plan/federation-tree.ts",
+          "symbols": [
+            "selectionTree"
+          ],
+          "file": "src/application/plan/federation-policy.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/federation-walk.ts",
+      "sourceSha256": "1e4d94653dd1045a0d359ef05dc19acf5ad48a05e83757179ec7b0cfb0b69fee",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 3,
+          "text": "import { invalidators } from '@/application/plan/federation-policy';",
+          "target": "src/application/plan/federation-policy.ts",
+          "symbols": [
+            "invalidators"
+          ],
+          "file": "src/application/plan-viz-graph-caches.ts"
+        },
+        {
+          "line": 11,
+          "text": "import { queryPlan } from '@/application/plan/federation-plan';",
+          "target": "src/application/plan/federation-plan.ts",
+          "symbols": [
+            "queryPlan"
+          ],
+          "file": "src/application/plan/federation-policy.ts"
+        },
+        {
+          "line": 25,
+          "text": "import { walk } from '@/application/plan/federation-walk';",
+          "target": "src/application/plan/federation-walk.ts",
+          "symbols": [
+            "walk"
+          ],
+          "file": "src/application/plan/federation-plan.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/field-ladder.ts",
+      "sourceSha256": "2fbf088da9e80375c07726848b132833b0441748f7b7376a2d0cba3f3054e8a5",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';",
+          "target": "src/application/plan/derive-compose.ts",
+          "symbols": [
+            "compose"
+          ],
+          "file": "src/application/plan/derive.ts"
+        },
+        {
+          "line": 15,
+          "text": "import {",
+          "target": "src/application/plan/federation-members.ts",
+          "symbols": [
+            "createFederationMembers"
+          ],
+          "file": "src/application/plan/derive-compose.ts"
+        },
+        {
+          "line": 13,
+          "text": "import { createFieldLadder, type FieldLadder } from '@/application/plan/field-ladder';",
+          "target": "src/application/plan/field-ladder.ts",
+          "symbols": [
+            "createFieldLadder"
+          ],
+          "file": "src/application/plan/federation-members.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/flow-experience.ts",
+      "sourceSha256": "d8b345b072ecb46abc0d09f9b97fedb8ef96b1ea499057c78095166d51b4b0a7",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 4,
+          "text": "import { flowExperience } from '@/application/plan/flow-experience';",
+          "target": "src/application/plan/flow-experience.ts",
+          "symbols": [
+            "flowExperience"
+          ],
+          "file": "src/features/plan/viz/flow-viewer/flow-views.tsx"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/flow-frames.ts",
+      "sourceSha256": "0ac50a7bffda5e99a126a61eeb5bbc89f9e37feed505926138a5951f590ebcdd",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 3,
+          "text": "import { sequenceModel } from '@/application/plan/flow-sequence';",
+          "target": "src/application/plan/flow-sequence.ts",
+          "symbols": [
+            "sequenceModel"
+          ],
+          "file": "src/application/plan-viz-sequence.ts"
+        },
+        {
+          "line": 1,
+          "text": "import { type FlatRow, type FrameRow, withFrames } from '@/application/plan/flow-frames';",
+          "target": "src/application/plan/flow-frames.ts",
+          "symbols": [
+            "withFrames"
+          ],
+          "file": "src/application/plan/flow-sequence.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/flow-steps.ts",
+      "sourceSha256": "47575cdb20616a80ba5251ac1670033d7564950fe37785916b11ffe2092ac2c8",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 2,
+          "text": "import { flowSteps } from '@/application/plan/flow-steps';",
+          "target": "src/application/plan/flow-steps.ts",
+          "symbols": [
+            "flowSteps"
+          ],
+          "file": "src/application/plan-story-prove-flows.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/graph-queries.ts",
+      "sourceSha256": "a4a056a3a7f2accf094a00acd9541443890776a3316a551f4d1114d413adc768",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 6,
+          "text": "import { createDomain, type DomainQueries } from '@/application/plan/derive-domain';",
+          "target": "src/application/plan/derive-domain.ts",
+          "symbols": [
+            "createDomain"
+          ],
+          "file": "src/application/plan/derive.ts"
+        },
+        {
+          "line": 5,
+          "text": "import { actingService } from '@/application/plan/graph-queries';",
+          "target": "src/application/plan/graph-queries.ts",
+          "symbols": [
+            "actingService"
+          ],
+          "file": "src/application/plan/derive-domain.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/graph.ts",
+      "sourceSha256": "ffe0ef0ef71f0195e5f1625f00c88e1bab050162aacfd9b49fc290f7e17d9697",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 4,
+          "text": "import {",
+          "target": "src/application/plan/realisation.ts",
+          "symbols": [
+            "originsOf",
+            "realisationOf",
+            "todayModelOf"
+          ],
+          "file": "src/infrastructure/plan-standing.ts"
+        },
+        {
+          "line": 1,
+          "text": "import { systemOf } from '@/application/plan/graph';",
+          "target": "src/application/plan/graph.ts",
+          "symbols": [
+            "systemOf"
+          ],
+          "file": "src/application/plan/realisation.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/handler-walk.ts",
+      "sourceSha256": "c98975c953377dc8ad8c527d934b4b13afe07c86d16007253063e52181089751",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 21,
+          "text": "import { type Findings, validatePlan } from '@/application/plan/validate-plan';",
+          "target": "src/application/plan/validate-plan.ts",
+          "symbols": [
+            "validatePlan"
+          ],
+          "file": "src/application/plan/derive.ts"
+        },
+        {
+          "line": 11,
+          "text": "import { checkHandlers } from '@/application/plan/check-handlers';",
+          "target": "src/application/plan/check-handlers.ts",
+          "symbols": [
+            "checkHandlers"
+          ],
+          "file": "src/application/plan/validate-plan.ts"
+        },
+        {
+          "line": 8,
+          "text": "import { linkOf, stepRefs, walkHandler, type StepRef } from '@/application/plan/handler-walk';",
+          "target": "src/application/plan/handler-walk.ts",
+          "symbols": [
+            "linkOf",
+            "stepRefs",
+            "walkHandler"
+          ],
+          "file": "src/application/plan/check-handlers.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/impact-checks.ts",
+      "sourceSha256": "19d3af2a5d7715cf9e60ab60c3f5b3bd141d70370df057a1ba87ef98099389e9",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 16,
+          "text": "import { nameIn, type Pair, pairOf, type View } from '@/application/plan-story-versions-pair';",
+          "target": "src/application/plan-story-versions-pair.ts",
+          "symbols": [
+            "nameIn",
+            "pairOf"
+          ],
+          "file": "src/application/plan-story-versions-view.ts"
+        },
+        {
+          "line": 4,
+          "text": "import { type RevisionImpact, revisionImpact } from '@/application/plan/impact';",
+          "target": "src/application/plan/impact.ts",
+          "symbols": [
+            "revisionImpact"
+          ],
+          "file": "src/application/plan-story-versions-pair.ts"
+        },
+        {
+          "line": 11,
+          "text": "import { checksOf } from '@/application/plan/impact-checks';",
+          "target": "src/application/plan/impact-checks.ts",
+          "symbols": [
+            "checksOf"
+          ],
+          "file": "src/application/plan/impact.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/impact-fields.ts",
+      "sourceSha256": "f9732a8f204ebbfd54c496f05fecc61ca1579bb718cb0130e9477452fa69c1cd",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 8,
+          "text": "import { type JourneyView, journeyView } from '@/application/plan-story-versions-journey';",
+          "target": "src/application/plan-story-versions-journey.ts",
+          "symbols": [
+            "journeyView"
+          ],
+          "file": "src/application/plan-story-versions-view.ts"
+        },
+        {
+          "line": 4,
+          "text": "import {",
+          "target": "src/application/plan-story-versions-marks.ts",
+          "symbols": [
+            "beforeAfter",
+            "carryText",
+            "markOf"
+          ],
+          "file": "src/application/plan-story-versions-journey.ts"
+        },
+        {
+          "line": 1,
+          "text": "import { rootFields } from '@/application/plan/impact-fields';",
+          "target": "src/application/plan/impact-fields.ts",
+          "symbols": [
+            "rootFields"
+          ],
+          "file": "src/application/plan-story-versions-marks.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/impact-journeys.ts",
+      "sourceSha256": "1e8b66604de5859ca273cecb1326e8187328e0dfda493d4a469b6591e3d228db",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 16,
+          "text": "import { nameIn, type Pair, pairOf, type View } from '@/application/plan-story-versions-pair';",
+          "target": "src/application/plan-story-versions-pair.ts",
+          "symbols": [
+            "nameIn",
+            "pairOf"
+          ],
+          "file": "src/application/plan-story-versions-view.ts"
+        },
+        {
+          "line": 4,
+          "text": "import { type RevisionImpact, revisionImpact } from '@/application/plan/impact';",
+          "target": "src/application/plan/impact.ts",
+          "symbols": [
+            "revisionImpact"
+          ],
+          "file": "src/application/plan-story-versions-pair.ts"
+        },
+        {
+          "line": 14,
+          "text": "import { type Journey, type JourneyStep, journeys } from '@/application/plan/impact-journeys';",
+          "target": "src/application/plan/impact-journeys.ts",
+          "symbols": [
+            "journeys"
+          ],
+          "file": "src/application/plan/impact.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/impact-new-field.ts",
+      "sourceSha256": "c006f92d5a03a8ee8c96a18a8ab6ea04e4b3654917f4d1d45bd92a60f8bb755c",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 16,
+          "text": "import { nameIn, type Pair, pairOf, type View } from '@/application/plan-story-versions-pair';",
+          "target": "src/application/plan-story-versions-pair.ts",
+          "symbols": [
+            "nameIn",
+            "pairOf"
+          ],
+          "file": "src/application/plan-story-versions-view.ts"
+        },
+        {
+          "line": 4,
+          "text": "import { type RevisionImpact, revisionImpact } from '@/application/plan/impact';",
+          "target": "src/application/plan/impact.ts",
+          "symbols": [
+            "revisionImpact"
+          ],
+          "file": "src/application/plan-story-versions-pair.ts"
+        },
+        {
+          "line": 11,
+          "text": "import { checksOf } from '@/application/plan/impact-checks';",
+          "target": "src/application/plan/impact-checks.ts",
+          "symbols": [
+            "checksOf"
+          ],
+          "file": "src/application/plan/impact.ts"
+        },
+        {
+          "line": 6,
+          "text": "import { newFieldChecks } from '@/application/plan/impact-new-field';",
+          "target": "src/application/plan/impact-new-field.ts",
+          "symbols": [
+            "newFieldChecks"
+          ],
+          "file": "src/application/plan/impact-checks.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/impact-planned.ts",
+      "sourceSha256": "3acbf4b529b7e63ed417e6254fe9cd867b6cbbcc8b81ddba7361c5e8f2dc907a",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 16,
+          "text": "import { nameIn, type Pair, pairOf, type View } from '@/application/plan-story-versions-pair';",
+          "target": "src/application/plan-story-versions-pair.ts",
+          "symbols": [
+            "nameIn",
+            "pairOf"
+          ],
+          "file": "src/application/plan-story-versions-view.ts"
+        },
+        {
+          "line": 4,
+          "text": "import { type RevisionImpact, revisionImpact } from '@/application/plan/impact';",
+          "target": "src/application/plan/impact.ts",
+          "symbols": [
+            "revisionImpact"
+          ],
+          "file": "src/application/plan-story-versions-pair.ts"
+        },
+        {
+          "line": 15,
+          "text": "import { planned } from '@/application/plan/impact-planned';",
+          "target": "src/application/plan/impact-planned.ts",
+          "symbols": [
+            "planned"
+          ],
+          "file": "src/application/plan/impact.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/impact-screens.ts",
+      "sourceSha256": "8ce0e7ed24918eaa78dc1152a1a26ab9d21cc3c5f0bce8e5f14893d4da95a138",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 16,
+          "text": "import { nameIn, type Pair, pairOf, type View } from '@/application/plan-story-versions-pair';",
+          "target": "src/application/plan-story-versions-pair.ts",
+          "symbols": [
+            "nameIn",
+            "pairOf"
+          ],
+          "file": "src/application/plan-story-versions-view.ts"
+        },
+        {
+          "line": 4,
+          "text": "import { type RevisionImpact, revisionImpact } from '@/application/plan/impact';",
+          "target": "src/application/plan/impact.ts",
+          "symbols": [
+            "revisionImpact"
+          ],
+          "file": "src/application/plan-story-versions-pair.ts"
+        },
+        {
+          "line": 16,
+          "text": "import { type ScreenChange, screensOf } from '@/application/plan/impact-screens';",
+          "target": "src/application/plan/impact-screens.ts",
+          "symbols": [
+            "screensOf"
+          ],
+          "file": "src/application/plan/impact.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/impact-work.ts",
+      "sourceSha256": "772b95692008edddec21d0c1e619503b8e9a89f8fa70eb97958a6709f3215a71",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 16,
+          "text": "import { nameIn, type Pair, pairOf, type View } from '@/application/plan-story-versions-pair';",
+          "target": "src/application/plan-story-versions-pair.ts",
+          "symbols": [
+            "nameIn",
+            "pairOf"
+          ],
+          "file": "src/application/plan-story-versions-view.ts"
+        },
+        {
+          "line": 4,
+          "text": "import { type RevisionImpact, revisionImpact } from '@/application/plan/impact';",
+          "target": "src/application/plan/impact.ts",
+          "symbols": [
+            "revisionImpact"
+          ],
+          "file": "src/application/plan-story-versions-pair.ts"
+        },
+        {
+          "line": 17,
+          "text": "import { workOf, type WorkImpact } from '@/application/plan/impact-work';",
+          "target": "src/application/plan/impact-work.ts",
+          "symbols": [
+            "workOf"
+          ],
+          "file": "src/application/plan/impact.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/impact.ts",
+      "sourceSha256": "31eb7fc76a5301b664a552a52e007990244c3bb0f390afbe3d45ebce9b19aa2f",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 16,
+          "text": "import { nameIn, type Pair, pairOf, type View } from '@/application/plan-story-versions-pair';",
+          "target": "src/application/plan-story-versions-pair.ts",
+          "symbols": [
+            "nameIn",
+            "pairOf"
+          ],
+          "file": "src/application/plan-story-versions-view.ts"
+        },
+        {
+          "line": 4,
+          "text": "import { type RevisionImpact, revisionImpact } from '@/application/plan/impact';",
+          "target": "src/application/plan/impact.ts",
+          "symbols": [
+            "revisionImpact"
+          ],
+          "file": "src/application/plan-story-versions-pair.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/issue-notes.ts",
+      "sourceSha256": "6ecbedc4009074326f6c107992caa80d2da75dc973c06550a508521ad5d72eee",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 3,
+          "text": "import { issueMarkdown } from '@/application/plan/issues';",
+          "target": "src/application/plan/issues.ts",
+          "symbols": [
+            "issueMarkdown"
+          ],
+          "file": "src/application/plan-pages-entity-extras.ts"
+        },
+        {
+          "line": 3,
+          "text": "import { notesOf } from '@/application/plan/issue-notes';",
+          "target": "src/application/plan/issue-notes.ts",
+          "symbols": [
+            "notesOf"
+          ],
+          "file": "src/application/plan/issues.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/issue-parts.ts",
+      "sourceSha256": "fd735fb48dfbf630ff05e4303235a5f0edadcb6ecb95b66a9172b318b7af5299",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 3,
+          "text": "import { issueMarkdown } from '@/application/plan/issues';",
+          "target": "src/application/plan/issues.ts",
+          "symbols": [
+            "issueMarkdown"
+          ],
+          "file": "src/application/plan-pages-entity-extras.ts"
+        },
+        {
+          "line": 4,
+          "text": "import {",
+          "target": "src/application/plan/issue-parts.ts",
+          "symbols": [
+            "acceptanceOf",
+            "howOf",
+            "summaryOf",
+            "whyOf"
+          ],
+          "file": "src/application/plan/issues.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/issue-templates.ts",
+      "sourceSha256": "6cbb25b5056148f1e7cac2d5bf3fe42669a6cef6d4947e55eb8f12d4753a9213",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 3,
+          "text": "import { issueMarkdown } from '@/application/plan/issues';",
+          "target": "src/application/plan/issues.ts",
+          "symbols": [
+            "issueMarkdown"
+          ],
+          "file": "src/application/plan-pages-entity-extras.ts"
+        },
+        {
+          "line": 11,
+          "text": "import {",
+          "target": "src/application/plan/issue-templates.ts",
+          "symbols": [
+            "builtinTemplate",
+            "fillIssueTemplate"
+          ],
+          "file": "src/application/plan/issues.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/issues.ts",
+      "sourceSha256": "e65ce48367eeec074ba7f0f835cfcdbc8f4e72a8da8c4eabb9efe1907c039cd0",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 3,
+          "text": "import { issueMarkdown } from '@/application/plan/issues';",
+          "target": "src/application/plan/issues.ts",
+          "symbols": [
+            "issueMarkdown"
+          ],
+          "file": "src/application/plan-pages-entity-extras.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/journey-evidence.ts",
+      "sourceSha256": "be3c54027b41a83fdeda931c5c1084c187389579a40da16bab2872639223dae7",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 2,
+          "text": "import { journeyComparison, type JourneyComparison } from '@/application/plan/journey';",
+          "target": "src/application/plan/journey.ts",
+          "symbols": [
+            "journeyComparison"
+          ],
+          "file": "src/application/plan-story-journey-flow.ts"
+        },
+        {
+          "line": 3,
+          "text": "import { type Evidence, ids, rec, stepEvidence } from '@/application/plan/journey-evidence';",
+          "target": "src/application/plan/journey-evidence.ts",
+          "symbols": [
+            "ids",
+            "rec",
+            "stepEvidence"
+          ],
+          "file": "src/application/plan/journey.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/journey.ts",
+      "sourceSha256": "aa8970f05267d5cba13426dc73c4de35f5b4f23a2078d7c2168777518dbc8b28",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 2,
+          "text": "import { journeyComparison, type JourneyComparison } from '@/application/plan/journey';",
+          "target": "src/application/plan/journey.ts",
+          "symbols": [
+            "journeyComparison"
+          ],
+          "file": "src/application/plan-story-journey-flow.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/layout.ts",
+      "sourceSha256": "0a6b69c47882564780ecf4d766557b5ca49ecb163f2b0f126e02ceea1e930d87",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 20,
+          "text": "import { createLayout, type Layout } from '@/application/plan/layout';",
+          "target": "src/application/plan/layout.ts",
+          "symbols": [
+            "createLayout"
+          ],
+          "file": "src/application/plan/derive.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/plan-base.ts",
+      "sourceSha256": "0245cd4e7ee8c747d85a0cd416d010517ae35e78eb683db8c225c3a1c21f0e00",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 7,
+          "text": "import { collectionsOf, type PlanBase } from '@/application/plan/plan-base';",
+          "target": "src/application/plan/plan-base.ts",
+          "symbols": [
+            "collectionsOf"
+          ],
+          "file": "src/infrastructure/plan-base-store.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/plan-diff-ops.ts",
+      "sourceSha256": "c222f22bdfd4796346cb83048542e4a86b2caade247ea47aa1968e22ed742cb8",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 18,
+          "text": "import { type Derived, opsDiff, summariser } from '@/application/plan/plan-diff-ops';",
+          "target": "src/application/plan/plan-diff-ops.ts",
+          "symbols": [
+            "opsDiff",
+            "summariser"
+          ],
+          "file": "src/application/plan/plan-diff.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/realisation.ts",
+      "sourceSha256": "798330cc8c08b8ef39c172133219c115b2d9e77f6dc6f5739de7daf369eee5a6",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 4,
+          "text": "import {",
+          "target": "src/application/plan/realisation.ts",
+          "symbols": [
+            "originsOf",
+            "realisationOf",
+            "todayModelOf"
+          ],
+          "file": "src/infrastructure/plan-standing.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/revision-view.ts",
+      "sourceSha256": "597d92a6a349a4f0b745c923dea8df74f0c6075ac0bac0b78485823e59b163bd",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 3,
+          "text": "import { pillText } from '@/application/plan/revision-view';",
+          "target": "src/application/plan/revision-view.ts",
+          "symbols": [
+            "pillText"
+          ],
+          "file": "src/application/plan-bar.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/stack-base.ts",
+      "sourceSha256": "2b441652ccab4c248d9b8431c7e983b3a369d7ce6d39c530ce916b4f5a32528d",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 24,
+          "text": "import {",
+          "target": "src/application/plan/stack-base.ts",
+          "symbols": [
+            "NOTHING_INHERITED",
+            "stackedBase",
+            "stackOnto"
+          ],
+          "file": "src/infrastructure/plan-store.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/ui-journey.ts",
+      "sourceSha256": "b338c8f140f75c3c4eae5c340b9af3dda4f475110d809fc3f0d763b9c2351889",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 2,
+          "text": "import { uiJourney } from '@/application/plan/ui-journey';",
+          "target": "src/application/plan/ui-journey.ts",
+          "symbols": [
+            "uiJourney"
+          ],
+          "file": "src/features/plan/viz/screens/journey-strip.tsx"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/ui-journeys-interactions.ts",
+      "sourceSha256": "05614372fa803549adab621a029c12abc9631c11932ac7ad10c7d84b8b5b0f92",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 2,
+          "text": "import { todayScreenCatalogue, todayScreenMap } from '@/application/plan/ui-journeys-map';",
+          "target": "src/application/plan/ui-journeys-map.ts",
+          "symbols": [
+            "todayScreenCatalogue",
+            "todayScreenMap"
+          ],
+          "file": "src/application/plan-viz-screen-catalogue.ts"
+        },
+        {
+          "line": 3,
+          "text": "import { interactionScreenMap } from '@/application/plan/ui-journeys-interactions';",
+          "target": "src/application/plan/ui-journeys-interactions.ts",
+          "symbols": [
+            "interactionScreenMap"
+          ],
+          "file": "src/application/plan/ui-journeys-map.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/ui-journeys.ts",
+      "sourceSha256": "94fa61ef6c4b07f7fecc89e9f451e030360c6cebb0ad48adb1103ab9cfeac63d",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 2,
+          "text": "import { todayScreenCatalogue, todayScreenMap } from '@/application/plan/ui-journeys-map';",
+          "target": "src/application/plan/ui-journeys-map.ts",
+          "symbols": [
+            "todayScreenCatalogue",
+            "todayScreenMap"
+          ],
+          "file": "src/application/plan-viz-screen-catalogue.ts"
+        },
+        {
+          "line": 2,
+          "text": "import { todayJourneys, type Route } from '@/application/plan/ui-journeys';",
+          "target": "src/application/plan/ui-journeys.ts",
+          "symbols": [
+            "todayJourneys"
+          ],
+          "file": "src/application/plan/ui-journeys-map.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/validate-plan.ts",
+      "sourceSha256": "802ddc6ad78e11834df5c179756f3b4e1255f7101e2eeaaa36bf6ef6ae62e34a",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 21,
+          "text": "import { type Findings, validatePlan } from '@/application/plan/validate-plan';",
+          "target": "src/application/plan/validate-plan.ts",
+          "symbols": [
+            "validatePlan"
+          ],
+          "file": "src/application/plan/derive.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/application/reference/query.ts",
+      "sourceSha256": "42ed91458db7e9abd93e1aff27b510abb831f8d9b6ef7c3eed1da5f01bc84353",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 3,
+          "text": "import { referencePage, type ReferenceKind } from '@/application/reference/query';",
+          "target": "src/application/reference/query.ts",
+          "symbols": [
+            "referencePage"
+          ],
+          "file": "src/features/plan/chapters/ref/reference-index.tsx"
+        }
+      ]
+    },
+    {
+      "file": "src/application/workspace-work/workspace-plan-index.ts",
+      "sourceSha256": "69aaee8eec9faff9450867731f7e6da67cfbe3dc4347f56de1be79238061ea5d",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 2,
+          "text": "import {",
+          "target": "src/application/workspace-work/workspace-plan-index.ts",
+          "symbols": [
+            "workspacePlanIndexOf"
+          ],
+          "file": "src/infrastructure/workspace-plan-index.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/features/plan/common/inherited-note.tsx",
+      "sourceSha256": "573adec60a7c068e8cfc55b9d6653a8eac43da52b61ab7c2fd85a8007a2d2d28",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 7,
+          "text": "import { InheritedNote } from '@/features/plan/common/inherited-note';",
+          "target": "src/features/plan/common/inherited-note.tsx",
+          "symbols": [
+            "InheritedNote"
+          ],
+          "file": "src/features/plan/chapters/changes/record-screen.tsx"
+        }
+      ]
+    },
+    {
+      "file": "src/features/plan/common/status-badge.tsx",
+      "sourceSha256": "4e51ed1d424e533e647c1702b4e53cbe5354028371c371b4d25845bd688bd270",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 5,
+          "text": "import { StatusBadge } from '@/features/plan/common/status-badge';",
+          "target": "src/features/plan/common/status-badge.tsx",
+          "symbols": [
+            "StatusBadge"
+          ],
+          "file": "src/features/plan/chapters/changes/contracts-parts.tsx"
+        }
+      ]
+    },
+    {
+      "file": "src/features/plan/viz/graph-evidence/graph-estimate.tsx",
+      "sourceSha256": "acbd363624e7cf7b5e349d3234febc690061b4868c07b8c5971785e4032d63d6",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 15,
+          "text": "import { GraphEstimate } from '@/features/plan/viz/graph-evidence/graph-estimate';",
+          "target": "src/features/plan/viz/graph-evidence/graph-estimate.tsx",
+          "symbols": [
+            "GraphEstimate"
+          ],
+          "file": "src/features/plan/chapters/changes/graph-ops-table.tsx"
+        }
+      ]
+    },
+    {
+      "file": "src/features/plan/viz/journey/journey-modes.tsx",
+      "sourceSha256": "e4060493ec62dc48a3f93fb9d19e05be0bffb1cdf3255f9f6c8a9a3e4e099b9a",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 11,
+          "text": "import { JourneyView } from '@/features/plan/viz/journey/journey-shell.client';",
+          "target": "src/features/plan/viz/journey/journey-shell.client.tsx",
+          "symbols": [
+            "JourneyView"
+          ],
+          "file": "src/features/plan/chapters/journey/scenario-walk.client.tsx"
+        },
+        {
+          "line": 11,
+          "text": "import { JourneyModes } from './journey-modes';",
+          "target": "src/features/plan/viz/journey/journey-modes.tsx",
+          "symbols": [
+            "JourneyModes"
+          ],
+          "file": "src/features/plan/viz/journey/journey-shell.client.tsx"
+        }
+      ]
+    },
+    {
+      "file": "src/features/plan/viz/screens/before-after.client.tsx",
+      "sourceSha256": "6af08c516d0eeb7e04641c679235a06fab38f809d68ef72dbff36eedd176df75",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 5,
+          "text": "import { BeforeAfterView } from './before-after.client';",
+          "target": "src/features/plan/viz/screens/before-after.client.tsx",
+          "symbols": [
+            "BeforeAfterView"
+          ],
+          "file": "src/features/plan/viz/screens/before-after.tsx"
+        }
+      ]
+    },
+    {
+      "file": "src/features/plan/viz/screens/region-number.tsx",
+      "sourceSha256": "8f25d77151efd5fd84acc0ce086bc21292bd77804e62bb070a4096489150390f",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 17,
+          "text": "import { RegionNumber } from './region-number';",
+          "target": "src/features/plan/viz/screens/region-number.tsx",
+          "symbols": [
+            "RegionNumber"
+          ],
+          "file": "src/features/plan/viz/screens/region-list.tsx"
+        }
+      ]
+    },
+    {
+      "file": "src/features/plan/viz/waterfall/row.tsx",
+      "sourceSha256": "27c8413bab450ec89c12fb5970693f1326f3eb69ae76259209566bc53c9f2e33",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 7,
+          "text": "import { Row } from './row';",
+          "target": "src/features/plan/viz/waterfall/row.tsx",
+          "symbols": [
+            "Row"
+          ],
+          "file": "src/features/plan/viz/waterfall/cache-row.tsx"
+        }
+      ]
+    },
+    {
+      "file": "src/infrastructure/plan-validator.ts",
+      "sourceSha256": "19a2bd904520d524d755797b4e6c85aeb0016951199e23ae92c37bbfa46244c0",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 11,
+          "text": "import { checkPlanData } from './plan-validator';",
+          "target": "src/infrastructure/plan-validator.ts",
+          "symbols": [
+            "checkPlanData"
+          ],
+          "file": "src/infrastructure/plan-base-store.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/infrastructure/system-narratives.ts",
+      "sourceSha256": "256a034c4f90c39afd64c9b9f800a62280d23b808e3e7c2a17cb65b44c06b87f",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 11,
+          "text": "import { readSystemNarratives } from './system-narratives';",
+          "target": "src/infrastructure/system-narratives.ts",
+          "symbols": [
+            "readSystemNarratives"
+          ],
+          "file": "src/infrastructure/workspace-store.ts"
+        }
+      ]
+    },
+    {
+      "file": "src/infrastructure/workspace-model-facts.ts",
+      "sourceSha256": "20ea9a611a84fa2e563c89df665110529666e389a26f3a9cfd2c6a7abbd29591",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "retainedCallerPath": [
+        {
+          "line": 22,
+          "text": "import { type Reading, readingOf } from './workspace-model-facts';",
+          "target": "src/infrastructure/workspace-model-facts.ts",
+          "symbols": [
+            "readingOf"
+          ],
+          "file": "src/infrastructure/workspace-model.ts"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+id: flow:cancel-order
+name: Cancel an order
+actor: Order clerk
+trigger: A customer asks for their order to be cancelled.
+steps:
+  - id: cancel
+    from: app:order-desk
+    to: svc:order-api
+    via: api:orders-cancel
+    action: Cancel the order
+    writes:
+      - sch:order#status

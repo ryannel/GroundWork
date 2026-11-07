@@ -1,0 +1,37 @@
+id: sys:products
+name: Products
+purpose: Keeps every product and its details.
+team: team:catalogue
+components:
+  - id: svc:products
+    name: Products API
+    kind: service
+    tech: Go
+    does: |-
+      Serves and stores product details
+
+      Owns the product record and announces every change on `product.changed`.
+    cites: [acme-products:cmd/products/main.go@4f1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c#L12-80 main]
+    homes:
+      - acme-products
+  - id: app:product-admin
+    name: Product admin
+    kind: app
+    form: web
+    tech: React
+    does: Where staff edit products
+  - id: st:products-db
+    name: products-db
+    kind: store
+    form: database
+    tech: Postgres 16
+    does: Products and their details
+  - id: top:product-events
+    name: product.events
+    kind: topic
+    form: stream
+    tech: Kafka
+    does: product.changed
+homes:
+  acme-products:
+    repo: acme/products

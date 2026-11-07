@@ -2,8 +2,8 @@ import { describe, expect, it } from 'vitest';
 
 import { acme } from '@/../test/workspace-kit';
 
+import { systemPagesOf } from './legacy-workspace-paths';
 import { systemGroups } from './plan-pages-entity-system';
-import { systemPagesOf } from './workspace-paths';
 
 const groups = (id: string) =>
   Object.fromEntries(systemGroups(acme().today.model, id).map((g) => [g.label, g.ids]));

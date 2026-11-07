@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { chipInfo } from '@/application/plan-chips';
-import { domainViewOf } from '@/application/workspace-domain';
-import { domainWordsOf } from '@/application/workspace-language';
+import { modelDomainViewOf, modelDomainWordsOf } from '@/application/model-domain';
 import { DomainOverview } from '@/features/workspace';
-import { todayData } from '@/infrastructure/today-data';
+import { readCanonicalModelIndex } from '@/infrastructure/model-index';
+import { plural } from '@/shared/text';
+import { Callout } from '@/ui/callout';
 
 interface Params {
   readonly workspace: string;
@@ -18,19 +18,19 @@ export const metadata: Metadata = {};
 
 export default async function DomainRoute({ params }: { readonly params: Promise<Params> }) {
   const { workspace: id, domain } = await params;
-  const data = await todayData(id);
-  const view = data === null ? null : domainViewOf(data.workspace, data.today.model, domain);
-  if (data === null || view === null) notFound();
-  const { today } = data;
-  const words = domainWordsOf(today.languages, domain);
+  const index = await readCanonicalModelIndex(id);
+  if (index === null) notFound();
+  const view = modelDomainViewOf(index, domain);
+  if (view === null) notFound();
   return (
-    <DomainOverview
-      view={view}
-      words={
-        words === null
-          ? null
-          : { summary: words.summary, words: words.concepts.map((c) => chipInfo(today.model, c)) }
-      }
-    />
+    <>
+      <DomainOverview view={view} words={modelDomainWordsOf(index, domain)} />
+      {view.gaps.length === 0 ? null : (
+        <Callout title="What remains unknown">
+          <p>{plural(view.gaps.length, 'recorded gap')} in this domain.</p>
+          <p>{view.gaps[0]?.message}</p>
+        </Callout>
+      )}
+    </>
   );
 }

@@ -1,0 +1,43 @@
+{
+  "archive": ".workspaces/rebuild/pr8/area-audit/volvo-cars-facts-history",
+  "authoredSha256": "006cb5b84b6e5af430962308ea60c098627aa59fdf71668ce632d6f38a173721",
+  "evidenceShards": 117,
+  "everyModelAndEvidenceShardChecksumChecked": true,
+  "entities": 388838,
+  "domain": "dom:commercial-backbone",
+  "flows": 41,
+  "before": {
+    "domainFirstMs": 1099.14,
+    "domainRepeatMs": 1096.46,
+    "systemFlowFirstMs": 86.38,
+    "systemFlowRepeatMs": 8.96,
+    "flowDetailFirstMs": 11.02,
+    "flowDetailRepeatMs": 8.26,
+    "domainFlowListFirstMs": 0.37,
+    "domainFlowListRepeatMs": 0.21
+  },
+  "after": {
+    "oldControlMs": 1156.62,
+    "firstMs": 1172.56,
+    "canonicalRepeatMs": 0.02,
+    "slugRepeatMs": 0.01,
+    "fullOutputEqualToOld": true,
+    "sameObjectOnSameIndex": true
+  },
+  "sources": {
+    "before": "8e0f08a2735cee3f39da652048dbaa024b01cf5e007dd58fe64a4419a446dc82",
+    "after": "7d2e45804e4670dffbcf7ab601f559f01c3facec17d0f849d958c972abec10b2"
+  },
+  "focusedTests": {
+    "passed": 14,
+    "files": 3,
+    "checks": [
+      "bare and canonical domain reuse",
+      "different domain isolation",
+      "unknown domain remains absent",
+      "new index has equal but independent value",
+      "changed domain name and purpose refresh",
+      "current domain and system routes"
+    ]
+  }
+}

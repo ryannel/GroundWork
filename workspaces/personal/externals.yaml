@@ -1,0 +1,9 @@
+externals:
+  - id: ext:weather-api
+    name: Met Office DataPoint
+    summary: |-
+      Daily frost and rain forecast
+
+      Source classification: an external boundary. The workspace does not map its implementation.
+
+      Previous workspace team assignment: team:me

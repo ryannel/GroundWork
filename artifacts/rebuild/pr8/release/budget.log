@@ -1,0 +1,27 @@
+> groundwork@0.0.0 budget
+> node --import ./tools/register.ts --conditions=react-server tools/page-budget.ts
+
+Budget is waiting on /volvo-cars/commercial-backbone/, /volvo-cars/fleet/, /volvo-cars/shopping/, /volvo-cars/plans/immutable-ids/, /volvo-cars/plans/care-se-stock-reservation/, /volvo-cars/plans/care-se-online/, /volvo-cars/plans/care-se-financing-status/, /volvo-cars/plans/care-se-order-change/.
+Budget is waiting on /volvo-cars/commercial-backbone/, /volvo-cars/fleet/, /volvo-cars/shopping/, /volvo-cars/plans/immutable-ids/, /volvo-cars/plans/care-se-stock-reservation/, /volvo-cars/plans/care-se-online/, /volvo-cars/plans/care-se-financing-status/, /volvo-cars/plans/care-se-order-change/.
+Budget is waiting on /volvo-cars/commercial-backbone/, /volvo-cars/fleet/, /volvo-cars/shopping/, /volvo-cars/plans/immutable-ids/, /volvo-cars/plans/care-se-stock-reservation/, /volvo-cars/plans/care-se-online/, /volvo-cars/plans/care-se-financing-status/, /volvo-cars/plans/care-se-order-change/.
+Budget measured 15 pages; 147 queued.
+Budget measured 31 pages; 593 queued.
+Budget measured 167 pages; 510 queued.
+Budget measured 183 pages; 556 queued.
+Budget measured 215 pages; 543 queued.
+Budget measured 279 pages; 479 queued.
+Budget measured 463 pages; 298 queued.
+Budget measured 615 pages; 208 queued.
+907 pages; the heaviest:
+     927 KB  /volvo-cars/commercial-backbone/map/
+     876 KB  /volvo-cars/commercial-backbone/assortment/flows/pds-product-service-sync/
+     874 KB  /volvo-cars/commercial-backbone/assortment/
+     864 KB  /volvo-cars/commercial-backbone/assortment/flows/ps-import-pcf-carconfig/
+     856 KB  /volvo-cars/commercial-backbone/assortment/flows/mas-commercial-item-update/
+     854 KB  /volvo-cars/commercial-backbone/assortment/flows/prism-import-product-service-identities/
+     851 KB  /volvo-cars/commercial-backbone/assortment/flows/pds-admin-enrichment-update/
+     850 KB  /volvo-cars/commercial-backbone/assortment/flows/assortment-cache-pds-upsert/
+     846 KB  /volvo-cars/commercial-backbone/assortment/flows/mapper-project-product-events/
+     844 KB  /volvo-cars/commercial-backbone/assortment/flows/pricing-dgs-maps-price-response-codes/
+
+Every page is within 1,024 KB.

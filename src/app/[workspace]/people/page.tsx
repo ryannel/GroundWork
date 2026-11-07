@@ -1,12 +1,11 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { domainMapOf } from '@/application/landscape-domains';
-import { workspaceNavOf } from '@/application/workspace-nav';
-import { workspaceHref } from '@/application/workspace-paths';
-import { TodayOverlays, TodaySearch } from '@/features/plan';
+import { modelLandscapeOf } from '@/application/model-landscape';
+import { ModelTodayOverlays, TodaySearch } from '@/features/plan';
 import { PeoplePage, WorkspaceShell } from '@/features/workspace';
-import { todayData } from '@/infrastructure/today-data';
+import { readCanonicalModelIndex } from '@/infrastructure/model-index';
+import { readModelWorkspaceNav } from '@/infrastructure/model-workspace-nav';
 
 interface Params {
   readonly workspace: string;
@@ -16,26 +15,17 @@ export const metadata: Metadata = { title: 'People' };
 
 export default async function PeopleRoute({ params }: { readonly params: Promise<Params> }) {
   const { workspace: id } = await params;
-  const data = await todayData(id);
-  if (data === null) notFound();
-  const { workspace, today, plans } = data;
+  const native = await readCanonicalModelIndex(id);
+  if (native === null) notFound();
   return (
     <WorkspaceShell
+      workspace={native.model}
       actions={<TodaySearch />}
-      nav={workspaceNavOf(
-        workspace,
-        plans,
-        { section: 'people', today: today.model },
-        data.programmes,
-      )}
-      overlays={<TodayOverlays depth={1} workspace={workspace} />}
+      nav={await readModelWorkspaceNav(native, { section: 'people' })}
+      overlays={<ModelTodayOverlays index={native} depth={1} />}
       title="People"
-      trail={[
-        { label: 'Workspaces', href: '/' },
-        { label: workspace.name, href: workspaceHref(workspace.id) },
-      ]}
     >
-      <PeoplePage map={domainMapOf(workspace, today.model)} />
+      <PeoplePage map={modelLandscapeOf(native).map} />
     </WorkspaceShell>
   );
 }

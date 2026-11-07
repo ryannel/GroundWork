@@ -1,0 +1,8 @@
+concepts:
+  - id: con:product
+    name: Product
+    terms:
+      - product
+      - item
+    means: Something Acme sells, known by its SKU.
+    born_in: svc:products

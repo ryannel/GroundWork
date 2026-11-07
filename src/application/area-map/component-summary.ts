@@ -29,6 +29,15 @@ function technologyName(value: string | null | undefined): string {
 }
 
 export function componentKind(component: AreaComponentView): string {
+  const native = {
+    service: 'Service',
+    app: 'App',
+    store: 'Store',
+    topic: 'Topic',
+    library: 'Library',
+    external: 'External',
+  };
+  if (component.modelKind !== undefined) return native[component.modelKind];
   const names = {
     service: 'Service',
     website: 'App',

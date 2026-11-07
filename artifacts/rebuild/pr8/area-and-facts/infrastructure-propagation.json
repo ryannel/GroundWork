@@ -1,0 +1,300 @@
+{
+  "format": 1,
+  "candidate": ".workspaces/rebuild/pr8/area-audit/volvo-cars-facts-history",
+  "runtime": "/private/tmp/rebuild-pr8-volvo-runtime-06",
+  "mappedComponents": 465,
+  "recordedCurrentTrueFlags": [],
+  "beforeDtoTrueOccurrences": 0,
+  "afterDtoTrueOccurrences": 0,
+  "areas": [
+    {
+      "area": "area:range",
+      "beforeTrueIds": [],
+      "afterTrueIds": [],
+      "beforeView": {
+        "file": "facts-740cd6b0b6e82eb73427.json.gz",
+        "sha256": "5db10d101d386c82f10491f1b5f43f28ab9d7ba507d6b7d44c6651c87b55c836"
+      },
+      "afterView": {
+        "file": "facts-740cd6b0b6e82eb73427.json.gz",
+        "sha256": "5db10d101d386c82f10491f1b5f43f28ab9d7ba507d6b7d44c6651c87b55c836"
+      },
+      "cardCount": 103,
+      "exactFrameUnchanged": true
+    },
+    {
+      "area": "area:commercial",
+      "beforeTrueIds": [],
+      "afterTrueIds": [],
+      "beforeView": {
+        "file": "facts-501f1dac339e9f68fc9f.json.gz",
+        "sha256": "5c5e1e675674c5eae2ef4ea307781fbd3c6d91fe1e0a040248a0e0b13510ded2"
+      },
+      "afterView": {
+        "file": "facts-501f1dac339e9f68fc9f.json.gz",
+        "sha256": "5c5e1e675674c5eae2ef4ea307781fbd3c6d91fe1e0a040248a0e0b13510ded2"
+      },
+      "cardCount": 214,
+      "exactFrameUnchanged": true
+    },
+    {
+      "area": "area:content",
+      "beforeTrueIds": [],
+      "afterTrueIds": [],
+      "beforeView": {
+        "file": "facts-ce0ff614e765a1eb0efa.json.gz",
+        "sha256": "1e7fee2129688c8a06c8ac02ac746680e4efa55f2a6eb4467f9b892a14adad80"
+      },
+      "afterView": {
+        "file": "facts-ce0ff614e765a1eb0efa.json.gz",
+        "sha256": "1e7fee2129688c8a06c8ac02ac746680e4efa55f2a6eb4467f9b892a14adad80"
+      },
+      "cardCount": 108,
+      "exactFrameUnchanged": true
+    },
+    {
+      "area": "area:choose",
+      "beforeTrueIds": [],
+      "afterTrueIds": [],
+      "beforeView": {
+        "file": "facts-afb24793985148f036f7.json.gz",
+        "sha256": "f3ede0b4bd694ccc57bdea35a883f7ff6c746c741419bc33dda533e20d4d47d4"
+      },
+      "afterView": {
+        "file": "facts-afb24793985148f036f7.json.gz",
+        "sha256": "f3ede0b4bd694ccc57bdea35a883f7ff6c746c741419bc33dda533e20d4d47d4"
+      },
+      "cardCount": 236,
+      "exactFrameUnchanged": true
+    },
+    {
+      "area": "area:buy",
+      "beforeTrueIds": [],
+      "afterTrueIds": [],
+      "beforeView": {
+        "file": "facts-e062ba158c5fb9c8540c.json.gz",
+        "sha256": "bca9cc0be9650df147f8248686e6a897d6634c8e820718cca00dfdc5fa7e95c0"
+      },
+      "afterView": {
+        "file": "facts-e062ba158c5fb9c8540c.json.gz",
+        "sha256": "bca9cc0be9650df147f8248686e6a897d6634c8e820718cca00dfdc5fa7e95c0"
+      },
+      "cardCount": 120,
+      "exactFrameUnchanged": true
+    },
+    {
+      "area": "area:orders",
+      "beforeTrueIds": [],
+      "afterTrueIds": [],
+      "beforeView": {
+        "file": "facts-ea20ffa3c47ecc73529e.json.gz",
+        "sha256": "6487f820b23a7d7613cef0fcd75e4fb36cf549b764efe8111ebc1e617306faa7"
+      },
+      "afterView": {
+        "file": "facts-ea20ffa3c47ecc73529e.json.gz",
+        "sha256": "6487f820b23a7d7613cef0fcd75e4fb36cf549b764efe8111ebc1e617306faa7"
+      },
+      "cardCount": 47,
+      "exactFrameUnchanged": true
+    },
+    {
+      "area": "area:ownership",
+      "beforeTrueIds": [],
+      "afterTrueIds": [],
+      "beforeView": {
+        "file": "facts-e224182301a74b15f1a1.json.gz",
+        "sha256": "9887c2c55ae018d307b3f6257b35f1f489c292bd7996e88ec2577009796a4803"
+      },
+      "afterView": {
+        "file": "facts-e224182301a74b15f1a1.json.gz",
+        "sha256": "9887c2c55ae018d307b3f6257b35f1f489c292bd7996e88ec2577009796a4803"
+      },
+      "cardCount": 30,
+      "exactFrameUnchanged": true
+    },
+    {
+      "area": "area:fleet",
+      "beforeTrueIds": [],
+      "afterTrueIds": [],
+      "beforeView": {
+        "file": "facts-86205f50993b423a636c.json.gz",
+        "sha256": "91e8dd9ca8e9f2b3fa1f203425bdfe7511f92cbcd2b00758612f4cee92b856b8"
+      },
+      "afterView": {
+        "file": "facts-86205f50993b423a636c.json.gz",
+        "sha256": "91e8dd9ca8e9f2b3fa1f203425bdfe7511f92cbcd2b00758612f4cee92b856b8"
+      },
+      "cardCount": 27,
+      "exactFrameUnchanged": true
+    },
+    {
+      "area": "area:identity",
+      "beforeTrueIds": [],
+      "afterTrueIds": [],
+      "beforeView": {
+        "file": "facts-05d651fef9d5075cea17.json.gz",
+        "sha256": "33ba64fb15d4634f4b239ad5c2189c1e4b59e1e8dd74746cfaa2153165e53e82"
+      },
+      "afterView": {
+        "file": "facts-05d651fef9d5075cea17.json.gz",
+        "sha256": "33ba64fb15d4634f4b239ad5c2189c1e4b59e1e8dd74746cfaa2153165e53e82"
+      },
+      "cardCount": 55,
+      "exactFrameUnchanged": true
+    },
+    {
+      "area": "area:help",
+      "beforeTrueIds": [],
+      "afterTrueIds": [],
+      "beforeView": {
+        "file": "facts-3f78bc75f017c2f1c175.json.gz",
+        "sha256": "4c3ee1f552215d6331603d56d113061903abae12e164f7cfd188898b97b73f3a"
+      },
+      "afterView": {
+        "file": "facts-3f78bc75f017c2f1c175.json.gz",
+        "sha256": "4c3ee1f552215d6331603d56d113061903abae12e164f7cfd188898b97b73f3a"
+      },
+      "cardCount": 8,
+      "exactFrameUnchanged": true
+    },
+    {
+      "area": "area:company",
+      "beforeTrueIds": [],
+      "afterTrueIds": [],
+      "beforeView": {
+        "file": "facts-997f33ab2456ca467efb.json.gz",
+        "sha256": "58ed3b4dee351fd87c3fab9363d45a4fb47fb52c2daa2625c50550b28d726f78"
+      },
+      "afterView": {
+        "file": "facts-997f33ab2456ca467efb.json.gz",
+        "sha256": "58ed3b4dee351fd87c3fab9363d45a4fb47fb52c2daa2625c50550b28d726f78"
+      },
+      "cardCount": 7,
+      "exactFrameUnchanged": true
+    },
+    {
+      "area": "area:integrations",
+      "beforeTrueIds": [],
+      "afterTrueIds": [],
+      "beforeView": {
+        "file": "facts-25f8149a3dc82d9d4db9.json.gz",
+        "sha256": "e5c4d383f8e3619b38b0a73c924fb7a6af9eaf3ed99da85bc40cae84f5dcc9f5"
+      },
+      "afterView": {
+        "file": "facts-25f8149a3dc82d9d4db9.json.gz",
+        "sha256": "e5c4d383f8e3619b38b0a73c924fb7a6af9eaf3ed99da85bc40cae84f5dcc9f5"
+      },
+      "cardCount": 3,
+      "exactFrameUnchanged": true
+    },
+    {
+      "area": "area:ideas",
+      "beforeTrueIds": [],
+      "afterTrueIds": [],
+      "beforeView": {
+        "file": "facts-fa4bffced31462c523a9.json.gz",
+        "sha256": "9edaa858c13d379c0b90827163679302a2933898548c6b9661227c3d844c316d"
+      },
+      "afterView": {
+        "file": "facts-fa4bffced31462c523a9.json.gz",
+        "sha256": "9edaa858c13d379c0b90827163679302a2933898548c6b9661227c3d844c316d"
+      },
+      "cardCount": 4,
+      "exactFrameUnchanged": true
+    },
+    {
+      "area": "area:operations",
+      "beforeTrueIds": [],
+      "afterTrueIds": [],
+      "beforeView": {
+        "file": "facts-843ac4303ffb731a438b.json.gz",
+        "sha256": "b9a66598a3a1b681c7019c1d67ed37d4dc210b7ae28cccbf116c18579a7e8772"
+      },
+      "afterView": {
+        "file": "facts-843ac4303ffb731a438b.json.gz",
+        "sha256": "b9a66598a3a1b681c7019c1d67ed37d4dc210b7ae28cccbf116c18579a7e8772"
+      },
+      "cardCount": 302,
+      "exactFrameUnchanged": true
+    }
+  ],
+  "historicalBoundaryFlags": [
+    {
+      "field": "infrastructure",
+      "id": "ext:error-tracking-sentry",
+      "kind": "external",
+      "line": 268,
+      "path": "domains/commercial-backbone/systems/car-configuration-engine/system.yaml",
+      "retainedInProse": false,
+      "source": true,
+      "sourceId": "svc:error-tracking-sentry"
+    },
+    {
+      "field": "infrastructure",
+      "id": "ext:schema-registry-hive",
+      "kind": "external",
+      "line": 123,
+      "path": "domains/commercial-backbone/systems/federated-graph/system.yaml",
+      "retainedInProse": false,
+      "source": true,
+      "sourceId": "svc:schema-registry-hive"
+    },
+    {
+      "field": "infrastructure",
+      "id": "ext:launchdarkly",
+      "kind": "external",
+      "line": 207,
+      "path": "domains/commercial-backbone/systems/price/system.yaml",
+      "retainedInProse": false,
+      "source": true,
+      "sourceId": "svc:feature-flags-launchdarkly"
+    },
+    {
+      "field": "infrastructure",
+      "id": "ext:identity-azure-ad",
+      "kind": "external",
+      "line": 214,
+      "path": "domains/commercial-backbone/systems/price/system.yaml",
+      "retainedInProse": false,
+      "source": true,
+      "sourceId": "svc:identity-azure-ad"
+    },
+    {
+      "field": "infrastructure",
+      "id": "ext:identity-microsoft-graph",
+      "kind": "external",
+      "line": 221,
+      "path": "domains/commercial-backbone/systems/price/system.yaml",
+      "retainedInProse": false,
+      "source": true,
+      "sourceId": "svc:identity-microsoft-graph"
+    }
+  ],
+  "nativeModelUnchanged": true,
+  "factArchiveUnchanged": true,
+  "manifest": "16f9b3a47fad5caec5dd01caad552ef95adceb1f3e58fabbde6f00567104d271",
+  "executionProof": "The sole mapper change emits an optional property only when the exact native component data has infrastructure===true. All mapped real components have no true flag, so that branch is false for every actual area card. Every old frame and shard hash therefore remains valid. Historical boundary prose is not a current infrastructure property.",
+  "focusedTest": {
+    "command": "npx vitest run --project unit src/application/model-area.test.ts",
+    "passed": 5,
+    "failed": 0,
+    "test": "preserves an explicit infrastructure flag through the native area card and map transport",
+    "resultsSession": 70771
+  },
+  "sourceSha256": {
+    "src/application/model-area-facts.ts": "81d7c279377f483ee827acb2f843f3d0290d7ca2f7a7c7053a2efa427fe9a35a",
+    "src/application/model-area.test.ts": "a7b4792f0e48ed45e9822a83f29a89e8ce7bc9bb79d8837af837d6572b903c26"
+  },
+  "focusedLint": {
+    "command": "npx eslint src/application/model-area-facts.ts src/application/model-area.test.ts",
+    "exitCode": 0,
+    "session": 18005
+  },
+  "incrementalTypes": {
+    "command": "npm run --silent typecheck:web",
+    "exitCode": 0,
+    "log": ".workspaces/rebuild/pr8/area-audit/infrastructure-typecheck.log",
+    "session": 70771
+  },
+  "proposalHashesChanged": 0
+}

@@ -155,3 +155,19 @@ describe('canonical plan batch dependency validation', () => {
     expect(batch.problems).toHaveLength(1);
   });
 });
+
+it('keeps proposed context barred from a supplied frozen-current base', async () => {
+  const current = currentModel();
+  const financed = plansIndex([financing], current).plans[0];
+  if (financed === undefined) throw new Error('Missing financing fixture');
+  const proposed = plansIndex([sales], financed.after).plans[0];
+  if (proposed === undefined) throw new Error('Missing proposed fixture');
+  const batch = await validatePlanProjections([financing], current, {
+    frozenBases: new Map([[financing.meta.id, proposed.after]]),
+  });
+  expect(batch.problems).toContainEqual({
+    at: 'h:retail-sale#save',
+    message:
+      'Proposed behaviour requires implementation evidence before it can become current facts.',
+  });
+});

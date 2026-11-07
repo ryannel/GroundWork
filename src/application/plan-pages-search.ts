@@ -179,7 +179,14 @@ export interface PaletteGroup {
 
 const WORDS = new Map<string, string>([['screen', 'screen'], ...Object.entries(TYPE_WORDS)]);
 
+const NATIVE_GROUP_LABELS: Readonly<Record<string, string>> = {
+  library: 'Libraries',
+  external: 'External parties',
+  keyTerm: 'Key terms',
+};
 const groupLabel = (key: string): string => {
+  const native = NATIVE_GROUP_LABELS[key];
+  if (native !== undefined) return native;
   const word = WORDS.get(key) ?? key;
   return `${word.charAt(0).toUpperCase()}${word.slice(1)}s`;
 };

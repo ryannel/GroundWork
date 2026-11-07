@@ -29,7 +29,7 @@ describe('rebuild commands', () => {
     const workspace = path.join(root, 'workspace');
     const { mkdir } = await import('node:fs/promises');
     await mkdir(workspace);
-    await writeFile(path.join(workspace, 'workspace.yaml'), 'id: probe\nname: Probe\n');
+    await writeFile(path.join(workspace, 'workspace.yaml'), 'format: 2\nid: probe\nname: Probe\n');
     const before = path.join(root, 'before');
     const after = path.join(root, 'after');
     const allowed = path.join(root, 'allowed.yaml');
@@ -82,6 +82,23 @@ describe('rebuild commands', () => {
         'stdout',
         expect.stringContaining('0 unexplained'),
       );
+      const facts = path.join(root, 'facts-only');
+      await run('facts-only', ['--before', before, '--out', facts]);
+      const authored = path.join(workspace, 'workspace.yaml');
+      await writeFile(authored, 'format: 2\nid: probe\nname: Changed after fact capture\n');
+      await expect(
+        run('compare', [
+          '--before',
+          before,
+          '--facts',
+          facts,
+          '--out',
+          after,
+          '--allowed',
+          allowed,
+        ]),
+      ).resolves.toHaveProperty('stdout', expect.stringContaining('0 unexplained'));
+      await writeFile(authored, 'format: 2\nid: probe\nname: Probe\n');
       message = 'Changed wording with a different size';
       await expect(compare()).rejects.toHaveProperty('code', 1);
       const report = JSON.parse(await readFile(path.join(after, 'comparison.json'), 'utf8')) as {
@@ -99,7 +116,10 @@ describe('rebuild commands', () => {
           })),
         }),
       );
-      await expect(compare()).resolves.toHaveProperty(
+      const replay = async () =>
+        run('compare', ['--before', before, '--candidate', after, '--allowed', allowed]);
+      message = 'Live site changed after the candidate was captured';
+      await expect(replay()).resolves.toHaveProperty(
         'stdout',
         expect.stringContaining('0 unexplained'),
       );

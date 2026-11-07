@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { domainPlanRowsOf } from '@/application/plan-index';
-import { domainViewOf } from '@/application/workspace-domain';
+import { modelDomainViewOf } from '@/application/model-domain';
 import { DomainPlans, DomainTab } from '@/features/workspace';
-import { todayData } from '@/infrastructure/today-data';
-import { readLoadedPlans } from '@/infrastructure/workspace-plans';
+import { readCanonicalModelIndex } from '@/infrastructure/model-index';
+import { readModelPlanRows } from '@/infrastructure/model-plan-rows';
+import { Callout } from '@/ui/callout';
 
 interface Params {
   readonly workspace: string;
@@ -18,23 +18,32 @@ export const metadata: Metadata = { title: 'Plans' };
 
 export default async function DomainPlansRoute({ params }: { readonly params: Promise<Params> }) {
   const { workspace: id, domain } = await params;
-  const data = await todayData(id);
-  const view = data === null ? null : domainViewOf(data.workspace, data.today.model, domain);
-  if (data === null || view === null) notFound();
-  const { workspace } = data;
-  const rows = domainPlanRowsOf(workspace, await readLoadedPlans(workspace.id), domain);
+  const native = await readCanonicalModelIndex(id);
+  if (native === null) notFound();
+  const view = modelDomainViewOf(native, domain);
+  if (view === null) notFound();
+  const result = await readModelPlanRows(native);
   return (
     <>
       <DomainTab
-        says={`The plans that change a system in ${view.name}, and how far each has got.`}
+        says={`The plans that change a system in ${view.name}, and their recorded progress.`}
         title="Plans"
         view={view}
       />
       <DomainPlans
-        domains={workspace.domains.map((d) => ({ id: d.id, name: d.name }))}
-        here={domain}
-        rows={rows}
+        domains={native.model.domains.map(({ id: domainId, name }) => ({ id: domainId, name }))}
+        here={view.domainId}
+        rows={result.rows.filter((row) => row.domains.includes(view.domainId))}
       />
+      {result.gaps.length === 0 ? null : (
+        <Callout title="Plan locations or progress remain unknown">
+          <ul>
+            {result.gaps.map((gap, at) => (
+              <li key={`${gap.id}:${String(at)}`}>{gap.message}</li>
+            ))}
+          </ul>
+        </Callout>
+      )}
     </>
   );
 }

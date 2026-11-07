@@ -2,56 +2,14 @@ import { componentsOf, systemsOf, type Workspace } from '@/domain/workspace';
 import { plural } from '@/shared/text';
 
 import type { PlanInput } from './plan-footprint';
-import { briefsOf, type PlanBrief } from './workspace-library-plans';
+import { workspaceLocationOf, type Library, type WorkspaceLink } from './workspace-card';
+import { briefsOf } from './workspace-library-plans';
 import { domainHref, workspaceHref } from './workspace-paths';
+
+export type { Library, WorkspaceCard, WorkspaceLink } from './workspace-card';
 
 /** How many plans a panel lists before it points to the workspace for the rest. */
 const PLANS_SHOWN = 6;
-
-export interface DomainLink {
-  readonly id: string;
-  readonly name: string;
-  readonly href: string;
-  readonly systems: string;
-}
-
-export interface WorkspaceCard {
-  readonly id: string;
-  readonly name: string;
-  readonly href: string;
-  readonly description: string | null;
-  readonly isPrivate: boolean;
-  readonly isExample: boolean;
-  readonly location: {
-    readonly folder: string;
-    readonly repo: string | null;
-    readonly source: string;
-  } | null;
-  /** Its size, as short facts: "3 domains", "14 systems". */
-  readonly facts: readonly string[];
-  readonly domains: readonly DomainLink[];
-  /** The plans someone should look at first; `morePlans` more are on the workspace page. */
-  readonly plans: readonly PlanBrief[];
-  readonly morePlans: number;
-}
-
-export interface Library {
-  readonly cards: readonly WorkspaceCard[];
-}
-
-export interface WorkspaceLink {
-  readonly id: string;
-  readonly folder: string;
-  readonly source: 'example' | 'local' | 'environment';
-  readonly isExample: boolean;
-  readonly repo: string | null;
-}
-
-const LINK_SOURCES: Record<WorkspaceLink['source'], string> = {
-  example: 'Bundled example',
-  local: 'groundwork.local.yaml',
-  environment: 'GROUNDWORK_WORKSPACES',
-};
 
 // Shared workspaces first, then by name: the one a team works in leads.
 export function libraryOf(
@@ -71,14 +29,7 @@ export function libraryOf(
       description: workspace.description,
       isPrivate: workspace.isPrivate,
       isExample: link?.isExample ?? false,
-      location:
-        localDetails && link !== undefined
-          ? {
-              folder: link.folder,
-              repo: link.repo,
-              source: LINK_SOURCES[link.source],
-            }
-          : null,
+      location: workspaceLocationOf(link, localDetails),
       facts: [
         plural(workspace.domains.length, 'domain'),
         plural(systemsOf(workspace).length, 'system'),

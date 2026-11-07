@@ -1,0 +1,72 @@
+{
+  "format": 1,
+  "decision": "Endorsed; no source changes requested.",
+  "sourceSha256": {
+    "src/features/workspace/model-system-narratives.client.tsx": "da6b265c71f9e1cb88735ad61bc30636ce75b56b2b788353a45069a46838faba",
+    "src/features/workspace/model-system-content.tsx": "0fc4e1ae900d21f989911c0b3fbbffa354843e8a14fa2ec7a3f9fa8f98bdaffd",
+    "src/features/workspace/model-system-content.test.tsx": "04819eb7dd17e0b0670d9693b02d9680197bb1dab300443110666e697e2d8ba3",
+    "src/features/workspace/catalogue-list.tsx": "954553db0f1845c83ef2af3993d6b50adf4244824b220e56528186fb650f7839",
+    "src/features/workspace/system-page.tsx": "11282a161057413c03bb383a015b398727368a9c0fae5bcf0593cd6225d5d5bb",
+    "src/app/[workspace]/[domain]/[system]/layout.tsx": "ec9e446d1d02b56b8d363f594417e8c073cc5638f8015b981d296b35fb059696"
+  },
+  "sourceProof": {
+    "file": "artifacts/rebuild/pr8/system-residual-budget.json",
+    "sha256": "7307c4602a5b04ceb4a2ff03d44d532db01e80d703284fa45be0b76a73fb553d"
+  },
+  "reviewedSemantics": [
+    "CatalogueList and SystemPage preview defaults remain true; only native system layout passes false.",
+    "Compact rows preserve all heads, full authored notes, exact item counts and data-inspect identifiers; no empty details control is rendered.",
+    "No catalogue arrays or canonical records are altered. Full records remain in the existing inspector.",
+    "Client boundary receives only native narrative records plus a plain label record; model/index/cache objects do not cross.",
+    "On-toggle rendering retains exact name/summary/confidence/reasoning/limitations, all stage title/component/supporting/summary/backing/citations, related systems and connection labels/kinds/endpoints/backing/citations.",
+    "Narrative generator/authored date/input fingerprint remain accessible, and interpretation/unverified-execution qualification stays visible."
+  ],
+  "focusedActualInspectorPaths": [
+    {
+      "system": "sys:assortment",
+      "kind": "apis",
+      "head": "svc:assortment-admin-api",
+      "item": "api:assortment-admin-classification-create",
+      "items": 36,
+      "path": [
+        "svc:assortment-admin-api",
+        "api:assortment-admin-classification-create"
+      ]
+    },
+    {
+      "system": "sys:assortment",
+      "kind": "data",
+      "head": "st:assortment-redis",
+      "item": "sch:assortment-external-car-code",
+      "items": 4,
+      "path": [
+        "st:assortment-redis",
+        "sch:assortment-external-car-code"
+      ]
+    },
+    {
+      "system": "sys:price",
+      "kind": "apis",
+      "head": "svc:price-data-management",
+      "item": "api:price-core-offer-search-prices",
+      "items": 13,
+      "path": [
+        "svc:price-data-management",
+        "if:price-core-offer",
+        "api:price-core-offer-search-prices"
+      ]
+    },
+    {
+      "system": "sys:price",
+      "kind": "data",
+      "head": "st:price-data-management-db",
+      "item": "sch:financing-product",
+      "items": 4,
+      "path": [
+        "st:price-data-management-db",
+        "sch:financing-product"
+      ]
+    }
+  ],
+  "method": "Read-only code/schema review plus actual captured native model/index inspection. Existing30tests/5files and scoped lint receipts were read, not rerun. No production size success claimed."
+}

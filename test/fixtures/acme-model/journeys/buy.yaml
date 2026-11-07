@@ -1,0 +1,8 @@
+id: jny:buy
+name: Buy a product
+interactions:
+  - ui:add-to-basket
+  - ui:place-order
+actor: actor:customer
+flows:
+  - flow:place-order

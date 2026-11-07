@@ -1,6 +1,10 @@
 import { describe, expect, it } from 'vitest';
 
-import { type CitationScope, resolveModelCitations } from '@/domain/model-cite-resolution';
+import {
+  type CitationScope,
+  codeCitationResolver,
+  resolveModelCitations,
+} from '@/domain/model-cite-resolution';
 import { modelRecord, type ModelRepository } from '@/domain/workspace-model';
 
 const pin = 'a'.repeat(40);
@@ -395,4 +399,23 @@ it('inherits the actual historical span from a migrated GraphQL document', () =>
       },
     ],
   });
+});
+
+it('resolves persisted evidence source chains to exact pinned locations for native inspection', () => {
+  const resolve = codeCitationResolver([repository]);
+  expect(
+    resolve([
+      { kind: 'evidence', id: 'ev:claim' },
+      { kind: 'evidence', id: 'ev:source' },
+      { kind: 'evidence', id: 'ev:missing' },
+    ]),
+  ).toEqual([
+    {
+      kind: 'code',
+      repo: 'example/orders',
+      commit: pin,
+      path: 'apps/orders/Confirm.ts',
+      lines: [1, 100],
+    },
+  ]);
 });

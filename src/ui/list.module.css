@@ -15,7 +15,8 @@
     }
 
     &:hover,
-    &[data-chosen] {
+    &[data-chosen],
+    &[data-walk='current'] {
       background: var(--accent-soft);
     }
   }

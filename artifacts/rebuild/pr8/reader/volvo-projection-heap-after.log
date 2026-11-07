@@ -1,0 +1,17 @@
+{"stage":"current","seconds":43.4,"heapMiB":347,"rssMiB":1570,"plans":8,"evidenceRecords":354395}
+{"stage":"care-se-financing-status","seconds":10.7,"heapMiB":413,"rssMiB":1440,"sharesEvidence":true}
+{"stage":"care-se-financing-status","authoredAndDerivedBeforeAfter":"exact","proposals":"exact"}
+{"stage":"care-se-online","seconds":27.2,"heapMiB":545,"rssMiB":1691,"sharesEvidence":true}
+{"stage":"care-se-online","authoredAndDerivedBeforeAfter":"exact","proposals":"exact"}
+{"stage":"care-se-order-change","seconds":33.3,"heapMiB":678,"rssMiB":2178,"sharesEvidence":true}
+{"stage":"care-se-order-change","authoredAndDerivedBeforeAfter":"exact","proposals":"exact"}
+{"stage":"care-se-sales-tool","seconds":26.8,"heapMiB":811,"rssMiB":2238,"sharesEvidence":true}
+{"stage":"care-se-sales-tool","authoredAndDerivedBeforeAfter":"exact","proposals":"exact"}
+{"stage":"care-se-stock-reservation","seconds":18.6,"heapMiB":943,"rssMiB":1815,"sharesEvidence":true}
+{"stage":"care-se-stock-reservation","authoredAndDerivedBeforeAfter":"exact","proposals":"exact"}
+{"stage":"immutable-ids","seconds":13.9,"heapMiB":1010,"rssMiB":2409,"sharesEvidence":true}
+{"stage":"immutable-ids","authoredAndDerivedBeforeAfter":"exact","proposals":"exact"}
+{"stage":"sourced-financing-terms","seconds":24.8,"heapMiB":1076,"rssMiB":2394,"sharesEvidence":true}
+{"stage":"sourced-financing-terms","authoredAndDerivedBeforeAfter":"exact","proposals":"exact"}
+{"stage":"unify-price-breakdown","seconds":11.3,"heapMiB":1143,"rssMiB":2342,"sharesEvidence":true}
+{"stage":"unify-price-breakdown","authoredAndDerivedBeforeAfter":"exact","proposals":"exact"}

@@ -1,0 +1,213 @@
+{
+  "candidate": ".workspaces/rebuild/pr8/area-audit/volvo-cars-facts-metadata",
+  "reports": [
+    {
+      "bad": [],
+      "basePath": "/plans/0/before/handlerEdges",
+      "modelRef": {
+        "file": "facts-406ad541a8bf91380160.json.gz",
+        "sha256": "503c8290bf92759050b1f0b95d05a2099350fa88d1cd170e26c7d9fad8dee687"
+      },
+      "originalEffects": 72,
+      "proofSha256": "72ad968645fa56ab858014eb60d2ae44c6806dae458a5e277bb5b4dfc24e0595",
+      "side": "before",
+      "slug": "care-se-financing-status",
+      "verified": 72
+    },
+    {
+      "bad": [],
+      "basePath": "/plans/0/after/handlerEdges",
+      "modelRef": {
+        "file": "facts-307a96daddfc9fa901e0.json.gz",
+        "sha256": "c208659ba8e044393a3cc3eb41df42d354c6d8ec82d3cec0e0b9fa9ee1b97d1f"
+      },
+      "originalEffects": 72,
+      "proofSha256": "9d710a4f786c20f4c7e712636ef36eafe7aba25aa3cdd976f40612345054aa57",
+      "side": "after",
+      "slug": "care-se-financing-status",
+      "verified": 72
+    },
+    {
+      "bad": [],
+      "basePath": "/plans/1/before/handlerEdges",
+      "modelRef": {
+        "file": "facts-fb87bf5bc7e705bdea44.json.gz",
+        "sha256": "2968f20967bdd13b20e7fe545f8e48b65cc4785a2809af0f426658136f210595"
+      },
+      "originalEffects": 48,
+      "proofSha256": "186333ecddbc93846a3e6119856f3831cb07704990d593fecebe3c0a101a02c0",
+      "side": "before",
+      "slug": "care-se-online",
+      "verified": 48
+    },
+    {
+      "bad": [],
+      "basePath": "/plans/1/after/handlerEdges",
+      "modelRef": {
+        "file": "facts-3603482bd9417131fd2e.json.gz",
+        "sha256": "ea9a5dc95fe3a568063a6f7b0eda5fd61757605c665303602b005ef00ef89eb9"
+      },
+      "originalEffects": 48,
+      "proofSha256": "186333ecddbc93846a3e6119856f3831cb07704990d593fecebe3c0a101a02c0",
+      "side": "after",
+      "slug": "care-se-online",
+      "verified": 48
+    },
+    {
+      "bad": [],
+      "basePath": "/plans/2/before/handlerEdges",
+      "modelRef": {
+        "file": "facts-90667743840a9cb7107a.json.gz",
+        "sha256": "f380e208f29a6db305e8754cd841a59e588af434e3b8571a93e2c10fe6f0e19a"
+      },
+      "originalEffects": 51,
+      "proofSha256": "bd469130cc7c1cfa36e5711b4de0bbb0a2efcdf07eff2d61091d491c838a65b9",
+      "side": "before",
+      "slug": "care-se-order-change",
+      "verified": 51
+    },
+    {
+      "bad": [],
+      "basePath": "/plans/2/after/handlerEdges",
+      "modelRef": {
+        "file": "facts-b553df7478757752406e.json.gz",
+        "sha256": "1987881ee568b0c070913d49ce6eddbfea5922e7a6f514ce41ac83bad22862c3"
+      },
+      "originalEffects": 51,
+      "proofSha256": "bd469130cc7c1cfa36e5711b4de0bbb0a2efcdf07eff2d61091d491c838a65b9",
+      "side": "after",
+      "slug": "care-se-order-change",
+      "verified": 51
+    },
+    {
+      "bad": [],
+      "basePath": "/plans/3/before/handlerEdges",
+      "modelRef": {
+        "file": "facts-c823a5841567c5c3b511.json.gz",
+        "sha256": "2968f20967bdd13b20e7fe545f8e48b65cc4785a2809af0f426658136f210595"
+      },
+      "originalEffects": 48,
+      "proofSha256": "186333ecddbc93846a3e6119856f3831cb07704990d593fecebe3c0a101a02c0",
+      "side": "before",
+      "slug": "care-se-sales-tool",
+      "verified": 48
+    },
+    {
+      "bad": [],
+      "basePath": "/plans/3/after/handlerEdges",
+      "modelRef": {
+        "file": "facts-4f8b0e03897a4531b523.json.gz",
+        "sha256": "f380e208f29a6db305e8754cd841a59e588af434e3b8571a93e2c10fe6f0e19a"
+      },
+      "originalEffects": 48,
+      "proofSha256": "c9bfda505975b3813b4aaf294cb60cfc49df95ed3df7989d45664c553c2b4961",
+      "side": "after",
+      "slug": "care-se-sales-tool",
+      "verified": 48
+    },
+    {
+      "bad": [],
+      "basePath": "/plans/4/before/handlerEdges",
+      "modelRef": {
+        "file": "facts-e214377a6f9bff851f0b.json.gz",
+        "sha256": "c208659ba8e044393a3cc3eb41df42d354c6d8ec82d3cec0e0b9fa9ee1b97d1f"
+      },
+      "originalEffects": 41,
+      "proofSha256": "9ad5a70c6d615bf61306b2f5eb278e9f31863282c2d7b542e9549bb997dd7f13",
+      "side": "before",
+      "slug": "care-se-stock-reservation",
+      "verified": 41
+    },
+    {
+      "bad": [],
+      "basePath": "/plans/4/after/handlerEdges",
+      "modelRef": {
+        "file": "facts-31f02872dd9f171b23f0.json.gz",
+        "sha256": "2968f20967bdd13b20e7fe545f8e48b65cc4785a2809af0f426658136f210595"
+      },
+      "originalEffects": 48,
+      "proofSha256": "186333ecddbc93846a3e6119856f3831cb07704990d593fecebe3c0a101a02c0",
+      "side": "after",
+      "slug": "care-se-stock-reservation",
+      "verified": 48
+    },
+    {
+      "bad": [],
+      "basePath": "/plans/5/before/handlerEdges",
+      "modelRef": {
+        "file": "facts-9cfebbcce7b416099925.json.gz",
+        "sha256": "503c8290bf92759050b1f0b95d05a2099350fa88d1cd170e26c7d9fad8dee687"
+      },
+      "originalEffects": 0,
+      "proofSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "side": "before",
+      "slug": "immutable-ids",
+      "verified": 0
+    },
+    {
+      "bad": [],
+      "basePath": "/plans/5/after/handlerEdges",
+      "modelRef": {
+        "file": "facts-98b407f9586a90cd3885.json.gz",
+        "sha256": "eec685ae08cc760cb5c2794107f76c818c41fcd02d2d3bf9e83d710c3695ce33"
+      },
+      "originalEffects": 0,
+      "proofSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "side": "after",
+      "slug": "immutable-ids",
+      "verified": 0
+    },
+    {
+      "bad": [],
+      "basePath": "/plans/6/before/handlerEdges",
+      "modelRef": {
+        "file": "facts-e24581dd368847daf73c.json.gz",
+        "sha256": "503c8290bf92759050b1f0b95d05a2099350fa88d1cd170e26c7d9fad8dee687"
+      },
+      "originalEffects": 0,
+      "proofSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "side": "before",
+      "slug": "sourced-financing-terms",
+      "verified": 0
+    },
+    {
+      "bad": [],
+      "basePath": "/plans/6/after/handlerEdges",
+      "modelRef": {
+        "file": "facts-c93f384036520f825ebb.json.gz",
+        "sha256": "1cc60f776b09a44768716bffb7d0651afe6e773cbd5b87979021a27e17c17f56"
+      },
+      "originalEffects": 0,
+      "proofSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "side": "after",
+      "slug": "sourced-financing-terms",
+      "verified": 0
+    },
+    {
+      "bad": [],
+      "basePath": "/plans/7/before/handlerEdges",
+      "modelRef": {
+        "file": "facts-b3e390c9339353c72f8f.json.gz",
+        "sha256": "503c8290bf92759050b1f0b95d05a2099350fa88d1cd170e26c7d9fad8dee687"
+      },
+      "originalEffects": 4,
+      "proofSha256": "374bc711d0572a3f4aeb14981519168bac3ab85fb3c5d9afaabb204360319f2e",
+      "side": "before",
+      "slug": "unify-price-breakdown",
+      "verified": 4
+    },
+    {
+      "bad": [],
+      "basePath": "/plans/7/after/handlerEdges",
+      "modelRef": {
+        "file": "facts-eb1b0771e0c53f5db8e8.json.gz",
+        "sha256": "2a0dbb8fd6493c406ab56a24aa8c1462cb8fb13250b58a2a16100d697a657a35"
+      },
+      "originalEffects": 4,
+      "proofSha256": "374bc711d0572a3f4aeb14981519168bac3ab85fb3c5d9afaabb204360319f2e",
+      "side": "after",
+      "slug": "unify-price-breakdown",
+      "verified": 4
+    }
+  ]
+}

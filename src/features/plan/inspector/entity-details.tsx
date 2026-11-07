@@ -1,3 +1,5 @@
+import type { ReactNode } from 'react';
+
 import type { Model } from '@/application/plan/derive';
 import type {
   EntityFact,
@@ -59,13 +61,20 @@ const groupsIn = (groups: readonly EntityGroup[], today: boolean) =>
     <Group key={group.label} label={group.label} refs={visible(group.refs, today)} />
   ));
 
-/** What a thing points at or is pointed at by, as chips under each label. */
-export function EntityGroups({ groups }: { readonly groups: readonly EntityGroup[] }) {
-  return <div className={styles.details}>{groupsIn(groups, true)}</div>;
+interface EntityDetailsContentProps {
+  readonly view: EntityView;
+  readonly today: boolean;
+  readonly image: string | null;
+  readonly renderText: (text: string) => ReactNode;
 }
 
-// Everything the plan says about one thing. Its chips carry data-inspect, so the open inspector hops to them.
-export function EntityDetails({ model, view, today, image }: EntityDetailsProps) {
+/** The drawing consumes only its presentation records; the caller owns reference lookup. */
+export function EntityDetailsContent({
+  view,
+  today,
+  image,
+  renderText,
+}: EntityDetailsContentProps) {
   return (
     <div className={styles.details}>
       {image === null ? null : (
@@ -73,11 +82,7 @@ export function EntityDetails({ model, view, today, image }: EntityDetailsProps)
           <PlanImage alt={`A drawing of ${view.name}`} src={image} />
         </a>
       )}
-      {view.text === null ? null : (
-        <div className={styles.text}>
-          <ModelText model={model} text={view.text} />
-        </div>
-      )}
+      {view.text === null ? null : <div className={styles.text}>{renderText(view.text)}</div>}
       {view.facts.length === 0 ? null : (
         <dl className={styles.facts}>
           {view.facts.map((fact) => (
@@ -88,13 +93,23 @@ export function EntityDetails({ model, view, today, image }: EntityDetailsProps)
       {view.sections.map((section) => (
         <section className={styles.group} key={section.label}>
           <h4 className={styles.label}>{section.label}</h4>
-          <div className={styles.text}>
-            <ModelText model={model} text={section.text} />
-          </div>
+          <div className={styles.text}>{renderText(section.text)}</div>
         </section>
       ))}
       {groupsIn(view.uses, today)}
       {groupsIn(view.usedBy, today)}
     </div>
+  );
+}
+
+// Retained format-1 callers supply their text lookup until their cutover is complete.
+export function EntityDetails({ model, view, today, image }: EntityDetailsProps) {
+  return (
+    <EntityDetailsContent
+      view={view}
+      today={today}
+      image={image}
+      renderText={(text) => <ModelText model={model} text={text} />}
+    />
   );
 }

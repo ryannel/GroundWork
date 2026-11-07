@@ -1,0 +1,24 @@
+{
+  "reviewer": "identity_cross_review",
+  "source": "retained Acme example .workspaces/rebuild/acme/story.yaml:1-41",
+  "design": "docs/rebuild/design.md:124-127 explicitly retires story.yaml and retains both glossaries",
+  "output": "/private/tmp/rebuild-pr8-acme-native-04",
+  "sourceFingerprint": "ae181acca9cd6cbf699cf3e2fb7e62f06da81259f5b9a2bf7ed9f6abf2ead827",
+  "sourceStorySha256": "6211d034803cc5e6bbfc1c7cbe4476980ae423bab635a9e674a149c538c689c7",
+  "storyBytesEqual": true,
+  "sourceConceptCount": 1,
+  "nativeMatchingConceptCount": 1,
+  "allConceptSemanticFieldsEqual": true,
+  "placementEvidence": "story.yaml:11 explicitly names svc:products; domains/catalogue/systems/products/system.yaml:8 places that component in catalogue",
+  "retiredStages": {
+    "stage:publish": {
+      "to": null,
+      "reason": "The workspace story stage is retired by rebuild design \u00a74. Its complete authored summary, services, ordering and flows remain in the retained story.yaml and migration receipt; no successor execution stage is inferred."
+    },
+    "stage:buy": {
+      "to": null,
+      "reason": "The workspace story stage is retired by rebuild design \u00a74. Its complete authored summary, services, ordering and flows remain in the retained story.yaml and migration receipt; no successor execution stage is inferred."
+    }
+  },
+  "policy": "No narrative stage, actor, journey or execution is inferred. Full original stage services/from/flow references and summary remain in byte-identical retained story."
+}

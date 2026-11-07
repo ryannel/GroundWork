@@ -1,0 +1,7 @@
+# Consumer inventory symbol repair
+
+The fact-use graph now follows the requested runtime names through pure explicit named re-export barrels, including aliases and chains. Namespace, star, unresolved and side-effect paths stay broad. This does not claim that an unselected module cannot be evaluated: the separate evaluation graph still retains all runtime import/re-export paths for retirement safety. A legacy module still reachable by evaluation cannot be labelled retired from this proof.
+
+The TypeScript 6 AST import phase and per-binding type modifier distinguish erased imports from runtime bindings. Type nodes are not counted as value reads. A real runtime use of a parameter typed as a legacy fact carrier remains evidence; a declaration or erased type alias alone is not. This preserves the existing old Workspace contract guard while allowing actual bounded UI types and proven literal metadata.
+
+Seventeen focused tests pass, including named barrel alias chains, mixed runtime/type imports, direct typed old values, namespace/star/side-effect/unresolved conservatism, and all existing source/proof/retirement controls. Owned lint and formatting pass. The original 1,697-candidate file is unchanged (SHA-256 `8bb91071c6ae2e9168573f6d20d496cc8551e3e3ee626c3b06d64371d69f17c2`). No denominator, review hash, evidence line, proof requirement, disposition rule or completion threshold was changed. No moving-tree inventory capture is presented as final proof.

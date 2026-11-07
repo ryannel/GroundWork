@@ -15,6 +15,7 @@ import {
   SystemPage,
   SystemCatalogues,
 } from './index';
+import { NeighbourList } from './neighbour-list';
 
 let pathname = '/acme/orders/';
 vi.mock(import('next/navigation'), () => ({ usePathname: () => pathname }));
@@ -28,6 +29,13 @@ function acme() {
 
 const inspectable = (container: HTMLElement, id: string): Element | null =>
   container.querySelector(`[data-inspect="${id}"]`);
+
+it('labels an empty neighbour list as unrecorded', () => {
+  render(<NeighbourList name="Products" neighbours={{ reaches: [], reachedBy: [] }} />);
+  expect(
+    screen.getByText('No outside calls, messages or data exchanges are recorded for Products.'),
+  ).toBeTruthy();
+});
 
 describe('DomainPage', () => {
   it('lists each way to read the domain down the rail, leaving the header to the page being read', () => {

@@ -1,0 +1,3264 @@
+{
+  "scope": "Build08 final HTTP release captures versus frozen corresponding non-plan routes. Includes programme and partner pages. Excludes the shared registry route and plan-specific paths. New links in candidate-only non-plan pages are included. Entry links selecting a plan are identified separately for plan-projection proof. Structural links retain recorded HTTP status where captured. Inspected IDs are compared per changed route and across all non-plan captures.",
+  "navigationRegression": {
+    "count": 17,
+    "cause": "The canonical index emits encoded qualified IDs for external thing URLs. The thing route accepts hyphenated tokens only, so it shows the missing-record state for these existing external records.",
+    "producer": "src/application/model-index.ts:441",
+    "consumer": "src/app/[workspace]/things/page.tsx:30"
+  },
+  "inspectionRegression": {
+    "count": 31,
+    "cause": "The programme page renders programme-local records in full and also emits global inspector buttons for their local IDs. These IDs have no current workspace inspection record. All 31 original local names or questions remain visible with their IDs on the page.",
+    "recordSource": "/private/tmp/rebuild-pr8-volvo-runtime-06/programmes/care-se/programme.yaml",
+    "consumer": "src/features/plan/model-workspace-work.tsx:146",
+    "renderer": "src/features/plan/model-plan-record.tsx:48"
+  },
+  "workspaces": {
+    "personal": {
+      "workspace": "personal",
+      "archive": ".workspaces/rebuild/pr8/area-audit/personal-facts-history",
+      "runtime": "/private/tmp/rebuild-pr8-personal-runtime-06",
+      "authoredSha256": "e50fd9dbf39bdab9622dc9bad3a70c38948f019c1d8a394b662c2d06ad7db472",
+      "evidenceShards": 0,
+      "aliasesSha256": "533a5f1c9bd6e2915f24cff785f0136b6ca77912414294535386c28f0b4c22cc",
+      "aliasYamlMatchesArchive": true,
+      "before": {
+        "folder": "artifacts/rebuild/baseline/personal",
+        "manifestSha256": "0d772a800ff5734ec26b036456f9e0f7d6b6775466b1304a291fe398722aeeb0",
+        "routes": 24
+      },
+      "after": {
+        "folder": ".workspaces/rebuild/pr8/http-release/personal",
+        "manifestSha256": "3cc4a8c387c94851a26f39392f0e38704658bb818ea47f8990ce453d535fb16c",
+        "routes": 26
+      },
+      "oldCapturedRoutesMissing": [],
+      "pairs": [
+        {
+          "route": "/personal/",
+          "before": {
+            "file": "route-d27f1e2788e7e51292e6.json.gz",
+            "sha256": "fc7e2eb06893a9a3cca8aa401d968d3f2afaff545ea23da6afa2d81aa74e25dc",
+            "status": 200
+          },
+          "after": {
+            "file": "route-d27f1e2788e7e51292e6.json.gz",
+            "sha256": "41b6324aec125fdedd6f12cb25f0eee87b35f0ea8c54b67b50c429d6a6f2c172",
+            "status": 200
+          },
+          "removed": 0,
+          "removedSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "added": 1,
+          "addedSha256": "07112905a2b3b12144f2ff2b388e1473de82a717119601f0b0316e62e66815c6",
+          "oldInspect": 0,
+          "oldInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "newInspect": 0,
+          "newInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "canonicalInspectUnchanged": true,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/personal/explorer/",
+          "before": {
+            "file": "route-f8190763b839ce741b87.json.gz",
+            "sha256": "110ef08ef01e81a456594b4654cc003e249d8b6958b68f75731eacaa05ed674d",
+            "status": 200
+          },
+          "after": {
+            "file": "route-f8190763b839ce741b87.json.gz",
+            "sha256": "63c70860892bf813e1e23de354f9734e9349fbbc244070ce0a95947924a635bb",
+            "status": 200
+          },
+          "removed": 0,
+          "removedSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "added": 3,
+          "addedSha256": "e69129c62b0b1f7bf41c723c7548702176ff92907804bc308f161153284f5ce3",
+          "oldInspect": 0,
+          "oldInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "newInspect": 0,
+          "newInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "canonicalInspectUnchanged": true,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/personal/journeys/",
+          "before": {
+            "file": "route-d1914e9ed927de457d05.json.gz",
+            "sha256": "369d4616fa258d3b2b769a3165356478f9c9dec6d18fb66fd20c2243a37ef4d5",
+            "status": 200
+          },
+          "after": {
+            "file": "route-d1914e9ed927de457d05.json.gz",
+            "sha256": "9f9ad37ba2ee514753530123b80dbfffa7a9057c83cf9410b9615dfaa047b5e3",
+            "status": 200
+          },
+          "removed": 0,
+          "removedSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "added": 1,
+          "addedSha256": "07112905a2b3b12144f2ff2b388e1473de82a717119601f0b0316e62e66815c6",
+          "oldInspect": 0,
+          "oldInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "newInspect": 0,
+          "newInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "canonicalInspectUnchanged": true,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/personal/language/",
+          "before": {
+            "file": "route-df140c251356a59f2261.json.gz",
+            "sha256": "5f1be457f80eee3693f47655d32fcf243842f65755330acf3bab5c1832d9681e",
+            "status": 200
+          },
+          "after": {
+            "file": "route-df140c251356a59f2261.json.gz",
+            "sha256": "26590d27f0bb99aa9ecd7553b988e8aabe9d68e43073277ddf8261fd25ea08c8",
+            "status": 200
+          },
+          "removed": 0,
+          "removedSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "added": 1,
+          "addedSha256": "07112905a2b3b12144f2ff2b388e1473de82a717119601f0b0316e62e66815c6",
+          "oldInspect": 0,
+          "oldInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "newInspect": 0,
+          "newInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "canonicalInspectUnchanged": true,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/personal/partners/",
+          "before": {
+            "file": "route-aa3f6236d49586518744.json.gz",
+            "sha256": "99983dc83edb99ab8275b06a6f8ff89dd60a067396e8198c539e3ef0475eb15a",
+            "status": 200
+          },
+          "after": {
+            "file": "route-aa3f6236d49586518744.json.gz",
+            "sha256": "eaea7e7fa354b97138c2287f04cf68f9447120139cf36458f9530bb8c8ada03c",
+            "status": 200
+          },
+          "removed": 0,
+          "removedSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "added": 1,
+          "addedSha256": "07112905a2b3b12144f2ff2b388e1473de82a717119601f0b0316e62e66815c6",
+          "oldInspect": 0,
+          "oldInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "newInspect": 0,
+          "newInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "canonicalInspectUnchanged": true,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/personal/people/",
+          "before": {
+            "file": "route-ffb0bde0c2ccc55f8dca.json.gz",
+            "sha256": "5c2ed1c10cf9a4c1d61f709dcdbf353abdf2ba01f434dfabf546b6743118ce00",
+            "status": 200
+          },
+          "after": {
+            "file": "route-ffb0bde0c2ccc55f8dca.json.gz",
+            "sha256": "c133da9c8329c98e05885bc523cf785cd7451f5adf0e3cced31657857bddcfc8",
+            "status": 200
+          },
+          "removed": 0,
+          "removedSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "added": 1,
+          "addedSha256": "07112905a2b3b12144f2ff2b388e1473de82a717119601f0b0316e62e66815c6",
+          "oldInspect": 0,
+          "oldInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "newInspect": 0,
+          "newInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "canonicalInspectUnchanged": true,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/personal/programmes/",
+          "before": {
+            "file": "route-35c2f4e59f52d4d9fbf1.json.gz",
+            "sha256": "a7d8f95e932f1e08e68d5f6c1b751094a179926b8e35844573f5a5add8fae4fe",
+            "status": 200
+          },
+          "after": {
+            "file": "route-35c2f4e59f52d4d9fbf1.json.gz",
+            "sha256": "d3f537955fb04df7e7d8ca0fd09b73fa181f1f1d8cbf6315bc2d0c0c6d4c5c39",
+            "status": 200
+          },
+          "removed": 0,
+          "removedSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "added": 1,
+          "addedSha256": "07112905a2b3b12144f2ff2b388e1473de82a717119601f0b0316e62e66815c6",
+          "oldInspect": 0,
+          "oldInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "newInspect": 0,
+          "newInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "canonicalInspectUnchanged": true,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/personal/reference/",
+          "before": {
+            "file": "route-6a67cd7303ef5056d642.json.gz",
+            "sha256": "e3c1ac7810ff0e0b53cdec68141eba6267872ddef32bb01f16ccd3059761aee2",
+            "status": 200
+          },
+          "after": {
+            "file": "route-6a67cd7303ef5056d642.json.gz",
+            "sha256": "9e1134fe4e43408bade9ad30de1f9d86730f6218f89900cf35f6b5cbc1bef2e0",
+            "status": 200
+          },
+          "removed": 0,
+          "removedSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "added": 1,
+          "addedSha256": "07112905a2b3b12144f2ff2b388e1473de82a717119601f0b0316e62e66815c6",
+          "oldInspect": 0,
+          "oldInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "newInspect": 0,
+          "newInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "canonicalInspectUnchanged": true,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/personal/reference/components/",
+          "before": {
+            "file": "route-6cdb12e1fae640b10ec6.json.gz",
+            "sha256": "02bfed0894c31db349ac6f22028b39911441192cdf95527b7ccf6234fdff4dbd",
+            "status": 200
+          },
+          "after": {
+            "file": "route-6cdb12e1fae640b10ec6.json.gz",
+            "sha256": "92f7374279b28f3f6c1cbcafc3ce3d58ec3bc09c59f763d16dd55ffa3220640d",
+            "status": 200
+          },
+          "removed": 0,
+          "removedSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "added": 1,
+          "addedSha256": "07112905a2b3b12144f2ff2b388e1473de82a717119601f0b0316e62e66815c6",
+          "oldInspect": 4,
+          "oldInspectSha256": "6e587445e07da1579994189b39f1e23bc6d15b88962821bd703ee8b663fa8554",
+          "newInspect": 4,
+          "newInspectSha256": "af9cbb5ae8d17a83026e934b60230045373a121d222633f79c44fab23da9fcba",
+          "canonicalInspectUnchanged": true,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/personal/reference/stores/",
+          "before": {
+            "file": "route-e0923e560173c5aea74a.json.gz",
+            "sha256": "64f119b391f09356e6579f623289bf8f9333c12d1475a136b077e81569f29dec",
+            "status": 200
+          },
+          "after": {
+            "file": "route-e0923e560173c5aea74a.json.gz",
+            "sha256": "980d1d9810f7955a9f0062530af861eec28f8baeba52081620a1a0d9abe88b4b",
+            "status": 200
+          },
+          "removed": 0,
+          "removedSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "added": 1,
+          "addedSha256": "07112905a2b3b12144f2ff2b388e1473de82a717119601f0b0316e62e66815c6",
+          "oldInspect": 2,
+          "oldInspectSha256": "d149004d5c7178d3b5328307b1f23c01a87d2c1db88d1aea98b595c0c08a4cd2",
+          "newInspect": 1,
+          "newInspectSha256": "21ee6503585860d58d34ac7108bbecf457dee499acf9558c41fb601466d2c638",
+          "canonicalInspectUnchanged": false,
+          "canonicalInspectRemoved": 1,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/personal/side-projects/allotment-log/",
+          "before": {
+            "file": "route-cb002733d9297e597a4d.json.gz",
+            "sha256": "4a59334f613afc5b4fa2058199e8133a8c854a1eb51fbefbac681c9591999307",
+            "status": 200
+          },
+          "after": {
+            "file": "route-cb002733d9297e597a4d.json.gz",
+            "sha256": "7068964ec6ab6b9b9940eec8d5a03a77f1eefab681032a94bb43ef88ac582e27",
+            "status": 200
+          },
+          "removed": 0,
+          "removedSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "added": 0,
+          "addedSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "oldInspect": 4,
+          "oldInspectSha256": "18a55fcb3f7c167150979ee0c065bcb022b9eb7275e15a25321ea3ec9d83c3d9",
+          "newInspect": 3,
+          "newInspectSha256": "a75b10bf760a36250d4e16b1afcb7ff5cff4729f0a8ea6bbffa3e2ad21651d03",
+          "canonicalInspectUnchanged": false,
+          "canonicalInspectRemoved": 1,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/personal/side-projects/interfaces/",
+          "before": {
+            "file": "route-e818402d13566d98cc4a.json.gz",
+            "sha256": "5c95707cf05cdad64c092fe19e0de15a6a425349a1a8fe442ea0661edbebdd48",
+            "status": 200
+          },
+          "after": {
+            "file": "route-e818402d13566d98cc4a.json.gz",
+            "sha256": "e734db64d36261e6a1eea73784777c8822295601ff068b2079ae2199c9a8b1ea",
+            "status": 200
+          },
+          "removed": 1,
+          "removedSha256": "5a27bbf1581f1b3ee3b88a0cc72203a85a0c85de6c1f4eb7291e12f0a3993ff6",
+          "added": 1,
+          "addedSha256": "892f7acef39afd421da93b9827108d7b393e0fc29ce5e45f267558cfb284189c",
+          "oldInspect": 1,
+          "oldInspectSha256": "21ee6503585860d58d34ac7108bbecf457dee499acf9558c41fb601466d2c638",
+          "newInspect": 1,
+          "newInspectSha256": "21ee6503585860d58d34ac7108bbecf457dee499acf9558c41fb601466d2c638",
+          "canonicalInspectUnchanged": true,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/personal/things/?id=st-allotment-db",
+          "before": {
+            "file": "route-4c363f7b30e4b25b5dc2.json.gz",
+            "sha256": "50be7226717364e1c70283cee7710338d7f71656f47f60012d9d623ae2849e3b",
+            "status": 200
+          },
+          "after": {
+            "file": "route-4c363f7b30e4b25b5dc2.json.gz",
+            "sha256": "3372701ea197142a3db82334d67435ade4626c0114d2e66e70dfc0750671892f",
+            "status": 200
+          },
+          "removed": 1,
+          "removedSha256": "41d40bb46eaf433547ef48d39d6313109a7c79bcf9f83984ae0a6765040f05c3",
+          "added": 1,
+          "addedSha256": "07112905a2b3b12144f2ff2b388e1473de82a717119601f0b0316e62e66815c6",
+          "oldInspect": 2,
+          "oldInspectSha256": "eb0c3e351be2452e6ffa1dba6a7c248c69e78a83a3f1368dcf0fe413cd96330d",
+          "newInspect": 5,
+          "newInspectSha256": "e1c1cf4f48cefe342d3553cf33642641e4b260304333de7759de755ba4a0d307",
+          "canonicalInspectUnchanged": false,
+          "canonicalInspectRemoved": 1,
+          "canonicalInspectAdded": 4
+        },
+        {
+          "route": "/personal/things/?id=svc-allotment-app",
+          "before": {
+            "file": "route-1b1fccadc460a4e104c4.json.gz",
+            "sha256": "f084abe087661040f5e3e3c10fe0ac6d0a332bfaddfa3a50d94001630a753390",
+            "status": 200
+          },
+          "after": {
+            "file": "route-1b1fccadc460a4e104c4.json.gz",
+            "sha256": "c0aab652541412fbe0c3e41713b5f796d096f0e974568890d1d2f9140b6df5d4",
+            "status": 200
+          },
+          "removed": 5,
+          "removedSha256": "6372bc9ab733e3b9ac55adddbab7a6ccf76cadc2c42dec753b634a89d00cd3ef",
+          "added": 2,
+          "addedSha256": "addf8f0618722d899f59a36b22c40469537e1aa62758e42bd29496d33d8dfa68",
+          "oldInspect": 2,
+          "oldInspectSha256": "3a3b9551388fb51d5a27e1931a105435e19cde8fab4441694f67053b4909b40a",
+          "newInspect": 5,
+          "newInspectSha256": "4044f29a0caa2596969d45ab0dca2fdc793d6cc21f042132bf98adf67f8dcfec",
+          "canonicalInspectUnchanged": false,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 3
+        },
+        {
+          "route": "/personal/value-flows/",
+          "before": {
+            "file": "route-a18ed633047fc5afd284.json.gz",
+            "sha256": "a8a8c50fe392e9e155724998908b6a85dece40924267bfeaed70bf76c33a4e91",
+            "status": 200
+          },
+          "after": {
+            "file": "route-a18ed633047fc5afd284.json.gz",
+            "sha256": "da876b5d994713b1ece5ecd92765d030bcce80fecc4079890effd76a0c3255ae",
+            "status": 200
+          },
+          "removed": 0,
+          "removedSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "added": 1,
+          "addedSha256": "07112905a2b3b12144f2ff2b388e1473de82a717119601f0b0316e62e66815c6",
+          "oldInspect": 0,
+          "oldInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "newInspect": 0,
+          "newInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "canonicalInspectUnchanged": true,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 0
+        }
+      ],
+      "candidateOnly": {
+        "/personal/entries/": {
+          "sha256": "ceeb2738b954ba01cbc48de4e39520cc5729214bc851586a7ed8f57b5807646b",
+          "file": "route-fcd0e5b5a7460b23f7ab.json.gz",
+          "status": 200,
+          "linksSha256": "fff70b4d7fe03ef8f88dcb8eab69d9104a327e7df8566dee6925b55fdd235780",
+          "inspectedIdsSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+        },
+        "/personal/things/?id=lib-geometry": {
+          "sha256": "d6a4fa340f04986e0f8555a27a866ce5d4523d186b8e280e08386f763444c021",
+          "file": "route-14d6b7830ccbf7f38f54.json.gz",
+          "status": 200,
+          "linksSha256": "e6d87e35d86b85bcce8b2842d139794c62c4e45e8b0e48d0fe87792db4dbb3fd",
+          "inspectedIdsSha256": "25d25257e5d24e4337e113cb4bee826dd935d05ef14024d8f4bdadc1b581ddd3"
+        }
+      },
+      "removed": {
+        "distinct": 6,
+        "byFamily": {
+          "interfaces": 1,
+          "system": 1,
+          "thing": 4
+        },
+        "selectorResultsSha256": "056916d3afcb783373c7985859739628fa9a2e82e46455f6186168b63e4fb0c5",
+        "unresolved": [],
+        "canonicalAliasCount": 3
+      },
+      "added": {
+        "distinct": 14,
+        "byFamily": {
+          "entryIndex": 1,
+          "interfaces": 1,
+          "structural": 10,
+          "thing": 2
+        },
+        "selectorResultsSha256": "a17a820293166d8ce378f927f5743ce0def7a2dd6990eac30afc933d6de4924b",
+        "unresolved": [],
+        "canonicalAliasCount": 0
+      },
+      "inspections": {
+        "old": 8,
+        "new": 10,
+        "oldResultSha256": "03b287e57d237d57852ab376d680a8ac09c6a3ebe6a2a6674d8bacd10bf04078",
+        "newResultSha256": "fb496704703faaea9ea84963bcc60de911176f183fbb2676995a29f05e1516c7",
+        "oldUnresolved": [],
+        "newUnresolved": [],
+        "oldAliases": 3,
+        "newAliases": 0,
+        "canonicalCommon": 8,
+        "canonicalOldOnly": [],
+        "canonicalNewOnly": 2
+      },
+      "releasedFactsMatchSelectorArchive": true
+    },
+    "acme": {
+      "workspace": "acme",
+      "archive": ".workspaces/rebuild/pr8/area-audit/acme-facts-history",
+      "runtime": "/private/tmp/rebuild-pr8-acme-runtime-06",
+      "authoredSha256": "ffb831b893c1c5d76aaf3d39fb29a4a16110c456c2c95fea389ce9cd2bb99a9d",
+      "evidenceShards": 0,
+      "aliasesSha256": "1f34479d7d0211ba181a163e7e8f1c958ce1b54c3153f3186a07267fb68ca1e7",
+      "aliasYamlMatchesArchive": true,
+      "before": {
+        "folder": "artifacts/rebuild/baseline/acme",
+        "manifestSha256": "c8baa27f5a5d681aad13c0f7abc263ef3ee4026af62d0b7851d9823ac0083ca9",
+        "routes": 35
+      },
+      "after": {
+        "folder": ".workspaces/rebuild/pr8/http-release/acme",
+        "manifestSha256": "edf66aa0d5ed8dc0a829de6a0cfdd82f87501efa8e91069fe7d67d6df23fe7aa",
+        "routes": 42
+      },
+      "oldCapturedRoutesMissing": [],
+      "pairs": [
+        {
+          "route": "/acme/",
+          "before": {
+            "file": "route-5387805077e15b1937d9.json.gz",
+            "sha256": "94c09d2f8601b132627a5d017d06b72550da261b83b4c738500970ee18fed457",
+            "status": 200
+          },
+          "after": {
+            "file": "route-5387805077e15b1937d9.json.gz",
+            "sha256": "d6c13211ccd6e2a242b70d4a2e20dc7765c9f5dda1c6c250fa6020f56d0030d0",
+            "status": 200
+          },
+          "removed": 2,
+          "removedSha256": "44fa8ff3cef3cca37beba7fd94fad3b342b5919ec5686b41c0ec6a18335ba5a5",
+          "added": 1,
+          "addedSha256": "4f27aece6f4cddc4c981a54b31a858ea7e2e4f3e9096192df20ac302b30f6da2",
+          "oldInspect": 0,
+          "oldInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "newInspect": 0,
+          "newInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "canonicalInspectUnchanged": true,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/acme/catalogue/",
+          "before": {
+            "file": "route-ef89c688670f88909aad.json.gz",
+            "sha256": "2c346b3dcf424c83975ef568cddf2b0355a7c5255c5548b7b3e4e5cbf869bdb2",
+            "status": 200
+          },
+          "after": {
+            "file": "route-ef89c688670f88909aad.json.gz",
+            "sha256": "e12a6815592c195e36ac54d059d2057bc9ec39440b2ffa294d0117d4b79fab21",
+            "status": 200
+          },
+          "removed": 1,
+          "removedSha256": "e410fc0f4f91ad043fd9a4eef4c8a7c74bb9e8aae845ee2008130adaa838b39c",
+          "added": 1,
+          "addedSha256": "f4505d4f1832dea5d5e1bc3ebd24626e53632f4973652cea2ea0af489402ce05",
+          "oldInspect": 0,
+          "oldInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "newInspect": 1,
+          "newInspectSha256": "e6fc1f2603c611e3741419f2c2f03f5d340f050ebcaaaa0c2bc90f65059aa325",
+          "canonicalInspectUnchanged": false,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 1
+        },
+        {
+          "route": "/acme/catalogue/flows/",
+          "before": {
+            "file": "route-8d8347d739b5b69b3666.json.gz",
+            "sha256": "3af8177efaf870f8c94497402068f8c9b210ee3574635cc0c3ff991c032a2a46",
+            "status": 200
+          },
+          "after": {
+            "file": "route-8d8347d739b5b69b3666.json.gz",
+            "sha256": "bdcd7e686885a808bd35b77c9e34ea3627789699cab38a44f3200add53e46bc8",
+            "status": 200
+          },
+          "removed": 0,
+          "removedSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "added": 2,
+          "addedSha256": "7c87d50381152e42741e57f86679696e48a05d933af49f0d57a112faee7eeb3a",
+          "oldInspect": 11,
+          "oldInspectSha256": "906edcfa4eab4d9ba6507475a9123018e23c7aaada17379bd2e7c64188d921ab",
+          "newInspect": 7,
+          "newInspectSha256": "43c6472ee6c264b05e9714ead2e4816e1c1505787ce2d1c49ba06faed265ee86",
+          "canonicalInspectUnchanged": false,
+          "canonicalInspectRemoved": 4,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/acme/catalogue/interfaces/",
+          "before": {
+            "file": "route-d02ef6d42e51312da620.json.gz",
+            "sha256": "ec12c1c6277c2bae3d1459b93a333887825cf21d2864933d8f9ce4d0c14d2787",
+            "status": 200
+          },
+          "after": {
+            "file": "route-d02ef6d42e51312da620.json.gz",
+            "sha256": "7cfaba648ab002c46ec44ba8d9bb7182a6fa5b821efb314140966bc5e139f774",
+            "status": 200
+          },
+          "removed": 2,
+          "removedSha256": "a4730004f1effb4337e2c2fa7a460eeadde5d4c8611c911e7cc708d40664cfef",
+          "added": 3,
+          "addedSha256": "c1baa69ec110f5352ac1c2fc69c4e3bbdba50c44897adeb8642be130018f2f3d",
+          "oldInspect": 7,
+          "oldInspectSha256": "0e0cda3fa0f3b6d9957d085413cbef2841b91fd284d0b3917b38eac400801887",
+          "newInspect": 6,
+          "newInspectSha256": "56018027069a19a7aeef6a94f92e58d942b552592417725d05102ed62bf84608",
+          "canonicalInspectUnchanged": false,
+          "canonicalInspectRemoved": 1,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/acme/catalogue/language/",
+          "before": {
+            "file": "route-8695f71d28aee9634f2f.json.gz",
+            "sha256": "01f830866e58cc32daa6ef5b99b86dacf968f0649cce271c57c4c7dd5b974827",
+            "status": 200
+          },
+          "after": {
+            "file": "route-8695f71d28aee9634f2f.json.gz",
+            "sha256": "6cea8251c62af717addb49dae7bbae898958c40a0a0137c75d968aa9288c34eb",
+            "status": 200
+          },
+          "removed": 0,
+          "removedSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "added": 1,
+          "addedSha256": "f4505d4f1832dea5d5e1bc3ebd24626e53632f4973652cea2ea0af489402ce05",
+          "oldInspect": 0,
+          "oldInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "newInspect": 0,
+          "newInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "canonicalInspectUnchanged": true,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/acme/catalogue/map/",
+          "before": {
+            "file": "route-10d143d9e6e81d289335.json.gz",
+            "sha256": "aabb92b30cd15b1e4a5efad36db68034b9ae96afaee2b0e684708ce5e1e653b6",
+            "status": 200
+          },
+          "after": {
+            "file": "route-10d143d9e6e81d289335.json.gz",
+            "sha256": "ece0037dc5121f1113d506f6baa6a2625ba8ffe511c9b88d81fba20497f4940e",
+            "status": 200
+          },
+          "removed": 0,
+          "removedSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "added": 1,
+          "addedSha256": "f4505d4f1832dea5d5e1bc3ebd24626e53632f4973652cea2ea0af489402ce05",
+          "oldInspect": 12,
+          "oldInspectSha256": "a849e341a7d279edb040a6d034d0764374882a96ee14e051266a2686c0029820",
+          "newInspect": 2,
+          "newInspectSha256": "abd52cf20ec9eda07a6c68a47ae22a1516c4298daf2b1a072e5d2f9d4fc24755",
+          "canonicalInspectUnchanged": false,
+          "canonicalInspectRemoved": 9,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/acme/catalogue/products/",
+          "before": {
+            "file": "route-4c02be800d98953c2acc.json.gz",
+            "sha256": "d00b6b4670ccca26f9256ac1a69ded566a9795d1692b53ec6fa49c33a3fe7c97",
+            "status": 200
+          },
+          "after": {
+            "file": "route-4c02be800d98953c2acc.json.gz",
+            "sha256": "55e7cb9a7cf2a2a74d81f1efffdc8eb7b9fbaa13cfa75f9073ea78cfff9bf27a",
+            "status": 200
+          },
+          "removed": 1,
+          "removedSha256": "e410fc0f4f91ad043fd9a4eef4c8a7c74bb9e8aae845ee2008130adaa838b39c",
+          "added": 4,
+          "addedSha256": "5066a710d976148d734fc18637226cb0e6cad5b284d93666c8a25be1c8839e7c",
+          "oldInspect": 15,
+          "oldInspectSha256": "1b69e8f20c8e6d01fc5fe58275a59bca1f5a78c900ee90437458e2276cb7a8b4",
+          "newInspect": 9,
+          "newInspectSha256": "c72d107dab223acbc15bb6140f3054bb08684373c145b1fc359cd935f6998831",
+          "canonicalInspectUnchanged": false,
+          "canonicalInspectRemoved": 5,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/acme/catalogue/target/",
+          "before": {
+            "file": "route-35ed255c17f3a1ddb01f.json.gz",
+            "sha256": "b06e51fe3acd782d080b764d5f8a70ff6f5d0ff119c3832b2842755a34f16650",
+            "status": 200
+          },
+          "after": {
+            "file": "route-35ed255c17f3a1ddb01f.json.gz",
+            "sha256": "2b230447b7b1cd614cbcb532ecc0f7de78b1739497f0abb27c0031e15d2658af",
+            "status": 200
+          },
+          "removed": 0,
+          "removedSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "added": 1,
+          "addedSha256": "f4505d4f1832dea5d5e1bc3ebd24626e53632f4973652cea2ea0af489402ce05",
+          "oldInspect": 0,
+          "oldInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "newInspect": 0,
+          "newInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "canonicalInspectUnchanged": true,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/acme/explorer/",
+          "before": {
+            "file": "route-2766aed1314ff3a2861b.json.gz",
+            "sha256": "905813e7d03ddac889cc5806136a225a35fb6ecaf2794c4cadcdd0a85a4f2740",
+            "status": 200
+          },
+          "after": {
+            "file": "route-2766aed1314ff3a2861b.json.gz",
+            "sha256": "8164824aa20f481b4fb85cf3aa7682c7e26763a90b76b111dc0ae380fc4fd3bc",
+            "status": 200
+          },
+          "removed": 0,
+          "removedSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "added": 8,
+          "addedSha256": "d01bb601671f87cf96581876dc90fc9ab223481c18b6acf23f1ab9760fb07be9",
+          "oldInspect": 0,
+          "oldInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "newInspect": 0,
+          "newInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "canonicalInspectUnchanged": true,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/acme/journeys/",
+          "before": {
+            "file": "route-639fe7d6c385e2a73fc9.json.gz",
+            "sha256": "e120c0f76c99e39c4c0ad240780643adb644e909a38f60af02d4c2ff68fdb1fd",
+            "status": 200
+          },
+          "after": {
+            "file": "route-639fe7d6c385e2a73fc9.json.gz",
+            "sha256": "8151911e2d65e8f1104451471fbdae684b00fe6741314212d99d5e94dbacb9e4",
+            "status": 200
+          },
+          "removed": 1,
+          "removedSha256": "f529eb974e35929c95f6d315d3064c3254861352e78327befc23f0eb4a5752e8",
+          "added": 2,
+          "addedSha256": "9cf16a337bf9fd8dcd6a460b296052c29c8b84f75b708810913920a2691f13ed",
+          "oldInspect": 0,
+          "oldInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "newInspect": 0,
+          "newInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "canonicalInspectUnchanged": true,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/acme/journeys/flow-cancel-order/",
+          "before": {
+            "file": "route-a422d3a7ef9092a03ee3.json.gz",
+            "sha256": "690ab409dc1437353c61280345b83c637ac64e1ac4d81c4592ad70169bd3b162",
+            "status": 200
+          },
+          "after": {
+            "file": "route-a422d3a7ef9092a03ee3.json.gz",
+            "sha256": "7ffa879a452e4f699133fed7ee526c6ed27f25e38810973db780b4939d20c77e",
+            "status": 200
+          },
+          "removed": 2,
+          "removedSha256": "44fa8ff3cef3cca37beba7fd94fad3b342b5919ec5686b41c0ec6a18335ba5a5",
+          "added": 2,
+          "addedSha256": "b84d428f0c1cbfb3371a295ce65953c63138529cf837466b6d9c49e1898678d2",
+          "oldInspect": 0,
+          "oldInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "newInspect": 4,
+          "newInspectSha256": "5ca40ddade223ed9b22aa565e51d40d33ebabdc613fdeba4c30017bd7488eadd",
+          "canonicalInspectUnchanged": false,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 4
+        },
+        {
+          "route": "/acme/journeys/flow-publish-product/",
+          "before": {
+            "file": "route-a019b02e11f562b22e7e.json.gz",
+            "sha256": "543f0d84a411914b57756475a0b2d3eb65862eb2be50e54bf50f5958f1e0080c",
+            "status": 200
+          },
+          "after": {
+            "file": "route-a019b02e11f562b22e7e.json.gz",
+            "sha256": "04ee2289c56e3aa90fd7316a92a45491018e03da94a62a8ccb6b6c2d27341500",
+            "status": 200
+          },
+          "removed": 1,
+          "removedSha256": "f529eb974e35929c95f6d315d3064c3254861352e78327befc23f0eb4a5752e8",
+          "added": 2,
+          "addedSha256": "f165b9c0ae4e13fba9a71b3fe2d3062b7ee1194610edeaf4457f4c3c3a5b5c49",
+          "oldInspect": 0,
+          "oldInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "newInspect": 7,
+          "newInspectSha256": "43c6472ee6c264b05e9714ead2e4816e1c1505787ce2d1c49ba06faed265ee86",
+          "canonicalInspectUnchanged": false,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 7
+        },
+        {
+          "route": "/acme/journeys/uj-buy/",
+          "before": {
+            "file": "route-29ec9e83e42953c59e5d.json.gz",
+            "sha256": "f56e120764da07e279a8f088b0fc9f4fdc3f5f83113bd4aa1159a8171a59611e",
+            "status": 200
+          },
+          "after": {
+            "file": "route-29ec9e83e42953c59e5d.json.gz",
+            "sha256": "77ee54a7117d476a961a727f759c1eb8ce887f825d1472fa5f192d203ecaaf8c",
+            "status": 200
+          },
+          "removed": 2,
+          "removedSha256": "44fa8ff3cef3cca37beba7fd94fad3b342b5919ec5686b41c0ec6a18335ba5a5",
+          "added": 3,
+          "addedSha256": "384f3262a8f39ca4ddcfab0797d999c268e37847c4818eec48b19d401231cfd4",
+          "oldInspect": 2,
+          "oldInspectSha256": "a0da8201d8dbbaa28376245e3bfaecc7ab6e3ecaabf5c6c30bb1d602f3f64268",
+          "newInspect": 20,
+          "newInspectSha256": "822ea59f94e739e24fa479892804db0902e8e0baeff25ff9afdc3f6a3480a96c",
+          "canonicalInspectUnchanged": false,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 18
+        },
+        {
+          "route": "/acme/language/",
+          "before": {
+            "file": "route-a5d555b60865ca6553f6.json.gz",
+            "sha256": "fba0aa5beb82c9b4f6e918896468c089f0b42462bf22dc49e3ccc09cc64674fa",
+            "status": 200
+          },
+          "after": {
+            "file": "route-a5d555b60865ca6553f6.json.gz",
+            "sha256": "d068179a7f9d1d5f700cd77683e09f8a7d602f9a389e141862abc1f10a461c21",
+            "status": 200
+          },
+          "removed": 2,
+          "removedSha256": "44fa8ff3cef3cca37beba7fd94fad3b342b5919ec5686b41c0ec6a18335ba5a5",
+          "added": 1,
+          "addedSha256": "4f27aece6f4cddc4c981a54b31a858ea7e2e4f3e9096192df20ac302b30f6da2",
+          "oldInspect": 0,
+          "oldInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "newInspect": 0,
+          "newInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "canonicalInspectUnchanged": true,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/acme/partners/",
+          "before": {
+            "file": "route-4478e3dd494569e83fbe.json.gz",
+            "sha256": "73c3a3325c465619b1ff4e2557d6f842072cda4b59519b2bab4f9cdb9429abd2",
+            "status": 200
+          },
+          "after": {
+            "file": "route-4478e3dd494569e83fbe.json.gz",
+            "sha256": "ec83e95f9ea9e7d4dd08879cda2c420ff48a5aa8b077544b717e56f029313cc5",
+            "status": 200
+          },
+          "removed": 2,
+          "removedSha256": "44fa8ff3cef3cca37beba7fd94fad3b342b5919ec5686b41c0ec6a18335ba5a5",
+          "added": 1,
+          "addedSha256": "4f27aece6f4cddc4c981a54b31a858ea7e2e4f3e9096192df20ac302b30f6da2",
+          "oldInspect": 0,
+          "oldInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "newInspect": 0,
+          "newInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "canonicalInspectUnchanged": true,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/acme/people/",
+          "before": {
+            "file": "route-6374487d74074517730d.json.gz",
+            "sha256": "269735fa8da0c736b8c833be3ff199a261d56f7073d60122bb97678af219bee6",
+            "status": 200
+          },
+          "after": {
+            "file": "route-6374487d74074517730d.json.gz",
+            "sha256": "e35b5849dd632453b1ac4538fae851b43978ebb48f4be420a61313ceba03ec41",
+            "status": 200
+          },
+          "removed": 2,
+          "removedSha256": "44fa8ff3cef3cca37beba7fd94fad3b342b5919ec5686b41c0ec6a18335ba5a5",
+          "added": 1,
+          "addedSha256": "4f27aece6f4cddc4c981a54b31a858ea7e2e4f3e9096192df20ac302b30f6da2",
+          "oldInspect": 0,
+          "oldInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "newInspect": 0,
+          "newInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "canonicalInspectUnchanged": true,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/acme/programmes/",
+          "before": {
+            "file": "route-9cfabff74e65383b4393.json.gz",
+            "sha256": "2afbddceeb33ebece8e1777b3c62ed6915884f4233d9bb16369efa29eb22f9d7",
+            "status": 200
+          },
+          "after": {
+            "file": "route-9cfabff74e65383b4393.json.gz",
+            "sha256": "299775114c30f17fc002c6fcc3c8be9dc1e06cdf314520c5be429908c1dcc610",
+            "status": 200
+          },
+          "removed": 2,
+          "removedSha256": "44fa8ff3cef3cca37beba7fd94fad3b342b5919ec5686b41c0ec6a18335ba5a5",
+          "added": 1,
+          "addedSha256": "4f27aece6f4cddc4c981a54b31a858ea7e2e4f3e9096192df20ac302b30f6da2",
+          "oldInspect": 0,
+          "oldInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "newInspect": 0,
+          "newInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "canonicalInspectUnchanged": true,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/acme/reference/",
+          "before": {
+            "file": "route-23fa7a87ef6e6edac44b.json.gz",
+            "sha256": "03910335b95a2b74fa1efda1904544e9e4977f9c65642de16c9431120dceb708",
+            "status": 200
+          },
+          "after": {
+            "file": "route-23fa7a87ef6e6edac44b.json.gz",
+            "sha256": "a2a70c1a81a1f27fe8d85f9eacbd29d3f4a9326a45275673b071fd00eade30d7",
+            "status": 200
+          },
+          "removed": 2,
+          "removedSha256": "44fa8ff3cef3cca37beba7fd94fad3b342b5919ec5686b41c0ec6a18335ba5a5",
+          "added": 1,
+          "addedSha256": "4f27aece6f4cddc4c981a54b31a858ea7e2e4f3e9096192df20ac302b30f6da2",
+          "oldInspect": 0,
+          "oldInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "newInspect": 0,
+          "newInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "canonicalInspectUnchanged": true,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/acme/reference/apis/",
+          "before": {
+            "file": "route-7a3c54369841112468b1.json.gz",
+            "sha256": "e99e774fa33b865d82fe9cae99b0e2cf838381d071de3f60944563e24c55a24e",
+            "status": 200
+          },
+          "after": {
+            "file": "route-7a3c54369841112468b1.json.gz",
+            "sha256": "16ed0d6dc2edf72bf8b5a330d6e8ba369ca3c4a7654dabf34cd2f8f00c445a19",
+            "status": 200
+          },
+          "removed": 2,
+          "removedSha256": "44fa8ff3cef3cca37beba7fd94fad3b342b5919ec5686b41c0ec6a18335ba5a5",
+          "added": 1,
+          "addedSha256": "4f27aece6f4cddc4c981a54b31a858ea7e2e4f3e9096192df20ac302b30f6da2",
+          "oldInspect": 14,
+          "oldInspectSha256": "f0e027b5f0d5b9ad2083b380a5fa25a2cb8cbe2c3455a3ea6a937b4ff6ddea59",
+          "newInspect": 8,
+          "newInspectSha256": "1504c657a87431e13d017ae46321f57ce005a6b5ae37450794cc7e71fe02eaaa",
+          "canonicalInspectUnchanged": false,
+          "canonicalInspectRemoved": 6,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/acme/reference/components/",
+          "before": {
+            "file": "route-29985be361dd9138b14f.json.gz",
+            "sha256": "b80d6153c0fc562161c381b95e321ba8c260e334d330b9a40f7547a864ec2686",
+            "status": 200
+          },
+          "after": {
+            "file": "route-29985be361dd9138b14f.json.gz",
+            "sha256": "23d13b2f4ff5eb26051bb4a390b5edcb61619e00780fc3a5d74d12821b5c6867",
+            "status": 200
+          },
+          "removed": 2,
+          "removedSha256": "44fa8ff3cef3cca37beba7fd94fad3b342b5919ec5686b41c0ec6a18335ba5a5",
+          "added": 1,
+          "addedSha256": "4f27aece6f4cddc4c981a54b31a858ea7e2e4f3e9096192df20ac302b30f6da2",
+          "oldInspect": 13,
+          "oldInspectSha256": "8e240a2efa5fe3ba16cfdd7bb2cff660f91ab51d937719681ce0a697080517dc",
+          "newInspect": 13,
+          "newInspectSha256": "4cf4e0335347af6bc3c9ddea24b58425be2e53b3a1ac954db4fa882fdce15857",
+          "canonicalInspectUnchanged": true,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/acme/reference/events/",
+          "before": {
+            "file": "route-96b54d105274694098ef.json.gz",
+            "sha256": "5a43dc614e42d34cecc3b12038368962439527fb2770104f3e17b1924e31d843",
+            "status": 200
+          },
+          "after": {
+            "file": "route-96b54d105274694098ef.json.gz",
+            "sha256": "2c8bed908f2473cc718542063794b7c9a1beee2c14f39c9e8c6dff56da51f06f",
+            "status": 200
+          },
+          "removed": 2,
+          "removedSha256": "44fa8ff3cef3cca37beba7fd94fad3b342b5919ec5686b41c0ec6a18335ba5a5",
+          "added": 1,
+          "addedSha256": "4f27aece6f4cddc4c981a54b31a858ea7e2e4f3e9096192df20ac302b30f6da2",
+          "oldInspect": 4,
+          "oldInspectSha256": "12c9baeb3576d4646a79cc0abb083cbc5fe0befdf9fc7edc1ed37a3c8d0705bd",
+          "newInspect": 2,
+          "newInspectSha256": "d02e1e1af98ed7cef8aa59487e4ef7947af6a6f389722eab22fcfdf31a65cf83",
+          "canonicalInspectUnchanged": false,
+          "canonicalInspectRemoved": 2,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/acme/reference/flows/",
+          "before": {
+            "file": "route-7a715183f54742ed3a0f.json.gz",
+            "sha256": "9c0d867930c880ef012379f22ee16d91d0ef4f15e77210a3585f018ec835318f",
+            "status": 200
+          },
+          "after": {
+            "file": "route-7a715183f54742ed3a0f.json.gz",
+            "sha256": "5705967b22e1f51f75a187f34c305f156fb041d06c9616ddacaa0b6ad519deca",
+            "status": 200
+          },
+          "removed": 2,
+          "removedSha256": "44fa8ff3cef3cca37beba7fd94fad3b342b5919ec5686b41c0ec6a18335ba5a5",
+          "added": 1,
+          "addedSha256": "4f27aece6f4cddc4c981a54b31a858ea7e2e4f3e9096192df20ac302b30f6da2",
+          "oldInspect": 6,
+          "oldInspectSha256": "30f81ec64bbdf988c5fe81a5646f5b2d04211717c878c2df52b38e366ebfadab",
+          "newInspect": 3,
+          "newInspectSha256": "3d8d68912a11c6438e9f9ee87c9f58b8bbfe7f232b95fb67150ba0f1f6f48b10",
+          "canonicalInspectUnchanged": false,
+          "canonicalInspectRemoved": 3,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/acme/reference/schemas/",
+          "before": {
+            "file": "route-34c17a0121f013aef6e3.json.gz",
+            "sha256": "5910591c664aae918c211edb46ec20271ec92a31fe72f171b8c4cc596d3d6e62",
+            "status": 200
+          },
+          "after": {
+            "file": "route-34c17a0121f013aef6e3.json.gz",
+            "sha256": "96d49cc43e6664028eaa691f3dba2259e1bbcfe597e856f656d63439733634f3",
+            "status": 200
+          },
+          "removed": 2,
+          "removedSha256": "44fa8ff3cef3cca37beba7fd94fad3b342b5919ec5686b41c0ec6a18335ba5a5",
+          "added": 1,
+          "addedSha256": "4f27aece6f4cddc4c981a54b31a858ea7e2e4f3e9096192df20ac302b30f6da2",
+          "oldInspect": 8,
+          "oldInspectSha256": "211f88a8a57a97987799dfc55a920289fbd6f46c08b8549b720bc05e759e28db",
+          "newInspect": 5,
+          "newInspectSha256": "5e192b944d1711bcceb532404a73ee1fb7bb661443f14335b372efbdd7ab73e5",
+          "canonicalInspectUnchanged": false,
+          "canonicalInspectRemoved": 3,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/acme/reference/screens/",
+          "before": {
+            "file": "route-ca9f63f9e8b7fc21761e.json.gz",
+            "sha256": "8c3989c96f3575f4b1b85bd7d52945277e6e7232f50971e7d570dba3ba046458",
+            "status": 200
+          },
+          "after": {
+            "file": "route-ca9f63f9e8b7fc21761e.json.gz",
+            "sha256": "a2487a814f41af0550219fc34e60812af003665815ae5a14e1c21eb0ce069dd6",
+            "status": 200
+          },
+          "removed": 2,
+          "removedSha256": "44fa8ff3cef3cca37beba7fd94fad3b342b5919ec5686b41c0ec6a18335ba5a5",
+          "added": 1,
+          "addedSha256": "4f27aece6f4cddc4c981a54b31a858ea7e2e4f3e9096192df20ac302b30f6da2",
+          "oldInspect": 4,
+          "oldInspectSha256": "f2ba7644f83ddef538923718575ede8dfba544b7f2bd4982031a73c7e8caeae7",
+          "newInspect": 3,
+          "newInspectSha256": "ae3608ea6b5f7293cb926db6a0c0d07e219cef062024f066a6f00fb958138eb0",
+          "canonicalInspectUnchanged": false,
+          "canonicalInspectRemoved": 1,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/acme/reference/stores/",
+          "before": {
+            "file": "route-56aa4ad6f05325ae9b96.json.gz",
+            "sha256": "5e588553ea0cbaf75ffd1796858c2b6b94c265bee9f79cbe3f416d07c79171ac",
+            "status": 200
+          },
+          "after": {
+            "file": "route-56aa4ad6f05325ae9b96.json.gz",
+            "sha256": "deebce16d1308cae86b92fbcccc60339b0d8d58f8674180d8127bf0c72c08ffe",
+            "status": 200
+          },
+          "removed": 2,
+          "removedSha256": "44fa8ff3cef3cca37beba7fd94fad3b342b5919ec5686b41c0ec6a18335ba5a5",
+          "added": 1,
+          "addedSha256": "4f27aece6f4cddc4c981a54b31a858ea7e2e4f3e9096192df20ac302b30f6da2",
+          "oldInspect": 10,
+          "oldInspectSha256": "d6a6a8f05b2a4476c8934f36540d92e72a74a42dc3f37c3a71d42644ae13a19c",
+          "newInspect": 6,
+          "newInspectSha256": "818c2fb066e0ced858d6b486f7e4b91c230eaa22b259ecdefa5721b3d4fba4cc",
+          "canonicalInspectUnchanged": false,
+          "canonicalInspectRemoved": 4,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/acme/things/?id=api-products-get",
+          "before": {
+            "file": "route-4f5901ed06540b959e16.json.gz",
+            "sha256": "7817b264f9ca6ad6b9ded7e759b5a53bbfa418d8181e20ac939f0f2336684f35",
+            "status": 200
+          },
+          "after": {
+            "file": "route-4f5901ed06540b959e16.json.gz",
+            "sha256": "3e1425fdd416a49da4e16eda21a13c7770499690d98e04b86c32a072d442d380",
+            "status": 200
+          },
+          "removed": 10,
+          "removedSha256": "665324d97349ed43a5af36e8f4e97a2ada744b8f8bae55149dd62c7198daf876",
+          "added": 1,
+          "addedSha256": "4f27aece6f4cddc4c981a54b31a858ea7e2e4f3e9096192df20ac302b30f6da2",
+          "oldInspect": 3,
+          "oldInspectSha256": "439b29d774591a1927f76567816ca79fbb7b22ffd390fb6b2d5a63ede0c836fd",
+          "newInspect": 8,
+          "newInspectSha256": "19393ce26bb70b620231773fe6840f075931a4054b451f1571a66ea04bd204fb",
+          "canonicalInspectUnchanged": false,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 5
+        },
+        {
+          "route": "/acme/things/?id=msg-product-changed",
+          "before": {
+            "file": "route-b74e9d9ab1170f2c9f39.json.gz",
+            "sha256": "465e0ff2963e8a37d9360c8693c4b73778f1053264ec4abbd8fd708512bc50b8",
+            "status": 200
+          },
+          "after": {
+            "file": "route-b74e9d9ab1170f2c9f39.json.gz",
+            "sha256": "56ceaae5259aaca781097933f1cf33e6a537d60754775864b562c0947aa65df9",
+            "status": 200
+          },
+          "removed": 5,
+          "removedSha256": "12e68bfd1f6b2502907972055e89f7e0a89f1119aa03ea991528cb3f393f0d4f",
+          "added": 1,
+          "addedSha256": "4f27aece6f4cddc4c981a54b31a858ea7e2e4f3e9096192df20ac302b30f6da2",
+          "oldInspect": 8,
+          "oldInspectSha256": "e06f500d65c3a47e2877a1273e026b0e5a60f3847af37429494a99603fabeae2",
+          "newInspect": 10,
+          "newInspectSha256": "f665425203516c057817df07cb333edfbf4245308afa6aaefc23f9e7398c9e56",
+          "canonicalInspectUnchanged": false,
+          "canonicalInspectRemoved": 2,
+          "canonicalInspectAdded": 4
+        },
+        {
+          "route": "/acme/things/?id=sch-product",
+          "before": {
+            "file": "route-69e145634256e9eea7c9.json.gz",
+            "sha256": "5bdb412d4330a1cea5f3e71a34790f9f02391a3d230ec09dba886ff1934dfe57",
+            "status": 200
+          },
+          "after": {
+            "file": "route-69e145634256e9eea7c9.json.gz",
+            "sha256": "5362c961b2343a44b924d329f833aa3d3b4775250276dba449f30cebe3e43d16",
+            "status": 200
+          },
+          "removed": 7,
+          "removedSha256": "0d617328013c91f62dfe600f9ea10c57d5cc1b83fec2edea61e95942a704c31d",
+          "added": 1,
+          "addedSha256": "4f27aece6f4cddc4c981a54b31a858ea7e2e4f3e9096192df20ac302b30f6da2",
+          "oldInspect": 7,
+          "oldInspectSha256": "2cc317a8ea27929fb23887395dece7bc3d515619a25b9408f7a4deb12e06bbe3",
+          "newInspect": 15,
+          "newInspectSha256": "c85fb1e2b490b6bb0b500dce1d50189276bdedf7863877c9beddf228de7ba9e1",
+          "canonicalInspectUnchanged": false,
+          "canonicalInspectRemoved": 1,
+          "canonicalInspectAdded": 9
+        },
+        {
+          "route": "/acme/things/?id=st-products-db",
+          "before": {
+            "file": "route-a1df0b2f33adaa9cda23.json.gz",
+            "sha256": "1bde1d7e6a9726aacca62cdf9c6b5855360d4ba9ab3f21065159070c906c5139",
+            "status": 200
+          },
+          "after": {
+            "file": "route-a1df0b2f33adaa9cda23.json.gz",
+            "sha256": "549a9f3736e10f373cfc1b84c42e55e15803fc89ca370ffe2e8699cbb399770e",
+            "status": 200
+          },
+          "removed": 8,
+          "removedSha256": "6762cf59a2c5dc2fa56aba0b0ee08dbf73557dd92de7d932157d520bd0f62fd7",
+          "added": 1,
+          "addedSha256": "4f27aece6f4cddc4c981a54b31a858ea7e2e4f3e9096192df20ac302b30f6da2",
+          "oldInspect": 3,
+          "oldInspectSha256": "439b29d774591a1927f76567816ca79fbb7b22ffd390fb6b2d5a63ede0c836fd",
+          "newInspect": 6,
+          "newInspectSha256": "2e65a3ee909c1786740b187e37cd4e858519bb2f8a9c1c1ad5894ff2e73dff43",
+          "canonicalInspectUnchanged": false,
+          "canonicalInspectRemoved": 1,
+          "canonicalInspectAdded": 4
+        },
+        {
+          "route": "/acme/things/?id=svc-products",
+          "before": {
+            "file": "route-7d4150c8474fdb6f87ae.json.gz",
+            "sha256": "1584c20fb0d223ebfc98b5ff122d545bbb7abc793d1befd4e0f51bd71997f322",
+            "status": 200
+          },
+          "after": {
+            "file": "route-7d4150c8474fdb6f87ae.json.gz",
+            "sha256": "5d6d7ada7118a2f7dc54e4f36ac6d1e3f57b1163e38c2db31af9e7d315950420",
+            "status": 200
+          },
+          "removed": 15,
+          "removedSha256": "30281143637c48a56c1a90019fb67129579c346fe0138716ea23038fe698c2b3",
+          "added": 1,
+          "addedSha256": "4f27aece6f4cddc4c981a54b31a858ea7e2e4f3e9096192df20ac302b30f6da2",
+          "oldInspect": 5,
+          "oldInspectSha256": "c0ebe5a79b78cc5b7538c8f846aa5e61272b0abbc05bd945042eb3d6c65f8565",
+          "newInspect": 10,
+          "newInspectSha256": "d909ab3cfc9d4e04c53e69108a22a549bdad5cb0488a07d249fc536edb9c7673",
+          "canonicalInspectUnchanged": false,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 5
+        },
+        {
+          "route": "/acme/value-flows/",
+          "before": {
+            "file": "route-03c69d1ba9240dde189b.json.gz",
+            "sha256": "b4aa632957ef6ad7c2c892e6026ea5c27a10577fdea407fe3c5b0a84ca307c00",
+            "status": 200
+          },
+          "after": {
+            "file": "route-03c69d1ba9240dde189b.json.gz",
+            "sha256": "28912cb48529839b27a444619e2f0bc3e7b02aff3d0bedac5947acc0f0e4422b",
+            "status": 200
+          },
+          "removed": 2,
+          "removedSha256": "44fa8ff3cef3cca37beba7fd94fad3b342b5919ec5686b41c0ec6a18335ba5a5",
+          "added": 1,
+          "addedSha256": "4f27aece6f4cddc4c981a54b31a858ea7e2e4f3e9096192df20ac302b30f6da2",
+          "oldInspect": 0,
+          "oldInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "newInspect": 0,
+          "newInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "canonicalInspectUnchanged": true,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 0
+        }
+      ],
+      "candidateOnly": {
+        "/acme/entries/": {
+          "sha256": "cb3787bec5481c35761241f8768f42da37baaa3df03a2d8ff3cc8c7b12d1c6e6",
+          "file": "route-4eb0014976e8ebe173ba.json.gz",
+          "status": 200,
+          "linksSha256": "f70e87108d9f44f3622184c751ef518a0454b525f099584c508c46b4caffa136",
+          "inspectedIdsSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+        },
+        "/acme/entries/?id=api-products-get": {
+          "sha256": "55dbec1406e0e2c9a89778f772efe0fffbe9d46cdd1b32e8b26b6689a69d9621",
+          "file": "route-b16947bcc4245683401c.json.gz",
+          "status": 200,
+          "linksSha256": "60290fa17b65043764a78dd288fedc912eb63bf9f05f5a33d8e93d5f54737273",
+          "inspectedIdsSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+        },
+        "/acme/entries/?id=ui-add-to-basket": {
+          "sha256": "85114323c34e13b9943c0d0992920cddd5de55bab96a0038e2fbad7f8cbb4b1c",
+          "file": "route-e67625401cf7638cb96f.json.gz",
+          "status": 200,
+          "linksSha256": "60290fa17b65043764a78dd288fedc912eb63bf9f05f5a33d8e93d5f54737273",
+          "inspectedIdsSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+        },
+        "/acme/journeys/jny-buy/": {
+          "sha256": "12b491f329e6ec232317872b26f10c13e31961171082a317166190b34a327f05",
+          "file": "route-cd66322b6ea922cc1c2f.json.gz",
+          "status": 200,
+          "linksSha256": "044c517e987b4d9d72eebd2503743312f696ef18c81e1698030f750b063b4e55",
+          "inspectedIdsSha256": "822ea59f94e739e24fa479892804db0902e8e0baeff25ff9afdc3f6a3480a96c"
+        },
+        "/acme/things/?id=ext-card-provider": {
+          "sha256": "3b5629b9505970e545e7b053e4b27395bfdee49ca9c7b31c86341a57efdb8f31",
+          "file": "route-df9ab3eb98216d267269.json.gz",
+          "status": 200,
+          "linksSha256": "dec837d12f8f8e21be3f2fcc68e47f5a8883f62bd9ae1f77bce068ec882a19c9",
+          "inspectedIdsSha256": "8616a415ef24d0cff156a930d0a59a57db36cad1bbbbb128ff5dbbc58f52ee56"
+        },
+        "/acme/things/?id=flow-cancel-order": {
+          "sha256": "765246796dad95ccc97e0ec3a628954b01387e77c2f2591341356239ea933a95",
+          "file": "route-4801f586052a3cfff9a1.json.gz",
+          "status": 200,
+          "linksSha256": "7c942ef343ba21f4f312f55924266602bedbb6c089e4fa222921589958afc868",
+          "inspectedIdsSha256": "96bd5cf166c3b5fa4bfd2911c1833266d13b96927f2dc8b284d1d3fcbdddb55d"
+        },
+        "/acme/things/?id=scr-product-page": {
+          "sha256": "75a06ee169dd1bf54fc664c2f4742628dc16b94c9412c5453c451f4f3ef9f512",
+          "file": "route-ee1f29cdf25971236ce8.json.gz",
+          "status": 200,
+          "linksSha256": "933def50b5e6da28add6920a5ef8fe66123b1decb5d9784c1835dbbb37488aec",
+          "inspectedIdsSha256": "a45b7fd05f3d4894a31774ad01101106520199ac9b1e102a23f04e4384272031"
+        }
+      },
+      "removed": {
+        "distinct": 34,
+        "byFamily": {
+          "interfaces": 2,
+          "journey": 2,
+          "system": 2,
+          "thing": 28
+        },
+        "selectorResultsSha256": "75ef0fbfec7f92225fbd50c523b522f55350e1c197a8701bf58167619269f0c6",
+        "unresolved": [],
+        "canonicalAliasCount": 7
+      },
+      "added": {
+        "distinct": 42,
+        "byFamily": {
+          "entry": 10,
+          "entryIndex": 1,
+          "interfaces": 2,
+          "journey": 1,
+          "structural": 19,
+          "system": 1,
+          "thing": 8
+        },
+        "selectorResultsSha256": "1e8999bc9d0584464eb1531100b03c355c55a1273f0c93fa99c6b694ff738877",
+        "unresolved": [],
+        "canonicalAliasCount": 0
+      },
+      "inspections": {
+        "old": 48,
+        "new": 65,
+        "oldResultSha256": "bea65a8e3ab45615c013da41c7051db951b1e60d707134030b32b436a977bd35",
+        "newResultSha256": "6b5653b7e3794a597853b2e4193474d9547103f119bf51dc7d4358bcb9d286c1",
+        "oldUnresolved": [
+          {
+            "id": "stage:publish",
+            "canonical": null,
+            "kind": "declared retired identity",
+            "alias": {
+              "id": null,
+              "used": [
+                "stage:publish"
+              ],
+              "problem": "The workspace story stage is retired by rebuild design §4. Its complete authored summary, services, ordering and flows remain in the retained story.yaml and migration receipt; no successor execution stage is inferred."
+            }
+          }
+        ],
+        "newUnresolved": [],
+        "oldAliases": 7,
+        "newAliases": 0,
+        "canonicalCommon": 47,
+        "canonicalOldOnly": [],
+        "canonicalNewOnly": 18
+      },
+      "releasedFactsMatchSelectorArchive": true
+    },
+    "volvo-cars": {
+      "workspace": "volvo-cars",
+      "archive": ".workspaces/rebuild/pr8/area-audit/volvo-cars-facts-history",
+      "runtime": "/private/tmp/rebuild-pr8-volvo-runtime-06",
+      "authoredSha256": "006cb5b84b6e5af430962308ea60c098627aa59fdf71668ce632d6f38a173721",
+      "evidenceShards": 117,
+      "aliasesSha256": "189812ab947b98ee57f0d2243be64fb394e54ec2110012b05b575e8c8867a880",
+      "aliasYamlMatchesArchive": true,
+      "before": {
+        "folder": "artifacts/rebuild/baseline/volvo-cars",
+        "manifestSha256": "ed5b6b345b32bdcac28532e7f4d39e16ede3b7c3fff61bcd74238aa6934e8209",
+        "routes": 128
+      },
+      "after": {
+        "folder": ".workspaces/rebuild/pr8/http-release/volvo-cars",
+        "manifestSha256": "2911faa0f8957d08ceaa5485023f4a7bce696b873f623b0ddfa547c23b320fec",
+        "routes": 155
+      },
+      "oldCapturedRoutesMissing": [],
+      "pairs": [
+        {
+          "route": "/volvo-cars/",
+          "before": {
+            "file": "route-b2bcc18b9738cdfe3f73.json.gz",
+            "sha256": "ee8defeda1970425b8b7087ab758fad7faed6c9b04f4180db30d5acd5d2b7491",
+            "status": 200
+          },
+          "after": {
+            "file": "route-b2bcc18b9738cdfe3f73.json.gz",
+            "sha256": "c8d93b396eaa4ffaeb29ef9e481659820c39dd619ffa187858e595c5ce891cf3",
+            "status": 200
+          },
+          "removed": 5,
+          "removedSha256": "e3fef77a2110e8954ed934a832d88a9edb750a182ec34ffa651520babefabcf6",
+          "added": 1,
+          "addedSha256": "f7287c114dc706c95b1d6cf0ffaae572a64217405c37149086751f610cf6d604",
+          "oldInspect": 0,
+          "oldInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "newInspect": 0,
+          "newInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "canonicalInspectUnchanged": true,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/volvo-cars/areas/range/",
+          "before": {
+            "file": "route-198a69c4f0965c64469f.json.gz",
+            "sha256": "02bfdcd8b28b6233ce512a6edf520051316a8a52cd556a29b7e3d667e706f9dd",
+            "status": 200
+          },
+          "after": {
+            "file": "route-198a69c4f0965c64469f.json.gz",
+            "sha256": "1a6dc042999391b61e07f2b9605c88fe6d2eada7c53d413c86ea9781d6897344",
+            "status": 200
+          },
+          "removed": 5,
+          "removedSha256": "e3fef77a2110e8954ed934a832d88a9edb750a182ec34ffa651520babefabcf6",
+          "added": 1,
+          "addedSha256": "f7287c114dc706c95b1d6cf0ffaae572a64217405c37149086751f610cf6d604",
+          "oldInspect": 0,
+          "oldInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "newInspect": 0,
+          "newInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "canonicalInspectUnchanged": true,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/volvo-cars/commercial-backbone/",
+          "before": {
+            "file": "route-3ae4b1ad7d8ef5f05b79.json.gz",
+            "sha256": "e2319f664bba83ccfd8800feb5da5144efd8fbb3ace3335f283c617465d7f0fc",
+            "status": 200
+          },
+          "after": {
+            "file": "route-3ae4b1ad7d8ef5f05b79.json.gz",
+            "sha256": "a2c35632cd342d602a55c480b773fb3ec3c5080b15156aec0bee1ee3e78fba99",
+            "status": 200
+          },
+          "removed": 7,
+          "removedSha256": "73a55fb69745a2335f17075ea665285c72fa93b6235755025c557030615fd6c3",
+          "added": 46,
+          "addedSha256": "5508aa7e92d2cd2aa05bc3109f8f9a988fa38504386eb666789a994123abb05c",
+          "oldInspect": 14,
+          "oldInspectSha256": "eb8ff736fd71741c7b86db8083281a040535fa52b1d25b6cace56e57c2ab5d8c",
+          "newInspect": 14,
+          "newInspectSha256": "eb8ff736fd71741c7b86db8083281a040535fa52b1d25b6cace56e57c2ab5d8c",
+          "canonicalInspectUnchanged": true,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/volvo-cars/commercial-backbone/assortment/",
+          "before": {
+            "file": "route-5e1c6c106e3c3eba21c1.json.gz",
+            "sha256": "86fae720a9d600b94003ce15052925d25edd5978ba4f5a3a0e318b0e4eae7b6f",
+            "status": 200
+          },
+          "after": {
+            "file": "route-5e1c6c106e3c3eba21c1.json.gz",
+            "sha256": "d4f835c6d4823bbacd85c5a39d0a685591d266bce83b6ed41c53d49f01322cd1",
+            "status": 200
+          },
+          "removed": 18,
+          "removedSha256": "b8c476b6623ec2e9c893caaf1c0d0b3341a54658e2c8405f9ac864cf38577de9",
+          "added": 55,
+          "addedSha256": "6b2a4376e4f2c1b15f00392410b5fdcd7b9a99f865fbfc27735bcb9adc624497",
+          "oldInspect": 299,
+          "oldInspectSha256": "0f6d8da92ca6f96586114c584108458bd9739862ec03cfcddd42cf47fdddce43",
+          "newInspect": 147,
+          "newInspectSha256": "4bd116fa89423b765ba0240ff03cf4da548944b2532f080e5dbbef47595cd260",
+          "canonicalInspectUnchanged": false,
+          "canonicalInspectRemoved": 210,
+          "canonicalInspectAdded": 58
+        },
+        {
+          "route": "/volvo-cars/commercial-backbone/flows/",
+          "before": {
+            "file": "route-912907e0040dff6cd2a8.json.gz",
+            "sha256": "a22105cd333a936c55c648421acbcc818c424b4da86ff8efe3349d6337e5f9ba",
+            "status": 200
+          },
+          "after": {
+            "file": "route-912907e0040dff6cd2a8.json.gz",
+            "sha256": "e3f771c95ac5a30135f69100c8f9e5913cf2880567cce48cd390d7f6df6cbd0b",
+            "status": 200
+          },
+          "removed": 0,
+          "removedSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "added": 21,
+          "addedSha256": "1f68fe009e4d9dd3c556e85e9092c14ef74898d7d88aa569c4f52c270f0ee40a",
+          "oldInspect": 11,
+          "oldInspectSha256": "c963c746f65e1ecae68626eeb2f5704ec0c589bea8232993fa2b12d6c904ae4a",
+          "newInspect": 8,
+          "newInspectSha256": "3d78e68fc4056d8510e9313b7ea86c8d7b97d1b29e663102e898842f723fd4d8",
+          "canonicalInspectUnchanged": false,
+          "canonicalInspectRemoved": 3,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/volvo-cars/commercial-backbone/interfaces/",
+          "before": {
+            "file": "route-2b7790c22c996ad4bccc.json.gz",
+            "sha256": "09cbc923cc3bcbccf19af78b3f9b1b6afb904dd4de78cc60095914d74222de13",
+            "status": 200
+          },
+          "after": {
+            "file": "route-2b7790c22c996ad4bccc.json.gz",
+            "sha256": "14be744ddfb2a7c582eb5ef95db4313e2167fefd544b0419a41a462d80a250d1",
+            "status": 200
+          },
+          "removed": 17,
+          "removedSha256": "04b688af5cd1bb6eee2c64113595a17f22b4de23d0dbaebc4a7f68b9c467c7d1",
+          "added": 57,
+          "addedSha256": "a7a47e2ebb3b874c2d14f537fb682a18f71ccf935644875b996a0b4ee9a6d1df",
+          "oldInspect": 276,
+          "oldInspectSha256": "f332ee4df5349e5abe571d61d5e08f8749e9bff12da6a559f6f2dd871c3ec5f3",
+          "newInspect": 256,
+          "newInspectSha256": "ef44598fdb196221cfea3eb5c929ba952eaf25ead1bba2023029de7aa3b58135",
+          "canonicalInspectUnchanged": false,
+          "canonicalInspectRemoved": 20,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/volvo-cars/commercial-backbone/language/",
+          "before": {
+            "file": "route-e00f500bd8af73d85754.json.gz",
+            "sha256": "73b70a048eb4d82a1b981c7f9946141e11d336e0085fe45d01fb0804a9523b22",
+            "status": 200
+          },
+          "after": {
+            "file": "route-e00f500bd8af73d85754.json.gz",
+            "sha256": "42356d7d6870bc0672d802b2211de9dc740f0d1932b78b2a11f5abc15912d5a1",
+            "status": 200
+          },
+          "removed": 0,
+          "removedSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "added": 20,
+          "addedSha256": "5be3f999605c0b2d1bae35c12e24e58ff78fb062c61117dca76dfcff019cbf36",
+          "oldInspect": 0,
+          "oldInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "newInspect": 0,
+          "newInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "canonicalInspectUnchanged": true,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/volvo-cars/commercial-backbone/map/",
+          "before": {
+            "file": "route-0a30e3374592fb5b66dc.json.gz",
+            "sha256": "c3e4a90b5349dcba612a814a66cafc654b3fd1b806cf29155ec7d70c70a3b7ae",
+            "status": 200
+          },
+          "after": {
+            "file": "route-0a30e3374592fb5b66dc.json.gz",
+            "sha256": "cfb8e65ce9e29ca6cc07a4f15be761a28bc93253d1a8850c8ccf6c7a364740e2",
+            "status": 200
+          },
+          "removed": 0,
+          "removedSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "added": 20,
+          "addedSha256": "5be3f999605c0b2d1bae35c12e24e58ff78fb062c61117dca76dfcff019cbf36",
+          "oldInspect": 160,
+          "oldInspectSha256": "5aea1ee4611b23f1df913007a1437a9c0a5a34bf0fe625810c7a30a961287502",
+          "newInspect": 204,
+          "newInspectSha256": "ba9e46939ca3bdfcdb93e880875d9dd80772941ebbb049d26af6fb5429085bb0",
+          "canonicalInspectUnchanged": false,
+          "canonicalInspectRemoved": 54,
+          "canonicalInspectAdded": 98
+        },
+        {
+          "route": "/volvo-cars/commercial-backbone/target/",
+          "before": {
+            "file": "route-9ee6593dd2e7c6f3efba.json.gz",
+            "sha256": "95da058221436023f97621800abeff3811f19c1f2024d279a087fc5f1d5f30e2",
+            "status": 200
+          },
+          "after": {
+            "file": "route-9ee6593dd2e7c6f3efba.json.gz",
+            "sha256": "2dc72bc1432cca18f9d1501b55fe5340d1d6073f392ce446649fa72297aabb83",
+            "status": 200
+          },
+          "removed": 0,
+          "removedSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "added": 20,
+          "addedSha256": "5be3f999605c0b2d1bae35c12e24e58ff78fb062c61117dca76dfcff019cbf36",
+          "oldInspect": 24,
+          "oldInspectSha256": "c4c756856e1bbb40b37ab7ca54b11dc347a629db3bf2493bc018d04f0e02c2cc",
+          "newInspect": 24,
+          "newInspectSha256": "234500de554a1b2da6840a9f9afaf16589e9dc50d74ad6067508d167be460269",
+          "canonicalInspectUnchanged": true,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/volvo-cars/explorer/",
+          "before": {
+            "file": "route-ef5cd74f811ae6c4732b.json.gz",
+            "sha256": "3c4cf748bfbdbeddda542bb7e54521d4b52861ce6826d2d70dbcfac295843f8b",
+            "status": 200
+          },
+          "after": {
+            "file": "route-ef5cd74f811ae6c4732b.json.gz",
+            "sha256": "b9eb96407b503024798bf033b7ad3f08857e7a5dee78bcb11f85c1e935d6c965",
+            "status": 200
+          },
+          "removed": 0,
+          "removedSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "added": 9,
+          "addedSha256": "0c9159436e8f10834b0402ff88e0e45e846403285f9353f65b9ac48762a66184",
+          "oldInspect": 0,
+          "oldInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "newInspect": 0,
+          "newInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "canonicalInspectUnchanged": true,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/volvo-cars/journeys/",
+          "before": {
+            "file": "route-871309667e3c5b4bb3ee.json.gz",
+            "sha256": "5ec6547d881ceaa5c1cf06ffc2053572b816221ea04b7a586d66094b0d93deb5",
+            "status": 200
+          },
+          "after": {
+            "file": "route-871309667e3c5b4bb3ee.json.gz",
+            "sha256": "9703f048e8880d189e71426fd89ade75f0e554faffb5528819c3cd868fc96077",
+            "status": 200
+          },
+          "removed": 0,
+          "removedSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "added": 15,
+          "addedSha256": "b88ac014133787d6798a9e5f83a809bf275b9d81b7ec5115bfd7682270515563",
+          "oldInspect": 0,
+          "oldInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "newInspect": 0,
+          "newInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "canonicalInspectUnchanged": true,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/volvo-cars/journeys/flow-activate-financing-offer/",
+          "before": {
+            "file": "route-70b4e71bc53a050eeb88.json.gz",
+            "sha256": "d9d5963b1aee79ae4323d1a37b7f010a22eff600a1a27467b166ef99fecce471",
+            "status": 200
+          },
+          "after": {
+            "file": "route-70b4e71bc53a050eeb88.json.gz",
+            "sha256": "f7988591bf3739838ad34257c07400111fe4fc6267063b643306e257817671ed",
+            "status": 200
+          },
+          "removed": 5,
+          "removedSha256": "e3fef77a2110e8954ed934a832d88a9edb750a182ec34ffa651520babefabcf6",
+          "added": 2,
+          "addedSha256": "64e09e5c63617cdc89002836a4016d8a61b5d38c557869102f103f66158ee94a",
+          "oldInspect": 0,
+          "oldInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "newInspect": 7,
+          "newInspectSha256": "37d5a93763a26c494f868a8c2204a0ad3433a4b8d96fc0dcd4d00db4e3ada99c",
+          "canonicalInspectUnchanged": false,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 7
+        },
+        {
+          "route": "/volvo-cars/language/",
+          "before": {
+            "file": "route-b588a9aeeb40e49b18be.json.gz",
+            "sha256": "98c8a6395586cf2d94eb8294b394d705d607b7f936147bef67e55fd1921e5b77",
+            "status": 200
+          },
+          "after": {
+            "file": "route-b588a9aeeb40e49b18be.json.gz",
+            "sha256": "f31d154a89c441d14774ad103d2d16bbf28e600f7596d1105c256b69397e7dfa",
+            "status": 200
+          },
+          "removed": 5,
+          "removedSha256": "e3fef77a2110e8954ed934a832d88a9edb750a182ec34ffa651520babefabcf6",
+          "added": 1,
+          "addedSha256": "f7287c114dc706c95b1d6cf0ffaae572a64217405c37149086751f610cf6d604",
+          "oldInspect": 0,
+          "oldInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "newInspect": 0,
+          "newInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "canonicalInspectUnchanged": true,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/volvo-cars/partners/",
+          "before": {
+            "file": "route-a6fb6c2427433f7dfd10.json.gz",
+            "sha256": "4bd3f4c1c11a934f2c1521f5a6d87b90ca113e845d681ef7f790da6bab030f5e",
+            "status": 200
+          },
+          "after": {
+            "file": "route-a6fb6c2427433f7dfd10.json.gz",
+            "sha256": "ed75976aa3ad94ace6045b170966b6514fcfcc2ab46a410027ac4c7533febcfc",
+            "status": 200
+          },
+          "removed": 5,
+          "removedSha256": "e3fef77a2110e8954ed934a832d88a9edb750a182ec34ffa651520babefabcf6",
+          "added": 1,
+          "addedSha256": "f7287c114dc706c95b1d6cf0ffaae572a64217405c37149086751f610cf6d604",
+          "oldInspect": 0,
+          "oldInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "newInspect": 0,
+          "newInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "canonicalInspectUnchanged": true,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/volvo-cars/partners/vcrs/",
+          "before": {
+            "file": "route-0dd4a889ace0252bf0f6.json.gz",
+            "sha256": "a835a588304941946dab28fafe0f6520130c9be4382e66be8547f838363ba173",
+            "status": 200
+          },
+          "after": {
+            "file": "route-0dd4a889ace0252bf0f6.json.gz",
+            "sha256": "0bafca6497bccaf418f3b4a0281c67e9344677659a2e38622a932ccdf734f2b2",
+            "status": 200
+          },
+          "removed": 5,
+          "removedSha256": "e3fef77a2110e8954ed934a832d88a9edb750a182ec34ffa651520babefabcf6",
+          "added": 1,
+          "addedSha256": "f7287c114dc706c95b1d6cf0ffaae572a64217405c37149086751f610cf6d604",
+          "oldInspect": 0,
+          "oldInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "newInspect": 1,
+          "newInspectSha256": "06cf645421e60ca3c8174093c22344f93b29bbe4b2ff4f0bd97a4021525cb041",
+          "canonicalInspectUnchanged": false,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 1
+        },
+        {
+          "route": "/volvo-cars/partners/ziklo/",
+          "before": {
+            "file": "route-b5632786fb49eff21d18.json.gz",
+            "sha256": "b9df9224a886e088b535f5748324ea61be0a64ac6fa96eb533bd52b21daac5b7",
+            "status": 200
+          },
+          "after": {
+            "file": "route-b5632786fb49eff21d18.json.gz",
+            "sha256": "ff14b4003a04ae5bb1bb90114b998a50b4fc0fd5324fb3d258030cbe47848e46",
+            "status": 200
+          },
+          "removed": 5,
+          "removedSha256": "e3fef77a2110e8954ed934a832d88a9edb750a182ec34ffa651520babefabcf6",
+          "added": 1,
+          "addedSha256": "f7287c114dc706c95b1d6cf0ffaae572a64217405c37149086751f610cf6d604",
+          "oldInspect": 0,
+          "oldInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "newInspect": 1,
+          "newInspectSha256": "b8e2797cdc7d7b857a5652eacfc6dca0e327bd3be776d4fcbe42b1f8132bdbd8",
+          "canonicalInspectUnchanged": false,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 1
+        },
+        {
+          "route": "/volvo-cars/people/",
+          "before": {
+            "file": "route-66819131a4009c479277.json.gz",
+            "sha256": "cdabf60ca057a39196fa3d8ed6847e5310ee41e5e4f6989f436c11c56aec8dd0",
+            "status": 200
+          },
+          "after": {
+            "file": "route-66819131a4009c479277.json.gz",
+            "sha256": "50bc504e5c1a8cc86b4d0e2e99eb013d8a2f8ef59a524a27f9422ffef1feb20e",
+            "status": 200
+          },
+          "removed": 5,
+          "removedSha256": "e3fef77a2110e8954ed934a832d88a9edb750a182ec34ffa651520babefabcf6",
+          "added": 1,
+          "addedSha256": "f7287c114dc706c95b1d6cf0ffaae572a64217405c37149086751f610cf6d604",
+          "oldInspect": 0,
+          "oldInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "newInspect": 0,
+          "newInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "canonicalInspectUnchanged": true,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/volvo-cars/programmes/",
+          "before": {
+            "file": "route-f10fb7491fbb34afd381.json.gz",
+            "sha256": "4bcfda118bd2dc1cc92387b16d5b82203f71fc0570838545588459a3a23545dc",
+            "status": 200
+          },
+          "after": {
+            "file": "route-f10fb7491fbb34afd381.json.gz",
+            "sha256": "158cf59cad425f148e8a54c89766d134e073e1a28e9b03750f2a2fb973aa5117",
+            "status": 200
+          },
+          "removed": 5,
+          "removedSha256": "e3fef77a2110e8954ed934a832d88a9edb750a182ec34ffa651520babefabcf6",
+          "added": 1,
+          "addedSha256": "f7287c114dc706c95b1d6cf0ffaae572a64217405c37149086751f610cf6d604",
+          "oldInspect": 0,
+          "oldInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "newInspect": 0,
+          "newInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "canonicalInspectUnchanged": true,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/volvo-cars/programmes/care-se/",
+          "before": {
+            "file": "route-1814dcc739dcd531299d.json.gz",
+            "sha256": "845c82eaeea5868d4cef3b8837bf98b42ace55a583a545545460c13d7543caad",
+            "status": 200
+          },
+          "after": {
+            "file": "route-1814dcc739dcd531299d.json.gz",
+            "sha256": "a1dae0f14f4393e90ae3fe46919d880df49f9cead9ab5e624d76c94cb6a5babf",
+            "status": 200
+          },
+          "removed": 5,
+          "removedSha256": "e3fef77a2110e8954ed934a832d88a9edb750a182ec34ffa651520babefabcf6",
+          "added": 6,
+          "addedSha256": "d1fc68a143498d17df7185d2937578a7ebe375814a17fe1729b218f62ff90da6",
+          "oldInspect": 0,
+          "oldInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "newInspect": 40,
+          "newInspectSha256": "f77da2c98acc252d00a7a8a7aa393b740c1f77cdd4da3f27124405d620b73e88",
+          "canonicalInspectUnchanged": false,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 9
+        },
+        {
+          "route": "/volvo-cars/reference/",
+          "before": {
+            "file": "route-5e2473ce331617b773bc.json.gz",
+            "sha256": "a7e84663e004a75ce552d31a7693b24b5144f03eb3288ab104aaf2b00a17edc3",
+            "status": 200
+          },
+          "after": {
+            "file": "route-5e2473ce331617b773bc.json.gz",
+            "sha256": "c2d544cf833f0c401890ab365f0e8eb36a43a203ca4d05e3f580b6aab8101bd2",
+            "status": 200
+          },
+          "removed": 5,
+          "removedSha256": "e3fef77a2110e8954ed934a832d88a9edb750a182ec34ffa651520babefabcf6",
+          "added": 1,
+          "addedSha256": "f7287c114dc706c95b1d6cf0ffaae572a64217405c37149086751f610cf6d604",
+          "oldInspect": 0,
+          "oldInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "newInspect": 0,
+          "newInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "canonicalInspectUnchanged": true,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/volvo-cars/reference/apis/",
+          "before": {
+            "file": "route-55a606bb57929184c012.json.gz",
+            "sha256": "d8ff50dde5d0329bac908c51f3ea761e4aa8eed1ae418af5eec7519201c86ed9",
+            "status": 200
+          },
+          "after": {
+            "file": "route-55a606bb57929184c012.json.gz",
+            "sha256": "65d72fcef67029e51525c039fd722c3034779fe7121de732e6243792b7219f54",
+            "status": 200
+          },
+          "removed": 5,
+          "removedSha256": "e3fef77a2110e8954ed934a832d88a9edb750a182ec34ffa651520babefabcf6",
+          "added": 1,
+          "addedSha256": "f7287c114dc706c95b1d6cf0ffaae572a64217405c37149086751f610cf6d604",
+          "oldInspect": 31,
+          "oldInspectSha256": "ace87491228393309da84428a1718b6e8d0ce38b248e66b615afcb331746f009",
+          "newInspect": 30,
+          "newInspectSha256": "a60aba9bf454bd0ac42ec568276e4ecf402f095d7655a1f104b430f1b3efb241",
+          "canonicalInspectUnchanged": false,
+          "canonicalInspectRemoved": 1,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/volvo-cars/reference/components/",
+          "before": {
+            "file": "route-08f22cb2cee33bd565cc.json.gz",
+            "sha256": "e4933c2fd648687119d36d363e4756f625a6006b456ab1e22f602396266e8267",
+            "status": 200
+          },
+          "after": {
+            "file": "route-08f22cb2cee33bd565cc.json.gz",
+            "sha256": "4c5b4f0628079f4c9e263739bf5b39c4767602a5aeead57857774eeaa2aa9b8b",
+            "status": 200
+          },
+          "removed": 5,
+          "removedSha256": "e3fef77a2110e8954ed934a832d88a9edb750a182ec34ffa651520babefabcf6",
+          "added": 1,
+          "addedSha256": "f7287c114dc706c95b1d6cf0ffaae572a64217405c37149086751f610cf6d604",
+          "oldInspect": 30,
+          "oldInspectSha256": "f4986d50466dc728002dd5c98f6649363a47e8096b8647ad17282f6d1acc806e",
+          "newInspect": 30,
+          "newInspectSha256": "035a5ade511a43a952bdee198f962f9226900dfea08d3a1fc6cc5dee405c00a5",
+          "canonicalInspectUnchanged": false,
+          "canonicalInspectRemoved": 27,
+          "canonicalInspectAdded": 27
+        },
+        {
+          "route": "/volvo-cars/reference/events/",
+          "before": {
+            "file": "route-c43e61014c92343b6498.json.gz",
+            "sha256": "8a807bbb747c5db1cf16fa54582b66027ddbb2eb3d845213548f3300df9cc85c",
+            "status": 200
+          },
+          "after": {
+            "file": "route-c43e61014c92343b6498.json.gz",
+            "sha256": "343967353b155e2868e279db462090ea9398c41f3b012fdcc5ca2f72a93fe539",
+            "status": 200
+          },
+          "removed": 5,
+          "removedSha256": "e3fef77a2110e8954ed934a832d88a9edb750a182ec34ffa651520babefabcf6",
+          "added": 1,
+          "addedSha256": "f7287c114dc706c95b1d6cf0ffaae572a64217405c37149086751f610cf6d604",
+          "oldInspect": 34,
+          "oldInspectSha256": "897a535bfaf73bedd62ce0bf7f942756373c45cf752e3cd5f07ccde82f4109db",
+          "newInspect": 30,
+          "newInspectSha256": "af1f1d3d176a5053a2ad7113d510c82f79e81bd3c7d51448068592f282ef2ac4",
+          "canonicalInspectUnchanged": false,
+          "canonicalInspectRemoved": 4,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/volvo-cars/reference/flows/",
+          "before": {
+            "file": "route-7b038416f5657de093f0.json.gz",
+            "sha256": "e2aebb2a3a134be9732414d723ab10dee83dd4df93157e77325d726f4c39a9c7",
+            "status": 200
+          },
+          "after": {
+            "file": "route-7b038416f5657de093f0.json.gz",
+            "sha256": "9774b9448352bac8210c18bd74a6db7727726cde3cf5200f67f25aa05e3f79ee",
+            "status": 200
+          },
+          "removed": 5,
+          "removedSha256": "e3fef77a2110e8954ed934a832d88a9edb750a182ec34ffa651520babefabcf6",
+          "added": 1,
+          "addedSha256": "f7287c114dc706c95b1d6cf0ffaae572a64217405c37149086751f610cf6d604",
+          "oldInspect": 46,
+          "oldInspectSha256": "6a4c048b4645139f7a55659e959fe63507455215813353d9abba357466ab6d12",
+          "newInspect": 30,
+          "newInspectSha256": "7fcf568be6eae06a9da97d560166c987c30087af20fff190bb69dcf9a6e4ea31",
+          "canonicalInspectUnchanged": false,
+          "canonicalInspectRemoved": 16,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/volvo-cars/reference/operations/",
+          "before": {
+            "file": "route-9ee60cef725df05518fc.json.gz",
+            "sha256": "2e385f29cea5bef8703294fc9c2ae4aa86db0f9f9798af7795f2cb91077607f6",
+            "status": 200
+          },
+          "after": {
+            "file": "route-9ee60cef725df05518fc.json.gz",
+            "sha256": "d8b2a01e1f94b3b732f85045d53d2d4ccc15e36c7407646ccc4f18e26924ba2d",
+            "status": 200
+          },
+          "removed": 5,
+          "removedSha256": "e3fef77a2110e8954ed934a832d88a9edb750a182ec34ffa651520babefabcf6",
+          "added": 1,
+          "addedSha256": "f7287c114dc706c95b1d6cf0ffaae572a64217405c37149086751f610cf6d604",
+          "oldInspect": 35,
+          "oldInspectSha256": "9476c1b486f05e7d712bf007d9c762e20aefe21152c9cfb93de9ae9769a90416",
+          "newInspect": 30,
+          "newInspectSha256": "d03e434145d9318a07750e013a302767880f611003c6e211fc2ed16b7925c172",
+          "canonicalInspectUnchanged": false,
+          "canonicalInspectRemoved": 5,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/volvo-cars/reference/schemas/",
+          "before": {
+            "file": "route-3357d50d6ff39fba4214.json.gz",
+            "sha256": "1db61885f27d1a46e892997a830130d7ff7d18ced661dc40ced9b38f97cd2756",
+            "status": 200
+          },
+          "after": {
+            "file": "route-3357d50d6ff39fba4214.json.gz",
+            "sha256": "d87a38ea53143f3d36ffad7e210b0c9e6d3363b373d926788ee2c621239b9efc",
+            "status": 200
+          },
+          "removed": 5,
+          "removedSha256": "e3fef77a2110e8954ed934a832d88a9edb750a182ec34ffa651520babefabcf6",
+          "added": 1,
+          "addedSha256": "f7287c114dc706c95b1d6cf0ffaae572a64217405c37149086751f610cf6d604",
+          "oldInspect": 33,
+          "oldInspectSha256": "8ee8365a3eb4b425c06e642a50191c1b49818fd8e5b68aca9817327abca37848",
+          "newInspect": 30,
+          "newInspectSha256": "46020db7018b6e74e2424a0e674b91007fcbb1e22af5f49bc9fda0a0f599e0ee",
+          "canonicalInspectUnchanged": false,
+          "canonicalInspectRemoved": 3,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/volvo-cars/reference/screens/",
+          "before": {
+            "file": "route-94ec66c88d09423332ef.json.gz",
+            "sha256": "28eb4212e27adf2430efaee0edb86f6808461eacd790d8e9d694731eeffac127",
+            "status": 200
+          },
+          "after": {
+            "file": "route-94ec66c88d09423332ef.json.gz",
+            "sha256": "2bcca4f864f5129a7dd59cff911eb889be6239141fee63658a3093508d7e945b",
+            "status": 200
+          },
+          "removed": 5,
+          "removedSha256": "e3fef77a2110e8954ed934a832d88a9edb750a182ec34ffa651520babefabcf6",
+          "added": 1,
+          "addedSha256": "f7287c114dc706c95b1d6cf0ffaae572a64217405c37149086751f610cf6d604",
+          "oldInspect": 34,
+          "oldInspectSha256": "3ea967938122a09c3b10dcad1c00f71f73e3e84ae25a278dec3dc09e36b5044d",
+          "newInspect": 30,
+          "newInspectSha256": "a390291b5e80b594be7cb7c8514556ee16d8f3dc73927dc36db13d7aaf102d92",
+          "canonicalInspectUnchanged": false,
+          "canonicalInspectRemoved": 4,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/volvo-cars/reference/stores/",
+          "before": {
+            "file": "route-a4350f836efb1f28adf7.json.gz",
+            "sha256": "faf4574dc62b6e07d9585379f165f7441726223d13d604b8c10a4f499a1a2421",
+            "status": 200
+          },
+          "after": {
+            "file": "route-a4350f836efb1f28adf7.json.gz",
+            "sha256": "17b8e75764dae679ffeac955a1f47717e80b3ed4a690dfa55728809680d97336",
+            "status": 200
+          },
+          "removed": 5,
+          "removedSha256": "e3fef77a2110e8954ed934a832d88a9edb750a182ec34ffa651520babefabcf6",
+          "added": 1,
+          "addedSha256": "f7287c114dc706c95b1d6cf0ffaae572a64217405c37149086751f610cf6d604",
+          "oldInspect": 43,
+          "oldInspectSha256": "25e890af99739d2d8c6781e0af9c5f450d9ce5cb87ba3514f91df931058cc431",
+          "newInspect": 43,
+          "newInspectSha256": "a03b3b10109e1e7affad64e7e50f163072b8dbe2c9ee86573a17705fc2df4ae6",
+          "canonicalInspectUnchanged": true,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 0
+        },
+        {
+          "route": "/volvo-cars/things/?id=api-assortment-admin-classification-create",
+          "before": {
+            "file": "route-858cdd1340f4e7514855.json.gz",
+            "sha256": "f29f6f4207d02691732227841ec4d468584eb1c5bce73c30a6915590b6984e35",
+            "status": 200
+          },
+          "after": {
+            "file": "route-858cdd1340f4e7514855.json.gz",
+            "sha256": "55d3a0a2dc767a3955734c5e358bc97e71fdbe44080e5f52fa7170b0468ad8ff",
+            "status": 200
+          },
+          "removed": 2908,
+          "removedSha256": "6ec447809b9ff1564bf3bd83bc908dcd145da5f9187db7e8a875aed7d607731f",
+          "added": 1,
+          "addedSha256": "f7287c114dc706c95b1d6cf0ffaae572a64217405c37149086751f610cf6d604",
+          "oldInspect": 10,
+          "oldInspectSha256": "a90714883efc56ff40ea97df66b6b99b98b2a302ba92863c22fbab42c40736ba",
+          "newInspect": 14,
+          "newInspectSha256": "dd92133aa30b322d1b5ec71be97985ffc9ce37bda607198d68cd8933b96f4c4e",
+          "canonicalInspectUnchanged": false,
+          "canonicalInspectRemoved": 5,
+          "canonicalInspectAdded": 9
+        },
+        {
+          "route": "/volvo-cars/things/?id=h-assortment-admin-apply-car-plan",
+          "before": {
+            "file": "route-2852d67c520228a04001.json.gz",
+            "sha256": "b1715524806a77b17044e22b431e9e94265657be1a074545c70bb249bc201cf7",
+            "status": 200
+          },
+          "after": {
+            "file": "route-2852d67c520228a04001.json.gz",
+            "sha256": "e9b65b21147d684f9fb8f074e1c3fee6e6b30cf97ecfdace54a4670d195087ea",
+            "status": 200
+          },
+          "removed": 1793,
+          "removedSha256": "484b33e0166242b5f96698105bc8c243dada6f981649e49d44dda2559fc4fc8b",
+          "added": 1,
+          "addedSha256": "f7287c114dc706c95b1d6cf0ffaae572a64217405c37149086751f610cf6d604",
+          "oldInspect": 3,
+          "oldInspectSha256": "0571f3e64826fc1217f958c049e383563d76733c56b3ee800ecfc43bfcfea13f",
+          "newInspect": 15,
+          "newInspectSha256": "6e6818ed41866f34c59ba998c50caaa46701d7c3f85bace03e8ef333c8b20d37",
+          "canonicalInspectUnchanged": false,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 12
+        },
+        {
+          "route": "/volvo-cars/things/?id=msg-assortment-classification-changed",
+          "before": {
+            "file": "route-151af0354f9b819dc21a.json.gz",
+            "sha256": "d07e99a0454a036c686886c9f0f802603daf41561851a686c06a2bca20dc68f8",
+            "status": 200
+          },
+          "after": {
+            "file": "route-151af0354f9b819dc21a.json.gz",
+            "sha256": "c43226d5aec987bf544b2a578f212a1792fa30d90ef0814dce40bd6dc972ac74",
+            "status": 200
+          },
+          "removed": 169,
+          "removedSha256": "4c93a9aa495cc2aaa667ba000d46690d2d0a8381b4249072f5e867b4803e00fb",
+          "added": 1,
+          "addedSha256": "f7287c114dc706c95b1d6cf0ffaae572a64217405c37149086751f610cf6d604",
+          "oldInspect": 11,
+          "oldInspectSha256": "ae6464f59d227878450877c31fae4f726c788cb1bbef12fb47f07a2826266772",
+          "newInspect": 16,
+          "newInspectSha256": "c739f7aff08c749e409342e3c4db5290f1d3c79dceee0d468f919143aed56b98",
+          "canonicalInspectUnchanged": false,
+          "canonicalInspectRemoved": 5,
+          "canonicalInspectAdded": 10
+        },
+        {
+          "route": "/volvo-cars/things/?id=sch-assortment-admin-classification",
+          "before": {
+            "file": "route-dd0dfd59d7952fb044b5.json.gz",
+            "sha256": "24df868dad204bb9af9a4b916b5d2ac731063d27de060d3e5238db5c85a96378",
+            "status": 200
+          },
+          "after": {
+            "file": "route-dd0dfd59d7952fb044b5.json.gz",
+            "sha256": "146990bd9a7fe0285fd27602773f40bdfecfe98b52f3b974f2e81a79a105557d",
+            "status": 200
+          },
+          "removed": 1036,
+          "removedSha256": "4fdbd34b9dec41720e5111697ba640f496a1f10c469db3959bd94cf81974eca3",
+          "added": 1,
+          "addedSha256": "f7287c114dc706c95b1d6cf0ffaae572a64217405c37149086751f610cf6d604",
+          "oldInspect": 4,
+          "oldInspectSha256": "0914fddead7dd82a7a5eee47c89ee1ed672439265f207395db124b92f716c92f",
+          "newInspect": 18,
+          "newInspectSha256": "39d66839f25607b9aa2c92bbe0e976af10c2e5402faada025b0739e58f02e473",
+          "canonicalInspectUnchanged": false,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 14
+        },
+        {
+          "route": "/volvo-cars/things/?id=st-assortment-classifications-events",
+          "before": {
+            "file": "route-f8d01d08102a309e1ccc.json.gz",
+            "sha256": "3d56857d81ecc21a2d4dfd4a7aba0310bef052ec7b2475596264093290a05a7e",
+            "status": 200
+          },
+          "after": {
+            "file": "route-f8d01d08102a309e1ccc.json.gz",
+            "sha256": "8ec65c00812637297a9c325dd16f8a0b621d840c7a1b5a4408485bc8f60240e5",
+            "status": 200
+          },
+          "removed": 259,
+          "removedSha256": "0e9012806d84573eb628da4e47ad1b116b91f1c6450f80435f456d7533e82355",
+          "added": 21,
+          "addedSha256": "6270f88d5d73c7f17c6daae42a92e0a45ee2c4df7f417b33ea558c99e22681b7",
+          "oldInspect": 10,
+          "oldInspectSha256": "693c82bd6c26464aa21f9bbe31a3c63f1bc98553aac4f611b26f45e356cb2552",
+          "newInspect": 21,
+          "newInspectSha256": "3cf9b84d3d453c4dd0ba388e7f5ab9b242eb974a3771908eab240f33ea3e86b3",
+          "canonicalInspectUnchanged": false,
+          "canonicalInspectRemoved": 1,
+          "canonicalInspectAdded": 12
+        },
+        {
+          "route": "/volvo-cars/things/?id=svc-assortment-admin-api",
+          "before": {
+            "file": "route-75a393b5caaa2701c12b.json.gz",
+            "sha256": "322f362f3511bb77a6524f8c3159102a5549b69139164f63f4ba95ecf16cc5ba",
+            "status": 200
+          },
+          "after": {
+            "file": "route-75a393b5caaa2701c12b.json.gz",
+            "sha256": "d6c409c0990e8be0e2518fd4104e843122fd04810a904741ab860df500efe412",
+            "status": 200
+          },
+          "removed": 320,
+          "removedSha256": "4f7d7764b46052b1011f47815f63fe20635a88cbcee498b1ab28103314535a1a",
+          "added": 1,
+          "addedSha256": "f7287c114dc706c95b1d6cf0ffaae572a64217405c37149086751f610cf6d604",
+          "oldInspect": 11,
+          "oldInspectSha256": "a1418e1cd2c28ae05bbb34e07de19a7c080329e3c3b07a35496e855c298c76f8",
+          "newInspect": 114,
+          "newInspectSha256": "fcfa793dee603d5ec107d376a058d09c4d29f892804f8202c47338b3887ad22c",
+          "canonicalInspectUnchanged": false,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 103
+        },
+        {
+          "route": "/volvo-cars/value-flows/",
+          "before": {
+            "file": "route-30a4a455a43d3edecfa3.json.gz",
+            "sha256": "7594977b76a4de7ea4b6ea506a1e36b75db0813b97315453bd1a73a996410b9d",
+            "status": 200
+          },
+          "after": {
+            "file": "route-30a4a455a43d3edecfa3.json.gz",
+            "sha256": "06609c8cca3fd98f592c4dfe8f8f70ead5b7149ef49d432d413b812f11857faa",
+            "status": 200
+          },
+          "removed": 5,
+          "removedSha256": "e3fef77a2110e8954ed934a832d88a9edb750a182ec34ffa651520babefabcf6",
+          "added": 13,
+          "addedSha256": "c9e4588520e4258218affd18566ae04859603422357dcd8c52e51061f527fbf6",
+          "oldInspect": 0,
+          "oldInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "newInspect": 0,
+          "newInspectSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "canonicalInspectUnchanged": true,
+          "canonicalInspectRemoved": 0,
+          "canonicalInspectAdded": 0
+        }
+      ],
+      "candidateOnly": {
+        "/volvo-cars/entries/": {
+          "sha256": "301f4ff2a85d6c287d2bd76f874b493dff556bff8c7468668c18a180d3dbecbc",
+          "file": "route-d7e3d2560edc748db558.json.gz",
+          "status": 200,
+          "linksSha256": "e0513b623dbbe289d481e9b60af2a71333a42b49b1745a4bbd6c1ab7e6772349",
+          "inspectedIdsSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+        },
+        "/volvo-cars/entries/?id=api-assortment-admin-classification-create": {
+          "sha256": "37dee911175d99e00a83dd56b04e8da624fe00ca13046cd7903d050ab27a61a3",
+          "file": "route-5d29710b5cf3e18cc81f.json.gz",
+          "status": 200,
+          "linksSha256": "8db60f482688abb4807d0bf8901354c42a3a097b9674e321f630047a86d1c41a",
+          "inspectedIdsSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+        },
+        "/volvo-cars/entries/?id=api-assortment-admin-classification-create&plan=plan-care-se-financing-status&version=after": {
+          "sha256": "05f9593b64dfb2d0f38eaf09247a3c060208b52c364158c6c7c0fce4fa7614e9",
+          "file": "route-4244118add44d920d7ab.json.gz",
+          "status": 200,
+          "linksSha256": "1d2ec015d6ad84509084f13ad6e8521d97a31d04dc21b5870c2574f6afd61e3d",
+          "inspectedIdsSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+        },
+        "/volvo-cars/entries/?id=api-assortment-admin-classification-create&plan=plan-care-se-financing-status&version=before": {
+          "sha256": "38a9ae38eb50194b293d907cdcca8340e2e55df965a1dfbf1b0ad58d8746f996",
+          "file": "route-20e398a36ea5f5f517e8.json.gz",
+          "status": 200,
+          "linksSha256": "1d2ec015d6ad84509084f13ad6e8521d97a31d04dc21b5870c2574f6afd61e3d",
+          "inspectedIdsSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+        },
+        "/volvo-cars/entries/?id=api-assortment-admin-classification-create&plan=plan-care-se-online&version=after": {
+          "sha256": "c244aabfd118eb1b9a2090d1415ea7d628a9fad6bdd4676e5f78fbf4ef1f0b69",
+          "file": "route-75152275dbc74f026082.json.gz",
+          "status": 200,
+          "linksSha256": "060d583a7fff1ef78c9046a0816d0c80f0df7216bec6dc3a24bdedd09647da9a",
+          "inspectedIdsSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+        },
+        "/volvo-cars/entries/?id=api-assortment-admin-classification-create&plan=plan-care-se-online&version=before": {
+          "sha256": "7604ef45bdd84a43efe15ac9f68bc41091353c27282ef4dd8dfe2b443e236bac",
+          "file": "route-e49b6be1648bd04923f1.json.gz",
+          "status": 200,
+          "linksSha256": "060d583a7fff1ef78c9046a0816d0c80f0df7216bec6dc3a24bdedd09647da9a",
+          "inspectedIdsSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+        },
+        "/volvo-cars/entries/?id=api-assortment-admin-classification-create&plan=plan-care-se-order-change&version=after": {
+          "sha256": "4c4930fc2a062360cf3b7ad90da0ff6c6cd63cc4ee09afc4130ba360a0d64b87",
+          "file": "route-d0a8883a9d71fabe99d1.json.gz",
+          "status": 200,
+          "linksSha256": "ee3767bcecb5c58970656860e7f6837d8535308c92f08b9cfcd28a97bcf674ef",
+          "inspectedIdsSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+        },
+        "/volvo-cars/entries/?id=api-assortment-admin-classification-create&plan=plan-care-se-order-change&version=before": {
+          "sha256": "73a801458cf9d719ba5f02d3eda48d63c68c437f7eee644309ef1260984a9ccd",
+          "file": "route-1546cdc8cec13eef1e91.json.gz",
+          "status": 200,
+          "linksSha256": "ee3767bcecb5c58970656860e7f6837d8535308c92f08b9cfcd28a97bcf674ef",
+          "inspectedIdsSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+        },
+        "/volvo-cars/entries/?id=api-assortment-admin-classification-create&plan=plan-care-se-sales-tool&version=after": {
+          "sha256": "9a51e247f674d701aec9183ab9b42b667a3e7b0ee935cd525d079b6e42471ca7",
+          "file": "route-a5eb2f0fe200abcea311.json.gz",
+          "status": 200,
+          "linksSha256": "3a60123407ba6e1cc7520df0e422d8641141d38193edd9fe443e72b65790646a",
+          "inspectedIdsSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+        },
+        "/volvo-cars/entries/?id=api-assortment-admin-classification-create&plan=plan-care-se-sales-tool&version=before": {
+          "sha256": "4cbe3a61a1f47d363444c6d31d26f9d048528bd082f68c1be49148502ab91564",
+          "file": "route-54b001be8157f187ef5e.json.gz",
+          "status": 200,
+          "linksSha256": "3a60123407ba6e1cc7520df0e422d8641141d38193edd9fe443e72b65790646a",
+          "inspectedIdsSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+        },
+        "/volvo-cars/entries/?id=api-assortment-admin-classification-create&plan=plan-care-se-stock-reservation&version=after": {
+          "sha256": "7ec380911f3e16ed4b9b8c3921f78feaf73a0d95dfeb25babf10c17139cb676a",
+          "file": "route-6cbafbf7d37461828493.json.gz",
+          "status": 200,
+          "linksSha256": "1802dd3264f7eecd62d31ed203f7c693d57c5b7ad7ba9e5e57c30f4b53b44ff3",
+          "inspectedIdsSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+        },
+        "/volvo-cars/entries/?id=api-assortment-admin-classification-create&plan=plan-care-se-stock-reservation&version=before": {
+          "sha256": "9d38e4179184051189adf38366ddeb05b3fb88d93cfb9725f8bf457e0297b7e7",
+          "file": "route-ee38b34df7cf1508e93b.json.gz",
+          "status": 200,
+          "linksSha256": "1802dd3264f7eecd62d31ed203f7c693d57c5b7ad7ba9e5e57c30f4b53b44ff3",
+          "inspectedIdsSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+        },
+        "/volvo-cars/entries/?id=api-assortment-admin-classification-create&plan=plan-immutable-ids&version=after": {
+          "sha256": "0d1cde946a80bb111b17c2192013572192ef6b3893b671b794803ea7c05d1a60",
+          "file": "route-8d1c30610e96421f6fb9.json.gz",
+          "status": 200,
+          "linksSha256": "3eee7268bf59b18251539ff78a3682d8e595e7d58546bd3247e62ea4e839bb4e",
+          "inspectedIdsSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+        },
+        "/volvo-cars/entries/?id=api-assortment-admin-classification-create&plan=plan-immutable-ids&version=before": {
+          "sha256": "3249504c7f0f8f4230723265904dc9acf6f3caef3412e4e68d0239b72886c341",
+          "file": "route-ae9dbfe902b3a025d3f4.json.gz",
+          "status": 200,
+          "linksSha256": "3eee7268bf59b18251539ff78a3682d8e595e7d58546bd3247e62ea4e839bb4e",
+          "inspectedIdsSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+        },
+        "/volvo-cars/entries/?id=api-assortment-admin-classification-create&plan=plan-sourced-financing-terms&version=after": {
+          "sha256": "12d36ddf1af79abd3c5c2cd87290aa4d6dceadfdcd0e05af6b4c71e65a509d4b",
+          "file": "route-a1ec20f13dfc6392b061.json.gz",
+          "status": 200,
+          "linksSha256": "42988d4676b99f5d9c61bfc721993d24721c31012670646fc8fc93d141a107b4",
+          "inspectedIdsSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+        },
+        "/volvo-cars/entries/?id=api-assortment-admin-classification-create&plan=plan-sourced-financing-terms&version=before": {
+          "sha256": "4a317fb042c1b923feb8a3d073136fc723d43fa205127b2cca72e93bb161fa68",
+          "file": "route-ce20d9c1a8ea20d86248.json.gz",
+          "status": 200,
+          "linksSha256": "42988d4676b99f5d9c61bfc721993d24721c31012670646fc8fc93d141a107b4",
+          "inspectedIdsSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+        },
+        "/volvo-cars/entries/?id=api-assortment-admin-classification-create&plan=plan-unify-price-breakdown&version=after": {
+          "sha256": "f52b400a21245f07f6e5f2ad7937241616629fb51eb484271afc4154ae34c3d2",
+          "file": "route-d788a297c98ccd8788f6.json.gz",
+          "status": 200,
+          "linksSha256": "7f65c6716882ad90e5855e2232940177b7e0fbb2bc5da0d81ed4b4ae778d5b04",
+          "inspectedIdsSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+        },
+        "/volvo-cars/entries/?id=api-assortment-admin-classification-create&plan=plan-unify-price-breakdown&version=before": {
+          "sha256": "65e62a2a037e4574d03d3f3e6204d1f0075aa67e82697f3ba2fbcfeced16e0a7",
+          "file": "route-13aefce330558276f0a6.json.gz",
+          "status": 200,
+          "linksSha256": "7f65c6716882ad90e5855e2232940177b7e0fbb2bc5da0d81ed4b4ae778d5b04",
+          "inspectedIdsSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+        },
+        "/volvo-cars/entries/?id=job-assortment-admin-outbox-relay": {
+          "sha256": "d961b926cc5a975d33532117332b9a0b683dea14a9e40df2234452441508c315",
+          "file": "route-a44d2afc96cc574aa619.json.gz",
+          "status": 200,
+          "linksSha256": "6dbdc0bca82affe4df895820c384b07df98a9a4b4ee41e38848302db5bc53f30",
+          "inspectedIdsSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+        },
+        "/volvo-cars/entries/?id=sub-assortment-admin-api-pcf-market-auth": {
+          "sha256": "bd223842418f521640c376fe054cca9c97fb23c03f32cb0b18260f71bd140be2",
+          "file": "route-04a3a088a086a6adab10.json.gz",
+          "status": 200,
+          "linksSha256": "c73634465d9b594b246a35bf3aa8444fe42fe0b94c963642d9f270761ed4854c",
+          "inspectedIdsSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+        },
+        "/volvo-cars/entries/?id=ui-activate-financing-template": {
+          "sha256": "5155255dc8d03b4073616c11a419388d24c8b047376bf15bfd4065614a2f8092",
+          "file": "route-2eec2aacfd2bb1538e3f.json.gz",
+          "status": 200,
+          "linksSha256": "8a0c1fbeb6ef41be0e17d68d8fdcade28206c090589be35f7af6b4b34e8cef83",
+          "inspectedIdsSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+        },
+        "/volvo-cars/journeys/jny-car-configuration-engine-admin/": {
+          "sha256": "59b83abad12d014ae0595f1d1bcab0d6f8c76fc0dcb53a61f517a9683b49c38a",
+          "file": "route-63243947480c43a3cd75.json.gz",
+          "status": 200,
+          "linksSha256": "80b7efb61f6d7d83af514a1e3936d96ee8cd4d0d8bb0207d64cc4e065f669bac",
+          "inspectedIdsSha256": "f560c11edff0660591575373ad721aff0b3fb23d7aecfa79916b0dabf96ab216"
+        },
+        "/volvo-cars/things/?id=flow-activate-financing-offer": {
+          "sha256": "28f78ec8e28acfd62bb73ef81bebaf8c44b86e7bb53cbf5fff81af534eef1d6c",
+          "file": "route-cd2bab9c31fc3cb29f61.json.gz",
+          "status": 200,
+          "linksSha256": "bcd059ab3752925a6f51c1c5006e314ec32b2551be246a4410ddc7f6bb525761",
+          "inspectedIdsSha256": "396e21d5d97bc2ff537bdeac568b5ce190bc57cc0c5c09e587674b2ef4ef8f9b"
+        },
+        "/volvo-cars/things/?id=gql-get-car-by-car-key-for-stock-feed-v2": {
+          "sha256": "92f82c0527934da250463f6295609e47d9ac19d721b21219ad23712b97ae69b8",
+          "file": "route-a005761544e3e1b0e348.json.gz",
+          "status": 200,
+          "linksSha256": "daa5c8e1c3b78eff44bebd826961cbf58ca2d774a34af6fb2e91b48bf4f9a505",
+          "inspectedIdsSha256": "05d523c4a350b2ffd89ddcd8d65b3d100feac17db0fecb2b3b572d068fd79034"
+        },
+        "/volvo-cars/things/?id=lib-payment-service": {
+          "sha256": "eda0321ba204f90c5900ed0af700d2f8a02a5022e949a3319039624152b05325",
+          "file": "route-c6e694c3a628a6797113.json.gz",
+          "status": 200,
+          "linksSha256": "4b61bcb678a9e8637537be015c07a385feb31d04c5a4e2bc991313f96670196f",
+          "inspectedIdsSha256": "e3c20c8ca04890082c913f8a0b54eeeb809e65e4c2ca8f974cbaaab0de09836e"
+        },
+        "/volvo-cars/things/?id=scr-product-catalog-ui-car-code-mapping": {
+          "sha256": "ecb767faaa86cbf88e058dfbb8dce020d86a0e630e805dea7e89bcb14356097a",
+          "file": "route-a4df55469950b653516a.json.gz",
+          "status": 200,
+          "linksSha256": "17cb9f5e930786a9dc5429d5ec7be6914f890d63654364f3982b17a67211d95a",
+          "inspectedIdsSha256": "9ce59b6419089a0d65fc6bc0d6d200cdab19ff162052c1cb9d4a9f911ea7b071"
+        },
+        "/volvo-cars/things/?id=top-assortment-classifications-events": {
+          "sha256": "e1d45295352b7c9cdce9ba726c550159c6946d725712f4aaa629995192f2da2c",
+          "file": "route-c23ae969624cc7a3f4ff.json.gz",
+          "status": 200,
+          "linksSha256": "2862bf988211aba7ea70fe805a0b74bd3648f7ef21a2628777fbadc498e78375",
+          "inspectedIdsSha256": "3cf9b84d3d453c4dd0ba388e7f5ab9b242eb974a3771908eab240f33ea3e86b3"
+        }
+      },
+      "removed": {
+        "distinct": 6494,
+        "byFamily": {
+          "explorer": 18,
+          "interfaces": 17,
+          "journey": 5,
+          "system": 8,
+          "thing": 6446
+        },
+        "selectorResultsSha256": "622aca593a21385e7487ddca823eb463f03b600a2a3cf60d069891c6593997b8",
+        "unresolved": [],
+        "canonicalAliasCount": 321
+      },
+      "added": {
+        "distinct": 284,
+        "byFamily": {
+          "entry": 32,
+          "entryIndex": 3,
+          "interfaces": 37,
+          "journey": 14,
+          "planEntry": 40,
+          "programme": 5,
+          "structural": 32,
+          "system": 23,
+          "thing": 98
+        },
+        "selectorResultsSha256": "23f42c04aedff1b66ad1d3ff7a615d1241f7508bf88f6ab1689433f23f5ae788",
+        "unresolved": [
+          {
+            "url": "/volvo-cars/things/?id=ext%3Aai-azure-content-safety",
+            "family": "thing",
+            "id": null,
+            "canonical": null,
+            "kind": null,
+            "href": null,
+            "alias": null,
+            "existingCanonicalId": "ext:ai-azure-content-safety",
+            "origins": [
+              "/volvo-cars/commercial-backbone/"
+            ]
+          },
+          {
+            "url": "/volvo-cars/things/?id=ext%3Aai-azure-openai",
+            "family": "thing",
+            "id": null,
+            "canonical": null,
+            "kind": null,
+            "href": null,
+            "alias": null,
+            "existingCanonicalId": "ext:ai-azure-openai",
+            "origins": [
+              "/volvo-cars/commercial-backbone/"
+            ]
+          },
+          {
+            "url": "/volvo-cars/things/?id=ext%3Aai-azure-vision",
+            "family": "thing",
+            "id": null,
+            "canonical": null,
+            "kind": null,
+            "href": null,
+            "alias": null,
+            "existingCanonicalId": "ext:ai-azure-vision",
+            "origins": [
+              "/volvo-cars/commercial-backbone/"
+            ]
+          },
+          {
+            "url": "/volvo-cars/things/?id=ext%3Abank-santander",
+            "family": "thing",
+            "id": null,
+            "canonical": null,
+            "kind": null,
+            "href": null,
+            "alias": null,
+            "existingCanonicalId": "ext:bank-santander",
+            "origins": [
+              "/volvo-cars/commercial-backbone/"
+            ]
+          },
+          {
+            "url": "/volvo-cars/things/?id=ext%3Abank-zenith",
+            "family": "thing",
+            "id": null,
+            "canonical": null,
+            "kind": null,
+            "href": null,
+            "alias": null,
+            "existingCanonicalId": "ext:bank-zenith",
+            "origins": [
+              "/volvo-cars/commercial-backbone/"
+            ]
+          },
+          {
+            "url": "/volvo-cars/things/?id=ext%3Abank-ziklo",
+            "family": "thing",
+            "id": null,
+            "canonical": null,
+            "kind": null,
+            "href": null,
+            "alias": null,
+            "existingCanonicalId": "ext:bank-ziklo",
+            "origins": [
+              "/volvo-cars/commercial-backbone/"
+            ]
+          },
+          {
+            "url": "/volvo-cars/things/?id=ext%3Aidentity-azure-ad",
+            "family": "thing",
+            "id": null,
+            "canonical": null,
+            "kind": null,
+            "href": null,
+            "alias": null,
+            "existingCanonicalId": "ext:identity-azure-ad",
+            "origins": [
+              "/volvo-cars/commercial-backbone/",
+              "/volvo-cars/commercial-backbone/assortment/"
+            ]
+          },
+          {
+            "url": "/volvo-cars/things/?id=ext%3Aidentity-microsoft-graph",
+            "family": "thing",
+            "id": null,
+            "canonical": null,
+            "kind": null,
+            "href": null,
+            "alias": null,
+            "existingCanonicalId": "ext:identity-microsoft-graph",
+            "origins": [
+              "/volvo-cars/commercial-backbone/"
+            ]
+          },
+          {
+            "url": "/volvo-cars/things/?id=ext%3Alaunchdarkly",
+            "family": "thing",
+            "id": null,
+            "canonical": null,
+            "kind": null,
+            "href": null,
+            "alias": null,
+            "existingCanonicalId": "ext:launchdarkly",
+            "origins": [
+              "/volvo-cars/commercial-backbone/",
+              "/volvo-cars/commercial-backbone/assortment/"
+            ]
+          },
+          {
+            "url": "/volvo-cars/things/?id=ext%3Apsp-stripe",
+            "family": "thing",
+            "id": null,
+            "canonical": null,
+            "kind": null,
+            "href": null,
+            "alias": null,
+            "existingCanonicalId": "ext:psp-stripe",
+            "origins": [
+              "/volvo-cars/commercial-backbone/"
+            ]
+          },
+          {
+            "url": "/volvo-cars/things/?id=ext%3Aschema-registry-hive",
+            "family": "thing",
+            "id": null,
+            "canonical": null,
+            "kind": null,
+            "href": null,
+            "alias": null,
+            "existingCanonicalId": "ext:schema-registry-hive",
+            "origins": [
+              "/volvo-cars/commercial-backbone/"
+            ]
+          },
+          {
+            "url": "/volvo-cars/things/?id=ext%3Atax-provider-agita",
+            "family": "thing",
+            "id": null,
+            "canonical": null,
+            "kind": null,
+            "href": null,
+            "alias": null,
+            "existingCanonicalId": "ext:tax-provider-agita",
+            "origins": [
+              "/volvo-cars/commercial-backbone/"
+            ]
+          },
+          {
+            "url": "/volvo-cars/things/?id=ext%3Atax-provider-polk",
+            "family": "thing",
+            "id": null,
+            "canonical": null,
+            "kind": null,
+            "href": null,
+            "alias": null,
+            "existingCanonicalId": "ext:tax-provider-polk",
+            "origins": [
+              "/volvo-cars/commercial-backbone/"
+            ]
+          },
+          {
+            "url": "/volvo-cars/things/?id=ext%3Atax-provider-sovos",
+            "family": "thing",
+            "id": null,
+            "canonical": null,
+            "kind": null,
+            "href": null,
+            "alias": null,
+            "existingCanonicalId": "ext:tax-provider-sovos",
+            "origins": [
+              "/volvo-cars/commercial-backbone/"
+            ]
+          },
+          {
+            "url": "/volvo-cars/things/?id=ext%3Atranslation-azure-translator",
+            "family": "thing",
+            "id": null,
+            "canonical": null,
+            "kind": null,
+            "href": null,
+            "alias": null,
+            "existingCanonicalId": "ext:translation-azure-translator",
+            "origins": [
+              "/volvo-cars/commercial-backbone/"
+            ]
+          },
+          {
+            "url": "/volvo-cars/things/?id=ext%3Atranslation-smartling",
+            "family": "thing",
+            "id": null,
+            "canonical": null,
+            "kind": null,
+            "href": null,
+            "alias": null,
+            "existingCanonicalId": "ext:translation-smartling",
+            "origins": [
+              "/volvo-cars/commercial-backbone/"
+            ]
+          },
+          {
+            "url": "/volvo-cars/things/?id=ext%3Awarehouse-snowflake",
+            "family": "thing",
+            "id": null,
+            "canonical": null,
+            "kind": null,
+            "href": null,
+            "alias": null,
+            "existingCanonicalId": "ext:warehouse-snowflake",
+            "origins": [
+              "/volvo-cars/commercial-backbone/"
+            ]
+          }
+        ],
+        "canonicalAliasCount": 0
+      },
+      "inspections": {
+        "old": 697,
+        "new": 788,
+        "oldResultSha256": "1aec27256b4598219ede8e02905cfa7f393c5480e89febfeceec6a8a6da16da0",
+        "newResultSha256": "7ca1f5cbb19fb1c34c3b2d2f42ec8590a49a5f4eb642b480398bff25525a76cc",
+        "oldUnresolved": [],
+        "newUnresolved": [
+          {
+            "id": "dec:follow-up-owner",
+            "canonical": null,
+            "kind": "unresolved",
+            "alias": {
+              "id": "dec:follow-up-owner",
+              "used": [],
+              "problem": null
+            },
+            "programme": "prog:care-se",
+            "localCollection": "decisions",
+            "inlineLabel": "Who follows up when a customer stops progressing, is rejected or withdraws",
+            "inlineLabelAndIdPresent": true,
+            "route": "/volvo-cars/programmes/care-se/"
+          },
+          {
+            "id": "dec:initiated-order-change",
+            "canonical": null,
+            "kind": "unresolved",
+            "alias": {
+              "id": "dec:initiated-order-change",
+              "used": [],
+              "problem": null
+            },
+            "programme": "prog:care-se",
+            "localCollection": "decisions",
+            "inlineLabel": "Whether we support order changes the retailer or Volvo starts",
+            "inlineLabelAndIdPresent": true,
+            "route": "/volvo-cars/programmes/care-se/"
+          },
+          {
+            "id": "dec:proposal-publisher",
+            "canonical": null,
+            "kind": "unresolved",
+            "alias": {
+              "id": "dec:proposal-publisher",
+              "used": [],
+              "problem": null
+            },
+            "programme": "prog:care-se",
+            "localCollection": "decisions",
+            "inlineLabel": "Retailers publish Digital Business Proposals from TACDIS, or directly from TACDIS Connect",
+            "inlineLabelAndIdPresent": true,
+            "route": "/volvo-cars/programmes/care-se/"
+          },
+          {
+            "id": "dec:reservation-length",
+            "canonical": null,
+            "kind": "unresolved",
+            "alias": {
+              "id": "dec:reservation-length",
+              "used": [],
+              "problem": null
+            },
+            "programme": "prog:care-se",
+            "localCollection": "decisions",
+            "inlineLabel": "How long a stock car is reserved, at checkout and after each financing update (DEC-002)",
+            "inlineLabelAndIdPresent": true,
+            "route": "/volvo-cars/programmes/care-se/"
+          },
+          {
+            "id": "dec:retailer-status-channel",
+            "canonical": null,
+            "kind": "unresolved",
+            "alias": {
+              "id": "dec:retailer-status-channel",
+              "used": [],
+              "problem": null
+            },
+            "programme": "prog:care-se",
+            "localCollection": "decisions",
+            "inlineLabel": "Retailers see financing updates in their CRM, or in the Connect sales tool",
+            "inlineLabelAndIdPresent": true,
+            "route": "/volvo-cars/programmes/care-se/"
+          },
+          {
+            "id": "dec:revised-contract-replaces",
+            "canonical": null,
+            "kind": "unresolved",
+            "alias": {
+              "id": "dec:revised-contract-replaces",
+              "used": [],
+              "problem": null
+            },
+            "programme": "prog:care-se",
+            "localCollection": "decisions",
+            "inlineLabel": "When a revised agreement replaces the original one",
+            "inlineLabelAndIdPresent": true,
+            "route": "/volvo-cars/programmes/care-se/"
+          },
+          {
+            "id": "dec:supported-order-changes",
+            "canonical": null,
+            "kind": "unresolved",
+            "alias": {
+              "id": "dec:supported-order-changes",
+              "used": [],
+              "problem": null
+            },
+            "programme": "prog:care-se",
+            "localCollection": "decisions",
+            "inlineLabel": "Which order changes we support, and how they are priced",
+            "inlineLabelAndIdPresent": true,
+            "route": "/volvo-cars/programmes/care-se/"
+          },
+          {
+            "id": "dec:unfulfillable-deal-owner",
+            "canonical": null,
+            "kind": "unresolved",
+            "alias": {
+              "id": "dec:unfulfillable-deal-owner",
+              "used": [],
+              "problem": null
+            },
+            "programme": "prog:care-se",
+            "localCollection": "decisions",
+            "inlineLabel": "Who resolves a signed deal or change that cannot be fulfilled",
+            "inlineLabelAndIdPresent": true,
+            "route": "/volvo-cars/programmes/care-se/"
+          },
+          {
+            "id": "ms:one-deal-visible",
+            "canonical": null,
+            "kind": "unresolved",
+            "alias": {
+              "id": "ms:one-deal-visible",
+              "used": [],
+              "problem": null
+            },
+            "programme": "prog:care-se",
+            "localCollection": "milestones",
+            "inlineLabel": "Retailers see every online Care deal from its first application, on one Opportunity",
+            "inlineLabelAndIdPresent": true,
+            "route": "/volvo-cars/programmes/care-se/"
+          },
+          {
+            "id": "ms:order-change",
+            "canonical": null,
+            "kind": "unresolved",
+            "alias": {
+              "id": "ms:order-change",
+              "used": [],
+              "problem": null
+            },
+            "programme": "prog:care-se",
+            "localCollection": "milestones",
+            "inlineLabel": "Retailers change a signed Care order",
+            "inlineLabelAndIdPresent": true,
+            "route": "/volvo-cars/programmes/care-se/"
+          },
+          {
+            "id": "ms:stock-cars-online",
+            "canonical": null,
+            "kind": "unresolved",
+            "alias": {
+              "id": "ms:stock-cars-online",
+              "used": [],
+              "problem": null
+            },
+            "programme": "prog:care-se",
+            "localCollection": "milestones",
+            "inlineLabel": "Customers take the Care offer on stock cars online",
+            "inlineLabelAndIdPresent": true,
+            "route": "/volvo-cars/programmes/care-se/"
+          },
+          {
+            "id": "ms:walk-in-sale",
+            "canonical": null,
+            "kind": "unresolved",
+            "alias": {
+              "id": "ms:walk-in-sale",
+              "used": [],
+              "problem": null
+            },
+            "programme": "prog:care-se",
+            "localCollection": "milestones",
+            "inlineLabel": "Retailers sell the Care offer to walk-in customers",
+            "inlineLabelAndIdPresent": true,
+            "route": "/volvo-cars/programmes/care-se/"
+          },
+          {
+            "id": "q:additional-information-text",
+            "canonical": null,
+            "kind": "unresolved",
+            "alias": {
+              "id": "q:additional-information-text",
+              "used": [],
+              "problem": null
+            },
+            "programme": "prog:care-se",
+            "localCollection": "questions",
+            "inlineLabel": "How is the Opportunity's Additional Information text updated during an order change: keeping unrelated information and the previous signed terms, telling the proposed change from the signed agreement, and avoiding duplicate or overwritten text on retries?",
+            "inlineLabelAndIdPresent": true,
+            "route": "/volvo-cars/programmes/care-se/"
+          },
+          {
+            "id": "q:delivering-teams",
+            "canonical": null,
+            "kind": "unresolved",
+            "alias": {
+              "id": "q:delivering-teams",
+              "used": [],
+              "problem": null
+            },
+            "programme": "prog:care-se",
+            "localCollection": "questions",
+            "inlineLabel": "Which teams deliver each part of the solution, and when are they available? (The walk-in and order-change team tables are still to be filled in.)",
+            "inlineLabelAndIdPresent": true,
+            "route": "/volvo-cars/programmes/care-se/"
+          },
+          {
+            "id": "q:financing-change-submission",
+            "canonical": null,
+            "kind": "unresolved",
+            "alias": {
+              "id": "q:financing-change-submission",
+              "used": [],
+              "problem": null
+            },
+            "programme": "prog:care-se",
+            "localCollection": "questions",
+            "inlineLabel": "How is a financing change submitted and tracked, including overlapping requests and an unsuccessful change? Does it update the existing application (the Santander pattern, a new quote id) or create a linked one?",
+            "inlineLabelAndIdPresent": true,
+            "route": "/volvo-cars/programmes/care-se/"
+          },
+          {
+            "id": "q:online-business-proposal",
+            "canonical": null,
+            "kind": "unresolved",
+            "alias": {
+              "id": "q:online-business-proposal",
+              "used": [],
+              "problem": null
+            },
+            "programme": "prog:care-se",
+            "localCollection": "questions",
+            "inlineLabel": "Does a TACDIS Business Proposal exist, or is one needed, for online orders and for every order type? When is it created, and how does it link to financing, the Digital Business Proposal and vehicle orders?",
+            "inlineLabelAndIdPresent": true,
+            "route": "/volvo-cars/programmes/care-se/"
+          },
+          {
+            "id": "q:opportunity-through-proposal",
+            "canonical": null,
+            "kind": "unresolved",
+            "alias": {
+              "id": "q:opportunity-through-proposal",
+              "used": [],
+              "problem": null
+            },
+            "programme": "prog:care-se",
+            "localCollection": "questions",
+            "inlineLabel": "Is the Opportunity id created through TACDIS for a walk-in carried through the Digital Business Proposal into checkout and the financing application, so every update stays on the same Opportunity?",
+            "inlineLabelAndIdPresent": true,
+            "route": "/volvo-cars/programmes/care-se/"
+          },
+          {
+            "id": "q:opportunity-update-access",
+            "canonical": null,
+            "kind": "unresolved",
+            "alias": {
+              "id": "q:opportunity-update-access",
+              "used": [],
+              "problem": null
+            },
+            "programme": "prog:care-se",
+            "localCollection": "questions",
+            "inlineLabel": "How can an Opportunity created online be updated by retailer users and integrations (ownership, users, service accounts, permissions), so updates reach the right Opportunity without duplicates or exposing another retailer's customer?",
+            "inlineLabelAndIdPresent": true,
+            "route": "/volvo-cars/programmes/care-se/"
+          },
+          {
+            "id": "q:proposal-fixed-quote",
+            "canonical": null,
+            "kind": "unresolved",
+            "alias": {
+              "id": "q:proposal-fixed-quote",
+              "used": [],
+              "problem": null
+            },
+            "programme": "prog:care-se",
+            "localCollection": "questions",
+            "inlineLabel": "Does a Digital Business Proposal attach to a fixed quote with an expiry, or fetch the latest price when it is opened?",
+            "inlineLabelAndIdPresent": true,
+            "route": "/volvo-cars/programmes/care-se/"
+          },
+          {
+            "id": "q:reservation-rules",
+            "canonical": null,
+            "kind": "unresolved",
+            "alias": {
+              "id": "q:reservation-rules",
+              "used": [],
+              "problem": null
+            },
+            "programme": "prog:care-se",
+            "localCollection": "questions",
+            "inlineLabel": "What are the stock reservation rules and who owns them: when a hold starts, how it is renewed, released or turned into an order, and what happens during manual review, withdrawal, rejection, expiry or a vehicle switch?",
+            "inlineLabelAndIdPresent": true,
+            "route": "/volvo-cars/programmes/care-se/"
+          },
+          {
+            "id": "q:retailer-crm-readiness",
+            "canonical": null,
+            "kind": "unresolved",
+            "alias": {
+              "id": "q:retailer-crm-readiness",
+              "used": [],
+              "problem": null
+            },
+            "programme": "prog:care-se",
+            "localCollection": "questions",
+            "inlineLabel": "Can the retailers' CRMs take status updates to a lead they already received, and through which route? Retailer CRM contact goes through Marcus Cristenson and Christoffer Magnusson; none of the CRMs is a team in the workspace.",
+            "inlineLabelAndIdPresent": true,
+            "route": "/volvo-cars/programmes/care-se/"
+          },
+          {
+            "id": "q:sales-tool-owner",
+            "canonical": null,
+            "kind": "unresolved",
+            "alias": {
+              "id": "q:sales-tool-owner",
+              "used": [],
+              "problem": null
+            },
+            "programme": "prog:care-se",
+            "localCollection": "questions",
+            "inlineLabel": "Which team builds and runs the Retail Assisted Sales Tool on Connect? The discovery names it \"TBD\"; capacity is being discussed, including a bought service.",
+            "inlineLabelAndIdPresent": true,
+            "route": "/volvo-cars/programmes/care-se/"
+          },
+          {
+            "id": "q:vcrs-proposal-versions",
+            "canonical": null,
+            "kind": "unresolved",
+            "alias": {
+              "id": "q:vcrs-proposal-versions",
+              "used": [],
+              "problem": null
+            },
+            "programme": "prog:care-se",
+            "localCollection": "questions",
+            "inlineLabel": "What timeline and effort does VCRS need to create new Business Proposal versions through an API, for order change?",
+            "inlineLabelAndIdPresent": true,
+            "route": "/volvo-cars/programmes/care-se/"
+          },
+          {
+            "id": "q:vista-feasibility",
+            "canonical": null,
+            "kind": "unresolved",
+            "alias": {
+              "id": "q:vista-feasibility",
+              "used": [],
+              "problem": null
+            },
+            "programme": "prog:care-se",
+            "localCollection": "questions",
+            "inlineLabel": "How does Vista check that a change is possible and estimate its lead time, how does it connect to the other tools, and when must the result be checked again? (No Vista team is in the workspace yet; the decider is Product until one is named.)",
+            "inlineLabelAndIdPresent": true,
+            "route": "/volvo-cars/programmes/care-se/"
+          },
+          {
+            "id": "q:ziklo-capabilities",
+            "canonical": null,
+            "kind": "unresolved",
+            "alias": {
+              "id": "q:ziklo-capabilities",
+              "used": [],
+              "problem": null
+            },
+            "programme": "prog:care-se",
+            "localCollection": "questions",
+            "inlineLabel": "What can Ziklo support for finding a deal, pricing specification, mileage or term changes, keeping the original rates, reusing credit and identity checks, and expiry dates for quotes, Digital Business Proposals and login links?",
+            "inlineLabelAndIdPresent": true,
+            "route": "/volvo-cars/programmes/care-se/"
+          },
+          {
+            "id": "sc:decline-after-signing",
+            "canonical": null,
+            "kind": "unresolved",
+            "alias": {
+              "id": "sc:decline-after-signing",
+              "used": [],
+              "problem": null
+            },
+            "programme": "prog:care-se",
+            "localCollection": "scenarios",
+            "inlineLabel": "A signed deal is declined",
+            "inlineLabelAndIdPresent": true,
+            "route": "/volvo-cars/programmes/care-se/"
+          },
+          {
+            "id": "sc:online-purchase",
+            "canonical": null,
+            "kind": "unresolved",
+            "alias": {
+              "id": "sc:online-purchase",
+              "used": [],
+              "problem": null
+            },
+            "programme": "prog:care-se",
+            "localCollection": "scenarios",
+            "inlineLabel": "Anna buys a Care car online and her retailer hears at once",
+            "inlineLabelAndIdPresent": true,
+            "route": "/volvo-cars/programmes/care-se/"
+          },
+          {
+            "id": "sc:order-change",
+            "canonical": null,
+            "kind": "unresolved",
+            "alias": {
+              "id": "sc:order-change",
+              "used": [],
+              "problem": null
+            },
+            "programme": "prog:care-se",
+            "localCollection": "scenarios",
+            "inlineLabel": "Sara changes her signed Care order",
+            "inlineLabelAndIdPresent": true,
+            "route": "/volvo-cars/programmes/care-se/"
+          },
+          {
+            "id": "sc:partial-change",
+            "canonical": null,
+            "kind": "unresolved",
+            "alias": {
+              "id": "sc:partial-change",
+              "used": [],
+              "problem": null
+            },
+            "programme": "prog:care-se",
+            "localCollection": "scenarios",
+            "inlineLabel": "An order change completes only in part",
+            "inlineLabelAndIdPresent": true,
+            "route": "/volvo-cars/programmes/care-se/"
+          },
+          {
+            "id": "sc:repeated-statuses",
+            "canonical": null,
+            "kind": "unresolved",
+            "alias": {
+              "id": "sc:repeated-statuses",
+              "used": [],
+              "problem": null
+            },
+            "programme": "prog:care-se",
+            "localCollection": "scenarios",
+            "inlineLabel": "The same status arrives three times",
+            "inlineLabelAndIdPresent": true,
+            "route": "/volvo-cars/programmes/care-se/"
+          },
+          {
+            "id": "sc:retailer-walk-in",
+            "canonical": null,
+            "kind": "unresolved",
+            "alias": {
+              "id": "sc:retailer-walk-in",
+              "used": [],
+              "problem": null
+            },
+            "programme": "prog:care-se",
+            "localCollection": "scenarios",
+            "inlineLabel": "Erik agrees a Care deal at the retailer and signs from home",
+            "inlineLabelAndIdPresent": true,
+            "route": "/volvo-cars/programmes/care-se/"
+          }
+        ],
+        "oldAliases": 53,
+        "newAliases": 0,
+        "canonicalCommon": 563,
+        "canonicalOldOnly": [
+          "api:about-us-load-page",
+          "api:akamai-error-translation-get",
+          "api:amplitude-chart-query",
+          "api:assortment-gateway-pcf-cars",
+          "api:assortment-market-auth-entries",
+          "api:assortment-product-types-list",
+          "api:car-configuration-car-by-token",
+          "api:car-configuration-offer-by-token",
+          "api:car-shop-has-stock",
+          "api:cce-car-spec-adapter-list-local-editions",
+          "api:cce-optimization-facade-configuration-from-selections-for-market",
+          "api:cce-optimization-facade-market-bto-cars-by-business-model",
+          "api:cep-car-privacy-get",
+          "api:cep-contact-preferences-get-category",
+          "api:cep-contact-preferences-marketing-consent",
+          "api:cep-scopes-grants-delete",
+          "api:checkout-get-checkout-url",
+          "api:cms-volvo-content-delivery-get-entry",
+          "api:cms-volvo-content-delivery-list-entries",
+          "api:cms-volvo-content-management-create-entry",
+          "api:company-register-gb-get-organization",
+          "api:conditional-order-post-checkout",
+          "api:contentstack-graphql-query",
+          "api:contentstack-management-get-entry",
+          "api:contentstack-management-users",
+          "api:cpam-standard-features-colour-upholstery",
+          "api:cpam-weight-calculation",
+          "api:crm-cdb-get-consumer-by-alternative-id",
+          "api:data-submission-rules",
+          "api:disco-query-resolve-parameters",
+          "api:fae-create-quote",
+          "api:fae-get-calculation-conditions",
+          "api:fleet-accounts-get-user",
+          "api:fleet-asset-upsert-fleet",
+          "api:fo-get-financing-offer-variant",
+          "api:google-places-autocomplete",
+          "api:google-recaptcha-siteverify",
+          "api:google-tag-manager-script",
+          "api:gpe-tax-requires-reda-data",
+          "api:identity-volvo-id-jwks",
+          "api:mapper-transform-car-to-product",
+          "api:mas-contract-lengths-list",
+          "api:mas-markets-get",
+          "api:mas-markets-list",
+          "api:offer-admin-create",
+          "api:offer-selector-prices",
+          "api:offer-service-admin-schedule-offers",
+          "api:offers-read-view-base-offer-options",
+          "api:offers-read-view-cars-for-sale",
+          "api:onetrust-get-banner",
+          "api:onetrust-management-token",
+          "api:order-processing-load-order-tracking",
+          "api:pcf-spec-markets",
+          "api:pds-public-classifications",
+          "api:plm-pcg-available-family-features",
+          "api:plm-pcg-options",
+          "api:plm-pcg-pno-elements",
+          "api:plm-prins-query-commercial-packages",
+          "api:plm-prins-query-configuration-parameters",
+          "api:plm-prins-query-configuration-rules",
+          "api:plm-prins-query-stored-cpv-sets",
+          "api:pop-authz-check-permission",
+          "api:prism-enrich-products",
+          "api:product-addons-eligibility-software",
+          "api:product-catalog-item-from-variant-id",
+          "api:product-catalog-list-cap-codes",
+          "api:ps-admin-v2-product-create",
+          "api:ps-output-products",
+          "api:sendgrid-send-mail",
+          "api:site-navigation-get-html",
+          "flow:gpe-price-configuration-calculation#apply-discounts",
+          "flow:gpe-price-configuration-calculation#calculate-taxes",
+          "flow:gpe-price-configuration-calculation#load-pretax",
+          "flow:pds-product-service-sync#consume",
+          "flow:pds-product-service-sync#map",
+          "msg:app5541-orchestrator-process-events-process-updated",
+          "sg:assortment",
+          "sg:cart",
+          "sg:environmental",
+          "sg:incentive",
+          "ext:amplitude",
+          "ext:analytics-google-tag-manager",
+          "svc:bto-enabled-baseliner",
+          "svc:car-configuration-dgs",
+          "app:car-configurator",
+          "svc:cart-service",
+          "svc:cce-cpam-ingress",
+          "svc:cce-optimization-facade",
+          "svc:cce-optimization-facade-event",
+          "sys:cep-car-privacy",
+          "sys:cep-scopes-grants",
+          "app:checkout",
+          "sys:cms-volvo-content-management",
+          "sys:company-register-gb",
+          "ext:consent-onetrust",
+          "ext:contentstack",
+          "svc:cpam-facade",
+          "sys:crm-cdb",
+          "svc:disco-data",
+          "app:disco-frontend",
+          "svc:disco-offer",
+          "svc:environmental-dgs",
+          "svc:fae-bank-integration",
+          "svc:fae-integration",
+          "sys:fleet-asset",
+          "ext:google-recaptcha",
+          "svc:gpe-financial-calculator",
+          "svc:gpe-green-light",
+          "svc:gpe-price-data",
+          "svc:incentive-dgs",
+          "app:inventory-detail",
+          "svc:lcs-api",
+          "svc:offer-management-read-api",
+          "svc:offers-green-light",
+          "svc:offers-read-view",
+          "svc:om-order-status-tracking",
+          "svc:order-manager-core",
+          "app:order-tracker",
+          "app:payment",
+          "svc:pricing-catalog-api",
+          "svc:prism-api",
+          "svc:reda-facade",
+          "svc:salesforce-leads",
+          "ext:sendgrid",
+          "app:sitetostore-lead-capture",
+          "svc:storefront-api",
+          "svc:tyre-label-enrichment",
+          "svc:tyre-label-prins-sync",
+          "svc:tyre-label-service",
+          "svc:urax-tax-management",
+          "sys:data-submission",
+          "sys:market-pages",
+          "sys:media-site",
+          "sys:news"
+        ],
+        "canonicalNewOnly": 194
+      },
+      "releasedFactsMatchSelectorArchive": true
+    }
+  },
+  "method": {
+    "deltaScriptSha256": "9347e786315d298d43dd032e8ba800ac41283d02f11c5eb81faa4e7a9e6bc97c",
+    "selectorScriptSha256": "e7dfb541aa736ccea7b19932f2443f1f8a7bc4f81230f9188c0bebf3202632a1",
+    "selectorSources": {
+      "src/domain/ids.ts": "39c00a3b3acc9d09b4b0d076a0177ccfe27de51d48cc3390a5f6d062fa9bac9e",
+      "src/application/model-index.ts": "d0d4c937ebb8a71e5e23032bffdf3d8e20ff37c266e79073cb642b90aa39c976",
+      "src/application/model-system.ts": "1d6eb41126f7f9887e8ff3aae2b066ad2b6c0683a495d00297de2b3ebdde68c8",
+      "src/application/model-domain.ts": "7d2e45804e4670dffbcf7ab601f559f01c3facec17d0f849d958c972abec10b2",
+      "src/application/model-journeys.ts": "6ba32199b924e686cf5f2a97f053e03b9ed964c7588276bd1ee4a991ab46acbc",
+      "src/application/model-flow.ts": "fb07a35e5894bd58c4c425ca98dce5833d628a8ba41c946cfcaed4da5d144b8a",
+      "src/application/entry-flow-page.ts": "e13813e2bb558e4d9a9cd34356d43010408957efd1849fb0e4a5f6a87867ab06",
+      "src/application/model-workspace-work.ts": "5db834ebb6491b693406606b1a55ee2dafe8359cf81e8cdeae1259c312953678",
+      "src/app/[workspace]/things/page.tsx": "ea47d9a089aa89108c5c2961a6b40e92483487c56b417d77165d45b94dd60137",
+      "src/features/plan/model-workspace-work.tsx": "85fe34c33a0b1f32e1c42df3114332f705e24a1a3cbd9d652f3c8ee3e71352d0",
+      "src/features/plan/model-plan-record.tsx": "2528097d5e557a1c4d193b6728533f127c95ac509a31f2b117c21c0ecc87cf2e",
+      "src/features/service-explorer/explorer-corpus.client.tsx": "06ceb6c26a2cf1cb715d9d638b38eb80cd521b7c715587b0ea0130ab845eaf40"
+    }
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "format": 1,
+  "receipts": [
+    {
+      "workspace": "personal",
+      "byteIdentical": true,
+      "files": {
+        "aliases.yaml": "533a5f1c9bd6e2915f24cff785f0136b6ca77912414294535386c28f0b4c22cc",
+        "domains/side-projects/domain.yaml": "98aeaa6bb9718056f3392197ac0cc3f213cdfb83a636e03ad93e3a4f1c95d29e",
+        "domains/side-projects/systems/allotment-log/contracts.yaml": "24e77f6d96cb72ec2e60af990d3120fc3b23af064ebfceaf5671fdafc97bd89d",
+        "domains/side-projects/systems/allotment-log/screens.yaml": "8f738ad8a3d43226b4980a877e3ebffa905336077ff90ed7da97496afc1240b0",
+        "domains/side-projects/systems/allotment-log/system.yaml": "97285afba09aae15b2a91c8f762aa51699d47cd7ede96fcd353c7817b8d985e2",
+        "domains/side-projects/systems/bike-fit/contracts.yaml": "24e77f6d96cb72ec2e60af990d3120fc3b23af064ebfceaf5671fdafc97bd89d",
+        "domains/side-projects/systems/bike-fit/screens.yaml": "8f738ad8a3d43226b4980a877e3ebffa905336077ff90ed7da97496afc1240b0",
+        "domains/side-projects/systems/bike-fit/system.yaml": "a5224bed31036594613055b110b4b097f4838e6e6ace927e875084154d101329",
+        "externals.yaml": "12709b297c7d80fd27cc1407303d03a91a818edd17c6dde970318917822fe43c",
+        "libraries.yaml": "9a00e9d1b8811852111cbb3363ae8a0a4d37bc01340d3896829bd2930a0f0889",
+        "workspace.yaml": "1c20b8b6ec4fda9205e462c5bbb6476dc3845700c9b8b3fa3e917e0373aa66e4"
+      },
+      "identities": 10,
+      "identityHash": "bd87e9165b84f1a3bd6b6ecf3a3573a1dff391ea3bacdd9812b8f7959d037283",
+      "mapShown": 10,
+      "problems": [],
+      "gaps": {
+        "no_owner": 1
+      }
+    },
+    {
+      "workspace": "acme",
+      "byteIdentical": true,
+      "files": {
+        "aliases.yaml": "03ebadd8e365a3c5f9c1f6e6358dd00ef12b00b4a6f83787ba4b07092c346f96",
+        "domains/catalogue/domain.yaml": "c311396377399c7742ce83f040e9b43b5ce37ea37f2491bf57646ae330fe4f21",
+        "domains/catalogue/language.yaml": "abb4067f516b2d7a8a8167d7271a74b6ece455f30f6a477df8b4799b71795c0b",
+        "domains/catalogue/systems/products/contracts.yaml": "c57dce7ef25bb0dbf4b6e8751421c040c43e7a15882211fa18d7bb95d722f138",
+        "domains/catalogue/systems/products/screens.yaml": "8f738ad8a3d43226b4980a877e3ebffa905336077ff90ed7da97496afc1240b0",
+        "domains/catalogue/systems/products/system.yaml": "651b3ac5233a896925e46e04f4b9498124df5eee8cbe0941c2284c92f3b424c1",
+        "domains/catalogue/systems/search/contracts.yaml": "a899c6b4664fd32fa3dc44a9d2bb338daf0892ea79e95bf14b1a6d9fa9117fb4",
+        "domains/catalogue/systems/search/screens.yaml": "8f738ad8a3d43226b4980a877e3ebffa905336077ff90ed7da97496afc1240b0",
+        "domains/catalogue/systems/search/system.yaml": "d11131655d496e164c781056dbb0c2d15e78bad3058dfb9e17def9da164d86b9",
+        "domains/orders/domain.yaml": "6d56c6858482c14b98aca1e04164238f38a6845fc35eafd5b60ca54972e87fc4",
+        "domains/orders/language.yaml": "694d2cd8d77c950b7ed16660ae9f2730fb44c47ba70676f3ac0cbf27950c9e8a",
+        "domains/orders/systems/ordering/contracts.yaml": "7dafc358f74454b2214e5703c1280a2e1a0a66c280cf3d1f2cd274b4ebb7e0f9",
+        "domains/orders/systems/ordering/screens.yaml": "8f738ad8a3d43226b4980a877e3ebffa905336077ff90ed7da97496afc1240b0",
+        "domains/orders/systems/ordering/system.yaml": "bfdbacf60feb70d72ab1c8ca9137a5f28ef6bbaa3b728f2a50047e1df9f31ddd",
+        "domains/orders/systems/payments/contracts.yaml": "ca69f13335df69f2670166c936f67b94a44f1a56afcc1c61b49fa9c785181424",
+        "domains/orders/systems/payments/screens.yaml": "8f738ad8a3d43226b4980a877e3ebffa905336077ff90ed7da97496afc1240b0",
+        "domains/orders/systems/payments/system.yaml": "627bb6a4acb238d2945c6ef880e1c68f7c23d7a2980a3af2a21384a725cf45b6",
+        "domains/orders/target.yaml": "7744ecae13fefbdda5ea97e11f6525323dccb45a04d80dd700473a9a93645b4f",
+        "domains/storefront/domain.yaml": "bed81a105681b47c89ef77c6759cad6bb63c512a697ac23e945537115abbe214",
+        "domains/storefront/systems/accounts/contracts.yaml": "24e77f6d96cb72ec2e60af990d3120fc3b23af064ebfceaf5671fdafc97bd89d",
+        "domains/storefront/systems/accounts/screens.yaml": "8f738ad8a3d43226b4980a877e3ebffa905336077ff90ed7da97496afc1240b0",
+        "domains/storefront/systems/accounts/system.yaml": "c5f1dbf2d009dc0019f0bbc371342b7f675b262d53bbb53327eaac2cc52977d2",
+        "domains/storefront/systems/shop/contracts.yaml": "d4bf42a95aae2d35ed4a4347effc6d8e0f690f4a66f96cfdac053792ed37e3e8",
+        "domains/storefront/systems/shop/screens.yaml": "b2d8dc71442bf95d1e4c0fcea0b033d42ba88cafe8e5b835df10be017dd94850",
+        "domains/storefront/systems/shop/system.yaml": "a01ff6174a02c0e6017ceff74d5fbc5501cc70885600dd59a1dabd35a9603450",
+        "externals.yaml": "efb959fa4420a0cabb855592ff0f31cb694f72b9bffc8ae5226f293b2540ae05",
+        "flows/cancel-order.yaml": "84cb3962f1ec9e7458bb9506e9c318e7928a4a0ead42a9e21f81a3f19ba4d071",
+        "flows/place-order.yaml": "0d771a40f82840d7926cb5d445123b5b7565df00527166891f17c0649c52edb2",
+        "flows/publish-product.yaml": "f6e3fe69b5cbf5d4950277a9aa095f93fc0e8af4944df42e62e37ab2eb2c27e2",
+        "journeys/buy.yaml": "c7ff8b66b0d9f2de49db79e072056c06803566bc1992d75c8a7005c36a1a93f7",
+        "language.yaml": "e8c2a4325972f097ba42b60c917bad9276e59bbb7f4583ce618c67b6fa2fbb47",
+        "libraries.yaml": "643558f9b41d684f241c569e0bf82fcb04dd5723a82c7dfe00d3fcfca0d3f13e",
+        "scans/acme/ordering.yaml": "040c6a780f35ef87b133dbdf556afd542273ceff4eb241a53e2af9ead48301de",
+        "story.yaml": "6211d034803cc5e6bbfc1c7cbe4476980ae423bab635a9e674a149c538c689c7",
+        "workspace.yaml": "0079a84b267228e96b6934f4fbc3a7b264dc271ca6a8123219cee2732f20e868"
+      },
+      "identities": 96,
+      "identityHash": "dd20786e513582e15fb0cb5552d24a0fe83522be59e166839df7c01d5b00a3fa",
+      "mapShown": 96,
+      "problems": [],
+      "gaps": {
+        "no_owner": 6,
+        "no_caller": 8,
+        "no_handler": 10,
+        "no_consumer": 2
+      }
+    }
+  ]
+}

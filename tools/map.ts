@@ -13,18 +13,16 @@ import { writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { parseArgs } from 'node:util';
 
-import { indexOf } from '@/application/model-index';
-import { type Cited, findIn, ownedBy, type SystemMap, systemMapOf } from '@/application/system-map';
-import { callersOf, shownIn } from '@/application/system-map-links';
-import { mapMarkdownOf } from '@/application/system-map-md';
-import { systemModelOf } from '@/application/workspace-model';
+import type { Cited } from '@/application/system-map';
 import { localId } from '@/domain/ids';
-import { readModelIfCanonical } from '@/infrastructure/canonical-model';
+import { readCanonicalModelIndex } from '@/infrastructure/model-index';
 import { selectedWorkspace, workspaceFolder } from '@/infrastructure/workspace-folders';
-import { readWorkspaceModel } from '@/infrastructure/workspace-model';
-import { readWorkspaces } from '@/infrastructure/workspace-store';
 
 import { modelMapOf } from './model-map';
+import { modelMapQueries } from './model-map-query';
+
+type CanonicalMap = ReturnType<typeof modelMapOf> &
+  ReturnType<typeof modelMapQueries> & { readonly workspace: string };
 
 const { positionals, values } = parseArgs({
   allowPositionals: true,
@@ -36,17 +34,17 @@ const { positionals, values } = parseArgs({
   },
 });
 
-async function loaded(): Promise<SystemMap | ReturnType<typeof modelMapOf>> {
+async function loaded(): Promise<CanonicalMap> {
   const selected = await selectedWorkspace(values.workspace);
   console.error(`Workspace: ${selected.name} (${selected.id}) at ${selected.folder}`);
   process.env.GROUNDWORK_WORKSPACES = selected.folder;
-  const canonical = await readModelIfCanonical(selected.id);
-  if (canonical !== null) return modelMapOf(indexOf(canonical));
-  const all = await readWorkspaces();
-  const workspace = all.find(({ id }) => id === selected.id);
-  if (workspace === undefined) throw new Error(`no workspace ${selected.id}`);
-  const model = await readWorkspaceModel(workspace);
-  return systemMapOf(workspace, systemModelOf(workspace, model));
+  const canonical = await readCanonicalModelIndex(selected.id);
+  if (canonical === null) {
+    throw new Error(
+      `A consolidated model is not available for ${selected.id} at ${selected.folder}.`,
+    );
+  }
+  return { ...modelMapOf(canonical), ...modelMapQueries(canonical), workspace: selected.id };
 }
 
 // Where a cited file sits on this machine, when its repo is checked out under --checkouts.
@@ -80,31 +78,31 @@ function depthOr(fallback: number): number {
   return Number.isInteger(depth) && depth > 0 ? depth : fallback;
 }
 
-async function answer(map: SystemMap, command: string, arg: string): Promise<unknown> {
+async function canonicalAnswer(map: CanonicalMap, command: string, arg: string): Promise<unknown> {
   switch (command) {
     case 'find': {
-      return findIn(map, arg);
+      return map.find(arg);
     }
     case 'show': {
-      return shownIn(map, arg) ?? { error: `no fact ${arg}; try: find ${localId(arg)}` };
+      return map.show(arg) ?? { error: `no fact ${arg}; try: find ${localId(arg)}` };
     }
     case 'callers': {
-      return callersOf(map, arg, depthOr(3));
+      return map.callers(arg, depthOr(3));
     }
     case 'calls': {
-      return map.system.model.callTree(arg, { depth: depthOr(8), mode: 'asIs' });
+      return map.calls(arg, depthOr(8));
     }
     case 'owns': {
-      return ownedBy(map, arg, values.repo);
+      return map.owns(arg, values.repo);
     }
     case 'repos': {
-      return map.repos;
+      return map.repos();
     }
     case 'md': {
-      const folder = await workspaceFolder(map.workspace.id);
-      if (folder === null) throw new Error(`no workspace ${map.workspace.id}`);
+      const folder = await workspaceFolder(map.workspace);
+      if (folder === null) throw new Error(`no workspace ${map.workspace}`);
       const file = path.join(folder, 'MAP.md');
-      await writeFile(file, mapMarkdownOf(map));
+      await writeFile(file, map.markdown());
       return { wrote: path.relative(process.cwd(), file) };
     }
     default: {
@@ -113,19 +111,8 @@ async function answer(map: SystemMap, command: string, arg: string): Promise<unk
   }
 }
 
-function canonicalAnswer(
-  map: ReturnType<typeof modelMapOf>,
-  command: string,
-  arg: string,
-): unknown {
-  if (command !== 'show') {
-    return { error: `Canonical map ${command} is not available yet; use show <id>.` };
-  }
-  return map.show(arg) ?? { error: `no fact ${arg}; try: find ${localId(arg)}` };
-}
-
 const [command = 'repos', ...rest] = positionals;
 const map = await loaded();
 const arg = rest.join(' ');
-const result = 'show' in map ? canonicalAnswer(map, command, arg) : await answer(map, command, arg);
+const result = await canonicalAnswer(map, command, arg);
 process.stdout.write(`${JSON.stringify(withLocal(result), null, 2)}\n`);

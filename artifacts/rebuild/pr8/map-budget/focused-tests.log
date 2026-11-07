@@ -1,0 +1,9 @@
+
+ RUN  v5.0.4 /Users/RNEL/.codex/worktrees/rebuild-pr8/groundWork
+
+
+ Test Files  4 passed (4)
+      Tests  35 passed (35)
+   Start at  05:03:25
+   Duration  1.12s (import 31%, environment 24%, tests 23%, transform 20%, setup 1%)
+

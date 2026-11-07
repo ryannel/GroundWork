@@ -1,13 +1,12 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { workspaceNavOf } from '@/application/workspace-nav';
-import { workspaceHref } from '@/application/workspace-paths';
-import { programmeRowsOf } from '@/application/workspace-work/programme-page';
-import { TodayOverlays, TodaySearch } from '@/features/plan';
+import { modelProgrammeRowsOf } from '@/application/model-workspace-work';
+import { ModelTodayOverlays, TodaySearch } from '@/features/plan';
 import { ProgrammesPage, WorkspaceShell } from '@/features/workspace';
-import { todayData } from '@/infrastructure/today-data';
-import { readWorkspacePlanIndex } from '@/infrastructure/workspace-plan-index';
+import { readCanonicalModelIndex } from '@/infrastructure/model-index';
+import { readModelWorkspaceNav } from '@/infrastructure/model-workspace-nav';
+import { readModelWorkspaceWork } from '@/infrastructure/model-workspace-work';
 
 interface Params {
   readonly workspace: string;
@@ -17,26 +16,18 @@ export const metadata: Metadata = { title: 'Programmes' };
 
 export default async function ProgrammesRoute({ params }: { readonly params: Promise<Params> }) {
   const { workspace: id } = await params;
-  const [data, index] = await Promise.all([todayData(id), readWorkspacePlanIndex(id)]);
-  if (data === null || index === null) notFound();
-  const { workspace, today, plans } = data;
+  const native = await readCanonicalModelIndex(id);
+  if (native === null) notFound();
+  const entries = await readModelWorkspaceWork(id);
   return (
     <WorkspaceShell
-      actions={<TodaySearch />}
-      nav={workspaceNavOf(
-        workspace,
-        plans,
-        { section: 'programmes', today: today.model },
-        data.programmes,
-      )}
-      overlays={<TodayOverlays depth={1} workspace={workspace} />}
+      workspace={native.model}
+      nav={await readModelWorkspaceNav(native, { section: 'programmes' })}
       title="Programmes"
-      trail={[
-        { label: 'Workspaces', href: '/' },
-        { label: workspace.name, href: workspaceHref(workspace.id) },
-      ]}
+      actions={<TodaySearch />}
+      overlays={<ModelTodayOverlays index={native} depth={1} />}
     >
-      <ProgrammesPage rows={programmeRowsOf(index)} />
+      <ProgrammesPage rows={modelProgrammeRowsOf(native, entries)} />
     </WorkspaceShell>
   );
 }

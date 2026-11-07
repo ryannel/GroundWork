@@ -1,0 +1,378 @@
+{
+  "workspace": "volvo-cars",
+  "capture": ".workspaces/rebuild/pr8/http/volvo-cars",
+  "asOf": "2026-11-05",
+  "checks": [
+    {
+      "route": "/volvo-cars/model.json",
+      "file": "route-699792733a805c19f774.json.gz",
+      "responseSha256": "cb52994005d0243de1b733a618962302b695a7d6df68aa739c749d2adeb2542d",
+      "profile": {
+        "current": {
+          "loaded": 155,
+          "omitted": 354240,
+          "total": 354395
+        },
+        "kind": "authored-evidence-closure",
+        "lookup": "evidence.json"
+      },
+      "scopes": [
+        {
+          "scope": "current",
+          "authored": "503c8290bf92759050b1f0b95d05a2099350fa88d1cd170e26c7d9fad8dee687",
+          "derived": "9c4fee4daa5dc0d38e81dd30492c766df1243982d453e906b5dadba523be5f92",
+          "records": {
+            "total": 354395,
+            "loaded": 155,
+            "omitted": 354240
+          },
+          "indexedIdentities": 34443
+        }
+      ]
+    },
+    {
+      "route": "/volvo-cars/plans/care-se-financing-status/plan.json",
+      "file": "route-09c9ff45384c725a5b4a.json.gz",
+      "responseSha256": "b7ca9eb59d3e2a07998ca6643fd5d41471f5b96ce854610d8d56ab35880f4d9e",
+      "profile": {
+        "after": {
+          "loaded": 155,
+          "omitted": 354240,
+          "total": 354395
+        },
+        "before": {
+          "loaded": 155,
+          "omitted": 354240,
+          "total": 354395
+        },
+        "kind": "authored-evidence-closure",
+        "lookup": "../../evidence.json?plan=care-se-financing-status"
+      },
+      "scopes": [
+        {
+          "scope": "care-se-financing-status/before",
+          "authored": "503c8290bf92759050b1f0b95d05a2099350fa88d1cd170e26c7d9fad8dee687",
+          "derived": "9c4fee4daa5dc0d38e81dd30492c766df1243982d453e906b5dadba523be5f92",
+          "records": {
+            "total": 354395,
+            "loaded": 155,
+            "omitted": 354240
+          },
+          "indexedIdentities": 34443
+        },
+        {
+          "scope": "care-se-financing-status/after",
+          "authored": "c208659ba8e044393a3cc3eb41df42d354c6d8ec82d3cec0e0b9fa9ee1b97d1f",
+          "derived": "4d70e7cba9bf0fff14d50ae309af0a488790be1569d4327dd0137454e898f71b",
+          "records": {
+            "total": 354395,
+            "loaded": 155,
+            "omitted": 354240
+          },
+          "indexedIdentities": 34448
+        }
+      ]
+    },
+    {
+      "route": "/volvo-cars/plans/care-se-online/plan.json",
+      "file": "route-4be196be9232cce12091.json.gz",
+      "responseSha256": "38db4fe61537f0ddb5a7bfb3272400dacc619388441f5b12bcae836a14cca42a",
+      "profile": {
+        "after": {
+          "loaded": 155,
+          "omitted": 354240,
+          "total": 354395
+        },
+        "before": {
+          "loaded": 155,
+          "omitted": 354240,
+          "total": 354395
+        },
+        "kind": "authored-evidence-closure",
+        "lookup": "../../evidence.json?plan=care-se-online"
+      },
+      "scopes": [
+        {
+          "scope": "care-se-online/before",
+          "authored": "2968f20967bdd13b20e7fe545f8e48b65cc4785a2809af0f426658136f210595",
+          "derived": "d49faad61a835e11613e74d2ce22faebff51aafdb9ebc2d336ac411235ecc832",
+          "records": {
+            "total": 354395,
+            "loaded": 155,
+            "omitted": 354240
+          },
+          "indexedIdentities": 34463
+        },
+        {
+          "scope": "care-se-online/after",
+          "authored": "ea9a5dc95fe3a568063a6f7b0eda5fd61757605c665303602b005ef00ef89eb9",
+          "derived": "6ccb63e1f80a3b428a79c94a108594544ed3246ae097969aeb1776cc5ed7684e",
+          "records": {
+            "total": 354395,
+            "loaded": 155,
+            "omitted": 354240
+          },
+          "indexedIdentities": 34465
+        }
+      ]
+    },
+    {
+      "route": "/volvo-cars/plans/care-se-order-change/plan.json",
+      "file": "route-3b7b44ad019154eccd04.json.gz",
+      "responseSha256": "281080d65478aef845b61be330c7cb6157cebfa85231d6e4d6d3a605474c9d45",
+      "profile": {
+        "after": {
+          "loaded": 155,
+          "omitted": 354240,
+          "total": 354395
+        },
+        "before": {
+          "loaded": 155,
+          "omitted": 354240,
+          "total": 354395
+        },
+        "kind": "authored-evidence-closure",
+        "lookup": "../../evidence.json?plan=care-se-order-change"
+      },
+      "scopes": [
+        {
+          "scope": "care-se-order-change/before",
+          "authored": "f380e208f29a6db305e8754cd841a59e588af434e3b8571a93e2c10fe6f0e19a",
+          "derived": "d1126c11f7892638dbadfab3f469d5577d2d74016f059ea5c6ac5058006e40dd",
+          "records": {
+            "total": 354395,
+            "loaded": 155,
+            "omitted": 354240
+          },
+          "indexedIdentities": 34470
+        },
+        {
+          "scope": "care-se-order-change/after",
+          "authored": "1987881ee568b0c070913d49ce6eddbfea5922e7a6f514ce41ac83bad22862c3",
+          "derived": "d1126c11f7892638dbadfab3f469d5577d2d74016f059ea5c6ac5058006e40dd",
+          "records": {
+            "total": 354395,
+            "loaded": 155,
+            "omitted": 354240
+          },
+          "indexedIdentities": 34470
+        }
+      ]
+    },
+    {
+      "route": "/volvo-cars/plans/care-se-sales-tool/plan.json",
+      "file": "route-5c45302d39683936a3a7.json.gz",
+      "responseSha256": "baedd2a96817304fd8344381f6b9aff8e2f7924f2feb4c7677996e45d55ffc19",
+      "profile": {
+        "after": {
+          "loaded": 155,
+          "omitted": 354240,
+          "total": 354395
+        },
+        "before": {
+          "loaded": 155,
+          "omitted": 354240,
+          "total": 354395
+        },
+        "kind": "authored-evidence-closure",
+        "lookup": "../../evidence.json?plan=care-se-sales-tool"
+      },
+      "scopes": [
+        {
+          "scope": "care-se-sales-tool/before",
+          "authored": "2968f20967bdd13b20e7fe545f8e48b65cc4785a2809af0f426658136f210595",
+          "derived": "d49faad61a835e11613e74d2ce22faebff51aafdb9ebc2d336ac411235ecc832",
+          "records": {
+            "total": 354395,
+            "loaded": 155,
+            "omitted": 354240
+          },
+          "indexedIdentities": 34463
+        },
+        {
+          "scope": "care-se-sales-tool/after",
+          "authored": "f380e208f29a6db305e8754cd841a59e588af434e3b8571a93e2c10fe6f0e19a",
+          "derived": "d1126c11f7892638dbadfab3f469d5577d2d74016f059ea5c6ac5058006e40dd",
+          "records": {
+            "total": 354395,
+            "loaded": 155,
+            "omitted": 354240
+          },
+          "indexedIdentities": 34470
+        }
+      ]
+    },
+    {
+      "route": "/volvo-cars/plans/care-se-stock-reservation/plan.json",
+      "file": "route-377cc6a347a43efd6e46.json.gz",
+      "responseSha256": "459b31a9486afb368a0ec3f4d1e1990a87b641ac75023e931ea8000e3946f04a",
+      "profile": {
+        "after": {
+          "loaded": 155,
+          "omitted": 354240,
+          "total": 354395
+        },
+        "before": {
+          "loaded": 155,
+          "omitted": 354240,
+          "total": 354395
+        },
+        "kind": "authored-evidence-closure",
+        "lookup": "../../evidence.json?plan=care-se-stock-reservation"
+      },
+      "scopes": [
+        {
+          "scope": "care-se-stock-reservation/before",
+          "authored": "c208659ba8e044393a3cc3eb41df42d354c6d8ec82d3cec0e0b9fa9ee1b97d1f",
+          "derived": "4d70e7cba9bf0fff14d50ae309af0a488790be1569d4327dd0137454e898f71b",
+          "records": {
+            "total": 354395,
+            "loaded": 155,
+            "omitted": 354240
+          },
+          "indexedIdentities": 34448
+        },
+        {
+          "scope": "care-se-stock-reservation/after",
+          "authored": "2968f20967bdd13b20e7fe545f8e48b65cc4785a2809af0f426658136f210595",
+          "derived": "d49faad61a835e11613e74d2ce22faebff51aafdb9ebc2d336ac411235ecc832",
+          "records": {
+            "total": 354395,
+            "loaded": 155,
+            "omitted": 354240
+          },
+          "indexedIdentities": 34463
+        }
+      ]
+    },
+    {
+      "route": "/volvo-cars/plans/immutable-ids/plan.json",
+      "file": "route-c08cd133bba07b3c1c2f.json.gz",
+      "responseSha256": "a381f0308f1db636f9e4ffd03444f4d06576768117713ab3cb1c04c1cba95eb7",
+      "profile": {
+        "after": {
+          "loaded": 155,
+          "omitted": 354240,
+          "total": 354395
+        },
+        "before": {
+          "loaded": 155,
+          "omitted": 354240,
+          "total": 354395
+        },
+        "kind": "authored-evidence-closure",
+        "lookup": "../../evidence.json?plan=immutable-ids"
+      },
+      "scopes": [
+        {
+          "scope": "immutable-ids/before",
+          "authored": "503c8290bf92759050b1f0b95d05a2099350fa88d1cd170e26c7d9fad8dee687",
+          "derived": "9c4fee4daa5dc0d38e81dd30492c766df1243982d453e906b5dadba523be5f92",
+          "records": {
+            "total": 354395,
+            "loaded": 155,
+            "omitted": 354240
+          },
+          "indexedIdentities": 34443
+        },
+        {
+          "scope": "immutable-ids/after",
+          "authored": "eec685ae08cc760cb5c2794107f76c818c41fcd02d2d3bf9e83d710c3695ce33",
+          "derived": "baf080f9101e919de616ffb27e6a74309e968a83a41a8d5aa1880cfe1b47f015",
+          "records": {
+            "total": 354395,
+            "loaded": 155,
+            "omitted": 354240
+          },
+          "indexedIdentities": 34461
+        }
+      ]
+    },
+    {
+      "route": "/volvo-cars/plans/sourced-financing-terms/plan.json",
+      "file": "route-1e3ad0df28bfbf4f3c60.json.gz",
+      "responseSha256": "005a79f32d269a7a36a41d33ca8c02862ae95fb64c60bce5de8cbd1eaa47bf8c",
+      "profile": {
+        "after": {
+          "loaded": 155,
+          "omitted": 354240,
+          "total": 354395
+        },
+        "before": {
+          "loaded": 155,
+          "omitted": 354240,
+          "total": 354395
+        },
+        "kind": "authored-evidence-closure",
+        "lookup": "../../evidence.json?plan=sourced-financing-terms"
+      },
+      "scopes": [
+        {
+          "scope": "sourced-financing-terms/before",
+          "authored": "503c8290bf92759050b1f0b95d05a2099350fa88d1cd170e26c7d9fad8dee687",
+          "derived": "9c4fee4daa5dc0d38e81dd30492c766df1243982d453e906b5dadba523be5f92",
+          "records": {
+            "total": 354395,
+            "loaded": 155,
+            "omitted": 354240
+          },
+          "indexedIdentities": 34443
+        },
+        {
+          "scope": "sourced-financing-terms/after",
+          "authored": "1cc60f776b09a44768716bffb7d0651afe6e773cbd5b87979021a27e17c17f56",
+          "derived": "d447f52d36f39d55abc7709a89af38d1441bfdc3abfa0beacdc4897db2214cee",
+          "records": {
+            "total": 354395,
+            "loaded": 155,
+            "omitted": 354240
+          },
+          "indexedIdentities": 34557
+        }
+      ]
+    },
+    {
+      "route": "/volvo-cars/plans/unify-price-breakdown/plan.json",
+      "file": "route-ed3107d04b8c40a822c8.json.gz",
+      "responseSha256": "3867c183acf085f0ad4c00c5c34dc752318bef46f5da7f499dde10fe0466fa2c",
+      "profile": {
+        "after": {
+          "loaded": 155,
+          "omitted": 354240,
+          "total": 354395
+        },
+        "before": {
+          "loaded": 155,
+          "omitted": 354240,
+          "total": 354395
+        },
+        "kind": "authored-evidence-closure",
+        "lookup": "../../evidence.json?plan=unify-price-breakdown"
+      },
+      "scopes": [
+        {
+          "scope": "unify-price-breakdown/before",
+          "authored": "503c8290bf92759050b1f0b95d05a2099350fa88d1cd170e26c7d9fad8dee687",
+          "derived": "9c4fee4daa5dc0d38e81dd30492c766df1243982d453e906b5dadba523be5f92",
+          "records": {
+            "total": 354395,
+            "loaded": 155,
+            "omitted": 354240
+          },
+          "indexedIdentities": 34443
+        },
+        {
+          "scope": "unify-price-breakdown/after",
+          "authored": "2a0dbb8fd6493c406ab56a24aa8c1462cb8fb13250b58a2a16100d697a657a35",
+          "derived": "8060b7f6e17045d63d3a5a1db613841d6ace6380dfb9f6e68676fd78a3e3dc08",
+          "records": {
+            "total": 354395,
+            "loaded": 155,
+            "omitted": 354240
+          },
+          "indexedIdentities": 34458
+        }
+      ]
+    }
+  ]
+}

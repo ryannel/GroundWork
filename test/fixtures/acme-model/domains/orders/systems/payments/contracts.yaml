@@ -1,0 +1,29 @@
+interfaces:
+  - id: if:payments-rest
+    kind: rest
+    component: svc:payments
+    entries:
+      - id: api:payments-charge
+        sig: POST /charges
+        auth: service token
+        idempotent: true
+        errors:
+          - status: 402
+            when: 'The card is declined · Code: "declined"'
+        method: POST
+        path: /charges
+  - id: if:card-provider
+    kind: rest
+    transport: https
+    external: ext:card-provider
+    entries:
+      - id: api:card-charge
+        sig: POST /v1/charges
+        method: POST
+        path: /v1/charges
+schemas: []
+messages: []
+subscriptions: []
+jobs: []
+interactions: []
+operations: []

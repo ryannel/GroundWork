@@ -1,0 +1,507 @@
+- id: svc:card-provider
+  name: Card provider
+  does: Charges cards
+  proposed: null
+  reason: Legacy external does not distinguish a vendor from an unmapped company
+    system.
+  key: identity/svc:card-provider
+  fingerprint: 18e11f894b285a244c1233d6456db94eecd500e50646722552692814d43f3faf
+  status: accepted
+  kind: external
+  interpretation: Source boundary classification; not a claim about legal ownership.
+  summary: >-
+    Charges cards
+
+
+    Source classification: an external boundary. The workspace does not map its
+    implementation.
+  review_note: The source explicitly calls this external. The provider and
+    operator are not identified; retain the generic name and description.
+  acceptance_basis: User delegated reversible decisions overnight after
+    independent subagent review; 33-choice cross-review recorded in the handoff.
+- id: svc:identity-provider
+  name: Identity provider
+  does: Checks passwords
+  proposed: null
+  reason: Legacy external does not distinguish a vendor from an unmapped company
+    system.
+  key: identity/svc:identity-provider
+  fingerprint: 39ea2d2327b686e4cf5c680920a00be0120c907a81a45b59e653bbfba7efc27f
+  status: accepted
+  kind: external
+  interpretation: Source boundary classification; not a claim about legal ownership.
+  summary: >-
+    Checks passwords
+
+
+    Source classification: an external boundary. The workspace does not map its
+    implementation.
+  review_note: The source explicitly calls this external. The provider and
+    operator are not identified; retain the generic name and description.
+  acceptance_basis: User delegated reversible decisions overnight after
+    independent subagent review; 33-choice cross-review recorded in the handoff.
+- id: st:orders-db
+  owner: svc:order-api
+  reason: No cited executable component is established as the resource owner.
+  key: owner/st:orders-db
+  fingerprint: de6aeca7729833be003528e5e9be2631be9af762f62c864b18bddc979a7ad947
+  status: accepted
+  disposition: Unverified owner claim
+  proposed_owner: null
+  review_note: No resource-level implementation citation establishes this owner.
+    Keep containment, omit current ownership, and retain the complete original
+    claim here.
+  acceptance_basis: User delegated reversible decisions overnight after
+    independent subagent review; 33-choice cross-review recorded in the handoff.
+- id: st:products-db
+  owner: svc:products
+  reason: No cited executable component is established as the resource owner.
+  key: owner/st:products-db
+  fingerprint: 23f3ee739056e35cd3e433dfe0a9c1c7b31c4f9094a082f11f86114a0071648c
+  status: accepted
+  disposition: Unverified owner claim
+  proposed_owner: null
+  review_note: No resource-level implementation citation establishes this owner.
+    Keep containment, omit current ownership, and retain the complete original
+    claim here.
+  acceptance_basis: User delegated reversible decisions overnight after
+    independent subagent review; 33-choice cross-review recorded in the handoff.
+- id: st:search-index
+  owner: svc:search-indexer
+  reason: No cited executable component is established as the resource owner.
+  key: owner/st:search-index
+  fingerprint: 865ca629df25daee01b71be12d8ed29e75a77b5f8250d0030e8b02c71173bbb9
+  status: accepted
+  disposition: Unverified owner claim
+  proposed_owner: null
+  review_note: No resource-level implementation citation establishes this owner.
+    Keep containment, omit current ownership, and retain the complete original
+    claim here.
+  acceptance_basis: User delegated reversible decisions overnight after
+    independent subagent review; 33-choice cross-review recorded in the handoff.
+- id: top:order-events
+  owner: svc:order-api
+  reason: No cited executable component is established as the resource owner.
+  key: owner/top:order-events
+  fingerprint: ac887b2f26c25fa02b7cdfcdb4bd9b20c4b86d4c6b7f07f14686052e74132fd2
+  status: accepted
+  disposition: Unverified owner claim
+  proposed_owner: null
+  review_note: No resource-level implementation citation establishes this owner.
+    Keep containment, omit current ownership, and retain the complete original
+    claim here.
+  acceptance_basis: User delegated reversible decisions overnight after
+    independent subagent review; 33-choice cross-review recorded in the handoff.
+- edge:
+    from: svc:order-mailer
+    to: msg:order-placed
+    kind: consume
+    site: msg:order-placed
+    cites: []
+  reason: Missing citation or declared component source.
+  key: contract-edge/4617f6190818ae2d60658bf6a25c21f3aa64e6c0c019e39dd063495709f1a8a9
+  fingerprint: 4617f6190818ae2d60658bf6a25c21f3aa64e6c0c019e39dd063495709f1a8a9
+  status: accepted
+  disposition: Unverified source claim
+  connection: null
+  relationship: null
+  review_note: The source claim has no cited handler or contract backing. Retain
+    this full row and fingerprint as an explicit unresolved review record; do
+    not publish a current execution edge or declare the claim false.
+  acceptance_basis: User delegated reversible decisions overnight after
+    independent subagent review; 33-choice cross-review recorded in the handoff.
+- edge:
+    from: svc:search-api
+    to: st:search-index
+    kind: read
+    site: st:search-index
+    cites: []
+  reason: Missing citation or declared component source.
+  key: contract-edge/4f9b1d52ec8e889ef384a4bd951174cbdce3c75cdc6b5f817c6f80ce494303cf
+  fingerprint: 4f9b1d52ec8e889ef384a4bd951174cbdce3c75cdc6b5f817c6f80ce494303cf
+  status: accepted
+  disposition: Unverified source claim
+  connection: null
+  relationship: null
+  review_note: The source claim has no cited handler or contract backing. Retain
+    this full row and fingerprint as an explicit unresolved review record; do
+    not publish a current execution edge or declare the claim false.
+  acceptance_basis: User delegated reversible decisions overnight after
+    independent subagent review; 33-choice cross-review recorded in the handoff.
+- edge:
+    from: svc:products
+    to: msg:product-changed
+    kind: publish
+    site: msg:product-changed
+    cites: []
+  reason: Missing citation or declared component source.
+  key: contract-edge/5610c64960eff134f1cc96e115cd29dd4cd74fc7f445c37743396842e50c38a8
+  fingerprint: 5610c64960eff134f1cc96e115cd29dd4cd74fc7f445c37743396842e50c38a8
+  status: accepted
+  disposition: Unverified source claim
+  connection: null
+  relationship: null
+  review_note: The source claim has no cited handler or contract backing. Retain
+    this full row and fingerprint as an explicit unresolved review record; do
+    not publish a current execution edge or declare the claim false.
+  acceptance_basis: User delegated reversible decisions overnight after
+    independent subagent review; 33-choice cross-review recorded in the handoff.
+- edge:
+    from: svc:order-api
+    to: msg:order-placed
+    kind: publish
+    site: msg:order-placed
+    cites: []
+  reason: Missing citation or declared component source.
+  key: contract-edge/603e7b35ab563f313e99d2f6b1277930a66fd82b7c47c2298bd79217750bca42
+  fingerprint: 603e7b35ab563f313e99d2f6b1277930a66fd82b7c47c2298bd79217750bca42
+  status: accepted
+  disposition: Unverified source claim
+  connection: null
+  relationship: null
+  review_note: The source claim has no cited handler or contract backing. Retain
+    this full row and fingerprint as an explicit unresolved review record; do
+    not publish a current execution edge or declare the claim false.
+  acceptance_basis: User delegated reversible decisions overnight after
+    independent subagent review; 33-choice cross-review recorded in the handoff.
+- edge:
+    from: svc:search-indexer
+    to: msg:product-changed
+    kind: consume
+    site: msg:product-changed
+    cites: []
+  reason: Missing citation or declared component source.
+  key: contract-edge/9f7d492c71482baa3daa7a02d66f768b50befcedf5c50a20cac288c21a132c62
+  fingerprint: 9f7d492c71482baa3daa7a02d66f768b50befcedf5c50a20cac288c21a132c62
+  status: accepted
+  disposition: Unverified source claim
+  connection: null
+  relationship: null
+  review_note: The source claim has no cited handler or contract backing. Retain
+    this full row and fingerprint as an explicit unresolved review record; do
+    not publish a current execution edge or declare the claim false.
+  acceptance_basis: User delegated reversible decisions overnight after
+    independent subagent review; 33-choice cross-review recorded in the handoff.
+- from: app:order-desk
+  edge:
+    to: svc:order-api
+    via: api
+  evidence: []
+  reason: No cited handler or contract backing.
+  key: summary/app:order-desk/c9c0174bcd1caf51b93b3307da166567bbcfa76a5bf302914cfdac8255a02acd
+  fingerprint: c9c0174bcd1caf51b93b3307da166567bbcfa76a5bf302914cfdac8255a02acd
+  status: accepted
+  disposition: Unverified source claim
+  connection: null
+  relationship: null
+  review_note: The source claim has no cited handler or contract backing. Retain
+    this full row and fingerprint as an explicit unresolved review record; do
+    not publish a current execution edge or declare the claim false.
+  acceptance_basis: User delegated reversible decisions overnight after
+    independent subagent review; 33-choice cross-review recorded in the handoff.
+- from: app:product-admin
+  edge:
+    to: svc:products
+    via: api
+  evidence: []
+  reason: No cited handler or contract backing.
+  key: summary/app:product-admin/623e26780effe0c8a7c1d243fbc72a29487088b781518ba6fcdf2ef1485f4828
+  fingerprint: 623e26780effe0c8a7c1d243fbc72a29487088b781518ba6fcdf2ef1485f4828
+  status: accepted
+  disposition: Unverified source claim
+  connection: null
+  relationship: null
+  review_note: The source claim has no cited handler or contract backing. Retain
+    this full row and fingerprint as an explicit unresolved review record; do
+    not publish a current execution edge or declare the claim false.
+  acceptance_basis: User delegated reversible decisions overnight after
+    independent subagent review; 33-choice cross-review recorded in the handoff.
+- from: app:shop-web
+  edge:
+    to: svc:shop-bff
+    via: api
+  evidence: []
+  reason: No cited handler or contract backing.
+  key: summary/app:shop-web/b9f2d4ab84289e6990151efcca49a6f0a694f58264dbdfebdde2f71d4d49742e
+  fingerprint: b9f2d4ab84289e6990151efcca49a6f0a694f58264dbdfebdde2f71d4d49742e
+  status: accepted
+  disposition: Unverified source claim
+  connection: null
+  relationship: null
+  review_note: The source claim has no cited handler or contract backing. Retain
+    this full row and fingerprint as an explicit unresolved review record; do
+    not publish a current execution edge or declare the claim false.
+  acceptance_basis: User delegated reversible decisions overnight after
+    independent subagent review; 33-choice cross-review recorded in the handoff.
+- from: svc:accounts
+  edge:
+    to: ext:identity-provider
+    via: api
+  evidence: []
+  reason: No cited handler or contract backing.
+  key: summary/svc:accounts/6e06622d19b623b73bbbeb6911e115e7ebe4872d0ff3318fc10e6a0ee11ba748
+  fingerprint: 6e06622d19b623b73bbbeb6911e115e7ebe4872d0ff3318fc10e6a0ee11ba748
+  status: accepted
+  disposition: Unverified source claim
+  connection: null
+  relationship: null
+  review_note: The source claim has no cited handler or contract backing. Retain
+    this full row and fingerprint as an explicit unresolved review record; do
+    not publish a current execution edge or declare the claim false.
+  acceptance_basis: User delegated reversible decisions overnight after
+    independent subagent review; 33-choice cross-review recorded in the handoff.
+- from: svc:order-api
+  edge:
+    to: st:orders-db
+    via: data
+  evidence: []
+  reason: No cited handler or contract backing.
+  key: summary/svc:order-api/508a9f8a82c0355dce9085cf2e8a61b210edb86258456c48d54387e0a12d81c9
+  fingerprint: 508a9f8a82c0355dce9085cf2e8a61b210edb86258456c48d54387e0a12d81c9
+  status: accepted
+  disposition: Unverified source claim
+  connection: null
+  relationship: null
+  review_note: The source claim has no cited handler or contract backing. Retain
+    this full row and fingerprint as an explicit unresolved review record; do
+    not publish a current execution edge or declare the claim false.
+  acceptance_basis: User delegated reversible decisions overnight after
+    independent subagent review; 33-choice cross-review recorded in the handoff.
+- from: svc:order-api
+  edge:
+    to: top:order-events
+    via: message
+  evidence: []
+  reason: No cited handler or contract backing.
+  key: summary/svc:order-api/8a882002f7d79220e6636d950e4a8c7678a3d885700ae9e0ec02258f7baa0a70
+  fingerprint: 8a882002f7d79220e6636d950e4a8c7678a3d885700ae9e0ec02258f7baa0a70
+  status: accepted
+  disposition: Unverified source claim
+  connection: null
+  relationship: null
+  review_note: The source claim has no cited handler or contract backing. Retain
+    this full row and fingerprint as an explicit unresolved review record; do
+    not publish a current execution edge or declare the claim false.
+  acceptance_basis: User delegated reversible decisions overnight after
+    independent subagent review; 33-choice cross-review recorded in the handoff.
+- from: svc:order-api
+  edge:
+    to: svc:payments
+    via: api
+  evidence: []
+  reason: No cited handler or contract backing.
+  key: summary/svc:order-api/ddf750678ed68863f8b169668e331bcaadf785496de796067c9b17121229d7ac
+  fingerprint: ddf750678ed68863f8b169668e331bcaadf785496de796067c9b17121229d7ac
+  status: accepted
+  disposition: Unverified source claim
+  connection: null
+  relationship: null
+  review_note: The source claim has no cited handler or contract backing. Retain
+    this full row and fingerprint as an explicit unresolved review record; do
+    not publish a current execution edge or declare the claim false.
+  acceptance_basis: User delegated reversible decisions overnight after
+    independent subagent review; 33-choice cross-review recorded in the handoff.
+- from: svc:payments
+  edge:
+    to: ext:card-provider
+    via: api
+  evidence: []
+  reason: No cited handler or contract backing.
+  key: summary/svc:payments/3b2c5348e5459b4a2245a575926b17b371171b7638b33d6d69a0cc9e0722d7eb
+  fingerprint: 3b2c5348e5459b4a2245a575926b17b371171b7638b33d6d69a0cc9e0722d7eb
+  status: accepted
+  disposition: Unverified source claim
+  connection: null
+  relationship: null
+  review_note: The source claim has no cited handler or contract backing. Retain
+    this full row and fingerprint as an explicit unresolved review record; do
+    not publish a current execution edge or declare the claim false.
+  acceptance_basis: User delegated reversible decisions overnight after
+    independent subagent review; 33-choice cross-review recorded in the handoff.
+- from: svc:products
+  edge:
+    to: top:product-events
+    via: message
+  evidence: []
+  reason: No cited handler or contract backing.
+  key: summary/svc:products/73da0f6be563cabb71f0d633112e2ec4bcdf7d0954e11dcfc6aa7253518e8460
+  fingerprint: 73da0f6be563cabb71f0d633112e2ec4bcdf7d0954e11dcfc6aa7253518e8460
+  status: accepted
+  disposition: Unverified source claim
+  connection: null
+  relationship: null
+  review_note: The source claim has no cited handler or contract backing. Retain
+    this full row and fingerprint as an explicit unresolved review record; do
+    not publish a current execution edge or declare the claim false.
+  acceptance_basis: User delegated reversible decisions overnight after
+    independent subagent review; 33-choice cross-review recorded in the handoff.
+- from: svc:products
+  edge:
+    to: st:products-db
+    via: data
+  evidence: []
+  reason: No cited handler or contract backing.
+  key: summary/svc:products/9a8fef1fd236367c9eb2beb824b1eff1e6eba1e8a47ff4ebcbc2a18b51688e5d
+  fingerprint: 9a8fef1fd236367c9eb2beb824b1eff1e6eba1e8a47ff4ebcbc2a18b51688e5d
+  status: accepted
+  disposition: Unverified source claim
+  connection: null
+  relationship: null
+  review_note: The source claim has no cited handler or contract backing. Retain
+    this full row and fingerprint as an explicit unresolved review record; do
+    not publish a current execution edge or declare the claim false.
+  acceptance_basis: User delegated reversible decisions overnight after
+    independent subagent review; 33-choice cross-review recorded in the handoff.
+- from: svc:search-api
+  edge:
+    to: st:search-index
+    via: data
+  evidence: []
+  reason: No cited handler or contract backing.
+  key: summary/svc:search-api/4a85ff2cf5a5c084bd8a6ce2f676bf568620f29e31968c5d8534cf96e5f6df4a
+  fingerprint: 4a85ff2cf5a5c084bd8a6ce2f676bf568620f29e31968c5d8534cf96e5f6df4a
+  status: accepted
+  disposition: Unverified source claim
+  connection: null
+  relationship: null
+  review_note: The source claim has no cited handler or contract backing. Retain
+    this full row and fingerprint as an explicit unresolved review record; do
+    not publish a current execution edge or declare the claim false.
+  acceptance_basis: User delegated reversible decisions overnight after
+    independent subagent review; 33-choice cross-review recorded in the handoff.
+- from: svc:search-indexer
+  edge:
+    to: st:search-index
+    via: data
+  evidence: []
+  reason: No cited handler or contract backing.
+  key: summary/svc:search-indexer/4a85ff2cf5a5c084bd8a6ce2f676bf568620f29e31968c5d8534cf96e5f6df4a
+  fingerprint: 4a85ff2cf5a5c084bd8a6ce2f676bf568620f29e31968c5d8534cf96e5f6df4a
+  status: accepted
+  disposition: Unverified source claim
+  connection: null
+  relationship: null
+  review_note: The source claim has no cited handler or contract backing. Retain
+    this full row and fingerprint as an explicit unresolved review record; do
+    not publish a current execution edge or declare the claim false.
+  acceptance_basis: User delegated reversible decisions overnight after
+    independent subagent review; 33-choice cross-review recorded in the handoff.
+- from: svc:shop-bff
+  edge:
+    to: st:basket-cache
+    via: data
+  evidence: []
+  reason: No cited handler or contract backing.
+  key: summary/svc:shop-bff/2de758ff816346a1d73c689d1441deef4db0580ac9aea002ca51671bea9d938d
+  fingerprint: 2de758ff816346a1d73c689d1441deef4db0580ac9aea002ca51671bea9d938d
+  status: accepted
+  disposition: Unverified source claim
+  connection: null
+  relationship: null
+  review_note: The source claim has no cited handler or contract backing. Retain
+    this full row and fingerprint as an explicit unresolved review record; do
+    not publish a current execution edge or declare the claim false.
+  acceptance_basis: User delegated reversible decisions overnight after
+    independent subagent review; 33-choice cross-review recorded in the handoff.
+- from: svc:shop-bff
+  edge:
+    to: svc:search-api
+    via: api
+  evidence: []
+  reason: No cited handler or contract backing.
+  key: summary/svc:shop-bff/54474f0be93510263092fef4cbc0a9fed31af06377963e892ef8bbe4c2658d2b
+  fingerprint: 54474f0be93510263092fef4cbc0a9fed31af06377963e892ef8bbe4c2658d2b
+  status: accepted
+  disposition: Unverified source claim
+  connection: null
+  relationship: null
+  review_note: The source claim has no cited handler or contract backing. Retain
+    this full row and fingerprint as an explicit unresolved review record; do
+    not publish a current execution edge or declare the claim false.
+  acceptance_basis: User delegated reversible decisions overnight after
+    independent subagent review; 33-choice cross-review recorded in the handoff.
+- from: svc:shop-bff
+  edge:
+    to: svc:products
+    via: api
+  evidence: []
+  reason: No cited handler or contract backing.
+  key: summary/svc:shop-bff/623e26780effe0c8a7c1d243fbc72a29487088b781518ba6fcdf2ef1485f4828
+  fingerprint: 623e26780effe0c8a7c1d243fbc72a29487088b781518ba6fcdf2ef1485f4828
+  status: accepted
+  disposition: Unverified source claim
+  connection: null
+  relationship: null
+  review_note: The source claim has no cited handler or contract backing. Retain
+    this full row and fingerprint as an explicit unresolved review record; do
+    not publish a current execution edge or declare the claim false.
+  acceptance_basis: User delegated reversible decisions overnight after
+    independent subagent review; 33-choice cross-review recorded in the handoff.
+- from: svc:shop-bff
+  edge:
+    to: svc:order-api
+    via: api
+  evidence: []
+  reason: No cited handler or contract backing.
+  key: summary/svc:shop-bff/c9c0174bcd1caf51b93b3307da166567bbcfa76a5bf302914cfdac8255a02acd
+  fingerprint: c9c0174bcd1caf51b93b3307da166567bbcfa76a5bf302914cfdac8255a02acd
+  status: accepted
+  disposition: Unverified source claim
+  connection: null
+  relationship: null
+  review_note: The source claim has no cited handler or contract backing. Retain
+    this full row and fingerprint as an explicit unresolved review record; do
+    not publish a current execution edge or declare the claim false.
+  acceptance_basis: User delegated reversible decisions overnight after
+    independent subagent review; 33-choice cross-review recorded in the handoff.
+- from: svc:shop-bff
+  edge:
+    to: svc:accounts
+    via: api
+  evidence: []
+  reason: No cited handler or contract backing.
+  key: summary/svc:shop-bff/fbc875a751acba8993bc3ada531b91ab532245cb48ce9fd3973da93ac275e822
+  fingerprint: fbc875a751acba8993bc3ada531b91ab532245cb48ce9fd3973da93ac275e822
+  status: accepted
+  disposition: Unverified source claim
+  connection: null
+  relationship: null
+  review_note: The source claim has no cited handler or contract backing. Retain
+    this full row and fingerprint as an explicit unresolved review record; do
+    not publish a current execution edge or declare the claim false.
+  acceptance_basis: User delegated reversible decisions overnight after
+    independent subagent review; 33-choice cross-review recorded in the handoff.
+- from: top:order-events
+  edge:
+    to: svc:order-mailer
+    via: message
+  evidence: []
+  reason: No cited handler or contract backing.
+  key: summary/top:order-events/4c159bc5a29c0cf5abad71a8671e4e91df0ab0967673953329c6b7cc96e3e697
+  fingerprint: 4c159bc5a29c0cf5abad71a8671e4e91df0ab0967673953329c6b7cc96e3e697
+  status: accepted
+  disposition: Unverified source claim
+  connection: null
+  relationship: null
+  review_note: The source claim has no cited handler or contract backing. Retain
+    this full row and fingerprint as an explicit unresolved review record; do
+    not publish a current execution edge or declare the claim false.
+  acceptance_basis: User delegated reversible decisions overnight after
+    independent subagent review; 33-choice cross-review recorded in the handoff.
+- from: top:product-events
+  edge:
+    to: svc:search-indexer
+    via: message
+  evidence: []
+  reason: No cited handler or contract backing.
+  key: summary/top:product-events/c1f0cdfc32fe8f3f8971f3de20b820cae0ccba0c27141337c6ecb5ff2d9876a9
+  fingerprint: c1f0cdfc32fe8f3f8971f3de20b820cae0ccba0c27141337c6ecb5ff2d9876a9
+  status: accepted
+  disposition: Unverified source claim
+  connection: null
+  relationship: null
+  review_note: The source claim has no cited handler or contract backing. Retain
+    this full row and fingerprint as an explicit unresolved review record; do
+    not publish a current execution edge or declare the claim false.
+  acceptance_basis: User delegated reversible decisions overnight after
+    independent subagent review; 33-choice cross-review recorded in the handoff.

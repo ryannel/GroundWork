@@ -1,4 +1,5 @@
 import { apiSurface, surfaceAnchor, surfaceLabel } from '@/application/area-map/api-surface';
+import { areaBoundaryOf } from '@/application/area-map/boundaries';
 import { type CardRow, cardLayout } from '@/application/area-map/card-geometry';
 import {
   combinedConnectionSummary,
@@ -301,11 +302,14 @@ function crossSystemEdges(options: ProjectionOptions): readonly AreaRouted[] {
     ...endpointBoxes(options),
   ];
   const ids = new Set(boxes.map((box) => box.id));
-  const visible = view.technicalRelationships.filter(
-    (relation) =>
-      relation.fromSystem !== relation.toSystem &&
-      (expanded.has(relation.fromSystem) || expanded.has(relation.toSystem)),
-  );
+  const visible = view.technicalRelationships.filter((relation) => {
+    const hasVisibleBoundaryOrSystem =
+      expanded.has(relation.fromSystem) ||
+      expanded.has(relation.toSystem) ||
+      areaBoundaryOf(view, relation.fromSystem) !== undefined ||
+      areaBoundaryOf(view, relation.toSystem) !== undefined;
+    return relation.fromSystem !== relation.toSystem && hasVisibleBoundaryOrSystem;
+  });
   const replacedPairs = new Set(
     visible.map((relation) => pairKey(relation.fromSystem, relation.toSystem, relation.kind)),
   );

@@ -1,0 +1,80 @@
+{
+  "archive": ".workspaces/rebuild/pr8/area-audit/volvo-cars-facts-history",
+  "authoredSha256": "006cb5b84b6e5af430962308ea60c098627aa59fdf71668ce632d6f38a173721",
+  "result": [
+    {
+      "system": "assortment",
+      "rows": 75,
+      "records": 569,
+      "catalogueBeforeHtmlBytes": 173125,
+      "catalogueAfterHtmlBytes": 60226,
+      "narrativeTransportBytes": 31,
+      "closedNarrativeHtmlBytes": 0,
+      "allCatalogueHeadsInspected": true,
+      "inspectedCatalogueHeads": 75
+    },
+    {
+      "system": "price",
+      "rows": 27,
+      "records": 107,
+      "catalogueBeforeHtmlBytes": 57008,
+      "catalogueAfterHtmlBytes": 27072,
+      "narrativeTransportBytes": 98239,
+      "closedNarrativeHtmlBytes": 922,
+      "allCatalogueHeadsInspected": true,
+      "inspectedCatalogueHeads": 27
+    }
+  ],
+  "kind": "Focused section measurement; not a replacement for the mandatory production budget.",
+  "focusedTests": {
+    "passed": 30,
+    "files": 5,
+    "logSha256": "fa8d8953b7f47757a916b8c1d242c7cba259fecd8e807234f5065f9c2f8e7b5e"
+  },
+  "sourceSha256": {
+    "src/features/workspace/model-system-narratives.client.tsx": "da6b265c71f9e1cb88735ad61bc30636ce75b56b2b788353a45069a46838faba",
+    "src/features/workspace/model-system-content.tsx": "0fc4e1ae900d21f989911c0b3fbbffa354843e8a14fa2ec7a3f9fa8f98bdaffd",
+    "src/features/workspace/model-system-content.test.tsx": "3d67944ecb83ae0cbb141105d81d32d59d8873606212c31981167555d0cd54d3",
+    "src/features/workspace/catalogue-list.tsx": "954553db0f1845c83ef2af3993d6b50adf4244824b220e56528186fb650f7839",
+    "src/features/workspace/system-page.tsx": "11282a161057413c03bb383a015b398727368a9c0fae5bcf0593cd6225d5d5bb",
+    "src/app/[workspace]/[domain]/[system]/layout.tsx": "ec9e446d1d02b56b8d363f594417e8c073cc5638f8015b981d296b35fb059696"
+  },
+  "beforeResponses": [
+    {
+      "file": ".workspaces/rebuild/pr8/hotspots/5e1c6c106e3c3eba21c1.html",
+      "bytes": 1201093,
+      "sha256": "042a18f6ac6d578af4d9490e824c382948d0a6156df43a17a37c2bf03d36e507"
+    },
+    {
+      "file": ".workspaces/rebuild/pr8/hotspots/8ecf195240a05bfad1a7.html",
+      "bytes": 1206084,
+      "sha256": "e535c393dc0f91c2c0469ba87770519c9b17375d8836ec9034d7da17b6246e6e"
+    },
+    {
+      "file": ".workspaces/rebuild/pr8/hotspots/c0a2c7d58fd839dc87fe.html",
+      "bytes": 1174558,
+      "sha256": "6c475fa1966c6af5518a30ccea6c81f24d6729776046ff927ed2e874c2cd0d98"
+    }
+  ],
+  "fixtureCorrection": {
+    "reason": "Production build found missing required glyph/mono fields in synthetic ChipRef values. Complete explicit fields added; product rendering sources unchanged.",
+    "affectedTests": 4,
+    "files": 1,
+    "incrementalTypecheck": "passed",
+    "ownedLint": "passed",
+    "proofs": [
+      {
+        "file": "artifacts/rebuild/pr8/system-residual-fixture-tests.log",
+        "sha256": "d9844189c63212c80ee6ab523a701e82f073d9ef2aa3afc518c2fba10ab7fb3b"
+      },
+      {
+        "file": "artifacts/rebuild/pr8/system-residual-fixture-lint.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "file": "artifacts/rebuild/pr8/system-residual-fixture-typecheck.log",
+        "sha256": "747d08d6d2c34fffec7a286996418b2bc15b1bdfade7706f74ce32a1e95ade35"
+      }
+    ]
+  }
+}

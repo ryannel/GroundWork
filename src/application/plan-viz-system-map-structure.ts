@@ -12,8 +12,14 @@ export function structureMapInput(input: SystemMapInput): SystemMapInput {
     ]),
   );
   const owner = new Map(input.stores.map((resource) => [resource.id, resource.owner]));
-  const unitOf = (id: string): string => home.get(id) ?? home.get(owner.get(id) ?? '') ?? id;
-  const units = [...new Set(home.values())];
+  const unitOf = (id: string): string =>
+    input.placement?.[id] ?? home.get(id) ?? home.get(owner.get(id) ?? '') ?? id;
+  const units = [
+    ...new Set([
+      ...home.values(),
+      ...(input.placement === undefined ? [] : input.systems.map((system) => system.id)),
+    ]),
+  ];
   const relationships = input.edges.map((edge, index) => ({
     id: `structure:${String(index)}`,
     from: unitOf(edge.from),
@@ -30,7 +36,10 @@ export function structureMapInput(input: SystemMapInput): SystemMapInput {
     arrangement: 'structure',
     stages: [],
     stageOf: Object.fromEntries(
-      input.services.map((service) => [service.id, positions.get(unitOf(service.id)) ?? 0]),
+      [...input.services, ...(input.placement === undefined ? [] : input.systems)].map((node) => [
+        node.id,
+        positions.get(unitOf(node.id)) ?? 0,
+      ]),
     ),
   };
 }

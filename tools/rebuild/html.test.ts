@@ -1,7 +1,7 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import { htmlFields } from './html';
-import { captureRoute } from './route-response';
+import { capturedPageSize, captureRoute } from './route-response';
 import { writeSnapshot } from './snapshots';
 
 describe('capture trust boundaries', () => {
@@ -29,6 +29,55 @@ describe('capture trust boundaries', () => {
     );
     expect(fields.links).toEqual(['/probe/?a=1&b=2#here']);
     expect(fields.payload.text).toBe('Local Outside');
+  });
+
+  it('captures the visible facts around a large production payload without counting its hidden tags', () => {
+    const payload = `<!--${'<x data-inspect="api:hidden">α</x>'.repeat(100_000)}-->`;
+    const fields = htmlFields(
+      `<h1>Workspace</h1><script>${payload}</script><a href="/map/" data-inspect="api:visible">Map</a>`,
+      new URL('http://127.0.0.1:3000/'),
+    );
+    expect(fields).toEqual({
+      headings: ['Workspace'],
+      links: ['/map/'],
+      payload: { text: 'Workspace Map', inspectedIds: ['api:visible'] },
+    });
+  });
+
+  it('records the same inert response body it measures without a second fetch', async () => {
+    const body = '<h1>Measured once</h1>';
+    const fetch = vi
+      .spyOn(globalThis, 'fetch')
+      .mockResolvedValue(new Response(body, { headers: { 'content-type': 'text/html' } }));
+    const record = vi.fn<(body: string) => Promise<void>>().mockResolvedValue();
+    try {
+      const response = await captureRoute('http://127.0.0.1:3000', '/probe/', record);
+      expect(fetch).toHaveBeenCalledTimes(1);
+      expect(record).toHaveBeenCalledTimes(1);
+      expect(record).toHaveBeenCalledWith(body);
+      expect(response.htmlBytes).toBe(Buffer.byteLength(body));
+      expect(response.headings).toEqual(['Measured once']);
+    } finally {
+      fetch.mockRestore();
+    }
+  });
+
+  it('reuses actual query-selected HTML measurements and never substitutes missing or invalid sizes', () => {
+    expect(
+      capturedPageSize({ route: '/entries/?id=api:known', type: 'text/html', htmlBytes: 1025 }),
+    ).toEqual({
+      page: '/entries/?id=api:known',
+      bytes: 1025,
+    });
+    expect(
+      capturedPageSize({ route: '/model.json', type: 'application/json', htmlBytes: null }),
+    ).toBeNull();
+    for (const htmlBytes of [undefined, null, -1, Infinity, '0']) {
+      expect(() => capturedPageSize({ route: '/entries/', type: 'text/html', htmlBytes })).toThrow(
+        'valid HTML',
+      );
+    }
+    expect(() => capturedPageSize({})).toThrow('missing its address');
   });
 
   it('rejects remote origins and manifest routes that leave the local server before fetching', async () => {

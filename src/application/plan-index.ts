@@ -5,52 +5,17 @@ import type { Workspace } from '@/domain/workspace';
 import { componentHomes } from '@/domain/workspace-links';
 
 import type { PlanInput } from './plan-footprint';
+import { checkStateOf, type PlanRow, type PlanStage } from './plan-list';
 import { planHref } from './plan-pages';
+
+export { checkStateOf, STAGE_WORDS, type PlanRow } from './plan-list';
 
 // Every plan in a workspace as one row of the plans index, for finding one among hundreds: where it lands (the
 // domains its changes and work reach), how far it has come, and when it was written. Nothing here is authored.
 
-export type PlanStage = 'draft' | 'review' | 'approved' | 'delivery' | 'done';
-
-export const STAGE_WORDS: Readonly<Record<PlanStage, string>> = {
-  draft: 'Draft',
-  review: 'In review',
-  approved: 'Approved',
-  delivery: 'In delivery',
-  done: 'Delivered',
-};
-
-export interface PlanRow {
-  readonly id: string;
-  readonly title: string;
-  readonly href: string;
-  /** The problem in a line or two, as plain words. */
-  readonly summary: string;
-  readonly stage: PlanStage;
-  /** When it was written (YYYY-MM-DD), or null. */
-  readonly date: string | null;
-  /** The domains it lands in, by id as in the workspace (no `domain:` prefix). */
-  readonly domains: readonly string[];
-  readonly workItems: number;
-  readonly done: number;
-  /** The programme it joins, by id; null for a plan on its own. */
-  readonly programme: string | null;
-  /** Whether its check still speaks for it: never checked against today, edited since, or null when it does. */
-  readonly check: PlanCheckState;
-}
-
-export type PlanCheckState = 'never' | 'edited' | null;
-
 /** A plan for the index, with where its today comes from when it has been read onto one. */
 export interface PlanRowInput extends PlanInput {
   readonly base?: Pick<BaseInfo, 'mode' | 'checkedOn' | 'edited'>;
-}
-
-/** A plan pages trust is flagged when its check no longer speaks for what it says; a landed plan reads no live today. */
-export function checkStateOf(base: PlanRowInput['base']): PlanCheckState {
-  if (base?.mode !== 'live') return null;
-  if (base.checkedOn === null) return 'never';
-  return base.edited ? 'edited' : null;
 }
 
 function stageOf(model: Model, items: number, done: number): PlanStage {

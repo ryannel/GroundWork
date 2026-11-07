@@ -1,15 +1,14 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { planRowsOf } from '@/application/plan-index';
-import { workspaceNavOf } from '@/application/workspace-nav';
-import { programmesHref, workspaceHref } from '@/application/workspace-paths';
-import { landingOf, programmePageVM } from '@/application/workspace-work/programme-page';
-import { TodayOverlays, TodaySearch } from '@/features/plan';
-import { ProgrammePage, WorkspaceShell } from '@/features/workspace';
-import { todayData } from '@/infrastructure/today-data';
-import { readWorkspacePlanIndex } from '@/infrastructure/workspace-plan-index';
-import { readLoadedPlans } from '@/infrastructure/workspace-plans';
+import { modelProgrammeOf, modelWorkLabelsOf } from '@/application/model-workspace-work';
+import { programmeHref, programmesHref, workspaceHref } from '@/application/workspace-paths';
+import { ModelTodayOverlays, ModelProgrammePageView, TodaySearch } from '@/features/plan';
+import { WorkspaceShell } from '@/features/workspace';
+import { readCanonicalModelIndex } from '@/infrastructure/model-index';
+import { readModelWorkspaceNav } from '@/infrastructure/model-workspace-nav';
+import { readModelWorkspaceWork } from '@/infrastructure/model-workspace-work';
+import { firstParam, type SearchParams } from '@/shared/search-params';
 
 interface Params {
   readonly workspace: string;
@@ -22,42 +21,46 @@ export async function generateMetadata({
   readonly params: Promise<Params>;
 }): Promise<Metadata> {
   const { workspace, programme } = await params;
-  const index = await readWorkspacePlanIndex(workspace);
-  const found = index?.programmes.get(programme);
-  return found === undefined ? {} : { title: found.title };
+  const native = await readCanonicalModelIndex(workspace);
+  if (native === null) return {};
+  const page = modelProgrammeOf(native, programme, []);
+  return page === null ? {} : { title: page.programme.title };
 }
 
-export default async function ProgrammeRoute({ params }: { readonly params: Promise<Params> }) {
+export default async function ProgrammeRoute({
+  params,
+  searchParams,
+}: {
+  readonly params: Promise<Params>;
+  readonly searchParams: Promise<SearchParams>;
+}) {
   const { workspace: id, programme } = await params;
-  const [data, index] = await Promise.all([todayData(id), readWorkspacePlanIndex(id)]);
-  const page = index === null ? null : programmePageVM(index, programme);
-  if (data === null || page === null) notFound();
-  const { workspace, today, plans } = data;
-  const rows = planRowsOf(workspace, await readLoadedPlans(workspace.id));
-  const landing = landingOf(
-    workspace.id,
-    page.plans.map((p) => p.slug),
-    rows,
-    workspace.domains,
-  );
+  const native = await readCanonicalModelIndex(id);
+  if (native === null) notFound();
+  const entries = await readModelWorkspaceWork(id);
+  const query = await searchParams;
+  const page = modelProgrammeOf(native, programme, entries);
+  if (page === null) notFound();
   return (
     <WorkspaceShell
-      actions={<TodaySearch />}
-      nav={workspaceNavOf(
-        workspace,
-        plans,
-        { section: 'programmes', today: today.model },
-        data.programmes,
-      )}
-      overlays={<TodayOverlays depth={2} workspace={workspace} />}
+      workspace={native.model}
+      nav={await readModelWorkspaceNav(native, { section: 'programmes' })}
       title={page.programme.title}
+      actions={<TodaySearch />}
+      overlays={<ModelTodayOverlays index={native} depth={2} />}
       trail={[
         { label: 'Workspaces', href: '/' },
-        { label: workspace.name, href: workspaceHref(workspace.id) },
-        { label: 'Programmes', href: programmesHref(workspace.id) },
+        { label: native.model.name, href: workspaceHref(native.model.id) },
+        { label: 'Programmes', href: programmesHref(native.model.id) },
       ]}
     >
-      <ProgrammePage landing={landing} page={page} today={new Date()} />
+      <ModelProgrammePageView
+        page={page}
+        labels={modelWorkLabelsOf(native, entries, page)}
+        href={programmeHref(id, programme)}
+        selected={firstParam(query.plan)}
+        canInspect={(reference) => native.get(reference) !== null}
+      />
     </WorkspaceShell>
   );
 }

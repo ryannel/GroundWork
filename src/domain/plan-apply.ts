@@ -1,5 +1,5 @@
 // Plans edit a private clone of the same serialisable model; identity and placement stay explicit.
-import { resolveAlias, rootId, type Alias } from '@/domain/ids';
+import { hasPrefix, resolveAlias, rootId, type Alias } from '@/domain/ids';
 import { CITATION_SHAPES } from '@/domain/model/citations.generated';
 import type { ContractData } from '@/domain/model/contracts.generated';
 import { mapSourceCitations } from '@/domain/model-citations';
@@ -104,14 +104,17 @@ function assign(
     ),
   );
 }
-function requiredEntity(id: string, model: WorkspaceModel): ModelEntity {
+function resolvedId(id: string, model: WorkspaceModel): string | null {
   const aliases: Readonly<Record<string, Alias>> = Object.fromEntries(
     Object.entries(model.aliases).flatMap(([key, alias]) =>
       alias === undefined ? [] : [[key, alias]],
     ),
   );
-  const resolved = resolveAlias(id, aliases);
-  const matches = entitiesIn(model).filter((node) => node.id === resolved.id);
+  return resolveAlias(id, aliases).id;
+}
+function requiredEntity(id: string, model: WorkspaceModel): ModelEntity {
+  const target = resolvedId(id, model);
+  const matches = entitiesIn(model).filter((node) => node.id === target);
   if (matches.length !== 1) {
     throw new Error(
       `${id}: expected exactly one declared model entity, found ${String(matches.length)}.`,
@@ -361,15 +364,33 @@ function replacedCitations(op: ModelOp, model: WorkspaceModel): ReadonlySet<stri
   });
   return replaced;
 }
+function isEvidenceTarget(target: string, model: WorkspaceModel): boolean {
+  const id = resolvedId(target, model);
+  return id === model.id || hasPrefix(id, 'ev');
+}
+function targetsEvidence(op: ModelOp, model: WorkspaceModel): boolean {
+  if ('add' in op) return false;
+  if ('modify' in op) return isEvidenceTarget(op.modify, model);
+  if ('remove' in op) return isEvidenceTarget(op.remove, model);
+  return (
+    isEvidenceTarget(op.deprecate, model) ||
+    (op.replaced_by !== undefined && isEvidenceTarget(op.replaced_by, model))
+  );
+}
 /** Apply validated authored ops without changing the input. Validate the resulting contract at the file boundary. */
 export function apply(ops: readonly ModelOp[], model: WorkspaceModel): WorkspaceModel {
-  const next = structuredClone(model);
+  const { evidence, ...authored } = model;
+  const next = { ...structuredClone(authored), evidence };
   let problems: ModelGap[] = [...next.problems];
   const report = (gap: ModelGap): void => {
     problems.push(gap);
   };
   uniqueIdentities(next);
   for (const op of ops) {
+    // The evidence corpus stays shared unless an operation directly targets one of its records.
+    if (next.evidence === evidence && targetsEvidence(op, next)) {
+      next.evidence = structuredClone(evidence);
+    }
     const replaced = replacedCitations(op, next);
     problems = problems.filter((gap) => !replaced.has(`${gap.id}\n${gap.property ?? ''}`));
     applyOne(op, next, report);

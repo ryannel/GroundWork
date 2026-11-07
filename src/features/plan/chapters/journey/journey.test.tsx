@@ -19,9 +19,9 @@ vi.mock(import('server-only'), () => ({}));
 
 // The walk reads the plan in the browser; here it is handed the model the page was built from.
 const held = vi.hoisted(() => ({ model: Promise.resolve<Model | null>(null) }));
-vi.mock(import('@/features/plan/plan-model'), async (original) => ({
+vi.mock(import('@/features/plan/legacy-plan-model'), async (original) => ({
   ...(await original()),
-  pendingModel: () => ({ model: held.model }),
+  pendingLegacyModel: () => ({ model: held.model }),
 }));
 
 const PLANS: Readonly<Record<string, () => Plan>> = {

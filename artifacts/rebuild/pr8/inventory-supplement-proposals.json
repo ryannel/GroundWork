@@ -1,0 +1,2356 @@
+{
+  "format": 1,
+  "original": {
+    "file": "artifacts/rebuild/pr8/original-candidates.json",
+    "sha256": "8bb91071c6ae2e9168573f6d20d496cc8551e3e3ee626c3b06d64371d69f17c2",
+    "rows": 1697
+  },
+  "dispositions": [
+    {
+      "file": "src/application/entry-flow-library.ts",
+      "sourceSha256": "53536010aac355af087e37d02585c48630ff676b81f7589fb046ceb0d85909fe",
+      "role": "consumer",
+      "reason": "Builds the workspace card from native model counts and entry facts.",
+      "evidence": [
+        {
+          "file": "src/application/entry-flow-library.ts",
+          "line": 43,
+          "text": "export function modelWorkspaceCardOf("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-current-views.md",
+          "sha256": "c084814b586def71c6315696813e97c754a00e8bdd1c7ee764491e4d560c6c36"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/entry-flow-page.ts",
+      "sourceSha256": "0129f3e4f60a93aaeca4550e0e6b9c0a9687c52b23165a7029343769583b5dab",
+      "role": "consumer",
+      "reason": "Selects the actual current or proposed entry view from the native index.",
+      "evidence": [
+        {
+          "file": "src/application/entry-flow-page.ts",
+          "line": 76,
+          "text": "export function entryFlowPageOf("
+        },
+        {
+          "file": "src/application/entry-flow-page.ts",
+          "line": 71,
+          "text": "export function entryFlowPlanId(query: SearchParams): string | null {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-current-views.md",
+          "sha256": "c084814b586def71c6315696813e97c754a00e8bdd1c7ee764491e4d560c6c36"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/entry-flow.ts",
+      "sourceSha256": "ed570407cee3537f55492520febfa7883524512a7f050977ac3986e19bbf9ed5",
+      "role": "consumer",
+      "reason": "Projects canonical entry execution and cited backing to the node view.",
+      "evidence": [
+        {
+          "file": "src/application/entry-flow.ts",
+          "line": 200,
+          "text": "export function entryFlowOf("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-current-views.md",
+          "sha256": "c084814b586def71c6315696813e97c754a00e8bdd1c7ee764491e4d560c6c36"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/model-plan-index.ts",
+      "sourceSha256": "3af89afc850a810d8f2db5b0992def891d7d757fa6b57b0ccb1bb6098c7b179d",
+      "role": "consumer",
+      "reason": "Builds plan rows from the canonical index and authored plan data.",
+      "evidence": [
+        {
+          "file": "src/application/model-plan-index.ts",
+          "line": 27,
+          "text": "export function modelPlanRowsOf("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-plan-cutover.md",
+          "sha256": "1365e27dcf1b64c5a8408922dcc39fb4da1c92cb4ff3b106f825c8cd5a87f49f"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/plan-story.ts",
+      "sourceSha256": "29dc1bbe1cb207fc2eac0c03d211f17dc96726e4b673eaa94546cb7dfb1f2e98",
+      "role": "consumer",
+      "reason": "Checks story references against the actual before and after native indexes.",
+      "evidence": [
+        {
+          "file": "src/application/plan-story.ts",
+          "line": 41,
+          "text": "export function planStoryProblems("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-plan-cutover.md",
+          "sha256": "1365e27dcf1b64c5a8408922dcc39fb4da1c92cb4ff3b106f825c8cd5a87f49f"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/plans-index.ts",
+      "sourceSha256": "a45f49738ba896c4b5f53ee4a5bcd585b04a72663d16663af1b4ac920f1cf253",
+      "role": "consumer",
+      "reason": "Applies selected canonical plan and ancestor overlays to real model facts.",
+      "evidence": [
+        {
+          "file": "src/application/plans-index.ts",
+          "line": 137,
+          "text": "export function inheritedPlanOrder("
+        },
+        {
+          "file": "src/application/plans-index.ts",
+          "line": 68,
+          "text": "export function operationTarget("
+        },
+        {
+          "file": "src/application/plans-index.ts",
+          "line": 109,
+          "text": "export function plansIndex("
+        },
+        {
+          "file": "src/application/plans-index.ts",
+          "line": 183,
+          "text": "export function selectedPlanProjection("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-plan-cutover.md",
+          "sha256": "1365e27dcf1b64c5a8408922dcc39fb4da1c92cb4ff3b106f825c8cd5a87f49f"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/domain/model-citations.ts",
+      "sourceSha256": "051030cc9bac7703d2ac2e754bd912d00a868bf29f7cc0b8c9469593ed7aa480",
+      "role": "consumer",
+      "reason": "Resolves canonical citation links to authored source metadata.",
+      "evidence": [
+        {
+          "file": "src/domain/model-citations.ts",
+          "line": 142,
+          "text": "export function mapSourceCitations("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/reader/volvo-transport.json",
+          "sha256": "18e8a402ecaf57e4282324fca72f8c38419711a93fd46e820f71f0a9820b53b9"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/domain/model-cite-resolution.ts",
+      "sourceSha256": "0fa3efb8af4bc41c07874191dfd574587cb6cc33df867ae56e2e2d6ce27afe56",
+      "role": "consumer",
+      "reason": "Reads canonical evidence and code references to build cited links.",
+      "evidence": [
+        {
+          "file": "src/domain/model-cite-resolution.ts",
+          "line": 235,
+          "text": "export function codeCitationResolver("
+        },
+        {
+          "file": "src/domain/model-cite-resolution.ts",
+          "line": 191,
+          "text": "export function resolveModelCitations("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/reader/volvo-transport.json",
+          "sha256": "18e8a402ecaf57e4282324fca72f8c38419711a93fd46e820f71f0a9820b53b9"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/domain/plan-apply.ts",
+      "sourceSha256": "6a744caa07fce3b052f1b807422e4c982facb60882bfc8319c417e87ea6d9f54",
+      "role": "consumer",
+      "reason": "Projects an authored native plan as operations on the canonical workspace.",
+      "evidence": [
+        {
+          "file": "src/domain/plan-apply.ts",
+          "line": 381,
+          "text": "export function apply(ops: readonly ModelOp[], model: WorkspaceModel): WorkspaceModel {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-plan-cutover.md",
+          "sha256": "1365e27dcf1b64c5a8408922dcc39fb4da1c92cb4ff3b106f825c8cd5a87f49f"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/domain/workspace-model.ts",
+      "sourceSha256": "750262f3afb2e4a2cbdeb68cc2b8c44ebbf765a24d0dee20d8c08b91b78806f7",
+      "role": "consumer",
+      "reason": "Enumerates the actual canonical facts and validates structural values.",
+      "evidence": [
+        {
+          "file": "src/domain/workspace-model.ts",
+          "line": 471,
+          "text": "export function entitiesIn(model: WorkspaceModel): readonly ModelEntity[] {"
+        },
+        {
+          "file": "src/domain/workspace-model.ts",
+          "line": 302,
+          "text": "export function modelList(value: unknown): readonly unknown[] {"
+        },
+        {
+          "file": "src/domain/workspace-model.ts",
+          "line": 299,
+          "text": "export function modelRecord(value: unknown): Readonly<Record<string, unknown>> | null {"
+        },
+        {
+          "file": "src/domain/workspace-model.ts",
+          "line": 305,
+          "text": "export function modelText(value: unknown): string | null {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/reader/volvo-transport.json",
+          "sha256": "18e8a402ecaf57e4282324fca72f8c38419711a93fd46e820f71f0a9820b53b9"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/features/plan/inspector/native-inspection-extras.tsx",
+      "sourceSha256": "13ebfdf761b54759a93324c9271cdbfbaa965c80406b871c7311f6addcc0deed",
+      "role": "consumer",
+      "reason": "Renders the selected canonical inspector details and links.",
+      "evidence": [
+        {
+          "file": "src/features/plan/inspector/native-inspection-extras.tsx",
+          "line": 11,
+          "text": "export function NativeInspectionExtras({"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/inspection-handoff.md",
+          "sha256": "bfa1179dd36b207a3709bb76e9d74caeb1449aa217045a19a386fe01b8778fdb"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/features/plan/inspector/native-thing.client.tsx",
+      "sourceSha256": "f352a5c1d2f0c879e463995e7d942d93eb6afc180740d90382ef15e563ea00fd",
+      "role": "consumer",
+      "reason": "Loads and renders the requested canonical fact and plan scope in the browser.",
+      "evidence": [
+        {
+          "file": "src/features/plan/inspector/native-thing.client.tsx",
+          "line": 271,
+          "text": "export function NativeThingLoader({ id, reader }: Omit<NativeThingProps, 'head'>) {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/inspection-handoff.md",
+          "sha256": "bfa1179dd36b207a3709bb76e9d74caeb1449aa217045a19a386fe01b8778fdb"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/features/plan/model-plan-progress.tsx",
+      "sourceSha256": "2b65713f7de0722f38870030c168086f10ceaeeaf57f90b87e17f9784fdc0502",
+      "role": "consumer",
+      "reason": "Renders selected native plan work and independent progress events.",
+      "evidence": [
+        {
+          "file": "src/features/plan/model-plan-progress.tsx",
+          "line": 237,
+          "text": "export function ModelPlanPart({"
+        },
+        {
+          "file": "src/features/plan/model-plan-progress.tsx",
+          "line": 56,
+          "text": "export function ModelPlanProgressFeed({"
+        },
+        {
+          "file": "src/features/plan/model-plan-progress.tsx",
+          "line": 169,
+          "text": "export function ModelPlanWork({"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-plan-cutover.md",
+          "sha256": "1365e27dcf1b64c5a8408922dcc39fb4da1c92cb4ff3b106f825c8cd5a87f49f"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/features/plan/model-plan-record.tsx",
+      "sourceSha256": "2528097d5e557a1c4d193b6728533f127c95ac509a31f2b117c21c0ecc87cf2e",
+      "role": "consumer",
+      "reason": "Renders authored native records with selected model references.",
+      "evidence": [
+        {
+          "file": "src/features/plan/model-plan-record.tsx",
+          "line": 16,
+          "text": "export function modelPlanItems("
+        },
+        {
+          "file": "src/features/plan/model-plan-record.tsx",
+          "line": 128,
+          "text": "export function ModelPlanRecordDetail({"
+        },
+        {
+          "file": "src/features/plan/model-plan-record.tsx",
+          "line": 49,
+          "text": "export function ModelPlanText({"
+        },
+        {
+          "file": "src/features/plan/model-plan-record.tsx",
+          "line": 79,
+          "text": "export function ModelPlanValue({"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-plan-cutover.md",
+          "sha256": "1365e27dcf1b64c5a8408922dcc39fb4da1c92cb4ff3b106f825c8cd5a87f49f"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/features/plan/palette.client.tsx",
+      "sourceSha256": "7ac05d03903513d8b3b87ad636099f67772c6b1d9ee0063707d22d54cffbb72c",
+      "role": "consumer",
+      "reason": "Queries the supplied native model and renders search choices.",
+      "evidence": [
+        {
+          "file": "src/features/plan/palette.client.tsx",
+          "line": 209,
+          "text": "export function Palette({ src, screens, today = false, trigger = true }: PaletteProps) {"
+        },
+        {
+          "file": "src/features/plan/palette.client.tsx",
+          "line": 20,
+          "text": "export const PALETTE_EVENT = 'plan:palette';"
+        },
+        {
+          "file": "src/features/plan/palette.client.tsx",
+          "line": 194,
+          "text": "export function PaletteButton() {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/inspection-handoff.md",
+          "sha256": "bfa1179dd36b207a3709bb76e9d74caeb1449aa217045a19a386fe01b8778fdb"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/features/plan/plan-model.ts",
+      "sourceSha256": "2c05eb3b4a48a560fb9d908ae9b93febcce99ed0e577e80c7fd7db877e6eb87f",
+      "role": "consumer",
+      "reason": "Loads the native JSON payload and supplies its indexed browser context.",
+      "evidence": [
+        {
+          "file": "src/features/plan/plan-model.ts",
+          "line": 45,
+          "text": "export const pendingNativeModel = modelRequestOf((value) =>"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/reader/volvo-transport.json",
+          "sha256": "18e8a402ecaf57e4282324fca72f8c38419711a93fd46e820f71f0a9820b53b9"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/features/plan/today/model-today-thing.tsx",
+      "sourceSha256": "ce414e9685480eec0140f8c93c7c8cd68b10f4ff1cf85daf578eeea34492cd86",
+      "role": "consumer",
+      "reason": "Renders the selected current canonical thing from its bounded native record.",
+      "evidence": [
+        {
+          "file": "src/features/plan/today/model-today-thing.tsx",
+          "line": 20,
+          "text": "export function ModelTodayThing({"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/inspection-handoff.md",
+          "sha256": "bfa1179dd36b207a3709bb76e9d74caeb1449aa217045a19a386fe01b8778fdb"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/features/plan/tray/changes-ahead.client.tsx",
+      "sourceSha256": "e5240bf9c91d0c4e7b8363ba4be1a0fac0a2d6bdb0caf3d7007d3a3523e1e781",
+      "role": "consumer",
+      "reason": "Selects actual plan changes through the native browser context.",
+      "evidence": [
+        {
+          "file": "src/features/plan/tray/changes-ahead.client.tsx",
+          "line": 142,
+          "text": "export function ChangesAhead({ src, plan, here }: ChangesAheadProps) {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-plan-cutover.md",
+          "sha256": "1365e27dcf1b64c5a8408922dcc39fb4da1c92cb4ff3b106f825c8cd5a87f49f"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/features/workspace/model-system-content.tsx",
+      "sourceSha256": "df2899970baacbfb451cf018d7177e733e50f556fae4543f1c46e8f7aa905dc8",
+      "role": "consumer",
+      "reason": "Renders the canonical system overview and selected plan summaries.",
+      "evidence": [
+        {
+          "file": "src/features/workspace/model-system-content.tsx",
+          "line": 114,
+          "text": "export function ModelSystemOverview({"
+        },
+        {
+          "file": "src/features/workspace/model-system-content.tsx",
+          "line": 152,
+          "text": "export function ModelSystemPlans({ plans }: { readonly plans: Plans }) {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-system-handoff.md",
+          "sha256": "828cc57add7a95c45e211ffc5b039f5f8727328318f00d16a38c2bd8f7301009"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/infrastructure/canonical-model.ts",
+      "sourceSha256": "8247a0acfe27f90bb3e8368cb00d9cf2ad197ef32d15b9dc6fce055c01a707fd",
+      "role": "consumer",
+      "reason": "Reads the selected canonical model through the registry boundary.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/canonical-model.ts",
+          "line": 12,
+          "text": "export async function readModelIfCanonical("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/infrastructure/model-plan-rows.ts",
+      "sourceSha256": "9190e99a0625c2623ffa5f9199891f81325da8616eb0c9c781816df424649967",
+      "role": "consumer",
+      "reason": "Reads canonical plan summaries from the selected model and authored plan metadata.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/model-plan-rows.ts",
+          "line": 14,
+          "text": "export async function readModelPlanRows("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-plan-cutover.md",
+          "sha256": "1365e27dcf1b64c5a8408922dcc39fb4da1c92cb4ff3b106f825c8cd5a87f49f"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/infrastructure/read-model.ts",
+      "sourceSha256": "d1751732b5d475a6f77a41bc122c912b731280928014486d7ea890f434612dbe",
+      "role": "consumer",
+      "reason": "Loads actual canonical workspace documents through the authoritative schema and model index inputs.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/read-model.ts",
+          "line": 379,
+          "text": "export async function readModel(id: string, root?: string): Promise<WorkspaceModel | null> {"
+        },
+        {
+          "file": "src/infrastructure/read-model.ts",
+          "line": 389,
+          "text": "export async function readModelFolder(folder: string, id: string): Promise<WorkspaceModel> {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/reader/volvo-transport.json",
+          "sha256": "18e8a402ecaf57e4282324fca72f8c38419711a93fd46e820f71f0a9820b53b9"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/infrastructure/validate-model.ts",
+      "sourceSha256": "9889309e44988a0ada78de2b3c9f8e08282e25cf562c5463afd69ae963f22fb7",
+      "role": "consumer",
+      "reason": "Checks canonical current facts, evidence and proposed plan projections.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/validate-model.ts",
+          "line": 249,
+          "text": "export async function validateModel(model: WorkspaceModel): Promise<readonly ModelProblem[]> {"
+        },
+        {
+          "file": "src/infrastructure/validate-model.ts",
+          "line": 332,
+          "text": "export async function validatePlanProjections("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/infrastructure/workspace-library.ts",
+      "sourceSha256": "2c46dbe0b6290e8d924eba29c9ffc8f3befd854052f7f9b9112e6dad95ac251e",
+      "role": "consumer",
+      "reason": "Reads registry metadata and canonical workspace counts for the library.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/workspace-library.ts",
+          "line": 11,
+          "text": "export async function readWorkspaceLibrary(): Promise<Library> {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/infrastructure/workspace-library.test.ts",
+          "sha256": "4d010d3641573954a6ec9f71ddbfaf6971dd91c47590e84447837f808836aabd"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "tools/rebuild/model-facts.ts",
+      "sourceSha256": "fa6ca407a4fccb4f0a0dcd71cb787b709ed18cda6e51bbce104f2173e9f222dc",
+      "role": "consumer",
+      "reason": "Writes a native fact capture and separate evidence and plan shards.",
+      "evidence": [
+        {
+          "file": "tools/rebuild/model-facts.ts",
+          "line": 226,
+          "text": "export function factChecksums(value: unknown): ReadonlyMap<string, string> {"
+        },
+        {
+          "file": "tools/rebuild/model-facts.ts",
+          "line": 162,
+          "text": "export async function writeModelFacts("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/area-and-facts/handoff.md",
+          "sha256": "be9c0438f5598d14f3ec09c679e9f342aff6e8f99a74910942c6d54867e7d575"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "tools/rebuild/model-routes.ts",
+      "sourceSha256": "b9eb4904c56a865b9298559c929ecef0913f2aca2b52820af7ebab66daab9191",
+      "role": "consumer",
+      "reason": "Selects current canonical route addresses from the index and native plan metadata.",
+      "evidence": [
+        {
+          "file": "tools/rebuild/model-routes.ts",
+          "line": 79,
+          "text": "export function selectedModelRoutes("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/area-and-facts/handoff.md",
+          "sha256": "be9c0438f5598d14f3ec09c679e9f342aff6e8f99a74910942c6d54867e7d575"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/workspace-landscape-areas.ts",
+      "sourceSha256": "9f1a525f881ec63838a58b6338f0e3fa189fc9ee8d9d524fa8c6e81b0db5cd91",
+      "role": "support",
+      "reason": "Builds the bounded area drawing from supplied landscape data.",
+      "evidence": [
+        {
+          "file": "src/application/workspace-landscape-areas.ts",
+          "line": 254,
+          "text": "export function areaLandscapeOf("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-current-views.md",
+          "sha256": "c084814b586def71c6315696813e97c754a00e8bdd1c7ee764491e4d560c6c36"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ]
+    },
+    {
+      "file": "src/features/plan/today/target-flow.client.tsx",
+      "sourceSha256": "b9d31fa481abcd3846b88e60f3c30384154083c216e089e2b9b520b5647d5ca9",
+      "role": "support",
+      "reason": "Renders the supplied native target stage drawing and selection controls.",
+      "evidence": [
+        {
+          "file": "src/features/plan/today/target-flow.client.tsx",
+          "line": 122,
+          "text": "export function TargetFlowView({ flow }: { readonly flow: TargetFlow }) {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-current-views.md",
+          "sha256": "c084814b586def71c6315696813e97c754a00e8bdd1c7ee764491e4d560c6c36"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ]
+    },
+    {
+      "file": "src/infrastructure/model-plan-lock.ts",
+      "sourceSha256": "d085b911586e3e9e72e77520adc603e71c761c1c822cb0d279ac010dd23a698b",
+      "role": "support",
+      "reason": "Builds and checks canonical lock metadata for selected plan facts.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/model-plan-lock.ts",
+          "line": 72,
+          "text": "export function modelPlanCheckOf("
+        },
+        {
+          "file": "src/infrastructure/model-plan-lock.ts",
+          "line": 28,
+          "text": "export function modelPlanLockOf("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/reader/additive-lifecycle.json",
+          "sha256": "616ce0e62ff59096275e33f9e346df006c24d4ced4f105e5e49ad58bf802fccd"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ]
+    },
+    {
+      "file": "src/infrastructure/plan-lock.ts",
+      "sourceSha256": "aa9315cb7a4a6baa8094b599f4c7d3cb0e0db53475126e0c819d9fccc01ccc04",
+      "role": "support",
+      "reason": "Reads stored lock bytes and the lock format without projecting workspace facts.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/plan-lock.ts",
+          "line": 10,
+          "text": "export const NATIVE_PLAN_LOCK_FORMAT = 'groundwork-model-lock/v1';"
+        },
+        {
+          "file": "src/infrastructure/plan-lock.ts",
+          "line": 33,
+          "text": "export async function readPlanLock("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/reader/additive-lifecycle.json",
+          "sha256": "616ce0e62ff59096275e33f9e346df006c24d4ced4f105e5e49ad58bf802fccd"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ]
+    },
+    {
+      "file": "tools/explorer-parity.ts",
+      "sourceSha256": "3fae12830213e62bc17f30f006187fbc3579166ec8ced460a33193e568ca494a",
+      "role": "support",
+      "reason": "Compares retained explorer proof inventories and recorded replacement identities.",
+      "evidence": [
+        {
+          "file": "tools/explorer-parity.ts",
+          "line": 149,
+          "text": "export async function writeExplorerParity(): Promise<void> {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8-cutover-handoff.md",
+          "sha256": "507eabff8ad9d76f190305aa29eb29c06132858b4de273eae08570584202896a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ]
+    },
+    {
+      "file": "tools/rebuild/fact-lineage.ts",
+      "sourceSha256": "96a87774ae49ef0e00b2b986d50961262c83e82a908d7f59971940ccdb89052d",
+      "role": "support",
+      "reason": "Compares immutable snapshot facts with the canonical index for the offline lineage proof.",
+      "evidence": [
+        {
+          "file": "tools/rebuild/fact-lineage.ts",
+          "line": 58,
+          "text": "export function citationLineage(frozen: unknown, index: ModelIndex): readonly FactLineageRow[] {"
+        },
+        {
+          "file": "tools/rebuild/lineage.ts",
+          "line": 18,
+          "text": "const citations = citationLineage(frozen, index);"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/area-and-facts/handoff.md",
+          "sha256": "be9c0438f5598d14f3ec09c679e9f342aff6e8f99a74910942c6d54867e7d575"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ]
+    },
+    {
+      "file": "tools/model-plan-base.ts",
+      "sourceSha256": "28ab731683cb53497a705596bea404efb49b40589d18a25f597b8a77dacd9f93",
+      "role": "consumer",
+      "reason": "Checks and lands the selected native plan, preserving the frozen canonical base and old lock history.",
+      "evidence": [
+        {
+          "file": "tools/model-plan-base.ts",
+          "line": 108,
+          "text": "export async function runModelPlanBase("
+        },
+        {
+          "file": "tools/model-plan-base.ts",
+          "line": 108,
+          "text": "export async function runModelPlanBase("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/reader/additive-lifecycle.json",
+          "sha256": "616ce0e62ff59096275e33f9e346df006c24d4ced4f105e5e49ad58bf802fccd"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "tools/rebuild/acme.ts",
+      "sourceSha256": "e8604085ac5890d1890111e3ba5b6103915e2eb533a4e3af683b2f6d763b44f0",
+      "role": "support",
+      "reason": "Copies the pinned canonical Acme fixture to an explicitly chosen new output folder for proof.",
+      "evidence": [
+        {
+          "file": "tools/rebuild/acme.ts",
+          "line": 9,
+          "text": "await cp(new URL('../../test/fixtures/acme-model/', import.meta.url), values.out, {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "test/fixtures/acme-model/workspace.yaml",
+          "sha256": "e947c761b5c0d3195b5b27f600e17d4a360f488ffc1bb5ec25b34175c494af0d"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ]
+    },
+    {
+      "file": "tools/runtime-service-fixture.ts",
+      "sourceSha256": "f8c79d1daf3af7071a8345d519ca319c286fe038ab37519d88822f8375d1b799",
+      "role": "support",
+      "reason": "Provides synthetic records to scanner tests without reading a registered workspace.",
+      "evidence": [
+        {
+          "file": "tools/runtime-service-fixture.ts",
+          "line": 120,
+          "text": "export function syntheticServiceRecords("
+        },
+        {
+          "file": "tools/endpoint-correspondence.test.ts",
+          "line": 14,
+          "text": "import { syntheticServiceRecords } from './runtime-service-fixture';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "tools/endpoint-correspondence.test.ts",
+          "sha256": "466c13413e7365054ad8710f5af7caf46c61992a6b21d55fe1c1a547d683ae7e"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ]
+    },
+    {
+      "file": "tools/validate-knowledge.ts",
+      "sourceSha256": "5b27a5082b00fa8aec73e8404ade17577dde0a534353bf208ed78e8bfa470eff",
+      "role": "producer",
+      "reason": "Validates an explicitly supplied old knowledge bundle and can write a requested snapshot. Retain until the old bundle retirement proof.",
+      "evidence": [
+        {
+          "file": "tools/validate-knowledge.ts",
+          "line": 4,
+          "text": "const result = await validateKnowledgeFiles(validationOptions(process.argv.slice(2)));"
+        },
+        {
+          "file": "tools/knowledge-validation.ts",
+          "line": 50,
+          "text": "await writeFile(options.writeSnapshot, `${JSON.stringify(manifest, null, 2)}\\n`, {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/infrastructure/service-explorer-navigation.ts",
+      "sourceSha256": "85dba809220f3d05ddaac1a49250fdc162b1084f23bf9b9d21749cf4d4cdce56",
+      "role": "retirement",
+      "reason": "The retained navigation loader is now referenced by the old system fixture test, which proves the canonical system view does not call it.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/service-explorer-navigation.ts",
+          "line": 12,
+          "text": "export async function readExplorerNavigation("
+        },
+        {
+          "file": "src/app/[workspace]/[domain]/[system]/page.test.tsx",
+          "line": 84,
+          "text": "expect(todayData).not.toHaveBeenCalled();"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-system-handoff.md",
+          "sha256": "828cc57add7a95c45e211ffc5b039f5f8727328318f00d16a38c2bd8f7301009"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/application/plan-viz-waterfall-view.ts",
+      "sourceSha256": "61c899a499576a37840182e40d7d2188d07ac91da22f108501e33ae445e28402",
+      "role": "retirement",
+      "reason": "Retains the prior plan, drawing or workspace contract for the old readers and fixture tests. Preserve any independently imported types until the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/plan-viz-waterfall-view.ts",
+          "line": 1,
+          "text": "import type { FetchChange } from '@/application/plan-viz-waterfall-compare';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/inventory-active-roots.md",
+          "sha256": "91114ee104569ea33aa3bf1c81a64d303ed91339b755b6e52fcd5881c8c700ad"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/application/plan/delivery-work.ts",
+      "sourceSha256": "6fc68a9b61bc840c85cdb5073be17324c9f99c73d9d2beb10fb67d1ed45653dc",
+      "role": "retirement",
+      "reason": "Retains the prior plan, drawing or workspace contract for the old readers and fixture tests. Preserve any independently imported types until the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/plan/delivery-work.ts",
+          "line": 3,
+          "text": "import type { DeliveryState } from '@/application/plan/delivery';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/inventory-active-roots.md",
+          "sha256": "91114ee104569ea33aa3bf1c81a64d303ed91339b755b6e52fcd5881c8c700ad"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/application/plan/derive-edge-types.ts",
+      "sourceSha256": "ea22ef594a203bd98d84fe02cd32b8ff5a1ce86aa0bdcd149bb2a65a872c1542",
+      "role": "retirement",
+      "reason": "Retains the prior plan, drawing or workspace contract for the old readers and fixture tests. Preserve any independently imported types until the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/plan/derive-edge-types.ts",
+          "line": 1,
+          "text": "import type { ElementStatus } from '@/application/plan/derive-core';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/inventory-active-roots.md",
+          "sha256": "91114ee104569ea33aa3bf1c81a64d303ed91339b755b6e52fcd5881c8c700ad"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/application/plan/federation-plan-types.ts",
+      "sourceSha256": "61c57bc68f3ae08a29cd407689f483d00da751318720b6ad2fc1411a1cd3fc07",
+      "role": "retirement",
+      "reason": "Retains the prior plan, drawing or workspace contract for the old readers and fixture tests. Preserve any independently imported types until the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/plan/federation-plan-types.ts",
+          "line": 1,
+          "text": "import type { Variable } from '@/application/plan/federation-parse';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/inventory-active-roots.md",
+          "sha256": "91114ee104569ea33aa3bf1c81a64d303ed91339b755b6e52fcd5881c8c700ad"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/application/plan/federation-sdl.ts",
+      "sourceSha256": "3022cbb5344fb5bacdea157bd0f9eed0ac823e005c3c10da8a12f371057e95dd",
+      "role": "retirement",
+      "reason": "Retains the prior plan, drawing or workspace contract for the old readers and fixture tests. Preserve any independently imported types until the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/plan/federation-sdl.ts",
+          "line": 1,
+          "text": "import { graphIndex, type GraphIndex } from '@/application/plan/federation-index';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/inventory-active-roots.md",
+          "sha256": "91114ee104569ea33aa3bf1c81a64d303ed91339b755b6e52fcd5881c8c700ad"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/application/plan/plan-diff-markdown.ts",
+      "sourceSha256": "77d491f5c112efa8bb5b75872a2852e19277d5a41c588109b7f0acef8d861409",
+      "role": "retirement",
+      "reason": "Retains the prior plan, drawing or workspace contract for the old readers and fixture tests. Preserve any independently imported types until the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/plan/plan-diff-markdown.ts",
+          "line": 3,
+          "text": "import { objects } from '@/application/plan/derive-values';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/inventory-active-roots.md",
+          "sha256": "91114ee104569ea33aa3bf1c81a64d303ed91339b755b6e52fcd5881c8c700ad"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/application/plan/revision-types.ts",
+      "sourceSha256": "6d103559244dfe2d17e1a994ffe81f0092ddbdfdd48a43108a76bbf619bec0fa",
+      "role": "retirement",
+      "reason": "Retains the prior plan, drawing or workspace contract for the old readers and fixture tests. Preserve any independently imported types until the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/plan/revision-types.ts",
+          "line": 1,
+          "text": "import type { PlanDiff } from '@/application/plan/plan-diff-core';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/inventory-active-roots.md",
+          "sha256": "91114ee104569ea33aa3bf1c81a64d303ed91339b755b6e52fcd5881c8c700ad"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/application/workspace-work/milestones.ts",
+      "sourceSha256": "cb1663ce9d90a17b35598719e1ff87b1188b6599176932dc4d25657303f20404",
+      "role": "retirement",
+      "reason": "Retains the prior plan, drawing or workspace contract for the old readers and fixture tests. Preserve any independently imported types until the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/workspace-work/milestones.ts",
+          "line": 1,
+          "text": "import { gapDays, rollUpCommitment, type CommitmentState } from '@/application/plan/work-standing';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/inventory-active-roots.md",
+          "sha256": "91114ee104569ea33aa3bf1c81a64d303ed91339b755b6e52fcd5881c8c700ad"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/domain/plan/plan-graph.ts",
+      "sourceSha256": "d6a47af1038030fa25a81ba3147e24d50253c705ec63158211383cff29f34d20",
+      "role": "retirement",
+      "reason": "Retains the prior plan, drawing or workspace contract for the old readers and fixture tests. Preserve any independently imported types until the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/domain/plan/plan-graph.ts",
+          "line": 1,
+          "text": "import type { EntityType, PathSegment } from '@/domain/plan/plan-ids';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/inventory-active-roots.md",
+          "sha256": "91114ee104569ea33aa3bf1c81a64d303ed91339b755b6e52fcd5881c8c700ad"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/features/plan/chapters/chapter-kit.ts",
+      "sourceSha256": "a89bf0043b287d69073ad52207a219c3ac2ecc573090ef8b9e19ae474033c0be",
+      "role": "retirement",
+      "reason": "Retains the prior plan, drawing or workspace contract for the old readers and fixture tests. Preserve any independently imported types until the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/features/plan/chapters/chapter-kit.ts",
+          "line": 1,
+          "text": "import type { Model } from '@/application/plan/derive';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/inventory-active-roots.md",
+          "sha256": "91114ee104569ea33aa3bf1c81a64d303ed91339b755b6e52fcd5881c8c700ad"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/features/plan/today/today-evidence.tsx",
+      "sourceSha256": "d89f49e92c1b1a9d043c02e43679a13cb7a9f9748f910cae78193de29e81f1d2",
+      "role": "retirement",
+      "reason": "Retains the prior plan, drawing or workspace contract for the old readers and fixture tests. Preserve any independently imported types until the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/features/plan/today/today-evidence.tsx",
+          "line": 1,
+          "text": "import type { Model } from '@/application/plan/derive';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/inventory-active-roots.md",
+          "sha256": "91114ee104569ea33aa3bf1c81a64d303ed91339b755b6e52fcd5881c8c700ad"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/features/plan/today/today-wayfinding.tsx",
+      "sourceSha256": "2e71874d2873e2499cf40b424bebb201061a83c4b1fa3ece6a21f3317e193e64",
+      "role": "retirement",
+      "reason": "Retains the prior plan, drawing or workspace contract for the old readers and fixture tests. Preserve any independently imported types until the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/features/plan/today/today-wayfinding.tsx",
+          "line": 1,
+          "text": "import Link from 'next/link';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/inventory-active-roots.md",
+          "sha256": "91114ee104569ea33aa3bf1c81a64d303ed91339b755b6e52fcd5881c8c700ad"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/features/plan/viz/sequence/seq-env.ts",
+      "sourceSha256": "d1d86029dc53081aa0fd5550a1ad05cfbf90594b5ed0dc6a08e9b4affc4bc43c",
+      "role": "retirement",
+      "reason": "Retains the prior plan, drawing or workspace contract for the old readers and fixture tests. Preserve any independently imported types until the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/features/plan/viz/sequence/seq-env.ts",
+          "line": 1,
+          "text": "import type { ReactNode } from 'react';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/inventory-active-roots.md",
+          "sha256": "91114ee104569ea33aa3bf1c81a64d303ed91339b755b6e52fcd5881c8c700ad"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/infrastructure/workspace-landscape.ts",
+      "sourceSha256": "98b580da69268cb0af0a498a8ce86a0e6c1784dc59ae319ee33c9997d55bc437",
+      "role": "retirement",
+      "reason": "Retains the prior plan, drawing or workspace contract for the old readers and fixture tests. Preserve any independently imported types until the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/workspace-landscape.ts",
+          "line": 1,
+          "text": "import 'server-only';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/inventory-active-roots.md",
+          "sha256": "91114ee104569ea33aa3bf1c81a64d303ed91339b755b6e52fcd5881c8c700ad"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/domain/scan/discovery-check.ts",
+      "sourceSha256": "ca5497b9237e09620f9fdc20f7488e4f3b5d66a2b0c6cf84c0522d31bf75ad5e",
+      "role": "retirement",
+      "reason": "Keeps the explicit old discovery or interpretation contract used by scan and proof commands until the PR 10 schema removal proof.",
+      "evidence": [
+        {
+          "file": "src/domain/scan/discovery-check.ts",
+          "line": 31,
+          "text": "export function assessDiscovery("
+        },
+        {
+          "file": "src/domain/scan/discovery-check.ts",
+          "line": 10,
+          "text": "export function discoveryErrors(document: ScanDiscovery, input: DiscoveryInput): readonly string[] {"
+        },
+        {
+          "file": "src/domain/scan/discovery-check.ts",
+          "line": 1,
+          "text": "import { discoveryBehaviourErrors } from './discovery-behaviours';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/domain/scan/discovery-review-types.ts",
+      "sourceSha256": "1ea22649644825a21af49ce27d9b3b2d843d22dea7dc7de55ecad2bc0d28b973",
+      "role": "retirement",
+      "reason": "Keeps the explicit old discovery or interpretation contract used by scan and proof commands until the PR 10 schema removal proof.",
+      "evidence": [
+        {
+          "file": "src/domain/scan/discovery-review-types.ts",
+          "line": 1,
+          "text": "import type { DiscoveryAssessment } from './discovery-types';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/domain/scan/discovery-types.ts",
+      "sourceSha256": "bc4c16be2c8474299dc229f42bb0f73e5fedd8cc9a41f1ef68919c14fc03cebf",
+      "role": "retirement",
+      "reason": "Keeps the explicit old discovery or interpretation contract used by scan and proof commands until the PR 10 schema removal proof.",
+      "evidence": [
+        {
+          "file": "src/domain/scan/discovery-types.ts",
+          "line": 1,
+          "text": "import type { DiscoveryEvidence } from './discovery.generated';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/domain/scan/discovery.generated.ts",
+      "sourceSha256": "ebe2da41206ca8121faa9440bff19b7ec4250307fb8323ef37726d29de1e139b",
+      "role": "retirement",
+      "reason": "Keeps the explicit old discovery or interpretation contract used by scan and proof commands until the PR 10 schema removal proof.",
+      "evidence": [
+        {
+          "file": "src/domain/scan/discovery.generated.ts",
+          "line": 1,
+          "text": "/* Generated from schema/scan-discovery.schema.json. Run node tools/scan-discovery-types.ts. */"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/domain/scan/interpretation-query.ts",
+      "sourceSha256": "d41032e27a1c468387ceb3d6cca3bea278e4ff3dcc1649d7cf99a41d5fa03bb1",
+      "role": "retirement",
+      "reason": "Keeps the explicit old discovery or interpretation contract used by scan and proof commands until the PR 10 schema removal proof.",
+      "evidence": [
+        {
+          "file": "src/domain/scan/interpretation-query.ts",
+          "line": 4,
+          "text": "export function interpretationClaims("
+        },
+        {
+          "file": "src/domain/scan/interpretation-query.ts",
+          "line": 1,
+          "text": "import type { Claim, ScanInterpretation } from './interpretation.generated';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/domain/scan/interpretation.generated.ts",
+      "sourceSha256": "7d446f5210e2459022d37f9876bc6f593564871604e151453de0379161855592",
+      "role": "retirement",
+      "reason": "Keeps the explicit old discovery or interpretation contract used by scan and proof commands until the PR 10 schema removal proof.",
+      "evidence": [
+        {
+          "file": "src/domain/scan/interpretation.generated.ts",
+          "line": 1,
+          "text": "/* Generated from schema/scan-interpretation.schema.json. Run node tools/scan-interpretation-types.ts. */"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/infrastructure/scan/interpretation-format.ts",
+      "sourceSha256": "7fc47844c5abd694878c90bf83dd362da2b36e66a888a3452fb0bb9b7514c74b",
+      "role": "retirement",
+      "reason": "Keeps the explicit old discovery or interpretation contract used by scan and proof commands until the PR 10 schema removal proof.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/scan/interpretation-format.ts",
+          "line": 31,
+          "text": "export function interpretationDigest(bytes: string): string {"
+        },
+        {
+          "file": "src/infrastructure/scan/interpretation-format.ts",
+          "line": 61,
+          "text": "export async function interpretationValidator("
+        },
+        {
+          "file": "src/infrastructure/scan/interpretation-format.ts",
+          "line": 1,
+          "text": "import 'server-only';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/domain/scan/check-scan-event-bindings.ts",
+      "sourceSha256": "5de969da40c94db886fb0e1af174aaa919e7d6dd546c511c51a8cc373be3c18f",
+      "role": "support",
+      "reason": "Supplies source-analysis types or checks to the scanner from the supplied evidence inputs.",
+      "evidence": [
+        {
+          "file": "src/domain/scan/check-scan-event-bindings.ts",
+          "line": 228,
+          "text": "export function eventBindingErrors("
+        },
+        {
+          "file": "src/domain/scan/check-scan-event-bindings.ts",
+          "line": 16,
+          "text": "export function eventBindingSources(record: EventRecord): readonly string[] {"
+        },
+        {
+          "file": "src/domain/scan/check-scan-event-bindings.ts",
+          "line": 8,
+          "text": "export function isEventBinding(record: BindingRecord): record is EventRecord {"
+        },
+        {
+          "file": "src/domain/scan/check-scan-event-bindings.ts",
+          "line": 8,
+          "text": "export function isEventBinding(record: BindingRecord): record is EventRecord {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ]
+    },
+    {
+      "file": "src/domain/scan/rescan-preflight.ts",
+      "sourceSha256": "fdbd9b6f8c2c2f6e456ec90eb5a3d34073997c3c5dab35a54a08647bff9ba7e2",
+      "role": "support",
+      "reason": "Supplies source-analysis types or checks to the scanner from the supplied evidence inputs.",
+      "evidence": [
+        {
+          "file": "src/domain/scan/rescan-preflight.ts",
+          "line": 99,
+          "text": "export function rescanTreeSummary(files: readonly RescanTreeFile[]): {"
+        },
+        {
+          "file": "src/domain/scan/rescan-preflight.ts",
+          "line": 2,
+          "text": "export interface RescanTreeFile {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ]
+    },
+    {
+      "file": "src/domain/scan/scan.generated.ts",
+      "sourceSha256": "938a2fb19ba629a09038831e7e34f9cd6309b0f2f63c72dc057a4d4aec725cb0",
+      "role": "support",
+      "reason": "Supplies source-analysis types or checks to the scanner from the supplied evidence inputs.",
+      "evidence": [
+        {
+          "file": "src/domain/scan/scan.generated.ts",
+          "line": 1,
+          "text": "/* Generated from schema/scan.schema.json. Run node tools/generate-scan-types.ts. */"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ]
+    },
+    {
+      "file": "src/infrastructure/scan/source-index-types.ts",
+      "sourceSha256": "c31931c628a87976c47944fadd6ca65dde3e05a4b3638826880214e2fed73324",
+      "role": "support",
+      "reason": "Supplies source-analysis types or checks to the scanner from the supplied evidence inputs.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/scan/source-index-types.ts",
+          "line": 4,
+          "text": "export type SyntaxFields = Readonly<Record<string, readonly (readonly [number, number])[]>>;"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ]
+    },
+    {
+      "file": "src/infrastructure/scan/spring-consumer-types.ts",
+      "sourceSha256": "3ca61f7ab7949979e8ec08981a8d409064f2ed6de62c62ecd106673e3e644688",
+      "role": "support",
+      "reason": "Supplies source-analysis types or checks to the scanner from the supplied evidence inputs.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/scan/spring-consumer-types.ts",
+          "line": 4,
+          "text": "export interface ConsumerBinding {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ]
+    },
+    {
+      "file": "tools/migrate-model/catalogues.ts",
+      "sourceSha256": "9a1f921a757e63db45ff74ed1542742da53d4c0feca8790509a8ec8df5e9b88e",
+      "role": "support",
+      "reason": "Supports the isolated deterministic migration command. Its reviewed inputs and separate output folder form a migration proof rather than a registered workspace reader.",
+      "evidence": [
+        {
+          "file": "tools/migrate-model/catalogues.ts",
+          "line": 243,
+          "text": "export function migrateCatalogues("
+        },
+        {
+          "file": "tools/migrate-model/catalogues.ts",
+          "line": 16,
+          "text": "export interface CatalogueFile {"
+        },
+        {
+          "file": "tools/migrate-model/runner.ts",
+          "line": 38,
+          "text": "if (within(source, out) || within(source, report)) {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr6-handoff.md",
+          "sha256": "5ceea1c9194d020c679483d8d08ae55a6b5c6f1fc4514a4485c3fbd81e5b42dc"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ]
+    },
+    {
+      "file": "tools/migrate-model/citations.ts",
+      "sourceSha256": "7a199ae657e6e555a6905710086856b0a469023f2dab1956603daede19eb4fa1",
+      "role": "support",
+      "reason": "Supports the isolated deterministic migration command. Its reviewed inputs and separate output folder form a migration proof rather than a registered workspace reader.",
+      "evidence": [
+        {
+          "file": "tools/migrate-model/citations.ts",
+          "line": 113,
+          "text": "export function codeReference("
+        },
+        {
+          "file": "tools/migrate-model/citations.ts",
+          "line": 100,
+          "text": "export function convertCitations(value: unknown, citations: MigrationCitations): unknown {"
+        },
+        {
+          "file": "tools/migrate-model/citations.ts",
+          "line": 45,
+          "text": "export function migrationCitations("
+        },
+        {
+          "file": "tools/migrate-model/citations.ts",
+          "line": 12,
+          "text": "export interface MigrationCitations {"
+        },
+        {
+          "file": "tools/migrate-model/runner.ts",
+          "line": 38,
+          "text": "if (within(source, out) || within(source, report)) {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr6-handoff.md",
+          "sha256": "5ceea1c9194d020c679483d8d08ae55a6b5c6f1fc4514a4485c3fbd81e5b42dc"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ]
+    },
+    {
+      "file": "tools/migrate-model/components.ts",
+      "sourceSha256": "a6bc1eb6d3dd59319bc0493aa859a5aeac6f77e93700a19503c5cdff59c32961",
+      "role": "support",
+      "reason": "Supports the isolated deterministic migration command. Its reviewed inputs and separate output folder form a migration proof rather than a registered workspace reader.",
+      "evidence": [
+        {
+          "file": "tools/migrate-model/components.ts",
+          "line": 18,
+          "text": "export function detailIndex("
+        },
+        {
+          "file": "tools/migrate-model/components.ts",
+          "line": 145,
+          "text": "export function identityRecord("
+        },
+        {
+          "file": "tools/migrate-model/components.ts",
+          "line": 105,
+          "text": "export function migrateComponent("
+        },
+        {
+          "file": "tools/migrate-model/components.ts",
+          "line": 18,
+          "text": "export function detailIndex("
+        },
+        {
+          "file": "tools/migrate-model/runner.ts",
+          "line": 38,
+          "text": "if (within(source, out) || within(source, report)) {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr6-handoff.md",
+          "sha256": "5ceea1c9194d020c679483d8d08ae55a6b5c6f1fc4514a4485c3fbd81e5b42dc"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ]
+    },
+    {
+      "file": "tools/migrate-model/contracts.ts",
+      "sourceSha256": "8c53201416e8787b55b4c28ad6224c57d76af16f159e50aa23f0abed6df1351a",
+      "role": "support",
+      "reason": "Supports the isolated deterministic migration command. Its reviewed inputs and separate output folder form a migration proof rather than a registered workspace reader.",
+      "evidence": [
+        {
+          "file": "tools/migrate-model/contracts.ts",
+          "line": 85,
+          "text": "export function entryOf(value: unknown, kind: unknown, review: MigrationReview): Node {"
+        },
+        {
+          "file": "tools/migrate-model/contracts.ts",
+          "line": 70,
+          "text": "export function errorOf(value: unknown): Node {"
+        },
+        {
+          "file": "tools/migrate-model/contracts.ts",
+          "line": 56,
+          "text": "export function fieldsOf(values: readonly unknown[]): readonly Node[] {"
+        },
+        {
+          "file": "tools/migrate-model/contracts.ts",
+          "line": 113,
+          "text": "export function migrateContracts(input: unknown, context: ContractContext): Node {"
+        },
+        {
+          "file": "tools/migrate-model/contracts.ts",
+          "line": 152,
+          "text": "export function migrateScreens("
+        },
+        {
+          "file": "tools/migrate-model/contracts.ts",
+          "line": 79,
+          "text": "export function restShapeOf(value: unknown): Node {"
+        },
+        {
+          "file": "tools/migrate-model/contracts.ts",
+          "line": 177,
+          "text": "export function subscriptionOf(handler: Node, cites: readonly unknown[]): Node | null {"
+        },
+        {
+          "file": "tools/migrate-model/contracts.ts",
+          "line": 9,
+          "text": "export interface ContractContext {"
+        },
+        {
+          "file": "tools/migrate-model/runner.ts",
+          "line": 38,
+          "text": "if (within(source, out) || within(source, report)) {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr6-handoff.md",
+          "sha256": "5ceea1c9194d020c679483d8d08ae55a6b5c6f1fc4514a4485c3fbd81e5b42dc"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ]
+    },
+    {
+      "file": "tools/migrate-model/edges.ts",
+      "sourceSha256": "8b48fe843bf35e5a9dacd0425fc02a1bd79ad4b79beaa09036fe7dfd2c6347cc",
+      "role": "support",
+      "reason": "Supports the isolated deterministic migration command. Its reviewed inputs and separate output folder form a migration proof rather than a registered workspace reader.",
+      "evidence": [
+        {
+          "file": "tools/migrate-model/edges.ts",
+          "line": 292,
+          "text": "export function reconcileEdges("
+        },
+        {
+          "file": "tools/migrate-model/edges.ts",
+          "line": 292,
+          "text": "export function reconcileEdges("
+        },
+        {
+          "file": "tools/migrate-model/runner.ts",
+          "line": 38,
+          "text": "if (within(source, out) || within(source, report)) {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr6-handoff.md",
+          "sha256": "5ceea1c9194d020c679483d8d08ae55a6b5c6f1fc4514a4485c3fbd81e5b42dc"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ]
+    },
+    {
+      "file": "tools/migrate-model/evidence.ts",
+      "sourceSha256": "555adc03a42bf866fdbea9c0e5b3df2c15d1cc60d89ea8d322a45566965c45fb",
+      "role": "support",
+      "reason": "Supports the isolated deterministic migration command. Its reviewed inputs and separate output folder form a migration proof rather than a registered workspace reader.",
+      "evidence": [
+        {
+          "file": "tools/migrate-model/evidence.ts",
+          "line": 231,
+          "text": "export async function migrateEvidence("
+        },
+        {
+          "file": "tools/migrate-model/evidence.ts",
+          "line": 231,
+          "text": "export async function migrateEvidence("
+        },
+        {
+          "file": "tools/migrate-model/runner.ts",
+          "line": 38,
+          "text": "if (within(source, out) || within(source, report)) {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr6-handoff.md",
+          "sha256": "5ceea1c9194d020c679483d8d08ae55a6b5c6f1fc4514a4485c3fbd81e5b42dc"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ]
+    },
+    {
+      "file": "tools/migrate-model/files.ts",
+      "sourceSha256": "9f938ea17f0148f81c9bd4870a574f71fadae8510242af99b0b2c5ff3bd5fe88",
+      "role": "support",
+      "reason": "Supports the isolated deterministic migration command. Its reviewed inputs and separate output folder form a migration proof rather than a registered workspace reader.",
+      "evidence": [
+        {
+          "file": "tools/migrate-model/files.ts",
+          "line": 16,
+          "text": "export async function authoredFiles(folder: string): Promise<readonly MigrationFile[]> {"
+        },
+        {
+          "file": "tools/migrate-model/files.ts",
+          "line": 44,
+          "text": "export function rewriteDocument("
+        },
+        {
+          "file": "tools/migrate-model/files.ts",
+          "line": 115,
+          "text": "export async function writeMigrationFile("
+        },
+        {
+          "file": "tools/migrate-model/files.ts",
+          "line": 127,
+          "text": "export async function writeReviews("
+        },
+        {
+          "file": "tools/migrate-model/files.ts",
+          "line": 11,
+          "text": "export interface MigrationFile {"
+        },
+        {
+          "file": "tools/migrate-model/runner.ts",
+          "line": 38,
+          "text": "if (within(source, out) || within(source, report)) {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr6-handoff.md",
+          "sha256": "5ceea1c9194d020c679483d8d08ae55a6b5c6f1fc4514a4485c3fbd81e5b42dc"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ]
+    },
+    {
+      "file": "tools/migrate-model/graphql.ts",
+      "sourceSha256": "1a010d4d6cb33136a2c946bfe3db5c51e3fefd641b866d51750606efc7eb2e96",
+      "role": "support",
+      "reason": "Supports the isolated deterministic migration command. Its reviewed inputs and separate output folder form a migration proof rather than a registered workspace reader.",
+      "evidence": [
+        {
+          "file": "tools/migrate-model/graphql.ts",
+          "line": 84,
+          "text": "export function migrateOperation(input: unknown, review: MigrationReview): MigratedOperation {"
+        },
+        {
+          "file": "tools/migrate-model/graphql.ts",
+          "line": 9,
+          "text": "export interface MigratedOperation {"
+        },
+        {
+          "file": "tools/migrate-model/runner.ts",
+          "line": 38,
+          "text": "if (within(source, out) || within(source, report)) {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr6-handoff.md",
+          "sha256": "5ceea1c9194d020c679483d8d08ae55a6b5c6f1fc4514a4485c3fbd81e5b42dc"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ]
+    },
+    {
+      "file": "tools/migrate-model/identities.ts",
+      "sourceSha256": "caff4fb0b54364a50dcd766593fa3ddd927a77e244862d63f9fe46f67a830972",
+      "role": "support",
+      "reason": "Supports the isolated deterministic migration command. Its reviewed inputs and separate output folder form a migration proof rather than a registered workspace reader.",
+      "evidence": [
+        {
+          "file": "tools/migrate-model/identities.ts",
+          "line": 232,
+          "text": "export function migrationIdentities("
+        },
+        {
+          "file": "tools/migrate-model/identities.ts",
+          "line": 279,
+          "text": "export function migrationJobIdentities(files: readonly MigrationFile[]): {"
+        },
+        {
+          "file": "tools/migrate-model/identities.ts",
+          "line": 19,
+          "text": "export interface MigrationIdentities {"
+        },
+        {
+          "file": "tools/migrate-model/runner.ts",
+          "line": 38,
+          "text": "if (within(source, out) || within(source, report)) {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr6-handoff.md",
+          "sha256": "5ceea1c9194d020c679483d8d08ae55a6b5c6f1fc4514a4485c3fbd81e5b42dc"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ]
+    },
+    {
+      "file": "tools/migrate-model/identity-merges.ts",
+      "sourceSha256": "5a655d1ef458d214119c1638a6ca107dcb562d117dfb1522aea709b0574432f1",
+      "role": "support",
+      "reason": "Supports the isolated deterministic migration command. Its reviewed inputs and separate output folder form a migration proof rather than a registered workspace reader.",
+      "evidence": [
+        {
+          "file": "tools/migrate-model/identity-merges.ts",
+          "line": 215,
+          "text": "export function mergeExternals("
+        },
+        {
+          "file": "tools/migrate-model/identity-merges.ts",
+          "line": 265,
+          "text": "export function mergeInterfaceFiles("
+        },
+        {
+          "file": "tools/migrate-model/identity-merges.ts",
+          "line": 194,
+          "text": "export function reviewedIdentityMerges("
+        },
+        {
+          "file": "tools/migrate-model/identity-merges.ts",
+          "line": 12,
+          "text": "export interface ReviewedIdentityMerge {"
+        },
+        {
+          "file": "tools/migrate-model/runner.ts",
+          "line": 38,
+          "text": "if (within(source, out) || within(source, report)) {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr6-handoff.md",
+          "sha256": "5ceea1c9194d020c679483d8d08ae55a6b5c6f1fc4514a4485c3fbd81e5b42dc"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ]
+    },
+    {
+      "file": "tools/migrate-model/narratives.ts",
+      "sourceSha256": "0cbf07eedc9662d3d0441cf1e3df07f9a749668f4f8cc6ec63f053d65cc0916f",
+      "role": "support",
+      "reason": "Supports the isolated deterministic migration command. Its reviewed inputs and separate output folder form a migration proof rather than a registered workspace reader.",
+      "evidence": [
+        {
+          "file": "tools/migrate-model/narratives.ts",
+          "line": 42,
+          "text": "export function migrateNarratives("
+        },
+        {
+          "file": "tools/migrate-model/narratives.ts",
+          "line": 10,
+          "text": "export function modelBackings("
+        },
+        {
+          "file": "tools/migrate-model/narratives.ts",
+          "line": 10,
+          "text": "export function modelBackings("
+        },
+        {
+          "file": "tools/migrate-model/runner.ts",
+          "line": 38,
+          "text": "if (within(source, out) || within(source, report)) {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr6-handoff.md",
+          "sha256": "5ceea1c9194d020c679483d8d08ae55a6b5c6f1fc4514a4485c3fbd81e5b42dc"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ]
+    },
+    {
+      "file": "tools/migrate-model/plans.ts",
+      "sourceSha256": "4d26faae0a070585eadc00af1121eb58f7cc55a912a3d8e162db864e299409e4",
+      "role": "support",
+      "reason": "Supports the isolated deterministic migration command. Its reviewed inputs and separate output folder form a migration proof rather than a registered workspace reader.",
+      "evidence": [
+        {
+          "file": "tools/migrate-model/plans.ts",
+          "line": 242,
+          "text": "export function migratePlan(value: unknown, context: PlanContext): Node {"
+        },
+        {
+          "file": "tools/migrate-model/plans.ts",
+          "line": 19,
+          "text": "export interface PlanContext {"
+        },
+        {
+          "file": "tools/migrate-model/runner.ts",
+          "line": 38,
+          "text": "if (within(source, out) || within(source, report)) {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr6-handoff.md",
+          "sha256": "5ceea1c9194d020c679483d8d08ae55a6b5c6f1fc4514a4485c3fbd81e5b42dc"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ]
+    },
+    {
+      "file": "tools/migrate-model/retired-story.ts",
+      "sourceSha256": "c0d8ac8d44d4569a934f6454a86d21e6b8639b7b0571aab4ee0d6f4da8b16922",
+      "role": "support",
+      "reason": "Supports the isolated deterministic migration command. Its reviewed inputs and separate output folder form a migration proof rather than a registered workspace reader.",
+      "evidence": [
+        {
+          "file": "tools/migrate-model/retired-story.ts",
+          "line": 58,
+          "text": "export function migrateRetiredStory("
+        },
+        {
+          "file": "tools/migrate-model/retired-story.ts",
+          "line": 58,
+          "text": "export function migrateRetiredStory("
+        },
+        {
+          "file": "tools/migrate-model/runner.ts",
+          "line": 38,
+          "text": "if (within(source, out) || within(source, report)) {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "tools/migrate-model/retired-story.test.ts",
+          "sha256": "9ce5f80976dd654b7c4826e92112a14a1c3b36e4a4ddb98547d760674210eafa"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ]
+    },
+    {
+      "file": "tools/migrate-model/review.ts",
+      "sourceSha256": "95c604f58da9baa8462fc7b386fc973e1723b6d2a282cff96fff1e540446084e",
+      "role": "support",
+      "reason": "Supports the isolated deterministic migration command. Its reviewed inputs and separate output folder form a migration proof rather than a registered workspace reader.",
+      "evidence": [
+        {
+          "file": "tools/migrate-model/review.ts",
+          "line": 23,
+          "text": "export function fingerprint(value: unknown): string {"
+        },
+        {
+          "file": "tools/migrate-model/review.ts",
+          "line": 26,
+          "text": "export function migrationReview(accepted: readonly unknown[] = []): MigrationReview {"
+        },
+        {
+          "file": "tools/migrate-model/review.ts",
+          "line": 81,
+          "text": "export function reviewSummary("
+        },
+        {
+          "file": "tools/migrate-model/review.ts",
+          "line": 6,
+          "text": "export interface ReviewRow {"
+        },
+        {
+          "file": "tools/migrate-model/runner.ts",
+          "line": 38,
+          "text": "if (within(source, out) || within(source, report)) {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr6-handoff.md",
+          "sha256": "5ceea1c9194d020c679483d8d08ae55a6b5c6f1fc4514a4485c3fbd81e5b42dc"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ]
+    },
+    {
+      "file": "tools/migrate-model/runner.ts",
+      "sourceSha256": "3b75587f0d17ef414e991b52518f27a93e4fe32f37ab0e9ca4fe3370c576aea3",
+      "role": "support",
+      "reason": "Supports the isolated deterministic migration command. Its reviewed inputs and separate output folder form a migration proof rather than a registered workspace reader.",
+      "evidence": [
+        {
+          "file": "tools/migrate-model/runner.ts",
+          "line": 149,
+          "text": "export async function migrateModel("
+        },
+        {
+          "file": "tools/migrate-model/runner.ts",
+          "line": 91,
+          "text": "export async function validateMigratedOutput(out: string): Promise<readonly unknown[]> {"
+        },
+        {
+          "file": "tools/migrate-model/runner.ts",
+          "line": 22,
+          "text": "export interface MigrationOptions {"
+        },
+        {
+          "file": "tools/migrate-model/runner.ts",
+          "line": 38,
+          "text": "if (within(source, out) || within(source, report)) {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr6-handoff.md",
+          "sha256": "5ceea1c9194d020c679483d8d08ae55a6b5c6f1fc4514a4485c3fbd81e5b42dc"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ]
+    },
+    {
+      "file": "tools/migrate-model/steps.ts",
+      "sourceSha256": "b1795a35547ded7c61df9991a6bef041b7df83aaca8ae874e3fe66a515e373ae",
+      "role": "support",
+      "reason": "Supports the isolated deterministic migration command. Its reviewed inputs and separate output folder form a migration proof rather than a registered workspace reader.",
+      "evidence": [
+        {
+          "file": "tools/migrate-model/steps.ts",
+          "line": 287,
+          "text": "export function migrateFailures(values: readonly unknown[], context: StepContext): readonly Node[] {"
+        },
+        {
+          "file": "tools/migrate-model/steps.ts",
+          "line": 257,
+          "text": "export function migrateSteps(values: readonly unknown[], context: StepContext): readonly Node[] {"
+        },
+        {
+          "file": "tools/migrate-model/steps.ts",
+          "line": 16,
+          "text": "export function slug(text: string): string {"
+        },
+        {
+          "file": "tools/migrate-model/steps.ts",
+          "line": 7,
+          "text": "export interface StepContext {"
+        },
+        {
+          "file": "tools/migrate-model/runner.ts",
+          "line": 38,
+          "text": "if (within(source, out) || within(source, report)) {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr6-handoff.md",
+          "sha256": "5ceea1c9194d020c679483d8d08ae55a6b5c6f1fc4514a4485c3fbd81e5b42dc"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ]
+    },
+    {
+      "file": "tools/migrate-model/workspace.ts",
+      "sourceSha256": "faeba065ccadef1ec82ef80231c7dbf56dfe26394cff8e19490093ca172a20a3",
+      "role": "support",
+      "reason": "Supports the isolated deterministic migration command. Its reviewed inputs and separate output folder form a migration proof rather than a registered workspace reader.",
+      "evidence": [
+        {
+          "file": "tools/migrate-model/workspace.ts",
+          "line": 522,
+          "text": "export function migrateWorkspace("
+        },
+        {
+          "file": "tools/migrate-model/workspace.ts",
+          "line": 27,
+          "text": "export type MigrationFragment ="
+        },
+        {
+          "file": "tools/migrate-model/runner.ts",
+          "line": 38,
+          "text": "if (within(source, out) || within(source, report)) {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr6-handoff.md",
+          "sha256": "5ceea1c9194d020c679483d8d08ae55a6b5c6f1fc4514a4485c3fbd81e5b42dc"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        }
+      ]
+    }
+  ],
+  "unproved": []
+}

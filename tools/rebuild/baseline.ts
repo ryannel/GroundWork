@@ -18,6 +18,7 @@ const manifest = await capture({
   out: values.out,
   asOf,
   origin: values.origin,
+  factFolder: values.facts,
   routes: await routeList(values.routes),
 });
 console.log(

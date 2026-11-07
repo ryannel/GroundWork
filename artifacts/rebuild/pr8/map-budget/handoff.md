@@ -1,0 +1,9 @@
+# Production map transport
+
+The first production crawl exhausted the default Node heap while retaining full copies of the evidence corpus in plan projections. The retained-heap proof compares all eight exact before/after authored and derived checksums and proposal attribution with the saved native fact capture. Sharing untouched evidence reduced retained heap after four plans from 2,508 MiB to 811 MiB; all eight now retain 1,143 MiB. Explicit evidence targets still clone their records before mutation.
+
+The second crawl completed 907 pages and found 84 over the unchanged 1,024 KB limit. Commercial Backbone's map response was 17,991,886 bytes. Its map carried 6,685 repeated exchange records, full provenance and gaps, and thousands of site lookup records the canvas did not read. The current map sends only drawing records, shares text and unique exchange rows, and restores every occurrence in order. Source, evidence, gaps and full indexed facts stay in the canonical model and relevant inspection views.
+
+`actual-transport.log` checks six real Volvo scopes from the checksummed runtime04 archive. Decoded records and both complete overview and expanded drawings equal their original drawing inputs. Across those scopes all 13,481 exchange occurrences retain their order. Commercial Backbone's packed input is 471,646 bytes, with 452 expanded nodes and 788 lines. This input measurement is separate from the production HTML budget. Exact-index memoisation reuses a system view and drawing across its flow pages without a separate freshness policy.
+
+The HTML capture tool's regular expression also overflowed on that actual response. The iterative parser reads it without stack recursion, retains the same trust boundaries, and passes the focused large-hidden-payload test. Frozen baseline files were not changed. Final public response comparison, inventory closure and production budget remain separate gates.

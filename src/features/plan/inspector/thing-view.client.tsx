@@ -14,6 +14,7 @@ import { InheritedNote } from '@/features/plan/common/inherited-note';
 import { EntityDetails } from './entity-details';
 import { EntityHead } from './entity-head';
 import { EntityPlaces } from './entity-places';
+import { InspectorBody } from './inspector-body';
 import { ThingExtras } from './thing-extras';
 import styles from './thing-view.module.css';
 import { ViewSwitch } from './view-switch.client';
@@ -48,7 +49,7 @@ export function ThingView({ id, model, reader, version }: ThingViewProps) {
   return (
     <>
       {switchable ? <ViewSwitch onChange={setToday} today={showToday} /> : null}
-      <div className={styles.body}>
+      <InspectorBody>
         <EntityHead today={showToday} view={view} />
         {reader.mode === 'plan' ? <InheritedNote ids={[id]} model={model} /> : null}
         <EntityDetails
@@ -65,7 +66,7 @@ export function ThingView({ id, model, reader, version }: ThingViewProps) {
           places={places}
           sources={view.sources}
         />
-      </div>
+      </InspectorBody>
     </>
   );
 }

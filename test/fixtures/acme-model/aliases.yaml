@@ -1,0 +1,57 @@
+catalogue:
+  to: dom:catalogue
+  reason: Canonical model identity.
+products:
+  to: sys:products
+  reason: Canonical model identity.
+svc:product-admin:
+  to: app:product-admin
+  reason: Canonical model identity.
+st:product-events:
+  to: top:product-events
+  reason: Canonical model identity.
+search:
+  to: sys:search
+  reason: Canonical model identity.
+orders:
+  to: dom:orders
+  reason: Canonical model identity.
+ordering:
+  to: sys:ordering
+  reason: Canonical model identity.
+svc:order-desk:
+  to: app:order-desk
+  reason: Canonical model identity.
+st:order-events:
+  to: top:order-events
+  reason: Canonical model identity.
+payments:
+  to: sys:payments
+  reason: Canonical model identity.
+svc:card-provider:
+  to: ext:card-provider
+  reason: Canonical model identity.
+storefront:
+  to: dom:storefront
+  reason: Canonical model identity.
+accounts:
+  to: sys:accounts
+  reason: Canonical model identity.
+svc:identity-provider:
+  to: ext:identity-provider
+  reason: Canonical model identity.
+shop:
+  to: sys:shop
+  reason: Canonical model identity.
+svc:shop-web:
+  to: app:shop-web
+  reason: Canonical model identity.
+uj:buy:
+  to: jny:buy
+  reason: Canonical model identity.
+stage:publish:
+  to: null
+  reason: The workspace story stage is retired by rebuild design §4. Its complete authored summary, services, ordering and flows remain in the retained story.yaml and migration receipt; no successor execution stage is inferred.
+stage:buy:
+  to: null
+  reason: The workspace story stage is retired by rebuild design §4. Its complete authored summary, services, ordering and flows remain in the retained story.yaml and migration receipt; no successor execution stage is inferred.

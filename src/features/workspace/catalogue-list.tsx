@@ -18,10 +18,19 @@ interface BlockProps {
   /** One line on how to read the rows; left out where the page has said it once. */
   readonly says: string | null;
   readonly rows: readonly CatalogueRow[];
+  readonly previewItems: boolean;
 }
 
 // A row folds to its name, its note and how many things sit under it, so a long catalogue reads as an index.
-function Row({ row, item }: { readonly row: CatalogueRow; readonly item: string }) {
+function Row({
+  row,
+  item,
+  previewItems,
+}: {
+  readonly row: CatalogueRow;
+  readonly item: string;
+  readonly previewItems: boolean;
+}) {
   const head = (
     <>
       <span className={styles.head}>
@@ -30,6 +39,14 @@ function Row({ row, item }: { readonly row: CatalogueRow; readonly item: string 
       <span className={styles.note}>{row.note}</span>
     </>
   );
+  if (!previewItems) {
+    return (
+      <li className={styles.row}>
+        {head}
+        <span className={styles.count}>{plural(row.items.length, item)}</span>
+      </li>
+    );
+  }
   if (row.items.length === 0) return <li className={styles.row}>{head}</li>;
   return (
     <li>
@@ -54,7 +71,7 @@ function Row({ row, item }: { readonly row: CatalogueRow; readonly item: string 
   );
 }
 
-function Block({ id, title, item, says, rows }: BlockProps) {
+function Block({ id, title, item, says, rows, previewItems }: BlockProps) {
   if (rows.length === 0) return null;
   return (
     <section className={styles.block} id={id}>
@@ -64,7 +81,7 @@ function Block({ id, title, item, says, rows }: BlockProps) {
       {says === null ? null : <p className={styles.says}>{says}</p>}
       <ul className={styles.rows}>
         {rows.map((row) => (
-          <Row item={item} key={row.head.id} row={row} />
+          <Row item={item} key={row.head.id} row={row} previewItems={previewItems} />
         ))}
       </ul>
     </section>
@@ -77,10 +94,17 @@ interface CatalogueListProps {
   readonly idPrefix?: string;
   /** Leave out the line under each block, where the page has said how to read them. */
   readonly quiet?: boolean;
+  /** Full records remain on each row’s inspector; omit repeated item previews in a large overview. */
+  readonly previewItems?: boolean;
 }
 
 // What a domain or a system offers, announces and keeps, in short rows; every name opens in the inspector.
-export function CatalogueList({ catalogue, idPrefix = '', quiet = false }: CatalogueListProps) {
+export function CatalogueList({
+  catalogue,
+  idPrefix = '',
+  quiet = false,
+  previewItems = true,
+}: CatalogueListProps) {
   const { apis, events, data } = catalogue;
   if (apis.length + events.length + data.length === 0) {
     return <p className={styles.none}>Nothing here is called, announced or kept yet.</p>;
@@ -89,6 +113,7 @@ export function CatalogueList({ catalogue, idPrefix = '', quiet = false }: Catal
   return (
     <div className={styles.blocks}>
       <Block
+        previewItems={previewItems}
         id={`${idPrefix}calls`}
         item="call"
         rows={apis}
@@ -96,6 +121,7 @@ export function CatalogueList({ catalogue, idPrefix = '', quiet = false }: Catal
         title="Calls it answers"
       />
       <Block
+        previewItems={previewItems}
         id={`${idPrefix}events`}
         item="listener"
         rows={events}
@@ -103,6 +129,7 @@ export function CatalogueList({ catalogue, idPrefix = '', quiet = false }: Catal
         title="Events it announces"
       />
       <Block
+        previewItems={previewItems}
         id={`${idPrefix}stores`}
         item="record"
         rows={data}

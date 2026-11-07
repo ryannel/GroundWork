@@ -21,6 +21,10 @@ import { WorkspaceShell } from './workspace-shell';
 
 interface SystemPageProps {
   readonly view: SystemView;
+  readonly overview?: ReactNode;
+  readonly plans?: ReactNode;
+  readonly interfaces?: ReactNode;
+  readonly cataloguePreviewItems?: boolean;
   readonly nav: DomainNav;
   /** The map of the system's components and their neighbours, drawn by the route. */
   readonly map?: ReactNode;
@@ -106,6 +110,10 @@ function Drawn({ view, map, flows }: Pick<SystemPageProps, 'view' | 'map' | 'flo
 // it. Where its code lives, and how fresh our reading of it is, comes last.
 export function SystemPage({
   view,
+  overview,
+  plans,
+  interfaces,
+  cataloguePreviewItems = true,
   nav,
   map,
   flows,
@@ -130,13 +138,22 @@ export function SystemPage({
         meta={<Facts items={[view.about, ...view.facts]} />}
         title={view.name}
       />
+      {overview}
       <Section
         says="What may change here, and the work across plans still to do, in the order it can happen."
         title="Plans"
       >
-        <PlanParts impact={impact ?? []} name={view.name} parts={parts ?? []} />
+        {plans ?? <PlanParts impact={impact ?? []} name={view.name} parts={parts ?? []} />}
       </Section>
       <Drawn flows={flows} map={map} view={view} />
+      {interfaces === undefined || interfaces === null ? null : (
+        <Section
+          says="Recorded calls, event announcements and entries, with their known providers and bindings."
+          title="Interfaces"
+        >
+          {interfaces}
+        </Section>
+      )}
       <Section
         says="What each component does. Open its details for what it answers, calls, announces, hears and keeps."
         title="Components"
@@ -151,7 +168,10 @@ export function SystemPage({
           says="Its stores and the records in each. Click a record to see its fields."
           title="Data"
         >
-          <CatalogueList catalogue={{ apis: [], events: [], data: view.data }} />
+          <CatalogueList
+            catalogue={{ apis: [], events: [], data: view.data }}
+            previewItems={cataloguePreviewItems}
+          />
         </Section>
       )}
       <Section

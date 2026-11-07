@@ -1,0 +1,53 @@
+{
+  "format": 1,
+  "workspace": "volvo-cars",
+  "runtimeFolder": "/private/tmp/rebuild-pr8-volvo-runtime-05",
+  "system": "sys:assortment",
+  "beforeHTTP": {
+    "file": "/private/tmp/pr8-assortment-build03.html",
+    "sha256": "b19e9d87dce0cf12433df5852bd29620c795fda41106004fa38d3f8f3c95f837",
+    "bytes": 2017178,
+    "build": 3
+  },
+  "entries": {
+    "total": 456,
+    "visibleOverviewRows": 30,
+    "browserHref": "/volvo-cars/entries/?system=sys-assortment",
+    "pages": 16,
+    "firstPageRows": 30,
+    "firstPageInputBytes": 8459,
+    "everyEntryExactlyOnceInOriginalOverviewOrder": true
+  },
+  "gaps": {
+    "raw": 1787,
+    "displayed": 9,
+    "rawBytes": 347501,
+    "displayBytes": 945,
+    "everyOccurrenceCounted": true,
+    "identity": "Exact kind and message",
+    "references": "Complete references remain in the canonical index, server view and inspector."
+  },
+  "overviewListingBytes": {
+    "before": 448156,
+    "after": 8453,
+    "meaning": "JSON of the entry and gap rows drawn in the overview. The server view remains complete."
+  },
+  "providerProof": "The fixture API stored under sys:a but explicitly provided by sys:unmapped remains in the sys:unmapped entry filter.",
+  "scopes": "Canonical system identity is validated. Pagination and direct selection preserve system, plan and version. Domain filters still apply.",
+  "focusedTests": {
+    "passed": 45,
+    "files": 8,
+    "affectedRerun": "Entry selection and canvas after extracting scope validation and header to satisfy complexity thresholds."
+  },
+  "sources": {
+    "src/application/model-gap-summary.ts": "2afa75849147cd8619fef491a768453bcb398a36e578ecd346dbae2453916a3c",
+    "src/application/model-reference.ts": "0f6745b028f791e5e586a84596aca28a597f5bbf941b8f2326d7ad3902c45399",
+    "src/application/model-catalogue.ts": "c95a21ca4df132b8a4821bc4e867f6a9ea2782e1b3a063b4741eef5c1b087510",
+    "src/application/model-system.ts": "1d6eb41126f7f9887e8ff3aae2b066ad2b6c0683a495d00297de2b3ebdde68c8",
+    "src/application/entry-flow-paths.ts": "1b40e4c30db3bda96d3f0dd4267cd5b18a51b3eb6c628f21014f5724df1cfb1e",
+    "src/application/entry-flow-page.ts": "e13813e2bb558e4d9a9cd34356d43010408957efd1849fb0e4a5f6a87867ab06",
+    "src/features/workspace/model-system-content.tsx": "14bfff17935de73adacf0872e15d76959807f31bba5f7f823ba148f0dfadd45b",
+    "src/features/workspace/model-system-content.test.tsx": "61341259fe73bb10b688aa5b6805342695e172d8e046b80f81a608318ac84f92",
+    "src/application/entry-flow.test.ts": "4fa4b3e96c6bbe2268fc969fbfb5adc3513f184d04a6854aa4b0cd669958d51d"
+  }
+}

@@ -1,0 +1,7 @@
+
+/Users/RNEL/.codex/worktrees/rebuild-pr8/groundWork/src/features/plan/model-plan-page.test.tsx
+  10:1  error  `@/application/plan-viz-system-map-types` type import should occur after import of `@/application/model-system-map-transport`  import/order
+
+✖ 1 problem (1 error, 0 warnings)
+  1 error and 0 warnings potentially fixable with the `--fix` option.
+

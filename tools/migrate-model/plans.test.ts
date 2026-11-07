@@ -140,3 +140,49 @@ it('retains noncanonical plan context for explicit reconciliation and applies on
   });
   expect(reviewed.pending('documents')).toBe(0);
 });
+
+it('retains a proposed component summary and job classification without inventing a trigger', async () => {
+  const review = migrationReview();
+  const result = migratePlan(
+    {
+      meta: { id: 'coverage', title: 'Coverage' },
+      problem: { summary: 'Coverage is unknown.' },
+      changes: [
+        {
+          id: 'chg:coverage',
+          title: 'Report coverage',
+          ops: [
+            {
+              add: 'service',
+              into: 'sys:price',
+              value: {
+                id: 'svc:coverage',
+                name: 'Coverage',
+                kind: 'job',
+                summary: 'Reports the products and prices in each market.',
+              },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      path: 'plans/coverage/plan.yaml',
+      review,
+      citations: migrationCitations([], review, 'plan:coverage'),
+      placements: new Map(),
+    },
+  );
+  const op = modelRecord(modelList(modelRecord(modelList(result.changes)[0])?.ops)[0]);
+  expect(op).toEqual({
+    add: 'component',
+    into: 'sys:price',
+    value: {
+      id: 'svc:coverage',
+      name: 'Coverage',
+      kind: 'service',
+      does: 'Reports the products and prices in each market.\n\nProposed classification: job.',
+    },
+  });
+  await expect(modelProblems('plan', 'document', result)).resolves.toEqual([]);
+});

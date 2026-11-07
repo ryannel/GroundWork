@@ -1,25 +1,17 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { workspaceNavOf } from '@/application/workspace-nav';
+import { modelPartnerOf, modelWorkLabelsOf } from '@/application/model-workspace-work';
 import { partnersHref, workspaceHref } from '@/application/workspace-paths';
-import { partnerPageVM } from '@/application/workspace-work/partner-page';
-import { buildId } from '@/domain/ids';
-import { TodayOverlays, TodaySearch, WorkCard } from '@/features/plan';
-import { PartnerPage, WorkspaceShell } from '@/features/workspace';
-import { todayData } from '@/infrastructure/today-data';
-import { readWorkspacePlanIndex } from '@/infrastructure/workspace-plan-index';
+import { ModelTodayOverlays, ModelPartnerPageView, TodaySearch } from '@/features/plan';
+import { WorkspaceShell } from '@/features/workspace';
+import { readCanonicalModelIndex } from '@/infrastructure/model-index';
+import { readModelWorkspaceNav } from '@/infrastructure/model-workspace-nav';
+import { readModelWorkspaceWork } from '@/infrastructure/model-workspace-work';
 
 interface Params {
   readonly workspace: string;
   readonly team: string;
-}
-
-/** A partner's page reads the team by its id without `team:`; only a team marked as a partner has one. */
-async function partnerOf(workspace: string, team: string) {
-  const index = await readWorkspacePlanIndex(workspace);
-  const page = index === null ? null : partnerPageVM(index, buildId('team', team));
-  return page?.team.partner === true ? page : null;
 }
 
 export async function generateMetadata({
@@ -28,42 +20,33 @@ export async function generateMetadata({
   readonly params: Promise<Params>;
 }): Promise<Metadata> {
   const { workspace, team } = await params;
-  const page = await partnerOf(workspace, team);
+  const native = await readCanonicalModelIndex(workspace);
+  if (native === null) return {};
+  const page = modelPartnerOf(native, team, []);
   return page === null ? {} : { title: page.team.name };
 }
 
 export default async function PartnerRoute({ params }: { readonly params: Promise<Params> }) {
   const { workspace: id, team } = await params;
-  const [data, page] = await Promise.all([todayData(id), partnerOf(id, team)]);
-  if (data === null || page === null) notFound();
-  const { workspace, today, plans } = data;
-  const now = new Date();
-  const cards = new Map(
-    page.milestones
-      .flatMap((group) => group.items)
-      .map((card) => [
-        card.key,
-        <WorkCard card={card} key={card.key} today={now} workspace={id} />,
-      ]),
-  );
+  const native = await readCanonicalModelIndex(id);
+  if (native === null) notFound();
+  const entries = await readModelWorkspaceWork(id);
+  const page = modelPartnerOf(native, team, entries);
+  if (page === null) notFound();
   return (
     <WorkspaceShell
-      actions={<TodaySearch />}
-      nav={workspaceNavOf(
-        workspace,
-        plans,
-        { section: 'partners', today: today.model },
-        data.programmes,
-      )}
-      overlays={<TodayOverlays depth={2} workspace={workspace} />}
+      workspace={native.model}
+      nav={await readModelWorkspaceNav(native, { section: 'partners' })}
       title={page.team.name}
+      actions={<TodaySearch />}
+      overlays={<ModelTodayOverlays index={native} depth={2} />}
       trail={[
         { label: 'Workspaces', href: '/' },
-        { label: workspace.name, href: workspaceHref(workspace.id) },
-        { label: 'Partners', href: partnersHref(workspace.id) },
+        { label: native.model.name, href: workspaceHref(native.model.id) },
+        { label: 'Partners', href: partnersHref(native.model.id) },
       ]}
     >
-      <PartnerPage cards={cards} page={page} today={now} />
+      <ModelPartnerPageView page={page} labels={modelWorkLabelsOf(native, entries, page)} />
     </WorkspaceShell>
   );
 }

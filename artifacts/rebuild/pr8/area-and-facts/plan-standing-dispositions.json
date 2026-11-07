@@ -1,0 +1,399 @@
+{
+  "candidate": ".workspaces/rebuild/pr8/area-audit/volvo-cars-facts-history",
+  "metadataProof": "artifacts/rebuild/pr8/plan-offline-audit.json independently matches all67work standings except15blocker labels, each label pinned to both original+native programme text; milestones/teams/events exact.",
+  "model": {
+    "file": "facts-ff795bb7beb89253c898.json.gz",
+    "sha256": "006cb5b84b6e5af430962308ea60c098627aa59fdf71668ce632d6f38a173721"
+  },
+  "remainingImplementationClaims": 0,
+  "rows": [
+    {
+      "after": "unverified",
+      "before": "missing",
+      "cause": "No concrete operations were authored. The old empty-state rollup called this missing; native rollUp explicitly reports unverified.",
+      "change": "chg:ziklo-applies-right-to-return",
+      "implementationEstablished": false,
+      "ops": [],
+      "plan": "care-se-financing-status",
+      "proof": "src/application/model-realisation.ts:147"
+    },
+    {
+      "after": "unverified",
+      "before": "missing",
+      "cause": "No concrete operations were authored. The old empty-state rollup called this missing; native rollUp explicitly reports unverified.",
+      "change": "chg:early-crm-release",
+      "implementationEstablished": false,
+      "ops": [],
+      "plan": "care-se-financing-status",
+      "proof": "src/application/model-realisation.ts:147"
+    },
+    {
+      "after": "unverified",
+      "before": "missing",
+      "cause": "No concrete operations were authored. The old empty-state rollup called this missing; native rollUp explicitly reports unverified.",
+      "change": "chg:vcep-updates-same-opportunity",
+      "implementationEstablished": false,
+      "ops": [],
+      "plan": "care-se-financing-status",
+      "proof": "src/application/model-realisation.ts:147"
+    },
+    {
+      "after": "unverified",
+      "before": "missing",
+      "cause": "No concrete operations were authored. The old empty-state rollup called this missing; native rollUp explicitly reports unverified.",
+      "change": "chg:care-on-stock-cars",
+      "implementationEstablished": false,
+      "ops": [],
+      "plan": "care-se-online",
+      "proof": "src/application/model-realisation.ts:147"
+    },
+    {
+      "after": "unverified",
+      "before": "missing",
+      "cause": "No concrete operations were authored. The old empty-state rollup called this missing; native rollUp explicitly reports unverified.",
+      "change": "chg:online-recovery",
+      "implementationEstablished": false,
+      "ops": [],
+      "plan": "care-se-online",
+      "proof": "src/application/model-realisation.ts:147"
+    },
+    {
+      "after": "unverified",
+      "before": "missing",
+      "cause": "No concrete operations were authored. The old empty-state rollup called this missing; native rollUp explicitly reports unverified.",
+      "change": "chg:ziklo-order-lookup",
+      "implementationEstablished": false,
+      "ops": [],
+      "plan": "care-se-order-change",
+      "proof": "src/application/model-realisation.ts:147"
+    },
+    {
+      "after": "unverified",
+      "before": "missing",
+      "cause": "No concrete operations were authored. The old empty-state rollup called this missing; native rollUp explicitly reports unverified.",
+      "change": "chg:ziklo-application-details",
+      "implementationEstablished": false,
+      "ops": [],
+      "plan": "care-se-order-change",
+      "proof": "src/application/model-realisation.ts:147"
+    },
+    {
+      "after": "unverified",
+      "before": "missing",
+      "cause": "No concrete operations were authored. The old empty-state rollup called this missing; native rollUp explicitly reports unverified.",
+      "change": "chg:ziklo-order-change-quote",
+      "implementationEstablished": false,
+      "ops": [],
+      "plan": "care-se-order-change",
+      "proof": "src/application/model-realisation.ts:147"
+    },
+    {
+      "after": "unverified",
+      "before": "missing",
+      "cause": "No concrete operations were authored. The old empty-state rollup called this missing; native rollUp explicitly reports unverified.",
+      "change": "chg:ziklo-application-revision",
+      "implementationEstablished": false,
+      "ops": [],
+      "plan": "care-se-order-change",
+      "proof": "src/application/model-realisation.ts:147"
+    },
+    {
+      "after": "unverified",
+      "before": "missing",
+      "cause": "No concrete operations were authored. The old empty-state rollup called this missing; native rollUp explicitly reports unverified.",
+      "change": "chg:fae-ziklo-revision",
+      "implementationEstablished": false,
+      "ops": [],
+      "plan": "care-se-order-change",
+      "proof": "src/application/model-realisation.ts:147"
+    },
+    {
+      "after": "unverified",
+      "before": "missing",
+      "cause": "No concrete operations were authored. The old empty-state rollup called this missing; native rollUp explicitly reports unverified.",
+      "change": "chg:tacdis-proposal-versions",
+      "implementationEstablished": false,
+      "ops": [],
+      "plan": "care-se-order-change",
+      "proof": "src/application/model-realisation.ts:147"
+    },
+    {
+      "after": "unverified",
+      "before": "missing",
+      "cause": "No concrete operations were authored. The old empty-state rollup called this missing; native rollUp explicitly reports unverified.",
+      "change": "chg:dbp-order-change",
+      "implementationEstablished": false,
+      "ops": [],
+      "plan": "care-se-order-change",
+      "proof": "src/application/model-realisation.ts:147"
+    },
+    {
+      "after": "unverified",
+      "before": "missing",
+      "cause": "No concrete operations were authored. The old empty-state rollup called this missing; native rollUp explicitly reports unverified.",
+      "change": "chg:checkout-revision",
+      "implementationEstablished": false,
+      "ops": [],
+      "plan": "care-se-order-change",
+      "proof": "src/application/model-realisation.ts:147"
+    },
+    {
+      "after": "unverified",
+      "before": "missing",
+      "cause": "No concrete operations were authored. The old empty-state rollup called this missing; native rollUp explicitly reports unverified.",
+      "change": "chg:vcep-revision-binding",
+      "implementationEstablished": false,
+      "ops": [],
+      "plan": "care-se-order-change",
+      "proof": "src/application/model-realisation.ts:147"
+    },
+    {
+      "after": "unverified",
+      "before": "missing",
+      "cause": "No concrete operations were authored. The old empty-state rollup called this missing; native rollUp explicitly reports unverified.",
+      "change": "chg:vista-change-execution",
+      "implementationEstablished": false,
+      "ops": [],
+      "plan": "care-se-order-change",
+      "proof": "src/application/model-realisation.ts:147"
+    },
+    {
+      "after": "unverified",
+      "before": "missing",
+      "cause": "No concrete operations were authored. The old empty-state rollup called this missing; native rollUp explicitly reports unverified.",
+      "change": "chg:tacdis-proposal-from-tool",
+      "implementationEstablished": false,
+      "ops": [],
+      "plan": "care-se-sales-tool",
+      "proof": "src/application/model-realisation.ts:147"
+    },
+    {
+      "after": "unverified",
+      "before": "missing",
+      "cause": "No concrete operations were authored. The old empty-state rollup called this missing; native rollUp explicitly reports unverified.",
+      "change": "chg:dbp-carries-opportunity",
+      "implementationEstablished": false,
+      "ops": [],
+      "plan": "care-se-sales-tool",
+      "proof": "src/application/model-realisation.ts:147"
+    },
+    {
+      "after": "unverified",
+      "before": "missing",
+      "cause": "No concrete operations were authored. The old empty-state rollup called this missing; native rollUp explicitly reports unverified.",
+      "change": "chg:vcep-walk-in-opportunity",
+      "implementationEstablished": false,
+      "ops": [],
+      "plan": "care-se-sales-tool",
+      "proof": "src/application/model-realisation.ts:147"
+    },
+    {
+      "after": "unverified",
+      "before": "missing",
+      "cause": "No concrete operations were authored. The old empty-state rollup called this missing; native rollUp explicitly reports unverified.",
+      "change": "chg:cle-sweden-reservations",
+      "implementationEstablished": false,
+      "ops": [],
+      "plan": "care-se-stock-reservation",
+      "proof": "src/application/model-realisation.ts:147"
+    },
+    {
+      "after": "unverified",
+      "before": "missing",
+      "cause": "No concrete operations were authored. The old empty-state rollup called this missing; native rollUp explicitly reports unverified.",
+      "change": "chg:ziklo-shows-reservation",
+      "implementationEstablished": false,
+      "ops": [],
+      "plan": "care-se-stock-reservation",
+      "proof": "src/application/model-realisation.ts:147"
+    },
+    {
+      "after": "partial",
+      "before": "missing",
+      "cause": "Native REST conversion exposes the same existing method in current and proposed declarations. No requested asOf implementation is claimed.",
+      "change": "chg:assortment-api-asof-variant",
+      "implementationEstablished": false,
+      "ops": [
+        {
+          "after": "partial",
+          "agreesOnly": {
+            "method": "GET"
+          },
+          "before": "missing",
+          "codeCitationsRetained": [
+            {
+              "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+              "kind": "code",
+              "lines": [
+                76,
+                87
+              ],
+              "path": "src/PopCat.Assortment.Api/Controllers/ProductDetailsController.cs",
+              "repo": "volvo-cars/popcat-assortment-api",
+              "symbol": "ProductDetailsController.GetVariantById"
+            }
+          ],
+          "currentDeclaration": {
+            "errors": [
+              {
+                "status": 404,
+                "when": "variant not in Redis or blob"
+              },
+              {
+                "status": 500,
+                "when": "any other failure"
+              }
+            ],
+            "method": "GET",
+            "path": "/api/v{version}/variants/{id}",
+            "sig": "GET /api/v{version}/variants/{id}",
+            "summary": "One variant view, including classifications, specification values, included variants and upstream entity."
+          },
+          "implementationEstablished": false,
+          "op": 3,
+          "qualification": "Only the explicit method agrees. The requested asOf path/signature and remaining requested declarations still disagree. Declaration agreement does not establish deployed implementation.",
+          "requested": {
+            "errors": [
+              {
+                "status": 404,
+                "when": "No current view (no asOf), or no version at or before asOf. · Code: \"not_found\""
+              },
+              {
+                "status": 400,
+                "when": "asOf is not an ISO-8601 instant or is in the future. · Code: \"bad_as_of\""
+              },
+              {
+                "status": 500,
+                "when": "Cache or Blob read fails. · Code: \"cache_error\""
+              }
+            ],
+            "method": "GET",
+            "path": "/api/v{version}/variants/{id}?asOf={instant}",
+            "sig": "GET /api/v{version}/variants/{id}?asOf={instant}",
+            "summary": "Read one variant. Without `asOf`, the current cached view (today's behaviour). With `asOf`, the version valid at that instant, including retired ones, with `Status`/`ValidFrom`/`ValidTo`."
+          },
+          "target": "api:assortment-variant-get"
+        }
+      ],
+      "plan": "immutable-ids"
+    },
+    {
+      "after": "partial",
+      "before": "missing",
+      "cause": "Native REST conversion exposes the same existing method in current and proposed declarations. No requested asOf implementation is claimed.",
+      "change": "chg:assortment-api-asof-products-batch",
+      "implementationEstablished": false,
+      "ops": [
+        {
+          "after": "partial",
+          "agreesOnly": {
+            "method": "GET"
+          },
+          "before": "missing",
+          "codeCitationsRetained": [
+            {
+              "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+              "kind": "code",
+              "lines": [
+                19,
+                30
+              ],
+              "path": "src/PopCat.Assortment.Api/Controllers/ProductDetailsController.cs",
+              "repo": "volvo-cars/popcat-assortment-api",
+              "symbol": "ProductDetailsController.GetProductById"
+            }
+          ],
+          "currentDeclaration": {
+            "method": "GET",
+            "path": "/api/v{version}/products/{id}",
+            "sig": "GET /api/v{version}/products/{id}",
+            "summary": "One product view with its variants."
+          },
+          "implementationEstablished": false,
+          "op": 3,
+          "qualification": "Only the explicit method agrees. The requested asOf path/signature and remaining requested declarations still disagree. Declaration agreement does not establish deployed implementation.",
+          "requested": {
+            "method": "GET",
+            "path": "/api/v{version}/products/{id}?asOf={instant}",
+            "sig": "GET /api/v{version}/products/{id}?asOf={instant}",
+            "summary": "Read one product/package; with `asOf`, the version valid then (see [[api:assortment-variant-get]])."
+          },
+          "target": "api:assortment-product-get"
+        },
+        {
+          "after": "partial",
+          "agreesOnly": {
+            "method": "POST"
+          },
+          "before": "missing",
+          "codeCitationsRetained": [
+            {
+              "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+              "kind": "code",
+              "lines": [
+                32,
+                43
+              ],
+              "path": "src/PopCat.Assortment.Api/Controllers/ProductDetailsController.cs",
+              "repo": "volvo-cars/popcat-assortment-api",
+              "symbol": "ProductDetailsController.BatchGetProductByIds"
+            }
+          ],
+          "currentDeclaration": {
+            "method": "POST",
+            "path": "/api/v{version}/products/batch",
+            "sig": "POST /api/v{version}/products/batch",
+            "summary": "Product views for a list of ids, in the same order; an id that cannot be read comes back as null."
+          },
+          "implementationEstablished": false,
+          "op": 4,
+          "qualification": "Only the explicit method agrees. The requested asOf path/signature and remaining requested declarations still disagree. Declaration agreement does not establish deployed implementation.",
+          "requested": {
+            "method": "POST",
+            "path": "/api/v{version}/products/batch?asOf={instant}",
+            "sig": "POST /api/v{version}/products/batch?asOf={instant}",
+            "summary": "Read products for a list of IDs; with `asOf`, each ID's version valid then (`null` if none)."
+          },
+          "target": "api:assortment-products-batch"
+        },
+        {
+          "after": "partial",
+          "agreesOnly": {
+            "method": "POST"
+          },
+          "before": "missing",
+          "codeCitationsRetained": [
+            {
+              "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+              "kind": "code",
+              "lines": [
+                89,
+                100
+              ],
+              "path": "src/PopCat.Assortment.Api/Controllers/ProductDetailsController.cs",
+              "repo": "volvo-cars/popcat-assortment-api",
+              "symbol": "ProductDetailsController.BatchGetVariantByIds"
+            }
+          ],
+          "currentDeclaration": {
+            "method": "POST",
+            "path": "/api/v{version}/variants/batch",
+            "sig": "POST /api/v{version}/variants/batch",
+            "summary": "Variant views for a list of ids, in the same order; an id that cannot be read comes back as null."
+          },
+          "implementationEstablished": false,
+          "op": 5,
+          "qualification": "Only the explicit method agrees. The requested asOf path/signature and remaining requested declarations still disagree. Declaration agreement does not establish deployed implementation.",
+          "requested": {
+            "method": "POST",
+            "path": "/api/v{version}/variants/batch?asOf={instant}",
+            "sig": "POST /api/v{version}/variants/batch?asOf={instant}",
+            "summary": "Read variants for a list of IDs; with `asOf`, each ID's version valid then (`null` if none)."
+          },
+          "target": "api:assortment-variants-batch"
+        }
+      ],
+      "plan": "immutable-ids"
+    }
+  ]
+}

@@ -5,7 +5,7 @@ import type {
   SourceKind,
   WorkStanding,
 } from '@/application/plan/work-standing';
-import { thingHref } from '@/application/plan-pages-things';
+import { thingHref } from '@/application/thing-paths';
 import { programmeHref } from '@/application/workspace-paths';
 
 // One card for every piece of work, ours or a partner's: the same rows, worded for whoever owns it. A projection is

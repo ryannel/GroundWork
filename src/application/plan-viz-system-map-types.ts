@@ -17,6 +17,7 @@ export interface MapNodeIn {
 }
 
 export interface MapSystemIn extends MapNodeIn {
+  readonly mapped?: boolean;
   /** How many services it holds and how many stores and topics they own, across the whole model. */
   readonly parts?: number;
   readonly stores?: number;
@@ -71,6 +72,8 @@ export interface MapRefIn {
 }
 
 export interface SystemMapInput {
+  /** Native containment for only the cards in this drawing; never inferred from resource ownership. */
+  readonly placement?: Readonly<Record<string, string | null>>;
   /** An explicit structural projection groups components by their recorded system, independently of stages. */
   readonly arrangement?: 'structure';
   readonly services: readonly MapServiceIn[];

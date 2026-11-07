@@ -1,0 +1,728 @@
+{
+  "route": "/volvo-cars/commercial-backbone/interfaces/",
+  "file": "route-2b7790c22c996ad4bccc.json.gz",
+  "counts": [
+    {
+      "heads": 21,
+      "calls": 423,
+      "events": 39,
+      "stores": 19
+    },
+    {
+      "heads": 17,
+      "calls": 410,
+      "events": 39,
+      "stores": 19
+    }
+  ],
+  "moved": [
+    {
+      "oldHead": "svc:product-data-cpam",
+      "head": "sys:product-data-cpam",
+      "headKind": "system",
+      "headSystem": "sys:product-data-cpam",
+      "oldItem": "api:cpam-full-features",
+      "item": "api:cpam-full-features",
+      "itemKind": "endpoint",
+      "provider": "sys:product-data-cpam",
+      "itemPlace": {
+        "workspace": "volvo-cars",
+        "domain": "dom:commercial-backbone",
+        "system": "sys:assortment",
+        "component": null
+      },
+      "itemParent": "if:cpam-full-features",
+      "oldEdge": [
+        {
+          "from": "svc:pcf-facade",
+          "handlers": [
+            "h:pcf-on-market-auth-file",
+            "h:pcf-on-market-features-file",
+            "h:pcf-util-get-full-features"
+          ],
+          "id": "api|svc:pcf-facade|svc:product-data-cpam|api:cpam-full-features",
+          "kind": "api",
+          "mode": null,
+          "read": false,
+          "steps": [],
+          "sync": true,
+          "to": "svc:product-data-cpam",
+          "via": "api:cpam-full-features",
+          "write": false
+        }
+      ],
+      "kind": "outside-assortment"
+    },
+    {
+      "oldHead": "svc:product-data-cpam",
+      "head": "sys:product-data-cpam",
+      "headKind": "system",
+      "headSystem": "sys:product-data-cpam",
+      "oldItem": "api:cpam-std-feature-color-uphols",
+      "item": "api:cpam-std-feature-color-uphols",
+      "itemKind": "endpoint",
+      "provider": "sys:product-data-cpam",
+      "itemPlace": {
+        "workspace": "volvo-cars",
+        "domain": "dom:commercial-backbone",
+        "system": "sys:car-configuration-engine",
+        "component": null
+      },
+      "itemParent": "if:cpam-std-features",
+      "oldEdge": [
+        {
+          "from": "svc:cce-car-spec-adapter",
+          "handlers": [
+            "h:cce-car-spec-adapter-baseline",
+            "h:cce-car-spec-adapter-on-market-auth",
+            "h:cce-car-spec-adapter-on-pcg-market-auth",
+            "h:cce-car-spec-adapter-sync"
+          ],
+          "id": "api|svc:cce-car-spec-adapter|svc:product-data-cpam|api:cpam-std-feature-color-uphols",
+          "kind": "api",
+          "mode": null,
+          "read": false,
+          "steps": [],
+          "sync": true,
+          "to": "svc:product-data-cpam",
+          "via": "api:cpam-std-feature-color-uphols",
+          "write": false
+        },
+        {
+          "from": "svc:cce-cpam-ingress",
+          "handlers": [
+            "h:cce-cpam-ingress-process-market-auth-job"
+          ],
+          "id": "api|svc:cce-cpam-ingress|svc:product-data-cpam|api:cpam-std-feature-color-uphols",
+          "kind": "api",
+          "mode": null,
+          "read": false,
+          "steps": [],
+          "sync": true,
+          "to": "svc:product-data-cpam",
+          "via": "api:cpam-std-feature-color-uphols",
+          "write": false
+        }
+      ],
+      "kind": "outside-assortment"
+    },
+    {
+      "oldHead": "svc:product-data-cpam",
+      "head": "sys:product-data-cpam",
+      "headKind": "system",
+      "headSystem": "sys:product-data-cpam",
+      "oldItem": "api:cpam-standard-features-colour-upholstery",
+      "item": "api:cpam-standard-features-colour-upholstery",
+      "itemKind": "endpoint",
+      "provider": "sys:product-data-cpam",
+      "itemPlace": {
+        "workspace": "volvo-cars",
+        "domain": "dom:commercial-backbone",
+        "system": "sys:federated-graph",
+        "component": null
+      },
+      "itemParent": "if:cpam-product-data",
+      "oldEdge": [
+        {
+          "from": "svc:cpam-facade",
+          "handlers": [
+            "h:cpam-facade-standard-features-colour-upholstery"
+          ],
+          "id": "api|svc:cpam-facade|svc:product-data-cpam|api:cpam-standard-features-colour-upholstery",
+          "kind": "api",
+          "mode": null,
+          "read": false,
+          "steps": [],
+          "sync": true,
+          "to": "svc:product-data-cpam",
+          "via": "api:cpam-standard-features-colour-upholstery",
+          "write": false
+        }
+      ],
+      "kind": "outside-assortment"
+    },
+    {
+      "oldHead": "svc:product-data-cpam",
+      "head": "sys:product-data-cpam",
+      "headKind": "system",
+      "headSystem": "sys:product-data-cpam",
+      "oldItem": "api:cpam-weight-calculation",
+      "item": "api:cpam-weight-calculation",
+      "itemKind": "endpoint",
+      "provider": "sys:product-data-cpam",
+      "itemPlace": {
+        "workspace": "volvo-cars",
+        "domain": "dom:commercial-backbone",
+        "system": "sys:federated-graph",
+        "component": null
+      },
+      "itemParent": "if:cpam-product-data",
+      "oldEdge": [
+        {
+          "from": "svc:cpam-facade",
+          "handlers": [
+            "h:cpam-facade-weight-calculation"
+          ],
+          "id": "api|svc:cpam-facade|svc:product-data-cpam|api:cpam-weight-calculation",
+          "kind": "api",
+          "mode": null,
+          "read": false,
+          "steps": [],
+          "sync": true,
+          "to": "svc:product-data-cpam",
+          "via": "api:cpam-weight-calculation",
+          "write": false
+        }
+      ],
+      "kind": "outside-assortment"
+    },
+    {
+      "oldHead": "svc:product-data-cpam",
+      "head": "sys:product-data-cpam",
+      "headKind": "system",
+      "headSystem": "sys:product-data-cpam",
+      "oldItem": "api:cpam-breakdown-to-features",
+      "item": "api:cpam-breakdown-to-features",
+      "itemKind": "endpoint",
+      "provider": "sys:product-data-cpam",
+      "itemPlace": {
+        "workspace": "volvo-cars",
+        "domain": "dom:commercial-backbone",
+        "system": "sys:federated-graph",
+        "component": null
+      },
+      "itemParent": "if:cpam-product-data",
+      "oldEdge": [
+        {
+          "from": "svc:cpam-facade",
+          "handlers": [
+            "h:cpam-facade-breakdown-to-features"
+          ],
+          "id": "api|svc:cpam-facade|svc:product-data-cpam|api:cpam-breakdown-to-features",
+          "kind": "api",
+          "mode": null,
+          "read": false,
+          "steps": [],
+          "sync": true,
+          "to": "svc:product-data-cpam",
+          "via": "api:cpam-breakdown-to-features",
+          "write": false
+        }
+      ],
+      "kind": "outside-assortment"
+    },
+    {
+      "oldHead": "svc:product-data-pcg",
+      "head": "sys:product-data-pcg",
+      "headKind": "system",
+      "headSystem": "sys:product-data-pcg",
+      "oldItem": "api:pcg-std-features-colour-upholstery",
+      "item": "api:pcg-std-features-colour-upholstery",
+      "itemKind": "endpoint",
+      "provider": "sys:product-data-pcg",
+      "itemPlace": {
+        "workspace": "volvo-cars",
+        "domain": "dom:commercial-backbone",
+        "system": "sys:assortment",
+        "component": null
+      },
+      "itemParent": "if:pcg-rest",
+      "oldEdge": [
+        {
+          "from": "svc:carfeatures-api",
+          "handlers": [
+            "h:carfeatures-get-full-features-v2"
+          ],
+          "id": "api|svc:carfeatures-api|svc:product-data-pcg|api:pcg-std-features-colour-upholstery",
+          "kind": "api",
+          "mode": null,
+          "read": false,
+          "steps": [],
+          "sync": true,
+          "to": "svc:product-data-pcg",
+          "via": "api:pcg-std-features-colour-upholstery",
+          "write": false
+        }
+      ],
+      "kind": "outside-assortment"
+    },
+    {
+      "oldHead": "svc:product-data-pcg",
+      "head": "sys:product-data-pcg",
+      "headKind": "system",
+      "headSystem": "sys:product-data-pcg",
+      "oldItem": "api:plm-pcg-available-family-features",
+      "item": "api:plm-pcg-available-family-features",
+      "itemKind": "endpoint",
+      "provider": "sys:product-data-pcg",
+      "itemPlace": {
+        "workspace": "volvo-cars",
+        "domain": "dom:commercial-backbone",
+        "system": "sys:assortment",
+        "component": null
+      },
+      "itemParent": "if:plm-pcg-rest",
+      "oldEdge": [
+        {
+          "from": "svc:prins-ingestion",
+          "handlers": [
+            "h:prins-ingestion-refresh-feature-cache"
+          ],
+          "id": "api|svc:prins-ingestion|svc:product-data-pcg|api:plm-pcg-available-family-features",
+          "kind": "api",
+          "mode": null,
+          "read": false,
+          "steps": [],
+          "sync": true,
+          "to": "svc:product-data-pcg",
+          "via": "api:plm-pcg-available-family-features",
+          "write": false
+        }
+      ],
+      "kind": "outside-assortment"
+    },
+    {
+      "oldHead": "svc:product-data-pcg",
+      "head": "sys:product-data-pcg",
+      "headKind": "system",
+      "headSystem": "sys:product-data-pcg",
+      "oldItem": "api:plm-pcg-pno-elements",
+      "item": "api:plm-pcg-pno-elements",
+      "itemKind": "endpoint",
+      "provider": "sys:product-data-pcg",
+      "itemPlace": {
+        "workspace": "volvo-cars",
+        "domain": "dom:commercial-backbone",
+        "system": "sys:assortment",
+        "component": null
+      },
+      "itemParent": "if:plm-pcg-rest",
+      "oldEdge": [
+        {
+          "from": "svc:prins-ingestion",
+          "handlers": [
+            "h:prins-ingestion-refresh-feature-cache"
+          ],
+          "id": "api|svc:prins-ingestion|svc:product-data-pcg|api:plm-pcg-pno-elements",
+          "kind": "api",
+          "mode": null,
+          "read": false,
+          "steps": [],
+          "sync": true,
+          "to": "svc:product-data-pcg",
+          "via": "api:plm-pcg-pno-elements",
+          "write": false
+        }
+      ],
+      "kind": "outside-assortment"
+    },
+    {
+      "oldHead": "svc:product-data-pcg",
+      "head": "sys:product-data-pcg",
+      "headKind": "system",
+      "headSystem": "sys:product-data-pcg",
+      "oldItem": "api:plm-pcg-options",
+      "item": "api:plm-pcg-options",
+      "itemKind": "endpoint",
+      "provider": "sys:product-data-pcg",
+      "itemPlace": {
+        "workspace": "volvo-cars",
+        "domain": "dom:commercial-backbone",
+        "system": "sys:assortment",
+        "component": null
+      },
+      "itemParent": "if:plm-pcg-rest",
+      "oldEdge": [
+        {
+          "from": "svc:prins-ingestion",
+          "handlers": [
+            "h:prins-ingestion-refresh-feature-cache"
+          ],
+          "id": "api|svc:prins-ingestion|svc:product-data-pcg|api:plm-pcg-options",
+          "kind": "api",
+          "mode": null,
+          "read": false,
+          "steps": [],
+          "sync": true,
+          "to": "svc:product-data-pcg",
+          "via": "api:plm-pcg-options",
+          "write": false
+        }
+      ],
+      "kind": "outside-assortment"
+    },
+    {
+      "oldHead": "svc:plm-prins",
+      "head": "sys:plm-prins",
+      "headKind": "system",
+      "headSystem": "sys:plm-prins",
+      "oldItem": "api:plm-prins-query-stored-cpv-sets",
+      "item": "api:plm-prins-query-stored-cpv-sets",
+      "itemKind": "endpoint",
+      "provider": "sys:plm-prins",
+      "itemPlace": {
+        "workspace": "volvo-cars",
+        "domain": "dom:commercial-backbone",
+        "system": "sys:assortment",
+        "component": null
+      },
+      "itemParent": "if:plm-prins-graphql",
+      "oldEdge": [
+        {
+          "from": "svc:prins-ingestion",
+          "handlers": [
+            "h:prins-ingestion-sync-stored-cpv-sets"
+          ],
+          "id": "api|svc:prins-ingestion|svc:plm-prins|api:plm-prins-query-stored-cpv-sets",
+          "kind": "api",
+          "mode": null,
+          "read": false,
+          "steps": [],
+          "sync": true,
+          "to": "svc:plm-prins",
+          "via": "api:plm-prins-query-stored-cpv-sets",
+          "write": false
+        }
+      ],
+      "kind": "outside-assortment"
+    },
+    {
+      "oldHead": "svc:plm-prins",
+      "head": "sys:plm-prins",
+      "headKind": "system",
+      "headSystem": "sys:plm-prins",
+      "oldItem": "api:plm-prins-query-configuration-parameters",
+      "item": "api:plm-prins-query-configuration-parameters",
+      "itemKind": "endpoint",
+      "provider": "sys:plm-prins",
+      "itemPlace": {
+        "workspace": "volvo-cars",
+        "domain": "dom:commercial-backbone",
+        "system": "sys:assortment",
+        "component": null
+      },
+      "itemParent": "if:plm-prins-graphql",
+      "oldEdge": [
+        {
+          "from": "svc:prins-ingestion",
+          "handlers": [
+            "h:prins-ingestion-sync-configuration-parameters"
+          ],
+          "id": "api|svc:prins-ingestion|svc:plm-prins|api:plm-prins-query-configuration-parameters",
+          "kind": "api",
+          "mode": null,
+          "read": false,
+          "steps": [],
+          "sync": true,
+          "to": "svc:plm-prins",
+          "via": "api:plm-prins-query-configuration-parameters",
+          "write": false
+        }
+      ],
+      "kind": "outside-assortment"
+    },
+    {
+      "oldHead": "svc:plm-prins",
+      "head": "sys:plm-prins",
+      "headKind": "system",
+      "headSystem": "sys:plm-prins",
+      "oldItem": "api:plm-prins-query-configuration-rules",
+      "item": "api:plm-prins-query-configuration-rules",
+      "itemKind": "endpoint",
+      "provider": "sys:plm-prins",
+      "itemPlace": {
+        "workspace": "volvo-cars",
+        "domain": "dom:commercial-backbone",
+        "system": "sys:assortment",
+        "component": null
+      },
+      "itemParent": "if:plm-prins-graphql",
+      "oldEdge": [
+        {
+          "from": "svc:prins-ingestion",
+          "handlers": [
+            "h:prins-ingestion-sync-configuration-rules"
+          ],
+          "id": "api|svc:prins-ingestion|svc:plm-prins|api:plm-prins-query-configuration-rules",
+          "kind": "api",
+          "mode": null,
+          "read": false,
+          "steps": [],
+          "sync": true,
+          "to": "svc:plm-prins",
+          "via": "api:plm-prins-query-configuration-rules",
+          "write": false
+        }
+      ],
+      "kind": "outside-assortment"
+    },
+    {
+      "oldHead": "svc:plm-prins",
+      "head": "sys:plm-prins",
+      "headKind": "system",
+      "headSystem": "sys:plm-prins",
+      "oldItem": "api:plm-prins-query-commercial-packages",
+      "item": "api:plm-prins-query-commercial-packages",
+      "itemKind": "endpoint",
+      "provider": "sys:plm-prins",
+      "itemPlace": {
+        "workspace": "volvo-cars",
+        "domain": "dom:commercial-backbone",
+        "system": "sys:assortment",
+        "component": null
+      },
+      "itemParent": "if:plm-prins-graphql",
+      "oldEdge": [
+        {
+          "from": "svc:prins-ingestion",
+          "handlers": [
+            "h:prins-ingestion-sync-configuration-parameters"
+          ],
+          "id": "api|svc:prins-ingestion|svc:plm-prins|api:plm-prins-query-commercial-packages",
+          "kind": "api",
+          "mode": null,
+          "read": false,
+          "steps": [],
+          "sync": true,
+          "to": "svc:plm-prins",
+          "via": "api:plm-prins-query-commercial-packages",
+          "write": false
+        }
+      ],
+      "kind": "outside-assortment"
+    },
+    {
+      "oldHead": "svc:plm-prins",
+      "head": "sys:plm-prins",
+      "headKind": "system",
+      "headSystem": "sys:plm-prins",
+      "oldItem": "api:plm-prins-query-model-years",
+      "item": "api:plm-prins-query-model-years",
+      "itemKind": "endpoint",
+      "provider": "sys:plm-prins",
+      "itemPlace": {
+        "workspace": "volvo-cars",
+        "domain": "dom:commercial-backbone",
+        "system": "sys:assortment",
+        "component": null
+      },
+      "itemParent": "if:plm-prins-graphql",
+      "oldEdge": [
+        {
+          "from": "svc:prins-ingestion",
+          "handlers": [
+            "h:prins-ingestion-sync-configuration-parameters"
+          ],
+          "id": "api|svc:prins-ingestion|svc:plm-prins|api:plm-prins-query-model-years",
+          "kind": "api",
+          "mode": null,
+          "read": false,
+          "steps": [],
+          "sync": true,
+          "to": "svc:plm-prins",
+          "via": "api:plm-prins-query-model-years",
+          "write": false
+        }
+      ],
+      "kind": "outside-assortment"
+    },
+    {
+      "oldHead": "svc:product-addons-eligibility",
+      "head": "sys:product-addons-eligibility",
+      "headKind": "system",
+      "headSystem": "sys:product-addons-eligibility",
+      "oldItem": "api:product-addons-eligibility-service-plans",
+      "item": "api:product-addons-eligibility-service-plans",
+      "itemKind": "endpoint",
+      "provider": "sys:product-addons-eligibility",
+      "itemPlace": {
+        "workspace": "volvo-cars",
+        "domain": "dom:commercial-backbone",
+        "system": "sys:assortment",
+        "component": null
+      },
+      "itemParent": "if:product-addons-eligibility-rest",
+      "oldEdge": [
+        {
+          "from": "svc:eligibility-api",
+          "handlers": [
+            "h:eligibility-check-variants"
+          ],
+          "id": "api|svc:eligibility-api|svc:product-addons-eligibility|api:product-addons-eligibility-service-plans",
+          "kind": "api",
+          "mode": null,
+          "read": false,
+          "steps": [],
+          "sync": true,
+          "to": "svc:product-addons-eligibility",
+          "via": "api:product-addons-eligibility-service-plans",
+          "write": false
+        }
+      ],
+      "kind": "outside-assortment"
+    },
+    {
+      "oldHead": "svc:product-addons-eligibility",
+      "head": "sys:product-addons-eligibility",
+      "headKind": "system",
+      "headSystem": "sys:product-addons-eligibility",
+      "oldItem": "api:product-addons-eligibility-software",
+      "item": "api:product-addons-eligibility-software",
+      "itemKind": "endpoint",
+      "provider": "sys:product-addons-eligibility",
+      "itemPlace": {
+        "workspace": "volvo-cars",
+        "domain": "dom:commercial-backbone",
+        "system": "sys:assortment",
+        "component": null
+      },
+      "itemParent": "if:product-addons-eligibility-rest",
+      "oldEdge": [
+        {
+          "from": "svc:eligibility-api",
+          "handlers": [
+            "h:eligibility-check-variants"
+          ],
+          "id": "api|svc:eligibility-api|svc:product-addons-eligibility|api:product-addons-eligibility-software",
+          "kind": "api",
+          "mode": null,
+          "read": false,
+          "steps": [],
+          "sync": true,
+          "to": "svc:product-addons-eligibility",
+          "via": "api:product-addons-eligibility-software",
+          "write": false
+        }
+      ],
+      "kind": "outside-assortment"
+    }
+  ],
+  "additions": [
+    {
+      "head": "svc:assortment-dgs",
+      "item": "gql:product-catalog-ui-product-by-id"
+    },
+    {
+      "head": "svc:assortment-dgs",
+      "item": "gql:car-by-token-leaseco"
+    },
+    {
+      "head": "svc:assortment-dgs",
+      "item": "gql:storefront-product-seo-metadata"
+    }
+  ],
+  "frozenBody": "044f1ce70c8b8f181ace0474539b3da69789c38cba9bcd7e78cedd6cf5c2b537",
+  "releaseBody": "172b7bd6b820bd99930f75283d90077dac66bb83ec34777a477216274ab9532e",
+  "legacyReplayPlanDifferences": [
+    {
+      "file": "facts.json.gz",
+      "path": "/stores/13/owner",
+      "before": "8016bead209af9b6743c80676c34e7e57421118e573aa7727416ca07272770b8",
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400"
+    },
+    {
+      "file": "facts.json.gz",
+      "path": "/stores/48/owner",
+      "before": "67dacb38a36a9a460a2220dbef9b21974e8a9faee533769f755bec0516d46d90",
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400"
+    },
+    {
+      "file": "facts.json.gz",
+      "path": "/stores/51/owner",
+      "before": "67dacb38a36a9a460a2220dbef9b21974e8a9faee533769f755bec0516d46d90",
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400"
+    },
+    {
+      "file": "facts.json.gz",
+      "path": "/stores/53/owner",
+      "before": "67dacb38a36a9a460a2220dbef9b21974e8a9faee533769f755bec0516d46d90",
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400"
+    },
+    {
+      "file": "facts.json.gz",
+      "path": "/stores/71/owner",
+      "before": "b49b157356921dae775dbaee9025f85f949884c42af3f11a5e3fb5228a19a5cf",
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400"
+    },
+    {
+      "file": "facts.json.gz",
+      "path": "/stores/74/owner",
+      "before": "b49b157356921dae775dbaee9025f85f949884c42af3f11a5e3fb5228a19a5cf",
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400"
+    },
+    {
+      "file": "facts.json.gz",
+      "path": "/stores/75/owner",
+      "before": "b49b157356921dae775dbaee9025f85f949884c42af3f11a5e3fb5228a19a5cf",
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400"
+    },
+    {
+      "file": "facts.json.gz",
+      "path": "/stores/107/owner",
+      "before": "60feae7280791701cf3b023ef152b7f278f8e16dd3b5bc15e22df8dc0db77f18",
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400"
+    },
+    {
+      "file": "facts.json.gz",
+      "path": "/stores/148/owner",
+      "before": "5a8a4c50a3ec9e4fa16a0a21cb261d4cc617bfd628caffb8515a6c542ac55ea4",
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400"
+    },
+    {
+      "file": "facts.json.gz",
+      "path": "/stores/175/owner",
+      "before": "152c6f9e0b0db384a12f52ee235561b1867046f11a58c2f87fb471f517c4144d",
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400"
+    },
+    {
+      "file": "facts.json.gz",
+      "path": "/stores/215/owner",
+      "before": "84b76362bc023268527356c46e30602e0114e9e83480e80b9d1c3be93bae63fe",
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400"
+    },
+    {
+      "file": "facts.json.gz",
+      "path": "/stores/218/owner",
+      "before": "84b76362bc023268527356c46e30602e0114e9e83480e80b9d1c3be93bae63fe",
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400"
+    },
+    {
+      "file": "facts.json.gz",
+      "path": "/stores/219/owner",
+      "before": "84b76362bc023268527356c46e30602e0114e9e83480e80b9d1c3be93bae63fe",
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400"
+    },
+    {
+      "file": "facts.json.gz",
+      "path": "/stores/224/owner",
+      "before": "e1bbb2d6c8f7dd46a931be32ced694f04514cd3c31eaddcfd7ab17bc6eaf85d2",
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400"
+    },
+    {
+      "file": "facts.json.gz",
+      "path": "/stores/226/owner",
+      "before": "1dd3bba1d96f3a0cb342ed5871cbd4fd3bf2b6957bad2254ad9d09d669243cd8",
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400"
+    },
+    {
+      "file": "facts.json.gz",
+      "path": "/stores/227/owner",
+      "before": "1dd3bba1d96f3a0cb342ed5871cbd4fd3bf2b6957bad2254ad9d09d669243cd8",
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400"
+    },
+    {
+      "file": "facts.json.gz",
+      "path": "/stores/228/owner",
+      "before": "1dd3bba1d96f3a0cb342ed5871cbd4fd3bf2b6957bad2254ad9d09d669243cd8",
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400"
+    },
+    {
+      "file": "facts.json.gz",
+      "path": "/stores/238/owner",
+      "before": "fb844a91a94814c092d5115bc622c321c107af8c6edc89d1fa12728673eeb72d",
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400"
+    }
+  ],
+  "frozenPlan": "e959017adee3439d99c481efb045872d3bfc5438290ebd7c4e5d299837c4acd5",
+  "nativeModel": "006cb5b84b6e5af430962308ea60c098627aa59fdf71668ce632d6f38a173721"
+}

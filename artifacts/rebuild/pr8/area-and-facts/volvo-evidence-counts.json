@@ -1,0 +1,86 @@
+{
+  "sourceCommit": "723085497ded5b51d3c23fdcb5f6b1c778aa3efa",
+  "sourceLandscapeSha256": "fea846fb2babf1abb63b35310c1048a420c33d336e24d151f341531e9e01ba3d",
+  "frozenFactsSha256": "6a3140d3f4dab9f81d1da5539dc3a09f16bf6e697dc76afa2d592426b23d71ba",
+  "pinned": "/private/tmp/rebuild-pr7-native-output-02",
+  "output": "/private/tmp/rebuild-pr8-volvo-area-counts-fXNepU",
+  "checkedFiles": 1600,
+  "changed": [
+    "landscape.yaml"
+  ],
+  "beforeLandscapeSha256": "9dc3f29a2e0f4b7f649a23dd72242fb9910606d060b9861ee06a9b89c72ec306",
+  "restoredLandscapeSha256": "edfc31d5a2feed5f2cb5c5659bc6182ca46dc7e766310113454feefa9c6062ec",
+  "rows": [
+    {
+      "id": "area:range",
+      "sourceLine": 20,
+      "value": 36
+    },
+    {
+      "id": "area:commercial",
+      "sourceLine": 31,
+      "value": 40
+    },
+    {
+      "id": "area:content",
+      "sourceLine": 42,
+      "value": 10
+    },
+    {
+      "id": "area:choose",
+      "sourceLine": 53,
+      "value": 25
+    },
+    {
+      "id": "area:buy",
+      "sourceLine": 65,
+      "value": 45
+    },
+    {
+      "id": "area:orders",
+      "sourceLine": 76,
+      "value": 16
+    },
+    {
+      "id": "area:ownership",
+      "sourceLine": 87,
+      "value": 7
+    },
+    {
+      "id": "area:fleet",
+      "sourceLine": 98,
+      "value": 5
+    },
+    {
+      "id": "area:identity",
+      "sourceLine": 109,
+      "value": 6
+    },
+    {
+      "id": "area:help",
+      "sourceLine": 120,
+      "value": 1
+    },
+    {
+      "id": "area:company",
+      "sourceLine": 131,
+      "value": 2
+    },
+    {
+      "id": "area:integrations",
+      "sourceLine": 142,
+      "value": 1
+    },
+    {
+      "id": "area:ideas",
+      "sourceLine": 152,
+      "value": 1
+    },
+    {
+      "id": "area:operations",
+      "sourceLine": 164,
+      "value": 15
+    }
+  ],
+  "impact": "Fourteen authored count scalars; no change to IDs, placements, backing, pins, edge derivation, plan overlays or transport reference selection."
+}

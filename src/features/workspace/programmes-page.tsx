@@ -12,7 +12,11 @@ export function ProgrammesPage({ rows }: { readonly rows: readonly ProgrammeRowV
     <>
       <PageHeader
         description="Each programme gathers the plans that serve one outcome, and lands them in order."
-        meta={`${plural(rows.length, 'programme')}, ${String(held)} with a plan held up`}
+        meta={
+          rows.some((row) => row.unknownProgress !== undefined)
+            ? `${plural(rows.length, 'programme')} · Dependency status is incomplete`
+            : `${plural(rows.length, 'programme')}, ${String(held)} with a plan held up`
+        }
         title="Programmes"
       />
       {rows.length === 0 ? (

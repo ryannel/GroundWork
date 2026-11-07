@@ -1,11 +1,21 @@
-import type { AuthoredLandscape, LandscapeArea } from '@/domain/landscape';
-import type { Workspace } from '@/domain/workspace';
+import { stripPrefix } from '@/domain/ids';
+import type { LandscapeArea, LandscapeRelationship } from '@/domain/landscape';
 import { diagramCaption } from '@/shared/diagram-caption';
 import { plural } from '@/shared/text';
 
 import { areaRoute } from './area-routing/route';
 import { layoutAreaSystems } from './area-system-layout';
 import { workspaceHref } from './workspace-paths';
+
+/** Only the facts this drawing reads, shared by canonical data and the retained format-1 input. */
+export interface AreaLandscapeInput {
+  readonly label?: string;
+  readonly reviewed?: string;
+  readonly scope?: string;
+  readonly limitation?: string;
+  readonly areas: readonly Pick<LandscapeArea, 'id' | 'name' | 'purpose'>[];
+  readonly relationships?: readonly LandscapeRelationship[];
+}
 
 export interface AreaMapNode {
   readonly id: string;
@@ -54,7 +64,7 @@ const NODE_HEIGHT = 166;
 const MARGIN = 50;
 
 function areaHref(workspace: string, area: string): string {
-  return `${workspaceHref(workspace)}areas/${encodeURIComponent(area)}/`;
+  return `${workspaceHref(workspace)}areas/${encodeURIComponent(stripPrefix(area, 'area'))}/`;
 }
 
 function titleLines(words: string): readonly string[] {
@@ -71,7 +81,10 @@ function titleLines(words: string): readonly string[] {
   return lines.length <= 2 ? lines : [lines.slice(0, -1).join(' '), lines.at(-1) ?? ''];
 }
 
-function nodeOf(area: LandscapeArea, workspace: string): AreaMapNode {
+function nodeOf(
+  area: Pick<LandscapeArea, 'id' | 'name' | 'purpose'>,
+  workspace: string,
+): AreaMapNode {
   const purpose: string[] = [];
   for (const word of area.purpose.split(' ')) {
     const last = purpose.at(-1);
@@ -95,9 +108,9 @@ function nodeOf(area: LandscapeArea, workspace: string): AreaMapNode {
   };
 }
 
-function placedNodes(landscape: AuthoredLandscape, workspace: string): AreaMapNode[] {
+function placedNodes(landscape: AreaLandscapeInput, workspace: string): AreaMapNode[] {
   const nodes = landscape.areas.map((area) => nodeOf(area, workspace));
-  const flow = landscape.relationships
+  const flow = (landscape.relationships ?? [])
     .filter((edge) => edge.kind !== 'support')
     .toSorted((a, b) => Number(b.kind === 'transition') - Number(a.kind === 'transition'));
   const connected = new Set(flow.flatMap((edge) => [edge.from, edge.to]));
@@ -128,13 +141,13 @@ function placedNodes(landscape: AuthoredLandscape, workspace: string): AreaMapNo
 
 interface RoutingContext {
   readonly nodes: ReadonlyMap<string, AreaMapNode>;
-  readonly relationships: AuthoredLandscape['relationships'];
+  readonly relationships: readonly LandscapeRelationship[];
   readonly labels: readonly AreaMapEdge[];
 }
 
 function portY(
   node: AreaMapNode,
-  edge: AuthoredLandscape['relationships'][number],
+  edge: LandscapeRelationship,
   options: RoutingContext & { readonly outgoing: boolean },
 ): number {
   const { nodes, relationships, outgoing } = options;
@@ -151,7 +164,7 @@ function portY(
 
 function portX(
   node: AreaMapNode,
-  edge: AuthoredLandscape['relationships'][number],
+  edge: LandscapeRelationship,
   options: RoutingContext & { readonly outgoing: boolean },
 ): number {
   const { nodes, relationships, outgoing } = options;
@@ -167,7 +180,7 @@ function portX(
 }
 
 function routePorts(
-  relationship: AuthoredLandscape['relationships'][number],
+  relationship: LandscapeRelationship,
   from: AreaMapNode,
   to: AreaMapNode,
   options: RoutingContext,
@@ -207,10 +220,7 @@ function routePorts(
   };
 }
 
-function edgeOf(
-  relationship: AuthoredLandscape['relationships'][number],
-  options: RoutingContext,
-): AreaMapEdge | null {
+function edgeOf(relationship: LandscapeRelationship, options: RoutingContext): AreaMapEdge | null {
   const { nodes, labels } = options;
   const from = nodes.get(relationship.from);
   const to = nodes.get(relationship.to);
@@ -242,16 +252,16 @@ function edgeOf(
 
 /** The authored landscape as a readable connected canvas. */
 export function areaLandscapeOf(
-  workspace: Workspace,
-  landscape: AuthoredLandscape,
+  workspace: { readonly id: string; readonly name: string },
+  landscape: AreaLandscapeInput,
 ): AreaLandscapeView {
   const nodes = placedNodes(landscape, workspace.id);
   const byId = new Map(nodes.map((node) => [node.id, node]));
   const edges: AreaMapEdge[] = [];
-  for (const relationship of landscape.relationships) {
+  for (const relationship of landscape.relationships ?? []) {
     const edge = edgeOf(relationship, {
       nodes: byId,
-      relationships: landscape.relationships,
+      relationships: landscape.relationships ?? [],
       labels: edges,
     });
     if (edge !== null) edges.push(edge);
@@ -259,9 +269,15 @@ export function areaLandscapeOf(
   return {
     name: workspace.name,
     headline: `${workspace.name} systems support ${plural(nodes.length, 'area of activity', 'areas of activity')}. Open one to see the systems and information that make it work.`,
-    facts: [`${String(nodes.length)} areas`, landscape.label, `Reviewed ${landscape.reviewed}`],
-    scope: landscape.scope,
-    limitation: landscape.limitation,
+    facts: [
+      `${String(nodes.length)} areas`,
+      landscape.label ?? 'Interpretation not labelled',
+      landscape.reviewed === undefined
+        ? 'Review date not recorded'
+        : `Reviewed ${landscape.reviewed}`,
+    ],
+    scope: landscape.scope ?? 'Scope not recorded.',
+    limitation: landscape.limitation ?? 'Limitations not recorded.',
     width: Math.max(
       760,
       ...nodes.map((node) => node.x + node.width + MARGIN),

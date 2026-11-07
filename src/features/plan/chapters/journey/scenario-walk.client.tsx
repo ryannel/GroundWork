@@ -6,7 +6,7 @@ import type { Model } from '@/application/plan/derive';
 import { progressOf, walkOf } from '@/application/plan-story-journey-walk';
 import type { FlowView } from '@/application/plan-viz-flow-key';
 import { keepChoice, keptChoice } from '@/features/plan/kept';
-import { pendingModel } from '@/features/plan/plan-model';
+import { pendingLegacyModel } from '@/features/plan/legacy-plan-model';
 import { journeyModes } from '@/features/plan/viz/journey/journey';
 import { JourneyView } from '@/features/plan/viz/journey/journey-shell.client';
 
@@ -151,7 +151,7 @@ function Still({ props, note }: { readonly props: ScenarioWalkProps; readonly no
 }
 
 function Loaded({ props }: { readonly props: ScenarioWalkProps }) {
-  const model = use(pendingModel(props.src).model);
+  const model = use(pendingLegacyModel(props.src).model);
   if (model === null) return <Still note="The steps could not be loaded." props={props} />;
   return <Walking model={model} props={props} />;
 }

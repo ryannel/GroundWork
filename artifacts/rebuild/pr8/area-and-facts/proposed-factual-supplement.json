@@ -1,0 +1,69 @@
+{
+  "differences": [
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "d4eb12705a283aeb9747e43a6766f44ed7d25647fee3c91c039c5014efc5d53f",
+      "file": "facts.json.gz",
+      "path": "/workspace",
+      "reason": "Workspace metadata, identities, descriptions and authored connection summaries reconcile to canonical fields or exact historical annotations. Repository placements and original classifications are retained. Key journey identities resolve; design §4 retires the separate key_journeys marker. See artifacts/rebuild/pr8/area-and-facts/factual-supplement-personal.json.gz and historical-metadata-restoration.json.",
+      "workspace": "personal"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "276274d005f4b90b04f7ce0a001f7eef3bc4a40887346d9065c00fd235937e68",
+      "file": "facts.json.gz",
+      "path": "/attribution",
+      "reason": "Every 3 frozen source coordinate and source annotation has an exact native cite or retained source-note record. Extraction origin is legacy provenance replaced by canonical citations under design §4. See artifacts/rebuild/pr8/area-and-facts/factual-supplement-acme.json.gz.",
+      "workspace": "acme"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "a4f25b4de242ca4d79d6491e2e74d22d0597ec17ee4cd568926bbc50c5cdf8ad",
+      "file": "facts.json.gz",
+      "path": "/authoredSystemEdges",
+      "reason": "Frozen system summaries derive exactly from the recorded authored edges. Every individual source summary has matching native detail or an exact accepted review key in artifacts/rebuild/pr8/area-and-facts/factual-supplement-acme.json.gz.",
+      "workspace": "acme"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "cf5ffaa885168a70cd4bcd9e89ec97024ab49ff0470847009b14b8f12314f732",
+      "file": "facts.json.gz",
+      "path": "/workspace",
+      "reason": "Workspace metadata, identities, descriptions and authored connection summaries reconcile to canonical fields or exact historical annotations. Repository placements and original classifications are retained. Key journey identities resolve; design §4 retires the separate key_journeys marker. See artifacts/rebuild/pr8/area-and-facts/factual-supplement-acme.json.gz and historical-metadata-restoration.json.",
+      "workspace": "acme"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "4d5fa29d7ef72bc333f9530d5e41091547cde661519f4dbdae31b9b07af89fb1",
+      "file": "facts.json.gz",
+      "path": "/attribution",
+      "reason": "Every 12640 frozen source coordinate and source annotation has an exact native cite or retained source-note record. Extraction origin is legacy provenance replaced by canonical citations under design §4. See artifacts/rebuild/pr8/area-and-facts/factual-supplement-volvo-cars.json.gz.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "9515a4bb7440a80e8f3d266a2943f52b75cb0df117c39d67d60347df672138f5",
+      "file": "facts.json.gz",
+      "path": "/landscape",
+      "reason": "Frozen area metadata, ordered flows and backing references match the native landscape. Top-level links, placements and collaborations match after the scoped aliases. See artifacts/rebuild/pr8/area-and-facts/volvo-lineage.json.gz, volvo-limitation-aliases.json and factual-supplement-volvo-cars.json.gz.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "63822bd5c7c537b7f328c9f210b7fb4089595e16f7bc7e643f8dba1e9a738e1d",
+      "file": "facts.json.gz",
+      "path": "/authoredSystemEdges",
+      "reason": "Frozen system summaries derive exactly from the recorded authored edges. Every individual source summary has matching native detail or an exact accepted review key in artifacts/rebuild/pr8/area-and-facts/factual-supplement-volvo-cars.json.gz.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "7a21cdea0f4256027f21005d40bb9fb5b836ace8de2db5718bead68ff81ebc12",
+      "file": "facts.json.gz",
+      "path": "/workspace",
+      "reason": "Workspace metadata, identities, descriptions and authored connection summaries reconcile to canonical fields or exact historical annotations. Repository placements and original classifications are retained. Key journey identities resolve; design §4 retires the separate key_journeys marker. See artifacts/rebuild/pr8/area-and-facts/factual-supplement-volvo-cars.json.gz and historical-metadata-restoration.json.",
+      "workspace": "volvo-cars"
+    }
+  ],
+  "format": 1
+}

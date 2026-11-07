@@ -17,6 +17,7 @@ export interface OwnedSystem {
 }
 
 export interface PartnerRowVM {
+  readonly unknownProgress?: string | undefined;
   readonly id: string;
   readonly name: string;
   readonly href: string;

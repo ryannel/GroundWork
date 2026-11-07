@@ -382,3 +382,10 @@ export async function readModel(id: string, root?: string): Promise<WorkspaceMod
     return folder === null ? null : readFolder(folder, id);
   });
 }
+
+const frozenModels = untilEdited<WorkspaceModel>(() => '', { evidence: true });
+
+/** Read frozen canonical inputs through the same boundary without changing workspace registration. */
+export async function readModelFolder(folder: string, id: string): Promise<WorkspaceModel> {
+  return frozenModels(folder, id, async () => readFolder(folder, id));
+}

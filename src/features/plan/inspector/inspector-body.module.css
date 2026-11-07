@@ -1,0 +1,10 @@
+@layer components {
+  .body {
+    display: grid;
+    flex: 1;
+    gap: var(--s-4);
+    align-content: start;
+    padding: var(--s-4);
+    overflow-y: auto;
+  }
+}

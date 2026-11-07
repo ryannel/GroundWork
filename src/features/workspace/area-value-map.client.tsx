@@ -2,6 +2,7 @@
 
 import { useMemo, useRef, useState, type ReactNode } from 'react';
 
+import { areaBoundaryOf } from '@/application/area-map/boundaries';
 import { resourceLocation } from '@/application/area-map/component-summary';
 import { platformComponents } from '@/application/area-map/platform';
 import {
@@ -14,7 +15,7 @@ import {
   defaultValueFlowConnections,
   overviewConnection,
 } from '@/application/area-map/value-flow-visibility';
-import type { AreaSystemView, AreaView } from '@/application/workspace-area';
+import type { AreaBoundaryView, AreaSystemView, AreaView } from '@/application/workspace-area';
 import type { LandscapeValueFlow } from '@/domain/landscape';
 import { replaceAddress } from '@/ui/address-bar';
 import { Button } from '@/ui/button';
@@ -29,6 +30,7 @@ import { Select } from '@/ui/select';
 import { Cluster, Stack } from '@/ui/stack';
 import { Text } from '@/ui/text';
 
+import { AreaBoundaryCard } from './area-boundary-card';
 import { AreaComponentDetail } from './area-component-detail.client';
 import { ComponentCluster } from './area-expanded-system.client';
 import { AreaSystemMap } from './area-system-map.client';
@@ -36,6 +38,7 @@ import { selectedFlowFrame } from './area-value-focus';
 
 function ValueNode({
   node,
+  boundary,
   purpose = '',
   active,
   muted,
@@ -48,6 +51,7 @@ function ValueNode({
   systems,
   expanded,
 }: {
+  readonly boundary?: AreaBoundaryView | undefined;
   readonly systems: readonly AreaSystemView[];
   readonly expanded: ReadonlySet<string>;
   readonly node: ValueFlowNode;
@@ -65,6 +69,42 @@ function ValueNode({
     ? 'Not yet placed in a value flow'
     : 'Expand to follow the work inside';
   const collapsedSummary = purpose === '' ? fallback : purpose;
+  const systemCard = (
+    <SystemCard
+      name={node.system}
+      purpose={collapsedSummary}
+      onExpand={onSelect}
+      meta={`${
+        node.activities !== undefined && node.activities.length > 3
+          ? `+${String(node.activities.length - 3)} more flows · `
+          : ''
+      }${String(node.members.length)} components`}
+      muted={muted}
+      highlighted={highlighted}
+    >
+      {(node.activities ?? []).length === 0 ? null : (
+        <Stack gap={1}>
+          {(node.activities ?? []).slice(0, 3).map((activity) => (
+            <Text key={activity} size="sm" tone="muted" clamp={1}>
+              {activity}
+            </Text>
+          ))}
+        </Stack>
+      )}
+    </SystemCard>
+  );
+  const componentCard = (
+    <ComponentCluster
+      component={{ ...node.component, ...node, compact: false, open: node.open === true }}
+      active={active}
+      muted={muted}
+      highlighted={highlighted}
+      onOpen={onSelect}
+      onToggle={onToggle}
+      handlers={{ endpoint, onSelectEndpoint, onSelectResource, systems, expanded }}
+    />
+  );
+  const content = node.collapsed ? systemCard : componentCard;
   return (
     <foreignObject
       data-component={node.id}
@@ -74,38 +114,14 @@ function ValueNode({
       width={node.width}
       height={node.height}
     >
-      {node.collapsed ? (
-        <SystemCard
-          name={node.system}
-          purpose={collapsedSummary}
-          onExpand={onSelect}
-          meta={`${
-            node.activities !== undefined && node.activities.length > 3
-              ? `+${String(node.activities.length - 3)} more flows · `
-              : ''
-          }${String(node.members.length)} components`}
-          muted={muted}
-          highlighted={highlighted}
-        >
-          {(node.activities ?? []).length === 0 ? null : (
-            <Stack gap={1}>
-              {(node.activities ?? []).slice(0, 3).map((activity) => (
-                <Text key={activity} size="sm" tone="muted" clamp={1}>
-                  {activity}
-                </Text>
-              ))}
-            </Stack>
-          )}
-        </SystemCard>
+      {boundary === undefined ? (
+        content
       ) : (
-        <ComponentCluster
-          component={{ ...node.component, ...node, compact: false, open: node.open === true }}
-          active={active}
+        <AreaBoundaryCard
+          boundary={boundary}
           muted={muted}
           highlighted={highlighted}
-          onOpen={onSelect}
-          onToggle={onToggle}
-          handlers={{ endpoint, onSelectEndpoint, onSelectResource, systems, expanded }}
+          onSelect={onSelect}
         />
       )}
     </foreignObject>
@@ -291,8 +307,15 @@ export function AreaValueMap({
   );
   const platform = useMemo(() => platformComponents(view), [view]);
   const connections = useMemo(
-    () => valueFlowConnections(narrative, layout.nodes, view.technicalRelationships, platform),
-    [narrative, layout.nodes, view.technicalRelationships, platform],
+    () =>
+      valueFlowConnections(
+        narrative,
+        layout.nodes,
+        view.technicalRelationships,
+        platform,
+        view.boundaries !== undefined,
+      ),
+    [narrative, layout.nodes, view.technicalRelationships, platform, view.boundaries],
   );
   const colours = new Map(
     view.systems
@@ -383,6 +406,7 @@ export function AreaValueMap({
   );
   const focus = explorationFocus(layout, frame, opened, automaticFocus);
   const { active, inspected } = selectedComponent(layout.nodes, selected);
+  const inspectedBoundary = areaBoundaryOf(view, inspected?.id);
   const changeFlow = (id: string): void => {
     setAutomaticFocus(false);
     setFlow(id);
@@ -446,7 +470,12 @@ export function AreaValueMap({
                 <Button
                   pressed={allConnections}
                   onClick={() => {
-                    setAllConnections(!allConnections);
+                    if (allConnections) setAllConnections(false);
+                    else {
+                      afterReady(() => {
+                        setAllConnections(true);
+                      });
+                    }
                   }}
                 >
                   All connections
@@ -534,6 +563,7 @@ export function AreaValueMap({
             inspected === undefined ? undefined : (
               <AreaComponentDetail
                 component={inspected}
+                boundary={inspectedBoundary}
                 endpoint={endpoint}
                 usedBy={view.systems
                   .flatMap((system) => system.components)
@@ -607,6 +637,7 @@ export function AreaValueMap({
                   systems={view.systems}
                   expanded={expanded}
                   node={node}
+                  boundary={view.boundaries?.find((boundary) => boundary.id === node.component.id)}
                   purpose={view.systems.find((system) => system.id === node.systemId)?.purpose}
                   active={node.members.includes(selected ?? '')}
                   highlighted={focusIds?.has(node.id) === true}
@@ -615,6 +646,16 @@ export function AreaValueMap({
                     (focusIds !== undefined && !focusIds.has(node.id))
                   }
                   onSelect={() => {
+                    if (
+                      view.boundaries?.some((boundary) => boundary.id === node.component.id) ===
+                      true
+                    ) {
+                      afterReady(() => {
+                        setSelected(node.component.id);
+                        setEndpoint(undefined);
+                      });
+                      return;
+                    }
                     if (node.collapsed) {
                       afterReady(() => {
                         setExpanded((current) => new Set([...current, node.systemId]));

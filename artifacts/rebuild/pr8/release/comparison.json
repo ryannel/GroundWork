@@ -1,0 +1,167 @@
+[
+  {
+    "workspace": "personal",
+    "frozenRoutes": 24,
+    "releaseRoutes": 26,
+    "frozenManifestSha256": "0d772a800ff5734ec26b036456f9e0f7d6b6775466b1304a291fe398722aeeb0",
+    "releaseManifestSha256": "3cc4a8c387c94851a26f39392f0e38704658bb818ea47f8990ce453d535fb16c",
+    "comparisonSha256": "774b3ec781d5cbb44a2db7eaf1b214d5b87bd022225a9dce8943e6c715a56a31",
+    "differences": 295,
+    "unexplained": 0,
+    "pageBudget": {
+      "heaviest": [
+        {
+          "bytes": 54602,
+          "page": "/personal/side-projects/allotment-log/"
+        },
+        {
+          "bytes": 46017,
+          "page": "/personal/things/?id=svc-allotment-app"
+        },
+        {
+          "bytes": 45142,
+          "page": "/personal/things/?id=st-allotment-db"
+        },
+        {
+          "bytes": 40591,
+          "page": "/personal/reference/components/"
+        },
+        {
+          "bytes": 38712,
+          "page": "/personal/things/?id=lib-geometry"
+        },
+        {
+          "bytes": 34704,
+          "page": "/personal/reference/stores/"
+        },
+        {
+          "bytes": 32818,
+          "page": "/personal/side-projects/map/"
+        },
+        {
+          "bytes": 32552,
+          "page": "/personal/"
+        },
+        {
+          "bytes": 32064,
+          "page": "/personal/language/"
+        },
+        {
+          "bytes": 31793,
+          "page": "/personal/reference/"
+        }
+      ],
+      "over": []
+    }
+  },
+  {
+    "workspace": "acme",
+    "frozenRoutes": 35,
+    "releaseRoutes": 42,
+    "frozenManifestSha256": "c8baa27f5a5d681aad13c0f7abc263ef3ee4026af62d0b7851d9823ac0083ca9",
+    "releaseManifestSha256": "edf66aa0d5ed8dc0a829de6a0cfdd82f87501efa8e91069fe7d67d6df23fe7aa",
+    "comparisonSha256": "bba9ee37d3c95e86d571c4e00d4f1f5dcf6c7ecbedd1f6852c00262837532043",
+    "differences": 927,
+    "unexplained": 0,
+    "pageBudget": {
+      "heaviest": [
+        {
+          "bytes": 120388,
+          "page": "/acme/journeys/jny-buy/"
+        },
+        {
+          "bytes": 120386,
+          "page": "/acme/journeys/uj-buy/"
+        },
+        {
+          "bytes": 105185,
+          "page": "/acme/catalogue/products/"
+        },
+        {
+          "bytes": 76427,
+          "page": "/acme/things/?id=flow-cancel-order"
+        },
+        {
+          "bytes": 73348,
+          "page": "/acme/things/?id=sch-product"
+        },
+        {
+          "bytes": 69792,
+          "page": "/acme/journeys/flow-publish-product/"
+        },
+        {
+          "bytes": 64526,
+          "page": "/acme/reference/components/"
+        },
+        {
+          "bytes": 63868,
+          "page": "/acme/things/?id=svc-products"
+        },
+        {
+          "bytes": 63443,
+          "page": "/acme/things/?id=scr-product-page"
+        },
+        {
+          "bytes": 59427,
+          "page": "/acme/catalogue/flows/"
+        }
+      ],
+      "over": []
+    }
+  },
+  {
+    "workspace": "volvo-cars",
+    "frozenRoutes": 128,
+    "releaseRoutes": 155,
+    "frozenManifestSha256": "ed5b6b345b32bdcac28532e7f4d39e16ede3b7c3fff61bcd74238aa6934e8209",
+    "releaseManifestSha256": "2911faa0f8957d08ceaa5485023f4a7bce696b873f623b0ddfa547c23b320fec",
+    "comparisonSha256": "d70f51e04c25fd5740789093949f11654e6a36df3e9610860e7017132fe558d9",
+    "differences": 28519,
+    "unexplained": 0,
+    "pageBudget": {
+      "heaviest": [
+        {
+          "bytes": 948713,
+          "page": "/volvo-cars/commercial-backbone/map/"
+        },
+        {
+          "bytes": 895328,
+          "page": "/volvo-cars/commercial-backbone/assortment/"
+        },
+        {
+          "bytes": 752905,
+          "page": "/volvo-cars/plans/sourced-financing-terms/today/domain/"
+        },
+        {
+          "bytes": 732543,
+          "page": "/volvo-cars/plans/immutable-ids/today/domain/"
+        },
+        {
+          "bytes": 729639,
+          "page": "/volvo-cars/plans/unify-price-breakdown/today/domain/"
+        },
+        {
+          "bytes": 557742,
+          "page": "/volvo-cars/commercial-backbone/interfaces/"
+        },
+        {
+          "bytes": 552430,
+          "page": "/volvo-cars/plans/sourced-financing-terms/build/build-order/"
+        },
+        {
+          "bytes": 545672,
+          "page": "/volvo-cars/value-flows/"
+        },
+        {
+          "bytes": 478528,
+          "page": "/volvo-cars/programmes/care-se/"
+        },
+        {
+          "bytes": 441296,
+          "page": "/volvo-cars/plans/sourced-financing-terms/commit/choices/"
+        }
+      ],
+      "over": []
+    }
+  }
+]

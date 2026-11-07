@@ -1,0 +1,1771 @@
+{
+  "format": 1,
+  "original": {
+    "file": "artifacts/rebuild/pr8/original-candidates.json",
+    "sha256": "8bb91071c6ae2e9168573f6d20d496cc8551e3e3ee626c3b06d64371d69f17c2",
+    "rows": 1697
+  },
+  "dispositions": [
+    {
+      "file": "src/application/model-area-facts.ts",
+      "sourceSha256": "6dd8cd0319761cf0a37680a4c29dfa5d74d0e3e747f1ae51acfda9718d1b7537",
+      "role": "consumer",
+      "reason": "The active canonical bindings are modelAreaBoundaryOf, modelAreaComponentOf. They read, index or present the native records directly.",
+      "evidence": [
+        {
+          "file": "src/application/model-area-facts.ts",
+          "line": 197,
+          "text": "export function modelAreaBoundaryOf(index: ModelIndex, node: ModelEntity): AreaBoundaryView {"
+        },
+        {
+          "file": "src/application/model-area-facts.ts",
+          "line": 139,
+          "text": "export function modelAreaComponentOf("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-workspace-catalogues.md",
+          "sha256": "16400b3f5ee1a3604b75fa079e8ed11568669a3f955a12714fea05752b3bfef1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/model-area.ts",
+      "sourceSha256": "85c993d85ac020f50fd4fd50695bc0fd8d0b114fff9e81f80511d45ed380791d",
+      "role": "consumer",
+      "reason": "The active canonical bindings are modelAreaViewOf. They read, index or present the native records directly.",
+      "evidence": [
+        {
+          "file": "src/application/model-area.ts",
+          "line": 218,
+          "text": "export function modelAreaViewOf(index: ModelIndex, areaId: string): AreaView | null {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/application/model-area.test.ts",
+          "sha256": "3d07457642dc36b9bd7b011b775791852d5a03e67a57ae1ccedcd812b3129e44"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/model-assets.ts",
+      "sourceSha256": "3218111ed5b4a64b05effcd72f9e6e76c9f1fb7a2b1d018ab4f7a905f3bf0a32",
+      "role": "consumer",
+      "reason": "The active canonical bindings are modelAssetsOf. They read, index or present the native records directly.",
+      "evidence": [
+        {
+          "file": "src/application/model-assets.ts",
+          "line": 51,
+          "text": "export function modelAssetsOf("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/application/model-assets.test.ts",
+          "sha256": "3547d643ff2889b02ae3e7bf5ac897ca8d6afc6e6817b63ba2b8d28d44696903"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/model-catalogue.ts",
+      "sourceSha256": "2412d420a112c408498887dd5ae7fc6cc19d0900d73128eb9b4238223a863a7f",
+      "role": "consumer",
+      "reason": "The active canonical bindings are modelCatalogueOf, modelOfferedBy. They read, index or present the native records directly.",
+      "evidence": [
+        {
+          "file": "src/application/model-catalogue.ts",
+          "line": 107,
+          "text": "export function modelCatalogueOf(index: ModelIndex, scopedIds: ReadonlySet<string>): Catalogue {"
+        },
+        {
+          "file": "src/application/model-catalogue.ts",
+          "line": 26,
+          "text": "export function modelOfferedBy(index: ModelIndex, id: string): readonly string[] {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/application/model-catalogue.test.ts",
+          "sha256": "0239e54504926b3a2579d260bae8c657d502a8e945b508fd002ebeed7ab2b111"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/model-chip.ts",
+      "sourceSha256": "70184b3a8184690f4b95337423205c39498b5dd56b61454fad8894cc0711f9e5",
+      "role": "consumer",
+      "reason": "The active canonical bindings are modelChipOf, modelKindPresentation. They read, index or present the native records directly.",
+      "evidence": [
+        {
+          "file": "src/application/model-chip.ts",
+          "line": 68,
+          "text": "export function modelChipOf(index: ModelIndex, id: string): ModelChip {"
+        },
+        {
+          "file": "src/application/model-chip.ts",
+          "line": 57,
+          "text": "export function modelKindPresentation(kind: string): {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/application/model-chip.test.ts",
+          "sha256": "12677fd7845094b9a9e8dc9f9eba7105e8ffa4ef8ab369c44c9db7baea09174b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/model-domain.ts",
+      "sourceSha256": "8e0f08a2735cee3f39da652048dbaa024b01cf5e007dd58fe64a4419a446dc82",
+      "role": "consumer",
+      "reason": "The active canonical bindings are modelDomainNavOf, modelDomainOf, modelDomainViewOf, modelDomainWordsOf, modelFlowEntriesOf, modelJourneyCardsOf, modelJourneyRecordsOf, modelNeighboursOf, modelSystemCataloguesOf. They read, index or present the native records directly.",
+      "evidence": [
+        {
+          "file": "src/application/model-domain.ts",
+          "line": 308,
+          "text": "export function modelDomainNavOf("
+        },
+        {
+          "file": "src/application/model-domain.ts",
+          "line": 48,
+          "text": "export function modelDomainOf(index: ModelIndex, slug: string): ModelDomain | null {"
+        },
+        {
+          "file": "src/application/model-domain.ts",
+          "line": 243,
+          "text": "export function modelDomainViewOf(index: ModelIndex, slug: string): ModelDomainView | null {"
+        },
+        {
+          "file": "src/application/model-domain.ts",
+          "line": 233,
+          "text": "export function modelDomainWordsOf(index: ModelIndex, slug: string): ModelWordsPreview | null {"
+        },
+        {
+          "file": "src/application/model-domain.ts",
+          "line": 167,
+          "text": "export function modelFlowEntriesOf("
+        },
+        {
+          "file": "src/application/model-domain.ts",
+          "line": 139,
+          "text": "export function modelJourneyCardsOf("
+        },
+        {
+          "file": "src/application/model-domain.ts",
+          "line": 135,
+          "text": "export function modelJourneyRecordsOf(index: ModelIndex): readonly JourneyRecord[] {"
+        },
+        {
+          "file": "src/application/model-domain.ts",
+          "line": 212,
+          "text": "export function modelNeighboursOf(index: ModelIndex, systems: ReadonlySet<string>): Neighbours {"
+        },
+        {
+          "file": "src/application/model-domain.ts",
+          "line": 297,
+          "text": "export function modelSystemCataloguesOf("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/application/model-domain.test.ts",
+          "sha256": "a6c282c48af1b55948095ab9f957c00673ea9cb7152d7949889431a3a98ffccb"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/model-flow.ts",
+      "sourceSha256": "4915ad6f0cd7fb8c654a26522d5e73a3994072eb38b77944c6747d1bd0bd55bc",
+      "role": "consumer",
+      "reason": "The active canonical bindings are modelFlowMermaidOf, modelFlowOf. They read, index or present the native records directly.",
+      "evidence": [
+        {
+          "file": "src/application/model-flow.ts",
+          "line": 107,
+          "text": "export function modelFlowMermaidOf(flow: ModelFlowView): string {"
+        },
+        {
+          "file": "src/application/model-flow.ts",
+          "line": 92,
+          "text": "export function modelFlowOf(index: ModelIndex, id: string): ModelFlowView | null {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/application/model-flow.test.ts",
+          "sha256": "fae659d47676f4924c401feef901d4ddb31a6b4b559a1f6e02fe7431c2300cb6"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/model-graphql.ts",
+      "sourceSha256": "01b4dfb776a8395adf71a47eb698456ad79f612ce5ecb793561417f859f9ea84",
+      "role": "consumer",
+      "reason": "The active canonical bindings are graphqlGaps, graphqlReaches, selectedGraphFields. They read, index or present the native records directly.",
+      "evidence": [
+        {
+          "file": "src/application/model-graphql.ts",
+          "line": 286,
+          "text": "export function graphqlGaps(operation: ModelEntity, graph: GraphModel): readonly ModelGap[] {"
+        },
+        {
+          "file": "src/application/model-graphql.ts",
+          "line": 226,
+          "text": "export function graphqlReaches(operation: ModelEntity, graph: GraphModel): readonly GraphqlReach[] {"
+        },
+        {
+          "file": "src/application/model-graphql.ts",
+          "line": 218,
+          "text": "export function selectedGraphFields("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-system-handoff.md",
+          "sha256": "828cc57add7a95c45e211ffc5b039f5f8727328318f00d16a38c2bd8f7301009"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/model-index.ts",
+      "sourceSha256": "ec73253b0d5d867b5c683d475b945462d1bb05c52914ffc2ba4064deedc48240",
+      "role": "consumer",
+      "reason": "The active canonical bindings are indexOf. They read, index or present the native records directly.",
+      "evidence": [
+        {
+          "file": "src/application/model-index.ts",
+          "line": 667,
+          "text": "export function indexOf(model: WorkspaceModel): ModelIndex {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/application/model-index.test.ts",
+          "sha256": "189a9d34788204c8888e4a019c1e7cd8f6cfa4a3e157572ce817655362df3db1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/model-inspection.ts",
+      "sourceSha256": "e291cfe48207a20b0d56fdea536def8ff9a435c7356adbe451944e5d80d70319",
+      "role": "consumer",
+      "reason": "The active canonical bindings are modelInspectionOf, modelInspectionRecords, modelInspectionRef. They read, index or present the native records directly.",
+      "evidence": [
+        {
+          "file": "src/application/model-inspection.ts",
+          "line": 482,
+          "text": "export function modelInspectionOf("
+        },
+        {
+          "file": "src/application/model-inspection.ts",
+          "line": 80,
+          "text": "export function modelInspectionRecords("
+        },
+        {
+          "file": "src/application/model-inspection.ts",
+          "line": 153,
+          "text": "export function modelInspectionRef("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/application/model-inspection.test.ts",
+          "sha256": "f639c06643d76ef7dcab01c70dc433b67ee7dfa90a658f793dd12766140fdd9f"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/model-journeys.ts",
+      "sourceSha256": "6ba32199b924e686cf5f2a97f053e03b9ed964c7588276bd1ee4a991ab46acbc",
+      "role": "consumer",
+      "reason": "The active canonical bindings are modelJourneyAt, modelJourneyIndexOf, modelJourneysOf, modelJourneyWalkOf. They read, index or present the native records directly.",
+      "evidence": [
+        {
+          "file": "src/application/model-journeys.ts",
+          "line": 89,
+          "text": "export function modelJourneyAt(index: ModelIndex, key: string): TodayJourney | null {"
+        },
+        {
+          "file": "src/application/model-journeys.ts",
+          "line": 40,
+          "text": "export function modelJourneyIndexOf(index: ModelIndex): JourneyIndex {"
+        },
+        {
+          "file": "src/application/model-journeys.ts",
+          "line": 26,
+          "text": "export function modelJourneysOf(index: ModelIndex): readonly TodayJourney[] {"
+        },
+        {
+          "file": "src/application/model-journeys.ts",
+          "line": 95,
+          "text": "export function modelJourneyWalkOf(index: ModelIndex, key: string): ModelJourneyWalk | null {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/application/model-journeys.test.ts",
+          "sha256": "522e4521e9af2b7a0bb170c930153c4878fdf5fbd1c39b8aa9d29f91e780b6d8"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/model-landscape.ts",
+      "sourceSha256": "2e50ce7ba580ee8b9e4752cbc16bb1a4f881bc1528e0e8559f139d839fd833dc",
+      "role": "consumer",
+      "reason": "The active canonical bindings are modelLandscapeOf. They read, index or present the native records directly.",
+      "evidence": [
+        {
+          "file": "src/application/model-landscape.ts",
+          "line": 190,
+          "text": "export function modelLandscapeOf(index: ModelIndex): ModelLandscape {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/application/model-landscape.test.ts",
+          "sha256": "7191c0f5d6579758342b40d4d234fea56d6e00dbb9279a7a178a64ef33b43cc1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/model-language.ts",
+      "sourceSha256": "0a67514b5d538bad80b5819047f7ec502830605fb4737dfb21d1253c5e02aaf7",
+      "role": "consumer",
+      "reason": "The active canonical bindings are modelLanguageOf. They read, index or present the native records directly.",
+      "evidence": [
+        {
+          "file": "src/application/model-language.ts",
+          "line": 68,
+          "text": "export function modelLanguageOf(index: ModelIndex): LanguagePage {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/application/model-language.test.ts",
+          "sha256": "db15afdbaacc3ee87b499c7dc3933350f1796cd241f21cee20e92d57e8800145"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/model-map.ts",
+      "sourceSha256": "d9b8a4b4e870bb4fc05e3705fffdcfe4348d6d752c7f82ae27a4bc37f532d495",
+      "role": "consumer",
+      "reason": "The active canonical bindings are modelCounts, modelMarkdownOf. They read, index or present the native records directly.",
+      "evidence": [
+        {
+          "file": "src/application/model-map.ts",
+          "line": 16,
+          "text": "export function modelCounts(index: ModelIndex): ModelCounts {"
+        },
+        {
+          "file": "src/application/model-map.ts",
+          "line": 42,
+          "text": "export function modelMarkdownOf(index: ModelIndex): string {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/application/model-map.test.ts",
+          "sha256": "a6be3e43a0bb1408b54df834cf6ffecfc0cdfe73ff191a1374cbbe93bb416e43"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/model-narratives.ts",
+      "sourceSha256": "cabaef9e6e4492093290e593cd9a8393fbdcc4e8f20331c07d23d9f99cb85d0d",
+      "role": "consumer",
+      "reason": "The active canonical bindings are modelNarrativeProblems. They read, index or present the native records directly.",
+      "evidence": [
+        {
+          "file": "src/application/model-narratives.ts",
+          "line": 91,
+          "text": "export function modelNarrativeProblems("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/application/model-narratives.test.ts",
+          "sha256": "d7a5baa59ae0b899ccf21e0cc40e3a6e74b979add2d47afb5ff6b232ed3c6fad"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/model-navigation.ts",
+      "sourceSha256": "e8396bbdd67cd3dcb7558af39c34fe77dd517497a991efa4e7d63e60484f13e8",
+      "role": "consumer",
+      "reason": "The active canonical bindings are modelWorkspaceNavOf. They read, index or present the native records directly.",
+      "evidence": [
+        {
+          "file": "src/application/model-navigation.ts",
+          "line": 94,
+          "text": "export function modelWorkspaceNavOf("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/application/model-navigation.test.ts",
+          "sha256": "fd98e149759c3d4cac638429384117f492c99764bebb7503131c7dcf99e27422"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/model-pages.ts",
+      "sourceSha256": "ca069cb64c24d98c4bfece783f58a97f904a1ccdc7ce035e8d284dd62e162593",
+      "role": "consumer",
+      "reason": "The active canonical bindings are modelPageLinks, modelWorkspaceScreens. They read, index or present the native records directly.",
+      "evidence": [
+        {
+          "file": "src/application/model-pages.ts",
+          "line": 8,
+          "text": "export function modelPageLinks(index: ModelIndex): Readonly<Record<string, string>> {"
+        },
+        {
+          "file": "src/application/model-pages.ts",
+          "line": 15,
+          "text": "export function modelWorkspaceScreens(index: ModelIndex): readonly PaletteEntry[] {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-workspace-catalogues.md",
+          "sha256": "16400b3f5ee1a3604b75fa079e8ed11568669a3f955a12714fea05752b3bfef1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/model-plan-footprint.ts",
+      "sourceSha256": "bbd11f1b570033cf7a9f6c5dce1a1c60aec4623cd4804f96b7ea87988ca01450",
+      "role": "consumer",
+      "reason": "The active canonical bindings are modelPlanDomainsOf, modelPlanFootprintOf. They read, index or present the native records directly.",
+      "evidence": [
+        {
+          "file": "src/application/model-plan-footprint.ts",
+          "line": 193,
+          "text": "export function modelPlanDomainsOf("
+        },
+        {
+          "file": "src/application/model-plan-footprint.ts",
+          "line": 147,
+          "text": "export function modelPlanFootprintOf("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/application/model-plan-footprint.test.ts",
+          "sha256": "36bc1ded256c96d6b1688a921754a9a908643767f728550b36b9a456ca7897c4"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/model-plan-pages.ts",
+      "sourceSha256": "e932b23cb9d8837dc5eb9fa29866e556b32d722c58a063888b460b3964c7f95c",
+      "role": "consumer",
+      "reason": "The active canonical bindings are modelAheadStop, modelPlanBar, modelPlanFocus, modelPlanOpTarget, modelPlanOutline, modelPlanOutlineFromCurrent, modelPlanScreen. They read, index or present the native records directly.",
+      "evidence": [
+        {
+          "file": "src/application/model-plan-pages.ts",
+          "line": 265,
+          "text": "export function modelAheadStop("
+        },
+        {
+          "file": "src/application/model-plan-pages.ts",
+          "line": 606,
+          "text": "export function modelPlanBar(context: ModelQueryContext, outline: Outline): PlanBar {"
+        },
+        {
+          "file": "src/application/model-plan-pages.ts",
+          "line": 625,
+          "text": "export function modelPlanFocus(context: ModelQueryContext): readonly string[] {"
+        },
+        {
+          "file": "src/application/model-plan-pages.ts",
+          "line": 52,
+          "text": "export function modelPlanOpTarget(op: ModelOp): string {"
+        },
+        {
+          "file": "src/application/model-plan-pages.ts",
+          "line": 241,
+          "text": "export function modelPlanOutline(context: ModelQueryContext, at: PlanAddress): Outline {"
+        },
+        {
+          "file": "src/application/model-plan-pages.ts",
+          "line": 249,
+          "text": "export function modelPlanOutlineFromCurrent("
+        },
+        {
+          "file": "src/application/model-plan-pages.ts",
+          "line": 551,
+          "text": "export function modelPlanScreen("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/application/model-plan-pages.test.ts",
+          "sha256": "05486c896f6020c0b005d528bdbb936ca4fc107be3fe0e6d8e7915d4eada2027"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/model-plan-standing.ts",
+      "sourceSha256": "30bbed5fe39223fd82e25706c0808b5df61e2f8dd8fd188f82a5254a7650743c",
+      "role": "consumer",
+      "reason": "The active canonical bindings are modelStandingContextOf, modelStandingOf, modelStandingScopes. They read, index or present the native records directly.",
+      "evidence": [
+        {
+          "file": "src/application/model-plan-standing.ts",
+          "line": 105,
+          "text": "export function modelStandingContextOf("
+        },
+        {
+          "file": "src/application/model-plan-standing.ts",
+          "line": 117,
+          "text": "export function modelStandingOf("
+        },
+        {
+          "file": "src/application/model-plan-standing.ts",
+          "line": 25,
+          "text": "export function modelStandingScopes(plan: ModelPlan): readonly string[] {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/application/model-plan-standing.test.ts",
+          "sha256": "0d6a086c56d3e634122b3a28f834e82bab75873238d62da2865bc2f5bdbb951d"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/model-progress.ts",
+      "sourceSha256": "70e5669dc4f744005fbe38b8231f1c4da7c6a7d6b077bdd6c025785915d24735",
+      "role": "consumer",
+      "reason": "The active canonical bindings are modelPlanProgressOf, modelProgressRecords. They read, index or present the native records directly.",
+      "evidence": [
+        {
+          "file": "src/application/model-progress.ts",
+          "line": 12,
+          "text": "export function modelPlanProgressOf(read: {"
+        },
+        {
+          "file": "src/application/model-progress.ts",
+          "line": 45,
+          "text": "export function modelProgressRecords("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/application/model-progress.test.ts",
+          "sha256": "62f97f9617a00839ac283c17c0673c07d2797a25a0440168edbe55744e5e8e68"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/model-reader.ts",
+      "sourceSha256": "b42715de803e684a6df6ca4fb930e4ed61a6c01f9f00781c24dd79143bdd61fa",
+      "role": "consumer",
+      "reason": "The active canonical bindings are currentModelPayload, modelContextOf, selectedPlanPayload. They read, index or present the native records directly.",
+      "evidence": [
+        {
+          "file": "src/application/model-reader.ts",
+          "line": 50,
+          "text": "export function currentModelPayload(model: WorkspaceModel): ModelPayload {"
+        },
+        {
+          "file": "src/application/model-reader.ts",
+          "line": 59,
+          "text": "export function modelContextOf(payload: ModelPayload): ModelQueryContext {"
+        },
+        {
+          "file": "src/application/model-reader.ts",
+          "line": 27,
+          "text": "export function selectedPlanPayload("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/application/model-reader.test.ts",
+          "sha256": "c7a61a7fc6e5aca5ffa1171815e470cfd3f97f0810778e6804e9bf1b1ecb234e"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/model-realisation.ts",
+      "sourceSha256": "14960ff612a99ed5086b576780847f2c2c210173a13d4406d444bbea129993cc",
+      "role": "consumer",
+      "reason": "The active canonical bindings are modelRealisationOf. They read, index or present the native records directly.",
+      "evidence": [
+        {
+          "file": "src/application/model-realisation.ts",
+          "line": 154,
+          "text": "export function modelRealisationOf("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/application/model-realisation.test.ts",
+          "sha256": "4689693c2e9cc219cb7fd6525da41ae6457bc8abc59971de3a3fc33a1c094036"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/model-reference.ts",
+      "sourceSha256": "1c47db8845eb43561ce74a08f05742127f481c069a2284868040eed2d1657b5b",
+      "role": "consumer",
+      "reason": "The active canonical bindings are modelReferenceOf, modelReferencePage. They read, index or present the native records directly.",
+      "evidence": [
+        {
+          "file": "src/application/model-reference.ts",
+          "line": 76,
+          "text": "export function modelReferenceOf(index: ModelIndex): readonly ModelReferenceEntry[] {"
+        },
+        {
+          "file": "src/application/model-reference.ts",
+          "line": 92,
+          "text": "export function modelReferencePage("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/application/model-reference.test.ts",
+          "sha256": "bf5d73f299ccbd720b9d0ca70b101738e766fcdbd8068edd6c5c2ff5b218979d"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/model-search.ts",
+      "sourceSha256": "a00bf27e7c7fa2f3e2d7c111a82adc0368de75901b7eeb33f65b4b2195ed5e1c",
+      "role": "consumer",
+      "reason": "The active canonical bindings are modelPaletteEntries. They read, index or present the native records directly.",
+      "evidence": [
+        {
+          "file": "src/application/model-search.ts",
+          "line": 10,
+          "text": "export function modelPaletteEntries("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/application/model-search.test.ts",
+          "sha256": "69473e26ae9646b1ea62aed43b68702f06704c9001ea56cc67e6bff8cabe9859"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/model-system-map-input.ts",
+      "sourceSha256": "91875a8199cafa7f03591a5d5e02165cfc64acbe6e11fbfdbd727b1f2ea3024f",
+      "role": "consumer",
+      "reason": "The active canonical bindings are modelSystemMapInput. They read, index or present the native records directly.",
+      "evidence": [
+        {
+          "file": "src/application/model-system-map-input.ts",
+          "line": 156,
+          "text": "export function modelSystemMapInput(index: ModelIndex, options: MapOptions = {}): SystemMapInput {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/application/model-system-map-input.test.ts",
+          "sha256": "9a06bd41dbc68eb9ab044eccbadf9e1b4e9f741cbfae8657ea7c8284f0e09025"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/model-system-plans.ts",
+      "sourceSha256": "ca239d758c8fa27a31e9fecd54616f7e9fe8086c28bfccc3d8482c1916dd8989",
+      "role": "consumer",
+      "reason": "The active canonical bindings are modelSystemPlanProgress, modelSystemPlansOf. They read, index or present the native records directly.",
+      "evidence": [
+        {
+          "file": "src/application/model-system-plans.ts",
+          "line": 60,
+          "text": "export function modelSystemPlanProgress("
+        },
+        {
+          "file": "src/application/model-system-plans.ts",
+          "line": 27,
+          "text": "export function modelSystemPlansOf("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/application/model-system-plans.test.ts",
+          "sha256": "8d787995df7a4ee7a7933fa2cd0e6db1a0ba2a9621477513fffadf78aa2b699e"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/model-system.ts",
+      "sourceSha256": "51ba29a1dceca13cc2e5ca5d97d2c791a9988c2cab6afc7001bf30fe62cfa375",
+      "role": "consumer",
+      "reason": "The active canonical bindings are modelSystemAt, modelSystemFlowOf, modelSystemViewOf. They read, index or present the native records directly.",
+      "evidence": [
+        {
+          "file": "src/application/model-system.ts",
+          "line": 52,
+          "text": "export function modelSystemAt("
+        },
+        {
+          "file": "src/application/model-system.ts",
+          "line": 82,
+          "text": "export function modelSystemFlowOf("
+        },
+        {
+          "file": "src/application/model-system.ts",
+          "line": 256,
+          "text": "export function modelSystemViewOf("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/application/model-system.test.ts",
+          "sha256": "4568e472041b9421ed57cc5b433c8e5c5f6af2909219cf0aa85479996de20b08"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/model-target.ts",
+      "sourceSha256": "4490d00aea01a080eb09ca393893ecf9bff7c587a4877a7cb3280799d8b2f6bd",
+      "role": "consumer",
+      "reason": "The active canonical bindings are modelTargetOf. They read, index or present the native records directly.",
+      "evidence": [
+        {
+          "file": "src/application/model-target.ts",
+          "line": 16,
+          "text": "export function modelTargetOf(index: ModelIndex, slug: string): TargetView | null {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/application/model-target.test.ts",
+          "sha256": "29d42704d9b0c8fa6820bc3e7ff69173c3b771fce9585b1a096332a0274fa650"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/model-team.ts",
+      "sourceSha256": "b79d3f1591cb819ed2bff86e3b8645515173cf91d5aa890a2c14705790ae74cd",
+      "role": "consumer",
+      "reason": "The active canonical bindings are modelTeamSlotOf. They read, index or present the native records directly.",
+      "evidence": [
+        {
+          "file": "src/application/model-team.ts",
+          "line": 4,
+          "text": "export function modelTeamSlotOf(index: ModelIndex, teamId: string | null | undefined): number {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/application/model-team.test.ts",
+          "sha256": "7d6609b0371c1658f9909e759f663ed0c1f8fdacfd00df4a1fe469e94ae474c8"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/model-transport.ts",
+      "sourceSha256": "779fdd6096b722dbad90590f36bfdb3407ebd5fb1a660d2c2d08f53fa5f54ce6",
+      "role": "consumer",
+      "reason": "The active canonical bindings are evidenceTransportOf, referenceCollector. They read, index or present the native records directly.",
+      "evidence": [
+        {
+          "file": "src/application/model-transport.ts",
+          "line": 76,
+          "text": "export function evidenceTransportOf("
+        },
+        {
+          "file": "src/application/model-transport.ts",
+          "line": 26,
+          "text": "export function referenceCollector("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/application/model-transport.test.ts",
+          "sha256": "c2b2065367300653284aac94d1fcf1e83f4a36469d9f1d7872436482f1561de5"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/model-value-flows.ts",
+      "sourceSha256": "f158da0895bd9fc568f0db154b0ed8a011dd30a80fd5fd77836e68b738005bce",
+      "role": "consumer",
+      "reason": "The active canonical bindings are modelValueFlowsOf. They read, index or present the native records directly.",
+      "evidence": [
+        {
+          "file": "src/application/model-value-flows.ts",
+          "line": 9,
+          "text": "export function modelValueFlowsOf(index: ModelIndex): readonly ValueFlowArea[] {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-workspace-catalogues.md",
+          "sha256": "16400b3f5ee1a3604b75fa079e8ed11568669a3f955a12714fea05752b3bfef1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/model-workspace-work.ts",
+      "sourceSha256": "5db834ebb6491b693406606b1a55ee2dafe8359cf81e8cdeae1259c312953678",
+      "role": "consumer",
+      "reason": "The active canonical bindings are modelPartnerOf, modelPartnerRowsOf, modelProgrammeOf, modelProgrammeRowsOf, modelWorkLabelsOf. They read, index or present the native records directly.",
+      "evidence": [
+        {
+          "file": "src/application/model-workspace-work.ts",
+          "line": 285,
+          "text": "export function modelPartnerOf("
+        },
+        {
+          "file": "src/application/model-workspace-work.ts",
+          "line": 225,
+          "text": "export function modelPartnerRowsOf("
+        },
+        {
+          "file": "src/application/model-workspace-work.ts",
+          "line": 303,
+          "text": "export function modelProgrammeOf("
+        },
+        {
+          "file": "src/application/model-workspace-work.ts",
+          "line": 197,
+          "text": "export function modelProgrammeRowsOf("
+        },
+        {
+          "file": "src/application/model-workspace-work.ts",
+          "line": 347,
+          "text": "export function modelWorkLabelsOf("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/application/model-workspace-work.test.ts",
+          "sha256": "252faecafa7f42358f89a06503c183b631cefdcfc10f1683e699e4cdc7c8d901"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/infrastructure/model-evidence.ts",
+      "sourceSha256": "0f39e808080c49fe8ed795d35a7546ad8b2948600b741257e388d78789d83a0d",
+      "role": "consumer",
+      "reason": "The active canonical bindings are readModelEvidence. They read, index or present the native records directly.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/model-evidence.ts",
+          "line": 27,
+          "text": "export async function readModelEvidence("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/infrastructure/model-evidence.test.ts",
+          "sha256": "3503900317b28d3d936a03a4879630faab6a690dc44973a799f143d356d20721"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/infrastructure/model-index.ts",
+      "sourceSha256": "e87664319c7834b118f3e8ae1bf08264d164be0293343fe7b1968234443eca84",
+      "role": "consumer",
+      "reason": "The active canonical bindings are readCanonicalModelIndex. They read, index or present the native records directly.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/model-index.ts",
+          "line": 26,
+          "text": "export async function readCanonicalModelIndex("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/infrastructure/model-index.test.ts",
+          "sha256": "a65e92521a634164f97462ff901f87027ac097424b5e60f0bbb71dc70fc468b5"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/infrastructure/model-narratives.ts",
+      "sourceSha256": "b79b9680f73d892a44aef525945e6919136a683ecf644fb7ff11e7964b877caa",
+      "role": "consumer",
+      "reason": "The active canonical bindings are modelNarrativePacket. They read, index or present the native records directly.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/model-narratives.ts",
+          "line": 27,
+          "text": "export function modelNarrativePacket("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-cli-handoff.md",
+          "sha256": "7640d6986db1b1744bce717b831891e9c225e3199b9408b55fa38de0527f592b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/infrastructure/model-plan-base.ts",
+      "sourceSha256": "c0a5a0b4c8fb2f3b0529a35b6ffe27ae51ab647bb9e45c07e7a4a8646b7cfbeb",
+      "role": "consumer",
+      "reason": "The active canonical bindings are readModelFrozenBases, readModelPlanBase, readModelPlanBaseMarkers. They read, index or present the native records directly.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/model-plan-base.ts",
+          "line": 77,
+          "text": "export async function readModelFrozenBases("
+        },
+        {
+          "file": "src/infrastructure/model-plan-base.ts",
+          "line": 61,
+          "text": "export async function readModelPlanBase("
+        },
+        {
+          "file": "src/infrastructure/model-plan-base.ts",
+          "line": 44,
+          "text": "export async function readModelPlanBaseMarkers("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-workspace-catalogues.md",
+          "sha256": "16400b3f5ee1a3604b75fa079e8ed11568669a3f955a12714fea05752b3bfef1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/infrastructure/model-plan-context.ts",
+      "sourceSha256": "0d586cba84a38a726871e5ef3957f170855abd00f32430a23bdd3bc14d62bf21",
+      "role": "consumer",
+      "reason": "The active canonical bindings are readModelPlanProgress, readSelectedPlanContext, readSelectedRevisionContext. They read, index or present the native records directly.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/model-plan-context.ts",
+          "line": 114,
+          "text": "export async function readModelPlanProgress("
+        },
+        {
+          "file": "src/infrastructure/model-plan-context.ts",
+          "line": 76,
+          "text": "export async function readSelectedPlanContext("
+        },
+        {
+          "file": "src/infrastructure/model-plan-context.ts",
+          "line": 92,
+          "text": "export async function readSelectedRevisionContext("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/infrastructure/model-plan-context.test.ts",
+          "sha256": "7c17803752579f4aa7256f6ecd883459fff12976e05b693a0e40c19bb677ec2c"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/infrastructure/model-plans.ts",
+      "sourceSha256": "c83abb39acb21e9be1c5ef2ef53fb81479305cad023571433bcc3c2a6e74615c",
+      "role": "consumer",
+      "reason": "The active canonical bindings are readModelPlanEntries, readModelPlanEntry, readModelPlanRevisions, readModelPlans. They read, index or present the native records directly.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/model-plans.ts",
+          "line": 52,
+          "text": "export async function readModelPlanEntries("
+        },
+        {
+          "file": "src/infrastructure/model-plans.ts",
+          "line": 60,
+          "text": "export async function readModelPlanEntry("
+        },
+        {
+          "file": "src/infrastructure/model-plans.ts",
+          "line": 76,
+          "text": "export async function readModelPlanRevisions("
+        },
+        {
+          "file": "src/infrastructure/model-plans.ts",
+          "line": 70,
+          "text": "export async function readModelPlans(id: string, root?: string): Promise<readonly ModelPlan[]> {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-workspace-catalogues.md",
+          "sha256": "16400b3f5ee1a3604b75fa079e8ed11568669a3f955a12714fea05752b3bfef1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/infrastructure/model-schema.ts",
+      "sourceSha256": "57914d4a760cdc7f13ba94ea47b4e52f4ddd0bf3425a9e358cf23e8962715f08",
+      "role": "support",
+      "reason": "The active canonical bindings are modelProblems, modelValidator, projectionModelValidator, resolvedModelValidator. They validate the canonical schema or record the selected plan lock.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/model-schema.ts",
+          "line": 155,
+          "text": "export async function modelProblems<Family extends ContractFamily>("
+        },
+        {
+          "file": "src/infrastructure/model-schema.ts",
+          "line": 119,
+          "text": "export async function modelValidator<"
+        },
+        {
+          "file": "src/infrastructure/model-schema.ts",
+          "line": 138,
+          "text": "export async function projectionModelValidator<"
+        },
+        {
+          "file": "src/infrastructure/model-schema.ts",
+          "line": 131,
+          "text": "export async function resolvedModelValidator<"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/infrastructure/model-schema.test.ts",
+          "sha256": "6f16582a87803f6b07158e519f5995cae0aea3241003615c26a38ee9d7538d11"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ]
+    },
+    {
+      "file": "src/infrastructure/model-workspace-nav.ts",
+      "sourceSha256": "dbb56091fc8ec59861269691e52859387f3bfc837bf294dacfb8614b3b5c8e6e",
+      "role": "consumer",
+      "reason": "The active canonical bindings are readModelWorkspaceNav. They read, index or present the native records directly.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/model-workspace-nav.ts",
+          "line": 10,
+          "text": "export async function readModelWorkspaceNav("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-workspace-catalogues.md",
+          "sha256": "16400b3f5ee1a3604b75fa079e8ed11568669a3f955a12714fea05752b3bfef1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "tools/map.ts",
+      "sourceSha256": "01e973acc97541e05362c12939c5edde1cf51b1cee610a55234b0199d61d88f4",
+      "role": "consumer",
+      "reason": "The ordinary map command uses the selected native workspace index for all seven query modes.",
+      "evidence": [
+        {
+          "file": "tools/map.ts",
+          "line": 41,
+          "text": "const canonical = await readCanonicalModelIndex(selected.id);"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/reader/map-command-proof.json",
+          "sha256": "5acc7bed27036b73a2996c2d28f619c62a4201946da03379985a0f13c574542f"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "tools/model-map-query.ts",
+      "sourceSha256": "442c49bc7e32ca161206179eaf893be7b2d304440d21864e9e5a1d42da59d1da",
+      "role": "consumer",
+      "reason": "Executes native map lookups and evidence-backed relations on the supplied index.",
+      "evidence": [
+        {
+          "file": "tools/model-map-query.ts",
+          "line": 91,
+          "text": "export function modelMapQueries(index: ModelIndex): ModelMapQueries {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/reader/map-command-proof.json",
+          "sha256": "5acc7bed27036b73a2996c2d28f619c62a4201946da03379985a0f13c574542f"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "tools/model-map.ts",
+      "sourceSha256": "8f25046081cb37a228f256e9d75265936921257a3f179f1199a010f7b813efd7",
+      "role": "consumer",
+      "reason": "Builds the native tool-facing map view directly from the canonical index.",
+      "evidence": [
+        {
+          "file": "tools/model-map.ts",
+          "line": 48,
+          "text": "export function modelMapOf(index: ModelIndex): {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/reader/map-command-proof.json",
+          "sha256": "5acc7bed27036b73a2996c2d28f619c62a4201946da03379985a0f13c574542f"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "tools/workspace.ts",
+      "sourceSha256": "d1797b62d948714002c837c4214cb3492171796cca780c58cb19beb1a3cdc032",
+      "role": "consumer",
+      "reason": "The workspace tool resolves the registered workspace and checks the canonical model and plan projections.",
+      "evidence": [
+        {
+          "file": "tools/workspace.ts",
+          "line": 88,
+          "text": "const model = await readModelIfCanonical(registered.id);"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/reader/personal-check.log",
+          "sha256": "4ec291d5a6c38f223103b1c6204134f35ea6f23678ab2fb8adaf5a5c31935c06"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "tools/plan-base.ts",
+      "sourceSha256": "1b6b1d4537d45bf073e9273cb71fc3ecb7085e0bf5e29c5ecb97a3879e60aacf",
+      "role": "consumer",
+      "reason": "The ordinary lifecycle command checks or lands the selected native plan.",
+      "evidence": [
+        {
+          "file": "tools/plan-base.ts",
+          "line": 30,
+          "text": "const native = await runModelPlanBase(command, workspace, slug);"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/reader/additive-lifecycle.json",
+          "sha256": "616ce0e62ff59096275e33f9e346df006c24d4ced4f105e5e49ad58bf802fccd"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "tools/progress.ts",
+      "sourceSha256": "a60d8d654cef45cb2c2dad1c9a33ea782abf7ca2878ec272dbfc87d8c4a457d8",
+      "role": "consumer",
+      "reason": "The ordinary progress command reports native standing and preserves independent append-only records.",
+      "evidence": [
+        {
+          "file": "tools/progress.ts",
+          "line": 257,
+          "text": "const native = await readModelStanding(workspace, slug);"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-cli-handoff.md",
+          "sha256": "7640d6986db1b1744bce717b831891e9c225e3199b9408b55fa38de0527f592b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "tools/system-narrative.ts",
+      "sourceSha256": "7862daadcd20f8bb7e688a7c2748980496523023a9b9979c56aa966c717e5e87",
+      "role": "consumer",
+      "reason": "The ordinary narrative command checks native references, source citations and backing.",
+      "evidence": [
+        {
+          "file": "tools/system-narrative.ts",
+          "line": 14,
+          "text": "const native = await readCanonicalModelIndex(selected.id);"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-cli-handoff.md",
+          "sha256": "7640d6986db1b1744bce717b831891e9c225e3199b9408b55fa38de0527f592b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "tools/rebuild/baseline.ts",
+      "sourceSha256": "f84d99ca01a8d85a99994c6a7ed86bf89ecc1e195529caed44d1cf660bd32a7f",
+      "role": "consumer",
+      "reason": "The rebuild command captures current canonical facts and the requested route responses into a new folder.",
+      "evidence": [
+        {
+          "file": "tools/rebuild/baseline.ts",
+          "line": 16,
+          "text": "const manifest = await capture({"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/area-and-facts/handoff.md",
+          "sha256": "44ddaee13533d324bf593af729af1ab366834165e857c1e873e226a6f5640b86"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "tools/rebuild/compare.ts",
+      "sourceSha256": "6fa6c7afd0eb5a97092db7a30b051b6f0d368790a140d59f63b004ba5cb83900",
+      "role": "consumer",
+      "reason": "The rebuild command compares current canonical results with the frozen baseline and the exact allowed differences.",
+      "evidence": [
+        {
+          "file": "tools/rebuild/compare.ts",
+          "line": 37,
+          "text": "? await capture({"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/area-and-facts/handoff.md",
+          "sha256": "44ddaee13533d324bf593af729af1ab366834165e857c1e873e226a6f5640b86"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "tools/rebuild/capture.ts",
+      "sourceSha256": "42bd31790a16d521f32ec1b1abaada37e67fb5398e6693aed21460f4ea679d23",
+      "role": "consumer",
+      "reason": "Coordinates native fact capture and the separate route capture, preserving the checked frozen manifest format.",
+      "evidence": [
+        {
+          "file": "tools/rebuild/capture.ts",
+          "line": 54,
+          "text": "const files = await captureFacts(options.workspace, options.out);"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/area-and-facts/handoff.md",
+          "sha256": "44ddaee13533d324bf593af729af1ab366834165e857c1e873e226a6f5640b86"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "tools/rebuild/facts-only.ts",
+      "sourceSha256": "4647096e5f11e33a69c3b2fc203a19c43c6845400b443a7fb4ab6cceb523172b",
+      "role": "consumer",
+      "reason": "The proof command reads current canonical facts against the requested frozen manifest identity.",
+      "evidence": [
+        {
+          "file": "tools/rebuild/facts-only.ts",
+          "line": 16,
+          "text": "const receipt = await captureFactFiles({ workspace, asOf: baseline.asOf, out });"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/area-and-facts/handoff.md",
+          "sha256": "44ddaee13533d324bf593af729af1ab366834165e857c1e873e226a6f5640b86"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "tools/rebuild/facts.ts",
+      "sourceSha256": "4b5a46c800a57bedf84eaa14802215035ed040e6cf2c4b488519f0520fb78c85",
+      "role": "consumer",
+      "reason": "Reads the canonical index and the separately retained explorer publication for the baseline proof.",
+      "evidence": [
+        {
+          "file": "tools/rebuild/facts.ts",
+          "line": 9,
+          "text": "const index = await readCanonicalModelIndex(workspaceId);"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/area-and-facts/handoff.md",
+          "sha256": "44ddaee13533d324bf593af729af1ab366834165e857c1e873e226a6f5640b86"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "tools/rebuild/routes.ts",
+      "sourceSha256": "a330b1f93f82006aab2e69e8aa021e747d5f0a6ac5a41c8f8e2a0063d83e1a4b",
+      "role": "consumer",
+      "reason": "Selects representative canonical routes and retains revision identities.",
+      "evidence": [
+        {
+          "file": "tools/rebuild/routes.ts",
+          "line": 8,
+          "text": "const index = await readCanonicalModelIndex(id);"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/area-and-facts/handoff.md",
+          "sha256": "44ddaee13533d324bf593af729af1ab366834165e857c1e873e226a6f5640b86"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "tools/rebuild/check-plan-routes.ts",
+      "sourceSha256": "1db538d99616a2df5b4ab3d56013f181af6fd8fbaf019c178f18d64d65e73359",
+      "role": "consumer",
+      "reason": "Checks the selected canonical current index and actual plan folders against frozen plan page addresses.",
+      "evidence": [
+        {
+          "file": "tools/rebuild/check-plan-routes.ts",
+          "line": 64,
+          "text": "{ plan, outline: modelPlanOutlineFromCurrent(plan, { workspace, slug }, current) },"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-plan-cutover.md",
+          "sha256": "1365e27dcf1b64c5a8408922dcc39fb4da1c92cb4ff3b106f825c8cd5a87f49f"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        }
+      ],
+      "status": "migrated"
+    }
+  ],
+  "unproved": [
+    [
+      "src/application/model-plan-index.ts",
+      "source changed"
+    ],
+    [
+      "src/infrastructure/model-plan-lock.ts",
+      "source changed"
+    ],
+    [
+      "src/infrastructure/model-plan-rows.ts",
+      "source changed"
+    ],
+    [
+      "tools/model-plan-base.ts",
+      "legacy use or source changed"
+    ]
+  ]
+}

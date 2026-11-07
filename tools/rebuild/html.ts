@@ -28,11 +28,36 @@ function headingsOf(tokens: readonly string[]): readonly string[] {
   return headings;
 }
 
+function tagEnd(html: string, start: number): number {
+  for (let at = start + 1; at < html.length; at += 1) {
+    if (html[at] === '>') return at + 1;
+    if (html[at] === '<') break;
+  }
+  return start + 1;
+}
+
+// Streaming boundaries avoid regex stack limits on production HTML with large Flight chunks.
+function* tokensOf(html: string): Generator<string> {
+  let at = 0;
+  const lastCommentEnd = html.lastIndexOf('-->');
+  while (at < html.length) {
+    const opening = html.indexOf('<', at);
+    let end = opening === -1 ? html.length : opening;
+    if (opening === at) {
+      end =
+        at + 4 <= lastCommentEnd && html.startsWith('<!--', at)
+          ? html.indexOf('-->', at + 4) + 3
+          : tagEnd(html, at);
+    }
+    yield html.slice(at, end);
+    at = end;
+  }
+}
+
 function visibleTokens(html: string): readonly string[] {
   const tokens: string[] = [];
   let raw: string | null = null;
-  for (const match of html.matchAll(/<!--[\s\S]*?-->|<[^<>]*>|[^<]+|</gu)) {
-    const token = match[0];
+  for (const token of tokensOf(html)) {
     const closing = /^<\/(script|style)\s*>$/iu.exec(token)?.[1]?.toLowerCase();
     if (raw !== null) {
       if (closing === raw) raw = null;

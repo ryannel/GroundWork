@@ -1,4 +1,8 @@
-import type { AreaTechnicalRelationship, AreaView } from '@/application/workspace-area';
+import type {
+  AreaComponentView,
+  AreaTechnicalRelationship,
+  AreaView,
+} from '@/application/workspace-area';
 import {
   apiRelationshipDetail,
   resourceRelationshipDetail,
@@ -58,9 +62,52 @@ export function packAreaMapView(view: AreaView): AreaMapTransport {
   };
 }
 
+function collapsedCard<T extends AreaComponentView>(component: T): T {
+  return {
+    ...component,
+    repository: null,
+    explorer: null,
+    endpoints: [],
+    resources: [],
+    dependencies: [],
+  };
+}
+
+function nativeCollapsedCard<T extends AreaComponentView>(component: T): T {
+  return { ...collapsedCard(component), entries: [], citations: [] };
+}
+
+/** Authored work and boundary identities open immediately; code sites load on exploration. */
+function nativeOverview(
+  view: AreaView,
+  boundaries: NonNullable<AreaView['boundaries']>,
+): AreaMapTransport {
+  return packAreaMapView({
+    area: view.area,
+    workspace: view.workspace,
+    reviewed: view.reviewed,
+    scope: view.scope,
+    limitation: view.limitation,
+    relationships: view.relationships,
+    collaborations: view.collaborations,
+    valueFlow: view.valueFlow,
+    boundaries: boundaries.map((boundary) => ({
+      ...nativeCollapsedCard(boundary),
+      explorer: boundary.explorer,
+    })),
+    technicalRelationships: [],
+    systems: view.systems.map(({ narratives: _narratives, ...system }) => ({
+      ...system,
+      resources: [],
+      components: system.components.map(nativeCollapsedCard),
+    })),
+  });
+}
+
 /** The collapsed view retains every identity and exchange; component contracts load on exploration. */
 export function packAreaMapOverview(view: AreaView): AreaMapTransport {
   if (view.valueFlow === undefined) return packAreaMapView(view);
+  if (view.boundaries !== undefined) return nativeOverview(view, view.boundaries);
   const components = view.systems.flatMap((system) => system.components);
   return packAreaMapView({
     ...view,
@@ -71,14 +118,7 @@ export function packAreaMapOverview(view: AreaView): AreaMapTransport {
     systems: view.systems.map((system) => ({
       ...system,
       resources: [],
-      components: system.components.map((component) => ({
-        ...component,
-        repository: null,
-        explorer: null,
-        endpoints: [],
-        resources: [],
-        dependencies: [],
-      })),
+      components: system.components.map(collapsedCard),
     })),
   });
 }

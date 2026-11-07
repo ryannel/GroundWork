@@ -1,0 +1,57 @@
+interfaces:
+  - id: if:products-rest
+    kind: rest
+    component: svc:products
+    entries:
+      - id: api:products-get
+        sig: GET /products/{sku}
+        response: sch:product
+        idempotent: true
+        method: GET
+        path: /products/{sku}
+      - id: api:products-update
+        sig: PUT /products/{sku}
+        request: sch:product
+        response: sch:product
+        auth: staff SSO
+        idempotent: true
+        method: PUT
+        path: /products/{sku}
+schemas:
+  - id: sch:product
+    name: Product
+    kind: record
+    store: st:products-db
+    fields:
+      - name: sku
+        type: string
+        required: true
+        key: true
+        id: sku
+      - name: name
+        type: string
+        required: true
+        id: name
+      - name: price_cents
+        type: int
+        required: true
+        id: price_cents
+  - id: sch:product-changed-v1
+    name: product.changed v1
+    kind: payload
+    fields:
+      - name: sku
+        type: string
+        required: true
+        id: sku
+messages:
+  - id: msg:product-changed
+    name: product.changed
+    version: v1
+    topic: top:product-events
+    payload: sch:product-changed-v1
+    key: sku
+subscriptions: []
+jobs: []
+interactions: []
+operations: []

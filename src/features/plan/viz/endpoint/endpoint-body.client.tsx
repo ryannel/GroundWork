@@ -4,7 +4,7 @@ import { Suspense, use, useEffect, useRef, useState } from 'react';
 
 import type { Mode } from '@/application/plan/derive-core';
 import { interfaceEndpoints, type Shared } from '@/application/plan-viz-endpoint';
-import { pendingModel } from '@/features/plan/plan-model';
+import { pendingLegacyModel } from '@/features/plan/legacy-plan-model';
 import { Text } from '@/ui/text';
 
 import { EndpointLines } from './endpoint-lines';
@@ -25,7 +25,7 @@ interface BodyProps {
 }
 
 function Lines({ lazy, id, mode, shared, flowHref }: BodyProps) {
-  const model = use(pendingModel(lazy.src).model);
+  const model = use(pendingLegacyModel(lazy.src).model);
   const ep =
     model === null ? undefined : interfaceEndpoints(model, lazy.ifc, mode).find((e) => e.id === id);
   if (model === null || ep === undefined) {
@@ -46,7 +46,7 @@ export function EndpointBody({ lazy, id, mode, shared, flowHref }: BodyProps) {
   useEffect(() => {
     const row = mark.current?.closest('details') ?? null;
     const warm = () => {
-      pendingModel(src);
+      pendingLegacyModel(src);
     };
     const sync = () => {
       if (row?.open === true) setOpen(true);

@@ -65,7 +65,9 @@ function sameValue(left: unknown, right: unknown): boolean {
     Object.keys(a).every((key) => Object.hasOwn(b, key) && sameValue(a[key], b[key]))
   );
 }
-function operationTarget(op: NonNullable<ModelPlan['changes'][number]['ops']>[number]): string {
+export function operationTarget(
+  op: NonNullable<ModelPlan['changes'][number]['ops']>[number],
+): string {
   if ('add' in op) {
     return isQualifiedId(op.value.id) ? op.value.id : appendChild(op.into ?? '', op.value.id);
   }
@@ -104,8 +106,11 @@ function isDescendant(node: ModelEntity, target: string, index: ModelIndex): boo
   return false;
 }
 /** Each overlay starts from the supplied model; plans do not silently accumulate. */
-export function plansIndex(plans: readonly ModelPlan[], model: WorkspaceModel): PlansIndex {
-  const beforeIndex = indexOf(model);
+export function plansIndex(
+  plans: readonly ModelPlan[],
+  model: WorkspaceModel,
+  beforeIndex: ModelIndex = indexOf(model),
+): PlansIndex {
   const indexed = plans.map((plan): IndexedPlan => {
     const applied = apply(
       plan.changes.flatMap((change) => change.ops ?? []),
@@ -132,6 +137,7 @@ export function plansIndex(plans: readonly ModelPlan[], model: WorkspaceModel): 
 export function inheritedPlanOrder(
   plan: ModelPlan,
   plans: ReadonlyMap<string, ModelPlan>,
+  landed?: ReadonlySet<string>,
 ): readonly ModelPlan[] {
   const ordered: ModelPlan[] = [];
   const complete = new Set<string>();
@@ -141,6 +147,10 @@ export function inheritedPlanOrder(
     if (complete.has(id)) return;
     const ancestor = plans.get(id);
     if (ancestor === undefined) throw new Error(`Missing plan dependency: ${id}.`);
+    if (landed?.has(id) === true) {
+      complete.add(id);
+      return;
+    }
     open.add(id);
     for (const parent of ancestor.builds_on ?? []) visit(parent);
     open.delete(id);
@@ -167,4 +177,33 @@ export function inheritedPlanOrder(
     );
   }
   return ordered;
+}
+
+/** Select one plan on its explicit proposed ancestors; unrelated plans never alter its before model. */
+export function selectedPlanProjection(
+  plan: ModelPlan,
+  plans: readonly ModelPlan[],
+  current: WorkspaceModel,
+  currentIndex?: ModelIndex,
+  landed?: ReadonlySet<string>,
+): IndexedPlan {
+  const registry = new Map(plans.map((known) => [known.meta.id, known]));
+  if (registry.size !== plans.length) throw new Error('Duplicate plan identity.');
+  const project = (
+    candidate: ModelPlan,
+    before: WorkspaceModel,
+    index?: ModelIndex,
+  ): IndexedPlan => {
+    const result = plansIndex([candidate], before, index).plans[0];
+    if (result === undefined) throw new Error(`Missing selected projection: ${candidate.meta.id}.`);
+    return result;
+  };
+  const before = inheritedPlanOrder(plan, registry, landed).reduce(
+    (context, ancestor) => {
+      const inherited = project(ancestor, context.model, context.index);
+      return { model: inherited.after, index: inherited.afterIndex };
+    },
+    { model: current, index: currentIndex },
+  );
+  return project(plan, before.model, before.index);
 }

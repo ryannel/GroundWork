@@ -8,8 +8,10 @@ import {
   type ModelEntity,
 } from '@/domain/workspace-model';
 
-import { entryFlowHref } from './entry-flow-paths';
+import { entryFlowHref, type EntryFlowAddress } from './entry-flow-paths';
 import type { ModelIndex } from './model-index';
+
+export type EntryFlowContext = Pick<EntryFlowAddress, 'plan' | 'version'>;
 
 export interface FlowCitation {
   readonly label: string;
@@ -121,13 +123,23 @@ function contractOf(data: Readonly<Record<string, unknown>>, index: ModelIndex):
   if (entity === null) return null;
   return JSON.stringify({ ...entity.data, id: entity.id, kind: entity.kind }, null, 2);
 }
-function drillOf(data: Readonly<Record<string, unknown>>, index: ModelIndex): FlowNode['drill'] {
+function drillOf(
+  data: Readonly<Record<string, unknown>>,
+  index: ModelIndex,
+  context: EntryFlowContext,
+): FlowNode['drill'] {
   const cause = index.get(modelText(data.causes) ?? '');
   const entry = modelText(cause?.data.on) ?? modelText(data.call);
   if (entry === null || index.flowOf(entry) === null) return null;
-  return { label: index.label(entry), href: entryFlowHref(index.model.id, { entry }) };
+  return { label: index.label(entry), href: entryFlowHref(index.model.id, { ...context, entry }) };
 }
-function branchOf(label: string, values: unknown, parent: string, index: ModelIndex): FlowBranch {
+function branchOf(
+  label: string,
+  values: unknown,
+  parent: string,
+  index: ModelIndex,
+  context: EntryFlowContext,
+): FlowBranch {
   return {
     label,
     nodes: modelList(values).map((value) => {
@@ -136,7 +148,7 @@ function branchOf(label: string, values: unknown, parent: string, index: ModelIn
       if (data === null || id === null) {
         throw new Error(`${parent}: a flow step needs its authored identity.`);
       }
-      return nodeOf(appendChild(parent, id), data, index);
+      return nodeOf(appendChild(parent, id), data, index, context);
     }),
   };
 }
@@ -144,13 +156,14 @@ function branchesOf(
   data: Readonly<Record<string, unknown>>,
   id: string,
   index: ModelIndex,
+  context: EntryFlowContext,
 ): readonly FlowBranch[] {
   const branches = ['steps', 'then', 'else', 'try', 'catch', 'finally'].flatMap((key) =>
-    data[key] === undefined ? [] : [branchOf(key, data[key], id, index)],
+    data[key] === undefined ? [] : [branchOf(key, data[key], id, index, context)],
   );
   const lanes = modelList(data.parallel).map((lane) => {
     const record = modelRecord(lane);
-    return branchOf(modelText(record?.lane) ?? 'Unnamed lane', record?.steps, id, index);
+    return branchOf(modelText(record?.lane) ?? 'Unnamed lane', record?.steps, id, index, context);
   });
   const retry = modelRecord(data.retry);
   const continuation: readonly FlowBranch[] =
@@ -159,10 +172,17 @@ function branchesOf(
     ...branches,
     ...continuation,
     ...lanes,
-    ...(retry?.exhausted === undefined ? [] : [branchOf('exhausted', retry.exhausted, id, index)]),
+    ...(retry?.exhausted === undefined
+      ? []
+      : [branchOf('exhausted', retry.exhausted, id, index, context)]),
   ];
 }
-function nodeOf(id: string, data: Readonly<Record<string, unknown>>, index: ModelIndex): FlowNode {
+function nodeOf(
+  id: string,
+  data: Readonly<Record<string, unknown>>,
+  index: ModelIndex,
+  context: EntryFlowContext,
+): FlowNode {
   return {
     id,
     title: titleOf(data, index),
@@ -170,14 +190,18 @@ function nodeOf(id: string, data: Readonly<Record<string, unknown>>, index: Mode
     detail: JSON.stringify(data, null, 2),
     condition: modelText(data.when),
     async: data.async === true,
-    branches: branchesOf(data, id, index),
+    branches: branchesOf(data, id, index, context),
     citations: index.cites(id).map(citationOf),
     contract: contractOf(data, index),
-    drill: drillOf(data, index),
+    drill: drillOf(data, index, context),
   };
 }
 /** Project flowOf once on the server. Only the selected flow's plain values cross into the browser. */
-export function entryFlowOf(index: ModelIndex, entry: string): EntryFlowView | null {
+export function entryFlowOf(
+  index: ModelIndex,
+  entry: string,
+  context: EntryFlowContext = {},
+): EntryFlowView | null {
   const flow = index.flowOf(entry);
   if (flow === null) return null;
   return {
@@ -194,9 +218,9 @@ export function entryFlowOf(index: ModelIndex, entry: string): EntryFlowView | n
     handlers: flow.handlers.map((handler) => ({
       id: handler.id,
       summary: handler.summary ?? null,
-      nodes: branchOf('steps', handler.steps, handler.id, index).nodes,
+      nodes: branchOf('steps', handler.steps, handler.id, index, context).nodes,
       failures: (handler.failures ?? []).map((failure) =>
-        nodeOf(failureId(handler.id, failure.id), failure, index),
+        nodeOf(failureId(handler.id, failure.id), failure, index, context),
       ),
     })),
     gaps: flow.gaps.map((gap) => `${gap.id}: ${gap.message}`),
