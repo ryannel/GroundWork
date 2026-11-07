@@ -1,14 +1,15 @@
+import { constants } from 'node:fs';
 import {
   cp,
   lstat,
   mkdir,
   mkdtemp,
+  open,
   readFile,
   readdir,
   realpath,
   rename,
   rmdir,
-  writeFile,
 } from 'node:fs/promises';
 import path from 'node:path';
 
@@ -91,14 +92,19 @@ async function writeCandidateFile(stage: string, file: string, text: string): Pr
   if (folder !== stage && !folder.startsWith(`${stage}${path.sep}`)) {
     throw new Error(`Scan output path leaves its candidate: ${file}.`);
   }
-  const entry = await lstat(target).catch((error: unknown) => {
-    if (missing(error)) return null;
-    throw error;
-  });
-  if (entry !== null && !entry.isFile()) {
-    throw new Error(`Scan output path is not a regular file: ${file}.`);
+  const flags =
+    constants.O_WRONLY | constants.O_CREAT | constants.O_NOFOLLOW | constants.O_NONBLOCK;
+  const handle = await open(path.join(folder, path.basename(target)), flags);
+  try {
+    const entry = await handle.stat();
+    if (!entry.isFile()) {
+      throw new Error(`Scan output path is not a regular file: ${file}.`);
+    }
+    await handle.truncate(0);
+    await handle.writeFile(text);
+  } finally {
+    await handle.close();
   }
-  await writeFile(target, text);
 }
 
 /** Publish a separate candidate only after its new files have been read through the normal model loader. */

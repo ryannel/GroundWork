@@ -33,3 +33,7 @@ so this correction has no effect on the recorded Volvo file comparison.
 The production budget measured 855 pages with the refreshed Volvo candidate and 152 in a separate
 run with the canonical personal and Acme workspaces. Both passed the 1,024 KB ceiling. The largest
 page was the Commercial Backbone map at 927 KB. Both runs included the model fixture.
+
+Candidate files are checked and written through one file handle opened without following symbolic
+links. The normal command and symlink rejection both pass the focused checks. This fixes the
+check-then-write race identified by CodeQL.

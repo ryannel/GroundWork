@@ -21,9 +21,9 @@ it('rejects a copied symlink without altering its target or publishing a partial
     await writeFile(outside, 'original contents\n');
     await symlink(outside, path.join(folder, 'sources.jsonl'));
     const writes = new Map([['sources.jsonl', 'changed contents\n']]);
-    await expect(publishScan({ folder, out, before: model, writes })).rejects.toThrow(
-      /not a regular file/u,
-    );
+    await expect(publishScan({ folder, out, before: model, writes })).rejects.toMatchObject({
+      code: 'ELOOP',
+    });
     await expect(readFile(outside, 'utf8')).resolves.toBe('original contents\n');
     await expect(readFile(path.join(out, 'sources.jsonl'))).rejects.toMatchObject({
       code: 'ENOENT',
