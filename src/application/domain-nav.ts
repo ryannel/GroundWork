@@ -1,4 +1,3 @@
-import type { Workspace } from '@/domain/workspace';
 import type { TargetArchitecture } from '@/domain/workspace-model';
 
 import type { DomainView } from './workspace-domain';
@@ -18,6 +17,7 @@ export interface SystemSections {
   readonly id: string;
   readonly flows: boolean;
   readonly data: boolean;
+  readonly interfaces?: boolean;
 }
 
 /** The anchor for a section of a page, from its title. */
@@ -30,6 +30,7 @@ export function systemSectionsOf(sections: SystemSections): string[] {
     'Map',
     'Edges',
     ...(sections.flows ? ['Flows'] : []),
+    ...(sections.interfaces === true ? ['Interfaces'] : []),
     'Components',
     ...(sections.data ? ['Data'] : []),
     'User journeys',
@@ -73,7 +74,11 @@ interface Here {
   readonly system?: SystemSections;
 }
 
-export function domainNavOf(workspace: Workspace, view: DomainView, here: Here): DomainNav {
+export function domainNavOf(
+  workspace: { readonly name: string },
+  view: DomainView,
+  here: Here,
+): DomainNav {
   const reading = here.system;
   const systems = view.systems.map((system): NavItem => {
     const current = system.id === reading?.id;

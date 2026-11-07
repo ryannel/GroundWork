@@ -1,0 +1,139 @@
+
+> groundwork@0.0.0 budget
+> node --import ./tools/register.ts --conditions=react-server tools/page-budget.ts
+
+Budget is waiting on /volvo-cars/commercial-backbone/, /volvo-cars/fleet/, /volvo-cars/shopping/, /volvo-cars/plans/immutable-ids/, /volvo-cars/plans/care-se-stock-reservation/, /volvo-cars/plans/care-se-online/, /volvo-cars/plans/care-se-financing-status/, /volvo-cars/plans/care-se-order-change/.
+Budget is waiting on /volvo-cars/commercial-backbone/, /volvo-cars/fleet/, /volvo-cars/shopping/, /volvo-cars/plans/immutable-ids/, /volvo-cars/plans/care-se-stock-reservation/, /volvo-cars/plans/care-se-online/, /volvo-cars/plans/care-se-financing-status/, /volvo-cars/plans/care-se-order-change/.
+Budget is waiting on /volvo-cars/commercial-backbone/, /volvo-cars/fleet/, /volvo-cars/shopping/, /volvo-cars/plans/immutable-ids/, /volvo-cars/plans/care-se-stock-reservation/, /volvo-cars/plans/care-se-online/, /volvo-cars/plans/care-se-financing-status/, /volvo-cars/plans/care-se-order-change/.
+Budget measured 15 pages; 147 queued.
+Budget measured 55 pages; 572 queued.
+Budget measured 167 pages; 510 queued.
+Budget is waiting on /volvo-cars/commercial-backbone/interfaces/, /volvo-cars/commercial-backbone/assortment/, /volvo-cars/commercial-backbone/car-configuration-engine/, /volvo-cars/commercial-backbone/cart/, /volvo-cars/commercial-backbone/cce-glpk-solver/, /volvo-cars/commercial-backbone/conditional-order/, /volvo-cars/commercial-backbone/connected-services-partner-api/, /volvo-cars/commercial-backbone/crm-vcep/.
+Budget measured 175 pages; 537 queued.
+Budget measured 191 pages; 552 queued.
+Budget measured 207 pages; 551 queued.
+Budget measured 231 pages; 527 queued.
+Budget measured 255 pages; 503 queued.
+Budget measured 287 pages; 471 queued.
+Budget measured 311 pages; 447 queued.
+Budget measured 607 pages; 157 queued.
+Budget measured 671 pages; 226 queued.
+Budget measured 687 pages; 210 queued.
+Budget is waiting on /volvo-cars/commercial-backbone/flows/mapper-resolve-car-products/, /volvo-cars/commercial-backbone/flows/mapper-resolve-current-variants/, /volvo-cars/commercial-backbone/flows/prism-enrich-by-variant-id/, /volvo-cars/commercial-backbone/flows/ps-consume-upstream/, /volvo-cars/commercial-backbone/flows/ps-product-lifecycle/, /volvo-cars/commercial-backbone/flows/ps-publish-snapshot/, /volvo-cars/commercial-backbone/flows/assortment-admin-reference-data/, /volvo-cars/commercial-backbone/flows/assortment-cache-pds-delete/.
+Budget measured 703 pages; 194 queued.
+Budget is waiting on /volvo-cars/commercial-backbone/flows/render-price-breakdown/, /volvo-cars/commercial-backbone/assortment/flows/pds-product-service-sync/, /volvo-cars/commercial-backbone/assortment/flows/mapper-project-product-events/, /volvo-cars/commercial-backbone/assortment/flows/ps-import-pcf-carconfig/, /volvo-cars/commercial-backbone/assortment/flows/ps-consume-upstream/, /volvo-cars/commercial-backbone/assortment/flows/mas-commercial-item-update/, /volvo-cars/commercial-backbone/assortment/flows/assortment-cache-pds-upsert/, /volvo-cars/commercial-backbone/assortment/flows/assortment-classifies-current-products/.
+Budget is waiting on /volvo-cars/commercial-backbone/flows/render-price-breakdown/, /volvo-cars/commercial-backbone/assortment/flows/pds-product-service-sync/, /volvo-cars/commercial-backbone/assortment/flows/mapper-project-product-events/, /volvo-cars/commercial-backbone/assortment/flows/ps-import-pcf-carconfig/, /volvo-cars/commercial-backbone/assortment/flows/ps-consume-upstream/, /volvo-cars/commercial-backbone/assortment/flows/mas-commercial-item-update/, /volvo-cars/commercial-backbone/assortment/flows/assortment-cache-pds-upsert/, /volvo-cars/commercial-backbone/assortment/flows/assortment-classifies-current-products/.
+Budget measured 719 pages; 178 queued.
+Budget is waiting on /volvo-cars/commercial-backbone/assortment/flows/assortment-cache-pds-delete/, /volvo-cars/commercial-backbone/assortment/flows/mapper-full-sync-products/, /volvo-cars/commercial-backbone/assortment/flows/mapper-resolve-current-variants/, /volvo-cars/commercial-backbone/assortment/flows/assortment-transform-car-token/, /volvo-cars/commercial-backbone/assortment/flows/pds-admin-enrichment-update/, /volvo-cars/commercial-backbone/assortment/flows/pds-current-read/, /volvo-cars/commercial-backbone/assortment/flows/prism-enrich-by-variant-id/, /volvo-cars/commercial-backbone/assortment/flows/pds-admin-topic-sync/.
+Budget is waiting on /volvo-cars/commercial-backbone/assortment/flows/assortment-cache-pds-delete/, /volvo-cars/commercial-backbone/assortment/flows/mapper-full-sync-products/, /volvo-cars/commercial-backbone/assortment/flows/mapper-resolve-current-variants/, /volvo-cars/commercial-backbone/assortment/flows/assortment-transform-car-token/, /volvo-cars/commercial-backbone/assortment/flows/pds-admin-enrichment-update/, /volvo-cars/commercial-backbone/assortment/flows/pds-current-read/, /volvo-cars/commercial-backbone/assortment/flows/prism-enrich-by-variant-id/, /volvo-cars/commercial-backbone/assortment/flows/pds-admin-topic-sync/.
+Budget is waiting on /volvo-cars/commercial-backbone/assortment/flows/assortment-cache-pds-delete/, /volvo-cars/commercial-backbone/assortment/flows/mapper-full-sync-products/, /volvo-cars/commercial-backbone/assortment/flows/mapper-resolve-current-variants/, /volvo-cars/commercial-backbone/assortment/flows/assortment-transform-car-token/, /volvo-cars/commercial-backbone/assortment/flows/pds-admin-enrichment-update/, /volvo-cars/commercial-backbone/assortment/flows/pds-current-read/, /volvo-cars/commercial-backbone/assortment/flows/prism-enrich-by-variant-id/, /volvo-cars/commercial-backbone/assortment/flows/pds-admin-topic-sync/.
+Budget measured 727 pages; 170 queued.
+Budget is waiting on /volvo-cars/commercial-backbone/assortment/flows/assortment-admin-reference-data/, /volvo-cars/commercial-backbone/assortment/flows/ps-import-manage-and-segment/, /volvo-cars/commercial-backbone/assortment/flows/assortment-commercialitem-update/, /volvo-cars/commercial-backbone/assortment/flows/ps-variant-lifecycle/, /volvo-cars/commercial-backbone/assortment/flows/ps-product-lifecycle/, /volvo-cars/commercial-backbone/assortment/flows/assortment-read-current-view/, /volvo-cars/commercial-backbone/assortment/flows/pricing-dgs-maps-price-response-codes/, /volvo-cars/commercial-backbone/assortment/flows/mapper-resolve-car-products/.
+Budget is waiting on /volvo-cars/commercial-backbone/assortment/flows/assortment-admin-reference-data/, /volvo-cars/commercial-backbone/assortment/flows/ps-import-manage-and-segment/, /volvo-cars/commercial-backbone/assortment/flows/assortment-commercialitem-update/, /volvo-cars/commercial-backbone/assortment/flows/ps-variant-lifecycle/, /volvo-cars/commercial-backbone/assortment/flows/ps-product-lifecycle/, /volvo-cars/commercial-backbone/assortment/flows/assortment-read-current-view/, /volvo-cars/commercial-backbone/assortment/flows/pricing-dgs-maps-price-response-codes/, /volvo-cars/commercial-backbone/assortment/flows/mapper-resolve-car-products/.
+Budget is waiting on /volvo-cars/commercial-backbone/assortment/flows/assortment-admin-reference-data/, /volvo-cars/commercial-backbone/assortment/flows/ps-import-manage-and-segment/, /volvo-cars/commercial-backbone/assortment/flows/assortment-commercialitem-update/, /volvo-cars/commercial-backbone/assortment/flows/ps-variant-lifecycle/, /volvo-cars/commercial-backbone/assortment/flows/ps-product-lifecycle/, /volvo-cars/commercial-backbone/assortment/flows/assortment-read-current-view/, /volvo-cars/commercial-backbone/assortment/flows/pricing-dgs-maps-price-response-codes/, /volvo-cars/commercial-backbone/assortment/flows/mapper-resolve-car-products/.
+Budget measured 735 pages; 162 queued.
+Budget is waiting on /volvo-cars/commercial-backbone/assortment/flows/ps-publish-snapshot/, /volvo-cars/commercial-backbone/assortment/flows/prism-import-product-service-identities/, /volvo-cars/commercial-backbone/assortment/flows/ps-rule-matching/, /volvo-cars/commercial-backbone/assortment/flows/assortment-maintains-market-availability/, /volvo-cars/commercial-backbone/finance/flows/fae-maintain-finance-products/, /volvo-cars/commercial-backbone/finance/flows/fae-serve-product-groups/, /volvo-cars/commercial-backbone/finance/flows/list-financing-products/, /volvo-cars/commercial-backbone/finance/flows/fae-search-finance-products/.
+Budget is waiting on /volvo-cars/commercial-backbone/assortment/flows/ps-publish-snapshot/, /volvo-cars/commercial-backbone/assortment/flows/prism-import-product-service-identities/, /volvo-cars/commercial-backbone/assortment/flows/ps-rule-matching/, /volvo-cars/commercial-backbone/assortment/flows/assortment-maintains-market-availability/, /volvo-cars/commercial-backbone/finance/flows/fae-maintain-finance-products/, /volvo-cars/commercial-backbone/finance/flows/fae-serve-product-groups/, /volvo-cars/commercial-backbone/finance/flows/list-financing-products/, /volvo-cars/commercial-backbone/finance/flows/fae-search-finance-products/.
+Budget measured 743 pages; 154 queued.
+Budget is waiting on /volvo-cars/commercial-backbone/offers/flows/offer-admin-to-read-view/, /volvo-cars/commercial-backbone/offers/flows/admin-create-finance/, /volvo-cars/commercial-backbone/offers/flows/activate-financing-offer/, /volvo-cars/commercial-backbone/offers/flows/configure-offer-products/, /volvo-cars/commercial-backbone/offers/flows/offer-management-archive-offers/, /volvo-cars/commercial-backbone/offers/flows/read-offer-access-with-channel-settings/, /volvo-cars/commercial-backbone/price/flows/gpe-price-configuration-calculation/, /volvo-cars/commercial-backbone/price/flows/pricing-dgs-maps-price-response-codes/.
+Budget measured 751 pages; 146 queued.
+Budget is waiting on /volvo-cars/commercial-backbone/price/flows/assortment-maintains-market-availability/, /volvo-cars/commercial-backbone/price/flows/render-price-breakdown/, /volvo-cars/commercial-backbone/price/flows/gpe-price-data-import-financing-products/, /volvo-cars/commercial-backbone/price/flows/list-financing-products/, /volvo-cars/commercial-backbone/price/flows/price-core-author-financing-product/, /volvo-cars/commercial-backbone/product-enrichment/flows/prism-import-product-service-identities/, /volvo-cars/commercial-backbone/product-enrichment/flows/prism-enrich-by-variant-id/, /volvo-cars/plans/immutable-ids/things/.
+Budget measured 759 pages; 138 queued.
+907 pages; the heaviest:
+  17,570 KB  /volvo-cars/commercial-backbone/map/
+   7,200 KB  /volvo-cars/commercial-backbone/order-management/
+   6,579 KB  /volvo-cars/shopping/map/
+   5,298 KB  /volvo-cars/plans/unify-price-breakdown/changes/system/
+   5,293 KB  /volvo-cars/plans/unify-price-breakdown/today/system/
+   4,821 KB  /volvo-cars/plans/immutable-ids/changes/system/
+   4,816 KB  /volvo-cars/plans/immutable-ids/today/system/
+   4,405 KB  /volvo-cars/commercial-backbone/federated-graph/
+   4,386 KB  /volvo-cars/plans/sourced-financing-terms/changes/system/
+   4,374 KB  /volvo-cars/plans/sourced-financing-terms/today/system/
+over    17,570 KB  /volvo-cars/commercial-backbone/map/
+over    7,200 KB  /volvo-cars/commercial-backbone/order-management/
+over    6,579 KB  /volvo-cars/shopping/map/
+over    5,298 KB  /volvo-cars/plans/unify-price-breakdown/changes/system/
+over    5,293 KB  /volvo-cars/plans/unify-price-breakdown/today/system/
+over    4,821 KB  /volvo-cars/plans/immutable-ids/changes/system/
+over    4,816 KB  /volvo-cars/plans/immutable-ids/today/system/
+over    4,405 KB  /volvo-cars/commercial-backbone/federated-graph/
+over    4,386 KB  /volvo-cars/plans/sourced-financing-terms/changes/system/
+over    4,374 KB  /volvo-cars/plans/sourced-financing-terms/today/system/
+over    3,866 KB  /volvo-cars/entries/
+over    3,741 KB  /volvo-cars/commercial-backbone/assortment/flows/pds-product-service-sync/
+over    3,740 KB  /volvo-cars/commercial-backbone/assortment/
+over    3,729 KB  /volvo-cars/commercial-backbone/assortment/flows/ps-import-pcf-carconfig/
+over    3,721 KB  /volvo-cars/commercial-backbone/assortment/flows/mas-commercial-item-update/
+over    3,719 KB  /volvo-cars/commercial-backbone/assortment/flows/prism-import-product-service-identities/
+over    3,717 KB  /volvo-cars/commercial-backbone/assortment/flows/pds-admin-enrichment-update/
+over    3,715 KB  /volvo-cars/commercial-backbone/assortment/flows/assortment-cache-pds-upsert/
+over    3,711 KB  /volvo-cars/commercial-backbone/assortment/flows/mapper-project-product-events/
+over    3,710 KB  /volvo-cars/commercial-backbone/assortment/flows/pricing-dgs-maps-price-response-codes/
+over    3,710 KB  /volvo-cars/commercial-backbone/assortment/flows/ps-variant-lifecycle/
+over    3,709 KB  /volvo-cars/commercial-backbone/assortment/flows/mapper-full-sync-products/
+over    3,704 KB  /volvo-cars/commercial-backbone/assortment/flows/assortment-read-current-view/
+over    3,704 KB  /volvo-cars/commercial-backbone/assortment/flows/ps-import-manage-and-segment/
+over    3,703 KB  /volvo-cars/commercial-backbone/assortment/flows/pds-admin-topic-sync/
+over    3,699 KB  /volvo-cars/commercial-backbone/assortment/flows/assortment-commercialitem-update/
+over    3,697 KB  /volvo-cars/commercial-backbone/assortment/flows/mapper-resolve-car-products/
+over    3,697 KB  /volvo-cars/commercial-backbone/assortment/flows/ps-product-lifecycle/
+over    3,696 KB  /volvo-cars/commercial-backbone/assortment/flows/mapper-resolve-current-variants/
+over    3,695 KB  /volvo-cars/commercial-backbone/assortment/flows/prism-enrich-by-variant-id/
+over    3,694 KB  /volvo-cars/commercial-backbone/assortment/flows/assortment-classifies-current-products/
+over    3,693 KB  /volvo-cars/commercial-backbone/assortment/flows/ps-consume-upstream/
+over    3,688 KB  /volvo-cars/commercial-backbone/assortment/flows/ps-publish-snapshot/
+over    3,688 KB  /volvo-cars/commercial-backbone/assortment/flows/assortment-cache-pds-delete/
+over    3,688 KB  /volvo-cars/commercial-backbone/assortment/flows/assortment-transform-car-token/
+over    3,686 KB  /volvo-cars/commercial-backbone/assortment/flows/pds-current-read/
+over    3,685 KB  /volvo-cars/commercial-backbone/assortment/flows/assortment-maintains-market-availability/
+over    3,680 KB  /volvo-cars/commercial-backbone/assortment/flows/assortment-admin-reference-data/
+over    3,680 KB  /volvo-cars/commercial-backbone/assortment/flows/ps-rule-matching/
+over    3,225 KB  /volvo-cars/commercial-backbone/offers/flows/offer-admin-to-read-view/
+over    3,224 KB  /volvo-cars/commercial-backbone/offers/
+over    3,204 KB  /volvo-cars/commercial-backbone/offers/flows/admin-create-finance/
+over    3,194 KB  /volvo-cars/commercial-backbone/offers/flows/activate-financing-offer/
+over    3,185 KB  /volvo-cars/commercial-backbone/offers/flows/read-offer-access-with-channel-settings/
+over    3,184 KB  /volvo-cars/commercial-backbone/offers/flows/configure-offer-products/
+over    3,182 KB  /volvo-cars/commercial-backbone/product-enrichment/flows/prism-import-product-service-identities/
+over    3,182 KB  /volvo-cars/commercial-backbone/offers/flows/offer-management-archive-offers/
+over    3,181 KB  /volvo-cars/commercial-backbone/product-enrichment/
+over    3,158 KB  /volvo-cars/commercial-backbone/product-enrichment/flows/prism-enrich-by-variant-id/
+over    2,715 KB  /volvo-cars/commercial-backbone/price/flows/gpe-price-configuration-calculation/
+over    2,715 KB  /volvo-cars/commercial-backbone/price/flows/gpe-price-data-import-financing-products/
+over    2,714 KB  /volvo-cars/commercial-backbone/price/
+over    2,708 KB  /volvo-cars/commercial-backbone/price/flows/pricing-dgs-maps-price-response-codes/
+over    2,705 KB  /volvo-cars/commercial-backbone/price/flows/render-price-breakdown/
+over    2,688 KB  /volvo-cars/commercial-backbone/price/flows/list-financing-products/
+over    2,683 KB  /volvo-cars/commercial-backbone/price/flows/assortment-maintains-market-availability/
+over    2,679 KB  /volvo-cars/commercial-backbone/price/flows/price-core-author-financing-product/
+over    2,289 KB  /volvo-cars/plans/sourced-financing-terms/cover/part/
+over    2,265 KB  /volvo-cars/reference/operations/
+over    1,960 KB  /volvo-cars/shopping/volvo-cars-website/
+over    1,823 KB  /volvo-cars/shopping/car-configurator/
+over    1,512 KB  /volvo-cars/commercial-backbone/car-configuration-engine/
+over    1,493 KB  /volvo-cars/plans/sourced-financing-terms/today/graph/
+over    1,473 KB  /volvo-cars/plans/immutable-ids/today/graph/
+over    1,470 KB  /volvo-cars/plans/unify-price-breakdown/today/graph/
+over    1,457 KB  /volvo-cars/plans/care-se-order-change/today/graph/
+over    1,455 KB  /volvo-cars/plans/care-se-financing-status/today/graph/
+over    1,452 KB  /volvo-cars/plans/care-se-stock-reservation/today/graph/
+over    1,449 KB  /volvo-cars/plans/care-se-sales-tool/today/graph/
+over    1,444 KB  /volvo-cars/plans/care-se-online/today/graph/
+over    1,412 KB  /volvo-cars/fleet/fleet-account-management/
+over    1,346 KB  /volvo-cars/plans/care-se-financing-status/changes/system/
+over    1,309 KB  /volvo-cars/plans/care-se-financing-status/today/system/
+over    1,254 KB  /volvo-cars/commercial-backbone/finance/flows/fae-maintain-finance-products/
+over    1,253 KB  /volvo-cars/commercial-backbone/finance/
+over    1,247 KB  /volvo-cars/commercial-backbone/finance/flows/list-financing-products/
+over    1,242 KB  /volvo-cars/commercial-backbone/finance/flows/fae-search-finance-products/
+over    1,235 KB  /volvo-cars/commercial-backbone/finance/flows/fae-serve-product-groups/
+over    1,201 KB  /volvo-cars/programmes/care-se/
+over    1,155 KB  /volvo-cars/fleet/map/
+over    1,134 KB  /volvo-cars/shopping/test-drive/
+over    1,068 KB  /volvo-cars/plans/immutable-ids/cover/part/
+over    1,052 KB  /volvo-cars/plans/care-se-sales-tool/changes/system/
+over    1,043 KB  /volvo-cars/plans/care-se-sales-tool/today/system/
+
+84 pages weigh more than 1,024 KB. Draw what the reader asked for and
+leave the rest to the browser (see Speed in docs/architecture.md).

@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { todayJourneysOf } from '@/application/today-journeys';
+import { modelJourneyAt, modelJourneysOf, modelJourneyWalkOf } from '@/application/model-journeys';
 import { journeyHref, journeysHref } from '@/application/today-reader';
-import { workspaceNavOf } from '@/application/workspace-nav';
 import { workspaceHref } from '@/application/workspace-paths';
-import { TodayJourney, TodayOverlays, TodaySearch } from '@/features/plan';
+import { ModelTodayOverlays, ModelJourney, TodaySearch } from '@/features/plan';
 import { WorkspaceShell } from '@/features/workspace';
-import { todayData } from '@/infrastructure/today-data';
+import { readCanonicalModelIndex } from '@/infrastructure/model-index';
+import { readModelWorkspaceNav } from '@/infrastructure/model-workspace-nav';
 
 interface Params {
   readonly workspace: string;
@@ -20,44 +20,40 @@ export async function generateMetadata({
   readonly params: Promise<Params>;
 }): Promise<Metadata> {
   const { workspace: id, key } = await params;
-  const data = await todayData(id);
-  const journey =
-    data === null ? undefined : todayJourneysOf(data.today.model).find((j) => j.key === key);
-  return { title: journey?.title ?? 'Journeys' };
+  const native = await readCanonicalModelIndex(id);
+  return {
+    title: native === null ? 'Journeys' : (modelJourneyAt(native, key)?.title ?? 'Journeys'),
+  };
 }
 
 export default async function JourneyRoute({ params }: { readonly params: Promise<Params> }) {
   const { workspace: id, key } = await params;
-  const data = await todayData(id);
-  const journeys = data === null ? [] : todayJourneysOf(data.today.model);
-  const at = journeys.findIndex((journey) => journey.key === key);
-  const journey = journeys[at];
-  if (data === null || journey === undefined) notFound();
-  const { workspace, today, plans } = data;
-  const beside = (by: -1 | 1): string | null => {
-    const other = journeys[at + by];
-    return other === undefined ? null : journeyHref(workspace.id, other.key);
+  const native = await readCanonicalModelIndex(id);
+  if (native === null) notFound();
+  const walk = modelJourneyWalkOf(native, key);
+  if (walk === null) notFound();
+  const all = modelJourneysOf(native);
+  const position = all.findIndex((record) => record.id === walk.journey.id);
+  const beside = (by: number): string | null => {
+    const other = all[position + by];
+    return other === undefined ? null : journeyHref(id, other.key);
   };
   return (
     <WorkspaceShell
+      workspace={native.model}
+      nav={await readModelWorkspaceNav(native, { section: 'journeys', key: walk.journey.key })}
       actions={<TodaySearch />}
-      nav={workspaceNavOf(
-        workspace,
-        plans,
-        { section: 'journeys', key, today: today.model },
-        data.programmes,
-      )}
       overlays={
-        <TodayOverlays depth={2} next={beside(1)} previous={beside(-1)} workspace={workspace} />
+        <ModelTodayOverlays index={native} depth={2} previous={beside(-1)} next={beside(1)} />
       }
-      title={journey.title}
+      title={walk.journey.title}
       trail={[
         { label: 'Workspaces', href: '/' },
-        { label: workspace.name, href: workspaceHref(workspace.id) },
-        { label: 'Journeys', href: journeysHref(workspace.id) },
+        { label: native.model.name, href: workspaceHref(id) },
+        { label: 'Journeys', href: journeysHref(id) },
       ]}
     >
-      <TodayJourney journey={key} model={today.model} workspace={workspace.id} />
+      <ModelJourney walk={walk} labelOf={native.label} />
     </WorkspaceShell>
   );
 }

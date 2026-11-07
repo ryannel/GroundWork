@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
+import { modelReferenceOf, modelReferencePage } from '@/application/model-reference';
 import { referenceHref } from '@/application/today-reader';
-import { referenceOf } from '@/application/today-reference';
-import { workspaceNavOf } from '@/application/workspace-nav';
 import { workspaceHref } from '@/application/workspace-paths';
-import { TodayCatalogue, TodayOverlays, TodaySearch } from '@/features/plan';
+import { ModelTodayOverlays, ModelTodayCatalogue, TodaySearch } from '@/features/plan';
 import { WorkspaceShell } from '@/features/workspace';
-import { todayData } from '@/infrastructure/today-data';
+import { readCanonicalModelIndex } from '@/infrastructure/model-index';
+import { readModelWorkspaceNav } from '@/infrastructure/model-workspace-nav';
 import type { SearchParams } from '@/shared/search-params';
 
 interface Params {
@@ -21,10 +21,11 @@ export async function generateMetadata({
   readonly params: Promise<Params>;
 }): Promise<Metadata> {
   const { workspace: id, kind } = await params;
-  const data = await todayData(id);
-  const entry =
-    data === null ? undefined : referenceOf(data.today.model).find((k) => k.kind === kind);
-  return { title: entry?.title ?? 'Reference' };
+  const native = await readCanonicalModelIndex(id);
+  if (native === null) return { title: 'Reference' };
+  return {
+    title: modelReferenceOf(native).find((entry) => entry.kind === kind)?.title ?? 'Reference',
+  };
 }
 
 export default async function CatalogueRoute({
@@ -35,38 +36,25 @@ export default async function CatalogueRoute({
   readonly searchParams: Promise<SearchParams>;
 }) {
   const { workspace: id, kind } = await params;
-  const data = await todayData(id);
-  const entry =
-    data === null ? undefined : referenceOf(data.today.model).find((k) => k.kind === kind);
-  if (data === null || entry === undefined) notFound();
-  const { workspace, today, plans } = data;
+  const native = await readCanonicalModelIndex(id);
+  if (native === null) notFound();
+  const entry = modelReferenceOf(native).find((candidate) => candidate.kind === kind);
+  const page = modelReferencePage(native, kind, await searchParams);
+  if (entry === undefined || page === null) notFound();
   return (
     <WorkspaceShell
-      actions={<TodaySearch />}
-      nav={workspaceNavOf(
-        workspace,
-        plans,
-        {
-          section: 'reference',
-          key: kind,
-          today: today.model,
-        },
-        data.programmes,
-      )}
-      overlays={<TodayOverlays depth={2} workspace={workspace} />}
+      workspace={native.model}
       title={entry.title}
+      actions={<TodaySearch />}
+      overlays={<ModelTodayOverlays index={native} depth={2} />}
+      nav={await readModelWorkspaceNav(native, { section: 'reference', key: kind })}
       trail={[
         { label: 'Workspaces', href: '/' },
-        { label: workspace.name, href: workspaceHref(workspace.id) },
-        { label: 'Reference', href: referenceHref(workspace.id) },
+        { label: native.model.name, href: workspaceHref(native.model.id) },
+        { label: 'Reference', href: referenceHref(native.model.id) },
       ]}
     >
-      <TodayCatalogue
-        params={await searchParams}
-        kind={kind}
-        model={today.model}
-        workspace={workspace.id}
-      />
+      <ModelTodayCatalogue entry={entry} page={page} />
     </WorkspaceShell>
   );
 }

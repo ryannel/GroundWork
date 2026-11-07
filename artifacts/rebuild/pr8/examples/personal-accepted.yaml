@@ -1,0 +1,55 @@
+- id: svc:weather-api
+  name: Met Office DataPoint
+  does: Daily frost and rain forecast
+  proposed: null
+  reason: Legacy external does not distinguish a vendor from an unmapped company
+    system.
+  key: identity/svc:weather-api
+  fingerprint: 38df6b3a283de25a9c5c23e34fb46798a237269ce0b77fbab22774ce442b8df1
+  status: accepted
+  kind: external
+  interpretation: Source boundary classification; not a claim about legal ownership.
+  summary: >-
+    Daily frost and rain forecast
+
+
+    Source classification: an external boundary. The workspace does not map its
+    implementation.
+  review_note: The source explicitly names Met Office DataPoint and calls it
+    external; preserve its forecast description verbatim.
+  acceptance_basis: User delegated reversible decisions overnight after
+    independent subagent review; 33-choice cross-review recorded in the handoff.
+- from: app:allotment-app
+  edge:
+    to: st:allotment-db
+    via: data
+  evidence: []
+  reason: No cited handler or contract backing.
+  key: summary/app:allotment-app/83fe0ab5e684427833e6d6a3c3b239d4ce1d803e244baec49f6e64555b133d07
+  fingerprint: 83fe0ab5e684427833e6d6a3c3b239d4ce1d803e244baec49f6e64555b133d07
+  status: accepted
+  disposition: Unverified source claim
+  connection: null
+  relationship: null
+  review_note: The source claim has no cited handler or contract backing. Retain
+    this full row and fingerprint as an explicit unresolved review record; do
+    not publish a current execution edge or declare the claim false.
+  acceptance_basis: User delegated reversible decisions overnight after
+    independent subagent review; 33-choice cross-review recorded in the handoff.
+- from: app:allotment-app
+  edge:
+    to: ext:weather-api
+    via: api
+  evidence: []
+  reason: No cited handler or contract backing.
+  key: summary/app:allotment-app/cc7f83fd5a3c001851a4e74a824a41b700517662ae04f435addc2a609e6dfae3
+  fingerprint: cc7f83fd5a3c001851a4e74a824a41b700517662ae04f435addc2a609e6dfae3
+  status: accepted
+  disposition: Unverified source claim
+  connection: null
+  relationship: null
+  review_note: The source claim has no cited handler or contract backing. Retain
+    this full row and fingerprint as an explicit unresolved review record; do
+    not publish a current execution edge or declare the claim false.
+  acceptance_basis: User delegated reversible decisions overnight after
+    independent subagent review; 33-choice cross-review recorded in the handoff.

@@ -7,10 +7,10 @@ import {
   siblingsOf,
   thingByToken,
   thingHome,
-  thingHref,
   thingNeighbours,
   topThingIds,
 } from './plan-pages-things';
+import { thingHref } from './thing-paths';
 
 vi.mock(import('server-only'), () => ({}));
 

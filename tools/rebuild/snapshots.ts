@@ -30,20 +30,30 @@ export function digest(value: unknown): string {
   return createHash('sha256').update(serialise(value)).digest('hex');
 }
 
-export async function writeSnapshot(folder: string, file: string, value: unknown): Promise<void> {
+export async function writeSnapshot(folder: string, file: string, value: unknown): Promise<string> {
   if (!/^[\w-]+\.json(?:\.gz)?$/u.test(file)) {
     throw new Error('A snapshot must use a JSON data file name inside its output folder.');
   }
   await mkdir(folder, { recursive: true });
   const body = serialise(value);
   await writeFile(path.join(folder, file), file.endsWith('.gz') ? gzipSync(body) : body);
+  return createHash('sha256').update(body).digest('hex');
 }
 
-export async function readSnapshot(folder: string, file: string): Promise<unknown> {
+export async function readSnapshot(
+  folder: string,
+  file: string,
+  expectedSha256?: string,
+): Promise<unknown> {
   const body = await readFile(path.join(folder, file));
-  return JSON.parse(
-    file.endsWith('.gz') ? gunzipSync(body).toString('utf8') : body.toString('utf8'),
-  );
+  const contents = file.endsWith('.gz') ? gunzipSync(body) : body;
+  if (
+    expectedSha256 !== undefined &&
+    createHash('sha256').update(contents).digest('hex') !== expectedSha256
+  ) {
+    throw new Error(`Snapshot checksum does not match: ${file}`);
+  }
+  return JSON.parse(contents.toString('utf8'));
 }
 
 export interface Difference {

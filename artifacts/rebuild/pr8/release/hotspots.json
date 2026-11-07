@@ -1,0 +1,73 @@
+{
+  "pages": [
+    {
+      "page": "/volvo-cars/commercial-backbone/map/",
+      "bytes": 948713
+    },
+    {
+      "page": "/volvo-cars/commercial-backbone/assortment/",
+      "bytes": 895328
+    },
+    {
+      "page": "/volvo-cars/commercial-backbone/price/",
+      "bytes": 652691
+    },
+    {
+      "page": "/volvo-cars/commercial-backbone/price/flows/assortment-maintains-market-availability/",
+      "bytes": 621177
+    },
+    {
+      "page": "/volvo-cars/shopping/volvo-cars-website/",
+      "bytes": 207143
+    },
+    {
+      "page": "/volvo-cars/programmes/care-se/",
+      "bytes": 503776
+    },
+    {
+      "page": "/volvo-cars/plans/sourced-financing-terms/cover/part/",
+      "bytes": 321533
+    },
+    {
+      "page": "/volvo-cars/plans/sourced-financing-terms/today/graph/",
+      "bytes": 202362
+    }
+  ],
+  "verdict": {
+    "over": [],
+    "heaviest": [
+      {
+        "page": "/volvo-cars/commercial-backbone/map/",
+        "bytes": 948713
+      },
+      {
+        "page": "/volvo-cars/commercial-backbone/assortment/",
+        "bytes": 895328
+      },
+      {
+        "page": "/volvo-cars/commercial-backbone/price/",
+        "bytes": 652691
+      },
+      {
+        "page": "/volvo-cars/commercial-backbone/price/flows/assortment-maintains-market-availability/",
+        "bytes": 621177
+      },
+      {
+        "page": "/volvo-cars/programmes/care-se/",
+        "bytes": 503776
+      },
+      {
+        "page": "/volvo-cars/plans/sourced-financing-terms/cover/part/",
+        "bytes": 321533
+      },
+      {
+        "page": "/volvo-cars/shopping/volvo-cars-website/",
+        "bytes": 207143
+      },
+      {
+        "page": "/volvo-cars/plans/sourced-financing-terms/today/graph/",
+        "bytes": 202362
+      }
+    ]
+  }
+}

@@ -4,14 +4,13 @@ import { derive, type Model } from '@/application/plan/derive';
 import type { BaseInfo } from '@/application/plan/plan-base';
 import { planCardOf, type PlanCard } from '@/application/plan-footprint';
 import { outlineOf, type Outline } from '@/application/plan-pages';
-import { findWorkspace } from '@/application/workspace-paths';
 import { stackCoverVM, type StackCoverVM } from '@/application/workspace-work/stack-cover';
 
 import { readPlacementData } from './today-model';
 import { untilEdited } from './workspace-memo';
 import { readWorkspacePlanIndex } from './workspace-plan-index';
 import { readLoadedPlan, readLoadedPlans, readPlanState, type BrokenPlan } from './workspace-plans';
-import { readWorkspaces } from './workspace-store';
+import { readLegacyWorkspace } from './workspace-store';
 
 export interface PlanParams {
   readonly workspace: string;
@@ -37,7 +36,7 @@ export interface PlanFailure extends BrokenPlan {
 
 /** What stops a plan being shown, or null when it can be (or there is no such plan). */
 export async function planFailure({ workspace, plan }: PlanParams): Promise<PlanFailure | null> {
-  const found = findWorkspace(await readWorkspaces(), workspace);
+  const found = await readLegacyWorkspace(workspace);
   const state = found === null ? null : await readPlanState(workspace, plan);
   const broken = state?.broken ?? null;
   if (found === null || broken === null) return null;
@@ -56,7 +55,7 @@ async function planCards(workspace: string): Promise<PlanCard[]> {
 }
 
 async function load({ workspace, plan }: PlanParams): Promise<PlanData | null> {
-  const found = findWorkspace(await readWorkspaces(), workspace);
+  const found = await readLegacyWorkspace(workspace);
   const loaded = found === null ? null : await readLoadedPlan(workspace, plan);
   if (found === null || loaded === null) return null;
   const model = derive(loaded.plan, {

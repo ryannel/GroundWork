@@ -1,0 +1,86 @@
+{
+  "status": "complete",
+  "input": "/private/tmp/rebuild-pr7-native-output-02",
+  "sources": {
+    "src/application/model-transport.ts": "6295069cc38acb28f5d856e7e3f6b70fd55d49b98710f3333fa5a1c4e01cd1e6",
+    "src/application/model-reader.ts": "9357160e78c9db6b1866faf81ec9eab83c9fff968f3804f201cc04bb2576ac47",
+    "src/application/model-index.ts": "ec73253b0d5d867b5c683d475b945462d1bb05c52914ffc2ba4064deedc48240",
+    "src/application/model-graphql.ts": "01b4dfb776a8395adf71a47eb698456ad79f612ce5ecb793561417f859f9ea84",
+    "src/application/plans-index.ts": "c3fc90b625de3e90979820c779c082897c45f18d44dc46a5416084a24323c837",
+    "src/domain/workspace-model.ts": "eb9722caf309fd2b52dc3296303fb3d354e86cf0c19ff5819b71dde21d01ffdf",
+    "src/infrastructure/read-model.ts": "bf6711809597b1a9983e29b31de95b4a861062c79d664e849ad27399277e317e",
+    "src/infrastructure/model-index.ts": "e87664319c7834b118f3e8ae1bf08264d164be0293343fe7b1968234443eca84",
+    "src/infrastructure/model-plan-context.ts": "31ded68ca1ba36691e0a9f9b8e466002d464e7f6a0bc7ef8f7197d27e79a3bff",
+    "src/infrastructure/model-plans.ts": "c83abb39acb21e9be1c5ef2ef53fb81479305cad023571433bcc3c2a6e74615c",
+    "test/fixtures/model-transport-parity.ts": "606708b21b187118d54f5d0a0bf6df70cc846b34abcd848fa5e4762a22d54b89"
+  },
+  "proofs": [
+    {
+      "version": "current",
+      "fullPayloadBytes": 147115773,
+      "scopedPayloadBytes": 23284625,
+      "profile": {
+        "kind": "authored-evidence-closure",
+        "lookup": "evidence.json",
+        "current": {
+          "total": 354395,
+          "loaded": 155,
+          "omitted": 354240
+        }
+      },
+      "authored": 34443,
+      "components": 465,
+      "entries": 3235,
+      "operations": 155,
+      "edges": 8570,
+      "systemEdges": 2483,
+      "gaps": 16075,
+      "retainedEvidence": 155,
+      "unloadedEvidence": 354240,
+      "problems": []
+    },
+    {
+      "version": "care-se-order-change",
+      "fullPayloadBytes": 294222362,
+      "scopedPayloadBytes": 46559997,
+      "profile": {
+        "kind": "authored-evidence-closure",
+        "lookup": "../../evidence.json",
+        "before": {
+          "total": 354395,
+          "loaded": 155,
+          "omitted": 354240
+        },
+        "after": {
+          "total": 354395,
+          "loaded": 155,
+          "omitted": 354240
+        }
+      },
+      "before": {
+        "authored": 34470,
+        "components": 466,
+        "entries": 3237,
+        "operations": 155,
+        "edges": 8579,
+        "systemEdges": 2487,
+        "gaps": 16176,
+        "retainedEvidence": 155,
+        "unloadedEvidence": 354240,
+        "problems": []
+      },
+      "after": {
+        "authored": 34470,
+        "components": 466,
+        "entries": 3237,
+        "operations": 155,
+        "edges": 8579,
+        "systemEdges": 2487,
+        "gaps": 16176,
+        "retainedEvidence": 155,
+        "unloadedEvidence": 354240,
+        "problems": []
+      }
+    }
+  ]
+}

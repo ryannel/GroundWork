@@ -1,0 +1,25 @@
+id: sys:shop
+name: Shop
+purpose: The website the customer shops on.
+team: team:web
+components:
+  - id: svc:shop-bff
+    name: Shop BFF
+    kind: service
+    tech: Node
+    does: Gathers what each page shows
+  - id: app:shop-web
+    name: Shop web
+    kind: app
+    form: web
+    tech: Next.js
+    does: The pages the customer sees
+  - id: st:basket-cache
+    name: basket-cache
+    kind: store
+    form: database
+    tech: Redis
+    does: Baskets until checkout
+homes:
+  acme-shop:
+    repo: acme/shop

@@ -5,7 +5,7 @@ import path from 'node:path';
 import { afterAll, beforeAll, expect, it, vi } from 'vitest';
 
 import { systemProviderModel } from '@/../test/fixtures/model-queries';
-import { entitiesIn, type WorkspaceModel } from '@/domain/workspace-model';
+import { entitiesIn, type ModelSystem, type WorkspaceModel } from '@/domain/workspace-model';
 import { readModelPlans } from '@/infrastructure/model-plans';
 import { readModel } from '@/infrastructure/read-model';
 
@@ -130,6 +130,10 @@ it('applies one selected overlay independently and sends only the selected befor
   expect(after?.flow?.handlers[0]?.failures[0]?.detail).toContain('502');
   expect(before?.flow?.handlers[0]?.failures[0]?.detail).toContain('503');
   expect(JSON.stringify(after)).not.toContain('beforeIndex');
+  const listing = entryFlowPageOf(model, plans, { plan: 'plan-confirm', version: 'after' });
+  expect(listing?.entries.find((entry) => entry.id === 'api:confirm')?.href).toBe(
+    '/model-fixture/entries/?id=api-confirm&plan=plan-confirm&version=after',
+  );
   expect(entryFlowPageOf(model, plans, { id: 'api-confirm', plan: 'plan-missing' })).toBeNull();
   expect(entryFlowPageOf(model, plans, { id: 'api-missing' })).toBeNull();
   expect(entryFlowPageOf(model, plans, { id: 'bad-token' })).toBeNull();
@@ -139,13 +143,98 @@ it('lists native entries and plans without manufacturing legacy plan progress', 
   expect(page?.flow).toBeNull();
   expect(page?.entries.some((entry) => entry.id === 'api:confirm')).toBe(true);
   expect(entryFlowPageOf(model, [], { domain: 'dom-other' })?.entries).toEqual([]);
-  const card = modelWorkspaceCardOf(model, []);
-  expect(card.href).toBe('/model-fixture/entries/');
+  const card = modelWorkspaceCardOf(indexOf(model), []);
+  expect(card.href).toBe('/model-fixture/');
+  expect(card.domains[0]?.href).toBe('/model-fixture/orders/');
   expect(card.plans).toEqual([]);
   expect(card.facts).toContain('0 plans');
   expect(
     entryFlowHref(model.id, { entry: 'api:confirm', plan: 'plan:confirm', version: 'after' }),
   ).toBe('/model-fixture/entries/?id=api-confirm&plan=plan-confirm&version=after');
+});
+
+it('lists every scoped entry once across bounded pages and retains its direct selection', () => {
+  const expanded: WorkspaceModel = {
+    ...model,
+    domains: model.domains.map((domain) => ({
+      ...domain,
+      systems: domain.systems.map((system): ModelSystem =>
+        system.id === 'sys:ordering'
+          ? {
+              ...system,
+              interfaces: [
+                ...system.interfaces,
+                {
+                  id: 'if:more-orders',
+                  kind: 'rest',
+                  component: 'svc:ordering',
+                  entries: Array.from({ length: 65 }, (_, number) => ({
+                    id: `api:paged-${String(number)}`,
+                    method: 'GET',
+                    path: `/paged/${String(number)}`,
+                  })),
+                },
+              ],
+            }
+          : system,
+      ),
+    })),
+  };
+  const index = indexOf(expanded);
+  const expected = index.entries().filter((entry) => entry.place.domain === 'dom:orders');
+  const scope = { domain: 'dom-orders' };
+  const page = (query: Readonly<Record<string, string>>) =>
+    entryFlowPageOf(expanded, [], { ...scope, ...query }, index);
+  const first = page({});
+  const middle = page({ page: '2' });
+  const last = page({ page: '999' });
+  expect(first?.pagination).toEqual({
+    page: 1,
+    pages: 3,
+    total: expected.length,
+    previous: null,
+    next: '/model-fixture/entries/?domain=dom-orders&page=2',
+  });
+  expect(middle?.pagination?.previous).toBe('/model-fixture/entries/?domain=dom-orders');
+  expect(middle?.pagination?.next).toBe('/model-fixture/entries/?domain=dom-orders&page=3');
+  expect(last?.pagination?.next).toBeNull();
+  expect(first?.entries).toHaveLength(30);
+  expect(middle?.entries).toHaveLength(30);
+  expect(
+    [first, middle, last].flatMap((value) => value?.entries.map((entry) => entry.id) ?? []),
+  ).toEqual(expected.map((entry) => entry.id));
+  expect(last?.entries.find((entry) => entry.id === 'api:paged-64')?.href).toBe(
+    '/model-fixture/entries/?id=api-paged-64',
+  );
+  expect(page({ id: 'api-paged-64', page: '1' })?.flow?.id).toBe('api:paged-64');
+  expect(page({ id: 'api-paged-64' })?.pagination).toBeNull();
+  const scoped = page({ system: 'sys-ordering' });
+  expect(scoped?.pagination?.next).toBe(
+    '/model-fixture/entries/?domain=dom-orders&system=sys-ordering&page=2',
+  );
+  expect(page({ system: 'sys-ordering', page: '2' })?.pagination?.previous).toBe(
+    '/model-fixture/entries/?domain=dom-orders&system=sys-ordering',
+  );
+});
+
+it('filters entry pages by the actual provider system and retains the selected context', () => {
+  const unmapped = systemProviderModel();
+  const current = indexOf(unmapped);
+  const selected = entryFlowPageOf(unmapped, [], { system: 'sys-unmapped' }, current);
+  expect(selected?.entries.map((entry) => entry.id)).toEqual(['api:unmapped-api']);
+  expect(selected?.entries[0]?.href).toBe(
+    '/queries/entries/?id=api-unmapped-api&system=sys-unmapped',
+  );
+  const direct = entryFlowPageOf(
+    unmapped,
+    [],
+    { system: 'sys:unmapped', id: 'api-unmapped-api' },
+    current,
+  );
+  expect(direct?.flow?.id).toBe('api:unmapped-api');
+  expect(direct?.workspace.href).toBe('/queries/entries/?system=sys-unmapped');
+  expect(entryFlowPageOf(unmapped, [], { system: 'svc:a' }, current)).toBeNull();
+  expect(entryFlowPageOf(unmapped, [], { system: 'sys:missing' }, current)).toBeNull();
 });
 
 it('keeps the explicitly recorded external provider visible when drilling into its entry', () => {

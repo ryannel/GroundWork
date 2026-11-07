@@ -230,3 +230,14 @@ export function resolveModelCitations(
   );
   return { data, problems };
 }
+
+/** Resolve persisted evidence cites through their repository pins, retaining only recorded locations. */
+export function codeCitationResolver(
+  repositories: readonly ModelRepository[],
+): (cites: readonly ModelCite[]) => readonly Extract<ModelCite, { readonly kind: 'code' }>[] {
+  const evidence = evidenceIndex(repositories);
+  return (cites) => {
+    const locations = cites.flatMap((cite) => recordedLocations(cite, evidence) ?? []);
+    return [...new Map(locations.map((cite) => [JSON.stringify(cite), cite])).values()];
+  };
+}

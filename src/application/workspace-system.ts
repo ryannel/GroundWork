@@ -10,7 +10,8 @@ import type { SystemModel } from '@/application/workspace-model';
 import { type Workspace, systemDoes } from '@/domain/workspace';
 import { plural } from '@/shared/text';
 
-import { domainHref, systemFlowHref, teamOf, workspaceHref } from './workspace-paths';
+import { teamOf } from './legacy-workspace-paths';
+import { domainHref, systemFlowHref, workspaceHref } from './workspace-paths';
 
 // A system page teaches how one system works: what it does and who runs it, how fresh our reading of its code is,
 // the map of its components with what is one step outside, the flows through it step by step, and each component

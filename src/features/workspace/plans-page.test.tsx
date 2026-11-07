@@ -2,7 +2,7 @@
 import { cleanup, fireEvent, render, screen, within } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
-import type { PlanRow } from '@/application/plan-index';
+import type { PlanRow } from '@/application/plan-list';
 
 import { DomainPlans, PlansPage } from './index';
 

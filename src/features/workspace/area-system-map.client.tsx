@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 
+import { areaBoundaryBoxes, areaBoundaryOf } from '@/application/area-map/boundaries';
 import { resourceLocation } from '@/application/area-map/component-summary';
 import {
   areaSystemBounds,
@@ -14,6 +15,7 @@ import { SystemCard } from '@/ui/canvas/system-card';
 import { ConnectedCanvas } from '@/ui/connected-canvas.client';
 import { TextLink } from '@/ui/text';
 
+import { AreaBoundaryCard } from './area-boundary-card';
 import { AreaComponentDetail } from './area-component-detail.client';
 import { AreaExpandedSystem } from './area-expanded-system.client';
 import { areaCanvasEdges } from './area-system-edges';
@@ -209,11 +211,15 @@ export function AreaSystemMap({ view }: { readonly view: AreaView }) {
   const [endpoint, setEndpoint] = useState<string>();
   const [opened, setOpened] = useState<string>();
   const [open, setOpen, toggleOpen] = useToggleSet();
-  const systems = placed(view.systems, view.relationships, {
-    expanded,
-    selected,
-    open,
-  });
+  const systems = placed(
+    view.systems.filter((system) => areaBoundaryOf(view, system.id) === undefined),
+    view.relationships,
+    {
+      expanded,
+      selected,
+      open,
+    },
+  );
   const highlights = new Map(
     view.systems.map((system) => {
       const flow = system.narratives?.stories.find((story) => story.id === flows.get(system.id));
@@ -232,7 +238,9 @@ export function AreaSystemMap({ view }: { readonly view: AreaView }) {
         ? system.componentBoxes.filter((box) => highlights.get(system.id)?.has(box.id) === true)
         : system.componentBoxes,
   }));
-  const edges = areaCanvasEdges({ view, systems: drawn, expanded, detail, selected }).map(
+  const boundaries = areaBoundaryBoxes(view, systems);
+  const canvas = [...drawn, ...boundaries];
+  const edges = areaCanvasEdges({ view, systems: canvas, expanded, detail, selected }).map(
     (edge) => {
       const focused = [...highlights.values()].filter((ids) => ids !== undefined);
       return focused.length === 0 ||
@@ -241,7 +249,7 @@ export function AreaSystemMap({ view }: { readonly view: AreaView }) {
         : { ...edge, context: true };
     },
   );
-  const bounds = areaSystemBounds(systems);
+  const bounds = areaSystemBounds([...systems, ...boundaries]);
   const size = {
     width: Math.max(bounds.width, ...edges.map((edge) => edge.x + 100)),
     height: Math.max(bounds.height, ...edges.map((edge) => edge.y + 48)),
@@ -277,12 +285,19 @@ export function AreaSystemMap({ view }: { readonly view: AreaView }) {
     setSelected(new Map([[destination.system.id, id]]));
     setEndpoint(id);
   };
-  const inspected = selectedComponent(systems, selected);
+  const boundary = view.boundaries?.find((node) => selected.get(node.id) === node.id);
+  const inspected = boundary ?? selectedComponent(systems, selected);
   const openedSystem = systems.find((system) => system.id === opened && expanded.has(system.id));
   const contextHeight = (openedSystem?.story?.relatedSystems?.length ?? 0) > 0 ? 240 : 0;
   const selectEdge = (id: string): void => {
     const relation = edges.find((edge) => edge.id === id)?.relations?.[0];
     if (relation === undefined) return;
+    const destinationBoundary = areaBoundaryOf(view, relation.to);
+    if (destinationBoundary !== undefined) {
+      setSelected(new Map([[destinationBoundary.id, destinationBoundary.id]]));
+      setEndpoint(relation.endpointId ?? undefined);
+      return;
+    }
     setExpanded((current) => new Set([...current, relation.toSystem]));
     setOpen((current) => new Set([...current, ownerOf(view, relation.to)]));
     setSelected(new Map([[relation.toSystem, relation.to]]));
@@ -309,6 +324,7 @@ export function AreaSystemMap({ view }: { readonly view: AreaView }) {
         inspected === undefined ? undefined : (
           <AreaComponentDetail
             component={inspected}
+            boundary={boundary}
             endpoint={endpoint}
             key={inspected.id}
             usedBy={view.systems
@@ -342,6 +358,26 @@ export function AreaSystemMap({ view }: { readonly view: AreaView }) {
       selected={inspected?.id}
       width={size.width}
     >
+      {boundaries.map((box) => (
+        <foreignObject
+          key={box.id}
+          data-boundary={box.id}
+          x={box.x}
+          y={box.y}
+          width={box.width}
+          height={box.height}
+        >
+          <AreaBoundaryCard
+            boundary={box.boundary}
+            muted={false}
+            highlighted={selected.get(box.id) === box.id}
+            onSelect={() => {
+              setSelected(new Map([[box.id, box.id]]));
+              setEndpoint(undefined);
+            }}
+          />
+        </foreignObject>
+      ))}
       {drawn.map((system) =>
         expanded.has(system.id) ? (
           <AreaExpandedSystem

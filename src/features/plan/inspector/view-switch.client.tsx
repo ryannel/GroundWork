@@ -6,6 +6,7 @@ import styles from './view-switch.module.css';
 
 interface ViewSwitchProps {
   readonly today: boolean;
+  readonly beforeLabel?: string;
   readonly onChange: (today: boolean) => void;
 }
 
@@ -15,7 +16,7 @@ const CHOICES = [
 ] as const;
 
 /** Shows the open thing as it is today or with the plan: radios, so the arrow keys move between the two. */
-export function ViewSwitch({ today, onChange }: ViewSwitchProps) {
+export function ViewSwitch({ today, onChange, beforeLabel = 'today' }: ViewSwitchProps) {
   const name = useId();
   return (
     <div className={styles.view}>
@@ -33,7 +34,9 @@ export function ViewSwitch({ today, onChange }: ViewSwitchProps) {
               }}
               type="radio"
             />
-            <label htmlFor={`${name}-${choice.label}`}>{choice.label}</label>
+            <label htmlFor={`${name}-${choice.label}`}>
+              {choice.today ? beforeLabel : choice.label}
+            </label>
           </span>
         ))}
       </div>

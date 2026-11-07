@@ -1,0 +1,283 @@
+{
+  "format": 1,
+  "original": {
+    "file": "artifacts/rebuild/pr8/original-candidates.json",
+    "sha256": "8bb91071c6ae2e9168573f6d20d496cc8551e3e3ee626c3b06d64371d69f17c2",
+    "rows": 1697
+  },
+  "dispositions": [
+    {
+      "file": "tools/capture-proof.ts",
+      "sourceSha256": "74a85fea43a498c64fa04385ba11355bfe157ae435d0b29834cc3190e9ec291e",
+      "role": "support",
+      "reason": "Replays the pinned capture research bundle and writes its saved query and walkthrough formats.",
+      "evidence": [
+        {
+          "file": "tools/capture-proof.ts",
+          "line": 23,
+          "text": "await importKnowledgeSnapshot(file, { manifest, bundles: [bundle] });"
+        },
+        {
+          "file": "package.json",
+          "line": 49,
+          "text": "\"proof:capture\": \"node --import ./tools/register.ts --conditions=react-server tools/capture-proof.ts\","
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "docs/scan-trials/capture-proof/bundle.json",
+          "sha256": "0d08be18576210603ee6afc1cab3d2c675a8e3be9f982496c3e731d9ed4a811e"
+        }
+      ]
+    },
+    {
+      "file": "tools/runtime-proof.ts",
+      "sourceSha256": "6eac6524bc6d4eec26d996b0274eb732601cc4cbeeec603222c25060ce7b451f",
+      "role": "support",
+      "reason": "Replays the capture or soft-offer runtime fixture through its pinned v3 knowledge snapshot.",
+      "evidence": [
+        {
+          "file": "tools/runtime-proof.ts",
+          "line": 21,
+          "text": "const { bundle, manifest } = await runtimeProofInput(name);"
+        },
+        {
+          "file": "package.json",
+          "line": 53,
+          "text": "\"proof:runtime\": \"node --import ./tools/register.ts --conditions=react-server tools/runtime-proof.ts\","
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "docs/scan-trials/capture-proof/runtime/snapshot.json",
+          "sha256": "3c6feac675356dbb993e5944efef8d96b0de7a58eb1041aa6d89e311b2f9c26a"
+        },
+        {
+          "file": "docs/scan-trials/soft-offer-proof/runtime/snapshot.json",
+          "sha256": "b9b029ccf0684115818514cfa0d1f3a10015701589050a5d8b235a75836b66a9"
+        }
+      ]
+    },
+    {
+      "file": "tools/soft-offer-proof.ts",
+      "sourceSha256": "200c26b3f01f3cae8954a48f963cde712de2a5517b64bf2dc420f336b972e7ea",
+      "role": "support",
+      "reason": "Replays the pinned soft-offer research bundle and writes its saved query and walkthrough formats.",
+      "evidence": [
+        {
+          "file": "tools/soft-offer-proof.ts",
+          "line": 21,
+          "text": "await importKnowledgeSnapshot(path.join(directory, 'index.sqlite'), {"
+        },
+        {
+          "file": "package.json",
+          "line": 51,
+          "text": "\"proof:soft-offer\": \"node --import ./tools/register.ts --conditions=react-server tools/soft-offer-proof.ts\","
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "docs/scan-trials/soft-offer-proof/bundle.json",
+          "sha256": "18fd65ae6fd8c109681b0bcca964d91733803a4f053bb1355fa48a530a0eba21"
+        }
+      ]
+    },
+    {
+      "file": "tools/verify-runtime-evidence.ts",
+      "sourceSha256": "aac2206043284d5e9ee7b2fd36f707d2f259aa18a296fe0982206bb2409c2c9c",
+      "role": "support",
+      "reason": "Checks the selected historical runtime fixture against pinned source range digests and anchors.",
+      "evidence": [
+        {
+          "file": "tools/verify-runtime-evidence.ts",
+          "line": 44,
+          "text": "if (record.lines[1] > lines.length || digest !== locks.get(record.id)) {"
+        },
+        {
+          "file": "package.json",
+          "line": 54,
+          "text": "\"proof:runtime:sources\": \"node --import ./tools/register.ts --conditions=react-server tools/verify-runtime-evidence.ts\","
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "docs/scan-trials/capture-proof/runtime/source-lock.json",
+          "sha256": "874bdce809ba67ca530b54803cd61fe3ad3b9e9d1ccca487c88ea35ba35aea96"
+        },
+        {
+          "file": "docs/scan-trials/soft-offer-proof/runtime/source-lock.json",
+          "sha256": "631aa1c744dcdd4a6da33d96f4375a244493718f9cf88055c1319cbad088c4a3"
+        }
+      ]
+    },
+    {
+      "file": "src/app/[workspace]/[domain]/(overview)/interfaces/page.tsx",
+      "sourceSha256": "2ff89233adeee1eb2d476e423141c3a8597d96f323aee88cbcc91b5f04561130",
+      "role": "consumer",
+      "reason": "The route selects the domain and scoped system through the canonical index. Both bare and canonical system selectors choose the same actual system.",
+      "evidence": [
+        {
+          "file": "src/app/[workspace]/[domain]/(overview)/interfaces/page.tsx",
+          "line": 26,
+          "text": "const index = await readCanonicalModelIndex(id);"
+        },
+        {
+          "file": "src/app/[workspace]/[domain]/(overview)/interfaces/page.tsx",
+          "line": 31,
+          "text": "const selected = modelSystemAt(index, { domain, system: firstParam(query.system) });"
+        },
+        {
+          "file": "src/app/[workspace]/[domain]/(overview)/interfaces/page.tsx",
+          "line": 40,
+          "text": "selected={selected?.system.id ?? ''}"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/small-http-causes.md",
+          "sha256": "468e1236fc1af10e6e58c8fa41f76a1248e7cb5acab2fce546eb34e321a57b15"
+        },
+        {
+          "file": "src/app/[workspace]/[domain]/(overview)/page.test.tsx",
+          "sha256": "eb3bf525076a1a41b06233784dfa4e5fa14c1be7d2ae3417a34c3ad6b81ec1f0"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/model-system.ts",
+      "sourceSha256": "8f57cddf1644a463158e51d85c776608ef1406222ae8a64d01742f9184d1cb86",
+      "role": "consumer",
+      "reason": "The active bindings select native system and flow records. The selected entry count uses the correct plural, verified in the final Acme Products response.",
+      "evidence": [
+        {
+          "file": "src/application/model-system.ts",
+          "line": 52,
+          "text": "export function modelSystemAt("
+        },
+        {
+          "file": "src/application/model-system.ts",
+          "line": 82,
+          "text": "export function modelSystemFlowOf("
+        },
+        {
+          "file": "src/application/model-system.ts",
+          "line": 256,
+          "text": "export function modelSystemViewOf("
+        },
+        {
+          "file": "src/application/model-system.ts",
+          "line": 292,
+          "text": "plural(entries.length, 'entry', 'entries'),"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/small-http-causes.md",
+          "sha256": "468e1236fc1af10e6e58c8fa41f76a1248e7cb5acab2fce546eb34e321a57b15"
+        },
+        {
+          "file": "src/application/model-system.test.ts",
+          "sha256": "9ca904191686c7991ebad46641062f6d03d9aff88d0f0d638be22ef7a8a57dd4"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/model-index.ts",
+      "sourceSha256": "d0d4c937ebb8a71e5e23032bffdf3d8e20ff37c266e79073cb642b90aa39c976",
+      "role": "consumer",
+      "reason": "The active index builds native facts. It reuses the node when placement requires no alias rewrite. All eight Volvo before and after authored and derived hashes and proposed effects match exactly.",
+      "evidence": [
+        {
+          "file": "src/application/model-index.ts",
+          "line": 666,
+          "text": "export function indexOf(model: WorkspaceModel): ModelIndex {"
+        },
+        {
+          "file": "src/application/model-index.ts",
+          "line": 118,
+          "text": "const component = resolveAlias(node.place.component, aliases).id;"
+        },
+        {
+          "file": "src/application/model-index.ts",
+          "line": 119,
+          "text": "return component === node.place.component"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/reader/volvo-projection-heap-before.log",
+          "sha256": "8548b5d791601eb2f6f7cb32099ac946814b4753011155c34c408ae576452796"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/volvo-projection-heap-after.log",
+          "sha256": "d56292835e6baa5555329e6f9ebc5e6bb0f9a5641d6e7ddda91a3e50aff953be"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/projection-focused.log",
+          "sha256": "8f079127230b83b1686291a4979104e1e392d4cab5d0834215f019806bc7f138"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/workspace-area-relationships.ts",
+      "sourceSha256": "d41d986ea03557f80c6a836d0af80bace0a56743a6953341aab4d1db72c07fdf",
+      "role": "support",
+      "reason": "Formats API and resource relationship explanations from selected endpoints and names. The requested bindings are apiRelationshipDetail, resourceRelationshipDetail. Other legacy exports remain visible separately in the fact trace.",
+      "evidence": [
+        {
+          "file": "src/application/workspace-area-relationships.ts",
+          "line": 85,
+          "text": "export function apiRelationshipDetail("
+        },
+        {
+          "file": "src/application/workspace-area-relationships.ts",
+          "line": 208,
+          "text": "export function resourceRelationshipDetail(from: string, to: string, label: string): string {"
+        },
+        {
+          "file": "src/application/area-map/transport.ts",
+          "line": 42,
+          "text": "return apiRelationshipDetail(from, to, relation.label, relation.evidence);"
+        },
+        {
+          "file": "src/application/area-map/transport.ts",
+          "line": 45,
+          "text": "? resourceRelationshipDetail(from, to, relation.label)"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/area-and-facts/volvo-areas.json",
+          "sha256": "cd0e808f7bb2fb2a783a898cbd9898cd029d96519a3870432888c23f21bd9167"
+        },
+        {
+          "file": "src/application/model-area.test.ts",
+          "sha256": "3d07457642dc36b9bd7b011b775791852d5a03e67a57ae1ccedcd812b3129e44"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/mixed-binding-audit.json",
+          "sha256": "62a73f63e521868ac732a3c217dc45e1223deab423bd0a85a831d73346b6b2b2"
+        }
+      ]
+    }
+  ]
+}

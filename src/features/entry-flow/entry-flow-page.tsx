@@ -8,9 +8,20 @@ import { Text, TextLink } from '@/ui/text';
 
 import { EntryFlow } from './entry-flow.client';
 
-function Entries({ entries }: { readonly entries: PageData['entries'] }) {
+function Entries({ entries, pagination }: Pick<PageData, 'entries' | 'pagination'>) {
   return (
     <Stack gap={4}>
+      {pagination === null || pagination.pages === 1 ? null : (
+        <Cluster label="Entry pages">
+          <Text>
+            {pagination.total} entries · Page {pagination.page} of {pagination.pages}
+          </Text>
+          {pagination.previous === null ? null : (
+            <TextLink href={pagination.previous}>Previous page</TextLink>
+          )}
+          {pagination.next === null ? null : <TextLink href={pagination.next}>Next page</TextLink>}
+        </Cluster>
+      )}
       {entries.map((entry) => (
         <Panel key={entry.id}>
           <Stack>
@@ -25,7 +36,14 @@ function Entries({ entries }: { readonly entries: PageData['entries'] }) {
     </Stack>
   );
 }
-export function EntryFlowPage({ workspace, flow, entries, plans, comparison }: PageData) {
+export function EntryFlowPage({
+  workspace,
+  flow,
+  entries,
+  pagination,
+  plans,
+  comparison,
+}: PageData) {
   return (
     <AppShell
       bar={<AppBar title="Entry flows" trail={[{ label: workspace.name, href: workspace.href }]} />}
@@ -38,7 +56,7 @@ export function EntryFlowPage({ workspace, flow, entries, plans, comparison }: P
       />
       <Stack gap={4}>
         {flow === null ? (
-          <Entries entries={entries} />
+          <Entries entries={entries} pagination={pagination} />
         ) : (
           <>
             <Cluster>

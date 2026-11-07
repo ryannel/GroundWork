@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 
-import type { Model } from '@/application/plan/derive';
 import { canStepBack, close, stepBack, stepTo, trail } from '@/features/plan/inspector-history';
 import { Button } from '@/ui/button';
 
@@ -17,14 +16,14 @@ const clip = (text: string, n: number): string =>
 interface InspectorBarProps {
   readonly id: string;
   /** Names the crumbs; null while the plan loads. */
-  readonly model: Model | null;
+  readonly model: { readonly label: (id: string) => string } | null;
   /** The thing's own page, when it has one. */
   readonly page?: string | null;
 }
 
 // The panel's top line: back, the trail of what was opened before, its own page, a link to share, and close.
 export function InspectorBar({ id, model, page = null }: InspectorBarProps) {
-  const label = (x: string): string => (model?.get(x) === undefined ? x : model.label(x));
+  const label = (x: string): string => model?.label(x) ?? x;
   const before = trail();
   const shown = before.slice(-CRUMBS);
   const offset = before.length - shown.length;

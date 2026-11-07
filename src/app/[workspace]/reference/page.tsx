@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { workspaceNavOf } from '@/application/workspace-nav';
-import { workspaceHref } from '@/application/workspace-paths';
-import { TodayOverlays, TodayReference, TodaySearch } from '@/features/plan';
+import { modelReferenceOf } from '@/application/model-reference';
+import { ModelTodayOverlays, ModelTodayReference, TodaySearch } from '@/features/plan';
 import { WorkspaceShell } from '@/features/workspace';
-import { todayData } from '@/infrastructure/today-data';
+import { readCanonicalModelIndex } from '@/infrastructure/model-index';
+import { readModelWorkspaceNav } from '@/infrastructure/model-workspace-nav';
 
 interface Params {
   readonly workspace: string;
@@ -15,26 +15,17 @@ export const metadata: Metadata = { title: 'Reference' };
 
 export default async function ReferenceRoute({ params }: { readonly params: Promise<Params> }) {
   const { workspace: id } = await params;
-  const data = await todayData(id);
-  if (data === null) notFound();
-  const { workspace, today, plans } = data;
+  const native = await readCanonicalModelIndex(id);
+  if (native === null) notFound();
   return (
     <WorkspaceShell
-      actions={<TodaySearch />}
-      nav={workspaceNavOf(
-        workspace,
-        plans,
-        { section: 'reference', today: today.model },
-        data.programmes,
-      )}
-      overlays={<TodayOverlays depth={1} workspace={workspace} />}
+      workspace={native.model}
       title="Reference"
-      trail={[
-        { label: 'Workspaces', href: '/' },
-        { label: workspace.name, href: workspaceHref(workspace.id) },
-      ]}
+      actions={<TodaySearch />}
+      overlays={<ModelTodayOverlays index={native} depth={1} />}
+      nav={await readModelWorkspaceNav(native, { section: 'reference' })}
     >
-      <TodayReference model={today.model} workspace={workspace.id} />
+      <ModelTodayReference workspace={native.model.id} kinds={modelReferenceOf(native)} />
     </WorkspaceShell>
   );
 }

@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import { packAreaMapOverview } from '@/application/area-map/transport';
 import type { AreaView } from '@/application/workspace-area';
 import type { NavGroup } from '@/application/workspace-nav';
+import { stripPrefix } from '@/domain/ids';
 import { Callout } from '@/ui/callout';
 import { Facts } from '@/ui/facts';
 import { List, ListItem } from '@/ui/list';
@@ -37,6 +38,12 @@ function Activities({ view }: { readonly view: AreaView }) {
   );
 }
 
+function evidenceCountLabel(view: AreaView): string {
+  if (view.area.evidenceCount === undefined) return 'Supporting claim count not recorded';
+  const label = view.boundaries === undefined ? 'supporting claims' : 'recorded supporting claims';
+  return `${String(view.area.evidenceCount)} ${label}`;
+}
+
 /** One purpose-led area, then its collaborations and the systems that support them. */
 export function AreaPage({ view, nav, overlays, actions, initialFlow = '' }: Props) {
   return (
@@ -56,9 +63,11 @@ export function AreaPage({ view, nav, overlays, actions, initialFlow = '' }: Pro
         meta={
           <Facts
             items={[
-              `${view.area.confidence} confidence`,
+              view.area.confidence === undefined
+                ? 'Confidence not recorded'
+                : `${view.area.confidence} confidence`,
               `Reviewed ${view.reviewed}`,
-              `${String(view.area.evidenceCount)} supporting claims`,
+              evidenceCountLabel(view),
             ]}
           />
         }
@@ -88,9 +97,14 @@ export function AreaPage({ view, nav, overlays, actions, initialFlow = '' }: Pro
             key={`${view.workspace.id}:${view.area.id}:${initialFlow}`}
             initialFlow={initialFlow}
             payload={packAreaMapOverview(view)}
-            detailsHref={`${view.workspace.href}areas/${encodeURIComponent(view.area.id)}/map.json`}
+            detailsHref={`${view.workspace.href}areas/${encodeURIComponent(stripPrefix(view.area.id, 'area'))}/map.json`}
           />
         </section>
+      )}
+      {(view.gaps?.length ?? 0) === 0 ? null : (
+        <Callout title="Recorded gaps">
+          {String(view.gaps?.length)} gaps remain visible in the entry flows and boundary details.
+        </Callout>
       )}
       <Activities view={view} />
       {view.collaborations.length === 0 ? null : (

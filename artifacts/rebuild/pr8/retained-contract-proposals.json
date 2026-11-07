@@ -1,0 +1,2870 @@
+{
+  "format": 1,
+  "original": {
+    "file": "artifacts/rebuild/pr8/original-candidates.json",
+    "sha256": "8bb91071c6ae2e9168573f6d20d496cc8551e3e3ee626c3b06d64371d69f17c2",
+    "rows": 1697
+  },
+  "dispositions": [
+    {
+      "file": "src/application/evidence/evidence-discovery.ts",
+      "sourceSha256": "27fac74f7ea9a5eecdb0ad82bde236bfd5ad8d8953c4925977a408fc8d5b6897",
+      "role": "support",
+      "reason": "Provides bounded discovery evidence readers to the evidence-index build and the evidence migration workflow.",
+      "evidence": [
+        {
+          "file": "src/application/evidence/evidence-discovery.ts",
+          "line": 37,
+          "text": "export function discoveryClaims(detail: EvidenceFields): EvidenceRecord[] {"
+        },
+        {
+          "file": "tools/evidence/migrate.ts",
+          "line": 4,
+          "text": "import {"
+        },
+        {
+          "file": "src/infrastructure/scan-explorer/evidence-files.ts",
+          "line": 10,
+          "text": "import type { DiscoverySummary } from '@/application/evidence/evidence-discovery';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/infrastructure/scan-explorer/evidence-index-builder.ts",
+          "sha256": "d239f13db64ae142d8c36bac66bf6060aca32e578475edae1e5bc7dcb27a5338"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ]
+    },
+    {
+      "file": "src/application/explorer-location.ts",
+      "sourceSha256": "ea2d7e2d51477b1696230cdd36f716f0087abef276895cb6430c349031ede442",
+      "role": "retirement",
+      "reason": "The recorded callers select, check or serve the retained explorer publication, or replay its proof. Keep the binding until the PR 10 explorer parity and removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/explorer-location.ts",
+          "line": 5,
+          "text": "export interface ExplorerLocation {"
+        },
+        {
+          "file": "src/app/[workspace]/areas/[area]/map.json/route.ts",
+          "line": 2,
+          "text": "import { modelAreaViewOf } from '@/application/model-area';"
+        },
+        {
+          "file": "src/application/model-area.ts",
+          "line": 7,
+          "text": "import type {"
+        },
+        {
+          "file": "src/application/workspace-area.ts",
+          "line": 4,
+          "text": "import { serviceExplorerHref } from '@/application/explorer-location';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/application/knowledge/bind-query-runtime.ts",
+      "sourceSha256": "8217256c365c39660eef6b9270a0c50794cbb836120156ac38e475c297d64583",
+      "role": "retirement",
+      "reason": "The recorded callers read pinned replay bundles or explicit old knowledge or explorer files. Keep this contract for PR 10 retirement after the replacement proof.",
+      "evidence": [
+        {
+          "file": "src/application/knowledge/bind-query-runtime.ts",
+          "line": 36,
+          "text": "export function bindQueryRuntime(reader: KnowledgeReader, result: QueryResponse): QueryResponse {"
+        },
+        {
+          "file": "tools/capture-proof.ts",
+          "line": 4,
+          "text": "import { queryKnowledge } from '@/application/knowledge/query-knowledge';"
+        },
+        {
+          "file": "src/application/knowledge/query-knowledge.ts",
+          "line": 5,
+          "text": "import { bindQueryRuntime } from './bind-query-runtime';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/application/knowledge/control-call.ts",
+      "sourceSha256": "01c997f2ec82b0ab83270199fb4a5c29c44942bafe303264583c053f987ad238",
+      "role": "retirement",
+      "reason": "The recorded callers read pinned replay bundles or explicit old knowledge or explorer files. Keep this contract for PR 10 retirement after the replacement proof.",
+      "evidence": [
+        {
+          "file": "src/application/knowledge/control-call.ts",
+          "line": 17,
+          "text": "export function nonAwaitedPositions("
+        },
+        {
+          "file": "tools/capture-proof.ts",
+          "line": 4,
+          "text": "import { queryKnowledge } from '@/application/knowledge/query-knowledge';"
+        },
+        {
+          "file": "src/application/knowledge/query-knowledge.ts",
+          "line": 9,
+          "text": "import { outcomeSlice, traceControl } from './trace-control';"
+        },
+        {
+          "file": "src/application/knowledge/trace-control.ts",
+          "line": 10,
+          "text": "import { boundCallPositions, nonAwaitedPositions } from './control-call';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/application/knowledge/invocation-origins.ts",
+      "sourceSha256": "025c06cb767d01421b0fd73924e221cf5f168c446670cfa5d12ade9166d7566a",
+      "role": "retirement",
+      "reason": "The recorded callers read pinned replay bundles or explicit old knowledge or explorer files. Keep this contract for PR 10 retirement after the replacement proof.",
+      "evidence": [
+        {
+          "file": "src/application/knowledge/invocation-origins.ts",
+          "line": 55,
+          "text": "export function invocationOrigins(walk: Walk, position: Position, value: Value): Origin[] {"
+        },
+        {
+          "file": "tools/capture-proof.ts",
+          "line": 4,
+          "text": "import { queryKnowledge } from '@/application/knowledge/query-knowledge';"
+        },
+        {
+          "file": "src/application/knowledge/query-knowledge.ts",
+          "line": 10,
+          "text": "import { traceValue } from './trace-value';"
+        },
+        {
+          "file": "src/application/knowledge/trace-value.ts",
+          "line": 4,
+          "text": "import { invocationOrigins } from './invocation-origins';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/application/knowledge/query-interactions.ts",
+      "sourceSha256": "e5453aba7b453e36df16c9b2716cf79114dea30dcf49806aa0c7022caacf9273",
+      "role": "retirement",
+      "reason": "The recorded callers read pinned replay bundles or explicit old knowledge or explorer files. Keep this contract for PR 10 retirement after the replacement proof.",
+      "evidence": [
+        {
+          "file": "src/application/knowledge/query-interactions.ts",
+          "line": 178,
+          "text": "export function queryInteractions(reader: KnowledgeReader, request: QueryRequest): QueryResponse {"
+        },
+        {
+          "file": "tools/capture-proof.ts",
+          "line": 4,
+          "text": "import { queryKnowledge } from '@/application/knowledge/query-knowledge';"
+        },
+        {
+          "file": "src/application/knowledge/query-knowledge.ts",
+          "line": 6,
+          "text": "import { queryInteractions } from './query-interactions';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/application/knowledge/query-knowledge.ts",
+      "sourceSha256": "441e12ce6e6156bdb6471478bb1b6661939a8d9a6eb61219ce4eaff631bd84ac",
+      "role": "retirement",
+      "reason": "The recorded callers read pinned replay bundles or explicit old knowledge or explorer files. Keep this contract for PR 10 retirement after the replacement proof.",
+      "evidence": [
+        {
+          "file": "src/application/knowledge/query-knowledge.ts",
+          "line": 82,
+          "text": "export function queryKnowledge(reader: KnowledgeReader, request: QueryRequest): QueryResponse {"
+        },
+        {
+          "file": "tools/capture-proof.ts",
+          "line": 4,
+          "text": "import { queryKnowledge } from '@/application/knowledge/query-knowledge';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/application/knowledge/query-result.ts",
+      "sourceSha256": "1d751640c25975f1fed9222586ac6fe8901cbf090ad4e7eb357233417f75130e",
+      "role": "retirement",
+      "reason": "The recorded callers read pinned replay bundles or explicit old knowledge or explorer files. Keep this contract for PR 10 retirement after the replacement proof.",
+      "evidence": [
+        {
+          "file": "src/application/knowledge/query-result.ts",
+          "line": 7,
+          "text": "export function emptyResult(request: QueryRequest): QueryResponse {"
+        },
+        {
+          "file": "tools/capture-proof.ts",
+          "line": 4,
+          "text": "import { queryKnowledge } from '@/application/knowledge/query-knowledge';"
+        },
+        {
+          "file": "src/application/knowledge/query-knowledge.ts",
+          "line": 7,
+          "text": "import { completeResult, emptyResult } from './query-result';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/application/knowledge/query-support.ts",
+      "sourceSha256": "7a428449179e7a73eb059e971be860486f33387a4ddff227cbe8a42aca087ebf",
+      "role": "retirement",
+      "reason": "The recorded callers read pinned replay bundles or explicit old knowledge or explorer files. Keep this contract for PR 10 retirement after the replacement proof.",
+      "evidence": [
+        {
+          "file": "src/application/knowledge/query-support.ts",
+          "line": 11,
+          "text": "export function supportingPage(reader: KnowledgeReader, result: QueryResponse): QueryResponse {"
+        },
+        {
+          "file": "tools/capture-proof.ts",
+          "line": 4,
+          "text": "import { queryKnowledge } from '@/application/knowledge/query-knowledge';"
+        },
+        {
+          "file": "src/application/knowledge/query-knowledge.ts",
+          "line": 7,
+          "text": "import { completeResult, emptyResult } from './query-result';"
+        },
+        {
+          "file": "src/application/knowledge/query-result.ts",
+          "line": 5,
+          "text": "import { supportingPage } from './query-support';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/application/knowledge/runtime-context.ts",
+      "sourceSha256": "f24e407c78eec9e6a213bc185e702d621abcd1e0afccbef2f72c5e91d919504a",
+      "role": "retirement",
+      "reason": "The recorded callers read pinned replay bundles or explicit old knowledge or explorer files. Keep this contract for PR 10 retirement after the replacement proof.",
+      "evidence": [
+        {
+          "file": "src/application/knowledge/runtime-context.ts",
+          "line": 39,
+          "text": "export function entryExecution("
+        },
+        {
+          "file": "tools/capture-proof.ts",
+          "line": 4,
+          "text": "import { queryKnowledge } from '@/application/knowledge/query-knowledge';"
+        },
+        {
+          "file": "src/application/knowledge/query-knowledge.ts",
+          "line": 5,
+          "text": "import { bindQueryRuntime } from './bind-query-runtime';"
+        },
+        {
+          "file": "src/application/knowledge/bind-query-runtime.ts",
+          "line": 8,
+          "text": "import { contextComponent, entryExecution } from './runtime-context';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/application/knowledge/trace-continuations.ts",
+      "sourceSha256": "3811fbc91daf268a73bfe1846e38775b9e27421c7deb48bb9a72bade5f96bf22",
+      "role": "retirement",
+      "reason": "The recorded callers read pinned replay bundles or explicit old knowledge or explorer files. Keep this contract for PR 10 retirement after the replacement proof.",
+      "evidence": [
+        {
+          "file": "src/application/knowledge/trace-continuations.ts",
+          "line": 92,
+          "text": "export function traceContinuations(reader: KnowledgeReader, request: QueryRequest): QueryResponse {"
+        },
+        {
+          "file": "tools/capture-proof.ts",
+          "line": 4,
+          "text": "import { queryKnowledge } from '@/application/knowledge/query-knowledge';"
+        },
+        {
+          "file": "src/application/knowledge/query-knowledge.ts",
+          "line": 8,
+          "text": "import { consistencySlice, traceContinuations } from './trace-continuations';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/application/knowledge/trace-control.ts",
+      "sourceSha256": "087eef7baf72664d40d655458e8807970aa1843e707e713dae659e7b2c59c1a5",
+      "role": "retirement",
+      "reason": "The recorded callers read pinned replay bundles or explicit old knowledge or explorer files. Keep this contract for PR 10 retirement after the replacement proof.",
+      "evidence": [
+        {
+          "file": "src/application/knowledge/trace-control.ts",
+          "line": 220,
+          "text": "export function traceControl("
+        },
+        {
+          "file": "tools/capture-proof.ts",
+          "line": 4,
+          "text": "import { queryKnowledge } from '@/application/knowledge/query-knowledge';"
+        },
+        {
+          "file": "src/application/knowledge/query-knowledge.ts",
+          "line": 9,
+          "text": "import { outcomeSlice, traceControl } from './trace-control';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/application/knowledge/trace-value.ts",
+      "sourceSha256": "8aa7c293d031ac473eeaafb0795daeba5d1e01c550cd0a4292ce479e9905c30b",
+      "role": "retirement",
+      "reason": "The recorded callers read pinned replay bundles or explicit old knowledge or explorer files. Keep this contract for PR 10 retirement after the replacement proof.",
+      "evidence": [
+        {
+          "file": "src/application/knowledge/trace-value.ts",
+          "line": 176,
+          "text": "export function traceValue(reader: KnowledgeReader, request: QueryRequest): QueryResponse {"
+        },
+        {
+          "file": "tools/capture-proof.ts",
+          "line": 4,
+          "text": "import { queryKnowledge } from '@/application/knowledge/query-knowledge';"
+        },
+        {
+          "file": "src/application/knowledge/query-knowledge.ts",
+          "line": 10,
+          "text": "import { traceValue } from './trace-value';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/application/knowledge/value-context.ts",
+      "sourceSha256": "4a3b269382968f9a46e1ecf411f608219ee16fd4c1e693aeaa3f93140a5a441e",
+      "role": "retirement",
+      "reason": "The recorded callers read pinned replay bundles or explicit old knowledge or explorer files. Keep this contract for PR 10 retirement after the replacement proof.",
+      "evidence": [
+        {
+          "file": "src/application/knowledge/value-context.ts",
+          "line": 24,
+          "text": "export function checkValueContext(reader: KnowledgeReader, request: QueryRequest): void {"
+        },
+        {
+          "file": "tools/capture-proof.ts",
+          "line": 4,
+          "text": "import { queryKnowledge } from '@/application/knowledge/query-knowledge';"
+        },
+        {
+          "file": "src/application/knowledge/query-knowledge.ts",
+          "line": 10,
+          "text": "import { traceValue } from './trace-value';"
+        },
+        {
+          "file": "src/application/knowledge/trace-value.ts",
+          "line": 6,
+          "text": "import { checkValueContext } from './value-context';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/application/scan-explorer/build-index.ts",
+      "sourceSha256": "fd21b66e4e8276fb1514c339531a06ce315aacea3f55ffbdb0958af91d54bf72",
+      "role": "retirement",
+      "reason": "The recorded callers select, check or serve the retained explorer publication, or replay its proof. Keep the binding until the PR 10 explorer parity and removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/scan-explorer/build-index.ts",
+          "line": 3,
+          "text": "export function buildScanExplorer(selections: readonly ExplorerSelection[]): ExplorerIndex {"
+        },
+        {
+          "file": "tools/scan-explorer-proof.ts",
+          "line": 4,
+          "text": "import { buildScanExplorer } from '@/application/scan-explorer/build-index';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/application/scan-explorer/current-caller-adapter.ts",
+      "sourceSha256": "9be60cce3f71458a31717b4e5cc55b1c444ecc10dd4210025c55fce69f2ce381",
+      "role": "retirement",
+      "reason": "The recorded callers select, check or serve the retained explorer publication, or replay its proof. Keep the binding until the PR 10 explorer parity and removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/scan-explorer/current-caller-adapter.ts",
+          "line": 6,
+          "text": "export function retainedCallerAddresses(index: ExplorerIndex): CurrentAddress[] {"
+        },
+        {
+          "file": "tools/scan-explorer-proof.ts",
+          "line": 5,
+          "text": "import { currentCallers } from '@/application/scan-explorer/current-callers';"
+        },
+        {
+          "file": "src/application/scan-explorer/current-callers.ts",
+          "line": 14,
+          "text": "import { retainedCallerAddresses } from './current-caller-adapter';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/application/scan-explorer/current-callers.ts",
+      "sourceSha256": "14215d54f7e07e2bcfc7ee3362f66e2452b6002b873e0cc8a2b43c52560d5604",
+      "role": "retirement",
+      "reason": "The recorded callers select, check or serve the retained explorer publication, or replay its proof. Keep the binding until the PR 10 explorer parity and removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/scan-explorer/current-callers.ts",
+          "line": 112,
+          "text": "export function currentCallers("
+        },
+        {
+          "file": "tools/scan-explorer-proof.ts",
+          "line": 5,
+          "text": "import { currentCallers } from '@/application/scan-explorer/current-callers';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/application/scan-explorer/current-data.ts",
+      "sourceSha256": "6a6616e560a161aa12ead95a2d9c6221d77d643afb36830788a0bea59e417939",
+      "role": "retirement",
+      "reason": "The recorded callers select, check or serve the retained explorer publication, or replay its proof. Keep the binding until the PR 10 explorer parity and removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/scan-explorer/current-data.ts",
+          "line": 6,
+          "text": "export function currentDataRecords("
+        },
+        {
+          "file": "tools/scan-explorer-proof.ts",
+          "line": 6,
+          "text": "import {"
+        },
+        {
+          "file": "src/application/scan-explorer/current-scan.ts",
+          "line": 8,
+          "text": "import { currentDataRecords } from './current-data';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/application/scan-explorer/current-page.ts",
+      "sourceSha256": "9ff6e93e972aad5c0d7f4c8f348c657c5e01bc99bc75d5cffc508689f47654d2",
+      "role": "retirement",
+      "reason": "The recorded callers select, check or serve the retained explorer publication, or replay its proof. Keep the binding until the PR 10 explorer parity and removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/scan-explorer/current-page.ts",
+          "line": 39,
+          "text": "export function currentPage("
+        },
+        {
+          "file": "tools/scan-explorer-proof.ts",
+          "line": 6,
+          "text": "import {"
+        },
+        {
+          "file": "src/application/scan-explorer/current-scan.ts",
+          "line": 9,
+          "text": "import { currentPage } from './current-page';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/application/scan-explorer/current-scan.ts",
+      "sourceSha256": "c2c3ce62b22d435635afad004be140389ec33f9cb21e31e3f9b5b0f201e4fa74",
+      "role": "retirement",
+      "reason": "The recorded callers select, check or serve the retained explorer publication, or replay its proof. Keep the binding until the PR 10 explorer parity and removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/scan-explorer/current-scan.ts",
+          "line": 54,
+          "text": "export function currentServiceOverview("
+        },
+        {
+          "file": "tools/scan-explorer-proof.ts",
+          "line": 6,
+          "text": "import {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/application/scan-explorer/current-source-ids.ts",
+      "sourceSha256": "31b68df9206d1121b0971e1fa9724990511ed8e73ced916f156bd4e8fb4bbf96",
+      "role": "retirement",
+      "reason": "The recorded callers select, check or serve the retained explorer publication, or replay its proof. Keep the binding until the PR 10 explorer parity and removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/scan-explorer/current-source-ids.ts",
+          "line": 32,
+          "text": "export function currentSourceIds(record: CurrentRecord): readonly string[] {"
+        },
+        {
+          "file": "tools/scan-explorer-proof.ts",
+          "line": 6,
+          "text": "import {"
+        },
+        {
+          "file": "src/application/scan-explorer/current-scan.ts",
+          "line": 10,
+          "text": "import { currentSourceIds } from './current-source-ids';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/application/scan-explorer/current-targets.ts",
+      "sourceSha256": "68dbf96869afd870122a2fcc1bf7ed31803daebeb999f3f53eac5ab2e1c7ed2a",
+      "role": "retirement",
+      "reason": "The recorded callers select, check or serve the retained explorer publication, or replay its proof. Keep the binding until the PR 10 explorer parity and removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/scan-explorer/current-targets.ts",
+          "line": 66,
+          "text": "export function currentTargetsFromCanonical("
+        },
+        {
+          "file": "tools/scan-explorer-proof.ts",
+          "line": 11,
+          "text": "import {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/application/scan-explorer/page.ts",
+      "sourceSha256": "5628a3d661fdd50194c20cfbf90737ce4010c6ff538636b466f0d29ae8983cf6",
+      "role": "retirement",
+      "reason": "The recorded callers select, check or serve the retained explorer publication, or replay its proof. Keep the binding until the PR 10 explorer parity and removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/scan-explorer/page.ts",
+          "line": 37,
+          "text": "export function explorerPage<T>("
+        },
+        {
+          "file": "tools/scan-explorer-proof.ts",
+          "line": 15,
+          "text": "import { callers, entryFlow } from '@/application/scan-explorer/queries';"
+        },
+        {
+          "file": "src/application/scan-explorer/queries.ts",
+          "line": 12,
+          "text": "import { explorerPage } from './page';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/application/scan-explorer/queries.ts",
+      "sourceSha256": "4063787862916aacb4f5f86182ae31791a4c8ab05f97a1713be2aeecb34c0ebb",
+      "role": "retirement",
+      "reason": "The recorded callers select, check or serve the retained explorer publication, or replay its proof. Keep the binding until the PR 10 explorer parity and removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/scan-explorer/queries.ts",
+          "line": 27,
+          "text": "export function callers("
+        },
+        {
+          "file": "tools/scan-explorer-proof.ts",
+          "line": 15,
+          "text": "import { callers, entryFlow } from '@/application/scan-explorer/queries';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/application/scan-explorer/visual-boundaries.ts",
+      "sourceSha256": "855a78b30dbc8bb43c2ef969566a336e78990d9ed0d6eaefbe1058bd49cb1929",
+      "role": "retirement",
+      "reason": "The recorded callers select, check or serve the retained explorer publication, or replay its proof. Keep the binding until the PR 10 explorer parity and removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/scan-explorer/visual-boundaries.ts",
+          "line": 69,
+          "text": "export function visualBoundaries(context: VisualContext): {"
+        },
+        {
+          "file": "tools/scan-service-explorer-export.ts",
+          "line": 11,
+          "text": "import {"
+        },
+        {
+          "file": "src/application/scan-explorer/visual-service.ts",
+          "line": 4,
+          "text": "import { visualBoundaries } from './visual-boundaries';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/application/scan-explorer/visual-boundary.ts",
+      "sourceSha256": "b1c7eb42050a6b284131e0ba824a00f62d9a0417d472ad24583638880b42be3b",
+      "role": "retirement",
+      "reason": "The recorded callers select, check or serve the retained explorer publication, or replay its proof. Keep the binding until the PR 10 explorer parity and removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/scan-explorer/visual-boundary.ts",
+          "line": 18,
+          "text": "export function isVisualBoundary(record: CurrentRecord): record is Boundary {"
+        },
+        {
+          "file": "tools/publish-corpus-explorer.ts",
+          "line": 14,
+          "text": "import { publishCorpusRepository } from './publish-corpus-repository';"
+        },
+        {
+          "file": "tools/publish-corpus-repository.ts",
+          "line": 1,
+          "text": "import { visualBoundaryPage, isVisualBoundary } from '@/application/scan-explorer/visual-boundary';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/application/scan-explorer/visual-context.ts",
+      "sourceSha256": "80d144ea287e9ccae30050722cf878efe72be08fc63950a18fb7e4b8dfe7da22",
+      "role": "retirement",
+      "reason": "The recorded callers select, check or serve the retained explorer publication, or replay its proof. Keep the binding until the PR 10 explorer parity and removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/scan-explorer/visual-context.ts",
+          "line": 15,
+          "text": "export function visualContext(input: VisualInput, options: ContextOptions): VisualContext {"
+        },
+        {
+          "file": "tools/scan-service-explorer-export.ts",
+          "line": 10,
+          "text": "import { visualContext } from '@/application/scan-explorer/visual-context';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/application/scan-explorer/visual-entries.ts",
+      "sourceSha256": "a122b4d7202b1c0cfce16339382deccd6ef8ee4dbf8e5ad9c34b1ffd90f93cde",
+      "role": "retirement",
+      "reason": "The recorded callers select, check or serve the retained explorer publication, or replay its proof. Keep the binding until the PR 10 explorer parity and removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/scan-explorer/visual-entries.ts",
+          "line": 5,
+          "text": "export function visualEntries(records: readonly CurrentRecord[]): VisualEntry[] {"
+        },
+        {
+          "file": "tools/scan-service-explorer-export.ts",
+          "line": 10,
+          "text": "import { visualContext } from '@/application/scan-explorer/visual-context';"
+        },
+        {
+          "file": "src/application/scan-explorer/visual-context.ts",
+          "line": 6,
+          "text": "import { visualEntries } from './visual-entries';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/application/scan-explorer/visual-node.ts",
+      "sourceSha256": "6463a7126a2a2d23a4e85058beeb5bffbede1eec6859072d6d6993c402d181fc",
+      "role": "retirement",
+      "reason": "The recorded callers select, check or serve the retained explorer publication, or replay its proof. Keep the binding until the PR 10 explorer parity and removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/scan-explorer/visual-node.ts",
+          "line": 100,
+          "text": "export function visualNode(context: VisualContext, node: SemanticNode, root: string): ExplorerNode {"
+        },
+        {
+          "file": "tools/publish-corpus-explorer.ts",
+          "line": 14,
+          "text": "import { publishCorpusRepository } from './publish-corpus-repository';"
+        },
+        {
+          "file": "tools/publish-corpus-repository.ts",
+          "line": 2,
+          "text": "import { visualFlow } from '@/application/scan-explorer/visual-flow';"
+        },
+        {
+          "file": "src/application/scan-explorer/visual-flow.ts",
+          "line": 5,
+          "text": "import { visualNode } from './visual-node';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/application/scan-explorer/visual-schema.ts",
+      "sourceSha256": "cac94f14fbe53df36aeafad4e7d2487de3281be033e00c10b6a12b942f4b5a65",
+      "role": "retirement",
+      "reason": "The recorded callers select, check or serve the retained explorer publication, or replay its proof. Keep the binding until the PR 10 explorer parity and removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/scan-explorer/visual-schema.ts",
+          "line": 63,
+          "text": "export function visualSchema(context: VisualContext, schema: Schema): ExplorerPage {"
+        },
+        {
+          "file": "tools/publish-corpus-explorer.ts",
+          "line": 14,
+          "text": "import { publishCorpusRepository } from './publish-corpus-repository';"
+        },
+        {
+          "file": "tools/publish-corpus-repository.ts",
+          "line": 3,
+          "text": "import { visualSchema } from '@/application/scan-explorer/visual-schema';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/application/scan-explorer/visual-service.ts",
+      "sourceSha256": "e6e51fb93ce6fd4a2985de97840f11768ffc576480100f9d082c4ec9555916bb",
+      "role": "retirement",
+      "reason": "The recorded callers select, check or serve the retained explorer publication, or replay its proof. Keep the binding until the PR 10 explorer parity and removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/scan-explorer/visual-service.ts",
+          "line": 13,
+          "text": "export function visualOverview(context: VisualContext): ExplorerPage {"
+        },
+        {
+          "file": "tools/scan-service-explorer-export.ts",
+          "line": 11,
+          "text": "import {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/application/scan-explorer/visual-types.ts",
+      "sourceSha256": "28ff14abcf97f616433ebef632473850303ed0c7674de83be15c3e92de76697f",
+      "role": "retirement",
+      "reason": "The recorded callers select, check or serve the retained explorer publication, or replay its proof. Keep the binding until the PR 10 explorer parity and removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/scan-explorer/visual-types.ts",
+          "line": 5,
+          "text": "export interface VisualEntry {"
+        },
+        {
+          "file": "tools/scan-service-explorer-export.ts",
+          "line": 17,
+          "text": "import type { VisualArtifact } from '@/application/scan-explorer/visual-types';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/domain/explorer-publication-check.ts",
+      "sourceSha256": "f077ceb45dd1b1759858c024038c3ba31e0992e87ad8c113a94374a5799f3a27",
+      "role": "retirement",
+      "reason": "The recorded callers select, check or serve the retained explorer publication, or replay its proof. Keep the binding until the PR 10 explorer parity and removal proof.",
+      "evidence": [
+        {
+          "file": "src/domain/explorer-publication-check.ts",
+          "line": 63,
+          "text": "export function checkedExplorerManifest(value: unknown): ExplorerManifest {"
+        },
+        {
+          "file": "tools/pack-corpus-explorer.ts",
+          "line": 8,
+          "text": "import { packExplorerRepository } from './pack-explorer-repository';"
+        },
+        {
+          "file": "tools/pack-explorer-repository.ts",
+          "line": 4,
+          "text": "import { checkedExplorerIndex } from '@/domain/explorer-publication-check';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/domain/knowledge/async-ownership.ts",
+      "sourceSha256": "3ea6dfefca5b0e118601b1117c8e1169bbd727f5e8c9c31e0be0393106def4de",
+      "role": "retirement",
+      "reason": "The recorded callers read pinned replay bundles or explicit old knowledge or explorer files. Keep this contract for PR 10 retirement after the replacement proof.",
+      "evidence": [
+        {
+          "file": "src/domain/knowledge/async-ownership.ts",
+          "line": 54,
+          "text": "export function asyncOwnershipProblems(record: KnowledgeRecord, byId: Records): string[] {"
+        },
+        {
+          "file": "tools/capture-proof.ts",
+          "line": 8,
+          "text": "import {"
+        },
+        {
+          "file": "src/infrastructure/knowledge/knowledge-index.ts",
+          "line": 13,
+          "text": "import { verifyKnowledgeSelection } from './knowledge-selection';"
+        },
+        {
+          "file": "src/infrastructure/knowledge/knowledge-selection.ts",
+          "line": 3,
+          "text": "import { checkKnowledge } from '@/domain/knowledge/check-knowledge';"
+        },
+        {
+          "file": "src/domain/knowledge/check-knowledge.ts",
+          "line": 2,
+          "text": "import { checkAsyncKnowledge } from './check-async-knowledge';"
+        },
+        {
+          "file": "src/domain/knowledge/check-async-knowledge.ts",
+          "line": 1,
+          "text": "import { asyncOwnershipProblems, wireShapeProblems } from './async-ownership';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/domain/knowledge/async-references.ts",
+      "sourceSha256": "b8ca80cd29ebb5cd00c4e50e49a5a79381ecb0ca44f2f2106e8be58745ca21c0",
+      "role": "retirement",
+      "reason": "The recorded callers read pinned replay bundles or explicit old knowledge or explorer files. Keep this contract for PR 10 retirement after the replacement proof.",
+      "evidence": [
+        {
+          "file": "src/domain/knowledge/async-references.ts",
+          "line": 4,
+          "text": "export function asyncReferences(record: KnowledgeRecord): string[] {"
+        },
+        {
+          "file": "tools/capture-proof.ts",
+          "line": 4,
+          "text": "import { queryKnowledge } from '@/application/knowledge/query-knowledge';"
+        },
+        {
+          "file": "src/application/knowledge/query-knowledge.ts",
+          "line": 7,
+          "text": "import { completeResult, emptyResult } from './query-result';"
+        },
+        {
+          "file": "src/application/knowledge/query-result.ts",
+          "line": 5,
+          "text": "import { supportingPage } from './query-support';"
+        },
+        {
+          "file": "src/application/knowledge/query-support.ts",
+          "line": 3,
+          "text": "import { recordReferences } from '@/domain/knowledge/knowledge-references';"
+        },
+        {
+          "file": "src/domain/knowledge/knowledge-references.ts",
+          "line": 1,
+          "text": "import { asyncReferences } from './async-references';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/domain/knowledge/capture-bindings.ts",
+      "sourceSha256": "59b91e56de9fb2135f63b131eac7928b88201c7ec8b8b21ff63f0e4d2e7bd245",
+      "role": "retirement",
+      "reason": "The recorded callers read pinned replay bundles or explicit old knowledge or explorer files. Keep this contract for PR 10 retirement after the replacement proof.",
+      "evidence": [
+        {
+          "file": "src/domain/knowledge/capture-bindings.ts",
+          "line": 66,
+          "text": "export function captureBindingProblems(record: KnowledgeRecord, byId: Records): string[] {"
+        },
+        {
+          "file": "tools/capture-proof.ts",
+          "line": 8,
+          "text": "import {"
+        },
+        {
+          "file": "src/infrastructure/knowledge/knowledge-index.ts",
+          "line": 13,
+          "text": "import { verifyKnowledgeSelection } from './knowledge-selection';"
+        },
+        {
+          "file": "src/infrastructure/knowledge/knowledge-selection.ts",
+          "line": 3,
+          "text": "import { checkKnowledge } from '@/domain/knowledge/check-knowledge';"
+        },
+        {
+          "file": "src/domain/knowledge/check-knowledge.ts",
+          "line": 1,
+          "text": "import { captureBindingProblems } from './capture-bindings';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/domain/knowledge/check-async-knowledge.ts",
+      "sourceSha256": "9b80892c32a128b6d1a5e428968ab87174fd5e03698eb9cdff6150dc2fb64c1f",
+      "role": "retirement",
+      "reason": "The recorded callers read pinned replay bundles or explicit old knowledge or explorer files. Keep this contract for PR 10 retirement after the replacement proof.",
+      "evidence": [
+        {
+          "file": "src/domain/knowledge/check-async-knowledge.ts",
+          "line": 92,
+          "text": "export function checkAsyncKnowledge(record: KnowledgeRecord, byId: Records): string[] {"
+        },
+        {
+          "file": "tools/capture-proof.ts",
+          "line": 8,
+          "text": "import {"
+        },
+        {
+          "file": "src/infrastructure/knowledge/knowledge-index.ts",
+          "line": 13,
+          "text": "import { verifyKnowledgeSelection } from './knowledge-selection';"
+        },
+        {
+          "file": "src/infrastructure/knowledge/knowledge-selection.ts",
+          "line": 3,
+          "text": "import { checkKnowledge } from '@/domain/knowledge/check-knowledge';"
+        },
+        {
+          "file": "src/domain/knowledge/check-knowledge.ts",
+          "line": 2,
+          "text": "import { checkAsyncKnowledge } from './check-async-knowledge';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/domain/knowledge/check-evidence-anchor.ts",
+      "sourceSha256": "eab21c5a7f0f235d74ec602348494703a18de77fcfb4ae235f1877064bc03b22",
+      "role": "retirement",
+      "reason": "The recorded callers read pinned replay bundles or explicit old knowledge or explorer files. Keep this contract for PR 10 retirement after the replacement proof.",
+      "evidence": [
+        {
+          "file": "src/domain/knowledge/check-evidence-anchor.ts",
+          "line": 25,
+          "text": "export function evidenceAnchorProblems(record: Evidence): string[] {"
+        },
+        {
+          "file": "tools/capture-proof.ts",
+          "line": 8,
+          "text": "import {"
+        },
+        {
+          "file": "src/infrastructure/knowledge/knowledge-index.ts",
+          "line": 13,
+          "text": "import { verifyKnowledgeSelection } from './knowledge-selection';"
+        },
+        {
+          "file": "src/infrastructure/knowledge/knowledge-selection.ts",
+          "line": 3,
+          "text": "import { checkKnowledge } from '@/domain/knowledge/check-knowledge';"
+        },
+        {
+          "file": "src/domain/knowledge/check-knowledge.ts",
+          "line": 11,
+          "text": "import { runtimeBundleProblems } from './runtime-bundle';"
+        },
+        {
+          "file": "src/domain/knowledge/runtime-bundle.ts",
+          "line": 1,
+          "text": "import { evidenceAnchorProblems } from './check-evidence-anchor';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/domain/knowledge/check-interaction-bindings.ts",
+      "sourceSha256": "7852972da9ac59ef90f7e227584674fc07fd171c853a7bb4268a3bdf2cd1a51c",
+      "role": "retirement",
+      "reason": "The recorded callers read pinned replay bundles or explicit old knowledge or explorer files. Keep this contract for PR 10 retirement after the replacement proof.",
+      "evidence": [
+        {
+          "file": "src/domain/knowledge/check-interaction-bindings.ts",
+          "line": 51,
+          "text": "export function interactionBindingProblems(record: Interaction, byId: Records): string[] {"
+        },
+        {
+          "file": "tools/capture-proof.ts",
+          "line": 8,
+          "text": "import {"
+        },
+        {
+          "file": "src/infrastructure/knowledge/knowledge-index.ts",
+          "line": 13,
+          "text": "import { verifyKnowledgeSelection } from './knowledge-selection';"
+        },
+        {
+          "file": "src/infrastructure/knowledge/knowledge-selection.ts",
+          "line": 3,
+          "text": "import { checkKnowledge } from '@/domain/knowledge/check-knowledge';"
+        },
+        {
+          "file": "src/domain/knowledge/check-knowledge.ts",
+          "line": 3,
+          "text": "import { interactionProblems } from './check-interaction';"
+        },
+        {
+          "file": "src/domain/knowledge/check-interaction.ts",
+          "line": 1,
+          "text": "import { interactionBindingProblems } from './check-interaction-bindings';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/domain/knowledge/check-interaction-handoff.ts",
+      "sourceSha256": "18872e5ab064bc7c7c193a39326ea2e2900511197920a666d35b79f26aae513e",
+      "role": "retirement",
+      "reason": "The recorded callers read pinned replay bundles or explicit old knowledge or explorer files. Keep this contract for PR 10 retirement after the replacement proof.",
+      "evidence": [
+        {
+          "file": "src/domain/knowledge/check-interaction-handoff.ts",
+          "line": 20,
+          "text": "export function interactionHandoffProblems(record: Interaction, byId: Records): string[] {"
+        },
+        {
+          "file": "tools/capture-proof.ts",
+          "line": 8,
+          "text": "import {"
+        },
+        {
+          "file": "src/infrastructure/knowledge/knowledge-index.ts",
+          "line": 13,
+          "text": "import { verifyKnowledgeSelection } from './knowledge-selection';"
+        },
+        {
+          "file": "src/infrastructure/knowledge/knowledge-selection.ts",
+          "line": 3,
+          "text": "import { checkKnowledge } from '@/domain/knowledge/check-knowledge';"
+        },
+        {
+          "file": "src/domain/knowledge/check-knowledge.ts",
+          "line": 3,
+          "text": "import { interactionProblems } from './check-interaction';"
+        },
+        {
+          "file": "src/domain/knowledge/check-interaction.ts",
+          "line": 2,
+          "text": "import { interactionHandoffProblems } from './check-interaction-handoff';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/domain/knowledge/check-interaction-mode.ts",
+      "sourceSha256": "c3f46d1b9dea06024ed6b771e475e77954f47abcc2560d829c330febc5fa9ef8",
+      "role": "retirement",
+      "reason": "The recorded callers read pinned replay bundles or explicit old knowledge or explorer files. Keep this contract for PR 10 retirement after the replacement proof.",
+      "evidence": [
+        {
+          "file": "src/domain/knowledge/check-interaction-mode.ts",
+          "line": 30,
+          "text": "export function interactionModeProblems(record: Interaction, byId: Records): string[] {"
+        },
+        {
+          "file": "tools/capture-proof.ts",
+          "line": 8,
+          "text": "import {"
+        },
+        {
+          "file": "src/infrastructure/knowledge/knowledge-index.ts",
+          "line": 13,
+          "text": "import { verifyKnowledgeSelection } from './knowledge-selection';"
+        },
+        {
+          "file": "src/infrastructure/knowledge/knowledge-selection.ts",
+          "line": 3,
+          "text": "import { checkKnowledge } from '@/domain/knowledge/check-knowledge';"
+        },
+        {
+          "file": "src/domain/knowledge/check-knowledge.ts",
+          "line": 3,
+          "text": "import { interactionProblems } from './check-interaction';"
+        },
+        {
+          "file": "src/domain/knowledge/check-interaction.ts",
+          "line": 3,
+          "text": "import { interactionModeProblems } from './check-interaction-mode';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/domain/knowledge/check-interaction-target.ts",
+      "sourceSha256": "b02ac0e7306c50d3a7b0ead0fd0bbe28eb6bf062fb35ce2cb8cc91cf663d0843",
+      "role": "retirement",
+      "reason": "The recorded callers read pinned replay bundles or explicit old knowledge or explorer files. Keep this contract for PR 10 retirement after the replacement proof.",
+      "evidence": [
+        {
+          "file": "src/domain/knowledge/check-interaction-target.ts",
+          "line": 37,
+          "text": "export function interactionTargetProblems(record: Interaction, byId: Records): string[] {"
+        },
+        {
+          "file": "tools/capture-proof.ts",
+          "line": 8,
+          "text": "import {"
+        },
+        {
+          "file": "src/infrastructure/knowledge/knowledge-index.ts",
+          "line": 13,
+          "text": "import { verifyKnowledgeSelection } from './knowledge-selection';"
+        },
+        {
+          "file": "src/infrastructure/knowledge/knowledge-selection.ts",
+          "line": 3,
+          "text": "import { checkKnowledge } from '@/domain/knowledge/check-knowledge';"
+        },
+        {
+          "file": "src/domain/knowledge/check-knowledge.ts",
+          "line": 3,
+          "text": "import { interactionProblems } from './check-interaction';"
+        },
+        {
+          "file": "src/domain/knowledge/check-interaction.ts",
+          "line": 4,
+          "text": "import { interactionTargetProblems } from './check-interaction-target';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/domain/knowledge/check-interaction.ts",
+      "sourceSha256": "f55968e675e89eebe4c02f8d57721fdcf1160e12aed4347d9acb74bc356c230a",
+      "role": "retirement",
+      "reason": "The recorded callers read pinned replay bundles or explicit old knowledge or explorer files. Keep this contract for PR 10 retirement after the replacement proof.",
+      "evidence": [
+        {
+          "file": "src/domain/knowledge/check-interaction.ts",
+          "line": 52,
+          "text": "export function interactionProblems(record: KnowledgeRecord, byId: Records): string[] {"
+        },
+        {
+          "file": "tools/capture-proof.ts",
+          "line": 8,
+          "text": "import {"
+        },
+        {
+          "file": "src/infrastructure/knowledge/knowledge-index.ts",
+          "line": 13,
+          "text": "import { verifyKnowledgeSelection } from './knowledge-selection';"
+        },
+        {
+          "file": "src/infrastructure/knowledge/knowledge-selection.ts",
+          "line": 3,
+          "text": "import { checkKnowledge } from '@/domain/knowledge/check-knowledge';"
+        },
+        {
+          "file": "src/domain/knowledge/check-knowledge.ts",
+          "line": 3,
+          "text": "import { interactionProblems } from './check-interaction';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/domain/knowledge/check-knowledge.ts",
+      "sourceSha256": "b327601ff150059336c0ca0a36e5a85296db5a5662b0a9b6fadb66c2ae57b19c",
+      "role": "retirement",
+      "reason": "The recorded callers read pinned replay bundles or explicit old knowledge or explorer files. Keep this contract for PR 10 retirement after the replacement proof.",
+      "evidence": [
+        {
+          "file": "src/domain/knowledge/check-knowledge.ts",
+          "line": 90,
+          "text": "export function checkKnowledge(bundle: KnowledgeBundle): string[] {"
+        },
+        {
+          "file": "tools/capture-proof.ts",
+          "line": 8,
+          "text": "import {"
+        },
+        {
+          "file": "src/infrastructure/knowledge/knowledge-index.ts",
+          "line": 13,
+          "text": "import { verifyKnowledgeSelection } from './knowledge-selection';"
+        },
+        {
+          "file": "src/infrastructure/knowledge/knowledge-selection.ts",
+          "line": 3,
+          "text": "import { checkKnowledge } from '@/domain/knowledge/check-knowledge';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/domain/knowledge/check-runtime-knowledge.ts",
+      "sourceSha256": "55787f5f61ed40f5e7a3d0eec3981ca6c911ccacb941e5d1d39931e652f4f1b6",
+      "role": "retirement",
+      "reason": "The recorded callers read pinned replay bundles or explicit old knowledge or explorer files. Keep this contract for PR 10 retirement after the replacement proof.",
+      "evidence": [
+        {
+          "file": "src/domain/knowledge/check-runtime-knowledge.ts",
+          "line": 131,
+          "text": "export function checkRuntimeKnowledge(record: KnowledgeRecord, byId: Records): string[] {"
+        },
+        {
+          "file": "tools/capture-proof.ts",
+          "line": 8,
+          "text": "import {"
+        },
+        {
+          "file": "src/infrastructure/knowledge/knowledge-index.ts",
+          "line": 13,
+          "text": "import { verifyKnowledgeSelection } from './knowledge-selection';"
+        },
+        {
+          "file": "src/infrastructure/knowledge/knowledge-selection.ts",
+          "line": 3,
+          "text": "import { checkKnowledge } from '@/domain/knowledge/check-knowledge';"
+        },
+        {
+          "file": "src/domain/knowledge/check-knowledge.ts",
+          "line": 4,
+          "text": "import { checkRuntimeKnowledge } from './check-runtime-knowledge';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/domain/knowledge/check-shape-constraints.ts",
+      "sourceSha256": "19e9d94ad44f067c95a205d0fb5ee107e92dbe6f60b0e50b6ad2b24040ca3bdd",
+      "role": "retirement",
+      "reason": "The recorded callers read pinned replay bundles or explicit old knowledge or explorer files. Keep this contract for PR 10 retirement after the replacement proof.",
+      "evidence": [
+        {
+          "file": "src/domain/knowledge/check-shape-constraints.ts",
+          "line": 3,
+          "text": "export function shapeConstraintProblems(record: KnowledgeRecord): string[] {"
+        },
+        {
+          "file": "tools/capture-proof.ts",
+          "line": 8,
+          "text": "import {"
+        },
+        {
+          "file": "src/infrastructure/knowledge/knowledge-index.ts",
+          "line": 13,
+          "text": "import { verifyKnowledgeSelection } from './knowledge-selection';"
+        },
+        {
+          "file": "src/infrastructure/knowledge/knowledge-selection.ts",
+          "line": 3,
+          "text": "import { checkKnowledge } from '@/domain/knowledge/check-knowledge';"
+        },
+        {
+          "file": "src/domain/knowledge/check-knowledge.ts",
+          "line": 2,
+          "text": "import { checkAsyncKnowledge } from './check-async-knowledge';"
+        },
+        {
+          "file": "src/domain/knowledge/check-async-knowledge.ts",
+          "line": 2,
+          "text": "import { shapeConstraintProblems } from './check-shape-constraints';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/domain/knowledge/check-subscription.ts",
+      "sourceSha256": "41d07a92c396298b0556add768fcdd2e0558acac6c624001d736330ee62b8fc3",
+      "role": "retirement",
+      "reason": "The recorded callers read pinned replay bundles or explicit old knowledge or explorer files. Keep this contract for PR 10 retirement after the replacement proof.",
+      "evidence": [
+        {
+          "file": "src/domain/knowledge/check-subscription.ts",
+          "line": 3,
+          "text": "export function subscriptionProblems(record: KnowledgeRecord): string[] {"
+        },
+        {
+          "file": "tools/capture-proof.ts",
+          "line": 8,
+          "text": "import {"
+        },
+        {
+          "file": "src/infrastructure/knowledge/knowledge-index.ts",
+          "line": 13,
+          "text": "import { verifyKnowledgeSelection } from './knowledge-selection';"
+        },
+        {
+          "file": "src/infrastructure/knowledge/knowledge-selection.ts",
+          "line": 3,
+          "text": "import { checkKnowledge } from '@/domain/knowledge/check-knowledge';"
+        },
+        {
+          "file": "src/domain/knowledge/check-knowledge.ts",
+          "line": 2,
+          "text": "import { checkAsyncKnowledge } from './check-async-knowledge';"
+        },
+        {
+          "file": "src/domain/knowledge/check-async-knowledge.ts",
+          "line": 3,
+          "text": "import { subscriptionProblems } from './check-subscription';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/domain/knowledge/evidence-anchor.ts",
+      "sourceSha256": "e105c2e72fdf373b0a48dc36b3889dc5fbaf56d8c19ca83c0d8eaaf7f8d50667",
+      "role": "retirement",
+      "reason": "The recorded callers read pinned replay bundles or explicit old knowledge or explorer files. Keep this contract for PR 10 retirement after the replacement proof.",
+      "evidence": [
+        {
+          "file": "src/domain/knowledge/evidence-anchor.ts",
+          "line": 6,
+          "text": "export function evidenceAnchor(record: Evidence): string | null {"
+        },
+        {
+          "file": "tools/verify-runtime-evidence.ts",
+          "line": 6,
+          "text": "import { evidenceAnchor } from '@/domain/knowledge/evidence-anchor';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/domain/knowledge/handoff-match.ts",
+      "sourceSha256": "1a3f2d9d1a892fb4b1020289d3e3a1c6b6b2c7bfc1464829aca19dce2218ba93",
+      "role": "retirement",
+      "reason": "The recorded callers read pinned replay bundles or explicit old knowledge or explorer files. Keep this contract for PR 10 retirement after the replacement proof.",
+      "evidence": [
+        {
+          "file": "src/domain/knowledge/handoff-match.ts",
+          "line": 87,
+          "text": "export function handoffMatch("
+        },
+        {
+          "file": "tools/capture-proof.ts",
+          "line": 4,
+          "text": "import { queryKnowledge } from '@/application/knowledge/query-knowledge';"
+        },
+        {
+          "file": "src/application/knowledge/query-knowledge.ts",
+          "line": 8,
+          "text": "import { consistencySlice, traceContinuations } from './trace-continuations';"
+        },
+        {
+          "file": "src/application/knowledge/trace-continuations.ts",
+          "line": 1,
+          "text": "import { handoffMatch } from '@/domain/knowledge/handoff-match';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/domain/knowledge/knowledge-ownership.ts",
+      "sourceSha256": "580cf99b0b1283ee68d5be3c5bdc7116e5a322894b2a5d7317f458cb5387f24f",
+      "role": "retirement",
+      "reason": "The recorded callers read pinned replay bundles or explicit old knowledge or explorer files. Keep this contract for PR 10 retirement after the replacement proof.",
+      "evidence": [
+        {
+          "file": "src/domain/knowledge/knowledge-ownership.ts",
+          "line": 51,
+          "text": "export function ownershipProblems(record: KnowledgeRecord, byId: Records): string[] {"
+        },
+        {
+          "file": "tools/capture-proof.ts",
+          "line": 8,
+          "text": "import {"
+        },
+        {
+          "file": "src/infrastructure/knowledge/knowledge-index.ts",
+          "line": 13,
+          "text": "import { verifyKnowledgeSelection } from './knowledge-selection';"
+        },
+        {
+          "file": "src/infrastructure/knowledge/knowledge-selection.ts",
+          "line": 3,
+          "text": "import { checkKnowledge } from '@/domain/knowledge/check-knowledge';"
+        },
+        {
+          "file": "src/domain/knowledge/check-knowledge.ts",
+          "line": 5,
+          "text": "import { ownershipProblems } from './knowledge-ownership';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/domain/knowledge/knowledge-reader.ts",
+      "sourceSha256": "66716d9bb917aef6a92abc412ca22773ff352f6bcdd5035639fa5b93d6672ddf",
+      "role": "retirement",
+      "reason": "The recorded callers read pinned replay bundles or explicit old knowledge or explorer files. Keep this contract for PR 10 retirement after the replacement proof.",
+      "evidence": [
+        {
+          "file": "src/domain/knowledge/knowledge-reader.ts",
+          "line": 19,
+          "text": "export interface KnowledgeReader {"
+        },
+        {
+          "file": "tools/capture-proof.ts",
+          "line": 5,
+          "text": "import type { KnowledgeReader } from '@/domain/knowledge/knowledge-reader';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/domain/knowledge/knowledge-reference-kinds.ts",
+      "sourceSha256": "5ac5095ee91096908a2b52fcbcb44d217f94f378aaf91653bbf96e1ff3c1ebb2",
+      "role": "retirement",
+      "reason": "The recorded callers read pinned replay bundles or explicit old knowledge or explorer files. Keep this contract for PR 10 retirement after the replacement proof.",
+      "evidence": [
+        {
+          "file": "src/domain/knowledge/knowledge-reference-kinds.ts",
+          "line": 74,
+          "text": "export function referenceKindProblems("
+        },
+        {
+          "file": "tools/capture-proof.ts",
+          "line": 8,
+          "text": "import {"
+        },
+        {
+          "file": "src/infrastructure/knowledge/knowledge-index.ts",
+          "line": 13,
+          "text": "import { verifyKnowledgeSelection } from './knowledge-selection';"
+        },
+        {
+          "file": "src/infrastructure/knowledge/knowledge-selection.ts",
+          "line": 3,
+          "text": "import { checkKnowledge } from '@/domain/knowledge/check-knowledge';"
+        },
+        {
+          "file": "src/domain/knowledge/check-knowledge.ts",
+          "line": 6,
+          "text": "import { referenceKindProblems } from './knowledge-reference-kinds';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/domain/knowledge/knowledge-references.ts",
+      "sourceSha256": "ccf0939c33fd481acba87129c73b7e48c2b5c2d3a4817bbf1adf2322cb0d7d77",
+      "role": "retirement",
+      "reason": "The recorded callers read pinned replay bundles or explicit old knowledge or explorer files. Keep this contract for PR 10 retirement after the replacement proof.",
+      "evidence": [
+        {
+          "file": "src/domain/knowledge/knowledge-references.ts",
+          "line": 92,
+          "text": "export function recordReferences(record: KnowledgeRecord): string[] {"
+        },
+        {
+          "file": "tools/capture-proof.ts",
+          "line": 4,
+          "text": "import { queryKnowledge } from '@/application/knowledge/query-knowledge';"
+        },
+        {
+          "file": "src/application/knowledge/query-knowledge.ts",
+          "line": 7,
+          "text": "import { completeResult, emptyResult } from './query-result';"
+        },
+        {
+          "file": "src/application/knowledge/query-result.ts",
+          "line": 5,
+          "text": "import { supportingPage } from './query-support';"
+        },
+        {
+          "file": "src/application/knowledge/query-support.ts",
+          "line": 3,
+          "text": "import { recordReferences } from '@/domain/knowledge/knowledge-references';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/domain/knowledge/knowledge-versions.ts",
+      "sourceSha256": "0949b5536b23118ab83e9ecc89f48d31a9676076ddfcb8a5d4a9441c95241442",
+      "role": "retirement",
+      "reason": "The recorded callers read pinned replay bundles or explicit old knowledge or explorer files. Keep this contract for PR 10 retirement after the replacement proof.",
+      "evidence": [
+        {
+          "file": "src/domain/knowledge/knowledge-versions.ts",
+          "line": 3,
+          "text": "export function queryRules(request: QueryRequest): KnowledgeSnapshot['rules'] {"
+        },
+        {
+          "file": "tools/capture-proof.ts",
+          "line": 4,
+          "text": "import { queryKnowledge } from '@/application/knowledge/query-knowledge';"
+        },
+        {
+          "file": "src/application/knowledge/query-knowledge.ts",
+          "line": 2,
+          "text": "import { queryRules } from '@/domain/knowledge/knowledge-versions';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/domain/knowledge/knowledge.generated.ts",
+      "sourceSha256": "3b700ce729d5f76c033b321075be34afcd77eadce0b1614e1571c9457ffc8de5",
+      "role": "retirement",
+      "reason": "The recorded callers read pinned replay bundles or explicit old knowledge or explorer files. Keep this contract for PR 10 retirement after the replacement proof.",
+      "evidence": [
+        {
+          "file": "src/domain/knowledge/knowledge.generated.ts",
+          "line": 3,
+          "text": "export type KnowledgeDocument = KnowledgeBundle | KnowledgeSnapshot | QueryRequest | QueryResponse;"
+        },
+        {
+          "file": "tools/capture-proof.ts",
+          "line": 6,
+          "text": "import type { QueryRequest, QueryResponse } from '@/domain/knowledge/knowledge.generated';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/domain/knowledge/receiver-bindings.ts",
+      "sourceSha256": "ae66b3baa702f8449d6a820ee85ae335c98bae663d3d31e92d0d74ad43ec0e6e",
+      "role": "retirement",
+      "reason": "The recorded callers read pinned replay bundles or explicit old knowledge or explorer files. Keep this contract for PR 10 retirement after the replacement proof.",
+      "evidence": [
+        {
+          "file": "src/domain/knowledge/receiver-bindings.ts",
+          "line": 60,
+          "text": "export function receiverBindingProblems(record: KnowledgeRecord, byId: Records): string[] {"
+        },
+        {
+          "file": "tools/capture-proof.ts",
+          "line": 8,
+          "text": "import {"
+        },
+        {
+          "file": "src/infrastructure/knowledge/knowledge-index.ts",
+          "line": 13,
+          "text": "import { verifyKnowledgeSelection } from './knowledge-selection';"
+        },
+        {
+          "file": "src/infrastructure/knowledge/knowledge-selection.ts",
+          "line": 3,
+          "text": "import { checkKnowledge } from '@/domain/knowledge/check-knowledge';"
+        },
+        {
+          "file": "src/domain/knowledge/check-knowledge.ts",
+          "line": 9,
+          "text": "import { receiverBindingProblems } from './receiver-bindings';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/domain/knowledge/return-kind.ts",
+      "sourceSha256": "a9711d7a45e0a50d31093dd692555e00f463e85126ceecc921be9c6790f88a97",
+      "role": "retirement",
+      "reason": "The recorded callers read pinned replay bundles or explicit old knowledge or explorer files. Keep this contract for PR 10 retirement after the replacement proof.",
+      "evidence": [
+        {
+          "file": "src/domain/knowledge/return-kind.ts",
+          "line": 18,
+          "text": "export function returnKindProblems(record: KnowledgeRecord, byId: Records): string[] {"
+        },
+        {
+          "file": "tools/capture-proof.ts",
+          "line": 8,
+          "text": "import {"
+        },
+        {
+          "file": "src/infrastructure/knowledge/knowledge-index.ts",
+          "line": 13,
+          "text": "import { verifyKnowledgeSelection } from './knowledge-selection';"
+        },
+        {
+          "file": "src/infrastructure/knowledge/knowledge-selection.ts",
+          "line": 3,
+          "text": "import { checkKnowledge } from '@/domain/knowledge/check-knowledge';"
+        },
+        {
+          "file": "src/domain/knowledge/check-knowledge.ts",
+          "line": 10,
+          "text": "import { returnKindProblems } from './return-kind';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/domain/knowledge/runtime-bundle.ts",
+      "sourceSha256": "d1d371e207b6845bceeedfd409d94ed9e364f2c68391d6d87f265397e048abb1",
+      "role": "retirement",
+      "reason": "The recorded callers read pinned replay bundles or explicit old knowledge or explorer files. Keep this contract for PR 10 retirement after the replacement proof.",
+      "evidence": [
+        {
+          "file": "src/domain/knowledge/runtime-bundle.ts",
+          "line": 4,
+          "text": "export function runtimeBundleProblems(bundle: KnowledgeBundle): string[] {"
+        },
+        {
+          "file": "tools/capture-proof.ts",
+          "line": 8,
+          "text": "import {"
+        },
+        {
+          "file": "src/infrastructure/knowledge/knowledge-index.ts",
+          "line": 13,
+          "text": "import { verifyKnowledgeSelection } from './knowledge-selection';"
+        },
+        {
+          "file": "src/infrastructure/knowledge/knowledge-selection.ts",
+          "line": 3,
+          "text": "import { checkKnowledge } from '@/domain/knowledge/check-knowledge';"
+        },
+        {
+          "file": "src/domain/knowledge/check-knowledge.ts",
+          "line": 11,
+          "text": "import { runtimeBundleProblems } from './runtime-bundle';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/domain/knowledge/runtime-references.ts",
+      "sourceSha256": "568dc86fac9b0e6a58c7f44efe77aeabaf526aa11c8c6d532a68cb7a92a540af",
+      "role": "retirement",
+      "reason": "The recorded callers read pinned replay bundles or explicit old knowledge or explorer files. Keep this contract for PR 10 retirement after the replacement proof.",
+      "evidence": [
+        {
+          "file": "src/domain/knowledge/runtime-references.ts",
+          "line": 8,
+          "text": "export function runtimeReferences(record: KnowledgeRecord): Expected[] {"
+        },
+        {
+          "file": "tools/capture-proof.ts",
+          "line": 8,
+          "text": "import {"
+        },
+        {
+          "file": "src/infrastructure/knowledge/knowledge-index.ts",
+          "line": 13,
+          "text": "import { verifyKnowledgeSelection } from './knowledge-selection';"
+        },
+        {
+          "file": "src/infrastructure/knowledge/knowledge-selection.ts",
+          "line": 3,
+          "text": "import { checkKnowledge } from '@/domain/knowledge/check-knowledge';"
+        },
+        {
+          "file": "src/domain/knowledge/check-knowledge.ts",
+          "line": 4,
+          "text": "import { checkRuntimeKnowledge } from './check-runtime-knowledge';"
+        },
+        {
+          "file": "src/domain/knowledge/check-runtime-knowledge.ts",
+          "line": 7,
+          "text": "import { runtimeReferences } from './runtime-references';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/domain/knowledge/storage-context.ts",
+      "sourceSha256": "5c62e90c8b61abb69d624419dc1033711b11fa8753d71e9c100069cd0e3d0a6f",
+      "role": "retirement",
+      "reason": "The recorded callers read pinned replay bundles or explicit old knowledge or explorer files. Keep this contract for PR 10 retirement after the replacement proof.",
+      "evidence": [
+        {
+          "file": "src/domain/knowledge/storage-context.ts",
+          "line": 52,
+          "text": "export function storageContextReferences(record: StorageWrite): string[] {"
+        },
+        {
+          "file": "tools/capture-proof.ts",
+          "line": 8,
+          "text": "import {"
+        },
+        {
+          "file": "src/infrastructure/knowledge/knowledge-index.ts",
+          "line": 13,
+          "text": "import { verifyKnowledgeSelection } from './knowledge-selection';"
+        },
+        {
+          "file": "src/infrastructure/knowledge/knowledge-selection.ts",
+          "line": 3,
+          "text": "import { checkKnowledge } from '@/domain/knowledge/check-knowledge';"
+        },
+        {
+          "file": "src/domain/knowledge/check-knowledge.ts",
+          "line": 2,
+          "text": "import { checkAsyncKnowledge } from './check-async-knowledge';"
+        },
+        {
+          "file": "src/domain/knowledge/check-async-knowledge.ts",
+          "line": 6,
+          "text": "import { storageContextReferences } from './storage-context';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/domain/scan-explorer/contracts.ts",
+      "sourceSha256": "291f1459dd3e921febfa5ae614e0ee9229aaa7b11789f681420501b33393273a",
+      "role": "retirement",
+      "reason": "The recorded callers select, check or serve the retained explorer publication, or replay its proof. Keep the binding until the PR 10 explorer parity and removal proof.",
+      "evidence": [
+        {
+          "file": "src/domain/scan-explorer/contracts.ts",
+          "line": 11,
+          "text": "export interface ExplorerSelection {"
+        },
+        {
+          "file": "tools/scan-service-explorer-export.ts",
+          "line": 18,
+          "text": "import type { ExplorerIndex } from '@/domain/scan-explorer/contracts';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/domain/scan-explorer/correspondence.ts",
+      "sourceSha256": "39f8f767a8151c292009e467b87aa299c26312d811dc1ce31c5661dcaa857917",
+      "role": "retirement",
+      "reason": "The recorded callers select, check or serve the retained explorer publication, or replay its proof. Keep the binding until the PR 10 explorer parity and removal proof.",
+      "evidence": [
+        {
+          "file": "src/domain/scan-explorer/correspondence.ts",
+          "line": 5,
+          "text": "export function explorerContract("
+        },
+        {
+          "file": "tools/scan-explorer-proof.ts",
+          "line": 11,
+          "text": "import {"
+        },
+        {
+          "file": "src/application/scan-explorer/current-targets.ts",
+          "line": 9,
+          "text": "import { explorerContract } from '@/domain/scan-explorer/correspondence';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/domain/scan-explorer/current-connections.ts",
+      "sourceSha256": "ca363b0c4e662b663ff3665f93ca8288698bf1a1e6c990836b11868e9b5daf46",
+      "role": "retirement",
+      "reason": "The recorded callers select, check or serve the retained explorer publication, or replay its proof. Keep the binding until the PR 10 explorer parity and removal proof.",
+      "evidence": [
+        {
+          "file": "src/domain/scan-explorer/current-connections.ts",
+          "line": 5,
+          "text": "export interface CurrentAddress {"
+        },
+        {
+          "file": "tools/scan-explorer-proof.ts",
+          "line": 5,
+          "text": "import { currentCallers } from '@/application/scan-explorer/current-callers';"
+        },
+        {
+          "file": "src/application/scan-explorer/current-callers.ts",
+          "line": 4,
+          "text": "import {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/domain/scan-explorer/current-contracts.ts",
+      "sourceSha256": "bd77dcb6f2ce50ee644aaf824065f11ee9df85eecfee4f3e6ae025c23ad2c45e",
+      "role": "retirement",
+      "reason": "The recorded callers select, check or serve the retained explorer publication, or replay its proof. Keep the binding until the PR 10 explorer parity and removal proof.",
+      "evidence": [
+        {
+          "file": "src/domain/scan-explorer/current-contracts.ts",
+          "line": 12,
+          "text": "export type CurrentRecord ="
+        },
+        {
+          "file": "tools/scan-explorer-proof.ts",
+          "line": 17,
+          "text": "import type { CurrentScanInput, CurrentView } from '@/domain/scan-explorer/current-contracts';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/domain/service-explorer.ts",
+      "sourceSha256": "d3e2d7b03d03f59b5ad1112dbdbda8c970aa5d1d028655d8427675fff383c02f",
+      "role": "retirement",
+      "reason": "The recorded callers select, check or serve the retained explorer publication, or replay its proof. Keep the binding until the PR 10 explorer parity and removal proof.",
+      "evidence": [
+        {
+          "file": "src/domain/service-explorer.ts",
+          "line": 5,
+          "text": "export interface ExplorerSource {"
+        },
+        {
+          "file": "tools/pack-corpus-explorer.ts",
+          "line": 4,
+          "text": "import type { ExplorerCatalogue } from '@/domain/service-explorer';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/infrastructure/explorer-assets.ts",
+      "sourceSha256": "05a4455aadf7409dbf874c0f66bdef1b29f020f27187aab8b95266c45d53d7d6",
+      "role": "retirement",
+      "reason": "The recorded callers select, check or serve the retained explorer publication, or replay its proof. Keep the binding until the PR 10 explorer parity and removal proof.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/explorer-assets.ts",
+          "line": 10,
+          "text": "export const EXPLORER_ASSET ="
+        },
+        {
+          "file": "src/app/explorer-data/[workspace]/[generation]/[file]/route.ts",
+          "line": 1,
+          "text": "import { readExplorerAsset } from '@/infrastructure/explorer-assets';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/infrastructure/knowledge/knowledge-format.ts",
+      "sourceSha256": "2b7005e06c63de7a2fa3443c66b40d4a6c6d09f1905c8032fc0434ec48e74dca",
+      "role": "retirement",
+      "reason": "The recorded callers read pinned replay bundles or explicit old knowledge or explorer files. Keep this contract for PR 10 retirement after the replacement proof.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/knowledge/knowledge-format.ts",
+          "line": 44,
+          "text": "export function knowledgeDigest(value: unknown): string {"
+        },
+        {
+          "file": "tools/capture-proof.ts",
+          "line": 7,
+          "text": "import { knowledgeValidators } from '@/infrastructure/knowledge/knowledge-format';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/infrastructure/knowledge/knowledge-index.ts",
+      "sourceSha256": "82a1fad75c75bcc6cad17411cfabc1bd1f6a6a274e3796e650d0b80caa26ab51",
+      "role": "retirement",
+      "reason": "The recorded callers read pinned replay bundles or explicit old knowledge or explorer files. Keep this contract for PR 10 retirement after the replacement proof.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/knowledge/knowledge-index.ts",
+          "line": 61,
+          "text": "export async function importKnowledgeSnapshot(file: string, input: SnapshotInput): Promise<void> {"
+        },
+        {
+          "file": "tools/capture-proof.ts",
+          "line": 8,
+          "text": "import {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/infrastructure/knowledge/knowledge-selection.ts",
+      "sourceSha256": "5ab58b89b8ff0af7dd0a97efc2724cc9ae837beba28dec3f5d85a35648d67246",
+      "role": "retirement",
+      "reason": "The recorded callers read pinned replay bundles or explicit old knowledge or explorer files. Keep this contract for PR 10 retirement after the replacement proof.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/knowledge/knowledge-selection.ts",
+          "line": 26,
+          "text": "export function verifyKnowledgeSelection(input: KnowledgeSelection): void {"
+        },
+        {
+          "file": "tools/capture-proof.ts",
+          "line": 8,
+          "text": "import {"
+        },
+        {
+          "file": "src/infrastructure/knowledge/knowledge-index.ts",
+          "line": 13,
+          "text": "import { verifyKnowledgeSelection } from './knowledge-selection';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/infrastructure/scan-explorer/retained-capture.ts",
+      "sourceSha256": "39625d2ad44d75c6d6cd434cbc738fb448cbb18e7d524c501839c836f8a3e289",
+      "role": "retirement",
+      "reason": "The recorded callers select, check or serve the retained explorer publication, or replay its proof. Keep the binding until the PR 10 explorer parity and removal proof.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/scan-explorer/retained-capture.ts",
+          "line": 12,
+          "text": "export async function retainedExplorerReader(input: {"
+        },
+        {
+          "file": "tools/scan-explorer-proof.ts",
+          "line": 25,
+          "text": "import { retainedExplorerReader } from '@/infrastructure/scan-explorer/retained-capture';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/infrastructure/scan-explorer/runtime-declaration.ts",
+      "sourceSha256": "314533838b6a5b33b9e869e3ce32ed1ecca3993b6f438f085ac4d0504d8ca7c6",
+      "role": "retirement",
+      "reason": "The recorded callers select, check or serve the retained explorer publication, or replay its proof. Keep the binding until the PR 10 explorer parity and removal proof.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/scan-explorer/runtime-declaration.ts",
+          "line": 82,
+          "text": "export function declaredSpringRuntime(input: RuntimeRequest): DeclaredRuntimeBinding {"
+        },
+        {
+          "file": "tools/scan-explorer-proof.ts",
+          "line": 26,
+          "text": "import { declaredSpringRuntime } from '@/infrastructure/scan-explorer/runtime-declaration';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/infrastructure/scan-explorer/visual-input.ts",
+      "sourceSha256": "3c1094ac8fe905a805cd16ec0fc07044604ffd4861413979b6f1d5be97619d88",
+      "role": "retirement",
+      "reason": "The recorded callers select, check or serve the retained explorer publication, or replay its proof. Keep the binding until the PR 10 explorer parity and removal proof.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/scan-explorer/visual-input.ts",
+          "line": 56,
+          "text": "export type VisualExportConfig = z.infer<typeof configSchema>;"
+        },
+        {
+          "file": "tools/scan-service-explorer-export.ts",
+          "line": 23,
+          "text": "import {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/infrastructure/scan-explorer/visual-selection.ts",
+      "sourceSha256": "641046446e01c9eab6a68dff32b5e50e138e002e811912e54c3dafc87196e48c",
+      "role": "retirement",
+      "reason": "The recorded callers select, check or serve the retained explorer publication, or replay its proof. Keep the binding until the PR 10 explorer parity and removal proof.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/scan-explorer/visual-selection.ts",
+          "line": 9,
+          "text": "export function uniqueVisualRecords(records: readonly CurrentRecord[]): CurrentRecord[] {"
+        },
+        {
+          "file": "tools/scan-explorer-proof.ts",
+          "line": 27,
+          "text": "import { uniqueVisualRecords } from '@/infrastructure/scan-explorer/visual-selection';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/infrastructure/service-explorer-format.ts",
+      "sourceSha256": "15050951ab46bed4a06ae7748a4487b47ce62b1f97a642cb7fbf024af39ff9cf",
+      "role": "retirement",
+      "reason": "The recorded callers select, check or serve the retained explorer publication, or replay its proof. Keep the binding until the PR 10 explorer parity and removal proof.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/service-explorer-format.ts",
+          "line": 8,
+          "text": "export const explorerFilename = z.string().regex(/^[a-z0-9][a-z0-9-]*\\.json$/u);"
+        },
+        {
+          "file": "tools/refine-corpus-explorer.ts",
+          "line": 13,
+          "text": "import { parseExplorerManifest } from '@/infrastructure/service-explorer-format';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "tools/evidence/build-index.ts",
+      "sourceSha256": "eccf09fc79b55ab2303e74d58c4e22d49d30994c5e9a44ae30ff91af45d7bdc6",
+      "role": "support",
+      "reason": "Builds the independent SQLite evidence index from the workspace evidence folder.",
+      "evidence": [
+        {
+          "file": "tools/evidence/build-index.ts",
+          "line": 11,
+          "text": "const built = await buildEvidenceIndex(workspace);"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/infrastructure/scan-explorer/evidence-index-builder.ts",
+          "sha256": "d239f13db64ae142d8c36bac66bf6060aca32e578475edae1e5bc7dcb27a5338"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ]
+    },
+    {
+      "file": "tools/evidence/migrate.ts",
+      "sourceSha256": "efa2533052384f046aa4306f7c7b6248e52251643bbd214f1381f914302f87dc",
+      "role": "producer",
+      "reason": "Converts explicit capture inputs and writes evidence. The direct scan writer replaces this migration workflow in PR 9.",
+      "evidence": [
+        {
+          "file": "tools/evidence/migrate.ts",
+          "line": 34,
+          "text": "await writeRepositoryEvidence(workspace, evidence);"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 9
+    },
+    {
+      "file": "tools/evidence/query.ts",
+      "sourceSha256": "ef1f02f2d321ca1048c38449c4c969577d562677d5781902bbb38036dd6de68c",
+      "role": "support",
+      "reason": "Queries the independent SQLite evidence index.",
+      "evidence": [
+        {
+          "file": "tools/evidence/query.ts",
+          "line": 17,
+          "text": "const index = await evidenceIndex(workspace);"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/infrastructure/evidence/evidence-index.ts",
+          "sha256": "3e15ee2868e67e0b71e25410ee28d2096dde8c9b675e523ada8cd3cf55c288b6"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ]
+    },
+    {
+      "file": "tools/generate-knowledge-types.ts",
+      "sourceSha256": "a6fe84c9eb152963a3ca2f224ead1d0eda3541aaa08ae28f89c654e6f3d62c45",
+      "role": "producer",
+      "reason": "Generates retained types for the old knowledge bundle schema. Keep the generator until the PR 10 schema retirement proof.",
+      "evidence": [
+        {
+          "file": "tools/generate-knowledge-types.ts",
+          "line": 15,
+          "text": "const schema: unknown = JSON.parse(await readFile('schema/knowledge.schema.json', 'utf8'));"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "tools/generate-plan-types.ts",
+      "sourceSha256": "929acb2899486909a122b67a70d65fecf79bf6d95a1fb623476f73302288ace0",
+      "role": "support",
+      "reason": "The shared generator still produces current model types as well as the old plan types used by retained fixtures and progress. Preserve the canonical generation path in PR 10.",
+      "evidence": [
+        {
+          "file": "tools/generate-plan-types.ts",
+          "line": 1,
+          "text": "// Writes src/domain/plan/plan.generated.ts from schema/legacy-plan.schema.json. Run with `npm run generate`."
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/infrastructure/model-schema.test.ts",
+          "sha256": "6f16582a87803f6b07158e519f5995cae0aea3241003615c26a38ee9d7538d11"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ]
+    },
+    {
+      "file": "tools/scan-explorer-proof.ts",
+      "sourceSha256": "8e454b5ac50ce12d134750850605cbeb85117f617900af6b292dcf836df1df16",
+      "role": "support",
+      "reason": "Replays retained capture inputs and compares model-backed views for the explorer parity proof.",
+      "evidence": [
+        {
+          "file": "tools/scan-explorer-proof.ts",
+          "line": 95,
+          "text": "async function retainedIndex(): Promise<ReturnType<typeof buildScanExplorer>> {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8-cutover-handoff.md",
+          "sha256": "507eabff8ad9d76f190305aa29eb29c06132858b4de273eae08570584202896a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        }
+      ]
+    }
+  ],
+  "unproved": [
+    [
+      "src/infrastructure/service-explorer-navigation.ts",
+      "exact declaration or proof absent"
+    ],
+    [
+      "tools/validate-knowledge.ts",
+      "exact declaration or proof absent"
+    ]
+  ]
+}

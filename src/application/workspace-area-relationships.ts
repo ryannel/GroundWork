@@ -3,11 +3,14 @@ import {
   resourceConsumers,
   resourcePublishers,
 } from '@/application/area-map/resources';
+import type { ModelEdge } from '@/application/model-index';
 import type { Model } from '@/application/plan/derive';
 import type { LandscapeSystemRelationship } from '@/domain/landscape';
 
 /** Request direction and exact identities survive projection; handler bodies and guards stay in the evidence explorer. */
 export interface AreaTechnicalRelationship extends LandscapeSystemRelationship {
+  readonly native?: ModelEdge;
+  readonly nativeSource?: Readonly<Record<string, unknown>>;
   /** Saved overview wording while component contracts are deferred until exploration. */
   readonly summary?: string;
   readonly directed?: boolean;

@@ -25,6 +25,34 @@ fixture under `test/fixtures/model/` exercises these contracts. Existing readers
 unchanged `schema/legacy-plan.schema.json` and legacy workspace validators until they move to the new
 model. New fields are declared in JSON Schema and regenerated, rather than copied into handwritten types.
 
+Native plan landing retains a versioned `base.yaml` marker and the canonical model input files under the
+sibling `base/` folder. The marker is generated from `PlanBaseMarker` in the workspace schema; the retained
+facts use the same workspace and evidence schemas and folder reader as today. Landing requires explicit
+ancestors to have landed, validates strict current facts, and proves the copied before model identical before
+publishing the marker and removing the lock. It never promotes a proposed after model into current facts.
+Open plans stop composing at landed dependencies. Landed plans and their revisions use their frozen before
+model, including its repository pins and gaps, without replaying today’s ancestors. Native workspace check
+validates each frozen base strictly and each after model with the existing proposal policy. Evidence lookups
+from a plan or revision retain that selected context rather than substitute today’s evidence.
+
+Native browser transport retains every authored field and the complete repository and discovery metadata.
+It sends the transitive closure of evidence records referenced by those values and the selected plan, including
+text links, without changing the server model. The explicit `authored-evidence-closure` profile counts loaded
+and unloaded records. An evidence identity absent from this view is unloaded until the read-only
+`evidence.json?id=…` lookup returns it or confirms it is unknown. Browser queries use the same `indexOf`
+on this scoped `WorkspaceModel`; parity checks compare authored entities, execution, gaps and graph queries
+against the complete server index. Unreferenced evidence stays available on demand and is never deleted. The
+system map sends only drawing records, with a shared text table and exact edge occurrence order. Its backing
+and gaps remain in the index and are read on the relevant record or entry view.
+
+Public workspace and plan routes read the consolidated model and query its shared index. A registered
+workspace without a consolidated model stays visible on the library as awaiting consolidation. Pages do
+not assemble an old workspace view for it. The live inspector, search and change tray query the supplied
+browser envelope; the separate format-1 reader is retained for old fixtures and retirement proof only.
+Progress and plan locks are independent metadata with their own bounded readers; loading either never
+loads a legacy fact model. Read-only replay of pinned scan-trial proofs remains separate from live
+workspace queries until the recorded retirement proof.
+
 The canonical `WorkspaceModel` is serialisable data. `readModel` validates authored fragments, resolves only
 schema-declared source citations and joins them by file containment. An unresolved pin, home or inherited
 span stays in `problems`. Generated citation metadata follows the same schema definitions; arbitrary business
@@ -45,8 +73,8 @@ Neither a document's source path nor its containing file establishes the invokin
 `indexOf` derives placement, execution edges, reverse queries, graph composition, roles, ownership and gaps.
 Placement follows containment; resource ownership needs an explicit cited owner. Graph composition follows
 selected, required and provided fields and reports unresolved or ambiguous composition. Its possible resolver
-reach is not an observed runtime query plan. `apply` edits a private clone, preserves declared identities and
-resolves new citations; `validateModel` rechecks the resulting fragments with the same contracts. `plansIndex`
+reach is not an observed runtime query plan. `apply` edits a private clone of authored facts, shares unchanged evidence records, preserves declared
+identities and resolves new citations; `validateModel` rechecks the resulting fragments with the same contracts. `plansIndex`
 is separate from the model index and gives each plan independent before and after values. Proposal
 attribution is derived from the containing plan, change and op. Current facts retain strict effect-citation
 validation. The plan projection boundary validates the base strictly, computes its own after model and uses

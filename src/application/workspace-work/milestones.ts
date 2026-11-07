@@ -1,6 +1,6 @@
 import { gapDays, rollUpCommitment, type CommitmentState } from '@/application/plan/work-standing';
-import { thingHref } from '@/application/plan-pages-things';
 import { shortDate } from '@/application/plan-viz-state';
+import { thingHref } from '@/application/thing-paths';
 import { issueUrlOf } from '@/domain/code-links';
 import { qualifyId } from '@/domain/ids';
 import type { ProgressEvent } from '@/domain/plan/plan.generated';

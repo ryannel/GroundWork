@@ -207,6 +207,7 @@ export interface WorkspaceDocumentTypes {
   Confidence: Confidence;
   ContextComponentId: string;
   SystemId: string;
+  PlanBaseMarker: PlanBaseMarker;
   document: WorkspaceDocumentDocument;
 }
 export interface CodeHome {
@@ -1399,4 +1400,11 @@ export interface Planmilestone {
    */
   after?: string[];
   serves?: string;
+}
+/**
+ * A native landed plan keeps its canonical model inputs under the sibling base directory.
+ */
+export interface PlanBaseMarker {
+  format: 'groundwork-model-base/v1';
+  landed_on: string;
 }

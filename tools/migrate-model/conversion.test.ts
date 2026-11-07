@@ -1,7 +1,10 @@
 import { describe, expect, it, vi } from 'vitest';
 
+import { queryModel } from '@/../test/fixtures/model-queries';
+import { indexOf } from '@/application/model-index';
+import { modelTargetOf } from '@/application/model-target';
 import { modelRecord } from '@/domain/workspace-model';
-import { modelValidator } from '@/infrastructure/model-schema';
+import { modelProblems, modelValidator } from '@/infrastructure/model-schema';
 
 import { convertCitations, migrationCitations } from './citations';
 import { detailIndex, migrateComponent } from './components';
@@ -9,6 +12,7 @@ import { fieldsOf, migrateContracts, taggedType } from './contracts';
 import { modelYaml, rewriteDocument } from './files';
 import { migrationIdentities, migrationJobIdentities } from './identities';
 import { migrationReview, reviewSummary } from './review';
+import { migrateWorkspace } from './workspace';
 
 vi.mock(import('server-only'), () => ({}));
 
@@ -64,6 +68,33 @@ describe('migration of authored contracts', () => {
     expect(component).toMatchObject({ kind: 'service', does: 'Short purpose.\n\nCited detail.' });
     const validate = await modelValidator('workspace', 'Component');
     expect(validate(component), JSON.stringify(validate.errors)).toBe(true);
+  });
+  it('retains literal GraphQL argument signatures without splitting nested defaults', async () => {
+    const args = 'filter: Filter = {labels: ["one,two", "three"], limit: 2}, order: Order = ASC';
+    const fields = fieldsOf([
+      { name: 'search', type: '[Result!]!', note: 'Resolved by the catalogue.', args },
+      { name: 'lookup', type: 'Result', args: [{ name: 'id', type: 'ID!', required: true }] },
+    ]);
+    expect(fields).toEqual([
+      {
+        id: 'search',
+        name: 'search',
+        type: '[Result!]!',
+        note: `Resolved by the catalogue.\n\nOriginal GraphQL arguments: ${args}`,
+      },
+      {
+        id: 'lookup',
+        name: 'lookup',
+        type: 'Result',
+        args: [{ id: 'id', name: 'id', type: 'ID!', required: true }],
+      },
+    ]);
+    await expect(
+      Promise.all(fields.map(async (field) => modelProblems('workspace', 'Field', field))),
+    ).resolves.toEqual([[], []]);
+    expect(fieldsOf([{ name: 'empty', type: 'String', args: '' }])[0]).toMatchObject({
+      note: 'Original GraphQL arguments: ',
+    });
   });
   it('preserves endpoint qualifications, field notes and nested tagged types', async () => {
     const review = migrationReview();
@@ -305,4 +336,126 @@ it('retains a known system provider, protocol metadata and exact client evidence
       ],
     },
   ]);
+});
+
+it('retains an authored landscape evidence count as a recorded value', async () => {
+  const workspace = migrateWorkspace(
+    [
+      { path: 'workspace.yaml', text: '', value: { id: 'example', name: 'Example' } },
+      {
+        path: 'landscape.yaml',
+        text: '',
+        value: {
+          format: 1,
+          areas: [{ id: 'offers', name: 'Offers', purpose: 'Publish offers.', evidence_count: 36 }],
+        },
+      },
+    ],
+    migrationReview(),
+  );
+  const landscape = workspace.files.get('landscape.yaml')?.value;
+  const validate = await modelValidator('workspace', 'LandscapeFile');
+  expect(validate(landscape), JSON.stringify(validate.errors)).toBe(true);
+  expect(landscape).toMatchObject({
+    format: 2,
+    areas: [{ id: 'area:offers', evidence_count: 36 }],
+  });
+});
+
+it('keeps the target link to Content when the workspace also has a Content area', async () => {
+  const workspace = migrateWorkspace(
+    [
+      { path: 'workspace.yaml', text: '', value: { id: 'example', name: 'Example' } },
+      { path: 'domains/queries/domain.yaml', text: '', value: { id: 'queries', name: 'Queries' } },
+      {
+        path: 'landscape.yaml',
+        text: '',
+        value: { format: 1, areas: [{ id: 'content', name: 'Content area', purpose: 'Publish.' }] },
+      },
+      {
+        path: 'domains/queries/target.yaml',
+        text: '',
+        value: {
+          stages: [
+            { id: 'content', name: 'Content' },
+            { id: 'channel', name: 'Channel', from: ['content'] },
+          ],
+        },
+      },
+    ],
+    migrationReview(),
+  );
+  expect(workspace.files.get('aliases.yaml')?.value).toHaveProperty('content.to', 'area:content');
+  const target = workspace.files.get('domains/queries/target.yaml')?.value;
+  const check = await modelValidator('workspace', 'TargetFile');
+  if (!check(target)) throw new Error(JSON.stringify(check.errors));
+  expect(target.stages?.[1]?.from).toEqual(['content']);
+  const model = queryModel();
+  const index = indexOf({
+    ...model,
+    domains: model.domains.map((domain) => ({ ...domain, target })),
+  });
+  const view = modelTargetOf(index, 'queries');
+  expect(view?.stages[1]?.from).toEqual(['Content']);
+  expect(view?.flow.lines).toHaveLength(1);
+});
+
+it('keeps previous lock data outside authored identity rewrites', () => {
+  const path = 'plans/example/base.lock.json';
+  const workspace = migrateWorkspace(
+    [
+      { path: 'workspace.yaml', text: '', value: { id: 'example', name: 'Example' } },
+      { path, text: '', value: { checked_on: '2026-11-05', entities: { 'svc:shop': 'ef81356f' } } },
+    ],
+    migrationReview(),
+  );
+  expect(workspace.files.has(path)).toBe(false);
+});
+
+it('retains previous technology and job labels without fabricating implementation entries', () => {
+  const workspace = migrateWorkspace(
+    [
+      { path: 'workspace.yaml', text: '', value: { id: 'example', name: 'Example' } },
+      {
+        path: 'domains/example/systems/local/system.yaml',
+        text: '',
+        value: {
+          id: 'local',
+          name: 'Local',
+          team: 'team:local',
+          components: [
+            { id: 'svc:manual', name: 'Manual', type: 'job', does: 'Prepare the file.' },
+            {
+              id: 'svc:library',
+              name: 'Library',
+              type: 'library',
+              tech: 'Python',
+              infrastructure: true,
+            },
+          ],
+        },
+      },
+    ],
+    migrationReview(),
+  );
+  expect(workspace.files.get('libraries.yaml')?.value).toMatchObject({
+    libraries: [
+      {
+        id: 'lib:library',
+        summary:
+          'Previous workspace team assignment: team:local\n\nPrevious workspace technology: Python\n\nPreviously marked as infrastructure.',
+      },
+    ],
+  });
+  expect(workspace.files.get('domains/example/systems/local/system.yaml')?.value).toMatchObject({
+    components: [
+      {
+        id: 'svc:manual',
+        does: 'Prepare the file.\n\nPrevious workspace classification: job.',
+      },
+    ],
+  });
+  expect(
+    workspace.files.get('domains/example/systems/local/contracts.yaml')?.value,
+  ).not.toHaveProperty('jobs.0');
 });

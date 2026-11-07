@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { domainViewOf } from '@/application/workspace-domain';
-import { workspaceHref } from '@/application/workspace-paths';
-import { TodayFlow } from '@/features/plan';
-import { todayData } from '@/infrastructure/today-data';
+import { modelDomainViewOf } from '@/application/model-domain';
+import { modelFlowOf } from '@/application/model-flow';
+import { ModelTodayFlow } from '@/features/plan';
+import { readCanonicalModelIndex } from '@/infrastructure/model-index';
 
 interface Params {
   readonly workspace: string;
@@ -16,10 +16,15 @@ export const metadata: Metadata = { title: 'Flows' };
 
 export default async function DomainFlowsRoute({ params }: { readonly params: Promise<Params> }) {
   const { workspace: id, domain } = await params;
-  const data = await todayData(id);
-  const view = data === null ? null : domainViewOf(data.workspace, data.today.model, domain);
-  if (data === null || view === null) notFound();
+  const native = await readCanonicalModelIndex(id);
+  if (native === null) notFound();
+  const view = modelDomainViewOf(native, domain);
+  if (view === null) notFound();
   const first = view.flows[0];
-  if (first === undefined) return <p>No flow has a step in this domain yet.</p>;
-  return <TodayFlow base={workspaceHref(id)} id={first.id} model={data.today.model} />;
+  const flow = first === undefined ? null : modelFlowOf(native, first.id);
+  return flow === null ? (
+    <p>No authored flow has a step in this domain yet.</p>
+  ) : (
+    <ModelTodayFlow flow={flow} />
+  );
 }

@@ -1,0 +1,24 @@
+{
+  "originalPacketSha256": "8313eeb4084b6631aea03dd253c1ad0822b2279b8c549f4a086b5e95c186fd5c",
+  "rows": 433,
+  "results": [
+    {
+      "workspace": "personal",
+      "rows": 18,
+      "files": 3,
+      "exact": true
+    },
+    {
+      "workspace": "acme",
+      "rows": 18,
+      "files": 3,
+      "exact": true
+    },
+    {
+      "workspace": "volvo-cars",
+      "rows": 397,
+      "files": 166,
+      "exact": true
+    }
+  ]
+}

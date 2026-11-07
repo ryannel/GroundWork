@@ -1,0 +1,745 @@
+{
+  "scope": "Earlier production candidates compared with frozen captures. Exclude the registry root, plan, programme and partner pages or destinations. A removed anchor occurrence is an address that appeared on one captured route and disappeared from that same route. The offline selector replay tests distinct removed destinations, including addresses that remain linked elsewhere. New release captures need their own comparison.",
+  "selectorSources": {
+    "src/domain/ids.ts": "39c00a3b3acc9d09b4b0d076a0177ccfe27de51d48cc3390a5f6d062fa9bac9e",
+    "src/application/model-index.ts": "d0d4c937ebb8a71e5e23032bffdf3d8e20ff37c266e79073cb642b90aa39c976",
+    "src/application/model-system.ts": "1d6eb41126f7f9887e8ff3aae2b066ad2b6c0683a495d00297de2b3ebdde68c8",
+    "src/application/model-domain.ts": "7d2e45804e4670dffbcf7ab601f559f01c3facec17d0f849d958c972abec10b2",
+    "src/application/model-journeys.ts": "6ba32199b924e686cf5f2a97f053e03b9ed964c7588276bd1ee4a991ab46acbc",
+    "src/features/service-explorer/explorer-corpus.client.tsx": "06ceb6c26a2cf1cb715d9d638b38eb80cd521b7c715587b0ea0130ab845eaf40"
+  },
+  "workspaces": {
+    "personal": {
+      "archive": ".workspaces/rebuild/pr8/area-audit/personal-facts-history",
+      "runtime": "/private/tmp/rebuild-pr8-personal-runtime-06",
+      "authoredSha256": "e50fd9dbf39bdab9622dc9bad3a70c38948f019c1d8a394b662c2d06ad7db472",
+      "evidenceShards": 0,
+      "aliasYamlMatchesArchive": true,
+      "aliasesSha256": "533a5f1c9bd6e2915f24cff785f0136b6ca77912414294535386c28f0b4c22cc",
+      "frozenCapture": {
+        "folder": "artifacts/rebuild/baseline/personal",
+        "manifestSha256": "0d772a800ff5734ec26b036456f9e0f7d6b6775466b1304a291fe398722aeeb0",
+        "routes": 24
+      },
+      "candidateCapture": {
+        "folder": ".workspaces/rebuild/pr8/http/personal",
+        "manifestSha256": "3cc4a8c387c94851a26f39392f0e38704658bb818ea47f8990ce453d535fb16c",
+        "routes": 26
+      },
+      "changedRoutePairs": [
+        {
+          "route": "/personal/side-projects/interfaces/",
+          "frozen": "5c95707cf05cdad64c092fe19e0de15a6a425349a1a8fe442ea0661edbebdd48",
+          "candidate": "e734db64d36261e6a1eea73784777c8822295601ff068b2079ae2199c9a8b1ea",
+          "removed": 1,
+          "removedLinksSha256": "37230ac685659c0d9f541c5a3f203ac6b486862a7f8088498763f1eca2f2de29"
+        },
+        {
+          "route": "/personal/things/?id=st-allotment-db",
+          "frozen": "50be7226717364e1c70283cee7710338d7f71656f47f60012d9d623ae2849e3b",
+          "candidate": "3372701ea197142a3db82334d67435ade4626c0114d2e66e70dfc0750671892f",
+          "removed": 1,
+          "removedLinksSha256": "904ac72a96eee7bcbdeda556fb9ca79433af0caf25f777c0f409d092d7de64dd"
+        },
+        {
+          "route": "/personal/things/?id=svc-allotment-app",
+          "frozen": "f084abe087661040f5e3e3c10fe0ac6d0a332bfaddfa3a50d94001630a753390",
+          "candidate": "c0aab652541412fbe0c3e41713b5f796d096f0e974568890d1d2f9140b6df5d4",
+          "removed": 5,
+          "removedLinksSha256": "1e0a4b4903edb28ab0c76096a079f561ee0fbaa55e2a68c35a7dfa4169ab9636"
+        }
+      ],
+      "removedOccurrences": 7,
+      "removedDistinct": 6,
+      "absentFromAllCandidateAnchors": 5,
+      "selectors": {
+        "interfaces": 1,
+        "system": 1,
+        "thing": 4
+      },
+      "removedTargetsResolved": 6,
+      "removedTargetsUnresolved": [],
+      "oldCapturedRoutesMissing": [],
+      "alreadyCapturedTargetStatuses": {
+        "/personal/side-projects/allotment-log/": 200,
+        "/personal/things/?id=svc-allotment-app": 200
+      },
+      "declaredThingAliases": 3,
+      "thingAliasKinds": {
+        "svc→app": 1,
+        "svc→ext": 1,
+        "svc→lib": 1
+      },
+      "selectorResultsSha256": "8c8fd2f224273914bc8028c18bba8b330541d6d3830a8a9c4401917ec4635f2e",
+      "pathAndLinkDeltaSha256": "3aadab2a3fd95d1c983c2eff19e15e61ba9afa46bed9116a578ef0d6fdc0f102",
+      "aliasExamples": [
+        {
+          "url": "/personal/things/?id=svc-allotment-app",
+          "id": "svc:allotment-app",
+          "canonical": "app:allotment-app",
+          "href": "/personal/things/?id=app%3Aallotment-app"
+        },
+        {
+          "url": "/personal/things/?id=svc-geometry",
+          "id": "svc:geometry",
+          "canonical": "lib:geometry",
+          "href": "/personal/things/?id=lib%3Ageometry"
+        },
+        {
+          "url": "/personal/things/?id=svc-weather-api",
+          "id": "svc:weather-api",
+          "canonical": "ext:weather-api",
+          "href": "/personal/things/?id=ext%3Aweather-api"
+        }
+      ],
+      "systemAndJourneyPathResults": [
+        {
+          "url": "/personal/side-projects/allotment-log/",
+          "family": "system",
+          "id": "allotment-log",
+          "canonical": "sys:allotment-log"
+        }
+      ]
+    },
+    "acme": {
+      "archive": ".workspaces/rebuild/pr8/area-audit/acme-facts-history",
+      "runtime": "/private/tmp/rebuild-pr8-acme-runtime-06",
+      "authoredSha256": "ffb831b893c1c5d76aaf3d39fb29a4a16110c456c2c95fea389ce9cd2bb99a9d",
+      "evidenceShards": 0,
+      "aliasYamlMatchesArchive": true,
+      "aliasesSha256": "1f34479d7d0211ba181a163e7e8f1c958ce1b54c3153f3186a07267fb68ca1e7",
+      "frozenCapture": {
+        "folder": "artifacts/rebuild/baseline/acme",
+        "manifestSha256": "c8baa27f5a5d681aad13c0f7abc263ef3ee4026af62d0b7851d9823ac0083ca9",
+        "routes": 35
+      },
+      "candidateCapture": {
+        "folder": ".workspaces/rebuild/pr8/http/acme",
+        "manifestSha256": "edf66aa0d5ed8dc0a829de6a0cfdd82f87501efa8e91069fe7d67d6df23fe7aa",
+        "routes": 42
+      },
+      "changedRoutePairs": [
+        {
+          "route": "/acme/",
+          "frozen": "94c09d2f8601b132627a5d017d06b72550da261b83b4c738500970ee18fed457",
+          "candidate": "d6c13211ccd6e2a242b70d4a2e20dc7765c9f5dda1c6c250fa6020f56d0030d0",
+          "removed": 2,
+          "removedLinksSha256": "3af7d15e4ca4de493cd8abfb5be1e3eaec26e6fb9f85a5e2b9341eaa799d3ccd"
+        },
+        {
+          "route": "/acme/catalogue/",
+          "frozen": "2c346b3dcf424c83975ef568cddf2b0355a7c5255c5548b7b3e4e5cbf869bdb2",
+          "candidate": "e12a6815592c195e36ac54d059d2057bc9ec39440b2ffa294d0117d4b79fab21",
+          "removed": 1,
+          "removedLinksSha256": "4091562dd5208400adec9bc9a7a959cad5d9973180075997ff6a5218b3ab0efa"
+        },
+        {
+          "route": "/acme/catalogue/interfaces/",
+          "frozen": "ec12c1c6277c2bae3d1459b93a333887825cf21d2864933d8f9ce4d0c14d2787",
+          "candidate": "7cfaba648ab002c46ec44ba8d9bb7182a6fa5b821efb314140966bc5e139f774",
+          "removed": 2,
+          "removedLinksSha256": "fb245ad6a1ce0dd9fd38ba80d55fedf0ecde0ff356df983bcf4059fe41b8b009"
+        },
+        {
+          "route": "/acme/catalogue/products/",
+          "frozen": "d00b6b4670ccca26f9256ac1a69ded566a9795d1692b53ec6fa49c33a3fe7c97",
+          "candidate": "a2b586a1a16ec16fdd409138e1ca84e71bce0e2447facc460d1c20e1dc6980ed",
+          "removed": 1,
+          "removedLinksSha256": "4091562dd5208400adec9bc9a7a959cad5d9973180075997ff6a5218b3ab0efa"
+        },
+        {
+          "route": "/acme/journeys/",
+          "frozen": "e120c0f76c99e39c4c0ad240780643adb644e909a38f60af02d4c2ff68fdb1fd",
+          "candidate": "8151911e2d65e8f1104451471fbdae684b00fe6741314212d99d5e94dbacb9e4",
+          "removed": 1,
+          "removedLinksSha256": "8d04857502640deb53f7b064ffb7a2f1f6c1489109c42d93b3742cdfadaf0542"
+        },
+        {
+          "route": "/acme/journeys/flow-cancel-order/",
+          "frozen": "690ab409dc1437353c61280345b83c637ac64e1ac4d81c4592ad70169bd3b162",
+          "candidate": "7ffa879a452e4f699133fed7ee526c6ed27f25e38810973db780b4939d20c77e",
+          "removed": 2,
+          "removedLinksSha256": "3af7d15e4ca4de493cd8abfb5be1e3eaec26e6fb9f85a5e2b9341eaa799d3ccd"
+        },
+        {
+          "route": "/acme/journeys/flow-publish-product/",
+          "frozen": "543f0d84a411914b57756475a0b2d3eb65862eb2be50e54bf50f5958f1e0080c",
+          "candidate": "04ee2289c56e3aa90fd7316a92a45491018e03da94a62a8ccb6b6c2d27341500",
+          "removed": 1,
+          "removedLinksSha256": "8d04857502640deb53f7b064ffb7a2f1f6c1489109c42d93b3742cdfadaf0542"
+        },
+        {
+          "route": "/acme/journeys/uj-buy/",
+          "frozen": "f56e120764da07e279a8f088b0fc9f4fdc3f5f83113bd4aa1159a8171a59611e",
+          "candidate": "77ee54a7117d476a961a727f759c1eb8ce887f825d1472fa5f192d203ecaaf8c",
+          "removed": 2,
+          "removedLinksSha256": "3af7d15e4ca4de493cd8abfb5be1e3eaec26e6fb9f85a5e2b9341eaa799d3ccd"
+        },
+        {
+          "route": "/acme/language/",
+          "frozen": "fba0aa5beb82c9b4f6e918896468c089f0b42462bf22dc49e3ccc09cc64674fa",
+          "candidate": "d068179a7f9d1d5f700cd77683e09f8a7d602f9a389e141862abc1f10a461c21",
+          "removed": 2,
+          "removedLinksSha256": "3af7d15e4ca4de493cd8abfb5be1e3eaec26e6fb9f85a5e2b9341eaa799d3ccd"
+        },
+        {
+          "route": "/acme/people/",
+          "frozen": "269735fa8da0c736b8c833be3ff199a261d56f7073d60122bb97678af219bee6",
+          "candidate": "e35b5849dd632453b1ac4538fae851b43978ebb48f4be420a61313ceba03ec41",
+          "removed": 2,
+          "removedLinksSha256": "3af7d15e4ca4de493cd8abfb5be1e3eaec26e6fb9f85a5e2b9341eaa799d3ccd"
+        },
+        {
+          "route": "/acme/reference/",
+          "frozen": "03910335b95a2b74fa1efda1904544e9e4977f9c65642de16c9431120dceb708",
+          "candidate": "a2a70c1a81a1f27fe8d85f9eacbd29d3f4a9326a45275673b071fd00eade30d7",
+          "removed": 2,
+          "removedLinksSha256": "3af7d15e4ca4de493cd8abfb5be1e3eaec26e6fb9f85a5e2b9341eaa799d3ccd"
+        },
+        {
+          "route": "/acme/reference/apis/",
+          "frozen": "e99e774fa33b865d82fe9cae99b0e2cf838381d071de3f60944563e24c55a24e",
+          "candidate": "16ed0d6dc2edf72bf8b5a330d6e8ba369ca3c4a7654dabf34cd2f8f00c445a19",
+          "removed": 2,
+          "removedLinksSha256": "3af7d15e4ca4de493cd8abfb5be1e3eaec26e6fb9f85a5e2b9341eaa799d3ccd"
+        },
+        {
+          "route": "/acme/reference/components/",
+          "frozen": "b80d6153c0fc562161c381b95e321ba8c260e334d330b9a40f7547a864ec2686",
+          "candidate": "35e3ca36826695d4a2c868b954732118547aaffd07ce2ad09fe0458d7a59ebee",
+          "removed": 2,
+          "removedLinksSha256": "3af7d15e4ca4de493cd8abfb5be1e3eaec26e6fb9f85a5e2b9341eaa799d3ccd"
+        },
+        {
+          "route": "/acme/reference/events/",
+          "frozen": "5a43dc614e42d34cecc3b12038368962439527fb2770104f3e17b1924e31d843",
+          "candidate": "2c8bed908f2473cc718542063794b7c9a1beee2c14f39c9e8c6dff56da51f06f",
+          "removed": 2,
+          "removedLinksSha256": "3af7d15e4ca4de493cd8abfb5be1e3eaec26e6fb9f85a5e2b9341eaa799d3ccd"
+        },
+        {
+          "route": "/acme/reference/flows/",
+          "frozen": "9c0d867930c880ef012379f22ee16d91d0ef4f15e77210a3585f018ec835318f",
+          "candidate": "5705967b22e1f51f75a187f34c305f156fb041d06c9616ddacaa0b6ad519deca",
+          "removed": 2,
+          "removedLinksSha256": "3af7d15e4ca4de493cd8abfb5be1e3eaec26e6fb9f85a5e2b9341eaa799d3ccd"
+        },
+        {
+          "route": "/acme/reference/schemas/",
+          "frozen": "5910591c664aae918c211edb46ec20271ec92a31fe72f171b8c4cc596d3d6e62",
+          "candidate": "96d49cc43e6664028eaa691f3dba2259e1bbcfe597e856f656d63439733634f3",
+          "removed": 2,
+          "removedLinksSha256": "3af7d15e4ca4de493cd8abfb5be1e3eaec26e6fb9f85a5e2b9341eaa799d3ccd"
+        },
+        {
+          "route": "/acme/reference/screens/",
+          "frozen": "8c3989c96f3575f4b1b85bd7d52945277e6e7232f50971e7d570dba3ba046458",
+          "candidate": "a2487a814f41af0550219fc34e60812af003665815ae5a14e1c21eb0ce069dd6",
+          "removed": 2,
+          "removedLinksSha256": "3af7d15e4ca4de493cd8abfb5be1e3eaec26e6fb9f85a5e2b9341eaa799d3ccd"
+        },
+        {
+          "route": "/acme/reference/stores/",
+          "frozen": "5e588553ea0cbaf75ffd1796858c2b6b94c265bee9f79cbe3f416d07c79171ac",
+          "candidate": "deebce16d1308cae86b92fbcccc60339b0d8d58f8674180d8127bf0c72c08ffe",
+          "removed": 2,
+          "removedLinksSha256": "3af7d15e4ca4de493cd8abfb5be1e3eaec26e6fb9f85a5e2b9341eaa799d3ccd"
+        },
+        {
+          "route": "/acme/things/?id=api-products-get",
+          "frozen": "7817b264f9ca6ad6b9ded7e759b5a53bbfa418d8181e20ac939f0f2336684f35",
+          "candidate": "3e1425fdd416a49da4e16eda21a13c7770499690d98e04b86c32a072d442d380",
+          "removed": 10,
+          "removedLinksSha256": "aaad4e2a77ec591465b3efe5374e8b453883ba3d00d06151e83415b5445bb1f7"
+        },
+        {
+          "route": "/acme/things/?id=msg-product-changed",
+          "frozen": "465e0ff2963e8a37d9360c8693c4b73778f1053264ec4abbd8fd708512bc50b8",
+          "candidate": "56ceaae5259aaca781097933f1cf33e6a537d60754775864b562c0947aa65df9",
+          "removed": 5,
+          "removedLinksSha256": "0de8b82f5e6b146dfe39c715a51589830d73fa95320cee68663c9b0fda81a5b2"
+        },
+        {
+          "route": "/acme/things/?id=sch-product",
+          "frozen": "5bdb412d4330a1cea5f3e71a34790f9f02391a3d230ec09dba886ff1934dfe57",
+          "candidate": "5362c961b2343a44b924d329f833aa3d3b4775250276dba449f30cebe3e43d16",
+          "removed": 7,
+          "removedLinksSha256": "3f59d48d9e75d0985851d5c67361321760dd96bf60e3401ca7c51ed7b7e4f8f9"
+        },
+        {
+          "route": "/acme/things/?id=st-products-db",
+          "frozen": "1bde1d7e6a9726aacca62cdf9c6b5855360d4ba9ab3f21065159070c906c5139",
+          "candidate": "549a9f3736e10f373cfc1b84c42e55e15803fc89ca370ffe2e8699cbb399770e",
+          "removed": 8,
+          "removedLinksSha256": "0d9f6d0698e91c21f6016a63e7140a3a33f3415c90d37bc7ad1eb6adc3fae74f"
+        },
+        {
+          "route": "/acme/things/?id=svc-products",
+          "frozen": "1584c20fb0d223ebfc98b5ff122d545bbb7abc793d1befd4e0f51bd71997f322",
+          "candidate": "5d6d7ada7118a2f7dc54e4f36ac6d1e3f57b1163e38c2db31af9e7d315950420",
+          "removed": 15,
+          "removedLinksSha256": "c418e6c4c729185c3275e1e70f266dbf6df90b112bc672911ef9c14a818eb841"
+        },
+        {
+          "route": "/acme/value-flows/",
+          "frozen": "b4aa632957ef6ad7c2c892e6026ea5c27a10577fdea407fe3c5b0a84ca307c00",
+          "candidate": "28912cb48529839b27a444619e2f0bc3e7b02aff3d0bedac5947acc0f0e4422b",
+          "removed": 2,
+          "removedLinksSha256": "3af7d15e4ca4de493cd8abfb5be1e3eaec26e6fb9f85a5e2b9341eaa799d3ccd"
+        }
+      ],
+      "removedOccurrences": 79,
+      "removedDistinct": 34,
+      "absentFromAllCandidateAnchors": 31,
+      "selectors": {
+        "interfaces": 2,
+        "journey": 2,
+        "system": 2,
+        "thing": 28
+      },
+      "removedTargetsResolved": 34,
+      "removedTargetsUnresolved": [],
+      "oldCapturedRoutesMissing": [],
+      "alreadyCapturedTargetStatuses": {
+        "/acme/catalogue/products/": 200,
+        "/acme/journeys/flow-publish-product/": 200,
+        "/acme/journeys/uj-buy/": 200,
+        "/acme/things/?id=svc-products": 200
+      },
+      "declaredThingAliases": 7,
+      "thingAliasKinds": {
+        "st→top": 2,
+        "svc→app": 3,
+        "svc→ext": 2
+      },
+      "selectorResultsSha256": "8a02341672e533ba4d95a0583a50349c80cc47782a735eaeddbde18bf2f4afa1",
+      "pathAndLinkDeltaSha256": "e001598bf472e70e1a47763cf0c8d1d7f8d1cf9a5feddb2cd6c470275a659f50",
+      "aliasExamples": [
+        {
+          "url": "/acme/things/?id=st-order-events",
+          "id": "st:order-events",
+          "canonical": "top:order-events",
+          "href": "/acme/things/?id=top%3Aorder-events"
+        },
+        {
+          "url": "/acme/things/?id=st-product-events",
+          "id": "st:product-events",
+          "canonical": "top:product-events",
+          "href": "/acme/things/?id=top%3Aproduct-events"
+        },
+        {
+          "url": "/acme/things/?id=svc-card-provider",
+          "id": "svc:card-provider",
+          "canonical": "ext:card-provider",
+          "href": "/acme/things/?id=ext%3Acard-provider"
+        },
+        {
+          "url": "/acme/things/?id=svc-identity-provider",
+          "id": "svc:identity-provider",
+          "canonical": "ext:identity-provider",
+          "href": "/acme/things/?id=ext%3Aidentity-provider"
+        },
+        {
+          "url": "/acme/things/?id=svc-order-desk",
+          "id": "svc:order-desk",
+          "canonical": "app:order-desk",
+          "href": "/acme/things/?id=app%3Aorder-desk"
+        },
+        {
+          "url": "/acme/things/?id=svc-product-admin",
+          "id": "svc:product-admin",
+          "canonical": "app:product-admin",
+          "href": "/acme/things/?id=app%3Aproduct-admin"
+        },
+        {
+          "url": "/acme/things/?id=svc-shop-web",
+          "id": "svc:shop-web",
+          "canonical": "app:shop-web",
+          "href": "/acme/things/?id=app%3Ashop-web"
+        }
+      ],
+      "systemAndJourneyPathResults": [
+        {
+          "url": "/acme/catalogue/products/",
+          "family": "system",
+          "id": "products",
+          "canonical": "sys:products"
+        },
+        {
+          "url": "/acme/journeys/flow-publish-product/",
+          "family": "journey",
+          "id": "flow-publish-product",
+          "canonical": "flow:publish-product",
+          "title": "Publish a product"
+        },
+        {
+          "url": "/acme/journeys/uj-buy/",
+          "family": "journey",
+          "id": "uj-buy",
+          "canonical": "jny:buy",
+          "title": "Buy a product"
+        },
+        {
+          "url": "/acme/storefront/shop/",
+          "family": "system",
+          "id": "shop",
+          "canonical": "sys:shop"
+        }
+      ]
+    },
+    "volvo-cars": {
+      "archive": ".workspaces/rebuild/pr8/area-audit/volvo-cars-facts-history",
+      "runtime": "/private/tmp/rebuild-pr8-volvo-runtime-06",
+      "authoredSha256": "006cb5b84b6e5af430962308ea60c098627aa59fdf71668ce632d6f38a173721",
+      "evidenceShards": 117,
+      "aliasYamlMatchesArchive": true,
+      "aliasesSha256": "189812ab947b98ee57f0d2243be64fb394e54ec2110012b05b575e8c8867a880",
+      "frozenCapture": {
+        "folder": "artifacts/rebuild/baseline/volvo-cars",
+        "manifestSha256": "ed5b6b345b32bdcac28532e7f4d39e16ede3b7c3fff61bcd74238aa6934e8209",
+        "routes": 128
+      },
+      "candidateCapture": {
+        "folder": ".workspaces/rebuild/pr8/http/volvo-cars",
+        "manifestSha256": "2911faa0f8957d08ceaa5485023f4a7bce696b873f623b0ddfa547c23b320fec",
+        "routes": 155
+      },
+      "changedRoutePairs": [
+        {
+          "route": "/volvo-cars/",
+          "frozen": "ee8defeda1970425b8b7087ab758fad7faed6c9b04f4180db30d5acd5d2b7491",
+          "candidate": "c8d93b396eaa4ffaeb29ef9e481659820c39dd619ffa187858e595c5ce891cf3",
+          "removed": 5,
+          "removedLinksSha256": "98bb674b178ea944c70b1460c4979708cb17e009506b65fc7dbbbc61aee6a416"
+        },
+        {
+          "route": "/volvo-cars/areas/range/",
+          "frozen": "02bfdcd8b28b6233ce512a6edf520051316a8a52cd556a29b7e3d667e706f9dd",
+          "candidate": "8bcd84eb5ec86b3ef5a6ca244aa5bc3f7895abf4d79387a4f38e4e187328cfe8",
+          "removed": 5,
+          "removedLinksSha256": "98bb674b178ea944c70b1460c4979708cb17e009506b65fc7dbbbc61aee6a416"
+        },
+        {
+          "route": "/volvo-cars/commercial-backbone/",
+          "frozen": "e2319f664bba83ccfd8800feb5da5144efd8fbb3ace3335f283c617465d7f0fc",
+          "candidate": "2749450090eea26e164eeebb3fc2db595c1ec5e21c81a94ff3554dc370a4c47c",
+          "removed": 7,
+          "removedLinksSha256": "11ed1484131425ed2ea99731be65119c2c12121b3a0c888b939589a352cffcf4"
+        },
+        {
+          "route": "/volvo-cars/commercial-backbone/assortment/",
+          "frozen": "86fae720a9d600b94003ce15052925d25edd5978ba4f5a3a0e318b0e4eae7b6f",
+          "candidate": "30e3eaa9057077f015121951f5adc23725e5aa14635e8039f247b674225d1a07",
+          "removed": 18,
+          "removedLinksSha256": "1cf41f94e5e87750a7a86226e25dfaec78157983703fd9bcdc46ea5b5e3c76d9"
+        },
+        {
+          "route": "/volvo-cars/commercial-backbone/interfaces/",
+          "frozen": "09cbc923cc3bcbccf19af78b3f9b1b6afb904dd4de78cc60095914d74222de13",
+          "candidate": "14be744ddfb2a7c582eb5ef95db4313e2167fefd544b0419a41a462d80a250d1",
+          "removed": 17,
+          "removedLinksSha256": "af477d9a4c08edda6953210e189d96a79851a4cf6809a06dd32437e3b17fc126"
+        },
+        {
+          "route": "/volvo-cars/journeys/flow-activate-financing-offer/",
+          "frozen": "d9d5963b1aee79ae4323d1a37b7f010a22eff600a1a27467b166ef99fecce471",
+          "candidate": "f7988591bf3739838ad34257c07400111fe4fc6267063b643306e257817671ed",
+          "removed": 5,
+          "removedLinksSha256": "98bb674b178ea944c70b1460c4979708cb17e009506b65fc7dbbbc61aee6a416"
+        },
+        {
+          "route": "/volvo-cars/language/",
+          "frozen": "98c8a6395586cf2d94eb8294b394d705d607b7f936147bef67e55fd1921e5b77",
+          "candidate": "f31d154a89c441d14774ad103d2d16bbf28e600f7596d1105c256b69397e7dfa",
+          "removed": 5,
+          "removedLinksSha256": "98bb674b178ea944c70b1460c4979708cb17e009506b65fc7dbbbc61aee6a416"
+        },
+        {
+          "route": "/volvo-cars/people/",
+          "frozen": "cdabf60ca057a39196fa3d8ed6847e5310ee41e5e4f6989f436c11c56aec8dd0",
+          "candidate": "50bc504e5c1a8cc86b4d0e2e99eb013d8a2f8ef59a524a27f9422ffef1feb20e",
+          "removed": 5,
+          "removedLinksSha256": "98bb674b178ea944c70b1460c4979708cb17e009506b65fc7dbbbc61aee6a416"
+        },
+        {
+          "route": "/volvo-cars/reference/",
+          "frozen": "a7e84663e004a75ce552d31a7693b24b5144f03eb3288ab104aaf2b00a17edc3",
+          "candidate": "c2d544cf833f0c401890ab365f0e8eb36a43a203ca4d05e3f580b6aab8101bd2",
+          "removed": 5,
+          "removedLinksSha256": "98bb674b178ea944c70b1460c4979708cb17e009506b65fc7dbbbc61aee6a416"
+        },
+        {
+          "route": "/volvo-cars/reference/apis/",
+          "frozen": "d8ff50dde5d0329bac908c51f3ea761e4aa8eed1ae418af5eec7519201c86ed9",
+          "candidate": "65d72fcef67029e51525c039fd722c3034779fe7121de732e6243792b7219f54",
+          "removed": 5,
+          "removedLinksSha256": "98bb674b178ea944c70b1460c4979708cb17e009506b65fc7dbbbc61aee6a416"
+        },
+        {
+          "route": "/volvo-cars/reference/components/",
+          "frozen": "e4933c2fd648687119d36d363e4756f625a6006b456ab1e22f602396266e8267",
+          "candidate": "ae41294e4e84167f6f0d7e6a08ab8c4adba196ac1872866842d8090ac2c4a4c0",
+          "removed": 5,
+          "removedLinksSha256": "98bb674b178ea944c70b1460c4979708cb17e009506b65fc7dbbbc61aee6a416"
+        },
+        {
+          "route": "/volvo-cars/reference/events/",
+          "frozen": "8a807bbb747c5db1cf16fa54582b66027ddbb2eb3d845213548f3300df9cc85c",
+          "candidate": "343967353b155e2868e279db462090ea9398c41f3b012fdcc5ca2f72a93fe539",
+          "removed": 5,
+          "removedLinksSha256": "98bb674b178ea944c70b1460c4979708cb17e009506b65fc7dbbbc61aee6a416"
+        },
+        {
+          "route": "/volvo-cars/reference/flows/",
+          "frozen": "e2aebb2a3a134be9732414d723ab10dee83dd4df93157e77325d726f4c39a9c7",
+          "candidate": "9774b9448352bac8210c18bd74a6db7727726cde3cf5200f67f25aa05e3f79ee",
+          "removed": 5,
+          "removedLinksSha256": "98bb674b178ea944c70b1460c4979708cb17e009506b65fc7dbbbc61aee6a416"
+        },
+        {
+          "route": "/volvo-cars/reference/operations/",
+          "frozen": "2e385f29cea5bef8703294fc9c2ae4aa86db0f9f9798af7795f2cb91077607f6",
+          "candidate": "d8b2a01e1f94b3b732f85045d53d2d4ccc15e36c7407646ccc4f18e26924ba2d",
+          "removed": 5,
+          "removedLinksSha256": "98bb674b178ea944c70b1460c4979708cb17e009506b65fc7dbbbc61aee6a416"
+        },
+        {
+          "route": "/volvo-cars/reference/schemas/",
+          "frozen": "1db61885f27d1a46e892997a830130d7ff7d18ced661dc40ced9b38f97cd2756",
+          "candidate": "d87a38ea53143f3d36ffad7e210b0c9e6d3363b373d926788ee2c621239b9efc",
+          "removed": 5,
+          "removedLinksSha256": "98bb674b178ea944c70b1460c4979708cb17e009506b65fc7dbbbc61aee6a416"
+        },
+        {
+          "route": "/volvo-cars/reference/screens/",
+          "frozen": "28eb4212e27adf2430efaee0edb86f6808461eacd790d8e9d694731eeffac127",
+          "candidate": "2bcca4f864f5129a7dd59cff911eb889be6239141fee63658a3093508d7e945b",
+          "removed": 5,
+          "removedLinksSha256": "98bb674b178ea944c70b1460c4979708cb17e009506b65fc7dbbbc61aee6a416"
+        },
+        {
+          "route": "/volvo-cars/reference/stores/",
+          "frozen": "faf4574dc62b6e07d9585379f165f7441726223d13d604b8c10a4f499a1a2421",
+          "candidate": "17b8e75764dae679ffeac955a1f47717e80b3ed4a690dfa55728809680d97336",
+          "removed": 5,
+          "removedLinksSha256": "98bb674b178ea944c70b1460c4979708cb17e009506b65fc7dbbbc61aee6a416"
+        },
+        {
+          "route": "/volvo-cars/things/?id=api-assortment-admin-classification-create",
+          "frozen": "f29f6f4207d02691732227841ec4d468584eb1c5bce73c30a6915590b6984e35",
+          "candidate": "55d3a0a2dc767a3955734c5e358bc97e71fdbe44080e5f52fa7170b0468ad8ff",
+          "removed": 2908,
+          "removedLinksSha256": "e5ee7030b3d72e263ea2f8dd2898d0e4f4ccbefc3d1d456fea27e3a3261b5e82"
+        },
+        {
+          "route": "/volvo-cars/things/?id=h-assortment-admin-apply-car-plan",
+          "frozen": "b1715524806a77b17044e22b431e9e94265657be1a074545c70bb249bc201cf7",
+          "candidate": "e9b65b21147d684f9fb8f074e1c3fee6e6b30cf97ecfdace54a4670d195087ea",
+          "removed": 1793,
+          "removedLinksSha256": "32540c822645d2ac80b266f0783fafe3e387765d24a206928aaf82138ff3ae32"
+        },
+        {
+          "route": "/volvo-cars/things/?id=msg-assortment-classification-changed",
+          "frozen": "d07e99a0454a036c686886c9f0f802603daf41561851a686c06a2bca20dc68f8",
+          "candidate": "c43226d5aec987bf544b2a578f212a1792fa30d90ef0814dce40bd6dc972ac74",
+          "removed": 169,
+          "removedLinksSha256": "a709869cc31de4dbadd51aa0c8bc27bf64bb85eb1cd3cda2fce4ed7ecd217994"
+        },
+        {
+          "route": "/volvo-cars/things/?id=sch-assortment-admin-classification",
+          "frozen": "24df868dad204bb9af9a4b916b5d2ac731063d27de060d3e5238db5c85a96378",
+          "candidate": "146990bd9a7fe0285fd27602773f40bdfecfe98b52f3b974f2e81a79a105557d",
+          "removed": 1036,
+          "removedLinksSha256": "336fb733643d050fc815053bc95464d87d2098200115c2b8c1e9804d1c5b1122"
+        },
+        {
+          "route": "/volvo-cars/things/?id=st-assortment-classifications-events",
+          "frozen": "3d56857d81ecc21a2d4dfd4a7aba0310bef052ec7b2475596264093290a05a7e",
+          "candidate": "8ec65c00812637297a9c325dd16f8a0b621d840c7a1b5a4408485bc8f60240e5",
+          "removed": 259,
+          "removedLinksSha256": "8449125235ef8ccfea4012dc9002c6e7b52aab73d3f1132ff0071feb4093ab8d"
+        },
+        {
+          "route": "/volvo-cars/things/?id=svc-assortment-admin-api",
+          "frozen": "322f362f3511bb77a6524f8c3159102a5549b69139164f63f4ba95ecf16cc5ba",
+          "candidate": "d6c409c0990e8be0e2518fd4104e843122fd04810a904741ab860df500efe412",
+          "removed": 320,
+          "removedLinksSha256": "884896b379369b3c707e831966e1accfc5461dabb204217595a0ed0eef9cb649"
+        },
+        {
+          "route": "/volvo-cars/value-flows/",
+          "frozen": "7594977b76a4de7ea4b6ea506a1e36b75db0813b97315453bd1a73a996410b9d",
+          "candidate": "2513c19ffac44de1cd5e57b16e04d6bddeed96ad505444f4d5792afbc919bc37",
+          "removed": 5,
+          "removedLinksSha256": "98bb674b178ea944c70b1460c4979708cb17e009506b65fc7dbbbc61aee6a416"
+        }
+      ],
+      "removedOccurrences": 6602,
+      "removedDistinct": 6494,
+      "absentFromAllCandidateAnchors": 6487,
+      "selectors": {
+        "explorer": 18,
+        "interfaces": 17,
+        "journey": 5,
+        "system": 8,
+        "thing": 6446
+      },
+      "removedTargetsResolved": 6494,
+      "removedTargetsUnresolved": [],
+      "oldCapturedRoutesMissing": [],
+      "alreadyCapturedTargetStatuses": {
+        "/volvo-cars/commercial-backbone/assortment/": 200,
+        "/volvo-cars/things/?id=st-assortment-classifications-events": 200,
+        "/volvo-cars/things/?id=svc-assortment-admin-api": 200
+      },
+      "declaredThingAliases": 321,
+      "thingAliasKinds": {
+        "api→api": 2,
+        "st→top": 125,
+        "svc→app": 70,
+        "svc→ext": 59,
+        "svc→lib": 1,
+        "svc→sys": 64
+      },
+      "selectorResultsSha256": "4c0a44209d92dccdce64b55c6c966eadfac4e9ca030a2bf782b3af239fb211e2",
+      "pathAndLinkDeltaSha256": "911424358f74d3fe94a1f38839a184bb495ae6f2d28593df1955ff4e88031f52",
+      "aliasExamples": [
+        {
+          "url": "/volvo-cars/things/?id=api-part-exchange-rockar-passwordless-login",
+          "id": "api:part-exchange-rockar-passwordless-login",
+          "canonical": "api:rockar-passwordless-login",
+          "href": "/volvo-cars/entries/?id=api%3Arockar-passwordless-login"
+        },
+        {
+          "url": "/volvo-cars/things/?id=api-part-exchange-rockar-passwordless-start",
+          "id": "api:part-exchange-rockar-passwordless-start",
+          "canonical": "api:rockar-passwordless-start",
+          "href": "/volvo-cars/entries/?id=api%3Arockar-passwordless-start"
+        },
+        {
+          "url": "/volvo-cars/things/?id=st-app3418-om-outbound",
+          "id": "st:app3418-om-outbound",
+          "canonical": "top:app3418-om-outbound",
+          "href": "/volvo-cars/things/?id=top%3Aapp3418-om-outbound"
+        },
+        {
+          "url": "/volvo-cars/things/?id=st-app5303-coss-bravo-sold-registration-order-events-0",
+          "id": "st:app5303-coss-bravo-sold-registration-order-events-0",
+          "canonical": "top:app5303-coss-bravo-sold-registration-order-events-0",
+          "href": "/volvo-cars/things/?id=top%3Aapp5303-coss-bravo-sold-registration-order-events-0"
+        },
+        {
+          "url": "/volvo-cars/things/?id=st-app5541-cart-analytics",
+          "id": "st:app5541-cart-analytics",
+          "canonical": "top:app5541-cart-analytics",
+          "href": "/volvo-cars/things/?id=top%3Aapp5541-cart-analytics"
+        },
+        {
+          "url": "/volvo-cars/things/?id=st-app5541-cart-events",
+          "id": "st:app5541-cart-events",
+          "canonical": "top:app5541-cart-events",
+          "href": "/volvo-cars/things/?id=top%3Aapp5541-cart-events"
+        },
+        {
+          "url": "/volvo-cars/things/?id=st-app5541-cdb-sync-events",
+          "id": "st:app5541-cdb-sync-events",
+          "canonical": "top:app5541-cdb-sync-events",
+          "href": "/volvo-cars/things/?id=top%3Aapp5541-cdb-sync-events"
+        }
+      ],
+      "systemAndJourneyPathResults": [
+        {
+          "url": "/volvo-cars/commercial-backbone/assortment/",
+          "family": "system",
+          "id": "assortment",
+          "canonical": "sys:assortment"
+        },
+        {
+          "url": "/volvo-cars/journeys/flow-fae-maintain-finance-products/",
+          "family": "journey",
+          "id": "flow-fae-maintain-finance-products",
+          "canonical": "flow:fae-maintain-finance-products",
+          "title": "Maintain FAE finance products, capabilities and rules"
+        },
+        {
+          "url": "/volvo-cars/journeys/flow-gpe-price-configuration-calculation/",
+          "family": "journey",
+          "id": "flow-gpe-price-configuration-calculation",
+          "canonical": "flow:gpe-price-configuration-calculation",
+          "title": "Configurator price calculation"
+        },
+        {
+          "url": "/volvo-cars/journeys/flow-offer-admin-to-read-view/",
+          "family": "journey",
+          "id": "flow-offer-admin-to-read-view",
+          "canonical": "flow:offer-admin-to-read-view",
+          "title": "Admin offer changes become read projections"
+        },
+        {
+          "url": "/volvo-cars/journeys/flow-prism-import-product-service-identities/",
+          "family": "journey",
+          "id": "flow-prism-import-product-service-identities",
+          "canonical": "flow:prism-import-product-service-identities",
+          "title": "Import Product Service product and variant IDs into Prism"
+        },
+        {
+          "url": "/volvo-cars/journeys/flow-render-price-breakdown/",
+          "family": "journey",
+          "id": "flow-render-price-breakdown",
+          "canonical": "flow:render-price-breakdown",
+          "title": "Show the price breakdown"
+        },
+        {
+          "url": "/volvo-cars/shopping/customer-profile/",
+          "family": "system",
+          "id": "customer-profile",
+          "canonical": "sys:customer-profile"
+        },
+        {
+          "url": "/volvo-cars/shopping/data-submission/",
+          "family": "system",
+          "id": "data-submission",
+          "canonical": "sys:data-submission"
+        },
+        {
+          "url": "/volvo-cars/shopping/lead-forms/",
+          "family": "system",
+          "id": "lead-forms",
+          "canonical": "sys:lead-forms"
+        },
+        {
+          "url": "/volvo-cars/shopping/market-pages/",
+          "family": "system",
+          "id": "market-pages",
+          "canonical": "sys:market-pages"
+        },
+        {
+          "url": "/volvo-cars/shopping/media-site/",
+          "family": "system",
+          "id": "media-site",
+          "canonical": "sys:media-site"
+        },
+        {
+          "url": "/volvo-cars/shopping/news/",
+          "family": "system",
+          "id": "news",
+          "canonical": "sys:news"
+        },
+        {
+          "url": "/volvo-cars/shopping/volvo-flow/",
+          "family": "system",
+          "id": "volvo-flow",
+          "canonical": "sys:volvo-flow"
+        }
+      ],
+      "explorerCatalogueSha256": "8204d9bacc64fe27f805b331557e3b90279cde39a17b0d577993c490ba3b3341"
+    }
+  },
+  "aggregate": {
+    "changedRoutePairs": 51,
+    "removedOccurrences": 6688,
+    "resolvedDistinct": 6534,
+    "unresolvedDistinct": 0
+  },
+  "reconciliation": "The 51 changed route pairs contain 6,688 removed anchor occurrences, naming 6,534 distinct destinations. All resolve with the current route selectors. Six Volvo thing pages account for 6,485 occurrences. Their old related-record lists no longer emit each old URL as an anchor. The canonical records still resolve, including 331 things with explicit aliases. All seven Shopping system paths remain in Shopping. The old interface query selectors select their actual system catalogue rows. Journey/flow keys select their actual records and retained explorer selections match the exact service IDs in the unchanged publication catalogue. This receipt addresses navigation resolution only. Content, production size and final release captures retain separate evidence."
+}

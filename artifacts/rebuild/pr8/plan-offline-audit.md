@@ -1,0 +1,12 @@
+# Volvo plan capture audit
+
+The completed build03/runtime04 capture was inspected offline; no new HTTP capture or passing final comparison is claimed. Frozen baselines remain unchanged. `plan-offline-audit.json` pins both manifests and the original programme source, and records every exact leaf disposition below.
+
+- All eight `plan.json` responses returned 200. Each authored plan is exact against its native fact snapshot. Every non-evidence field in its before and after models is exact; progress metadata is exact after the existing `modelPlanProgressOf` projection. Evidence is deliberately a declared authored closure, not the full server catalogue.
+- All 67 work standings retain their membership, titles, order, dependencies, states, commitments, dates, issue references, last-heard records and other fields. All milestone and team standing arrays are exact. All six independent progress events are exact.
+- The only 15 work-standing leaf differences are blocker labels: qualified programme IDs become their actual question or decision text. Each replacement is exact against both the original Care programme YAML and its canonical current programme record; the receipt records the original source line and old/new exact comparison hashes. No state or blocker identity changed.
+- All 50 previously inherited fact identities resolve in the selected before models: 12 online, 17 order change, 12 sales tool and nine stock reservation. Their ancestor plans remain explicitly identified by proposed-effect gaps in those models (54, 55, 54 and 47 gap occurrences respectively). Facts are retained as proposed context; this is not proof of implementation.
+
+A real cover presentation omission was found: historical check dates and the need to recheck were absent, including the old Immutable IDs and Sourced Financing Terms warnings. Earlier-format hashes cannot honestly establish drift in the consolidated model. The narrow correction uses `readModelPlanBaseInfo`: historical dates explicitly require a new check, native check/edit/drift metadata remains meaningful, landed plans name the retained basis, and actual ancestor titles link to their real folders with an explicit proposed/unverified qualification. Its new markup requires a corrected production build; this offline capture is not claimed as proof of the correction.
+
+The earlier drift counts (four Immutable ID APIs and 20 Sourced Financing Terms targets) are retained in the receipt as historical observations only. They must not be relabelled as current native drift.

@@ -21,7 +21,7 @@ export function PlanList({ plans }: PlanListProps) {
     <div className={styles.groups}>
       {grouped(plans).map(([group, members]) => (
         <section className={styles.group} data-group={group} key={group}>
-          <h4 className={styles.groupName}>{GROUP_NAMES[group]}</h4>
+          <h4 className={styles.groupName}>{members[0]?.groupLabel ?? GROUP_NAMES[group]}</h4>
           <ul className={styles.plans}>
             {members.map((plan) => (
               <li key={plan.id}>

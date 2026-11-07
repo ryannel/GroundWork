@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { areaViewOf } from '@/application/workspace-area';
-import { workspaceNavOf } from '@/application/workspace-nav';
-import { TodayOverlays, TodaySearch } from '@/features/plan';
+import { modelAreaViewOf } from '@/application/model-area';
+import { modelWorkspaceNavOf } from '@/application/model-navigation';
+import { buildId, hasPrefix } from '@/domain/ids';
+import { ModelTodayOverlays, TodaySearch } from '@/features/plan';
 import { AreaPage } from '@/features/workspace';
-import { readExplorerManifest } from '@/infrastructure/service-explorer-files';
-import { todayData } from '@/infrastructure/today-data';
-import { readAuthoredLandscape } from '@/infrastructure/workspace-landscape';
+import { readCanonicalModelIndex } from '@/infrastructure/model-index';
+import { readModelPlans } from '@/infrastructure/model-plans';
 import { firstParam, type SearchParams } from '@/shared/search-params';
 
 interface Params {
@@ -21,9 +21,10 @@ export async function generateMetadata({
   readonly params: Promise<Params>;
 }): Promise<Metadata> {
   const { workspace: id, area } = await params;
-  const landscape = await readAuthoredLandscape(id);
-  const name = landscape?.areas.find((each) => each.id === area)?.name;
-  return name === undefined ? {} : { title: name };
+  const index = await readCanonicalModelIndex(id);
+  if (index === null) return {};
+  const node = index.get(hasPrefix(area, 'area') ? area : buildId('area', area));
+  return node?.kind === 'area' ? { title: index.label(node.id) } : {};
 }
 
 export default async function AreaRoute({
@@ -34,37 +35,17 @@ export default async function AreaRoute({
   readonly searchParams: Promise<SearchParams>;
 }) {
   const { workspace: id, area } = await params;
-  const [data, landscape, query] = await Promise.all([
-    todayData(id),
-    readAuthoredLandscape(id),
-    searchParams,
-  ]);
-  if (data === null || landscape === null) notFound();
-  const explorer = await readExplorerManifest(id);
-  const view = areaViewOf({
-    workspace: data.workspace,
-    landscape,
-    area,
-    explorer,
-    model: data.today.model,
-    attribution: data.today.attribution,
-  });
+  const index = await readCanonicalModelIndex(id);
+  if (index === null) notFound();
+  const view = modelAreaViewOf(index, area);
   if (view === null) notFound();
+  const query = await searchParams;
   return (
     <AreaPage
       initialFlow={firstParam(query.flow)}
       actions={<TodaySearch />}
-      nav={workspaceNavOf(
-        data.workspace,
-        data.plans,
-        {
-          section: 'area',
-          key: area,
-          today: data.today.model,
-        },
-        data.programmes,
-      )}
-      overlays={<TodayOverlays depth={2} workspace={data.workspace} />}
+      nav={modelWorkspaceNavOf(index, await readModelPlans(id), { section: 'area', key: area })}
+      overlays={<ModelTodayOverlays index={index} depth={2} />}
       view={view}
     />
   );

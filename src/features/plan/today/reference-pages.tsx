@@ -1,10 +1,16 @@
+import type { ModelReferenceEntry, ModelReferencePage } from '@/application/model-reference';
 import type { Model } from '@/application/plan/derive';
 import { referenceKindHref } from '@/application/today-reader';
 import { referenceOf } from '@/application/today-reference';
+import { ReferenceControls } from '@/features/plan/chapters/ref/reference-controls.client';
 import { ReferenceIndex } from '@/features/plan/chapters/ref/reference-index';
 import type { SearchParams } from '@/shared/search-params';
 import { Card } from '@/ui/card';
+import { Chip } from '@/ui/chip';
+import { List, ListItem } from '@/ui/list';
 import { PageHeader } from '@/ui/page-header';
+import { Stack } from '@/ui/stack';
+import { Text } from '@/ui/text';
 
 import styles from './reference-pages.module.css';
 
@@ -18,7 +24,16 @@ interface ReferenceProps {
 
 /** Every kind of thing the systems hold today, each with how many and what its catalogue is for. */
 export function TodayReference({ workspace, model }: ReferenceProps) {
-  const kinds = referenceOf(model);
+  return <ModelTodayReference workspace={workspace} kinds={referenceOf(model)} />;
+}
+
+export function ModelTodayReference({
+  workspace,
+  kinds,
+}: {
+  readonly workspace: string;
+  readonly kinds: readonly ModelReferenceEntry[];
+}) {
   const what =
     kinds.length === 0
       ? 'Nothing is recorded about how the systems work yet.'
@@ -63,6 +78,64 @@ export function TodayCatalogue({
         today
         {...(params === undefined ? {} : { params })}
       />
+    </>
+  );
+}
+
+/** Native pages share the catalogue controls and bounded rows; full records open in the native inspector. */
+export function ModelTodayCatalogue({
+  entry,
+  page,
+}: {
+  readonly entry: ModelReferenceEntry;
+  readonly page: ModelReferencePage;
+}) {
+  const { rows, teams, ...controls } = page;
+  return (
+    <>
+      <PageHeader title={entry.title} description={entry.headline}>
+        <p>{entry.lede}</p>
+      </PageHeader>
+      <Stack>
+        <ReferenceControls
+          key={JSON.stringify(controls.query)}
+          page={controls}
+          teams={teams}
+          today
+        />
+        {rows.length === 0 ? (
+          <Text as="p">Nothing matches that filter.</Text>
+        ) : (
+          <List>
+            {rows.map((row) => (
+              <ListItem key={row.chip.id}>
+                <Stack>
+                  <Chip {...row.chip} />
+                  {row.owner === null ? null : <Chip {...row.owner} />}
+                  {row.summary === '' ? null : (
+                    <Text as="p" tone="faint">
+                      {row.summary}
+                    </Text>
+                  )}
+                  {row.gaps.map((gap, at) => (
+                    <Text
+                      as="p"
+                      size="sm"
+                      tone="muted"
+                      key={`${gap.kind}:${gap.message}:${String(at)}`}
+                    >
+                      {gap.message}
+                      {gap.count === undefined || gap.count === 1
+                        ? null
+                        : ` (${String(gap.count)} occurrences)`}
+                    </Text>
+                  ))}
+                </Stack>
+              </ListItem>
+            ))}
+          </List>
+        )}
+      </Stack>
     </>
   );
 }

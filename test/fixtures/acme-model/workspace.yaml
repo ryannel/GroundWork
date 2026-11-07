@@ -1,0 +1,43 @@
+id: acme
+name: Acme
+description: 'A small shop: a catalogue, a storefront and the orders between them.'
+private: false
+teams:
+  - id: team:web
+    name: Web
+    colour: 2
+    channel: '#team-web'
+  - id: team:orders
+    name: Orders
+    colour: 3
+    channel: '#team-orders'
+  - id: team:catalogue
+    name: Catalogue
+    colour: 5
+  - id: team:payments
+    name: Payments
+    channel: '#team-payments'
+actors:
+  - id: actor:customer
+    name: Customer
+    summary: Finds a product and orders it.
+    uses:
+      - app:shop-web
+    customer: true
+  - id: actor:merchandiser
+    name: Merchandiser
+    summary: Puts products in the catalogue and keeps them right.
+    uses:
+      - app:product-admin
+    customer: false
+  - id: actor:order-clerk
+    name: Order clerk
+    summary: Looks after orders once they are placed.
+    uses:
+      - app:order-desk
+    customer: false
+  - id: actor:support-agent
+    name: Support agent
+    uses: []
+    customer: false
+format: 2

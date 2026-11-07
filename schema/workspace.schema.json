@@ -4658,6 +4658,24 @@
     "SystemId": {
       "type": "string",
       "pattern": "^(?:sys):[^#\\s]+$"
+    },
+    "PlanBaseMarker": {
+      "type": "object",
+      "description": "A native landed plan keeps its canonical model inputs under the sibling base directory.",
+      "properties": {
+        "format": {
+          "const": "groundwork-model-base/v1"
+        },
+        "landed_on": {
+          "type": "string",
+          "format": "date"
+        }
+      },
+      "required": [
+        "format",
+        "landed_on"
+      ],
+      "additionalProperties": false
     }
   },
   "anyOf": [

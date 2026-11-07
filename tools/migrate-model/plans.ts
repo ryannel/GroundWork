@@ -79,7 +79,18 @@ function planComponent(kind: string, value: Node, context: PlanContext): Node {
   let type = component.type ?? 'service';
   if (legacyKind === 'ui') type = 'website';
   if (kind === 'store') type = 'database';
-  return migrateComponent({ ...component, type }, [], context.citations, context.review);
+  const descriptions = [
+    modelText(component.does),
+    modelText(component.summary),
+    legacyKind === 'job' ? 'Proposed classification: job.' : null,
+  ];
+  const does = [...new Set(descriptions)].filter((text) => text !== null).join('\n\n');
+  return migrateComponent(
+    { ...component, type, ...(does === '' ? {} : { does }) },
+    [],
+    context.citations,
+    context.review,
+  );
 }
 function regionOf(value: Node): Node {
   const { shows, ...kept } = value;

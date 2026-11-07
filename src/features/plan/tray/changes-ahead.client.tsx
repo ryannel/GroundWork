@@ -1,13 +1,22 @@
 'use client';
 
 import Link from 'next/link';
-import { type RefObject, Suspense, use, useEffect, useRef, useSyncExternalStore } from 'react';
+import {
+  type ReactNode,
+  type RefObject,
+  Suspense,
+  use,
+  useEffect,
+  useRef,
+  useSyncExternalStore,
+} from 'react';
 
-import type { Model } from '@/application/plan/derive';
-import { aheadStop } from '@/application/plan-changes-ahead';
+import { modelInspectionRef } from '@/application/model-inspection';
+import { modelAheadStop } from '@/application/model-plan-pages';
+import type { AheadStop } from '@/application/plan-changes-ahead';
 import type { PlanAddress } from '@/application/plan-pages';
-import { EntityChip } from '@/features/plan/common/entity-chip';
-import { pendingModel } from '@/features/plan/plan-model';
+import { pendingNativeModel } from '@/features/plan/plan-model';
+import { Mention } from '@/ui/mention';
 
 import styles from './changes-ahead.module.css';
 import {
@@ -52,21 +61,20 @@ interface RowsProps {
 }
 
 function PinRow({
-  model,
-  at,
   pin,
+  stop,
+  chip,
 }: {
-  readonly model: Model;
-  readonly at: PlanAddress;
   readonly pin: Pin;
+  readonly stop: AheadStop | null;
+  readonly chip: ReactNode;
 }) {
-  const stop = aheadStop(model, at, pin.id);
   return (
     <li className={styles.row} data-seen={pin.seen ? '' : undefined}>
       <span aria-label={pin.seen ? 'Seen' : 'Still ahead'} className={styles.mark} role="img">
         {pin.seen ? '✓' : '◇'}
       </span>
-      <EntityChip id={pin.id} model={model} />
+      {chip}
       {stop === null ? null : (
         <Link className={styles.go} href={stop.href}>
           {stop.position} {stop.title}
@@ -78,21 +86,26 @@ function PinRow({
 
 /** Ticks off the pins whose changes this screen shows. */
 function SeenHere({ src, at, here }: Omit<RowsProps, 'pins'>) {
-  const model = use(pendingModel(src).model);
+  const native = use(pendingNativeModel(src).model);
   const plan = `${at.workspace}/${at.slug}`;
   useEffect(() => {
-    if (model !== null) markSeen(plan, (pin) => aheadStop(model, at, pin.id)?.href === here);
-  }, [model, at, plan, here]);
+    if (native !== null) markSeen(plan, (pin) => modelAheadStop(native, at, pin.id)?.href === here);
+  }, [native, at, plan, here]);
   return null;
 }
 
 function Rows({ src, at, pins }: Omit<RowsProps, 'here'>) {
-  const model = use(pendingModel(src).model);
-  if (model === null) return <p className={styles.note}>The plan could not be loaded.</p>;
+  const native = use(pendingNativeModel(src).model);
+  if (native === null) return <p className={styles.note}>The plan could not be loaded.</p>;
   return (
     <ul className={styles.rows}>
       {pins.map((pin) => (
-        <PinRow at={at} key={pin.id} model={model} pin={pin} />
+        <PinRow
+          key={pin.id}
+          pin={pin}
+          stop={modelAheadStop(native, at, pin.id)}
+          chip={<Mention {...modelInspectionRef(native, pin.id)} />}
+        />
       ))}
     </ul>
   );

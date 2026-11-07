@@ -1,0 +1,10 @@
+{"route":"/","bytes":29295,"sha256":"4d7097ba8965ac86c11391528199677b473cd5882afc2f48299fd674e45eef5c","identical":true}
+{"route":"/personal/explorer/","bytes":25979,"sha256":"082434317e46987bafaaae082dddf05b45ce8dbc4e41f9f05f8a3338edddc769","identical":true}
+{"route":"/personal/things/?id=svc-allotment-app","bytes":46017,"sha256":"3cbf8bb904c1a0320411310058c2b310a8b183cc547aa4165c1f84b55beddf3b","identical":true}
+{"route":"/acme/explorer/","bytes":31071,"sha256":"4750a0dfcdcc26f42479b18cc958fb031253867216f4996497761c845d7958f3","identical":true}
+{"route":"/acme/things/?id=api-products-get","bytes":56875,"sha256":"3e67f91676ce5807c0f74cab8e54fd9871772477d68adb3180cafc4cf1fbeff4","identical":true}
+{"route":"/volvo-cars/explorer/","bytes":124774,"sha256":"9d9d17c7c90c57be945c7de94eb4677806f3ef2ad969739dadd9867829ce8849","identical":true}
+{"route":"/volvo-cars/commercial-backbone/map/","bytes":948713,"sha256":"cfb50ea15822ea64e48d1fc7a1ce021a0dcc00c77e3f779966ec1ff81f4e6ac7","identical":true}
+{"route":"/volvo-cars/programmes/care-se/","bytes":478528,"sha256":"6cccadfbc013793f2d1e962d6bd644c5287a84ee1b686141d272be2e6e767bd9","identical":true}
+{"route":"/volvo-cars/plans/immutable-ids/things/?id=svc-assortment-admin-api","bytes":400714,"sha256":"ce76a0c86c5b268d31ffdde02fae4e16dece6de07de8ec229715e8a2fdf10fcd","identical":true}
+{"route":"/volvo-cars/model.json","bytes":null,"sha256":"000d1dadeb40a855f593b09c4c7de61bb0d4e434f5b2b69dcf4bdf39c8a3b299","identical":true}

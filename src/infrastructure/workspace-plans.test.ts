@@ -1,10 +1,11 @@
 import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
-import { afterAll, describe, expect, it, vi } from 'vitest';
+import { afterAll, afterEach, describe, expect, it, vi } from 'vitest';
 
 vi.mock(import('server-only'), () => ({}));
 
+const { planData, planFailure } = await import('./plan-data');
 const { checkPlanState, readPlanState } = await import('./workspace-plans');
 
 const scratch = path.join(process.cwd(), 'node_modules', '.cache');
@@ -22,6 +23,8 @@ async function workspaceWith(text: string): Promise<string> {
   await writeFile(path.join(dir, 'ws', 'plans', 'p', 'base.yaml'), 'landed_on: 2025-01-01\n');
   return dir;
 }
+
+afterEach(() => vi.unstubAllEnvs());
 
 afterAll(async () => {
   await Promise.all(made.map(async (dir) => rm(dir, { recursive: true, force: true })));
@@ -58,5 +61,28 @@ describe('readPlanState', () => {
 
   it('knows no plan that is not there', async () => {
     await expect(readPlanState('ws', 'absent', await workspaceWith(mini))).resolves.toBeNull();
+  });
+});
+
+describe('retained format-1 plan pages', () => {
+  const at = { workspace: 'ws', plan: 'p' };
+
+  it('loads the recorded legacy plan, its title and its cover address', async () => {
+    const root = await workspaceWith(mini);
+    vi.stubEnv('GROUNDWORK_WORKSPACES', path.join(root, 'ws'));
+    const data = await planData(at);
+    expect(data?.workspaceName).toBe('WS');
+    expect(data?.model.plan.meta).toMatchObject({ id: 'mini', title: 'Pause (mini fixture)' });
+    expect(data?.outline.pages[0]).toMatchObject({ chapter: 'cover', href: '/ws/plans/p/' });
+    await expect(planFailure(at)).resolves.toBeNull();
+  });
+
+  it('retains the malformed legacy plan error and leaves the page unavailable', async () => {
+    const root = await workspaceWith('meta: [unclosed\n');
+    vi.stubEnv('GROUNDWORK_WORKSPACES', path.join(root, 'ws'));
+    const failure = await planFailure(at);
+    expect(failure).toMatchObject({ workspace: 'ws', workspaceName: 'WS', title: null });
+    expect(failure?.errors[0]?.path).toBe('(root)');
+    await expect(planData(at)).resolves.toBeNull();
   });
 });

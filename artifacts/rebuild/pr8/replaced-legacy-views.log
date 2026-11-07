@@ -1,0 +1,5 @@
+{"route":"/volvo-cars/plans/care-se-financing-status/","status":200,"headings":["Every Care application says where the deal was agreed, and the retailer follows it from the start","Plan metadata","Every Care application says where the deal was agreed, and the retailer follows it from the start","What this plan changes","Dependencies","Dependencies 1","Read this plan"],"inspected":2}
+{"route":"/volvo-cars/plans/care-se-financing-status/why/problem/","status":200,"headings":["The problem","The problem","The problem 1"],"inspected":1}
+{"route":"/volvo-cars/plans/care-se-financing-status/things/?id=chg-application-carries-sales-channel","status":200,"headings":["FAE takes the sales channel with every application and puts it on its events","Rollout","Recorded references","Referenced by authored facts"],"inspected":17}
+{"route":"/acme/journeys/uj-buy/","status":200,"headings":["Buy a product","The journey, move by move","Add to basket","Place order","Place an order","Send the basket"],"inspected":20}
+{"route":"/personal/side-projects/map/","status":200,"headings":["Map"],"inspected":2}

@@ -1,12 +1,11 @@
 import type { Model } from '@/application/plan/derive';
 import { typeOf } from '@/application/plan/ids';
 import { parentOf } from '@/domain/ids';
-import { TYPE_WORDS } from '@/domain/plan/plan-vocab';
 
-import { planHref, type Neighbours, type Outline, type Page, type PlanAddress } from './plan-pages';
+import type { Neighbours, Outline, Page } from './plan-navigation';
 import { catalogueOf } from './plan-pages-entity-where';
 import { idToToken } from './plan-pages-hash';
-import type { Reader } from './today-reader';
+import { thingHref } from './thing-paths';
 
 // Every thing the inspector can open, bar the parts of a thing, also has a page of its own at
 // /<workspace>/plans/<plan>/things/?id=<token>, beside the others of its kind: the services with the services.
@@ -50,45 +49,6 @@ export function siblingsOf(model: Model, id: string): string[] {
   const type = typeOf(id);
   const parent = parentOf(id);
   return thingIds(model).filter((x) => typeOf(x) === type && parentOf(x) === parent);
-}
-
-/** Where a thing sits among its kind: its siblings, and "Endpoint 3 of 12" and "Every endpoint" to say so.
- * Null for an id of no known kind. */
-export function placeAmongOf(
-  model: Model,
-  id: string,
-): { readonly siblings: readonly string[]; readonly count: string; readonly every: string } | null {
-  const type = typeOf(id);
-  if (type === null) return null;
-  const siblings = siblingsOf(model, id);
-  const word = TYPE_WORDS[type];
-  const count = `${word} ${String(siblings.indexOf(id) + 1)} of ${String(siblings.length)}`;
-  return {
-    siblings,
-    count: `${count.charAt(0).toUpperCase()}${count.slice(1)}`,
-    every: `Every ${word}`,
-  };
-}
-
-/** A thing's page under a base that ends in a slash: a plan's things/, or a workspace's. */
-export const thingAt = (base: string, id: string): string => `${base}?id=${idToToken(id)}`;
-
-/** The screen name of the page that shows one thing at a time. */
-export const THINGS_SCREEN = 'things';
-
-export function thingHref(at: PlanAddress, id: string): string {
-  return thingAt(`${planHref(at)}things/`, id);
-}
-
-/** How the inspector, palette and thing pages read a plan: its plan.json at `modelSrc`, its pages under it. */
-export function planReaderOf(at: PlanAddress, modelSrc: string): Reader {
-  return {
-    mode: 'plan',
-    modelSrc,
-    thingBase: `${planHref(at)}things/`,
-    assetBase: planHref(at),
-    plan: { workspace: at.workspace, slug: at.slug },
-  };
 }
 
 /** The screen a thing's page belongs under: its Reference catalogue, else the cover. */

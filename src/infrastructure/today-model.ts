@@ -2,12 +2,11 @@ import 'server-only';
 
 import { placementDataOf, type LegacyPlacements } from '@/application/plan/derive-placement';
 import { type SystemModel, systemModelOf } from '@/application/workspace-model';
-import { findWorkspace } from '@/application/workspace-paths';
 import type { Workspace } from '@/domain/workspace';
 
 import { untilEdited } from './workspace-memo';
 import { readWorkspaceModel } from './workspace-model';
-import { readWorkspaces } from './workspace-store';
+import { readLegacyWorkspace } from './workspace-store';
 
 export interface Today {
   readonly workspace: Workspace;
@@ -23,7 +22,7 @@ const remembered = untilEdited<Today | null>();
  */
 export async function readToday(id: string, root?: string): Promise<Today | null> {
   return remembered(root, id, async () => {
-    const workspace = findWorkspace(await readWorkspaces(root), id);
+    const workspace = await readLegacyWorkspace(id, root);
     if (workspace === null) return null;
     return {
       workspace,

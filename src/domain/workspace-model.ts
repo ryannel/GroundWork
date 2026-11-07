@@ -444,6 +444,29 @@ function domainEntities(domain: ModelDomain, workspace: ModelEntity): readonly M
     ...domain.systems.flatMap((system) => systemEntities(system, root)),
   ];
 }
+const evidenceEntities = new WeakMap<
+  WorkspaceModel['evidence'],
+  Map<string, readonly ModelEntity[]>
+>();
+
+function evidenceEntitiesOf(model: WorkspaceModel, root: ModelEntity): readonly ModelEntity[] {
+  const repositories = model.evidence;
+  const kept = evidenceEntities.get(repositories) ?? new Map<string, readonly ModelEntity[]>();
+  const known = kept.get(root.id);
+  if (known !== undefined) return known;
+  const evidence = repositories.flatMap((repo) => {
+    const evidenceRecords = repo.records.map((value) =>
+      declaredEntity(value.data, root, root.place, 'evidence'),
+    );
+    return repo.discovery?.id === undefined
+      ? evidenceRecords
+      : [...evidenceRecords, declaredEntity(repo.discovery, root, root.place, 'evidence')];
+  });
+  kept.set(root.id, evidence);
+  evidenceEntities.set(repositories, kept);
+  return evidence;
+}
+
 /** Walk declared identities once; children use their frozen ids, never their name or position. */
 export function entitiesIn(model: WorkspaceModel): readonly ModelEntity[] {
   const place = { workspace: model.id, domain: null, system: null, component: null };
@@ -465,19 +488,11 @@ export function entitiesIn(model: WorkspaceModel): readonly ModelEntity[] {
   const areas = modelList(model.landscape?.areas).map((area) =>
     declaredEntity(area, root, place, 'area'),
   );
-  const evidence = model.evidence.flatMap((repo) => {
-    const evidenceRecords = repo.records.map((value) =>
-      declaredEntity(value.data, root, place, 'evidence'),
-    );
-    return repo.discovery?.id === undefined
-      ? evidenceRecords
-      : [...evidenceRecords, declaredEntity(repo.discovery, root, place, 'evidence')];
-  });
   return [
     root,
     ...terms,
     ...areas,
-    ...evidence,
+    ...evidenceEntitiesOf(model, root),
     ...records.flatMap((record) => [record, ...nestedEntities(record)]),
     ...model.domains.flatMap((domain) => domainEntities(domain, root)),
   ];

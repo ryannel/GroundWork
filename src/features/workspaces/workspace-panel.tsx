@@ -15,7 +15,7 @@ function MorePlans({ card }: WorkspacePanelProps) {
   if (card.morePlans === 0) return null;
   const more = card.plans.length === 0 ? '' : 'more ';
   return (
-    <Link className={styles.more} href={card.href}>
+    <Link className={styles.more} href={card.plansHref ?? card.href}>
       {card.morePlans} {more}
       {card.morePlans === 1 ? 'plan' : 'plans'} →
     </Link>

@@ -1,13 +1,12 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { workspaceNavOf } from '@/application/workspace-nav';
-import { systemHref, workspaceHref } from '@/application/workspace-paths';
-import { partnersVM } from '@/application/workspace-work/partners';
-import { TodayOverlays, TodaySearch } from '@/features/plan';
+import { modelPartnerRowsOf } from '@/application/model-workspace-work';
+import { ModelTodayOverlays, TodaySearch } from '@/features/plan';
 import { PartnersPage, WorkspaceShell } from '@/features/workspace';
-import { todayData } from '@/infrastructure/today-data';
-import { readWorkspacePlanIndex } from '@/infrastructure/workspace-plan-index';
+import { readCanonicalModelIndex } from '@/infrastructure/model-index';
+import { readModelWorkspaceNav } from '@/infrastructure/model-workspace-nav';
+import { readModelWorkspaceWork } from '@/infrastructure/model-workspace-work';
 
 interface Params {
   readonly workspace: string;
@@ -17,35 +16,18 @@ export const metadata: Metadata = { title: 'Partners' };
 
 export default async function PartnersRoute({ params }: { readonly params: Promise<Params> }) {
   const { workspace: id } = await params;
-  const [data, index] = await Promise.all([todayData(id), readWorkspacePlanIndex(id)]);
-  if (data === null || index === null) notFound();
-  const { workspace, today, plans } = data;
-  const now = new Date();
-  const systems = workspace.domains.flatMap((domain) =>
-    domain.systems.map((system) => ({
-      id: system.id,
-      name: system.name,
-      href: systemHref({ workspace: workspace.id, domain: domain.id, system: system.id }),
-      team: system.team,
-    })),
-  );
+  const native = await readCanonicalModelIndex(id);
+  if (native === null) notFound();
+  const entries = await readModelWorkspaceWork(id);
   return (
     <WorkspaceShell
-      actions={<TodaySearch />}
-      nav={workspaceNavOf(
-        workspace,
-        plans,
-        { section: 'partners', today: today.model },
-        data.programmes,
-      )}
-      overlays={<TodayOverlays depth={1} workspace={workspace} />}
+      workspace={native.model}
+      nav={await readModelWorkspaceNav(native, { section: 'partners' })}
       title="Partners"
-      trail={[
-        { label: 'Workspaces', href: '/' },
-        { label: workspace.name, href: workspaceHref(workspace.id) },
-      ]}
+      actions={<TodaySearch />}
+      overlays={<ModelTodayOverlays index={native} depth={1} />}
     >
-      <PartnersPage rows={partnersVM(index, systems, now.toISOString())} today={now} />
+      <PartnersPage rows={modelPartnerRowsOf(native, entries, new Date().toISOString())} />
     </WorkspaceShell>
   );
 }

@@ -1,0 +1,5 @@
+
+> groundwork@0.0.0 rebuild:inventory
+> node --import ./tools/register.ts --conditions=react-server tools/rebuild/inventory.ts --consumers-only --check-consumers
+
+1697 original candidates; 188 fresh discoveries; 148 runtime consumer rows (0 adapters); 583 pending producer/retirement/skill rows; 0 uncentralised runtime id/URL operations.

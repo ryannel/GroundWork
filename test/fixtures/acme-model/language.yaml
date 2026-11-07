@@ -1,0 +1,23 @@
+summary: The words Acme agrees on.
+source:
+  title: Acme glossary
+  status: agreed
+groups:
+  - id: selling
+    name: Selling
+terms:
+  - id: term:order
+    name: Order
+    group: selling
+    aliases:
+      - purchase
+    means: Everything a customer buys at one checkout.
+    examples:
+      - context: company
+        sentence: The order was paid by card.
+    relates: []
+    anchors:
+      - to: con:order
+        fit: same
+      - to: sys:ordering
+        fit: lives-in

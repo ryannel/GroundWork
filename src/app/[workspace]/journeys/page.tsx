@@ -1,11 +1,12 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { workspaceNavOf } from '@/application/workspace-nav';
-import { workspaceHref } from '@/application/workspace-paths';
-import { TodayJourneys, TodayOverlays, TodaySearch } from '@/features/plan';
+import { modelJourneyIndexOf, modelJourneysOf } from '@/application/model-journeys';
+import { journeysHeadline } from '@/application/today-journeys';
+import { ModelTodayOverlays, JourneyIndexView, TodaySearch } from '@/features/plan';
 import { WorkspaceShell } from '@/features/workspace';
-import { todayData } from '@/infrastructure/today-data';
+import { readCanonicalModelIndex } from '@/infrastructure/model-index';
+import { readModelWorkspaceNav } from '@/infrastructure/model-workspace-nav';
 
 interface Params {
   readonly workspace: string;
@@ -15,26 +16,20 @@ export const metadata: Metadata = { title: 'Journeys' };
 
 export default async function JourneysRoute({ params }: { readonly params: Promise<Params> }) {
   const { workspace: id } = await params;
-  const data = await todayData(id);
-  if (data === null) notFound();
-  const { workspace, today, plans } = data;
+  const native = await readCanonicalModelIndex(id);
+  if (native === null) notFound();
   return (
     <WorkspaceShell
-      actions={<TodaySearch />}
-      nav={workspaceNavOf(
-        workspace,
-        plans,
-        { section: 'journeys', today: today.model },
-        data.programmes,
-      )}
-      overlays={<TodayOverlays depth={1} workspace={workspace} />}
+      workspace={native.model}
+      nav={await readModelWorkspaceNav(native, { section: 'journeys' })}
       title="Journeys"
-      trail={[
-        { label: 'Workspaces', href: '/' },
-        { label: workspace.name, href: workspaceHref(workspace.id) },
-      ]}
+      actions={<TodaySearch />}
+      overlays={<ModelTodayOverlays index={native} depth={1} />}
     >
-      <TodayJourneys model={today.model} workspace={workspace} />
+      <JourneyIndexView
+        index={modelJourneyIndexOf(native)}
+        headline={journeysHeadline(modelJourneysOf(native))}
+      />
     </WorkspaceShell>
   );
 }

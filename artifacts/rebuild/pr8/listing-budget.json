@@ -1,0 +1,103 @@
+{
+  "format": 1,
+  "measurement": "JSON bytes of exact serialisable inputs to EntryFlowPage and ModelTodayCatalogue. This is separate from final HTTP/RSC production response size.",
+  "runtimeFolder": "/private/tmp/rebuild-pr8-volvo-runtime-03",
+  "workspace": "volvo-cars",
+  "observedProductionBefore": {
+    "entriesKB": 3866,
+    "operationsKB": 2265,
+    "budgetLog": "/private/tmp/pr8-production-budget-02.log"
+  },
+  "entry": {
+    "records": 3235,
+    "pages": 108,
+    "pageSize": 30,
+    "beforeInputBytes": 704053,
+    "initialRows": 30,
+    "initialInputBytes": 7757,
+    "everyEntryExactlyOnceInOriginalOrder": true,
+    "lastId": "api:owner-soft-offer-tenure"
+  },
+  "operations": {
+    "records": 155,
+    "beforeFirstInputBytes": 875319,
+    "firstInputBytes": 15844,
+    "firstRawGaps": 3529,
+    "firstGapRows": 29,
+    "pages": [
+      {
+        "page": 1,
+        "rows": 30,
+        "inputBytes": 15844,
+        "gapRows": 29,
+        "recordedGaps": 3529,
+        "rawGapBytes": 863238
+      },
+      {
+        "page": 2,
+        "rows": 30,
+        "inputBytes": 15699,
+        "gapRows": 43,
+        "recordedGaps": 1380,
+        "rawGapBytes": 339775
+      },
+      {
+        "page": 3,
+        "rows": 30,
+        "inputBytes": 18656,
+        "gapRows": 48,
+        "recordedGaps": 2832,
+        "rawGapBytes": 712764
+      },
+      {
+        "page": 4,
+        "rows": 30,
+        "inputBytes": 20345,
+        "gapRows": 59,
+        "recordedGaps": 2446,
+        "rawGapBytes": 569065
+      },
+      {
+        "page": 5,
+        "rows": 30,
+        "inputBytes": 17460,
+        "gapRows": 46,
+        "recordedGaps": 1709,
+        "rawGapBytes": 403073
+      },
+      {
+        "page": 6,
+        "rows": 5,
+        "inputBytes": 3602,
+        "gapRows": 5,
+        "recordedGaps": 286,
+        "rawGapBytes": 62367
+      }
+    ],
+    "everySummaryCountEqualsFullIndexGapCount": true,
+    "fullGapReferences": "Remain unchanged in the canonical index and on-demand inspection."
+  },
+  "focusedTests": {
+    "files": 6,
+    "passed": 45,
+    "checks": [
+      "entry ordering/pagination/direct id",
+      "plan/version link preservation",
+      "operation counts and complete inspector gaps",
+      "page control links",
+      "operation message rendering",
+      "existing entry canvas and plan projection"
+    ]
+  },
+  "sources": {
+    "src/application/entry-flow-page.ts": "b265c4ee879689b9d29de3dcaa910b502b977fdbc194e3ef034ea0c55b9036df",
+    "src/application/entry-flow-paths.ts": "a2edf5beeb153f473c8c6c4cdfe8841645fbe4e1ea716efcb8c263d6861489b3",
+    "src/application/model-reference.ts": "ad550c9a4924aa335a7005b3bd182e5de13ed611d4cb9365aff5e3a3628577ac",
+    "src/features/entry-flow/entry-flow-page.tsx": "effb0674fea1d31435b92844cb0776fd11e3553ac2d9a928b101903b7f6a0816",
+    "src/features/plan/today/reference-pages.tsx": "5105872e555af2e4efea84ec4a51a4e93d27793722a3f7aa26df70adc158127b",
+    "src/application/entry-flow.test.ts": "426b785399f1d98b37d164157e5c57870c7e66ba235c95f273c7a13b5c831baf",
+    "src/application/model-reference.test.ts": "f3e836853ec195e1078e6986fe0868049053bdccf34089f324331676412d25b5",
+    "src/features/entry-flow/entry-flow.client.test.tsx": "666a5eb6cee57c6275c2e069fe8b6d3f4814624a530203f948f4e1744c1eac54",
+    "src/app/[workspace]/workspace-catalogues.test.tsx": "a6b033bd316ac5904c389e2c28b05118330444d0334fa7f4583d0539499203bd"
+  }
+}

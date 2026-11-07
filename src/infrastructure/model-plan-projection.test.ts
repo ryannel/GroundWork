@@ -12,7 +12,7 @@ import { modelRecord, type ModelPlan, type WorkspaceModel } from '@/domain/works
 
 import { modelValidator } from './model-schema';
 import { readModel } from './read-model';
-import { validateModel, validatePlanProjection } from './validate-model';
+import { validateModel, validatePlanProjection, validatePlanProjections } from './validate-model';
 
 vi.mock(import('server-only'), () => ({}));
 let current: WorkspaceModel;
@@ -53,6 +53,33 @@ function handlerAdds(): readonly unknown[] {
     },
   }));
 }
+it('rejects unknown programme decision and question deciders during the current model check', async () => {
+  const team = current.teams?.[0]?.id;
+  if (team === undefined) throw new Error('Missing declared team in the fixture');
+  const withDeciders = (decider: string): WorkspaceModel => ({
+    ...current,
+    programmes: current.programmes.map((programme) => ({
+      ...programme,
+      decisions: (programme.decisions ?? []).map((decision) => ({ ...decision, decider })),
+      questions: (programme.questions ?? []).map((question) => ({ ...question, decider })),
+    })),
+  });
+  await expect(validateModel(withDeciders(team))).resolves.toEqual([]);
+  await expect(validatePlanProjections([], withDeciders('team:missing'))).resolves.toEqual({
+    plans: [],
+    problems: [
+      {
+        at: 'prog:orders/decisions/0/decider',
+        message: 'team:missing is not in workspace.yaml; fix the team id',
+      },
+      {
+        at: 'prog:orders/questions/0/decider',
+        message: 'team:missing is not in workspace.yaml; fix the team id',
+      },
+    ],
+  });
+});
+
 describe('plan implementation evidence', () => {
   it('keeps six uncited proposed effects visible, while the same values fail as current facts', async () => {
     const plan = await proposal(handlerAdds());

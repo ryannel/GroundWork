@@ -1,0 +1,518 @@
+{
+  "format": 1,
+  "original": {
+    "file": "artifacts/rebuild/pr8/original-candidates.json",
+    "sha256": "8bb91071c6ae2e9168573f6d20d496cc8551e3e3ee626c3b06d64371d69f17c2",
+    "rows": 1697
+  },
+  "dispositions": [
+    {
+      "file": "tools/capture-proof-drawing.ts",
+      "sourceSha256": "9f582e79078a6d7cb8adb672c4a8e41ad2fe87db9e336b05dc4e8728510ca94f",
+      "role": "retirement",
+      "reason": "Only the historical proof entrypoints, their helpers and fixture tests use this module. Retain it for the PR 10 proof before retiring the knowledge replay stack.",
+      "evidence": [
+        {
+          "file": "tools/capture-proof-drawing.ts",
+          "line": 136,
+          "text": "export function captureControlDrawing(result: QueryResponse): string {"
+        },
+        {
+          "file": "tools/capture-proof.ts",
+          "line": 13,
+          "text": "import { captureControlDrawing, captureValueDrawing } from './capture-proof-drawing';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "tools/capture-proof-fixture.ts",
+      "sourceSha256": "1caed822bce5063cf24ec13154dc2c3850715fc1d7230ae4a797e9c1fbf71bf8",
+      "role": "retirement",
+      "reason": "Only the historical proof entrypoints, their helpers and fixture tests use this module. Retain it for the PR 10 proof before retiring the knowledge replay stack.",
+      "evidence": [
+        {
+          "file": "tools/capture-proof-fixture.ts",
+          "line": 16,
+          "text": "JSON.parse(await readFile('docs/scan-trials/capture-proof/bundle.json', 'utf8')),"
+        },
+        {
+          "file": "tools/capture-proof.ts",
+          "line": 14,
+          "text": "import { captureProofInput, captureRequest } from './capture-proof-fixture';"
+        },
+        {
+          "file": "tools/verify-capture-evidence.ts",
+          "line": 4,
+          "text": "import { captureProofInput } from './capture-proof-fixture';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "tools/capture-proof.ts",
+      "sourceSha256": "74a85fea43a498c64fa04385ba11355bfe157ae435d0b29834cc3190e9ec291e",
+      "role": "support",
+      "reason": "Replays the pinned capture research bundle and writes its saved query and walkthrough formats.",
+      "evidence": [
+        {
+          "file": "tools/capture-proof.ts",
+          "line": 23,
+          "text": "await importKnowledgeSnapshot(file, { manifest, bundles: [bundle] });"
+        },
+        {
+          "file": "package.json",
+          "line": 48,
+          "text": "\"proof:capture\": \"node --import ./tools/register.ts --conditions=react-server tools/capture-proof.ts\","
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "docs/scan-trials/capture-proof/bundle.json",
+          "sha256": "0d08be18576210603ee6afc1cab3d2c675a8e3be9f982496c3e731d9ed4a811e"
+        }
+      ]
+    },
+    {
+      "file": "tools/runtime-proof-contracts.ts",
+      "sourceSha256": "756a57c4001880914144d0171e81e4a2f609670d7a5c750df137a929d3fea9d0",
+      "role": "retirement",
+      "reason": "Only the historical proof entrypoints, their helpers and fixture tests use this module. Retain it for the PR 10 proof before retiring the knowledge replay stack.",
+      "evidence": [
+        {
+          "file": "tools/runtime-proof-contracts.ts",
+          "line": 68,
+          "text": "export function contractView("
+        },
+        {
+          "file": "tools/runtime-proof-page.ts",
+          "line": 3,
+          "text": "import { contractView } from './runtime-proof-contracts';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "tools/runtime-proof-fixture.ts",
+      "sourceSha256": "ce8bc01dd955f61c528f76a6f6b8a17a46732f2a5a13ae276b2b72aff9b58ef5",
+      "role": "retirement",
+      "reason": "Only the historical proof entrypoints, their helpers and fixture tests use this module. Retain it for the PR 10 proof before retiring the knowledge replay stack.",
+      "evidence": [
+        {
+          "file": "tools/runtime-proof-fixture.ts",
+          "line": 14,
+          "text": "const directory = `docs/scan-trials/${name}-proof/runtime`;"
+        },
+        {
+          "file": "tools/runtime-proof.ts",
+          "line": 13,
+          "text": "import { runtimeProofInput, runtimeRequest } from './runtime-proof-fixture';"
+        },
+        {
+          "file": "tools/verify-runtime-evidence.ts",
+          "line": 8,
+          "text": "import { runtimeProofInput } from './runtime-proof-fixture';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "tools/runtime-proof-internals.ts",
+      "sourceSha256": "94af650076b7da9732ddb0fb9b6f531119444dbca90b2a3b2345070a33529ba1",
+      "role": "retirement",
+      "reason": "Only the historical proof entrypoints, their helpers and fixture tests use this module. Retain it for the PR 10 proof before retiring the knowledge replay stack.",
+      "evidence": [
+        {
+          "file": "tools/runtime-proof-internals.ts",
+          "line": 36,
+          "text": "export function componentInternals(view: RuntimeProofView, component: string): string {"
+        },
+        {
+          "file": "tools/runtime-proof-page.ts",
+          "line": 4,
+          "text": "import { componentInternals, implementationPanels } from './runtime-proof-internals';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "tools/runtime-proof-layout.ts",
+      "sourceSha256": "38b820ef6342930a342b92b4d00ac4196bb64f63acd4e17e9593c4eff7c562dd",
+      "role": "retirement",
+      "reason": "Only the historical proof entrypoints, their helpers and fixture tests use this module. Retain it for the PR 10 proof before retiring the knowledge replay stack.",
+      "evidence": [
+        {
+          "file": "tools/runtime-proof-layout.ts",
+          "line": 21,
+          "text": "export function interactionLines(view: RuntimeProofView): DiagramLine[] {"
+        },
+        {
+          "file": "tools/runtime-proof-page.ts",
+          "line": 5,
+          "text": "import { interactionLines } from './runtime-proof-layout';"
+        },
+        {
+          "file": "tools/runtime-proof-svg.ts",
+          "line": 6,
+          "text": "} from './runtime-proof-layout';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "tools/runtime-proof-page.ts",
+      "sourceSha256": "c311e92bb06b004d2a15dfa26fc96141979b4e671b180de889f5d85606974333",
+      "role": "retirement",
+      "reason": "Only the historical proof entrypoints, their helpers and fixture tests use this module. Retain it for the PR 10 proof before retiring the knowledge replay stack.",
+      "evidence": [
+        {
+          "file": "tools/runtime-proof-page.ts",
+          "line": 86,
+          "text": "export function runtimeProofPage(view: RuntimeProofView): string {"
+        },
+        {
+          "file": "tools/runtime-proof.ts",
+          "line": 14,
+          "text": "import { runtimeProofPage } from './runtime-proof-page';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "tools/runtime-proof-sources.ts",
+      "sourceSha256": "38ba23010b552dc1e7056200466c9bbef4f8372588d0822283b5524c0013d250",
+      "role": "retirement",
+      "reason": "Only the historical proof entrypoints, their helpers and fixture tests use this module. Retain it for the PR 10 proof before retiring the knowledge replay stack.",
+      "evidence": [
+        {
+          "file": "tools/runtime-proof-sources.ts",
+          "line": 6,
+          "text": "export function sourceLinks("
+        },
+        {
+          "file": "tools/runtime-proof-contracts.ts",
+          "line": 7,
+          "text": "import { compactSources, gapLines, sourceLinks } from './runtime-proof-sources';"
+        },
+        {
+          "file": "tools/runtime-proof-internals.ts",
+          "line": 9,
+          "text": "import { sourceLinks } from './runtime-proof-sources';"
+        },
+        {
+          "file": "tools/runtime-proof-page.ts",
+          "line": 6,
+          "text": "import { gapLines, sourceLinks } from './runtime-proof-sources';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "tools/runtime-proof-view.ts",
+      "sourceSha256": "ed6582ab192d5d5370fccce50eb43a5e14333361f1904c8315caf32e7d2e5c40",
+      "role": "retirement",
+      "reason": "Only the historical proof entrypoints, their helpers and fixture tests use this module. Retain it for the PR 10 proof before retiring the knowledge replay stack.",
+      "evidence": [
+        {
+          "file": "tools/runtime-proof-view.ts",
+          "line": 8,
+          "text": "export function viewRecords(view: RuntimeProofView): ReadonlyMap<string, KnowledgeRecord> {"
+        },
+        {
+          "file": "tools/runtime-proof-contracts.ts",
+          "line": 8,
+          "text": "import { html } from './runtime-proof-view';"
+        },
+        {
+          "file": "tools/runtime-proof-internals.ts",
+          "line": 11,
+          "text": "import { anchor, html, type RuntimeProofView, viewRecords } from './runtime-proof-view';"
+        },
+        {
+          "file": "tools/runtime-proof-layout.ts",
+          "line": 3,
+          "text": "import type { RuntimeProofView } from './runtime-proof-view';"
+        },
+        {
+          "file": "tools/runtime-proof-page.ts",
+          "line": 8,
+          "text": "import { anchor, html, type RuntimeProofView, viewRecords } from './runtime-proof-view';"
+        },
+        {
+          "file": "tools/runtime-proof-sources.ts",
+          "line": 4,
+          "text": "import { html } from './runtime-proof-view';"
+        },
+        {
+          "file": "tools/runtime-proof-svg.ts",
+          "line": 7,
+          "text": "import { anchor, html, type RuntimeProofView } from './runtime-proof-view';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "tools/runtime-proof.ts",
+      "sourceSha256": "6eac6524bc6d4eec26d996b0274eb732601cc4cbeeec603222c25060ce7b451f",
+      "role": "support",
+      "reason": "Replays the capture or soft-offer runtime fixture through its pinned v3 knowledge snapshot.",
+      "evidence": [
+        {
+          "file": "tools/runtime-proof.ts",
+          "line": 21,
+          "text": "const { bundle, manifest } = await runtimeProofInput(name);"
+        },
+        {
+          "file": "package.json",
+          "line": 52,
+          "text": "\"proof:runtime\": \"node --import ./tools/register.ts --conditions=react-server tools/runtime-proof.ts\","
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "docs/scan-trials/capture-proof/runtime/snapshot.json",
+          "sha256": "3c6feac675356dbb993e5944efef8d96b0de7a58eb1041aa6d89e311b2f9c26a"
+        },
+        {
+          "file": "docs/scan-trials/soft-offer-proof/runtime/snapshot.json",
+          "sha256": "b9b029ccf0684115818514cfa0d1f3a10015701589050a5d8b235a75836b66a9"
+        }
+      ]
+    },
+    {
+      "file": "tools/soft-offer-proof-drawing.ts",
+      "sourceSha256": "59f81ee58ee6b9a6e21fee4fcecf2bc80bc6202140884af992377694e414db75",
+      "role": "retirement",
+      "reason": "Only the historical proof entrypoints, their helpers and fixture tests use this module. Retain it for the PR 10 proof before retiring the knowledge replay stack.",
+      "evidence": [
+        {
+          "file": "tools/soft-offer-proof-drawing.ts",
+          "line": 154,
+          "text": "export function softOfferDrawing(result: QueryResponse): string {"
+        },
+        {
+          "file": "tools/soft-offer-proof.ts",
+          "line": 14,
+          "text": "import { softOfferDrawing, softOfferValueDrawing } from './soft-offer-proof-drawing';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "tools/soft-offer-proof-fixture.ts",
+      "sourceSha256": "5df81134735962be52fa9a2b861cfa6de266f0b58db6ea6c0d2407fd44502fb8",
+      "role": "retirement",
+      "reason": "Only the historical proof entrypoints, their helpers and fixture tests use this module. Retain it for the PR 10 proof before retiring the knowledge replay stack.",
+      "evidence": [
+        {
+          "file": "tools/soft-offer-proof-fixture.ts",
+          "line": 15,
+          "text": "const directory = 'docs/scan-trials/soft-offer-proof';"
+        },
+        {
+          "file": "tools/soft-offer-proof.ts",
+          "line": 15,
+          "text": "import { softOfferInput, softOfferRequest } from './soft-offer-proof-fixture';"
+        },
+        {
+          "file": "tools/verify-soft-offer-evidence.ts",
+          "line": 6,
+          "text": "import { softOfferInput } from './soft-offer-proof-fixture';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "tools/soft-offer-proof.ts",
+      "sourceSha256": "200c26b3f01f3cae8954a48f963cde712de2a5517b64bf2dc420f336b972e7ea",
+      "role": "support",
+      "reason": "Replays the pinned soft-offer research bundle and writes its saved query and walkthrough formats.",
+      "evidence": [
+        {
+          "file": "tools/soft-offer-proof.ts",
+          "line": 21,
+          "text": "await importKnowledgeSnapshot(path.join(directory, 'index.sqlite'), {"
+        },
+        {
+          "file": "package.json",
+          "line": 50,
+          "text": "\"proof:soft-offer\": \"node --import ./tools/register.ts --conditions=react-server tools/soft-offer-proof.ts\","
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "docs/scan-trials/soft-offer-proof/bundle.json",
+          "sha256": "18fd65ae6fd8c109681b0bcca964d91733803a4f053bb1355fa48a530a0eba21"
+        }
+      ]
+    },
+    {
+      "file": "tools/verify-runtime-evidence.ts",
+      "sourceSha256": "aac2206043284d5e9ee7b2fd36f707d2f259aa18a296fe0982206bb2409c2c9c",
+      "role": "support",
+      "reason": "Checks the selected historical runtime fixture against pinned source range digests and anchors.",
+      "evidence": [
+        {
+          "file": "tools/verify-runtime-evidence.ts",
+          "line": 44,
+          "text": "if (record.lines[1] > lines.length || digest !== locks.get(record.id)) {"
+        },
+        {
+          "file": "package.json",
+          "line": 53,
+          "text": "\"proof:runtime:sources\": \"node --import ./tools/register.ts --conditions=react-server tools/verify-runtime-evidence.ts\","
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "docs/scan-trials/capture-proof/runtime/source-lock.json",
+          "sha256": "874bdce809ba67ca530b54803cd61fe3ad3b9e9d1ccca487c88ea35ba35aea96"
+        },
+        {
+          "file": "docs/scan-trials/soft-offer-proof/runtime/source-lock.json",
+          "sha256": "631aa1c744dcdd4a6da33d96f4375a244493718f9cf88055c1319cbad088c4a3"
+        }
+      ]
+    }
+  ],
+  "outsideCandidateSet": [
+    {
+      "file": "tools/verify-capture-evidence.ts",
+      "sourceSha256": "85b360b5fb8f5460d560f8de48d01aa499783d6439de2fafc327dec89445879b",
+      "role": "support",
+      "reason": "Checks the pinned capture source blobs and line ranges in supplied Git clones.",
+      "evidence": [
+        {
+          "file": "tools/verify-capture-evidence.ts",
+          "line": 15,
+          "text": "const result = spawnSync('git', ['-C', repo, 'show', `${record.commit}:${record.path}`], {"
+        },
+        {
+          "file": "package.json",
+          "line": 49,
+          "text": "\"proof:capture:sources\": \"node --import ./tools/register.ts --conditions=react-server tools/verify-capture-evidence.ts\","
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "docs/scan-trials/capture-proof/bundle.json",
+          "sha256": "0d08be18576210603ee6afc1cab3d2c675a8e3be9f982496c3e731d9ed4a811e"
+        }
+      ]
+    },
+    {
+      "file": "tools/verify-soft-offer-evidence.ts",
+      "sourceSha256": "261deefc8c15ae5b76c0694f24f93f8079e52cccfd266fffa13a84b2ff967a4e",
+      "role": "support",
+      "reason": "Verifies the saved soft-offer range digests against pinned source blobs in supplied Git clones.",
+      "evidence": [
+        {
+          "file": "tools/verify-soft-offer-evidence.ts",
+          "line": 43,
+          "text": "if (record.lines[1] > lines.length || hash !== locks.get(record.id)) {"
+        },
+        {
+          "file": "package.json",
+          "line": 51,
+          "text": "\"proof:soft-offer:sources\": \"node --import ./tools/register.ts --conditions=react-server tools/verify-soft-offer-evidence.ts\","
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/historic-proof-boundary.md",
+          "sha256": "8b3d2188a82dee2a62708a313f85180df488781b64ece8098c2e6e910cf1675a"
+        },
+        {
+          "file": "docs/scan-trials/soft-offer-proof/source-lock.json",
+          "sha256": "94187d4a439227666670233dd3a7eaa559f047e5af087d74ed938b0b1d780848"
+        }
+      ]
+    }
+  ]
+}

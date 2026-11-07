@@ -1,0 +1,34 @@
+{
+  "workspace": "acme",
+  "capture": ".workspaces/rebuild/pr8/http-release/acme",
+  "asOf": "2026-11-05",
+  "checks": [
+    {
+      "route": "/acme/model.json",
+      "file": "route-9543bbd0fb469f9651fb.json.gz",
+      "responseSha256": "2267f3b34480693baa2b395ee4be9e45202cac9b7a1c3d40781b0d6e0e98b3a2",
+      "profile": {
+        "current": {
+          "loaded": 0,
+          "omitted": 0,
+          "total": 0
+        },
+        "kind": "authored-evidence-closure",
+        "lookup": "evidence.json"
+      },
+      "scopes": [
+        {
+          "scope": "current",
+          "authored": "ffb831b893c1c5d76aaf3d39fb29a4a16110c456c2c95fea389ce9cd2bb99a9d",
+          "derived": "d28ddac06339bb5c0b6ac3df34c9e27eec677f5ab2fc577d3750dcd20a6d7e8c",
+          "records": {
+            "total": 0,
+            "loaded": 0,
+            "omitted": 0
+          },
+          "indexedIdentities": 96
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+screens:
+  - id: scr:product-page
+    name: Product page
+    kind: page
+    route: /p/{sku}
+    regions:
+      - id: buy
+        name: Buy button
+        reads:
+          - sch:product
+    app: app:shop-web
+    assets:
+      - file: assets/product-page.png
+  - id: scr:basket
+    name: Basket
+    kind: page
+    route: /basket
+    app: app:shop-web
+    assets:
+      - file: assets/basket.png
+  - id: scr:confirmation
+    name: Order confirmation
+    kind: page
+    route: /orders/{id}
+    app: app:shop-web
+    assets:
+      - file: assets/confirmation.png

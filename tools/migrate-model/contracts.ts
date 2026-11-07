@@ -53,9 +53,15 @@ function fieldId(name: string | null): string {
   if (name === null) return '';
   return isChildId(name) ? name : slug(`field ${name}`);
 }
+function argumentFields(args: unknown, note: string | null): Node {
+  if (typeof args === 'string') {
+    return { note: [note, `Original GraphQL arguments: ${args}`].filter(Boolean).join('\n\n') };
+  }
+  return args === undefined ? {} : { args: fieldsOf(modelList(args)) };
+}
 export function fieldsOf(values: readonly unknown[]): readonly Node[] {
   return values.map((value) => {
-    const field = nodeOf(value);
+    const { args, ...field } = nodeOf(value);
     const declared = modelText(field.id);
     const name = modelText(field.name);
     const id = declared === null ? fieldId(name) : (parseId(declared)?.path.at(-1) ?? declared);
@@ -63,7 +69,7 @@ export function fieldsOf(values: readonly unknown[]): readonly Node[] {
       ...field,
       id,
       ...(field.type === undefined ? {} : { type: taggedType(field.type) }),
-      ...(field.args === undefined ? {} : { args: fieldsOf(modelList(field.args)) }),
+      ...argumentFields(args, modelText(field.note)),
     };
   });
 }

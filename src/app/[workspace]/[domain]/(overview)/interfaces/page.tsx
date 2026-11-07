@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { domainViewOf, systemCataloguesOf } from '@/application/workspace-domain';
+import { modelDomainViewOf, modelSystemCataloguesOf } from '@/application/model-domain';
+import { modelSystemAt } from '@/application/model-system';
 import { DomainTab, SystemCatalogues } from '@/features/workspace';
-import { todayData } from '@/infrastructure/today-data';
+import { readCanonicalModelIndex } from '@/infrastructure/model-index';
 import { firstParam, type SearchParams } from '@/shared/search-params';
 
 interface Params {
@@ -22,9 +23,12 @@ export default async function DomainInterfacesRoute({
   readonly searchParams: Promise<SearchParams>;
 }) {
   const { workspace: id, domain } = await params;
-  const [data, query] = await Promise.all([todayData(id), searchParams]);
-  const view = data === null ? null : domainViewOf(data.workspace, data.today.model, domain);
-  if (data === null || view === null) notFound();
+  const index = await readCanonicalModelIndex(id);
+  if (index === null) notFound();
+  const view = modelDomainViewOf(index, domain);
+  if (view === null) notFound();
+  const query = await searchParams;
+  const selected = modelSystemAt(index, { domain, system: firstParam(query.system) });
   return (
     <>
       <DomainTab
@@ -33,8 +37,8 @@ export default async function DomainInterfacesRoute({
         view={view}
       />
       <SystemCatalogues
-        selected={firstParam(query.system)}
-        systems={systemCataloguesOf(data.workspace, data.today.model, domain)}
+        selected={selected?.system.id ?? ''}
+        systems={modelSystemCataloguesOf(index, domain)}
       />
     </>
   );

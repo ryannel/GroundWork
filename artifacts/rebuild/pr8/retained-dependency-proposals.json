@@ -1,0 +1,3341 @@
+{
+  "format": 1,
+  "original": {
+    "file": "artifacts/rebuild/pr8/original-candidates.json",
+    "sha256": "8bb91071c6ae2e9168573f6d20d496cc8551e3e3ee626c3b06d64371d69f17c2",
+    "rows": 1697
+  },
+  "dispositions": [
+    {
+      "file": "src/application/plan-story-cover-base.ts",
+      "sourceSha256": "9bc6d39f4c13c022c4b45422ce40c43b617814b063191375c51944124637b92e",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old cover-screen code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/plan-story-cover-base.ts",
+          "line": 40,
+          "text": "export function baseLine("
+        },
+        {
+          "file": "src/features/plan/chapters/cover/cover-screen.tsx",
+          "line": 6,
+          "text": "import { baseLine } from '@/application/plan-story-cover-base';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan-story-versions-checks.ts",
+      "sourceSha256": "390d28b4972e84d40f5fe4aee851428b2024eaf8e43f71cc38278dd58e6c6dd4",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-story-versions-view code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/plan-story-versions-checks.ts",
+          "line": 9,
+          "text": "export type CheckLevel = 'warn' | 'ask' | 'note';"
+        },
+        {
+          "file": "src/application/plan-story-versions-view.ts",
+          "line": 4,
+          "text": "import { type CheckView, checkViews } from '@/application/plan-story-versions-checks';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan-story-versions-pair.ts",
+      "sourceSha256": "59feb4c31a6bf95354e396c996f482a436802fce6fabaf98ebd5522322a6e4bc",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-story-versions-view code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/plan-story-versions-pair.ts",
+          "line": 14,
+          "text": "export interface Pair {"
+        },
+        {
+          "file": "src/application/plan-story-versions-view.ts",
+          "line": 16,
+          "text": "import { nameIn, type Pair, pairOf, type View } from '@/application/plan-story-versions-pair';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan-story-versions-words.ts",
+      "sourceSha256": "5f744bca3a64b045b783141348266c4e51ab20b390afec8d00056a5503108e27",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-story-versions-history code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/plan-story-versions-words.ts",
+          "line": 12,
+          "text": "export function dayText(date: string | null | undefined, withYear = true): string {"
+        },
+        {
+          "file": "src/application/plan-story-versions-history.ts",
+          "line": 4,
+          "text": "import {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan-viz-dag-layout.ts",
+      "sourceSha256": "7023517d21b93e5aafeac72e7e341bd50a808f6670f48401324a53f9a430d069",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-viz-dag-edges code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/plan-viz-dag-layout.ts",
+          "line": 5,
+          "text": "export const NODE_W = 164;"
+        },
+        {
+          "file": "src/application/plan-viz-dag-edges.ts",
+          "line": 3,
+          "text": "import {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan-viz-flow-place.ts",
+      "sourceSha256": "66253946029fc10c7feb7ecf22ba582b30672319c87a569b244c26540d43fffe",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-viz-flow-diagram code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/plan-viz-flow-place.ts",
+          "line": 21,
+          "text": "export function rankNodes(graph: FlowGraph): Map<string, number> {"
+        },
+        {
+          "file": "src/application/plan-viz-flow-diagram.ts",
+          "line": 7,
+          "text": "import { placeColumns, rankNodes } from '@/application/plan-viz-flow-place';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan-viz-flow-route.ts",
+      "sourceSha256": "a3a63f46e43c0d554b859a8f78cff935b1bac199a536caea9e75c129964d18a7",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-viz-flow-diagram code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/plan-viz-flow-route.ts",
+          "line": 6,
+          "text": "export interface Routed {"
+        },
+        {
+          "file": "src/application/plan-viz-flow-diagram.ts",
+          "line": 8,
+          "text": "import { type Routed, routeEdges } from '@/application/plan-viz-flow-route';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan-viz-journey-words.ts",
+      "sourceSha256": "0685de3ecd180213a9a0679129675badb967759f6374fcf6e021c487486299a7",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-story-journey-walk code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/plan-viz-journey-words.ts",
+          "line": 7,
+          "text": "export type JourneyMode = 'asIs' | 'toBe';"
+        },
+        {
+          "file": "src/application/plan-story-journey-walk.ts",
+          "line": 3,
+          "text": "import { type JourneyMode, rowTitle } from '@/application/plan-viz-journey-words';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan-viz-screen-flow-layout.ts",
+      "sourceSha256": "4580705aa53fcf31ff0c60b4a9f764db9115fd7a01af0c5a4f354147a7b4e861",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-viz-screen-catalogue code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/plan-viz-screen-flow-layout.ts",
+          "line": 5,
+          "text": "export interface FlowBox {"
+        },
+        {
+          "file": "src/application/plan-viz-screen-catalogue.ts",
+          "line": 4,
+          "text": "import {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan-viz-source.ts",
+      "sourceSha256": "b54d75b30525c190e99639ef2988b99c2bb17132b1dfb81ceb2accbdea14cd2d",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old endpoint-row code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/plan-viz-source.ts",
+          "line": 17,
+          "text": "export function sourceLabel(src: Pick<Source, 'url' | 'label'>): string {"
+        },
+        {
+          "file": "src/features/plan/viz/endpoint/endpoint-row.tsx",
+          "line": 4,
+          "text": "import { sourceLabel } from '@/application/plan-viz-source';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan-viz-waterfall-text.ts",
+      "sourceSha256": "89122237ebcf198f5f2667cc2e3b5a9afd3a14b39bdb5e1dae99e577446cb918",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-story-journey-behind code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/plan-viz-waterfall-text.ts",
+          "line": 5,
+          "text": "export const ms = (n: number): string => `${String(n)} ms`;"
+        },
+        {
+          "file": "src/application/plan-story-journey-behind.ts",
+          "line": 7,
+          "text": "import { keyText } from '@/application/plan-viz-waterfall-text';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/apply-add.ts",
+      "sourceSha256": "937b093ca8e84c30441d2255a301f730384fbc8ebe8f4005c2d2dd56e46f3894",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-store code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/apply-add.ts",
+          "line": 18,
+          "text": "export interface Applying {"
+        },
+        {
+          "file": "src/infrastructure/plan-store.ts",
+          "line": 24,
+          "text": "import {"
+        },
+        {
+          "file": "src/application/plan/stack-base.ts",
+          "line": 1,
+          "text": "import { applyOps } from '@/application/plan/apply-ops';"
+        },
+        {
+          "file": "src/application/plan/apply-ops.ts",
+          "line": 1,
+          "text": "import { applyAdd, newRecord } from '@/application/plan/apply-add';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/apply-modify.ts",
+      "sourceSha256": "f18dbcc7b1501149bcd1d2c0af270d739bfcf1f9833f707c12a13dec3dcaee4e",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-store code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/apply-modify.ts",
+          "line": 129,
+          "text": "export interface Targeting {"
+        },
+        {
+          "file": "src/infrastructure/plan-store.ts",
+          "line": 24,
+          "text": "import {"
+        },
+        {
+          "file": "src/application/plan/stack-base.ts",
+          "line": 1,
+          "text": "import { applyOps } from '@/application/plan/apply-ops';"
+        },
+        {
+          "file": "src/application/plan/apply-ops.ts",
+          "line": 2,
+          "text": "import { applyTargeted } from '@/application/plan/apply-modify';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/apply-ops.ts",
+      "sourceSha256": "92cc6007220cc5801a04525024c9ad5207547a50c3f74122233ddd67ee20eae3",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-store code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/apply-ops.ts",
+          "line": 15,
+          "text": "export function applyOps(asIs: Partial<SystemSource>, changes: readonly Change[] = []): AppliedOps {"
+        },
+        {
+          "file": "src/infrastructure/plan-store.ts",
+          "line": 24,
+          "text": "import {"
+        },
+        {
+          "file": "src/application/plan/stack-base.ts",
+          "line": 1,
+          "text": "import { applyOps } from '@/application/plan/apply-ops';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/check-context.ts",
+      "sourceSha256": "72dff809ff00f2899d2a1c9d9fb366aa550990ce95b4b58099b304c825da7ac2",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/check-context.ts",
+          "line": 17,
+          "text": "export interface Issue {"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 21,
+          "text": "import { type Findings, validatePlan } from '@/application/plan/validate-plan';"
+        },
+        {
+          "file": "src/application/plan/validate-plan.ts",
+          "line": 1,
+          "text": "import {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/check-decisions.ts",
+      "sourceSha256": "6247f13bf942b19b29cd5008dfbfb2afa52f5d21f8c61a662aaec13448fc46a0",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/check-decisions.ts",
+          "line": 142,
+          "text": "export function checkDecisions(plan: Plan, rep: Report): void {"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 21,
+          "text": "import { type Findings, validatePlan } from '@/application/plan/validate-plan';"
+        },
+        {
+          "file": "src/application/plan/validate-plan.ts",
+          "line": 8,
+          "text": "import { checkDecisions } from '@/application/plan/check-decisions';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/check-delivery.ts",
+      "sourceSha256": "f1f3b441d88bdeee28aed35bc4b29f5f766e59c26422ea847616252e939be8da",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/check-delivery.ts",
+          "line": 127,
+          "text": "export function checkDelivery(plan: Plan, rep: Report): void {"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 21,
+          "text": "import { type Findings, validatePlan } from '@/application/plan/validate-plan';"
+        },
+        {
+          "file": "src/application/plan/validate-plan.ts",
+          "line": 9,
+          "text": "import { checkDelivery } from '@/application/plan/check-delivery';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/check-federation-ops.ts",
+      "sourceSha256": "fa3347b35a395aef198e4d00a0512a91304d88be5ca424b5bd2085cd4a5517cc",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/check-federation-ops.ts",
+          "line": 136,
+          "text": "export function checkOperations(s: Scope): void {"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 21,
+          "text": "import { type Findings, validatePlan } from '@/application/plan/validate-plan';"
+        },
+        {
+          "file": "src/application/plan/validate-plan.ts",
+          "line": 10,
+          "text": "import { checkFederation } from '@/application/plan/check-federation';"
+        },
+        {
+          "file": "src/application/plan/check-federation.ts",
+          "line": 2,
+          "text": "import { checkOperations } from '@/application/plan/check-federation-ops';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/check-federation-scope.ts",
+      "sourceSha256": "3bda9f2c04418584c4404c2730a757e06e894b591160d852ed5de6712149c913",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/check-federation-scope.ts",
+          "line": 6,
+          "text": "export interface Where {"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 21,
+          "text": "import { type Findings, validatePlan } from '@/application/plan/validate-plan';"
+        },
+        {
+          "file": "src/application/plan/validate-plan.ts",
+          "line": 10,
+          "text": "import { checkFederation } from '@/application/plan/check-federation';"
+        },
+        {
+          "file": "src/application/plan/check-federation.ts",
+          "line": 3,
+          "text": "import { createScopes, type Scope } from '@/application/plan/check-federation-scope';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/check-federation.ts",
+      "sourceSha256": "74fefdeca8a6413f4cce2c486b152f4cd013be14a6f164935490e3a9f5d82979",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/check-federation.ts",
+          "line": 137,
+          "text": "export function checkFederation(ctx: CheckContext, rep: Report): void {"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 21,
+          "text": "import { type Findings, validatePlan } from '@/application/plan/validate-plan';"
+        },
+        {
+          "file": "src/application/plan/validate-plan.ts",
+          "line": 10,
+          "text": "import { checkFederation } from '@/application/plan/check-federation';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/check-handlers.ts",
+      "sourceSha256": "f163120e9025cf025f6b0348984cbbd9dce1c99b3524760e2e43da1dacbda178",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/check-handlers.ts",
+          "line": 138,
+          "text": "export function checkHandlers(ctx: CheckContext, rep: Report): void {"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 21,
+          "text": "import { type Findings, validatePlan } from '@/application/plan/validate-plan';"
+        },
+        {
+          "file": "src/application/plan/validate-plan.ts",
+          "line": 11,
+          "text": "import { checkHandlers } from '@/application/plan/check-handlers';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/check-messages.ts",
+      "sourceSha256": "4c90014fbd24c59bd6006f4a6140d03e6dd7ce2dc671de4753c42a3f0c7daa7a",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/check-messages.ts",
+          "line": 31,
+          "text": "export function checkMessageKeys(ctx: CheckContext, rep: Report): void {"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 21,
+          "text": "import { type Findings, validatePlan } from '@/application/plan/validate-plan';"
+        },
+        {
+          "file": "src/application/plan/validate-plan.ts",
+          "line": 12,
+          "text": "import { checkMessageKeys } from '@/application/plan/check-messages';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/check-neighbours.ts",
+      "sourceSha256": "8c279cb15fc67a8f34ded38241db9bb585129725c53a2ae1c631b515d933a6ea",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-store code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/check-neighbours.ts",
+          "line": 19,
+          "text": "export function neighbourOf(raw: unknown): Neighbour {"
+        },
+        {
+          "file": "src/infrastructure/plan-store.ts",
+          "line": 6,
+          "text": "import { neighbourOf } from '@/application/plan/check-neighbours';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/check-programme.ts",
+      "sourceSha256": "8c8e9dad5bc9123e736292a424b782b6099b0f9e39ddd8a646d8729aac87d32c",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old workspace-programmes code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/plan/check-programme.ts",
+          "line": 12,
+          "text": "export interface ProgrammeAt {"
+        },
+        {
+          "file": "src/infrastructure/workspace-programmes.ts",
+          "line": 4,
+          "text": "import { checkProgramme } from '@/application/plan/check-programme';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/check-records.ts",
+      "sourceSha256": "e2214f91258aba1cfdce22df8349d366f8fca27a2cb60590f564cd6e8e61f3b5",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/check-records.ts",
+          "line": 56,
+          "text": "export function checkRecords(ctx: CheckContext, rep: Report): void {"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 21,
+          "text": "import { type Findings, validatePlan } from '@/application/plan/validate-plan';"
+        },
+        {
+          "file": "src/application/plan/validate-plan.ts",
+          "line": 14,
+          "text": "import {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/check-screens.ts",
+      "sourceSha256": "d4844eed98e62ffe06002b9c82e679f1f810033cb831d30f073e1b7d0fd58aa7",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/check-screens.ts",
+          "line": 72,
+          "text": "export function checkScreens(ctx: CheckContext, rep: Report): void {"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 21,
+          "text": "import { type Findings, validatePlan } from '@/application/plan/validate-plan';"
+        },
+        {
+          "file": "src/application/plan/validate-plan.ts",
+          "line": 21,
+          "text": "import { checkNavigation, checkScreens } from '@/application/plan/check-screens';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/check-steps.ts",
+      "sourceSha256": "c8c3fd130a710cdd1b8b258d749e840ec463a41e82544b230b0a8516891a1f21",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/check-steps.ts",
+          "line": 243,
+          "text": "export function checkSteps(ctx: CheckContext, rep: Report): void {"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 21,
+          "text": "import { type Findings, validatePlan } from '@/application/plan/validate-plan';"
+        },
+        {
+          "file": "src/application/plan/validate-plan.ts",
+          "line": 23,
+          "text": "import { checkSteps } from '@/application/plan/check-steps';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/check-text.ts",
+      "sourceSha256": "478ebe8871c0ba521ca329f5f016e6e09840d6e6df5541dd6489aa6ed727d6d4",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/check-text.ts",
+          "line": 124,
+          "text": "export function weekdayProblems(text: string, defaultYear?: string): WeekdayProblem[] {"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 21,
+          "text": "import { type Findings, validatePlan } from '@/application/plan/validate-plan';"
+        },
+        {
+          "file": "src/application/plan/validate-plan.ts",
+          "line": 24,
+          "text": "import { checkText } from '@/application/plan/check-text';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/compat-contracts.ts",
+      "sourceSha256": "50265b4cbf37f27e4e75f6230003c494292aab31d78f925a64d51a9ec39d3cbf",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/compat-contracts.ts",
+          "line": 15,
+          "text": "export type ContractKind = 'endpoint' | 'message';"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';"
+        },
+        {
+          "file": "src/application/plan/derive-compose.ts",
+          "line": 15,
+          "text": "import {"
+        },
+        {
+          "file": "src/application/plan/federation-members.ts",
+          "line": 1,
+          "text": "import { createCompat } from '@/application/plan/compat';"
+        },
+        {
+          "file": "src/application/plan/compat.ts",
+          "line": 2,
+          "text": "import {"
+        },
+        {
+          "file": "src/application/plan/compat-kinds.ts",
+          "line": 1,
+          "text": "import { contractCompat } from '@/application/plan/compat-contracts';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/compat-judge.ts",
+      "sourceSha256": "c6e53a8ddff6d2407e05d8679232a7d2dafe0a29b7d6e963280cb7797ca62119",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/compat-judge.ts",
+          "line": 12,
+          "text": "export interface Hit {"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';"
+        },
+        {
+          "file": "src/application/plan/derive-compose.ts",
+          "line": 15,
+          "text": "import {"
+        },
+        {
+          "file": "src/application/plan/federation-members.ts",
+          "line": 1,
+          "text": "import { createCompat } from '@/application/plan/compat';"
+        },
+        {
+          "file": "src/application/plan/compat.ts",
+          "line": 1,
+          "text": "import { type Compat, merge, nothing } from '@/application/plan/compat-judge';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/compat-kinds.ts",
+      "sourceSha256": "ddcca08a4b00e1064b288700bd6c3a29ff07d5542cddea06bfc39ce35e7de88a",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/compat-kinds.ts",
+          "line": 15,
+          "text": "export interface Kit {"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';"
+        },
+        {
+          "file": "src/application/plan/derive-compose.ts",
+          "line": 15,
+          "text": "import {"
+        },
+        {
+          "file": "src/application/plan/federation-members.ts",
+          "line": 1,
+          "text": "import { createCompat } from '@/application/plan/compat';"
+        },
+        {
+          "file": "src/application/plan/compat.ts",
+          "line": 2,
+          "text": "import {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/compat-net.ts",
+      "sourceSha256": "21f5677f8c580afbb7df65247af35570ceddaa55cf44908e981bdf1931a83e99",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/compat-net.ts",
+          "line": 13,
+          "text": "export interface FieldRow extends Row {"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';"
+        },
+        {
+          "file": "src/application/plan/derive-compose.ts",
+          "line": 15,
+          "text": "import {"
+        },
+        {
+          "file": "src/application/plan/federation-members.ts",
+          "line": 1,
+          "text": "import { createCompat } from '@/application/plan/compat';"
+        },
+        {
+          "file": "src/application/plan/compat.ts",
+          "line": 10,
+          "text": "import { netDiff, type NetRow } from '@/application/plan/compat-net';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/compat-people.ts",
+      "sourceSha256": "f600e839151071902a78173b7b17c8bb04eff6ab6cb138a0cde1be3b5fb72b77",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/compat-people.ts",
+          "line": 8,
+          "text": "export type Kind = 'reader' | 'writer' | 'caller' | 'consumer' | 'operation';"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';"
+        },
+        {
+          "file": "src/application/plan/derive-compose.ts",
+          "line": 15,
+          "text": "import {"
+        },
+        {
+          "file": "src/application/plan/federation-members.ts",
+          "line": 1,
+          "text": "import { createCompat } from '@/application/plan/compat';"
+        },
+        {
+          "file": "src/application/plan/compat.ts",
+          "line": 11,
+          "text": "import { changedSteps } from '@/application/plan/compat-people';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/compat-rules.ts",
+      "sourceSha256": "a7b0ede85ecf1612a7df179be87287af5ec13fcf248b2ecd3efcc7f522171a58",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/compat-rules.ts",
+          "line": 3,
+          "text": "export type Verdict = 'breaking' | 'migration' | 'safe';"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';"
+        },
+        {
+          "file": "src/application/plan/derive-compose.ts",
+          "line": 15,
+          "text": "import {"
+        },
+        {
+          "file": "src/application/plan/federation-members.ts",
+          "line": 1,
+          "text": "import { createCompat } from '@/application/plan/compat';"
+        },
+        {
+          "file": "src/application/plan/compat.ts",
+          "line": 12,
+          "text": "import { propRows } from '@/application/plan/compat-rules';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/compat-schema.ts",
+      "sourceSha256": "15b010855df15a8ea9f8483e56ea32a9db7d98a2ca484fc7e7f107391d3c8545",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/compat-schema.ts",
+          "line": 13,
+          "text": "export type Versions = (id: string) => {"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';"
+        },
+        {
+          "file": "src/application/plan/derive-compose.ts",
+          "line": 15,
+          "text": "import {"
+        },
+        {
+          "file": "src/application/plan/federation-members.ts",
+          "line": 1,
+          "text": "import { createCompat } from '@/application/plan/compat';"
+        },
+        {
+          "file": "src/application/plan/compat.ts",
+          "line": 13,
+          "text": "import { createSchemaCompat, type Env } from '@/application/plan/compat-schema';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/compat.ts",
+      "sourceSha256": "d8132cb758e355746d7e03869ebc908d20c5320b2e055d861beadaf8fdfce8e0",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/compat.ts",
+          "line": 17,
+          "text": "export type { Compat } from '@/application/plan/compat-judge';"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';"
+        },
+        {
+          "file": "src/application/plan/derive-compose.ts",
+          "line": 15,
+          "text": "import {"
+        },
+        {
+          "file": "src/application/plan/federation-members.ts",
+          "line": 1,
+          "text": "import { createCompat } from '@/application/plan/compat';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/derive-compose.ts",
+      "sourceSha256": "d74c253d0e0e9dba80d62688fa7b123386dfa1200cf818a72a82534843470dea",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/derive-compose.ts",
+          "line": 26,
+          "text": "export interface DeriveOptions {"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/derive-contracts.ts",
+      "sourceSha256": "498458d1bfe242fb18a67501932dce980bc83b06d5f69ad9fc2b8ffc573015bc",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/derive-contracts.ts",
+          "line": 7,
+          "text": "export interface UncontractedLink {"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';"
+        },
+        {
+          "file": "src/application/plan/derive-compose.ts",
+          "line": 2,
+          "text": "import { type CoverageQueries, createCoverage } from '@/application/plan/derive-coverage';"
+        },
+        {
+          "file": "src/application/plan/derive-coverage.ts",
+          "line": 1,
+          "text": "import { createContracts, type UncontractedLink } from '@/application/plan/derive-contracts';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/derive-core.ts",
+      "sourceSha256": "ceef69c7a498a4803defba0d79d0aa1520db023102ba713200c6cbea915037df",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/derive-core.ts",
+          "line": 26,
+          "text": "export type Indexed = PlanEntity & {"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';"
+        },
+        {
+          "file": "src/application/plan/derive-compose.ts",
+          "line": 1,
+          "text": "import { type Core, createCore } from '@/application/plan/derive-core';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/derive-coverage.ts",
+      "sourceSha256": "913e9e2d6729792e3052ef30c9000937b492c08db402f8d5944de6e9862b5c28",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/derive-coverage.ts",
+          "line": 9,
+          "text": "export interface SpanBracket {"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';"
+        },
+        {
+          "file": "src/application/plan/derive-compose.ts",
+          "line": 2,
+          "text": "import { type CoverageQueries, createCoverage } from '@/application/plan/derive-coverage';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/derive-delivery.ts",
+      "sourceSha256": "2a70ab8a4046133362c58a071a766ca29a0fb3ee995ebb52b2d28383abff2465",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/derive-delivery.ts",
+          "line": 13,
+          "text": "export interface CriticalPath {"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';"
+        },
+        {
+          "file": "src/application/plan/derive-compose.ts",
+          "line": 3,
+          "text": "import { createDelivery, type Delivery } from '@/application/plan/derive-delivery';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/derive-diff.ts",
+      "sourceSha256": "9703aca7bca263f4182863b37c63e9e18d60dba30f8ec37eeb7fbf785bbeb98e",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/derive-diff.ts",
+          "line": 9,
+          "text": "export interface DiffEntry {"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';"
+        },
+        {
+          "file": "src/application/plan/derive-compose.ts",
+          "line": 4,
+          "text": "import { createDiff, type DiffQueries } from '@/application/plan/derive-diff';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/derive-domain.ts",
+      "sourceSha256": "4a509af2efc00995da998885f76d69013093a4d561f62d6d7cdfd9a068f83cc4",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/derive-domain.ts",
+          "line": 10,
+          "text": "export interface Domain {"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 6,
+          "text": "import { createDomain, type DomainQueries } from '@/application/plan/derive-domain';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/derive-edges.ts",
+      "sourceSha256": "4236bc30c181552477772372c2a836a43b2410aed340a654bd4512ea5735549a",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/derive-edges.ts",
+          "line": 18,
+          "text": "export type { Consumer, Edge, EdgeQueries } from '@/application/plan/derive-edge-types';"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';"
+        },
+        {
+          "file": "src/application/plan/derive-compose.ts",
+          "line": 5,
+          "text": "import { createEdges, type EdgeQueries } from '@/application/plan/derive-edges';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/derive-glossary.ts",
+      "sourceSha256": "420594429e564c3122d7b01dc8647bd2ca210a002419c2e2cabdbe8389bd92b6",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/derive-glossary.ts",
+          "line": 6,
+          "text": "export interface GlossaryTerm {"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 8,
+          "text": "import { createGlossary, type GlossaryQueries } from '@/application/plan/derive-glossary';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/derive-handler-edges.ts",
+      "sourceSha256": "b9711327d958ccbae5762a673af1f4e550dc2f9f93e9cb32cc171ce1a994a018",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/derive-handler-edges.ts",
+          "line": 11,
+          "text": "export interface HandlerEdge {"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';"
+        },
+        {
+          "file": "src/application/plan/derive-compose.ts",
+          "line": 5,
+          "text": "import { createEdges, type EdgeQueries } from '@/application/plan/derive-edges';"
+        },
+        {
+          "file": "src/application/plan/derive-edges.ts",
+          "line": 13,
+          "text": "import { putHandlerEdges } from '@/application/plan/derive-handler-edges';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/derive-handlers.ts",
+      "sourceSha256": "180056843cd84873e97fb254b418d3e8d3673cf3f2bf4e12b812170e179891ee",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/derive-handlers.ts",
+          "line": 7,
+          "text": "export type CallStop = 'cycle' | 'depth' | 'unhandled' | null;"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';"
+        },
+        {
+          "file": "src/application/plan/derive-compose.ts",
+          "line": 6,
+          "text": "import { createHandlers, type HandlerQueries } from '@/application/plan/derive-handlers';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/derive-health.ts",
+      "sourceSha256": "71a15c47ddb51384862b60c73c04eab52f0477e2c6c6dbc742140a0e51f4f2be",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/derive-health.ts",
+          "line": 30,
+          "text": "export interface Health {"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 10,
+          "text": "import { createHealth, type HealthQueries } from '@/application/plan/derive-health';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/derive-ladder.ts",
+      "sourceSha256": "6ae7243b04c63feb276605ae30b406d43061c56eaad9a1ff54455c146e9f96cc",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/derive-ladder.ts",
+          "line": 11,
+          "text": "export interface LadderOp {"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';"
+        },
+        {
+          "file": "src/application/plan/derive-compose.ts",
+          "line": 7,
+          "text": "import { createLadder } from '@/application/plan/derive-ladder';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/derive-owners.ts",
+      "sourceSha256": "902b777695216440bc8e9922ddac9a62115c3ab7b610448813b6a0b7d7fda317",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/derive-owners.ts",
+          "line": 8,
+          "text": "export interface Rollup {"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';"
+        },
+        {
+          "file": "src/application/plan/derive-compose.ts",
+          "line": 8,
+          "text": "import { createOwners, type Owners } from '@/application/plan/derive-owners';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/derive-placement.ts",
+      "sourceSha256": "bf4e60c3194c96b50cf5acaa88904102425dd0fb01722181345336bc833d1d9c",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/derive-placement.ts",
+          "line": 8,
+          "text": "export type LegacyPlace = Omit<ModelPlace, 'workspace'>;"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 12,
+          "text": "import { placementOf, type LegacyPlace } from '@/application/plan/derive-placement';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/derive-register.ts",
+      "sourceSha256": "86a3bd359d1292c0bd402481725853198b35a6b82f0a417b62ebb97fbcdf5977",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/derive-register.ts",
+          "line": 12,
+          "text": "export type RegisterKey = 'decide' | 'decided' | 'deferred' | 'loose' | 'notes' | 'aside';"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';"
+        },
+        {
+          "file": "src/application/plan/derive-compose.ts",
+          "line": 10,
+          "text": "import { createRegister, type Register } from '@/application/plan/derive-register';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/derive-screens.ts",
+      "sourceSha256": "f0098f21e343b46a8b2b9a7f24b14f5a8461f30a7aebff93963fdafe9e5946e9",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/derive-screens.ts",
+          "line": 7,
+          "text": "export interface ScreenLook {"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 14,
+          "text": "import { createScreens, type ScreenQueries } from '@/application/plan/derive-screens';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/derive-story.ts",
+      "sourceSha256": "b649d09584f89c18050e2470733cb34d4510e137a6728f9e71f5f8db9e017a65",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/derive-story.ts",
+          "line": 161,
+          "text": "export interface Inverse {"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';"
+        },
+        {
+          "file": "src/application/plan/derive-compose.ts",
+          "line": 11,
+          "text": "import { createStory, type StoryQueries } from '@/application/plan/derive-story';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/derive-teams.ts",
+      "sourceSha256": "8c79b380a22b19445aec4e1605e016236bbe0c4a2bbe473f1917828f1052d2d0",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/derive-teams.ts",
+          "line": 194,
+          "text": "export interface TeamCut {"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';"
+        },
+        {
+          "file": "src/application/plan/derive-compose.ts",
+          "line": 12,
+          "text": "import { createTeams, type TeamQueries } from '@/application/plan/derive-teams';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/derive-words.ts",
+      "sourceSha256": "e6189bfc2451e261ec11b5cba6e08c1a0f54729e4bd980e14ec8d1435149ea8a",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/derive-words.ts",
+          "line": 15,
+          "text": "export const propWord = (p: string): string => PROP_WORDS[p] ?? p.replaceAll('_', ' ');"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';"
+        },
+        {
+          "file": "src/application/plan/derive-compose.ts",
+          "line": 13,
+          "text": "import { createWords } from '@/application/plan/derive-words';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/federation-blast.ts",
+      "sourceSha256": "ee8f2d6082ef278d25f214b1fae80bea117a2c02054d4cadfe3c28ff1e5e2eee",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/federation-blast.ts",
+          "line": 21,
+          "text": "export interface Because extends PathType {"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';"
+        },
+        {
+          "file": "src/application/plan/derive-compose.ts",
+          "line": 15,
+          "text": "import {"
+        },
+        {
+          "file": "src/application/plan/federation-members.ts",
+          "line": 8,
+          "text": "import {"
+        },
+        {
+          "file": "src/application/plan/federation-model.ts",
+          "line": 3,
+          "text": "import {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/federation-cache.ts",
+      "sourceSha256": "921fcad0f1b1c0b90acfa216fa946d915d20c13248ffa1d18dd036e3fb366289",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/federation-cache.ts",
+          "line": 16,
+          "text": "export type CacheCase = 'hit' | 'miss' | 'cold';"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';"
+        },
+        {
+          "file": "src/application/plan/derive-compose.ts",
+          "line": 15,
+          "text": "import {"
+        },
+        {
+          "file": "src/application/plan/federation-members.ts",
+          "line": 8,
+          "text": "import {"
+        },
+        {
+          "file": "src/application/plan/federation-model.ts",
+          "line": 9,
+          "text": "import { type CacheCase, type CachePath, cachePath } from '@/application/plan/federation-cache';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/federation-diff.ts",
+      "sourceSha256": "4907345436af741358fd23a896c7b50fc5b172d197142707c262b3cb3ab55940",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/federation-diff.ts",
+          "line": 16,
+          "text": "export interface FieldChange {"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';"
+        },
+        {
+          "file": "src/application/plan/derive-compose.ts",
+          "line": 15,
+          "text": "import {"
+        },
+        {
+          "file": "src/application/plan/federation-members.ts",
+          "line": 7,
+          "text": "import { createGraphDiff, type GraphDiff } from '@/application/plan/federation-diff';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/federation-fanout.ts",
+      "sourceSha256": "4c7454744db31e2c92dcaa21c05db3be3aa2b733099bd677890d172af0da3d15",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/federation-fanout.ts",
+          "line": 17,
+          "text": "export interface FederatedCall extends FanoutCall {"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';"
+        },
+        {
+          "file": "src/application/plan/derive-compose.ts",
+          "line": 14,
+          "text": "import { federatedFanout } from '@/application/plan/federation-fanout';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/federation-members.ts",
+      "sourceSha256": "370a9d354a48787ba9f1a5d80ef1bf41adb97e74426fefe48a0aaf1a68020fd3",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/federation-members.ts",
+          "line": 28,
+          "text": "export type FederationMembers = Federation & {"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';"
+        },
+        {
+          "file": "src/application/plan/derive-compose.ts",
+          "line": 15,
+          "text": "import {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/federation-model.ts",
+      "sourceSha256": "ba738eb3d694f9a64a3dd1e2356d8393a4c90fe12f3edbd84f551ecc17d335bf",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/federation-model.ts",
+          "line": 17,
+          "text": "export interface PlanSummary {"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';"
+        },
+        {
+          "file": "src/application/plan/derive-compose.ts",
+          "line": 15,
+          "text": "import {"
+        },
+        {
+          "file": "src/application/plan/federation-members.ts",
+          "line": 8,
+          "text": "import {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/federation-place.ts",
+      "sourceSha256": "56b1ba9e5fcf31d495d369ec99ad6df4069a9aa46f6a4982bfe64e9f4612a7fb",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-viz-graph-caches code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/federation-place.ts",
+          "line": 16,
+          "text": "export type Placed = Pick<"
+        },
+        {
+          "file": "src/application/plan-viz-graph-caches.ts",
+          "line": 3,
+          "text": "import { invalidators } from '@/application/plan/federation-policy';"
+        },
+        {
+          "file": "src/application/plan/federation-policy.ts",
+          "line": 11,
+          "text": "import { queryPlan } from '@/application/plan/federation-plan';"
+        },
+        {
+          "file": "src/application/plan/federation-plan.ts",
+          "line": 10,
+          "text": "import {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/federation-plan.ts",
+      "sourceSha256": "6207dd1288633e2c3646324457ca54334a8e80a619002faadb4fcea9f6f829dc",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-viz-graph-caches code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/federation-plan.ts",
+          "line": 224,
+          "text": "export function queryPlan(g: SystemGraph, opId: string): QueryPlan {"
+        },
+        {
+          "file": "src/application/plan-viz-graph-caches.ts",
+          "line": 3,
+          "text": "import { invalidators } from '@/application/plan/federation-policy';"
+        },
+        {
+          "file": "src/application/plan/federation-policy.ts",
+          "line": 11,
+          "text": "import { queryPlan } from '@/application/plan/federation-plan';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/federation-policy.ts",
+      "sourceSha256": "726d2f29b5c401fc4559c9bb94d0ffd7ca18af9f4de21c65a47f4eb4913afc6d",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-viz-graph-caches code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/federation-policy.ts",
+          "line": 26,
+          "text": "export interface Hint {"
+        },
+        {
+          "file": "src/application/plan-viz-graph-caches.ts",
+          "line": 3,
+          "text": "import { invalidators } from '@/application/plan/federation-policy';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/federation-tiers.ts",
+      "sourceSha256": "7913794ef9da22d2cec800593187f25de17f10e698659c19e8c4fd84035647e4",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/federation-tiers.ts",
+          "line": 18,
+          "text": "export type RowState = 'hit' | 'miss' | 'skipped' | 'blocked';"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';"
+        },
+        {
+          "file": "src/application/plan/derive-compose.ts",
+          "line": 15,
+          "text": "import {"
+        },
+        {
+          "file": "src/application/plan/federation-members.ts",
+          "line": 8,
+          "text": "import {"
+        },
+        {
+          "file": "src/application/plan/federation-model.ts",
+          "line": 9,
+          "text": "import { type CacheCase, type CachePath, cachePath } from '@/application/plan/federation-cache';"
+        },
+        {
+          "file": "src/application/plan/federation-cache.ts",
+          "line": 5,
+          "text": "import {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/federation-tree.ts",
+      "sourceSha256": "75e0dd6cd10cedbeb4360822817de7d524accbbcd2f9ff0e3a451b8f27ec3657",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-viz-graph-caches code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/federation-tree.ts",
+          "line": 17,
+          "text": "export interface TreeNode {"
+        },
+        {
+          "file": "src/application/plan-viz-graph-caches.ts",
+          "line": 3,
+          "text": "import { invalidators } from '@/application/plan/federation-policy';"
+        },
+        {
+          "file": "src/application/plan/federation-policy.ts",
+          "line": 13,
+          "text": "import { selectionTree, type TreeNode } from '@/application/plan/federation-tree';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/federation-walk.ts",
+      "sourceSha256": "1e4d94653dd1045a0d359ef05dc19acf5ad48a05e83757179ec7b0cfb0b69fee",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-viz-graph-caches code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/federation-walk.ts",
+          "line": 305,
+          "text": "export function walk(c: PlanCtx, spot: Spot): void {"
+        },
+        {
+          "file": "src/application/plan-viz-graph-caches.ts",
+          "line": 3,
+          "text": "import { invalidators } from '@/application/plan/federation-policy';"
+        },
+        {
+          "file": "src/application/plan/federation-policy.ts",
+          "line": 11,
+          "text": "import { queryPlan } from '@/application/plan/federation-plan';"
+        },
+        {
+          "file": "src/application/plan/federation-plan.ts",
+          "line": 25,
+          "text": "import { walk } from '@/application/plan/federation-walk';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/field-ladder.ts",
+      "sourceSha256": "2fbf088da9e80375c07726848b132833b0441748f7b7376a2d0cba3f3054e8a5",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/field-ladder.ts",
+          "line": 12,
+          "text": "export interface FieldRung {"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 1,
+          "text": "import { type Composed, compose, type DeriveOptions } from '@/application/plan/derive-compose';"
+        },
+        {
+          "file": "src/application/plan/derive-compose.ts",
+          "line": 15,
+          "text": "import {"
+        },
+        {
+          "file": "src/application/plan/federation-members.ts",
+          "line": 13,
+          "text": "import { createFieldLadder, type FieldLadder } from '@/application/plan/field-ladder';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/flow-experience.ts",
+      "sourceSha256": "d8b345b072ecb46abc0d09f9b97fedb8ef96b1ea499057c78095166d51b4b0a7",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old flow-views code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/plan/flow-experience.ts",
+          "line": 11,
+          "text": "export type MomentKind = 'background' | 'action' | 'update' | 'output' | 'linked';"
+        },
+        {
+          "file": "src/features/plan/viz/flow-viewer/flow-views.tsx",
+          "line": 4,
+          "text": "import { flowExperience } from '@/application/plan/flow-experience';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/flow-frames.ts",
+      "sourceSha256": "0ac50a7bffda5e99a126a61eeb5bbc89f9e37feed505926138a5951f590ebcdd",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-viz-sequence code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/flow-frames.ts",
+          "line": 5,
+          "text": "export type FlatRow ="
+        },
+        {
+          "file": "src/application/plan-viz-sequence.ts",
+          "line": 3,
+          "text": "import { sequenceModel } from '@/application/plan/flow-sequence';"
+        },
+        {
+          "file": "src/application/plan/flow-sequence.ts",
+          "line": 1,
+          "text": "import { type FlatRow, type FrameRow, withFrames } from '@/application/plan/flow-frames';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/flow-steps.ts",
+      "sourceSha256": "47575cdb20616a80ba5251ac1670033d7564950fe37785916b11ffe2092ac2c8",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-story-prove-flows code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/flow-steps.ts",
+          "line": 8,
+          "text": "export type FlowModel = Pick<Model, 'asIs' | 'toBe' | 'get' | 'status' | 'edges'>;"
+        },
+        {
+          "file": "src/application/plan-story-prove-flows.ts",
+          "line": 2,
+          "text": "import { flowSteps } from '@/application/plan/flow-steps';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/graph-queries.ts",
+      "sourceSha256": "a4a056a3a7f2accf094a00acd9541443890776a3316a551f4d1114d413adc768",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/graph-queries.ts",
+          "line": 28,
+          "text": "export const baseFanout: Fanout = (g, step) => {"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 6,
+          "text": "import { createDomain, type DomainQueries } from '@/application/plan/derive-domain';"
+        },
+        {
+          "file": "src/application/plan/derive-domain.ts",
+          "line": 5,
+          "text": "import { actingService } from '@/application/plan/graph-queries';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/graph.ts",
+      "sourceSha256": "ffe0ef0ef71f0195e5f1625f00c88e1bab050162aacfd9b49fc290f7e17d9697",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-standing code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/graph.ts",
+          "line": 22,
+          "text": "export function systemOf(plan: Partial<SystemSource>): SystemSource {"
+        },
+        {
+          "file": "src/infrastructure/plan-standing.ts",
+          "line": 4,
+          "text": "import {"
+        },
+        {
+          "file": "src/application/plan/realisation.ts",
+          "line": 1,
+          "text": "import { systemOf } from '@/application/plan/graph';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/handler-walk.ts",
+      "sourceSha256": "c98975c953377dc8ad8c527d934b4b13afe07c86d16007253063e52181089751",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/handler-walk.ts",
+          "line": 17,
+          "text": "export interface WalkedStep extends Frame {"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 21,
+          "text": "import { type Findings, validatePlan } from '@/application/plan/validate-plan';"
+        },
+        {
+          "file": "src/application/plan/validate-plan.ts",
+          "line": 11,
+          "text": "import { checkHandlers } from '@/application/plan/check-handlers';"
+        },
+        {
+          "file": "src/application/plan/check-handlers.ts",
+          "line": 8,
+          "text": "import { linkOf, stepRefs, walkHandler, type StepRef } from '@/application/plan/handler-walk';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/impact-checks.ts",
+      "sourceSha256": "19d3af2a5d7715cf9e60ab60c3f5b3bd141d70370df057a1ba87ef98099389e9",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-story-versions-view code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/plan/impact-checks.ts",
+          "line": 13,
+          "text": "export interface CheckInput {"
+        },
+        {
+          "file": "src/application/plan-story-versions-view.ts",
+          "line": 16,
+          "text": "import { nameIn, type Pair, pairOf, type View } from '@/application/plan-story-versions-pair';"
+        },
+        {
+          "file": "src/application/plan-story-versions-pair.ts",
+          "line": 4,
+          "text": "import { type RevisionImpact, revisionImpact } from '@/application/plan/impact';"
+        },
+        {
+          "file": "src/application/plan/impact.ts",
+          "line": 11,
+          "text": "import { checksOf } from '@/application/plan/impact-checks';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/impact-fields.ts",
+      "sourceSha256": "f9732a8f204ebbfd54c496f05fecc61ca1579bb718cb0130e9477452fa69c1cd",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-story-versions-view code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/plan/impact-fields.ts",
+          "line": 8,
+          "text": "export interface FieldDelta {"
+        },
+        {
+          "file": "src/application/plan-story-versions-view.ts",
+          "line": 8,
+          "text": "import { type JourneyView, journeyView } from '@/application/plan-story-versions-journey';"
+        },
+        {
+          "file": "src/application/plan-story-versions-journey.ts",
+          "line": 4,
+          "text": "import {"
+        },
+        {
+          "file": "src/application/plan-story-versions-marks.ts",
+          "line": 1,
+          "text": "import { rootFields } from '@/application/plan/impact-fields';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/impact-journeys.ts",
+      "sourceSha256": "1e8b66604de5859ca273cecb1326e8187328e0dfda493d4a469b6591e3d228db",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-story-versions-view code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/plan/impact-journeys.ts",
+          "line": 7,
+          "text": "export interface Carry {"
+        },
+        {
+          "file": "src/application/plan-story-versions-view.ts",
+          "line": 16,
+          "text": "import { nameIn, type Pair, pairOf, type View } from '@/application/plan-story-versions-pair';"
+        },
+        {
+          "file": "src/application/plan-story-versions-pair.ts",
+          "line": 4,
+          "text": "import { type RevisionImpact, revisionImpact } from '@/application/plan/impact';"
+        },
+        {
+          "file": "src/application/plan/impact.ts",
+          "line": 14,
+          "text": "import { type Journey, type JourneyStep, journeys } from '@/application/plan/impact-journeys';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/impact-new-field.ts",
+      "sourceSha256": "c006f92d5a03a8ee8c96a18a8ab6ea04e4b3654917f4d1d45bd92a60f8bb755c",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-story-versions-view code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/plan/impact-new-field.ts",
+          "line": 52,
+          "text": "export function newFieldChecks(B: Planned, shape: Shape, d: FieldDelta): Check[] {"
+        },
+        {
+          "file": "src/application/plan-story-versions-view.ts",
+          "line": 16,
+          "text": "import { nameIn, type Pair, pairOf, type View } from '@/application/plan-story-versions-pair';"
+        },
+        {
+          "file": "src/application/plan-story-versions-pair.ts",
+          "line": 4,
+          "text": "import { type RevisionImpact, revisionImpact } from '@/application/plan/impact';"
+        },
+        {
+          "file": "src/application/plan/impact.ts",
+          "line": 11,
+          "text": "import { checksOf } from '@/application/plan/impact-checks';"
+        },
+        {
+          "file": "src/application/plan/impact-checks.ts",
+          "line": 6,
+          "text": "import { newFieldChecks } from '@/application/plan/impact-new-field';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/impact-planned.ts",
+      "sourceSha256": "3acbf4b529b7e63ed417e6254fe9cd867b6cbbcc8b81ddba7361c5e8f2dc907a",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-story-versions-view code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/plan/impact-planned.ts",
+          "line": 19,
+          "text": "export interface PlacedStep {"
+        },
+        {
+          "file": "src/application/plan-story-versions-view.ts",
+          "line": 16,
+          "text": "import { nameIn, type Pair, pairOf, type View } from '@/application/plan-story-versions-pair';"
+        },
+        {
+          "file": "src/application/plan-story-versions-pair.ts",
+          "line": 4,
+          "text": "import { type RevisionImpact, revisionImpact } from '@/application/plan/impact';"
+        },
+        {
+          "file": "src/application/plan/impact.ts",
+          "line": 15,
+          "text": "import { planned } from '@/application/plan/impact-planned';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/impact-screens.ts",
+      "sourceSha256": "8ce0e7ed24918eaa78dc1152a1a26ab9d21cc3c5f0bce8e5f14893d4da95a138",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-story-versions-view code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/plan/impact-screens.ts",
+          "line": 6,
+          "text": "export type RegionMark = 'added' | 'removed' | 'behaviour' | 'layout' | 'data';"
+        },
+        {
+          "file": "src/application/plan-story-versions-view.ts",
+          "line": 16,
+          "text": "import { nameIn, type Pair, pairOf, type View } from '@/application/plan-story-versions-pair';"
+        },
+        {
+          "file": "src/application/plan-story-versions-pair.ts",
+          "line": 4,
+          "text": "import { type RevisionImpact, revisionImpact } from '@/application/plan/impact';"
+        },
+        {
+          "file": "src/application/plan/impact.ts",
+          "line": 16,
+          "text": "import { type ScreenChange, screensOf } from '@/application/plan/impact-screens';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/impact-work.ts",
+      "sourceSha256": "772b95692008edddec21d0c1e619503b8e9a89f8fa70eb97958a6709f3215a71",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-story-versions-view code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/plan/impact-work.ts",
+          "line": 9,
+          "text": "export type WorkEffect ="
+        },
+        {
+          "file": "src/application/plan-story-versions-view.ts",
+          "line": 16,
+          "text": "import { nameIn, type Pair, pairOf, type View } from '@/application/plan-story-versions-pair';"
+        },
+        {
+          "file": "src/application/plan-story-versions-pair.ts",
+          "line": 4,
+          "text": "import { type RevisionImpact, revisionImpact } from '@/application/plan/impact';"
+        },
+        {
+          "file": "src/application/plan/impact.ts",
+          "line": 17,
+          "text": "import { workOf, type WorkImpact } from '@/application/plan/impact-work';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/impact.ts",
+      "sourceSha256": "31eb7fc76a5301b664a552a52e007990244c3bb0f390afbe3d45ebce9b19aa2f",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-story-versions-view code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/plan/impact.ts",
+          "line": 22,
+          "text": "export type { Check } from '@/application/plan/impact-check-types';"
+        },
+        {
+          "file": "src/application/plan-story-versions-view.ts",
+          "line": 16,
+          "text": "import { nameIn, type Pair, pairOf, type View } from '@/application/plan-story-versions-pair';"
+        },
+        {
+          "file": "src/application/plan-story-versions-pair.ts",
+          "line": 4,
+          "text": "import { type RevisionImpact, revisionImpact } from '@/application/plan/impact';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/issue-notes.ts",
+      "sourceSha256": "6ecbedc4009074326f6c107992caa80d2da75dc973c06550a508521ad5d72eee",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-pages-entity-extras code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/issue-notes.ts",
+          "line": 62,
+          "text": "export function notesOf(model: IssueModel, wi: WorkItem, today: Today): string {"
+        },
+        {
+          "file": "src/application/plan-pages-entity-extras.ts",
+          "line": 3,
+          "text": "import { issueMarkdown } from '@/application/plan/issues';"
+        },
+        {
+          "file": "src/application/plan/issues.ts",
+          "line": 3,
+          "text": "import { notesOf } from '@/application/plan/issue-notes';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/issue-parts.ts",
+      "sourceSha256": "fd735fb48dfbf630ff05e4303235a5f0edadcb6ecb95b66a9172b318b7af5299",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-pages-entity-extras code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/issue-parts.ts",
+          "line": 8,
+          "text": "export type IssueModel = Pick<"
+        },
+        {
+          "file": "src/application/plan-pages-entity-extras.ts",
+          "line": 3,
+          "text": "import { issueMarkdown } from '@/application/plan/issues';"
+        },
+        {
+          "file": "src/application/plan/issues.ts",
+          "line": 4,
+          "text": "import {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/issue-templates.ts",
+      "sourceSha256": "6cbb25b5056148f1e7cac2d5bf3fe42669a6cef6d4947e55eb8f12d4753a9213",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-pages-entity-extras code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/issue-templates.ts",
+          "line": 7,
+          "text": "export const ISSUE_TYPES = ['task', 'story', 'feature', 'bug'] as const;"
+        },
+        {
+          "file": "src/application/plan-pages-entity-extras.ts",
+          "line": 3,
+          "text": "import { issueMarkdown } from '@/application/plan/issues';"
+        },
+        {
+          "file": "src/application/plan/issues.ts",
+          "line": 11,
+          "text": "import {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/issues.ts",
+      "sourceSha256": "e65ce48367eeec074ba7f0f835cfcdbc8f4e72a8da8c4eabb9efe1907c039cd0",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-pages-entity-extras code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/issues.ts",
+          "line": 19,
+          "text": "export interface IssueOptions {"
+        },
+        {
+          "file": "src/application/plan-pages-entity-extras.ts",
+          "line": 3,
+          "text": "import { issueMarkdown } from '@/application/plan/issues';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/journey-evidence.ts",
+      "sourceSha256": "be3c54027b41a83fdeda931c5c1084c187389579a40da16bab2872639223dae7",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-story-journey-flow code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/plan/journey-evidence.ts",
+          "line": 6,
+          "text": "export type EvidenceKind ="
+        },
+        {
+          "file": "src/application/plan-story-journey-flow.ts",
+          "line": 2,
+          "text": "import { journeyComparison, type JourneyComparison } from '@/application/plan/journey';"
+        },
+        {
+          "file": "src/application/plan/journey.ts",
+          "line": 3,
+          "text": "import { type Evidence, ids, rec, stepEvidence } from '@/application/plan/journey-evidence';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/journey.ts",
+      "sourceSha256": "aa8970f05267d5cba13426dc73c4de35f5b4f23a2078d7c2168777518dbc8b28",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-story-journey-flow code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/plan/journey.ts",
+          "line": 7,
+          "text": "export type JourneyModel = Pick<Model, 'asIs' | 'toBe' | 'diff' | 'status'>;"
+        },
+        {
+          "file": "src/application/plan-story-journey-flow.ts",
+          "line": 2,
+          "text": "import { journeyComparison, type JourneyComparison } from '@/application/plan/journey';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/layout.ts",
+      "sourceSha256": "0a6b69c47882564780ecf4d766557b5ca49ecb163f2b0f126e02ceea1e930d87",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/layout.ts",
+          "line": 6,
+          "text": "export interface Lane {"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 20,
+          "text": "import { createLayout, type Layout } from '@/application/plan/layout';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/plan-base.ts",
+      "sourceSha256": "0245cd4e7ee8c747d85a0cd416d010517ae35e78eb683db8c225c3a1c21f0e00",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-base-store code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/plan-base.ts",
+          "line": 9,
+          "text": "export type Collection = keyof typeof SYSTEM_COLLECTIONS;"
+        },
+        {
+          "file": "src/infrastructure/plan-base-store.ts",
+          "line": 7,
+          "text": "import { collectionsOf, type PlanBase } from '@/application/plan/plan-base';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/plan-diff-ops.ts",
+      "sourceSha256": "c222f22bdfd4796346cb83048542e4a86b2caade247ea47aa1968e22ed742cb8",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-diff code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/plan/plan-diff-ops.ts",
+          "line": 18,
+          "text": "export type Derived = ReturnType<typeof derive>;"
+        },
+        {
+          "file": "src/application/plan/plan-diff.ts",
+          "line": 18,
+          "text": "import { type Derived, opsDiff, summariser } from '@/application/plan/plan-diff-ops';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/realisation.ts",
+      "sourceSha256": "798330cc8c08b8ef39c172133219c115b2d9e77f6dc6f5739de7daf369eee5a6",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-standing code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/plan/realisation.ts",
+          "line": 15,
+          "text": "export type RealisationState = 'missing' | 'partial' | 'matches' | 'differs';"
+        },
+        {
+          "file": "src/infrastructure/plan-standing.ts",
+          "line": 4,
+          "text": "import {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/revision-view.ts",
+      "sourceSha256": "597d92a6a349a4f0b745c923dea8df74f0c6075ac0bac0b78485823e59b163bd",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-bar code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/plan/revision-view.ts",
+          "line": 15,
+          "text": "export interface SnapshotsWanted {"
+        },
+        {
+          "file": "src/application/plan-bar.ts",
+          "line": 3,
+          "text": "import { pillText } from '@/application/plan/revision-view';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/stack-base.ts",
+      "sourceSha256": "2b441652ccab4c248d9b8431c7e983b3a369d7ce6d39c530ce916b4f5a32528d",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-store code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/stack-base.ts",
+          "line": 12,
+          "text": "export interface Provenance {"
+        },
+        {
+          "file": "src/infrastructure/plan-store.ts",
+          "line": 24,
+          "text": "import {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/ui-journey.ts",
+      "sourceSha256": "b338c8f140f75c3c4eae5c340b9af3dda4f475110d809fc3f0d763b9c2351889",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old journey-strip code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/plan/ui-journey.ts",
+          "line": 4,
+          "text": "export interface JourneyLeg {"
+        },
+        {
+          "file": "src/features/plan/viz/screens/journey-strip.tsx",
+          "line": 2,
+          "text": "import { uiJourney } from '@/application/plan/ui-journey';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/ui-journeys-interactions.ts",
+      "sourceSha256": "05614372fa803549adab621a029c12abc9631c11932ac7ad10c7d84b8b5b0f92",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-viz-screen-catalogue code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/plan/ui-journeys-interactions.ts",
+          "line": 152,
+          "text": "export function interactionScreenMap(model: FlowModel): ScreenMap {"
+        },
+        {
+          "file": "src/application/plan-viz-screen-catalogue.ts",
+          "line": 2,
+          "text": "import { todayScreenCatalogue, todayScreenMap } from '@/application/plan/ui-journeys-map';"
+        },
+        {
+          "file": "src/application/plan/ui-journeys-map.ts",
+          "line": 3,
+          "text": "import { interactionScreenMap } from '@/application/plan/ui-journeys-interactions';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/ui-journeys.ts",
+      "sourceSha256": "94fa61ef6c4b07f7fecc89e9f451e030360c6cebb0ad48adb1103ab9cfeac63d",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-viz-screen-catalogue code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/plan/ui-journeys.ts",
+          "line": 6,
+          "text": "export interface StepEvent {"
+        },
+        {
+          "file": "src/application/plan-viz-screen-catalogue.ts",
+          "line": 2,
+          "text": "import { todayScreenCatalogue, todayScreenMap } from '@/application/plan/ui-journeys-map';"
+        },
+        {
+          "file": "src/application/plan/ui-journeys-map.ts",
+          "line": 2,
+          "text": "import { todayJourneys, type Route } from '@/application/plan/ui-journeys';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/validate-plan.ts",
+      "sourceSha256": "802ddc6ad78e11834df5c179756f3b4e1255f7101e2eeaaa36bf6ef6ae62e34a",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old derive code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/validate-plan.ts",
+          "line": 31,
+          "text": "export interface Findings {"
+        },
+        {
+          "file": "src/application/plan/derive.ts",
+          "line": 21,
+          "text": "import { type Findings, validatePlan } from '@/application/plan/validate-plan';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/reference/query.ts",
+      "sourceSha256": "42ed91458db7e9abd93e1aff27b510abb831f8d9b6ef7c3eed1da5f01bc84353",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old reference-index code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/reference/query.ts",
+          "line": 27,
+          "text": "export type ReferenceKind = keyof typeof COLLECTIONS | 'ledger';"
+        },
+        {
+          "file": "src/features/plan/chapters/ref/reference-index.tsx",
+          "line": 3,
+          "text": "import { referencePage, type ReferenceKind } from '@/application/reference/query';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/application/workspace-work/workspace-plan-index.ts",
+      "sourceSha256": "69aaee8eec9faff9450867731f7e6da67cfbe3dc4347f56de1be79238061ea5d",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old workspace-plan-index code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/workspace-work/workspace-plan-index.ts",
+          "line": 28,
+          "text": "export interface IndexPlanInput {"
+        },
+        {
+          "file": "src/infrastructure/workspace-plan-index.ts",
+          "line": 2,
+          "text": "import {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/features/plan/common/inherited-note.tsx",
+      "sourceSha256": "573adec60a7c068e8cfc55b9d6653a8eac43da52b61ab7c2fd85a8007a2d2d28",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old record-screen code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/features/plan/common/inherited-note.tsx",
+          "line": 17,
+          "text": "export function InheritedNote({ model, ids }: InheritedNoteProps) {"
+        },
+        {
+          "file": "src/features/plan/chapters/changes/record-screen.tsx",
+          "line": 7,
+          "text": "import { InheritedNote } from '@/features/plan/common/inherited-note';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/features/plan/common/status-badge.tsx",
+      "sourceSha256": "4e51ed1d424e533e647c1702b4e53cbe5354028371c371b4d25845bd688bd270",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old contracts-parts code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/features/plan/common/status-badge.tsx",
+          "line": 13,
+          "text": "export function StatusBadge({ status }: { readonly status: ElementStatus | null }) {"
+        },
+        {
+          "file": "src/features/plan/chapters/changes/contracts-parts.tsx",
+          "line": 5,
+          "text": "import { StatusBadge } from '@/features/plan/common/status-badge';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/features/plan/viz/graph-evidence/graph-estimate.tsx",
+      "sourceSha256": "acbd363624e7cf7b5e349d3234febc690061b4868c07b8c5971785e4032d63d6",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old graph-ops-table code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/features/plan/viz/graph-evidence/graph-estimate.tsx",
+          "line": 17,
+          "text": "export function GraphEstimate({ model, id, mode = 'toBe' }: GraphEstimateProps) {"
+        },
+        {
+          "file": "src/features/plan/chapters/changes/graph-ops-table.tsx",
+          "line": 15,
+          "text": "import { GraphEstimate } from '@/features/plan/viz/graph-evidence/graph-estimate';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/features/plan/viz/journey/journey-modes.tsx",
+      "sourceSha256": "e4060493ec62dc48a3f93fb9d19e05be0bffb1cdf3255f9f6c8a9a3e4e099b9a",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old scenario-walk.client code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/features/plan/viz/journey/journey-modes.tsx",
+          "line": 13,
+          "text": "export function JourneyModes({ mode, onMode }: ModesProps) {"
+        },
+        {
+          "file": "src/features/plan/chapters/journey/scenario-walk.client.tsx",
+          "line": 11,
+          "text": "import { JourneyView } from '@/features/plan/viz/journey/journey-shell.client';"
+        },
+        {
+          "file": "src/features/plan/viz/journey/journey-shell.client.tsx",
+          "line": 11,
+          "text": "import { JourneyModes } from './journey-modes';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/features/plan/viz/screens/before-after.client.tsx",
+      "sourceSha256": "6af08c516d0eeb7e04641c679235a06fab38f809d68ef72dbff36eedd176df75",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old before-after code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/features/plan/viz/screens/before-after.client.tsx",
+          "line": 11,
+          "text": "export interface BeforeAfterViewProps {"
+        },
+        {
+          "file": "src/features/plan/viz/screens/before-after.tsx",
+          "line": 5,
+          "text": "import { BeforeAfterView } from './before-after.client';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/features/plan/viz/screens/region-number.tsx",
+      "sourceSha256": "8f25d77151efd5fd84acc0ce086bc21292bd77804e62bb070a4096489150390f",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old region-list code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/features/plan/viz/screens/region-number.tsx",
+          "line": 16,
+          "text": "export function RegionNumber({ n, status, gone = false, corner = false }: RegionNumberProps) {"
+        },
+        {
+          "file": "src/features/plan/viz/screens/region-list.tsx",
+          "line": 17,
+          "text": "import { RegionNumber } from './region-number';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/features/plan/viz/waterfall/row.tsx",
+      "sourceSha256": "27c8413bab450ec89c12fb5970693f1326f3eb69ae76259209566bc53c9f2e33",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old cache-row code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/features/plan/viz/waterfall/row.tsx",
+          "line": 24,
+          "text": "export function Row({ kind, state, lens, change, wasToday, fetchId, who, what, track }: RowProps) {"
+        },
+        {
+          "file": "src/features/plan/viz/waterfall/cache-row.tsx",
+          "line": 7,
+          "text": "import { Row } from './row';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/infrastructure/plan-validator.ts",
+      "sourceSha256": "19a2bd904520d524d755797b4e6c85aeb0016951199e23ae92c37bbfa46244c0",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-base-store code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/plan-validator.ts",
+          "line": 17,
+          "text": "export interface PlanCheck {"
+        },
+        {
+          "file": "src/infrastructure/plan-base-store.ts",
+          "line": 11,
+          "text": "import { checkPlanData } from './plan-validator';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/infrastructure/system-narratives.ts",
+      "sourceSha256": "256a034c4f90c39afd64c9b9f800a62280d23b808e3e7c2a17cb65b44c06b87f",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old workspace-store code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/system-narratives.ts",
+          "line": 51,
+          "text": "export async function systemNarrativeInputs("
+        },
+        {
+          "file": "src/infrastructure/workspace-store.ts",
+          "line": 11,
+          "text": "import { readSystemNarratives } from './system-narratives';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    },
+    {
+      "file": "src/infrastructure/workspace-model-facts.ts",
+      "sourceSha256": "20ea9a611a84fa2e563c89df665110529666e389a26f3a9cfd2c6a7abbd29591",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old workspace-model code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/workspace-model-facts.ts",
+          "line": 20,
+          "text": "export interface Reading {"
+        },
+        {
+          "file": "src/infrastructure/workspace-model.ts",
+          "line": 22,
+          "text": "import { type Reading, readingOf } from './workspace-model-facts';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        }
+      ]
+    }
+  ],
+  "heldChangedSources": []
+}

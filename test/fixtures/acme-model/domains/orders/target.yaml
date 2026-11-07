@@ -1,0 +1,21 @@
+summary: Every order is paid before [[sys:ordering]] tells anyone about it.
+stages:
+  - id: order
+    name: Order
+    term: term:order
+    owners:
+      - sys:ordering
+    summary: Recorded by [[svc:order-api]].
+    from: []
+  - id: payment
+    name: Payment
+    owners:
+      - sys:payments
+    from:
+      - order
+shifts:
+  - id: pay-first
+    name: Pay before announcing
+    today: The order is announced as soon as it is recorded.
+    target: The order is announced once [[svc:payments]] has taken the money.
+    cites: [top:order-events]

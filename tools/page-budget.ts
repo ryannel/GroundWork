@@ -9,10 +9,10 @@ import { setTimeout as sleep } from 'node:timers/promises';
 
 import { workspaceRegistrations } from '@/infrastructure/workspace-folders';
 
-import { judge, kilobytes, pageLinks, type PageSize } from './page-budget-rules';
+import { judge, kilobytes, pageLinks, PAGE_BYTE_LIMIT, type PageSize } from './page-budget-rules';
 
 /** The most one page may weigh, uncompressed. */
-const LIMIT = 1024 * 1024;
+const LIMIT = PAGE_BYTE_LIMIT;
 const TOP = 10;
 const AT_ONCE = 8;
 // Query-driven flows are not reached by the path-only link crawler.
@@ -73,12 +73,33 @@ async function crawl(origin: string): Promise<PageSize[]> {
   const seen = new Set(SEEDS);
   const sizes: PageSize[] = [];
   let queue = SEEDS;
+  let lastProgress = Date.now();
   while (queue.length > 0) {
     const batch = queue.slice(0, AT_ONCE);
     queue = queue.slice(AT_ONCE);
+    const pending = new Set(batch);
+    const slow = setInterval(() => {
+      console.error(`Budget is waiting on ${[...pending].join(', ')}.`);
+    }, 30_000);
     const results = await Promise.all(
-      batch.map(async (page) => weigh(new URL(page, origin), SEEDS.includes(page))),
-    );
+      batch.map(async (page) => {
+        try {
+          return await weigh(new URL(page, origin), SEEDS.includes(page));
+        } catch (error) {
+          throw new Error(`Budget could not measure ${page}.`, { cause: error });
+        } finally {
+          pending.delete(page);
+        }
+      }),
+    ).finally(() => {
+      clearInterval(slow);
+    });
+    if (Date.now() - lastProgress >= 30_000) {
+      console.error(
+        `Budget measured ${String(sizes.length)} pages; ${String(queue.length)} queued.`,
+      );
+      lastProgress = Date.now();
+    }
     for (const result of results) {
       if (result === null) continue;
       sizes.push(result.size);
@@ -125,7 +146,7 @@ try {
   await ready(origin, 120);
   report(await crawl(origin));
 } catch (error) {
-  console.error(error instanceof Error ? error.message : error);
+  console.error(error);
   console.error('Run npm run build first.');
   process.exitCode = 1;
 } finally {

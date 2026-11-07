@@ -5,3 +5,4 @@ private: true
 teams:
   - id: team:me
     name: Me
+format: 2

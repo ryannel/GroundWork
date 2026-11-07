@@ -1,0 +1,415 @@
+{
+  "afterFacts": ".workspaces/rebuild/pr8/area-audit/volvo-facts-lock-history",
+  "beforeFacts": ".workspaces/rebuild/pr8/area-audit/volvo-facts-target-corrected",
+  "changedFacts": [
+    "facts.json.gz"
+  ],
+  "checkedRuntimeFiles": 1604,
+  "factsDelta": [
+    {
+      "after": "aae896e4e0172d3191958dbb1f54454e83a2d03f600e6e1bec788b1aa2d05a0f",
+      "before": "fa51ba7f90c2de6eb3df502b544a10ec35fd207b834e18584393531406f19fb9",
+      "file": "facts.json.gz",
+      "path": "/plans/0/lock/programme/id"
+    },
+    {
+      "after": "7f3ec109b7444f86702ff33a90a65366a682abcbc9763d5614d3a44ed71b6393",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "file": "facts.json.gz",
+      "path": "/plans/1/lock/bases/care-se-financing-status"
+    },
+    {
+      "after": "e91cfa0ea8683b44c452e46f19ed16f9e14bb34c842239a93ce7b26189a09f83",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "file": "facts.json.gz",
+      "path": "/plans/1/lock/bases/care-se-stock-reservation"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "7f3ec109b7444f86702ff33a90a65366a682abcbc9763d5614d3a44ed71b6393",
+      "file": "facts.json.gz",
+      "path": "/plans/1/lock/bases/plan:care-se-financing-status"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "e91cfa0ea8683b44c452e46f19ed16f9e14bb34c842239a93ce7b26189a09f83",
+      "file": "facts.json.gz",
+      "path": "/plans/1/lock/bases/plan:care-se-stock-reservation"
+    },
+    {
+      "after": "aae896e4e0172d3191958dbb1f54454e83a2d03f600e6e1bec788b1aa2d05a0f",
+      "before": "fa51ba7f90c2de6eb3df502b544a10ec35fd207b834e18584393531406f19fb9",
+      "file": "facts.json.gz",
+      "path": "/plans/1/lock/programme/id"
+    },
+    {
+      "after": "7f3ec109b7444f86702ff33a90a65366a682abcbc9763d5614d3a44ed71b6393",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "file": "facts.json.gz",
+      "path": "/plans/2/lock/bases/care-se-financing-status"
+    },
+    {
+      "after": "433825c13f7fd753a8054a5332bdaafbbea1ed18536b65ab14fec29f987abac3",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "file": "facts.json.gz",
+      "path": "/plans/2/lock/bases/care-se-sales-tool"
+    },
+    {
+      "after": "e91cfa0ea8683b44c452e46f19ed16f9e14bb34c842239a93ce7b26189a09f83",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "file": "facts.json.gz",
+      "path": "/plans/2/lock/bases/care-se-stock-reservation"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "7f3ec109b7444f86702ff33a90a65366a682abcbc9763d5614d3a44ed71b6393",
+      "file": "facts.json.gz",
+      "path": "/plans/2/lock/bases/plan:care-se-financing-status"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "433825c13f7fd753a8054a5332bdaafbbea1ed18536b65ab14fec29f987abac3",
+      "file": "facts.json.gz",
+      "path": "/plans/2/lock/bases/plan:care-se-sales-tool"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "e91cfa0ea8683b44c452e46f19ed16f9e14bb34c842239a93ce7b26189a09f83",
+      "file": "facts.json.gz",
+      "path": "/plans/2/lock/bases/plan:care-se-stock-reservation"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "abcef38e0614fea7a2fe7b6864ef7b8bcd34d743f6b359aedd8a97ba5f1a8f0e",
+      "file": "facts.json.gz",
+      "path": "/plans/2/lock/entities/app:retail-sales-tool"
+    },
+    {
+      "after": "abcef38e0614fea7a2fe7b6864ef7b8bcd34d743f6b359aedd8a97ba5f1a8f0e",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "file": "facts.json.gz",
+      "path": "/plans/2/lock/entities/svc:retail-sales-tool"
+    },
+    {
+      "after": "aae896e4e0172d3191958dbb1f54454e83a2d03f600e6e1bec788b1aa2d05a0f",
+      "before": "fa51ba7f90c2de6eb3df502b544a10ec35fd207b834e18584393531406f19fb9",
+      "file": "facts.json.gz",
+      "path": "/plans/2/lock/programme/id"
+    },
+    {
+      "after": "7f3ec109b7444f86702ff33a90a65366a682abcbc9763d5614d3a44ed71b6393",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "file": "facts.json.gz",
+      "path": "/plans/3/lock/bases/care-se-financing-status"
+    },
+    {
+      "after": "e91cfa0ea8683b44c452e46f19ed16f9e14bb34c842239a93ce7b26189a09f83",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "file": "facts.json.gz",
+      "path": "/plans/3/lock/bases/care-se-stock-reservation"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "7f3ec109b7444f86702ff33a90a65366a682abcbc9763d5614d3a44ed71b6393",
+      "file": "facts.json.gz",
+      "path": "/plans/3/lock/bases/plan:care-se-financing-status"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "e91cfa0ea8683b44c452e46f19ed16f9e14bb34c842239a93ce7b26189a09f83",
+      "file": "facts.json.gz",
+      "path": "/plans/3/lock/bases/plan:care-se-stock-reservation"
+    },
+    {
+      "after": "aae896e4e0172d3191958dbb1f54454e83a2d03f600e6e1bec788b1aa2d05a0f",
+      "before": "fa51ba7f90c2de6eb3df502b544a10ec35fd207b834e18584393531406f19fb9",
+      "file": "facts.json.gz",
+      "path": "/plans/3/lock/programme/id"
+    },
+    {
+      "after": "7f3ec109b7444f86702ff33a90a65366a682abcbc9763d5614d3a44ed71b6393",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "file": "facts.json.gz",
+      "path": "/plans/4/lock/bases/care-se-financing-status"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "7f3ec109b7444f86702ff33a90a65366a682abcbc9763d5614d3a44ed71b6393",
+      "file": "facts.json.gz",
+      "path": "/plans/4/lock/bases/plan:care-se-financing-status"
+    },
+    {
+      "after": "aae896e4e0172d3191958dbb1f54454e83a2d03f600e6e1bec788b1aa2d05a0f",
+      "before": "fa51ba7f90c2de6eb3df502b544a10ec35fd207b834e18584393531406f19fb9",
+      "file": "facts.json.gz",
+      "path": "/plans/4/lock/programme/id"
+    },
+    {
+      "after": "8e2e6f04c11658893c5b52ae1b98cab8fd29e6277fd03b5844177f0bf340726a",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "file": "facts.json.gz",
+      "path": "/plans/6/lock/entities/st:price-financing-products-updated-public"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "8e2e6f04c11658893c5b52ae1b98cab8fd29e6277fd03b5844177f0bf340726a",
+      "file": "facts.json.gz",
+      "path": "/plans/6/lock/entities/top:price-financing-products-updated-public"
+    }
+  ],
+  "manifestSha256": "0b17ac3986631852b5f897b2491ddd7ad69b27ed82ebc64b99788cadcc40680c",
+  "output": "/private/tmp/rebuild-pr8-volvo-runtime-03",
+  "rows": [
+    {
+      "file": "plans/care-se-financing-status/base.lock.json",
+      "oldHashes": {
+        "bases": {},
+        "checkedOn": "2026-11-05",
+        "composed": null,
+        "entities": {
+          "h:conditional-order-post-checkout-v2": "b826ab31",
+          "h:fae-bank-create-application": "1413cf43",
+          "h:fae-create-application": "32c787ac",
+          "msg:fae-finance-application-create": "79d8930c",
+          "msg:fae-finance-application-reject": "3d49f0e7",
+          "msg:fae-finance-application-update": "fb6033f9"
+        },
+        "plan": "783f11ef",
+        "programme": {
+          "hash": "548c6171",
+          "id": "care-se"
+        }
+      },
+      "previousCopySha256": "6b9c76b33a5f8ba45d5e3d1803f9a80f10cbae31dcda0dde1d15cd8832024c7f",
+      "restoredSha256": "ff8e2a85ff924b7c1f67f138be1e128c439527241937941ceb2c43c1bd4bc5f5",
+      "sourceSha256": "ff8e2a85ff924b7c1f67f138be1e128c439527241937941ceb2c43c1bd4bc5f5",
+      "state": {
+        "checkedOn": null,
+        "edited": false,
+        "previousCheckedOn": "2026-11-05"
+      }
+    },
+    {
+      "file": "plans/care-se-online/base.lock.json",
+      "oldHashes": {
+        "bases": {
+          "care-se-financing-status": "783f11ef",
+          "care-se-stock-reservation": "8dae4af6"
+        },
+        "checkedOn": "2026-11-05",
+        "composed": "900deb7d",
+        "entities": {},
+        "plan": "afa5ae1d",
+        "programme": {
+          "hash": "548c6171",
+          "id": "care-se"
+        }
+      },
+      "previousCopySha256": "152f38df372e4772835e7bcb064eac64e4a278bcf7591b974ee4bed1803a372f",
+      "restoredSha256": "ed27c5997ec9bb97131845f61bc71d678f24b2308b635653a19190506a678ea3",
+      "sourceSha256": "ed27c5997ec9bb97131845f61bc71d678f24b2308b635653a19190506a678ea3",
+      "state": {
+        "checkedOn": null,
+        "edited": false,
+        "previousCheckedOn": "2026-11-05"
+      }
+    },
+    {
+      "file": "plans/care-se-order-change/base.lock.json",
+      "oldHashes": {
+        "bases": {
+          "care-se-financing-status": "783f11ef",
+          "care-se-sales-tool": "27e9b22f",
+          "care-se-stock-reservation": "8dae4af6"
+        },
+        "checkedOn": "2026-11-05",
+        "composed": "f3152090",
+        "entities": {
+          "svc:retail-sales-tool": "3c07d0f5"
+        },
+        "plan": "724a3028",
+        "programme": {
+          "hash": "548c6171",
+          "id": "care-se"
+        }
+      },
+      "previousCopySha256": "69624c01e899ec051b61b6ac74ad72a773cba57933c7454be64e8277cb745248",
+      "restoredSha256": "df5ada1e917354196ea9dbaeec22f5f7619c933320e2f047a8446b22ed75ceef",
+      "sourceSha256": "df5ada1e917354196ea9dbaeec22f5f7619c933320e2f047a8446b22ed75ceef",
+      "state": {
+        "checkedOn": null,
+        "edited": false,
+        "previousCheckedOn": "2026-11-05"
+      }
+    },
+    {
+      "file": "plans/care-se-sales-tool/base.lock.json",
+      "oldHashes": {
+        "bases": {
+          "care-se-financing-status": "783f11ef",
+          "care-se-stock-reservation": "8dae4af6"
+        },
+        "checkedOn": "2026-11-05",
+        "composed": "900deb7d",
+        "entities": {
+          "h:conditional-order-post-checkout-v2": "d649cf14"
+        },
+        "plan": "27e9b22f",
+        "programme": {
+          "hash": "548c6171",
+          "id": "care-se"
+        }
+      },
+      "previousCopySha256": "74c384ea35074c4cb04e4925c65980af4660f8168ff82d3626ff96b288379503",
+      "restoredSha256": "447acbeff061161e097e83a1fa5bfb166b6a22d777c0d6fb919c281a5755ecf8",
+      "sourceSha256": "447acbeff061161e097e83a1fa5bfb166b6a22d777c0d6fb919c281a5755ecf8",
+      "state": {
+        "checkedOn": null,
+        "edited": false,
+        "previousCheckedOn": "2026-11-05"
+      }
+    },
+    {
+      "file": "plans/care-se-stock-reservation/base.lock.json",
+      "oldHashes": {
+        "bases": {
+          "care-se-financing-status": "783f11ef"
+        },
+        "checkedOn": "2026-11-05",
+        "composed": "fd8c499a",
+        "entities": {
+          "h:conditional-order-post-checkout-v2": "51e27f2d",
+          "msg:fae-finance-application-reject": "4f6834cc",
+          "msg:fae-finance-application-update": "e9f4e5d8"
+        },
+        "plan": "8dae4af6",
+        "programme": {
+          "hash": "548c6171",
+          "id": "care-se"
+        }
+      },
+      "previousCopySha256": "5db17070d35f965503470dc0cbbdd552b45cb4e367dbb9806fd0ca272595c0a2",
+      "restoredSha256": "0e301b0fa32db4ae1bc356023b0e7f2293c9e8bd38894e71bcdc5510c8b0d750",
+      "sourceSha256": "0e301b0fa32db4ae1bc356023b0e7f2293c9e8bd38894e71bcdc5510c8b0d750",
+      "state": {
+        "checkedOn": null,
+        "edited": false,
+        "previousCheckedOn": "2026-11-05"
+      }
+    },
+    {
+      "file": "plans/immutable-ids/base.lock.json",
+      "oldHashes": {
+        "bases": {},
+        "checkedOn": "2026-10-16",
+        "composed": null,
+        "entities": {
+          "api:assortment-product-get": "absent",
+          "api:assortment-products-batch": "absent",
+          "api:assortment-variant-get": "absent",
+          "api:assortment-variants-batch": "absent",
+          "flow:assortment-cache-pds-delete#remove-hot": "c14ac0d8",
+          "flow:assortment-cache-pds-upsert#remove-omitted": "9e2ab5b2",
+          "flow:assortment-cache-pds-upsert#write-both": "e862f3bb",
+          "flow:assortment-read-current-view#request": "dd5fcb29",
+          "flow:mas-commercial-item-update#refresh-views": "a1229652"
+        },
+        "plan": null,
+        "programme": null
+      },
+      "previousCopySha256": "1b0adeac907d033ecca15d32021a8dd3d53541c8ea41f8882a88a9906520fc49",
+      "restoredSha256": "1b0adeac907d033ecca15d32021a8dd3d53541c8ea41f8882a88a9906520fc49",
+      "sourceSha256": "1b0adeac907d033ecca15d32021a8dd3d53541c8ea41f8882a88a9906520fc49",
+      "state": {
+        "checkedOn": null,
+        "edited": false,
+        "previousCheckedOn": "2026-10-16"
+      }
+    },
+    {
+      "file": "plans/sourced-financing-terms/base.lock.json",
+      "oldHashes": {
+        "bases": {},
+        "checkedOn": "2026-10-16",
+        "composed": null,
+        "entities": {
+          "api:fo-admin-activate-template": "absent",
+          "api:fo-admin-create-finance": "absent",
+          "api:gpe-configuration-get-financing-products": "absent",
+          "api:price-core-create-financing-product": "absent",
+          "api:price-core-update-financing-product": "absent",
+          "flow:activate-financing-offer": "035cccba",
+          "flow:activate-financing-offer#activate": "7720838f",
+          "flow:activate-financing-offer#check-options": "absent",
+          "flow:activate-financing-offer#fetch-sourced-terms": "absent",
+          "flow:admin-create-finance": "3a882de1",
+          "flow:admin-create-finance#create-finance": "c1c05636",
+          "flow:admin-create-finance#create-term": "6619f640",
+          "flow:gpe-price-data-import-financing-products": "9430070d",
+          "flow:gpe-price-data-import-financing-products#read-products": "7d7d1963",
+          "flow:gpe-price-data-refresh-price-core-terms#save-terms": "absent",
+          "flow:list-financing-products": "38a3dd56",
+          "flow:list-financing-products#merge": "5b1b2148",
+          "flow:list-financing-products#read-fae": "2ebd2c06",
+          "flow:list-financing-products#read-redis": "9f794476",
+          "flow:price-core-author-financing-product#create": "39fe00e6",
+          "flow:resolve-financing-product-terms#resolve-source": "absent",
+          "msg:gpe-financing-products-updated": "f19924c8",
+          "msg:price-financing-products-updated-public": "7df740c4",
+          "sch:financing-offer-archived-event#Reason": "6ad1ee01",
+          "sch:financing-offers-event#payload": "b000f904",
+          "sch:gpe-financing-product-dto": "52634976",
+          "sch:gpe-financing-product-dto#source": "d14c4e71",
+          "sch:redis-financing-products": "b06491a4",
+          "sch:redis-financing-products#Products": "e8d6cf27",
+          "st:price-financing-products-updated-public": "2eef1ab4"
+        },
+        "plan": null,
+        "programme": null
+      },
+      "previousCopySha256": "2157022db03887bda99f5bc18276c18faf8db7a241e4034c280661b2614edbeb",
+      "restoredSha256": "09c196c3a8da46ccb6d76a2136f73f1145003066357d7fd816077b62a13b6bed",
+      "sourceSha256": "09c196c3a8da46ccb6d76a2136f73f1145003066357d7fd816077b62a13b6bed",
+      "state": {
+        "checkedOn": null,
+        "edited": false,
+        "previousCheckedOn": "2026-10-16"
+      }
+    },
+    {
+      "file": "plans/unify-price-breakdown/base.lock.json",
+      "oldHashes": {
+        "bases": {},
+        "checkedOn": "2026-11-05",
+        "composed": null,
+        "entities": {
+          "flow:gpe-price-configuration-calculation#assemble-response": "84eed3e6",
+          "flow:gpe-price-configuration-calculation#load-pretax": "8d2c162d",
+          "flow:render-price-breakdown#calculate-price": "4a26595c",
+          "flow:render-price-breakdown#query-price-breakdown": "dab60449",
+          "sch:gpe-price-response#items": "0b493594"
+        },
+        "plan": "f6686502",
+        "programme": null
+      },
+      "previousCopySha256": "0a2b28a24bfc0c8f5c173eefd48594b9b000a77a111e101c2a50fd7c6b824ddf",
+      "restoredSha256": "0a2b28a24bfc0c8f5c173eefd48594b9b000a77a111e101c2a50fd7c6b824ddf",
+      "sourceSha256": "0a2b28a24bfc0c8f5c173eefd48594b9b000a77a111e101c2a50fd7c6b824ddf",
+      "state": {
+        "checkedOn": null,
+        "edited": false,
+        "previousCheckedOn": "2026-11-05"
+      }
+    }
+  ],
+  "runtime": "/private/tmp/rebuild-pr8-volvo-runtime-02",
+  "runtimeDelta": [
+    "plans/care-se-financing-status/base.lock.json",
+    "plans/care-se-online/base.lock.json",
+    "plans/care-se-order-change/base.lock.json",
+    "plans/care-se-sales-tool/base.lock.json",
+    "plans/care-se-stock-reservation/base.lock.json",
+    "plans/sourced-financing-terms/base.lock.json"
+  ],
+  "sourceCommit": "723085497ded5b51d3c23fdcb5f6b1c778aa3efa"
+}

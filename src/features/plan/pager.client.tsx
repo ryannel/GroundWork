@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useSyncExternalStore } from 'react';
 
-import type { Chapter, Neighbours, Page } from '@/application/plan-pages';
+import type { Chapter, Neighbours, Page } from '@/application/plan-navigation';
 
 import styles from './pager.module.css';
 import { walkBeside, walkMove, watchWalk } from './walk-keys';

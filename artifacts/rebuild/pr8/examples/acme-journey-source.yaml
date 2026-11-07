@@ -1,0 +1,42 @@
+- sourcePath: journeys/buy.yaml
+  sourceText: |
+    journey:
+      id: uj:buy
+      name: Buy a product
+      actor: Customer
+      interactions:
+        - ui:add-to-basket
+        - ui:place-order
+      origin: curated
+    interactions:
+      - id: ui:add-to-basket
+        name: Add to basket
+        from:
+          - scr:product-page#buy
+        to: scr:basket
+        trigger: click
+        effect: navigate
+        origin: curated
+      - id: ui:place-order
+        name: Place order
+        from:
+          - scr:basket
+        to: scr:confirmation
+        trigger: submit
+        effect: navigate
+        supporting_steps:
+          - flow:place-order#submit
+          - flow:place-order#create
+        origin: curated
+  declaredActor: Customer
+  supportingSteps:
+    - interaction: ui:place-order
+      steps:
+        - flow:place-order#submit
+        - flow:place-order#create
+  unresolved: []
+  reason: Journey flow links retain only declared supporting steps that resolve in the source. The exact original step
+    references stay in this receipt.
+  key: journey/jny:buy/source
+  fingerprint: cb5479ff2d6cac1e9a474a95309a8730714d415e959eea92efc76dcb02074f50
+  status: pending

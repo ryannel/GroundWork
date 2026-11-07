@@ -5,7 +5,7 @@ import { domainHref, systemHref } from '@/application/workspace-paths';
 import { buildId } from '@/domain/ids';
 import type { Concept } from '@/domain/plan/plan.generated';
 import type { Workspace } from '@/domain/workspace';
-import type { DomainLanguage } from '@/domain/workspace-model';
+import type { ResolvedCites, DomainLanguage } from '@/domain/workspace-model';
 
 export interface Place {
   readonly id: string;
@@ -24,7 +24,10 @@ export interface Places {
   /** Where a component, system or domain id lives; null when the workspace has no such thing. */
   readonly of: (id: string) => Where | null;
   /** Each scanned word by id, with the domain whose language.yaml holds it. */
-  readonly words: ReadonlyMap<string, { readonly concept: Concept; readonly domain: string }>;
+  readonly words: ReadonlyMap<
+    string,
+    { readonly concept: ResolvedCites<Concept>; readonly domain: string }
+  >;
 }
 
 const NOWHERE: Where = { domain: null, system: null, component: null };

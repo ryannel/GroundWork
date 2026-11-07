@@ -10,6 +10,7 @@ import { entryFlowOf, type EntryFlowView } from '@/application/entry-flow';
 import { indexOf } from '@/application/model-index';
 import { readModel } from '@/infrastructure/read-model';
 
+import { EntryFlowPage } from './entry-flow-page';
 import { EntryFlow } from './entry-flow.client';
 
 vi.mock(import('server-only'), () => ({}));
@@ -66,4 +67,34 @@ it('keeps missing detail and gaps visible in a flow without a handler', () => {
   expect(screen.getByText('No effect recorded')).toBeTruthy();
   expect(screen.getByText('No handler detail is recorded.')).toBeTruthy();
   expect(screen.getByText('No schedule or trigger is recorded.')).toBeTruthy();
+});
+
+it('renders the bounded entry page with a link to the remaining records', () => {
+  render(
+    <EntryFlowPage
+      workspace={{ name: 'Listing fixture', href: '/fixture/entries/', description: null }}
+      flow={null}
+      entries={Array.from({ length: 30 }, (_, number) => ({
+        id: `api:entry-${String(number)}`,
+        kind: 'endpoint',
+        title: `Entry ${String(number)}`,
+        href: `/fixture/entries/?id=api-entry-${String(number)}`,
+      }))}
+      pagination={{
+        total: 65,
+        page: 1,
+        pages: 3,
+        previous: null,
+        next: '/fixture/entries/?page=2',
+      }}
+      plans={[]}
+      comparison={null}
+    />,
+  );
+  expect(screen.getByText('65 entries · Page 1 of 3')).toBeTruthy();
+  expect(screen.getAllByRole('link', { name: /^Entry \d+$/u })).toHaveLength(30);
+  expect(screen.getByRole('link', { name: 'Next page' }).getAttribute('href')).toMatch(
+    /^\/fixture\/entries\/?\?page=2$/u,
+  );
+  expect(screen.queryByRole('link', { name: 'Previous page' })).toBeNull();
 });

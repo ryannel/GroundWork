@@ -2,22 +2,43 @@
 import { act, cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
-import { shop } from '@/../test/federation-kit';
-import { derive } from '@/application/plan/derive';
+import { modelOp } from '@/../test/fixtures/model-op';
+import { queryModel } from '@/../test/fixtures/model-queries';
+import { modelContextOf, selectedPlanPayload } from '@/application/model-reader';
+import { selectedPlanProjection } from '@/application/plans-index';
+import type { ModelPlan } from '@/domain/workspace-model';
 
 import { ChangesAhead } from './changes-ahead.client';
 import { PinAhead } from './pin-ahead.client';
 import { clearPins, pinsOf, setTrayOpen } from './tray-store';
 
-const model = derive(shop());
+const overlay: ModelPlan = {
+  meta: { id: 'plan:shop', title: 'Shop' },
+  problem: { summary: 'Keep actual affected records.' },
+  changes: [
+    {
+      id: 'chg:contracts',
+      title: 'Interfaces that get a new version',
+      ops: [
+        modelOp({ modify: 'api:a', set: { summary: 'Revised description' } }),
+        modelOp({ modify: 'h:a#call', set: { when: 'Approved' } }),
+      ],
+    },
+  ],
+};
+const model = modelContextOf(
+  selectedPlanPayload(selectedPlanProjection(overlay, [overlay], queryModel())),
+);
 const settled = Object.assign(Promise.resolve(model), { status: 'fulfilled', value: model });
-vi.mock(import('@/features/plan/plan-model'), () => ({ pendingModel: () => ({ model: settled }) }));
+vi.mock(import('@/features/plan/plan-model'), () => ({
+  pendingNativeModel: () => ({ model: settled }),
+}));
 vi.mock(import('next/navigation'), () => ({
   usePathname: () => '/acme/plans/shop/journey/browse/',
 }));
 
 const plan = { workspace: 'acme', slug: 'shop' };
-const contracts = '/acme/plans/shop/changes/contracts/';
+const contracts = '/acme/plans/shop/changes/chg-contracts/';
 
 afterEach(() => {
   cleanup();
@@ -34,7 +55,7 @@ describe('the changes-ahead tray', () => {
   it('pins what a marked step carries, and opens the tray from the mark', async () => {
     render(
       <>
-        <PinAhead ids={['sch:gql-product', 'gql:product-page']} reasons={['price changes']} />
+        <PinAhead ids={['api:a', 'h:a#call']} reasons={['price changes']} />
         <ChangesAhead here="/x/" plan={plan} src="plan.json" />
       </>,
     );
@@ -47,14 +68,17 @@ describe('the changes-ahead tray', () => {
     await act(async () => {
       await settled;
     });
-    const link = screen.getByRole('link', { name: '4.2 Interfaces that get a new version' });
-    expect(link.getAttribute('href')).toContain('/acme/plans/shop/changes/contracts');
+    const links = screen.getAllByRole('link', { name: /Interfaces that get a new version/u });
+    expect(links.map((link) => link.getAttribute('href'))).toEqual([
+      '/acme/plans/shop/changes/chg-contracts',
+      '/acme/plans/shop/changes/chg-contracts',
+    ]);
     fireEvent.keyDown(document, { key: 'Escape' });
     expect(screen.queryByRole('region', { name: 'Changes ahead' })).toBeNull();
   });
 
   it('ticks a pin off once the screen that shows its change is read', async () => {
-    render(<PinAhead ids={['sch:gql-product']} reasons={[]} />);
+    render(<PinAhead ids={['api:a']} reasons={[]} />);
     render(<ChangesAhead here={contracts} plan={plan} src="plan.json" />);
     await act(async () => {
       await settled;

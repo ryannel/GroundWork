@@ -3,7 +3,7 @@
 import { useSearchParams } from 'next/navigation';
 import { Suspense, useState } from 'react';
 
-import { STAGE_WORDS, type PlanRow, type PlanStage } from '@/application/plan-index';
+import { STAGE_WORDS, type PlanRow, type PlanStage } from '@/application/plan-list';
 import type { ProgrammeRowVM } from '@/application/workspace-work/programme-page';
 import { plural } from '@/shared/text';
 import { replaceAddress } from '@/ui/address-bar';

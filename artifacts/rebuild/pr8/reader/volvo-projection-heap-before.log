@@ -1,0 +1,5 @@
+{"stage":"current","seconds":43.5,"heapMiB":342,"rssMiB":1477,"plans":8,"evidence":117}
+{"stage":"care-se-financing-status","seconds":13.1,"heapMiB":651,"rssMiB":2310,"sharesEvidence":false}
+{"stage":"care-se-online","seconds":33.1,"heapMiB":1270,"rssMiB":2869,"sharesEvidence":false}
+{"stage":"care-se-order-change","seconds":46.6,"heapMiB":1889,"rssMiB":3276,"sharesEvidence":false}
+{"stage":"care-se-sales-tool","seconds":40.2,"heapMiB":2508,"rssMiB":3603,"sharesEvidence":false}

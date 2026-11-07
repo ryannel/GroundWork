@@ -1,0 +1,645 @@
+{
+  "differences": [
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "db4ef9566c056da9781b3aec7be5ea0ab7830528a1203a157a84f64d6fce2552",
+      "file": "facts.json.gz",
+      "path": "/plans/0/before/callers",
+      "reason": "This legacy callers carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "ff2ff62894cb516f344c1dc73b6f4fc46b51cc230331fc935b02141030a9805f",
+      "file": "facts.json.gz",
+      "path": "/plans/0/before/messages",
+      "reason": "This legacy messages carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "c37d8c31dbb6bfbff47164ba885af496ef0ed20d65d5cd018d02a0a1a5c227e5",
+      "file": "facts.json.gz",
+      "path": "/plans/0/before/componentEdges",
+      "reason": "This legacy componentEdges carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "2427adfcd263776538d956cfedc2f5dece5acd95eb371550d08064eb2c419778",
+      "file": "facts.json.gz",
+      "path": "/plans/0/before/systemEdges",
+      "reason": "This legacy systemEdges carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "82f55f5ce9350e1d9dd6c9f1e121ee0aac709ebe411c66d4ad352263f6baa350",
+      "file": "facts.json.gz",
+      "path": "/plans/0/before/storeAccess",
+      "reason": "This legacy storeAccess carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "0c318c997464fe1569564b483c4688cb0955ceac3c00a4a63dc99f4871de1cf0",
+      "file": "facts.json.gz",
+      "path": "/plans/0/after/callers",
+      "reason": "This legacy callers carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "9d9430d803f18c86dcd94a06ac58e60cacb18b673f4f4ba6a6bd76d05e03ab6d",
+      "file": "facts.json.gz",
+      "path": "/plans/0/after/messages",
+      "reason": "This legacy messages carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "c37d8c31dbb6bfbff47164ba885af496ef0ed20d65d5cd018d02a0a1a5c227e5",
+      "file": "facts.json.gz",
+      "path": "/plans/0/after/componentEdges",
+      "reason": "This legacy componentEdges carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "2427adfcd263776538d956cfedc2f5dece5acd95eb371550d08064eb2c419778",
+      "file": "facts.json.gz",
+      "path": "/plans/0/after/systemEdges",
+      "reason": "This legacy systemEdges carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "82f55f5ce9350e1d9dd6c9f1e121ee0aac709ebe411c66d4ad352263f6baa350",
+      "file": "facts.json.gz",
+      "path": "/plans/0/after/storeAccess",
+      "reason": "This legacy storeAccess carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "526c3ffe11afd358a29d9a4a07eabd1bf536f547ded40e5986dc91c24718c571",
+      "file": "facts.json.gz",
+      "path": "/plans/1/before/callers",
+      "reason": "This legacy callers carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "519db9f7e5630f6533f3f815b07bff38d734bd660ea9fa2d190078bf0d9d6e5c",
+      "file": "facts.json.gz",
+      "path": "/plans/1/before/messages",
+      "reason": "This legacy messages carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "4c6809f82c67c08b7c5a317331d5fdeda68450760ef56e4f8b403bc28c447351",
+      "file": "facts.json.gz",
+      "path": "/plans/1/before/componentEdges",
+      "reason": "This legacy componentEdges carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "f6e464149a856c793761f1e728def66ebc1f6ba6ea0031664c6561f36bfee726",
+      "file": "facts.json.gz",
+      "path": "/plans/1/before/systemEdges",
+      "reason": "This legacy systemEdges carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "82f55f5ce9350e1d9dd6c9f1e121ee0aac709ebe411c66d4ad352263f6baa350",
+      "file": "facts.json.gz",
+      "path": "/plans/1/before/storeAccess",
+      "reason": "This legacy storeAccess carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "526c3ffe11afd358a29d9a4a07eabd1bf536f547ded40e5986dc91c24718c571",
+      "file": "facts.json.gz",
+      "path": "/plans/1/after/callers",
+      "reason": "This legacy callers carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "519db9f7e5630f6533f3f815b07bff38d734bd660ea9fa2d190078bf0d9d6e5c",
+      "file": "facts.json.gz",
+      "path": "/plans/1/after/messages",
+      "reason": "This legacy messages carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "4c6809f82c67c08b7c5a317331d5fdeda68450760ef56e4f8b403bc28c447351",
+      "file": "facts.json.gz",
+      "path": "/plans/1/after/componentEdges",
+      "reason": "This legacy componentEdges carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "f6e464149a856c793761f1e728def66ebc1f6ba6ea0031664c6561f36bfee726",
+      "file": "facts.json.gz",
+      "path": "/plans/1/after/systemEdges",
+      "reason": "This legacy systemEdges carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "82f55f5ce9350e1d9dd6c9f1e121ee0aac709ebe411c66d4ad352263f6baa350",
+      "file": "facts.json.gz",
+      "path": "/plans/1/after/storeAccess",
+      "reason": "This legacy storeAccess carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "4ac000ac27f10e68ddb3578f5d4a7e60b73e24d41ff723623f2fd304888769fb",
+      "file": "facts.json.gz",
+      "path": "/plans/2/before/callers",
+      "reason": "This legacy callers carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "519db9f7e5630f6533f3f815b07bff38d734bd660ea9fa2d190078bf0d9d6e5c",
+      "file": "facts.json.gz",
+      "path": "/plans/2/before/messages",
+      "reason": "This legacy messages carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "581b7e204e7336fc9d8027302f14cbf6765000b2308590bec66a32b140568114",
+      "file": "facts.json.gz",
+      "path": "/plans/2/before/componentEdges",
+      "reason": "This legacy componentEdges carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "abae3394e5adbfa91ff65e37e5cee9e5d842e767e00356ec8f023df317ae5af9",
+      "file": "facts.json.gz",
+      "path": "/plans/2/before/systemEdges",
+      "reason": "This legacy systemEdges carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "54b4b0faa1f1f3b66e214dc3d5bea7d501aba71500467a2459bf85114d3d38de",
+      "file": "facts.json.gz",
+      "path": "/plans/2/before/storeAccess",
+      "reason": "This legacy storeAccess carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "4ac000ac27f10e68ddb3578f5d4a7e60b73e24d41ff723623f2fd304888769fb",
+      "file": "facts.json.gz",
+      "path": "/plans/2/after/callers",
+      "reason": "This legacy callers carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "519db9f7e5630f6533f3f815b07bff38d734bd660ea9fa2d190078bf0d9d6e5c",
+      "file": "facts.json.gz",
+      "path": "/plans/2/after/messages",
+      "reason": "This legacy messages carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "581b7e204e7336fc9d8027302f14cbf6765000b2308590bec66a32b140568114",
+      "file": "facts.json.gz",
+      "path": "/plans/2/after/componentEdges",
+      "reason": "This legacy componentEdges carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "abae3394e5adbfa91ff65e37e5cee9e5d842e767e00356ec8f023df317ae5af9",
+      "file": "facts.json.gz",
+      "path": "/plans/2/after/systemEdges",
+      "reason": "This legacy systemEdges carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "54b4b0faa1f1f3b66e214dc3d5bea7d501aba71500467a2459bf85114d3d38de",
+      "file": "facts.json.gz",
+      "path": "/plans/2/after/storeAccess",
+      "reason": "This legacy storeAccess carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "526c3ffe11afd358a29d9a4a07eabd1bf536f547ded40e5986dc91c24718c571",
+      "file": "facts.json.gz",
+      "path": "/plans/3/before/callers",
+      "reason": "This legacy callers carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "519db9f7e5630f6533f3f815b07bff38d734bd660ea9fa2d190078bf0d9d6e5c",
+      "file": "facts.json.gz",
+      "path": "/plans/3/before/messages",
+      "reason": "This legacy messages carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "48f8076d5a42125cc4fbac51a2e35296324b5c44e997d0c6ee59f43ec40bd933",
+      "file": "facts.json.gz",
+      "path": "/plans/3/before/componentEdges",
+      "reason": "This legacy componentEdges carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "58c0163c2671de7212a6c4402f89dab3cda743206dae7a09a6e4cec057d6d87d",
+      "file": "facts.json.gz",
+      "path": "/plans/3/before/systemEdges",
+      "reason": "This legacy systemEdges carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "54b4b0faa1f1f3b66e214dc3d5bea7d501aba71500467a2459bf85114d3d38de",
+      "file": "facts.json.gz",
+      "path": "/plans/3/before/storeAccess",
+      "reason": "This legacy storeAccess carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "0236681b5490e6d729b6d5499d9a04caaeff0ec5607eb3babef96c745e8dacff",
+      "file": "facts.json.gz",
+      "path": "/plans/3/after/callers",
+      "reason": "This legacy callers carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "519db9f7e5630f6533f3f815b07bff38d734bd660ea9fa2d190078bf0d9d6e5c",
+      "file": "facts.json.gz",
+      "path": "/plans/3/after/messages",
+      "reason": "This legacy messages carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "48f8076d5a42125cc4fbac51a2e35296324b5c44e997d0c6ee59f43ec40bd933",
+      "file": "facts.json.gz",
+      "path": "/plans/3/after/componentEdges",
+      "reason": "This legacy componentEdges carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "58c0163c2671de7212a6c4402f89dab3cda743206dae7a09a6e4cec057d6d87d",
+      "file": "facts.json.gz",
+      "path": "/plans/3/after/systemEdges",
+      "reason": "This legacy systemEdges carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "54b4b0faa1f1f3b66e214dc3d5bea7d501aba71500467a2459bf85114d3d38de",
+      "file": "facts.json.gz",
+      "path": "/plans/3/after/storeAccess",
+      "reason": "This legacy storeAccess carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "305d85faeffbaae76e8279f8c259739534f19e385176e29e947feecfe870f532",
+      "file": "facts.json.gz",
+      "path": "/plans/4/before/callers",
+      "reason": "This legacy callers carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "56de29791b630edf5dc113f535ed4871ac3e1c4ba6802c5c3eba4edf8152e740",
+      "file": "facts.json.gz",
+      "path": "/plans/4/before/messages",
+      "reason": "This legacy messages carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "dc0329503bcd5b85ccf8d6055a3146f6d1ae83e507ad65e9e21d0e60a629ca60",
+      "file": "facts.json.gz",
+      "path": "/plans/4/before/componentEdges",
+      "reason": "This legacy componentEdges carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "43d4f134a77ab9a1b44d46ee67b1543ec4fc6d77f5c9515c60f7100f5d6edce5",
+      "file": "facts.json.gz",
+      "path": "/plans/4/before/systemEdges",
+      "reason": "This legacy systemEdges carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "82f55f5ce9350e1d9dd6c9f1e121ee0aac709ebe411c66d4ad352263f6baa350",
+      "file": "facts.json.gz",
+      "path": "/plans/4/before/storeAccess",
+      "reason": "This legacy storeAccess carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "526c3ffe11afd358a29d9a4a07eabd1bf536f547ded40e5986dc91c24718c571",
+      "file": "facts.json.gz",
+      "path": "/plans/4/after/callers",
+      "reason": "This legacy callers carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "519db9f7e5630f6533f3f815b07bff38d734bd660ea9fa2d190078bf0d9d6e5c",
+      "file": "facts.json.gz",
+      "path": "/plans/4/after/messages",
+      "reason": "This legacy messages carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "4c6809f82c67c08b7c5a317331d5fdeda68450760ef56e4f8b403bc28c447351",
+      "file": "facts.json.gz",
+      "path": "/plans/4/after/componentEdges",
+      "reason": "This legacy componentEdges carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "f6e464149a856c793761f1e728def66ebc1f6ba6ea0031664c6561f36bfee726",
+      "file": "facts.json.gz",
+      "path": "/plans/4/after/systemEdges",
+      "reason": "This legacy systemEdges carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "82f55f5ce9350e1d9dd6c9f1e121ee0aac709ebe411c66d4ad352263f6baa350",
+      "file": "facts.json.gz",
+      "path": "/plans/4/after/storeAccess",
+      "reason": "This legacy storeAccess carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "9f0a090924a13fd9134174d670572e0e7079b800e37915dd7de79600a5534351",
+      "file": "facts.json.gz",
+      "path": "/plans/5/before/callers",
+      "reason": "This legacy callers carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "b0d41f17c56f24a624ce1dd6964fc54f5fd1ba7d2590373b0ab3788389ad72ad",
+      "file": "facts.json.gz",
+      "path": "/plans/5/before/messages",
+      "reason": "This legacy messages carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "9b94c7c23b1853616cac7bbf7f5f4354e894f289abc06eb5b85007aa075ba5f0",
+      "file": "facts.json.gz",
+      "path": "/plans/5/before/componentEdges",
+      "reason": "This legacy componentEdges carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "b82bdcf6b558aade24f619e0f2f0cd5948e03056778e908dc6b7be00109521f1",
+      "file": "facts.json.gz",
+      "path": "/plans/5/before/systemEdges",
+      "reason": "This legacy systemEdges carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "749318eb23932394847c001a68e430f032388d167077046276ad6d90c48ef542",
+      "file": "facts.json.gz",
+      "path": "/plans/5/before/storeAccess",
+      "reason": "This legacy storeAccess carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "9f0a090924a13fd9134174d670572e0e7079b800e37915dd7de79600a5534351",
+      "file": "facts.json.gz",
+      "path": "/plans/5/after/callers",
+      "reason": "This legacy callers carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "b0d41f17c56f24a624ce1dd6964fc54f5fd1ba7d2590373b0ab3788389ad72ad",
+      "file": "facts.json.gz",
+      "path": "/plans/5/after/messages",
+      "reason": "This legacy messages carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "833fe77f8ce0e93204fdc340cbc710fdc0f40694217b0b2d4c5a3c5736008b1d",
+      "file": "facts.json.gz",
+      "path": "/plans/5/after/componentEdges",
+      "reason": "This legacy componentEdges carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "513581d1d17e8e1ab181f634ac597fc2349f2f6d4e648631beaa267a765e0d55",
+      "file": "facts.json.gz",
+      "path": "/plans/5/after/systemEdges",
+      "reason": "This legacy systemEdges carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "3ab035734b1b4021edcc541e5ce760cf1955e35d3b433da83c0a22c75e9c77ea",
+      "file": "facts.json.gz",
+      "path": "/plans/5/after/storeAccess",
+      "reason": "This legacy storeAccess carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "cf4faddba5ac6438759af464908f5f2b51cdf48c54aaaa199d202b65810f85ef",
+      "file": "facts.json.gz",
+      "path": "/plans/6/before/callers",
+      "reason": "This legacy callers carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "9eba134b5388015d6b5b6e6eabdd73839d571f956d3d1e2e9cd4c5cad95f663f",
+      "file": "facts.json.gz",
+      "path": "/plans/6/before/messages",
+      "reason": "This legacy messages carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "476413669f472aa53f53028fdf73818b710c3703d1511350a16abd0f97782167",
+      "file": "facts.json.gz",
+      "path": "/plans/6/before/componentEdges",
+      "reason": "This legacy componentEdges carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "173bfe23116e758d52f61c06c74546102910fe193362867f02fd012e4991b82d",
+      "file": "facts.json.gz",
+      "path": "/plans/6/before/systemEdges",
+      "reason": "This legacy systemEdges carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "0275c1a83433f11f188b75ab564ea58277a30204d82e709cfdede7f74e5c497a",
+      "file": "facts.json.gz",
+      "path": "/plans/6/before/storeAccess",
+      "reason": "This legacy storeAccess carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "ebcaf11a18f8c78240f80f3ff6bd3a8a2124bbeed48f730c72dcf093cf07bf60",
+      "file": "facts.json.gz",
+      "path": "/plans/6/after/callers",
+      "reason": "This legacy callers carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "8cfd62b1e3d1f67a92c4ee0f3462bec9c2ed21c6d7bda22a628a5e1bcda9901a",
+      "file": "facts.json.gz",
+      "path": "/plans/6/after/messages",
+      "reason": "This legacy messages carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "e5efa77cdc6277b87598cb985cfb1e5075e8c1b8d56fdc6d6e573869f6055cea",
+      "file": "facts.json.gz",
+      "path": "/plans/6/after/componentEdges",
+      "reason": "This legacy componentEdges carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "45cfa2a5ea908e0fb876ab84bbd66379136255f0f6c301a7e6a8178828251cc7",
+      "file": "facts.json.gz",
+      "path": "/plans/6/after/systemEdges",
+      "reason": "This legacy systemEdges carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "7a04271537304bb193f1ed275cdff1d6676d34e8381d66b1ad403f4e4c06abdc",
+      "file": "facts.json.gz",
+      "path": "/plans/6/after/storeAccess",
+      "reason": "This legacy storeAccess carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "bcbbf03b12f2cdbe611695783bed2642b4b5b4c9a385daaf5e7cfafe4beb50c1",
+      "file": "facts.json.gz",
+      "path": "/plans/7/before/callers",
+      "reason": "This legacy callers carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "5585ff98be3ac3bcbc614f5cdd134fafe96aa2947d44b0b20e8c7573b727456f",
+      "file": "facts.json.gz",
+      "path": "/plans/7/before/messages",
+      "reason": "This legacy messages carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "347c20baab50b52504114bc70e2c4e6b1c7414b2e435b4fd08fffa22c07be56e",
+      "file": "facts.json.gz",
+      "path": "/plans/7/before/componentEdges",
+      "reason": "This legacy componentEdges carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "f6f69cb1ca44e92255d357bdcf05a883b458abf3feb37ae580bd36881dbe59e9",
+      "file": "facts.json.gz",
+      "path": "/plans/7/before/systemEdges",
+      "reason": "This legacy systemEdges carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "a433dfe5fbaa35d0764c304509186e2b2e344bd0e3a304e9c1198055ffbb2ea6",
+      "file": "facts.json.gz",
+      "path": "/plans/7/before/storeAccess",
+      "reason": "This legacy storeAccess carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "c0fe805652c3b0706a0a18b0b642f701d026920ab8929072059970914ec55231",
+      "file": "facts.json.gz",
+      "path": "/plans/7/after/callers",
+      "reason": "This legacy callers carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "5585ff98be3ac3bcbc614f5cdd134fafe96aa2947d44b0b20e8c7573b727456f",
+      "file": "facts.json.gz",
+      "path": "/plans/7/after/messages",
+      "reason": "This legacy messages carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "696a81f7bd7b4016afd71262f28fa3977df7b32149d42bb613dcd9a74e36efa5",
+      "file": "facts.json.gz",
+      "path": "/plans/7/after/componentEdges",
+      "reason": "This legacy componentEdges carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "bf80b13bafdb1bfb7e792608f992397a0efcc1ee8df06ee1588c62e78d4da645",
+      "file": "facts.json.gz",
+      "path": "/plans/7/after/systemEdges",
+      "reason": "This legacy systemEdges carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "before": "a433dfe5fbaa35d0764c304509186e2b2e344bd0e3a304e9c1198055ffbb2ea6",
+      "file": "facts.json.gz",
+      "path": "/plans/7/after/storeAccess",
+      "reason": "This legacy storeAccess carrier is accounted for row by row in artifacts/rebuild/pr8/area-and-facts/plan-carrier-closure.json. Native identity, execution, saved narrative or exact review evidence preserves each source observation.",
+      "workspace": "volvo-cars"
+    }
+  ],
+  "format": 1
+}

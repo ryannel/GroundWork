@@ -1,0 +1,38 @@
+{
+  "format": 1,
+  "programs": [
+    {
+      "file": "node-preservation.mjs",
+      "sha256": "85a5472f8998e753ea590042c8fba2d844cc6cfa3a3975cc1220e560d92f49ad"
+    },
+    {
+      "file": "current-carrier-closure.mjs",
+      "sha256": "00ae2d8d50da8182628235b597a2ed08c40574315008f6f1befd6895b94de017"
+    },
+    {
+      "file": "root-plan-closure.mjs",
+      "sha256": "b4ca3bb1da7e48d9550f4d9380ecc0dbeb220330249e9da055540f30d454ce0d"
+    },
+    {
+      "file": "lookup-carrier-closure.mjs",
+      "sha256": "e5985a62dd9001f008028fbb88f10037d73dfde1b66e62207c982825632f2f5f"
+    },
+    {
+      "file": "standing-dispositions.mjs",
+      "sha256": "6bf0258947d5bb3df4eea11950b85f4b65e2c501d091cad3d5cf6004aaa532eb"
+    },
+    {
+      "file": "final-factual-proposals.mjs",
+      "sha256": "b081aed640f8d3625e6c7ab1d43c188f9d850e3537674cf34413966b02ba2411"
+    },
+    {
+      "file": "graphql-arguments.mjs",
+      "sha256": "c75a9bc605fea490e901f278d6bd99190cf67cc330f2ae12c5a559243983a54c"
+    },
+    {
+      "file": "historical-teams.mjs",
+      "sha256": "e9da367a6bbe271489c149b73dece1bb0eea81bc97e6d29036532cdbaab64107"
+    }
+  ],
+  "scope": "Offline captured-source reconciliation and exact reversible data-shard corrections. These are evidence artefacts, outside ordinary app or CLI runtime. Original data and frozen baselines remain read-only. Runtime restoration programs preserve original inputs and verify prior values before applying targeted changes."
+}

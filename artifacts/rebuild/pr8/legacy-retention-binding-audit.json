@@ -1,0 +1,3216 @@
+{
+  "format": 1,
+  "purpose": "Individually retain standalone legacy fact paths with no requested runtime binding or live legacy trace for the PR10 removal proof. Reachability through an evaluated module is retained in the audit.",
+  "rows": [
+    {
+      "file": "src/application/area-map/narratives.ts",
+      "sourceSha256": "126c7e2b7fe5cc6e2c7ed28fbb2f5043b7cc9755fe0044e2dd21751550231c1a",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/area-map/narratives.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/area-map/resources.ts",
+      "sourceSha256": "98f9f11605bee950eb48d3a39886f03d790a98961642d35f8ae16aff9c842f20",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/area-map/resources.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/key-journeys.ts",
+      "sourceSha256": "4335cda057f1e539ab8ed3c72bd8f5b7466e6814d921f59683764afee6e2fd5a",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/key-journeys.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/landscape-map-input.ts",
+      "sourceSha256": "9695c62666c0e21a48631a64f932fc0220ec4ea690065e735c00c72f7d852584",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/landscape-map-input.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/language-places.ts",
+      "sourceSha256": "5dba77b230bc5edb709166d823e53d402f8c9281721a0e9e04ac572f9b49e236",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/language-places.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/legacy-placement.ts",
+      "sourceSha256": "a17bd40d1132202a8cf65cf1e6f646d91c6e1682318c8c239071c9fc8836c036",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/legacy-placement.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/legacy-view.ts",
+      "sourceSha256": "84cd31a0fcb1633dee231a72f02b6eca408cf78edd70a881d805d5713d99ad1f",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/legacy-view.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/legacy-workspace-paths.ts",
+      "sourceSha256": "4f56b86a8e306e1da94e74783512ba60612f157de5c21549cbb5ce589a518c4b",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/legacy-workspace-paths.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/model-scope.ts",
+      "sourceSha256": "ac138c939a158586135b02ed90a72573de50dfafb5640e35c543ce58cecc2d9c",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/model-scope.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-bar.ts",
+      "sourceSha256": "9647443c144023bcbbf9655204114d3761e8a1b965398f45bc54c304d0365aaf",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-bar.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-changes-ahead.ts",
+      "sourceSha256": "bc56f8ce175d2c297b7ae2311f69dd998ea41e92864a7ae640dca90fc2f88b13",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-changes-ahead.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-chips.ts",
+      "sourceSha256": "6edfca359f2f4da7c9d3a8fd33a4616a8758d2714c129aacf72227e4201ffd6e",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-chips.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-footprint.ts",
+      "sourceSha256": "34f3f46df76db9937c40a2f5eb84fa505c1e53ca65078a5169fa9ddef9a07703",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-footprint.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-index.ts",
+      "sourceSha256": "f59f3ff9a8c0dee0b3be83e42b53a90d401ee5102bd8acbb4ef3e13e9ce0cf90",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-index.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-pages-entity-card.ts",
+      "sourceSha256": "074ccd794a798560918fce994fe5e81b64de617bb12e968cb24a6e56b8269471",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-pages-entity-card.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-pages-entity-extras.ts",
+      "sourceSha256": "cdd02ae1015c220df5dc63aab8a235319f3e266995e432ca744b273053dc77cd",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-pages-entity-extras.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-pages-entity-system.ts",
+      "sourceSha256": "3213b4b08f77dc2f9848c06804c3a0f1359b6198aaf32372f859e5395f1b518a",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-pages-entity-system.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-pages-entity-where.ts",
+      "sourceSha256": "20e5ece1734ef1804c3ef7f25ec14ee864a1179912c51cd4b9ab46457a0c8540",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-pages-entity-where.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-pages-entity.ts",
+      "sourceSha256": "c68b1e0f0732dc98410a3aa47ffa4b676606f405251ff7bac199b10f201e6477",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-pages-entity.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-pages-screens-changes.ts",
+      "sourceSha256": "26c48179ccb1ef09a50ff7cdf9d6d3abd7493b73403e83f2c36a7f46b91571dc",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-pages-screens-changes.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-pages-screens-journey.ts",
+      "sourceSha256": "56e95936319a9ce187a2088e83982ee4bf23d8d37c9c0f6fcd14c84468a5ee50",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-pages-screens-journey.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-pages-screens-versions.ts",
+      "sourceSha256": "25cf5ff011bde95b67b767ac5ce057c8f355c8708584655da845d7d4b8312508",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-pages-screens-versions.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-pages-screens.ts",
+      "sourceSha256": "679f34c8713c4d594ec0beb2754536dd1540c76dd08d730881830e66c91befab",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-pages-screens.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-pages-team.ts",
+      "sourceSha256": "f060e23a20d4b4ca0bfbb58811c619252c4d2c8ab03f51ac421b92cafe638e3e",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-pages-team.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-pages-things.ts",
+      "sourceSha256": "634fb21f2e681096a59eaff07606b92faf373fbb639d875d4869190d21b59d14",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-pages-things.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-pages.ts",
+      "sourceSha256": "556cc8dc17852dc1345bb899ca7d562b61ac0ff3b0bac8d8d5e3ef913ee94470",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-pages.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-story-build.ts",
+      "sourceSha256": "afed0bbf995f679e78778097457b82f1a8f2fc4e2cd9e3e5cdda4f7280debb3b",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-story-build.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-story-changes-claims.ts",
+      "sourceSha256": "4589636de0704f5a21d384fccda856937a9682a14fa35716a33aab5679c8f520",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-story-changes-claims.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-story-changes-flows.ts",
+      "sourceSha256": "627c4069f26c36064124069a2e2477d9ebe46b41786506518d120d12b232ce9b",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-story-changes-flows.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-story-changes-graph-ops.ts",
+      "sourceSha256": "a1841babfd59d865ad0407bfd8a57cf709b051a5ecad2a9694b49308d40ef2fb",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-story-changes-graph-ops.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-story-changes-graph.ts",
+      "sourceSha256": "7e3c56e11038eea93bfae5afca88b9cad8d9c79076bba45ffbbfe419f0c1eef1",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-story-changes-graph.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-story-changes-links.ts",
+      "sourceSha256": "9ca012813d2d781f4aa5a1c1deefce70f094dd9a7cfc2bb42fb7ca278c87589c",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-story-changes-links.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-story-changes-records.ts",
+      "sourceSha256": "dd8da7c1df47833cfbc3550f37861fa37bb170eb2620cbae140cd33db8f5c015",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-story-changes-records.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-story-changes-touched.ts",
+      "sourceSha256": "df55b3a15f991515b79ca64b9c81c7bb89392a704e44647b734896377474ce57",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-story-changes-touched.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-story-commit-ask.ts",
+      "sourceSha256": "6505275959f21c7fcaf099ebd0abb44812f876f1734f71b88ab46b91008ad561",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-story-commit-ask.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-story-commit.ts",
+      "sourceSha256": "23cf0acc05252e52c735217884f1309b9456cb275a42a29d39e7ecebfe217811",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-story-commit.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-story-cover-standing.ts",
+      "sourceSha256": "818fe423c840351345e219a1d28e7c0047b9d39d85ac6b7aecfaf3d896a8d4de",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-story-cover-standing.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-story-cover.ts",
+      "sourceSha256": "aaaf48f36e02f896785dc6d45ee78d8bb7192740d2d21675c3485c1dda465887",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-story-cover.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-story-journey-behind-words.ts",
+      "sourceSha256": "ef1c8b5cbcda8853abb9e480690471dca63d92e76b28049bc6371fa40d2b4c2d",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-story-journey-behind-words.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-story-journey-behind.ts",
+      "sourceSha256": "c8050c375c8c86fc1c798dc288e87d17c85d4a96405620d23fb3e442aaab88c5",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-story-journey-behind.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-story-journey-execution.ts",
+      "sourceSha256": "7b41a46647a8999006d4772f2c16feb1d81b84b88002e78a94c9ea452dbf934a",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-story-journey-execution.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-story-journey-flow.ts",
+      "sourceSha256": "9745944b2c8569aa5b5a48530cd3d13d1a5c67dfd382ad2c3c25cbd4efcdaad1",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-story-journey-flow.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-story-journey-groups.ts",
+      "sourceSha256": "91c377df140c67e9032e3e7249ecb79e387410ef6dfbf0f8c040b6827d1121ff",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-story-journey-groups.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-story-journey-order.ts",
+      "sourceSha256": "9174682c7d428592e123ee33c9220cf7c91c819a82cf01b1d2e1a58f3db583df",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-story-journey-order.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-story-journey-purges.ts",
+      "sourceSha256": "cd46f66979048666f3baf9a08583ba4b3353fa4d56cd212a5cef588e4c5d98ed",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-story-journey-purges.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-story-journey-walk.ts",
+      "sourceSha256": "790c55284a865ffda97d7c7695024ff73d97a20073931af60bc6aeddc5c86f3d",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-story-journey-walk.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-story-part-links.ts",
+      "sourceSha256": "69e26c8fa9e810e33e1fc293dbfff323700cfda50ec1120bfc043d9040168065",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-story-part-links.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-story-part-words.ts",
+      "sourceSha256": "c95bfb87f7f8cf52ee0064346f32a2681a47671c1fe33e5356dbc58600153c7a",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-story-part-words.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-story-part.ts",
+      "sourceSha256": "ba1c7056332f0fd68527d9fe8cc58e65f0269a919fa429757ec697009a2db00c",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-story-part.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-story-prove-flows.ts",
+      "sourceSha256": "84186983ed9ccd9b13f70fa6965aa895e8f889cec0973a48deac497bae51e989",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-story-prove-flows.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-story-prove.ts",
+      "sourceSha256": "e3abde2ea80bb794b4ff9ac105d33119d3b4063f672cbebc800a406a18a58f80",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-story-prove.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-story-recap.ts",
+      "sourceSha256": "e466516b72d72dcc41f5a462299dd1a32249b8fcae5e03e144ee4f947519f29b",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-story-recap.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-story-today-domain.ts",
+      "sourceSha256": "e702bc9a4cfd4ea4ac01dbbf0ac66ba58705962e1dcc402f50659fbdd40dd72b",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-story-today-domain.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-story-today-graph.ts",
+      "sourceSha256": "2afc72306a10b29f041dc0084e177f81f5b339e3f861938e483d33281969e91f",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-story-today-graph.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-story-today-stores.ts",
+      "sourceSha256": "a9484b991b77bd847ba637277243e2141413f456f58026ad15d7d2b5c754c601",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-story-today-stores.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-story-today-system.ts",
+      "sourceSha256": "a3338714997a4b0c299a6d6f38152a6a2a715bf8c5521f8012ed040c5a333337",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-story-today-system.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-story-versions-history.ts",
+      "sourceSha256": "f6a3b139c8a95f8b15ce55cc88a020a4b45bc5586ffa5076f873b9d5b69ef8da",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-story-versions-history.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-story-versions-page.ts",
+      "sourceSha256": "7b902d339fadb995337cdce5499b5b1ce31ed114ef820de5075a60e54354b295",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-story-versions-page.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-story-versions-view.ts",
+      "sourceSha256": "9a05352a5023da4458aea3d879dbbb876875baba0a9d0594233350ce2bdb1e86",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-story-versions-view.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-story-why.ts",
+      "sourceSha256": "b7b66462baaec52d52d334014056a504047d27584a7cf653fd8f61935030b4b3",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-story-why.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-compat.ts",
+      "sourceSha256": "4c75791a69f5049b99f4a00c78b8ef0c62d2cef3ffe751ba1dd1990bedc26b99",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-compat.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-contract-matrix.ts",
+      "sourceSha256": "b4dd9a9a247d9d5b8ffb57b0a5b08be4a8bda9e8c18c44095081bd3fe9e5f565",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-contract-matrix.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-contracts.ts",
+      "sourceSha256": "968d1102c4d1bf76e5d65ac4f3cb7678b0fba6437d56e5a230d326c7975e9a08",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-contracts.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-dag-edges.ts",
+      "sourceSha256": "e9ae55bf98b20b919cf04471cff270ec6f56c3ca1972110201e109c933807966",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-dag-edges.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-dag.ts",
+      "sourceSha256": "915debc4971bf8bfce3e3bf0d4840e34a900771e207d31606ed4739cee40c102",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-dag.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-decision.ts",
+      "sourceSha256": "51d28f689a92822e2e21a4616f0c1fb94f2fd66c57081dd707a0c5133561c30b",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-decision.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-domain.ts",
+      "sourceSha256": "2f719f2504e9d66d535e78b44d3caa8af659ad4fbe943c9e1ec74789a2ac7272",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-domain.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-endpoint.ts",
+      "sourceSha256": "6c1a844f8555eeef47e33fa35e603c37ae12012ee4333b29c73bccdde93b059c",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-endpoint.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-events.ts",
+      "sourceSha256": "46ca2a194544e7d3fdf2602e8232f813a031ed9f05c77831f2c3ea817311b5e0",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-events.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-experience.ts",
+      "sourceSha256": "664d8228c952f5b560b40acb48919c9ec643e0952a67df5bc04f39f50af8743f",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-experience.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-field-cells.ts",
+      "sourceSha256": "8a9d94eef5d099582697540a3d20239cb602549304a1863069a5ee4b1bfc84a5",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-field-cells.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-fields.ts",
+      "sourceSha256": "3e2214efa4bc0d7a699eaec3c59a9164263bac41ef24161dba6290ef681426a5",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-fields.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-flow-changes.ts",
+      "sourceSha256": "99726f3f25a3baa971ee992dac7e1b850ea680ad0f44c994b77a492568cab67f",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-flow-changes.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-flow-diagram.ts",
+      "sourceSha256": "3ca1ea9f8e231060f38ca840d09689d89f3e10c4b04372d5f87e13978d28f913",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-flow-diagram.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-flow-draw-edges.ts",
+      "sourceSha256": "f35773056acebcef07af76edb8667ea04f3964f5c735e0f235b286450a7dd023",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-flow-draw-edges.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-flow-draw-nodes.ts",
+      "sourceSha256": "4ed76101a3ba3adf4b76aac510dee2849b0dc6efb1b1cfe0723d311614cf5625",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-flow-draw-nodes.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-flow-graph.ts",
+      "sourceSha256": "40b9816c3de72718b0ea46de2f21ad5e2c123510f0afef6938ae8e78ce6daa0a",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-flow-graph.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-flow-size.ts",
+      "sourceSha256": "c3fc71188e311cf673408289684396b0ba786c186d7a99c943c5dcee8f347e98",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-flow-size.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-flow-stops.ts",
+      "sourceSha256": "e112938d24ad1987d4f69590525c1a4e42db2c9fb38aafd22ce753c400cbf6b5",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-flow-stops.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-gate.ts",
+      "sourceSha256": "1a292c22657cf16474986ffcbb97f98ffa28158a89d23182e5dea33351dd23cf",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-gate.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-graph-base.ts",
+      "sourceSha256": "fbaf3ff65bc8c72f68de3bfb310ba939ef93149b1677fd08a6c6b6ba6b9bc60b",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-graph-base.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-graph-caches.ts",
+      "sourceSha256": "6d5a747eab35560415d39124e277ad93c5c03f491fc3424d1592e0f93ad5b39b",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-graph-caches.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-graph-grid.ts",
+      "sourceSha256": "32e23c2fd9610ab57186da35838e6bada2865439fc342a5ca565fce15725c8c8",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-graph-grid.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-graph-picture.ts",
+      "sourceSha256": "0b6dfd9926b7f83f89bcae89051f0d0f07d17628383d8c696e5f98aa3cd35e06",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-graph-picture.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-journey-compare.ts",
+      "sourceSha256": "8da38187e6c1a153d376e37f78a9a481bf7bfdbdd8d4caf77425845bdc8fde42",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-journey-compare.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-journey-outline.ts",
+      "sourceSha256": "893a82618db36ae5babeafdcc8dd71ce7efbf361e72add4ac10cbd7cc5d8e359",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-journey-outline.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-ladder-rungs.ts",
+      "sourceSha256": "e6d84843be4a2d2c30c460047c57f478ad815e5cd0e40cc3e824a1e017180b9e",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-ladder-rungs.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-ladder.ts",
+      "sourceSha256": "1677a697eecbde02b6176d765ff9e30e3b253819cfa4469e1d605dc1e837d73b",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-ladder.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-ledger-row.ts",
+      "sourceSha256": "0dbce36622f6c153b223de78422e9673e6f12e06baee7040750ae99a40aedf40",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-ledger-row.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-ledger.ts",
+      "sourceSha256": "f8e738d1c65c32f29e50aa9d635552fee9b26514046359a218ee24e05a9efad9",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-ledger.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-map.ts",
+      "sourceSha256": "be9df4c77ad7f74c58f2125aa41d16ecad91ead63c03908be3a2fc79c6509e48",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-map.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-milestone.ts",
+      "sourceSha256": "cc6b740275b3958823822b500bb89b329cc014fee7503284e74c854514e95d0e",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-milestone.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-owners.ts",
+      "sourceSha256": "af31455d96f14c1a4058bc401d608d804e0d28dfbc9dd3e265868e0cac2040b9",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-owners.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-protocol.ts",
+      "sourceSha256": "3a21b1862a974066eacde24eee876e49b11db974c7ab1e0511c91f9fad889262",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-protocol.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-query-plan.ts",
+      "sourceSha256": "188345924c9f59bae5243bb28d42e3d3abc4d3782f6bc5dc23ed61672040a696",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-query-plan.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-risks.ts",
+      "sourceSha256": "d59b83bac13d14b965bfa71a1571f6726db9d67ece1d4bd7c3684d56dfa69210",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-risks.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-screen-catalogue.ts",
+      "sourceSha256": "9668695cf6896c6ff22df96a48aad90d7b2a3cba32fbe85f6ba91150f9ce3a0f",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-screen-catalogue.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-sequence-cells.ts",
+      "sourceSha256": "065c9e36884c69be1a63a287295912d54770ee1824c4ed38d9e5a5e6a4038ab6",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-sequence-cells.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-sequence-text.ts",
+      "sourceSha256": "604288d4fed38bcf6273cba63bdadee058462f588be5ce5c9eea2814692935c9",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-sequence-text.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-sequence.ts",
+      "sourceSha256": "400b67549d99e5a16b0b40bf5193f2c836ba87522bf437cb399719da3fcc3e58",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-sequence.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-store-grid.ts",
+      "sourceSha256": "1ccb58dd2339277cd604039000c0f12bb5cf08eb725e3beeafd625fa671fb7aa",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-store-grid.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-store.ts",
+      "sourceSha256": "c3fe6d134732dfc53f1ba31c336bec7db7e3e9d28b503167b5ff4232037334fd",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-store.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-system-map-input.ts",
+      "sourceSha256": "2031005a621ac2deda6b468cafcd2229cc33c1fc47ec0e2c53d2487d4276ccfd",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-system-map-input.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-system-map-tiers.ts",
+      "sourceSha256": "7d66639f3dbf341bff8c7e74770e8f40a0ff8e768bd9aa41816406aba1012fa5",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-system-map-tiers.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-tests.ts",
+      "sourceSha256": "58ffbfe18938f0f809681b5cacc8083f0d4e2b8a0d38dcf356dee5e8a892cb58",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-tests.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-waterfall-body.ts",
+      "sourceSha256": "9a1a2d5a118f9f1f62b88b1ddf8481c0a8f9824a8ddc0fd60ad90c26d730940e",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-waterfall-body.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-waterfall-compare.ts",
+      "sourceSha256": "dc2a90edf81945a04861bab2089fc22b0599361852cb69f82d573f4690427d14",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-waterfall-compare.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-waterfall-facts.ts",
+      "sourceSha256": "433187e6c450fdf2d2b3597240ce6cc5784fc225a4b6a8fbf593829dcc76b3aa",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-waterfall-facts.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-waterfall-fetch.ts",
+      "sourceSha256": "0232a6f6174be9d25c157043e3437ed2158b85435d045242be71de3daf59192e",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-waterfall-fetch.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-waterfall-rows.ts",
+      "sourceSha256": "095f4fe831dbae0887f673a5150bad20426c460c692db04386aa35bdf5a3f915",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-waterfall-rows.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-waterfall-tint.ts",
+      "sourceSha256": "2ab1a6c1cfbc6fd6e6f745f33ea645533ff682db61fd2d17bc6dce717e9bca3c",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-waterfall-tint.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-waterfall-words.ts",
+      "sourceSha256": "03f9e2561649a8ac4b746775ba10f989e716b63edb927fc7e7f10d8ba91890e5",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-waterfall-words.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-viz-work.ts",
+      "sourceSha256": "61224eff350bf1e0ae4f5fd939e28aaf6244b79bfed4dae3018b33875565f848",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-viz-work.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan-work-cards.ts",
+      "sourceSha256": "75ad584e6c8813d61c97a5929699f181e94e0f37bde66279cac2c3bd6782af09",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-work-cards.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan/derive.ts",
+      "sourceSha256": "4f9c322338bd4f0e0a241f7b956500ced483ca1c768b53ab4be87d1bb1dcd7a3",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan/derive.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan/plan-diff.ts",
+      "sourceSha256": "f8c245c65681f5e11b8a04140321525ca242be03626c87dfc38c2a0389237868",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan/plan-diff.ts",
+        "src/application/plan/derive.ts#derive"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/plan/revision.ts",
+      "sourceSha256": "0dda6a3ebd2cba829497f5ec20310d5469dae1e369b3da3fdfcfafa6038c05cb",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan/revision.ts",
+        "src/application/plan/plan-diff.ts#planDiff",
+        "src/application/plan/derive.ts#derive"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/reference/headings.ts",
+      "sourceSha256": "65137b59f9b86f40126340e4bc87498aa48e63622ef158355c9015bc1458c305",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/reference/headings.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/reference/register.ts",
+      "sourceSha256": "fe7295672d412ac4e12bd726cb4b1770883ab87daa8a56c76c483e399205f513",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/reference/register.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/system-map-md.ts",
+      "sourceSha256": "346839a4f3fdc0fa235e49c8e89bb3928eb0d5f0c40c074328c2c44dca61001c",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/system-map-md.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/system-map.ts",
+      "sourceSha256": "ae3b61c0f827006a0658980286dc878d7e3dcb7df0c7028a73049b8ca7572360",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/system-map.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/today-catalogue.ts",
+      "sourceSha256": "b76c59dc964cbe2a3012544526036f52450efe4cf887b6ef4ddccff280d277a8",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/today-catalogue.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/today-components.ts",
+      "sourceSha256": "e402161ec0741121e93927dddf25cc6094b177c29907c66d78522bb928b68eb0",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/today-components.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/today-flow-list.ts",
+      "sourceSha256": "a5efdfc2feda5e781c030f31ce9caa785e2f61a194daa72392dd59334757cc9c",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/today-flow-list.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/today-handler.ts",
+      "sourceSha256": "9f84288d4618ea52b81c3ccffe13c4aa1acd4df0605769c4359e7a1307f5c3a9",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/today-handler.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/today-journey-index.ts",
+      "sourceSha256": "ed8fbf43cdf286e1e13baa8a5c1e503ac788f43f696a9bff6a7df55f92eea71b",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/today-journey-index.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/today-neighbours.ts",
+      "sourceSha256": "51ece341c000b0c309a77f67a588160ecbf553d1a6e3ef2fd6208c9339d6be67",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/today-neighbours.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/today-reference.ts",
+      "sourceSha256": "c3128dc86e479748c4ba9f4b97cc1a258123206f66d3dab9b7cb567e9d57eac6",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/today-reference.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/today-repos.ts",
+      "sourceSha256": "adc64f18be43c4421054a2fea1fb3d3c549fb7e7e54287fb6ee64a13c50638c1",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/today-repos.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/today-scope.ts",
+      "sourceSha256": "d4315997782c7dadf6b9bc0525c23f518728f4ffc9dd6d7a2c2b6e19bcadb9f6",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/today-scope.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/today-store.ts",
+      "sourceSha256": "b7257103f42dd5937b5c98de7b8cfdf2af401c1232b52c6d7d3a6140ccffbf3a",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/today-store.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/today-thing.ts",
+      "sourceSha256": "24e7558657cb5d34d214976fb2ec1154aff4ae5a4047bc2a130d0514c32c0f84",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/today-thing.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/workspace-area.ts",
+      "sourceSha256": "2b20d6140b38dea21bca3732451d85d671231bedc445182026d63d10b15d6c3a",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/workspace-area.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/workspace-domain.ts",
+      "sourceSha256": "90defe294104663f5e4c57778878599ac17acde4f106c1aace0a1cb3a5990dbe",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/workspace-domain.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/workspace-landscape.ts",
+      "sourceSha256": "909519d9cb2fc87100dc35c55495d75f59e169a8d701866bb68263aac2a9ec0b",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/workspace-landscape.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/workspace-language.ts",
+      "sourceSha256": "f1911d19cce7aeed20519a825e050a12fe680ea75031d89388344f778a217b57",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/workspace-language.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/workspace-library.ts",
+      "sourceSha256": "e22e7033dcf940bde477f98dea98e0bad922212f78261cc3aa0c7af95b45b639",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/workspace-library.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/workspace-model.ts",
+      "sourceSha256": "0077d15ab834ad80bca7ef6dfd35e112527498ce4c3065fdddf730ffb174ff1b",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/workspace-model.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/workspace-nav.ts",
+      "sourceSha256": "5963fb7e380f979c7523636870c5831950c11e0fc886396fb508a2af2d94e224",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/workspace-nav.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/workspace-system.ts",
+      "sourceSha256": "8e61087f5126888b3bb385f0d8e07004f018bed63d478668a089ad7b2a8733ab",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/workspace-system.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/application/workspace-target.ts",
+      "sourceSha256": "89b292063a654e2b68cda65bcde6b88dd542a94a81c54b803c525e34d4ce5fe5",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/workspace-target.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/chapters/build/wave-stack.tsx",
+      "sourceSha256": "0e3e19930b6c7a911e25d53eba81b5571d22b79e52d74b12263f341d23022189",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/chapters/build/wave-stack.tsx",
+        "src/application/plan-viz-work.ts#teamSlot"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/chapters/build/work-screen.tsx",
+      "sourceSha256": "de8986ba5c24a504f13e5030fc30a0be623dac4b504cb6447e9b57bcdb9ca9a3",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/chapters/build/work-screen.tsx",
+        "src/application/plan-viz-teams.ts#teamName"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/chapters/changes/changes-kit.tsx",
+      "sourceSha256": "00e948db4f4baa15a1174044a83b066dd09809b1df916bdf65ca99ee4540c07e",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/chapters/changes/changes-kit.tsx",
+        "src/application/plan-story-changes-links.ts#flowShowing"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/chapters/changes/contracts-parts.tsx",
+      "sourceSha256": "c4bd5b7b2dfa059ff559e2556a58d0ef6347540b662b67aef5136623c5fb8968",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/chapters/changes/contracts-parts.tsx",
+        "src/application/plan-story-changes-touched.ts#changesOf"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/chapters/changes/graph-fields.tsx",
+      "sourceSha256": "b0f7ef54fa3346aebb84f5135a828c16efa46f577e9856ca34eb08b20d53621e",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/chapters/changes/graph-fields.tsx"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/chapters/changes/graph-ops-table.tsx",
+      "sourceSha256": "1e796bb72645a004aa62e377d5f8adb31388aea4dcd917bf68ff919acec74bed",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/chapters/changes/graph-ops-table.tsx",
+        "src/application/plan-story-changes-graph-ops.ts#opImpact"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/chapters/changes/graph-screen.tsx",
+      "sourceSha256": "59a580faa5474628cdc5b279493341160767f98eae317fe07413413a7b68227b",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/chapters/changes/graph-screen.tsx"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/chapters/changes/graph-waterfalls.tsx",
+      "sourceSha256": "76f99b214bd52b401793c7d791d4da48cfe7d6fb7d38862a92ec9cf33e2fbdf6",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/chapters/changes/graph-waterfalls.tsx",
+        "src/features/plan/common/entity-chip.tsx#EntityChip",
+        "src/application/plan-chips.ts#chipInfo"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/chapters/changes/record-screen.tsx",
+      "sourceSha256": "907ef54af34d2607a484b7d8e1694b710c826b98bdf6cafffdae9572d7152bb3",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/chapters/changes/record-screen.tsx",
+        "src/application/plan-story-changes-records.ts#recordClaim"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/chapters/commit/ask-groups.tsx",
+      "sourceSha256": "859e055f376dd557df422dbc16c6eb04c7cf805e85bbd930a0e3990ef609c9bc",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/chapters/commit/ask-groups.tsx",
+        "src/application/plan-viz-teams.ts#teamIndex"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/chapters/commit/ask-lists.tsx",
+      "sourceSha256": "7c12d670fb4a360a4a9488bc67d90202a58382073d956571a2c1690a3154026b",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/chapters/commit/ask-lists.tsx",
+        "src/application/plan-viz-decision.ts#numberOf"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/chapters/commit/choices-screen.tsx",
+      "sourceSha256": "98b52877e6073b13798daded9e8e38fc5d5547e3170a706dd66b97d5d1f069ca",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/chapters/commit/choices-screen.tsx",
+        "src/application/plan-story-commit.ts#choicesHeadline"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/chapters/commit/register-screen.tsx",
+      "sourceSha256": "9c98ef2da3fe32d5fd3de09b84f53c7241711c8b90385fdfbd1f810e12a19e6d",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/chapters/commit/register-screen.tsx",
+        "src/application/plan-viz-decision.ts#numberOf"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/chapters/commit/risk-cards.tsx",
+      "sourceSha256": "a4b9b4dec318458014f4340bfac0e5dbd848ffb44aac84b31bd1fe1ff9f22f14",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/chapters/commit/risk-cards.tsx",
+        "src/application/plan-viz-teams.ts#teamIndex"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/chapters/cover/cover-screen.tsx",
+      "sourceSha256": "1f49a3cac386bad8b41c2bce7f58e577f3e5792c729271784e3f465a15016c3d",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/chapters/cover/cover-screen.tsx",
+        "src/application/plan-viz-teams.ts#teamName"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/chapters/delivery/delivery-head.tsx",
+      "sourceSha256": "7677e434335e04f269ce966c9bab7b416f208217ebcd1df8e1d9c7072b3f07d6",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/chapters/delivery/delivery-head.tsx",
+        "src/features/plan/common/model-text.tsx#ModelInline",
+        "src/features/plan/common/entity-chip.tsx#EntityMention",
+        "src/application/plan-chips.ts#chipInfo"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/chapters/journey-href.ts",
+      "sourceSha256": "70465a6ec02c79f2c52473e6a50c790429b1de92190fea3578548a0222358385",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/chapters/journey-href.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/chapters/journey/behind-body.tsx",
+      "sourceSha256": "856f0094fc654e5232019a661d9fa591ee9a15a30797c61b2df61d93a65bc437",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/chapters/journey/behind-body.tsx",
+        "src/application/plan-story-journey-groups.ts#journeyGroups"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/chapters/journey/scenario-walk.client.tsx",
+      "sourceSha256": "b337d9fa5eca461cf55607197990488cc664372b47ba0b4f0b232d3b9e66750f",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/chapters/journey/scenario-walk.client.tsx",
+        "src/application/plan-story-journey-walk.ts#walkOf"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/chapters/part/team-gates.tsx",
+      "sourceSha256": "b6ea6347668116fcca3cc17799cefaaf93bdd4782643aac78f2347c2bbb9a1d4",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/chapters/part/team-gates.tsx",
+        "src/application/plan-viz-teams.ts#teamName"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/chapters/part/team-page.tsx",
+      "sourceSha256": "f3fa0ac94b846c7a50db096023a16a0b1a2ea5a789f9cb2f1ca2efdbe5ba2ca3",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/chapters/part/team-page.tsx",
+        "src/features/plan/chapters/part/team-gates.tsx#BeforeApproval",
+        "src/application/plan-viz-teams.ts#teamName"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/chapters/part/team-steps.tsx",
+      "sourceSha256": "a5eb743582895f1e56dae18812b1575e950c74ffe3d17783805ec68657241f4e",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/chapters/part/team-steps.tsx",
+        "src/application/plan-viz-teams.ts#teamName"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/chapters/part/team-talks.tsx",
+      "sourceSha256": "d7c3da133419080b11b11e008bdf974108eec9ef3c70493206928ffd949968f4",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/chapters/part/team-talks.tsx",
+        "src/application/plan-viz-teams.ts#teamName"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/chapters/prove/coverage-detail.tsx",
+      "sourceSha256": "7b6ca0903318467b4ff0fb8bb847c847542887c02788758d9af5cf72156eb54a",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/chapters/prove/coverage-detail.tsx"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/chapters/prove/e2e-body.tsx",
+      "sourceSha256": "9f398503d4b1981fdead94a2f8c28ea2386b445d236d5778de6c79acacd5b136",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/chapters/prove/e2e-body.tsx",
+        "src/features/plan/chapters/prove/flow-folds.tsx#FlowFolds"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/chapters/prove/flow-folds.tsx",
+      "sourceSha256": "b541d91beddc339bd6bf1645e3ba538f43415b9463e4b20a8efdcc79538943f5",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/chapters/prove/flow-folds.tsx"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/chapters/prove/small-plan-extras.tsx",
+      "sourceSha256": "06c7d0563559206cd4de1e8d6298dbbac6b26d28b0c2310d04e46c08066e3c03",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/chapters/prove/small-plan-extras.tsx",
+        "src/application/plan-viz-contracts.ts#(evaluation)"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/chapters/prove/test-card.tsx",
+      "sourceSha256": "6e03d5902f49d985c36676f5fd33779ff7699fed83523763c3956d187ab25090",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/chapters/prove/test-card.tsx",
+        "src/features/plan/common/team-dot.tsx#TeamTag",
+        "src/application/plan-viz-teams.ts#teamIndex"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/chapters/ref/catalogue-bits.tsx",
+      "sourceSha256": "810b3df363c5effd4f06ab914398702d2552d1c83f060d5ccf0b27fce6bab01f",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/chapters/ref/catalogue-bits.tsx",
+        "src/features/plan/common/team-dot.tsx#TeamDot",
+        "src/application/plan-viz-teams.ts#teamIndex"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/chapters/ref/decisions-cat.tsx",
+      "sourceSha256": "155bdabd0a751b078fce2f269b405c72fed85814d8abe5404a59b9456297d11f",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/chapters/ref/decisions-cat.tsx",
+        "src/application/plan-viz-decision.ts#numberOf"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/chapters/ref/milestones-cat.tsx",
+      "sourceSha256": "0eebe5e2a53ba10847aee5d64b7b0204cd81ef67324454cdc928f41259b9a338",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/chapters/ref/milestones-cat.tsx",
+        "src/application/plan-viz-teams.ts#teamIndex"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/chapters/ref/reference-index.tsx",
+      "sourceSha256": "4713268ad1963df3dcde0ad5c81a999769cc04143ac001c6c8b1807ee5a1944c",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/chapters/ref/reference-index.tsx",
+        "src/application/reference/model.ts#teamNames"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/chapters/ref/tests-cat.tsx",
+      "sourceSha256": "36cfd8e9a321ab1b9246c3e2c04741a5a3d5b6028288f80e27edf79eb5fd847f",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/chapters/ref/tests-cat.tsx",
+        "src/application/reference/model.ts#teamsWhere"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/chapters/ref/work-cat.tsx",
+      "sourceSha256": "19cac770ef31e5a1d7db1d042b675b9bddbcb483dff92747f6beddb3fe705fa1",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/chapters/ref/work-cat.tsx",
+        "src/application/plan-viz-teams.ts#teamIndex"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/chapters/today/stop-under.tsx",
+      "sourceSha256": "482624bdbe5dc95cd02e7acb6e8e6545e9998429a684ba6be6415542e6235d44",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/chapters/today/stop-under.tsx",
+        "src/features/plan/common/entity-chip.tsx#EntityChip",
+        "src/application/plan-chips.ts#chipInfo"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/chapters/today/store-list.tsx",
+      "sourceSha256": "5c1be43f7921098c58e57dc7d51cbc63b7f33f04b565b279fa90ffad3b5f40f4",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/chapters/today/store-list.tsx",
+        "src/features/plan/common/entity-chip.tsx#EntityChip",
+        "src/application/plan-chips.ts#chipInfo"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/chapters/today/team-strip.tsx",
+      "sourceSha256": "77be32644c43c00adc28ed9c192d39df7e2da45924821ac533e18235d2d1295e",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/chapters/today/team-strip.tsx",
+        "src/features/plan/common/team-dot.tsx#TeamDot",
+        "src/application/plan-viz-teams.ts#teamIndex"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/chapters/versions/history-screen.tsx",
+      "sourceSha256": "43b19092f58f33041295e5aaa77fc4910f6e0a6f6bfa71aa120bffe293cee729",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/chapters/versions/history-screen.tsx",
+        "src/application/plan-story-versions-history.ts#historyView"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/chapters/versions/journey-block.tsx",
+      "sourceSha256": "282dacfccf1eb73ce0cc493a739c7a6fa9bdbfbbd64183d42cfbb05fbbc72f1d",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/chapters/versions/journey-block.tsx",
+        "src/features/plan/chapters/versions/work-rows.tsx#WorkRows",
+        "src/features/plan/common/entity-chip.tsx#EntityChip",
+        "src/application/plan-chips.ts#chipInfo"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/chapters/versions/screen-change.tsx",
+      "sourceSha256": "0ec316ed38f8472e8db9810b32c01b8eb4bbe68b4e5f7400e34d29fe897ce6a2",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/chapters/versions/screen-change.tsx",
+        "src/features/plan/chapters/versions/work-rows.tsx#WorkRows",
+        "src/features/plan/common/entity-chip.tsx#EntityChip",
+        "src/application/plan-chips.ts#chipInfo"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/chapters/versions/teams-block.tsx",
+      "sourceSha256": "1b8da203d7f7f36da2f033e5771b27c66e4d8ed8b0d64b244b9ba11d0e4673c6",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/chapters/versions/teams-block.tsx",
+        "src/features/plan/chapters/versions/work-rows.tsx#TeamName",
+        "src/features/plan/common/team-dot.tsx#TeamTag",
+        "src/application/plan-viz-teams.ts#teamIndex"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/chapters/versions/version-parts.tsx",
+      "sourceSha256": "de719188f7f648c929b27056cc509f0cb1e9fcc11901cdab65cf3b94c19e28ab",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/chapters/versions/version-parts.tsx",
+        "src/features/plan/common/entity-chip.tsx#EntityChips",
+        "src/application/plan-chips.ts#chipInfo"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/chapters/versions/version-screen.tsx",
+      "sourceSha256": "f9673b178c9ec60a34410f9d24646d22b001fed6c9f5c656f92d9809481ea4b6",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/chapters/versions/version-screen.tsx",
+        "src/application/plan-story-versions-view.ts#versionView"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/chapters/versions/work-rows.tsx",
+      "sourceSha256": "5fd9d2884f37ed3bf90299f4b45d11aa0f065e83fbc47e85c0fdf83b8efcfe2d",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/chapters/versions/work-rows.tsx",
+        "src/features/plan/common/team-dot.tsx#TeamTag",
+        "src/application/plan-viz-teams.ts#teamIndex"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/common/entity-chip.tsx",
+      "sourceSha256": "2b617ba58be20bac877eca39bbba213cf17c657c9ec57d1862a1d68d801b9028",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/common/entity-chip.tsx",
+        "src/application/plan-chips.ts#chipInfo"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/common/model-text.tsx",
+      "sourceSha256": "50f4d02b4129164de05c20fa17f485302000579bacf2dae50a045cc9d4269371",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/common/model-text.tsx",
+        "src/features/plan/common/entity-chip.tsx#EntityMention",
+        "src/application/plan-chips.ts#chipInfo"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/common/named-chip.tsx",
+      "sourceSha256": "3725101bceba00159e22b7f13c51a02a1db87f5a1a82569c2eb06b6c7d5c43f9",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/common/named-chip.tsx",
+        "src/features/plan/common/entity-chip.tsx#EntityChip",
+        "src/application/plan-chips.ts#chipInfo"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/common/service-chip.tsx",
+      "sourceSha256": "bf212c7d68b3140559266ce0d0a44d091149efdde28e708f8733eb02c09a6551",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/common/service-chip.tsx",
+        "src/features/plan/common/team-dot.tsx#TeamDot",
+        "src/application/plan-viz-teams.ts#teamIndex"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/common/team-dot.tsx",
+      "sourceSha256": "9784ca1673c4e6529c48a8d2e319cc075f40e613bf47cd461776e2455c187051",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/common/team-dot.tsx",
+        "src/application/plan-viz-teams.ts#teamIndex"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/common/test-button.tsx",
+      "sourceSha256": "e0536b556f38ed7d989c6861eebed8e55007324a23522e20caf49b0921fd4c07",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/common/test-button.tsx",
+        "src/application/plan-viz-tests.ts#testInfo"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/inspector/thing-extras.tsx",
+      "sourceSha256": "23ca5894d4f849b6cd363da7dfca91a990e4cb17855fa322992d93d94cc00b93",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/inspector/thing-extras.tsx",
+        "src/application/plan-work-cards.ts#workCardOf"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/inspector/thing-view.client.tsx",
+      "sourceSha256": "ab7883a573bdb59f2477330dc098012336fab2bc56be3fe022f1e313d18a7492",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/inspector/thing-view.client.tsx"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/inspector/thing.client.tsx",
+      "sourceSha256": "cd10a7eae7f6d62ee711d1f6715841bb15c3bb1be3092e0d20b84387b030380f",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/inspector/thing.client.tsx",
+        "src/application/plan-pages-things.ts#topThingIds"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/legacy-plan-model.ts",
+      "sourceSha256": "9cd0d4eaed1d26e42a5bc8d141ed88e905c094a774b4cd4d4c32772a3bcb162b",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/legacy-plan-model.ts",
+        "src/application/plan/derive.ts#derive"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/plan-pages.tsx",
+      "sourceSha256": "b80c8a490df9c7c552062bf41878bb56f66804fa25bb71dc46d690f6f36431db",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/plan-pages.tsx",
+        "src/features/plan/plan-shell.tsx#PlanShell",
+        "src/application/plan-bar.ts#planBarOf"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/plan-shell.tsx",
+      "sourceSha256": "56cd0215482f5366e47e4829f02572451514e570bdda52254ce311c3f355e5ee",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/plan-shell.tsx",
+        "src/application/plan-bar.ts#planBarOf"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/remember/remember.tsx",
+      "sourceSha256": "d1458ebe535fc714174b80aeec63ce263159ef01b4526f4472c4441b067efb9c",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/remember/remember.tsx",
+        "src/application/plan-story-recap.ts#recapOf"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/screen-bodies.tsx",
+      "sourceSha256": "5d0555efbc918e98875c213f600c6e7993fd91bcdfd4d2b46e89a53e94c6e0f8",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/screen-bodies.tsx",
+        "src/features/plan/chapters/changes/changes-chapter.tsx#ChangesChapter",
+        "src/application/plan-pages-screens-changes.ts#changesLayout"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/thing-page/thing-body.tsx",
+      "sourceSha256": "a2a7870f62d23311e9999da740e1aad1a42d597a0fcdda40b18be0dd0bbf034f",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/thing-page/thing-body.tsx",
+        "src/application/plan-pages-entity.ts#entityView"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/thing-page/thing-page.tsx",
+      "sourceSha256": "944413d886a76bdb19b797d10e5b837addc785ded9a63589c1612eb56dd90586",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/thing-page/thing-page.tsx",
+        "src/application/plan-pages-things.ts#thingByToken"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/today/handler-story.tsx",
+      "sourceSha256": "28c0d773b1731cb5979d566b7eac499d5800e018ca09b46f85a95b6b3b152b36",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/today/handler-story.tsx",
+        "src/application/today-handler.ts#handlerStoryOf"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/today/journey-walk.tsx",
+      "sourceSha256": "08b8fddd6a228525ba32ce295f7e4bf04205117349208f5b82fc335e1b187326",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/today/journey-walk.tsx"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/today/store-contents.tsx",
+      "sourceSha256": "0b6c0ff3a756b7437fa5f3a85a80a631a340978f2a1a6b09030f1a5650538d5c",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/today/store-contents.tsx",
+        "src/application/today-store.ts#storeContentsOf"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/today/thing-inside.tsx",
+      "sourceSha256": "8f1937dd4078742c8c1252016afe6e3eae850c03b57e2f11573f77e082e13c04",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/today/thing-inside.tsx",
+        "src/features/plan/today/handler-story.tsx#HandlerStory",
+        "src/application/today-handler.ts#handlerStoryOf"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/today/today-flows.tsx",
+      "sourceSha256": "fe98c208df0f0af747d5aa77819b7d10742bbfb6dec0ce3404626b64f7dfe096",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/today/today-flows.tsx",
+        "src/features/plan/viz/flow-viewer/flow-viewer.tsx#FlowViewer",
+        "src/features/plan/viz/flow-viewer/flow-views.tsx#flowViews"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/today/today-map.tsx",
+      "sourceSha256": "a61ae5ef0b41b856539773dffba9e540a7599406e51010daeea205bd5facffb1",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/today/today-map.tsx",
+        "src/application/plan-story-today-system.ts#systemStops"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/board/gate-chip.tsx",
+      "sourceSha256": "4fc067f796a50cb205a1ede7d40c7a5215da9241dbcc61abaa120fe5c8c2f14c",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/board/gate-chip.tsx",
+        "src/application/plan-viz-gate.ts#gateOf"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/board/milestone-board.tsx",
+      "sourceSha256": "264a00dbf859536ca88177d334e142e8e440026ff6a627bfcdfa8208c43d2bf6",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/board/milestone-board.tsx",
+        "src/application/plan-viz-work.ts#workOrdered"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/board/milestone-card.tsx",
+      "sourceSha256": "3476c93eab3324e4d3e266735e7c83c583f66e1694119ff0d6a16f1902a7e529",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/board/milestone-card.tsx",
+        "src/application/plan-viz-milestone.ts#msState"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/board/work-chip.tsx",
+      "sourceSha256": "2fe92527b1d489a14ece2f307e1e5415e9f35f80e57adaf5b5d43ad00239a2e7",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/board/work-chip.tsx",
+        "src/application/plan-viz-work.ts#wiState"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/board/work-export.tsx",
+      "sourceSha256": "a93b3595474318026b2c5a95ed30b5e88274ffc96c1bcc9e602b0e1d0b7e1837",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/board/work-export.tsx",
+        "src/application/plan-viz-teams.ts#teamName"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/board/work-item-card.tsx",
+      "sourceSha256": "1f881f913b675944f8533fca3dade389dc97721de4b0e656889a93cc39b32f4f",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/board/work-item-card.tsx",
+        "src/application/plan-viz-teams.ts#teamName"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/board/work-item-parts.tsx",
+      "sourceSha256": "b0176e6663d8af9e41ce688d41d1a9309b30476a203dd53ee90eb2ee0fe65c7f",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/board/work-item-parts.tsx",
+        "src/application/plan-viz-work.ts#issueUrl"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/board/work-item-rows.tsx",
+      "sourceSha256": "65606959fc01192ea9634041a79984071d580ba23de4be604d3284e1a90d8310",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/board/work-item-rows.tsx",
+        "src/application/plan-viz-work.ts#wiState"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/compat/compat.tsx",
+      "sourceSha256": "4e24e5bc5050a67e845a2165152903eab6cceed7e64e8be5f1bcfe15576c2a3c",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/compat/compat.tsx",
+        "src/application/plan-viz-compat.ts#compatBadgeView"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/dag/dag.tsx",
+      "sourceSha256": "064bedede7035d4a07e191fde27502a570efba22536cec1c4ece295393a98f29",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/dag/dag.tsx",
+        "src/application/plan-viz-dag.ts#dagOf"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/decisions/decision-card.tsx",
+      "sourceSha256": "6680e8029ed0eca8f2229cd4da11dfc807d9b794c86a331b63c811e0a1aa94cd",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/decisions/decision-card.tsx",
+        "src/application/plan-viz-teams.ts#teamIndex"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/decisions/decision-parts.tsx",
+      "sourceSha256": "2dd471f7d616b64d10860b4180248c36e7646644af1514830106ece6dd8c08da",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/decisions/decision-parts.tsx",
+        "src/features/plan/common/team-dot.tsx#TeamTag",
+        "src/application/plan-viz-teams.ts#teamIndex"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/domain/concept-cards.tsx",
+      "sourceSha256": "aecb3aaf976cdd82430a9451c6528a0f83c6a9daf5d292d2c66508bf2ecb948f",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/domain/concept-cards.tsx",
+        "src/application/plan-viz-domain.ts#domainView"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/domain/names.tsx",
+      "sourceSha256": "ca33618994e9c9a08b4865b19c0dbe89ad5c7c3fba5d9846e17576832ba82394",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/domain/names.tsx",
+        "src/application/plan-viz-domain.ts#domainView"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/endpoint/api-groups.tsx",
+      "sourceSha256": "979eea0ecc3258e8098e47bd4ec2fffbe23b874b47ff55e87b399530d11a67b9",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/endpoint/api-groups.tsx",
+        "src/application/plan-viz-endpoint.ts#callersOf"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/endpoint/endpoint-body.client.tsx",
+      "sourceSha256": "8b310d13fcacfea1a8f51d917d210d6d7bebbb95ad86d409b34ba29edcff6c4e",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/endpoint/endpoint-body.client.tsx",
+        "src/application/plan-viz-endpoint.ts#interfaceEndpoints"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/endpoint/endpoint-lines.tsx",
+      "sourceSha256": "6b88513f157ae542b34fe6d616ebdc25e225e36abc1de4d84782d882b7da3475",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/endpoint/endpoint-lines.tsx",
+        "src/features/plan/viz/field-table/field-table.tsx#FieldTable"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/endpoint/endpoint-row.tsx",
+      "sourceSha256": "17dae8d2a71cba33b8cdd620170688498268cffe8dd88873eac57f22f1afe18c",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/endpoint/endpoint-row.tsx",
+        "src/application/plan-viz-endpoint.ts#callersOf"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/endpoint/interface-group.tsx",
+      "sourceSha256": "ae4c2d094faed6a4e46f4cbb47a239f1d0c27dc4e25e4ea2e8841152150daf65",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/endpoint/interface-group.tsx",
+        "src/application/plan-viz-endpoint.ts#interfaceEndpoints"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/event-line/event-body.tsx",
+      "sourceSha256": "cf0255e6d79883f4a54d8c375acb3988fb044db9341df7494b5fd133d342e720",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/event-line/event-body.tsx",
+        "src/features/plan/viz/field-table/field-table.tsx#FieldTable"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/event-line/event-flow.tsx",
+      "sourceSha256": "fdf9747ec2ffc256868c7e5e481065609da548e8f7794345f38d8b83e91f3e9a",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/event-line/event-flow.tsx",
+        "src/features/plan/common/entity-chip.tsx#EntityChip",
+        "src/application/plan-chips.ts#chipInfo"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/event-line/event-line.tsx",
+      "sourceSha256": "ab78e6f7f74cddbc88678921f160f3f4de026e65aa9d4edbcbeb497b95d7d147",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/event-line/event-line.tsx",
+        "src/application/plan-viz-events.ts#eventData"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/experience/experience-systems.tsx",
+      "sourceSha256": "b16d69974202d437ba946e3866fd910af8ec043c7b987404b612e361a850dba9",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/experience/experience-systems.tsx",
+        "src/features/plan/common/model-text.tsx#ModelText",
+        "src/features/plan/common/entity-chip.tsx#EntityMention",
+        "src/application/plan-chips.ts#chipInfo"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/experience/experience.tsx",
+      "sourceSha256": "180caeddc9c13ffbefc6d52ac4adf0b004b2a361ce25e75dca4699fed2eef3e0",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/experience/experience.tsx",
+        "src/features/plan/viz/screens/screen-figure.tsx#ScreenFigure",
+        "src/application/plan-viz-screens.ts#figureOf"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/experience/linked-screen.tsx",
+      "sourceSha256": "9dab6fdb5bd1ab830d045d9a3aa88dab2cd66bb42ae3f7cd5bbff93eaf116f3d",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/experience/linked-screen.tsx",
+        "src/features/plan/viz/screens/screen-figure.tsx#ScreenFigure",
+        "src/application/plan-viz-screens.ts#figureOf"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/field-table/field-cells.tsx",
+      "sourceSha256": "e22e919b14cc8d30e88b6d22baea1f3a3c3bda6c764880c055060c7815a04d51",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/field-table/field-cells.tsx",
+        "src/application/plan-viz-field-cells.ts#keyBadges"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/field-table/field-table.tsx",
+      "sourceSha256": "e956c1ad2dec3c2aeff044432ba9f66ee798552caa91086edc8c705fbabb2d07",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/field-table/field-table.tsx"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/field-table/schema-head.tsx",
+      "sourceSha256": "a5f1ebd419700ee5775e0913093cf7f75075441d1a91ff69cebfd5cabcec0df7",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/field-table/schema-head.tsx"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/flow-diagram/flow-diagram.tsx",
+      "sourceSha256": "a39b9fa63fe8ad6b1e14af775fde93ac6f6e71bbbc16b94b444712c12e6f2d4a",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/flow-diagram/flow-diagram.tsx",
+        "src/application/plan-viz-flow-diagram.ts#flowDiagram"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/flow-diagram/flow-pane.tsx",
+      "sourceSha256": "607df75d5b48b452973693eda2f9ed9a60e890695730540907bb780f0ae37734",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/flow-diagram/flow-pane.tsx",
+        "src/application/plan-viz-flow-diagram.ts#flowDiagram"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/flow-viewer/flow-viewer.tsx",
+      "sourceSha256": "3d44359cfadeae771db189833f8f26637a6cadc154f278c68e79da760b9771ef",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/flow-viewer/flow-viewer.tsx",
+        "src/features/plan/viz/flow-viewer/flow-views.tsx#flowViews"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/flow-viewer/flow-views.tsx",
+      "sourceSha256": "917699a40bb44ebd38cbc842ef78aebbe904adabb1fdfc89ba802f49971c7b57",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/flow-viewer/flow-views.tsx"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/flow-viewer/step-card.tsx",
+      "sourceSha256": "bef8b672ffcb941813505f98b671796c48dc83578ec2e420c6b70b2432368821",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/flow-viewer/step-card.tsx",
+        "src/features/plan/common/entity-chip.tsx#EntityChip",
+        "src/application/plan-chips.ts#chipInfo"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/flow-viewer/step-more.tsx",
+      "sourceSha256": "179d61cfbcbbe4dceb6df41e666dafa94445dbd41231fe8ecdbc0cc6e911c0b7",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/flow-viewer/step-more.tsx",
+        "src/features/plan/viz/waterfall/tinted-document.tsx#TintedDocument",
+        "src/application/plan-viz-waterfall-tint.ts#tintedDocument"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/flow-viewer/step-route.tsx",
+      "sourceSha256": "7ca95e6d356ea066643f3cca88866d3c15d515adf20dd1d17255fae39d201ac2",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/flow-viewer/step-route.tsx",
+        "src/features/plan/common/entity-chip.tsx#EntityChip",
+        "src/application/plan-chips.ts#chipInfo"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/flow-viewer/step-rows.tsx",
+      "sourceSha256": "a1001c8907e491e672332a3579f22551b14a729775835d0e1cb489a63088b61b",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/flow-viewer/step-rows.tsx",
+        "src/features/plan/common/entity-chip.tsx#EntityChip",
+        "src/application/plan-chips.ts#chipInfo"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/flow-viewer/stop-side.tsx",
+      "sourceSha256": "5b87b3461948b97ac388710ab53216f276b6138aaf6c499978f271e0a2829075",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/flow-viewer/stop-side.tsx",
+        "src/application/plan-viz-flow-changes.ts#decisionsOf"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/graph-map/cache-table.tsx",
+      "sourceSha256": "a5d6be4172f43f5336af8450106610b2ed47d986ff230892fa72b9ee03f1da63",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/graph-map/cache-table.tsx",
+        "src/application/plan-viz-graph-caches.ts#cacheTable"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/graph-map/graph-map.tsx",
+      "sourceSha256": "77e782005ec30e55a351e92dad2d33dd452dc7af094d4ef09ed2b5bf3f58de44",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/graph-map/graph-map.tsx",
+        "src/features/plan/viz/graph-map/cache-table.tsx#CacheTable",
+        "src/application/plan-viz-graph-caches.ts#cacheTable"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/graph-map/graph-picture.tsx",
+      "sourceSha256": "1b61743b651109047ee20c6064eaba74c484fb75da153d85598e197bc46d0e66",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/graph-map/graph-picture.tsx",
+        "src/application/plan-viz-graph-picture.ts#graphPicture"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/graph-map/ownership-grid.tsx",
+      "sourceSha256": "fc45be3c775fe5452ef0f485e0ea5a5a97243473affdd2cf45d3ec0f2b4ba333",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/graph-map/ownership-grid.tsx",
+        "src/application/plan-viz-graph-grid.ts#ownershipGrid"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/journey/journey-cells.tsx",
+      "sourceSha256": "d7ff174308e2c4d204be29c5c71db41b9016f17f6eca3e498c1df1cbf8ec9022",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/journey/journey-cells.tsx",
+        "src/features/plan/viz/journey/journey-value.tsx#JourneyValue",
+        "src/features/plan/common/entity-chip.tsx#EntityChip",
+        "src/application/plan-chips.ts#chipInfo"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/journey/journey-comparison.tsx",
+      "sourceSha256": "78b24fecb1abc7a31eb6955319534b10bc8fb4eccb794bc7b37b04f996faef26",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/journey/journey-comparison.tsx",
+        "src/features/plan/common/entity-chip.tsx#EntityChip",
+        "src/application/plan-chips.ts#chipInfo"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/journey/journey-notes.tsx",
+      "sourceSha256": "0e39bc89a6bcdaaf1fd4d4f04bc3f14e9570ec48365a0137371ea6fb7c3723a7",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/journey/journey-notes.tsx",
+        "src/application/plan-viz-flow-changes.ts#changeMarkers"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/journey/journey-screen.tsx",
+      "sourceSha256": "3d1adb6d4bf16e635e955a8602a012c100a11303767e4fdc00d70bf5bdcba0bf",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/journey/journey-screen.tsx"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/journey/journey-value.tsx",
+      "sourceSha256": "3944fb4f2683ff14b41e5c4ff05c2f7fdd3c39a2e96b8a4862174071a40a01c2",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/journey/journey-value.tsx",
+        "src/features/plan/common/entity-chip.tsx#EntityChip",
+        "src/application/plan-chips.ts#chipInfo"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/journey/journey.tsx",
+      "sourceSha256": "3d19ef8627d1598c974fdc588d4f222bb7116eafbe80a14fc788db696ed0ce5b",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/journey/journey.tsx"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/ladder/ladder-rung.tsx",
+      "sourceSha256": "edae93941ebe4c53f8fa3f77abc88de5ad4473a7703102176d9d46b7dcd21a56",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/ladder/ladder-rung.tsx",
+        "src/features/plan/common/team-dot.tsx#TeamTag",
+        "src/application/plan-viz-teams.ts#teamIndex"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/ladder/ladder.tsx",
+      "sourceSha256": "dd9abbe2767df509ec271a85f6bb5fbeb701ac815c4ec0b4872cf74718896d49",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/ladder/ladder.tsx",
+        "src/application/plan-viz-ladder-rungs.ts#ladderView"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/ladder/version-badge.tsx",
+      "sourceSha256": "b376a43792e3e1becfe48dc23a522901192b9bfae1e4db9e20b356f350fd0f4d",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/ladder/version-badge.tsx",
+        "src/application/plan-viz-ladder.ts#versionPair"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/ledger/health-strip.tsx",
+      "sourceSha256": "2351d326843487280ca9e06abc909810356100792daace1cde8e0d5e13d0be8f",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/ledger/health-strip.tsx",
+        "src/application/plan-viz-ledger.ts#healthTiles"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/ledger/ledger-row.tsx",
+      "sourceSha256": "a655736242df77fc1cc91fe3945fa7d319ab4f2eec2f10420986685d770c110a",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/ledger/ledger-row.tsx",
+        "src/application/plan-viz-teams.ts#teamName"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/ledger/ledger.tsx",
+      "sourceSha256": "d06bcd9d23551640abba2052623e87cfe04d22be2fc86ab640c78f188f679b50",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/ledger/ledger.tsx",
+        "src/application/plan-viz-teams.ts#teamName"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/matrix/contract-gaps.tsx",
+      "sourceSha256": "99d7a81aa4f87d8191cb8998275f86486384ae41334b30946bde2d0cd4736fb9",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/matrix/contract-gaps.tsx",
+        "src/application/plan-viz-contract-matrix.ts#contractFindings"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/matrix/contract-matrix.tsx",
+      "sourceSha256": "ff0d95b447a9a5c4328ab4cb86ae23a560ef9fcab40fb8144d14cbf18a2ef4db",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/matrix/contract-matrix.tsx",
+        "src/application/plan-viz-contract-matrix.ts#contractFindings"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/matrix/coverage-matrix.tsx",
+      "sourceSha256": "a358682802560877d3071fd52b89c053a88dfa2cb929ba65a54ff056cbbe43bf",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/matrix/coverage-matrix.tsx",
+        "src/application/plan-viz-tests.ts#levelStats"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/matrix/coverage-row.tsx",
+      "sourceSha256": "2c84a9edc686c3529b20a6e6f9fcc06a0b8fde1922c298995f0d3a81a71a3320",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/matrix/coverage-row.tsx",
+        "src/application/plan-viz-tests.ts#testInfo"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/matrix/honesty.tsx",
+      "sourceSha256": "defd0497b1a2f94fd7e26bc09ef2c4fe6695ba0da86ffee5dbe983558260719d",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/matrix/honesty.tsx",
+        "src/application/plan-viz-tests.ts#provesWithoutWalking"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/matrix/pyramid-strip.tsx",
+      "sourceSha256": "e166b3a071c0dac02ec1a0051af82ff88091a685c57b5d715f41977fd78f7030",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/matrix/pyramid-strip.tsx",
+        "src/application/plan-pages-team.ts#lensTeam"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/owners/ownership-table.tsx",
+      "sourceSha256": "2ad0ed356fc644fa66ada47de440f01f5661d0ae045f94f071c4946099518c36",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/owners/ownership-table.tsx"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/query-plan/query-plan-tree.tsx",
+      "sourceSha256": "677da17986afac34c79a4d572ff33f18017511dbd6e8dca3aeb3c1f0e202a5b3",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/query-plan/query-plan-tree.tsx",
+        "src/application/plan-viz-query-plan.ts#planFacts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/risks/risk-matrix.tsx",
+      "sourceSha256": "6622ce7d3bcc6eb32919ebd299bdab3f66e3dcf2fbe89098a6c1b74f580687cb",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/risks/risk-matrix.tsx",
+        "src/application/plan-viz-risks.ts#numberOfRisk"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/risks/risk-register.tsx",
+      "sourceSha256": "ee44429da915c44a4009d65e6b0617d6a5faaf74931b4f398f6d13c212a709eb",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/risks/risk-register.tsx"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/screen-catalogue/screen-cards.tsx",
+      "sourceSha256": "c2e5ca8b65bf30522ac31e6dc6ac211d93cc1ec84bde15b90aac25c022424322",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/screen-catalogue/screen-cards.tsx",
+        "src/features/plan/viz/screens/screen-figure.tsx#ScreenFigure",
+        "src/application/plan-viz-screens.ts#figureOf"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/screen-catalogue/screen-catalogue.tsx",
+      "sourceSha256": "af0bb5a7822727b61ad4b975d2a1e54fef2b45cf3caadeef05f85e399bd7be88",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/screen-catalogue/screen-catalogue.tsx",
+        "src/application/plan-viz-screen-catalogue.ts#screenCatalogue"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/screens/before-after.tsx",
+      "sourceSha256": "fe3efb6ad29ff4fccd8c8efb6a42ff0e70e01a8a12d3208fbe5adc0a5be67f21",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/screens/before-after.tsx",
+        "src/application/plan-viz-screens.ts#comparablePictures"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/screens/journey-strip.tsx",
+      "sourceSha256": "6bbf3b3c18df6c750ad3f4f65573f8cb8c22c9c1f09de611efe39de145f987ce",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/screens/journey-strip.tsx",
+        "src/application/plan-viz-screens.ts#stripLegs"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/screens/region-list.tsx",
+      "sourceSha256": "d2b9a85da5ac17ab667446331ed113ba0a56c179ebb948189f562eb8ad6b229d",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/screens/region-list.tsx",
+        "src/application/plan-viz-screens.ts#regionsOf"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/screens/screen-card.tsx",
+      "sourceSha256": "5500a8065688961849a579396f2b51c05bbaba535be0f9675afe7b9b95e1d4d2",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/screens/screen-card.tsx",
+        "src/application/plan-viz-screens.ts#screenIn"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/screens/screen-figure.tsx",
+      "sourceSha256": "323b88371b215e8935420046f684b13a3230e44acf94b4973d5880d3da25789d",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/screens/screen-figure.tsx",
+        "src/application/plan-viz-screens.ts#figureOf"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/screens/screen-links.tsx",
+      "sourceSha256": "742f1d667737922f4a2c2656b5b87503095cab5f39f74e9a1f60879fc3f2a665",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/screens/screen-links.tsx",
+        "src/application/plan-viz-screens.ts#screenLinks"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/sequence/seq-head.tsx",
+      "sourceSha256": "d671565e1cd46e18b9f8a83cf99e308b3d8aa621005e2fa8122a8da090b6cbbe",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/sequence/seq-head.tsx",
+        "src/features/plan/common/team-dot.tsx#TeamDot",
+        "src/application/plan-viz-teams.ts#teamIndex"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/sequence/sequence.tsx",
+      "sourceSha256": "f600ca40b2794e8eabfb988dd70d2899b255b0e513d5beeb31e5fd6efdd05326",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/sequence/sequence.tsx",
+        "src/application/plan-viz-sequence.ts#sequenceView"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/store-body/store-body.tsx",
+      "sourceSha256": "a0f918c474084b90090fdf23078c30592cd5db0c1251f4d4228d970979b4f470",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/store-body/store-body.tsx",
+        "src/features/plan/viz/field-table/field-table.tsx#FieldTable"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/store-grid/store-grid.tsx",
+      "sourceSha256": "f815aa2b53f80686f77c2f715fb65f72c412d85fca4426cf1e2a69b6d4b85044",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/store-grid/store-grid.tsx",
+        "src/application/plan-viz-store-grid.ts#storeGridView"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/system-map/system-map.tsx",
+      "sourceSha256": "2b1648573ef024eff3e86ec20aaa1c1f89698849068ba80d698ffa78e61e09f7",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/system-map/system-map.tsx",
+        "src/application/plan-viz-system-map-input.ts#systemMapInput"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/waterfall/cache-row.tsx",
+      "sourceSha256": "0c639631b09d4fe9dd60e2df6edebf044ac08e67135e3ba4b9fad5ed764e14c0",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/waterfall/cache-row.tsx",
+        "src/features/plan/common/entity-chip.tsx#EntityChip",
+        "src/application/plan-chips.ts#chipInfo"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/waterfall/fetch-row.tsx",
+      "sourceSha256": "f222e636d7a0abc21bf08cadc67d3b660e2a93aa11ecddbcf15c831dcdafc704",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/waterfall/fetch-row.tsx",
+        "src/application/plan-chips.ts#chipInfo"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/waterfall/hinge-row.tsx",
+      "sourceSha256": "4dda45906daa2e5958f16620919eaf02a90d69b3b7b59cbf7e729d2e259fddd7",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/waterfall/hinge-row.tsx",
+        "src/features/plan/common/team-dot.tsx#TeamTag",
+        "src/application/plan-viz-teams.ts#teamIndex"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/waterfall/tinted-document.tsx",
+      "sourceSha256": "d6b3a7fc327c6c274dc56703601c2fc6c1c085375afaf68ccd3787145a0cd5e7",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/waterfall/tinted-document.tsx",
+        "src/application/plan-viz-waterfall-tint.ts#tintedDocument"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/waterfall/waterfall-body.tsx",
+      "sourceSha256": "5e975a243d4020dae3fae2666b0cff86b1be4bfd1f2a0551bcd5bd5e011f8905",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/waterfall/waterfall-body.tsx",
+        "src/features/plan/viz/waterfall/fetch-row.tsx#FetchRow",
+        "src/application/plan-chips.ts#chipInfo"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/features/plan/viz/waterfall/waterfall.tsx",
+      "sourceSha256": "a4899e43e927696ba0974bd72cea84053c5a4382eb690ed22541da3c364dcd36",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/features/plan/viz/waterfall/waterfall.tsx",
+        "src/application/plan-viz-waterfall-body.ts#waterfallView"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/infrastructure/plan-base-store.ts",
+      "sourceSha256": "dde1941e87088a0a1c7ff44f4beab12062a1f3e98dd57a278366d1af318f1bee",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/infrastructure/plan-base-store.ts",
+        "src/infrastructure/today-model.ts#readToday",
+        "src/application/workspace-model.ts#systemModelOf"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/infrastructure/plan-data.ts",
+      "sourceSha256": "8eb31f9b8c087f94d544629d37db74e36d95dbcdd57348f67443556f9d667961",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/infrastructure/plan-data.ts",
+        "src/application/plan/derive.ts#derive"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/infrastructure/plan-revision.ts",
+      "sourceSha256": "3b0a06a9f3114fff1081d508311b6d451dc6fd8ab2aae2d78dacd7afdcec5d35",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/infrastructure/plan-revision.ts",
+        "src/application/plan/revision.ts#buildRevision",
+        "src/application/plan/plan-diff.ts#planDiff",
+        "src/application/plan/derive.ts#derive"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/infrastructure/plan-standing.ts",
+      "sourceSha256": "45c17d3918660cd255fbfca65950a3c5e7582513d5c7d5659795c8ada011bd06",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/infrastructure/plan-standing.ts",
+        "src/infrastructure/today-model.ts#readToday",
+        "src/application/workspace-model.ts#systemModelOf"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/infrastructure/plan-store.ts",
+      "sourceSha256": "59bec73d317ef0153e4e4e0e8676500f9fa9a2566f581ad590ad059422867f0d",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/infrastructure/plan-store.ts",
+        "src/infrastructure/plan-base-store.ts#readPlanBase",
+        "src/infrastructure/today-model.ts#readToday",
+        "src/application/workspace-model.ts#systemModelOf"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/infrastructure/today-data.ts",
+      "sourceSha256": "6bbf1018c35dd8200c3dec4878b33abf1d8d271d37566e4fcd587704dacbcb4e",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/infrastructure/today-data.ts",
+        "src/application/plan-footprint.ts#planCardOf"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/infrastructure/today-model.ts",
+      "sourceSha256": "16feeb06b1041f9ece7917ec7b4811682cc042e2cc5881971620bb20cf343f82",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/infrastructure/today-model.ts",
+        "src/application/workspace-model.ts#systemModelOf"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/infrastructure/workspace-model.ts",
+      "sourceSha256": "7d35329a29fddc9aca186be3662edce69ebd2284d222eb34d4f5d26e97433de4",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/infrastructure/workspace-model.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/infrastructure/workspace-plan-index.ts",
+      "sourceSha256": "8bc9cb25b89d71f7a0476bbcea1606e1f4d05a58a683285b0b7ebd479c3cf568",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/infrastructure/workspace-plan-index.ts",
+        "src/infrastructure/workspace-programmes.ts#readProgrammes"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/infrastructure/workspace-plans.ts",
+      "sourceSha256": "b75aa884f7d31cf9e267b3ffa1e8fbf70b857eb8f687fdebad5f81802b1b9c2a",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/infrastructure/workspace-plans.ts",
+        "src/infrastructure/plan-standing.ts#readStanding",
+        "src/infrastructure/today-model.ts#readToday",
+        "src/application/workspace-model.ts#systemModelOf"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/infrastructure/workspace-programmes.ts",
+      "sourceSha256": "3e7c5f6f18a71c5e42323ead9b1fe31d2a89587cda9b1945a65ce4b9a4466810",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/infrastructure/workspace-programmes.ts"
+      ],
+      "activeLegacyPath": []
+    },
+    {
+      "file": "src/infrastructure/workspace-store.ts",
+      "sourceSha256": "8fc5487ec5978eec51c8fd89c1413ea5c289f5ff3a4c24947a5f75ee854f6776",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/infrastructure/workspace-store.ts",
+        "src/domain/workspace-check.ts#checkWorkspace"
+      ],
+      "activeLegacyPath": []
+    }
+  ]
+}

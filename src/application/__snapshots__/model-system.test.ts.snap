@@ -1,0 +1,848 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`native system views > keeps components, code homes and actual relationships separate from ownership and external providers > system records and declared component placement 1`] = `
+{
+  "a": {
+    "about": "Run by the A team",
+    "allEntriesHref": "/queries/entries/?system=sys-a",
+    "allJourneys": "/queries/journeys/",
+    "catalogue": {
+      "apis": [
+        {
+          "head": {
+            "glyph": "▣",
+            "id": "svc:a",
+            "label": "A",
+            "missing": false,
+            "mono": false,
+            "word": "service",
+          },
+          "items": [
+            {
+              "glyph": "⇄",
+              "id": "api:a",
+              "label": "GET /a",
+              "missing": false,
+              "mono": true,
+              "word": "endpoint",
+            },
+          ],
+          "note": "",
+        },
+      ],
+      "data": [],
+      "events": [
+        {
+          "head": {
+            "glyph": "⚡",
+            "id": "msg:remote",
+            "label": "msg:remote",
+            "missing": false,
+            "mono": true,
+            "word": "message",
+          },
+          "items": [
+            {
+              "glyph": "▣",
+              "id": "svc:b",
+              "label": "B",
+              "missing": false,
+              "mono": false,
+              "word": "service",
+            },
+          ],
+          "note": "From A",
+        },
+      ],
+    },
+    "cites": [],
+    "components": [
+      {
+        "announces": [
+          {
+            "glyph": "⚡",
+            "id": "msg:remote",
+            "label": "msg:remote",
+            "missing": false,
+            "mono": true,
+            "word": "message",
+          },
+        ],
+        "calls": [
+          {
+            "glyph": "⇄",
+            "id": "api:supplier",
+            "label": "api:supplier",
+            "missing": false,
+            "mono": true,
+            "word": "endpoint",
+          },
+        ],
+        "chip": {
+          "glyph": "▣",
+          "id": "svc:a",
+          "label": "A",
+          "missing": false,
+          "mono": false,
+          "word": "service",
+        },
+        "does": "",
+        "keeps": [
+          {
+            "glyph": "⛁",
+            "id": "st:remote",
+            "label": "Remote",
+            "missing": false,
+            "mono": true,
+            "word": "store",
+          },
+        ],
+        "kind": "service",
+        "listens": [],
+        "offers": [
+          {
+            "glyph": "⇄",
+            "id": "api:a",
+            "label": "GET /a",
+            "missing": false,
+            "mono": true,
+            "word": "endpoint",
+          },
+        ],
+        "summary": "",
+        "uses": [],
+      },
+    ],
+    "data": [],
+    "domainId": "dom:queries",
+    "entries": [
+      {
+        "href": "/queries/entries/?id=api-a",
+        "id": "api:a",
+        "kind": "endpoint",
+        "name": "GET /a",
+      },
+    ],
+    "facts": [
+      "1 component",
+      "1 repo",
+      "0 authored flows",
+      "1 entry",
+    ],
+    "flows": [],
+    "gaps": [
+      {
+        "id": "api:a",
+        "kind": "no_caller",
+        "message": "No caller is recorded.",
+      },
+      {
+        "id": "api:supplier",
+        "kind": "no_handler",
+        "message": "No handler detail is recorded.",
+      },
+    ],
+    "headline": "A is a system in Queries.",
+    "id": "sys:a",
+    "journeys": [],
+    "mapped": true,
+    "name": "A",
+    "narrativeLabels": {},
+    "narratives": null,
+    "neighbours": {
+      "reachedBy": [
+        {
+          "how": "receives events",
+          "href": "/queries/queries/b/",
+          "id": "sys:b",
+          "name": "B",
+          "place": "Queries domain",
+        },
+      ],
+      "reaches": [
+        {
+          "how": "reads data, writes data and publishes events",
+          "href": "/queries/queries/b/",
+          "id": "sys:b",
+          "name": "B",
+          "place": "Queries domain",
+        },
+        {
+          "how": "calls",
+          "href": "/queries/things/?id=ext%3Asupplier",
+          "id": "ext:supplier",
+          "name": "Supplier",
+          "place": "External party",
+        },
+      ],
+    },
+    "provenance": [
+      {
+        "cites": [
+          {
+            "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "kind": "code",
+            "lines": [
+              1,
+              2,
+            ],
+            "path": "example.ts",
+            "repo": "fixture/a",
+          },
+        ],
+        "entry": "api:a",
+        "from": "svc:a",
+        "handler": "h:a",
+        "kind": "read",
+        "site": "h:a#read",
+        "source": "handler",
+        "to": "st:remote",
+        "via": "sch:remote#id",
+      },
+      {
+        "cites": [
+          {
+            "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "kind": "code",
+            "lines": [
+              1,
+              2,
+            ],
+            "path": "example.ts",
+            "repo": "fixture/a",
+          },
+        ],
+        "entry": "api:a",
+        "from": "svc:a",
+        "handler": "h:a",
+        "kind": "write",
+        "site": "h:a#write",
+        "source": "handler",
+        "to": "st:remote",
+        "via": "sch:remote#id",
+      },
+      {
+        "cites": [
+          {
+            "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "kind": "code",
+            "lines": [
+              1,
+              2,
+            ],
+            "path": "example.ts",
+            "repo": "fixture/a",
+          },
+        ],
+        "entry": "api:a",
+        "from": "svc:a",
+        "handler": "h:a",
+        "kind": "publish",
+        "site": "h:a#publish",
+        "source": "handler",
+        "to": "top:remote",
+        "via": "msg:remote",
+      },
+      {
+        "cites": [
+          {
+            "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "kind": "code",
+            "lines": [
+              1,
+              2,
+            ],
+            "path": "example.ts",
+            "repo": "fixture/a",
+          },
+        ],
+        "entry": "api:a",
+        "from": "svc:a",
+        "handler": "h:a",
+        "kind": "call",
+        "site": "h:a#call",
+        "source": "handler",
+        "to": "ext:supplier",
+        "via": "api:supplier",
+      },
+      {
+        "cites": [
+          {
+            "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "kind": "code",
+            "lines": [
+              1,
+              2,
+            ],
+            "path": "example.ts",
+            "repo": "fixture/a",
+          },
+        ],
+        "entry": null,
+        "from": "top:remote",
+        "handler": null,
+        "kind": "consume",
+        "site": "rel:consume",
+        "source": "relationship",
+        "to": "svc:a",
+        "via": "top:remote",
+      },
+    ],
+    "repos": [
+      {
+        "cited": "6 records cite code here",
+        "href": "https://github.com/fixture/a",
+        "moved": "Remote branch freshness not recorded",
+        "read": "No repository scan pin recorded",
+        "repo": "fixture/a",
+        "scanned": false,
+      },
+    ],
+    "trail": [
+      {
+        "href": "/queries/",
+        "label": "Query fixture",
+      },
+      {
+        "href": "/queries/queries/",
+        "label": "Queries",
+      },
+    ],
+  },
+  "b": {
+    "about": "Run by the B team",
+    "allEntriesHref": "/queries/entries/?system=sys-b",
+    "allJourneys": "/queries/journeys/",
+    "catalogue": {
+      "apis": [],
+      "data": [
+        {
+          "head": {
+            "glyph": "⛁",
+            "id": "st:remote",
+            "label": "Remote",
+            "missing": false,
+            "mono": true,
+            "word": "store",
+          },
+          "items": [
+            {
+              "glyph": "▤",
+              "id": "sch:remote",
+              "label": "sch:remote",
+              "missing": false,
+              "mono": false,
+              "word": "schema",
+            },
+          ],
+          "note": "Kept by A",
+        },
+      ],
+      "events": [],
+    },
+    "cites": [],
+    "components": [
+      {
+        "announces": [],
+        "calls": [
+          {
+            "glyph": "⧉",
+            "id": "sys:unmapped",
+            "label": "Unmapped",
+            "missing": false,
+            "mono": false,
+            "word": "system",
+          },
+        ],
+        "chip": {
+          "glyph": "▣",
+          "id": "svc:b",
+          "label": "B",
+          "missing": false,
+          "mono": false,
+          "word": "service",
+        },
+        "does": "",
+        "keeps": [],
+        "kind": "service",
+        "listens": [
+          {
+            "glyph": "⚡",
+            "id": "msg:remote",
+            "label": "msg:remote",
+            "missing": false,
+            "mono": true,
+            "word": "message",
+          },
+        ],
+        "offers": [],
+        "summary": "",
+        "uses": [
+          {
+            "glyph": "⛁",
+            "id": "st:remote",
+            "label": "Remote",
+            "missing": false,
+            "mono": true,
+            "word": "store",
+          },
+        ],
+      },
+      {
+        "announces": [],
+        "calls": [],
+        "chip": {
+          "glyph": "⛁",
+          "id": "st:remote",
+          "label": "Remote",
+          "missing": false,
+          "mono": true,
+          "word": "store",
+        },
+        "does": "",
+        "keeps": [],
+        "kind": "store",
+        "listens": [],
+        "offers": [],
+        "summary": "",
+        "uses": [],
+      },
+      {
+        "announces": [],
+        "calls": [],
+        "chip": {
+          "glyph": "⇶",
+          "id": "top:remote",
+          "label": "Events",
+          "missing": false,
+          "mono": true,
+          "word": "topic",
+        },
+        "does": "",
+        "keeps": [],
+        "kind": "topic",
+        "listens": [],
+        "offers": [],
+        "summary": "",
+        "uses": [],
+      },
+    ],
+    "data": [
+      {
+        "head": {
+          "glyph": "⛁",
+          "id": "st:remote",
+          "label": "Remote",
+          "missing": false,
+          "mono": true,
+          "word": "store",
+        },
+        "items": [
+          {
+            "glyph": "▤",
+            "id": "sch:remote",
+            "label": "sch:remote",
+            "missing": false,
+            "mono": false,
+            "word": "schema",
+          },
+        ],
+        "note": "Kept by A",
+      },
+    ],
+    "domainId": "dom:queries",
+    "entries": [
+      {
+        "href": "/queries/entries/?id=sub-b",
+        "id": "sub:b",
+        "kind": "subscription",
+        "name": "sub:b",
+      },
+      {
+        "href": "/queries/entries/?id=job-b",
+        "id": "job:b",
+        "kind": "job",
+        "name": "job:b",
+      },
+    ],
+    "facts": [
+      "3 components",
+      "1 repo",
+      "0 authored flows",
+      "2 entries",
+    ],
+    "flows": [],
+    "gaps": [
+      {
+        "id": "top:remote",
+        "kind": "no_owner",
+        "message": "No cited resource owner is recorded.",
+      },
+      {
+        "id": "sub:b",
+        "kind": "no_handler",
+        "message": "No handler detail is recorded.",
+      },
+      {
+        "id": "job:b",
+        "kind": "no_handler",
+        "message": "No handler detail is recorded.",
+      },
+      {
+        "id": "job:b",
+        "kind": "no_schedule",
+        "message": "No schedule or trigger is recorded.",
+      },
+    ],
+    "headline": "B is a system in Queries.",
+    "id": "sys:b",
+    "journeys": [],
+    "mapped": true,
+    "name": "B",
+    "narrativeLabels": {},
+    "narratives": null,
+    "neighbours": {
+      "reachedBy": [
+        {
+          "how": "reads data, writes data and publishes events",
+          "href": "/queries/queries/a/",
+          "id": "sys:a",
+          "name": "A",
+          "place": "Queries domain",
+        },
+      ],
+      "reaches": [
+        {
+          "how": "receives events",
+          "href": "/queries/queries/a/",
+          "id": "sys:a",
+          "name": "A",
+          "place": "Queries domain",
+        },
+        {
+          "how": "calls",
+          "href": "/queries/queries/unmapped/",
+          "id": "sys:unmapped",
+          "name": "Unmapped",
+          "place": "Queries domain",
+        },
+      ],
+    },
+    "provenance": [
+      {
+        "cites": [
+          {
+            "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "kind": "code",
+            "lines": [
+              1,
+              2,
+            ],
+            "path": "example.ts",
+            "repo": "fixture/a",
+          },
+        ],
+        "entry": "api:a",
+        "from": "svc:a",
+        "handler": "h:a",
+        "kind": "read",
+        "site": "h:a#read",
+        "source": "handler",
+        "to": "st:remote",
+        "via": "sch:remote#id",
+      },
+      {
+        "cites": [
+          {
+            "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "kind": "code",
+            "lines": [
+              1,
+              2,
+            ],
+            "path": "example.ts",
+            "repo": "fixture/a",
+          },
+        ],
+        "entry": "api:a",
+        "from": "svc:a",
+        "handler": "h:a",
+        "kind": "write",
+        "site": "h:a#write",
+        "source": "handler",
+        "to": "st:remote",
+        "via": "sch:remote#id",
+      },
+      {
+        "cites": [
+          {
+            "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "kind": "code",
+            "lines": [
+              1,
+              2,
+            ],
+            "path": "example.ts",
+            "repo": "fixture/a",
+          },
+        ],
+        "entry": "api:a",
+        "from": "svc:a",
+        "handler": "h:a",
+        "kind": "publish",
+        "site": "h:a#publish",
+        "source": "handler",
+        "to": "top:remote",
+        "via": "msg:remote",
+      },
+      {
+        "cites": [],
+        "entry": null,
+        "from": "top:remote",
+        "handler": null,
+        "kind": "consume",
+        "site": "sub:b",
+        "source": "subscription",
+        "to": "svc:b",
+        "via": "msg:remote",
+      },
+      {
+        "cites": [
+          {
+            "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "kind": "code",
+            "lines": [
+              1,
+              2,
+            ],
+            "path": "example.ts",
+            "repo": "fixture/a",
+          },
+        ],
+        "entry": null,
+        "from": "top:remote",
+        "handler": null,
+        "kind": "consume",
+        "site": "rel:consume",
+        "source": "relationship",
+        "to": "svc:a",
+        "via": "top:remote",
+      },
+      {
+        "cites": [
+          {
+            "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "kind": "code",
+            "lines": [
+              1,
+              2,
+            ],
+            "path": "example.ts",
+            "repo": "fixture/a",
+          },
+        ],
+        "entry": null,
+        "from": "svc:b",
+        "handler": null,
+        "kind": "read",
+        "site": "rel:read",
+        "source": "relationship",
+        "to": "st:remote",
+        "via": "st:remote",
+      },
+      {
+        "cites": [
+          {
+            "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "kind": "code",
+            "lines": [
+              1,
+              2,
+            ],
+            "path": "example.ts",
+            "repo": "fixture/a",
+          },
+        ],
+        "entry": null,
+        "from": "svc:b",
+        "handler": null,
+        "kind": "call",
+        "site": "rel:boundary",
+        "source": "relationship",
+        "to": "sys:unmapped",
+        "via": "sys:unmapped",
+      },
+    ],
+    "repos": [
+      {
+        "cited": "0 records cite code here",
+        "href": "https://github.com/fixture/b/tree/HEAD/worker",
+        "moved": "Remote branch freshness not recorded",
+        "read": "No repository scan pin recorded",
+        "repo": "fixture/b/worker",
+        "scanned": false,
+      },
+    ],
+    "trail": [
+      {
+        "href": "/queries/",
+        "label": "Query fixture",
+      },
+      {
+        "href": "/queries/queries/",
+        "label": "Queries",
+      },
+    ],
+  },
+}
+`;
+
+exports[`native system views > retains an unmapped system and its real API without manufacturing a component or operator > unmapped provider with recorded entry and no components 1`] = `
+{
+  "about": "Team not recorded",
+  "allEntriesHref": "/queries/entries/?system=sys-unmapped",
+  "allJourneys": "/queries/journeys/",
+  "catalogue": {
+    "apis": [
+      {
+        "head": {
+          "glyph": "⧉",
+          "id": "sys:unmapped",
+          "label": "Unmapped",
+          "missing": false,
+          "mono": false,
+          "word": "system",
+        },
+        "items": [
+          {
+            "glyph": "⇄",
+            "id": "api:unmapped-api",
+            "label": "GET /known",
+            "missing": false,
+            "mono": true,
+            "word": "endpoint",
+          },
+        ],
+        "note": "Implementation not mapped.",
+      },
+    ],
+    "data": [],
+    "events": [],
+  },
+  "cites": [],
+  "components": [],
+  "data": [],
+  "domainId": "dom:queries",
+  "entries": [
+    {
+      "href": "/queries/entries/?id=api-unmapped-api",
+      "id": "api:unmapped-api",
+      "kind": "endpoint",
+      "name": "GET /known",
+    },
+  ],
+  "facts": [
+    "0 components",
+    "0 repos",
+    "0 authored flows",
+    "1 entry",
+  ],
+  "flows": [],
+  "gaps": [
+    {
+      "id": "api:unmapped-api",
+      "kind": "no_handler",
+      "message": "No handler detail is recorded.",
+    },
+    {
+      "id": "api:unmapped-api",
+      "kind": "unmapped_target",
+      "message": "The system providing this interface is unmapped; its implementing component is unknown.",
+      "reference": "sys:unmapped",
+    },
+  ],
+  "headline": "Unmapped is a system in Queries. Implementation not mapped.",
+  "id": "sys:unmapped",
+  "journeys": [],
+  "mapped": false,
+  "name": "Unmapped",
+  "narrativeLabels": {},
+  "narratives": null,
+  "neighbours": {
+    "reachedBy": [
+      {
+        "how": "calls",
+        "href": "/queries/queries/a/",
+        "id": "sys:a",
+        "name": "A",
+        "place": "Queries domain",
+      },
+      {
+        "how": "calls",
+        "href": "/queries/queries/b/",
+        "id": "sys:b",
+        "name": "B",
+        "place": "Queries domain",
+      },
+    ],
+    "reaches": [],
+  },
+  "provenance": [
+    {
+      "cites": [
+        {
+          "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "kind": "code",
+          "lines": [
+            1,
+            2,
+          ],
+          "path": "example.ts",
+          "repo": "fixture/a",
+        },
+      ],
+      "entry": "api:a",
+      "from": "svc:a",
+      "handler": "h:a",
+      "kind": "call",
+      "site": "h:a#call-unmapped",
+      "source": "handler",
+      "to": "sys:unmapped",
+      "via": "api:unmapped-api",
+    },
+    {
+      "cites": [
+        {
+          "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "kind": "code",
+          "lines": [
+            1,
+            2,
+          ],
+          "path": "example.ts",
+          "repo": "fixture/a",
+        },
+      ],
+      "entry": null,
+      "from": "svc:b",
+      "handler": null,
+      "kind": "call",
+      "site": "rel:boundary",
+      "source": "relationship",
+      "to": "sys:unmapped",
+      "via": "sys:unmapped",
+    },
+  ],
+  "repos": [],
+  "trail": [
+    {
+      "href": "/queries/",
+      "label": "Query fixture",
+    },
+    {
+      "href": "/queries/queries/",
+      "label": "Queries",
+    },
+  ],
+}
+`;

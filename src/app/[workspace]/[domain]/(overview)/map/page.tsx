@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { domainScopeOf } from '@/application/model-scope';
-import { domainViewOf } from '@/application/workspace-domain';
-import { TodayMap } from '@/features/plan';
+import { modelDomainViewOf } from '@/application/model-domain';
+import { modelSystemMapWire } from '@/application/model-system-map-input';
+import { SystemMapView } from '@/features/plan';
 import { DomainTab } from '@/features/workspace';
-import { todayData } from '@/infrastructure/today-data';
+import { readCanonicalModelIndex } from '@/infrastructure/model-index';
 
 interface Params {
   readonly workspace: string;
@@ -17,10 +17,10 @@ export const metadata: Metadata = { title: 'Map' };
 
 export default async function DomainMapRoute({ params }: { readonly params: Promise<Params> }) {
   const { workspace: id, domain } = await params;
-  const data = await todayData(id);
-  const scope = data === null ? null : domainScopeOf(data.workspace, domain);
-  const view = data === null ? null : domainViewOf(data.workspace, data.today.model, domain);
-  if (data === null || scope === null || view === null) notFound();
+  const index = await readCanonicalModelIndex(id);
+  if (index === null) notFound();
+  const view = modelDomainViewOf(index, domain);
+  if (view === null) notFound();
   return (
     <>
       <DomainTab
@@ -28,7 +28,10 @@ export default async function DomainMapRoute({ params }: { readonly params: Prom
         title="Map"
         view={view}
       />
-      <TodayMap model={data.today.model} scope={scope} workspace={data.workspace} />
+      <SystemMapView
+        packed={modelSystemMapWire(index, { focus: [view.domainId] })}
+        outside="outside this domain, one step away"
+      />
     </>
   );
 }

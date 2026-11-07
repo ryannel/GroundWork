@@ -1,0 +1,17 @@
+externals:
+  - id: ext:card-provider
+    name: Card provider
+    summary: |-
+      Charges cards
+
+      Source classification: an external boundary. The workspace does not map its implementation.
+
+      Previous workspace team assignment: team:payments
+  - id: ext:identity-provider
+    name: Identity provider
+    summary: |-
+      Checks passwords
+
+      Source classification: an external boundary. The workspace does not map its implementation.
+
+      Previous workspace team assignment: team:web

@@ -14,7 +14,7 @@ import { acmeFiles, tempDir, writeWorkspace } from '@/../test/workspace-kit';
 
 vi.mock(import('server-only'), () => ({}));
 
-const { listPlans, listRevisions, readPlan, readProgress, readRevision, readStatus } =
+const { listPlans, listRevisions, readPlan, readProgress, readRevision, readStatus, readVersions } =
   await import('./plan-store');
 const { checkPlanData } = await import('./plan-validator');
 
@@ -87,6 +87,11 @@ describe('reading the plans of a workspace', () => {
     expect(plan?.meta.version).toBe('0.1');
     const current = await readPlan('acme', 'pause-orders', { root });
     expect(current.plan?.meta.version).toBe('1.0');
+    await expect(readVersions('acme', 'pause-orders', root)).resolves.toEqual([
+      pauseOrdersOverlay(),
+      pauseOrdersAt('0.1'),
+      pauseOrdersAt('0.2'),
+    ]);
   });
 
   it('reads issue state from the latest GitHub events in progress.yaml, or none when there are none', async () => {

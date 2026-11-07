@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { domainLanguageOf, languagePageOf } from '@/application/language-page';
-import { domainViewOf } from '@/application/workspace-domain';
-import { domainWordsOf } from '@/application/workspace-language';
+import { domainLanguageOf } from '@/application/language-page';
+import { modelDomainOf, modelDomainViewOf } from '@/application/model-domain';
+import { modelLanguageOf } from '@/application/model-language';
 import { DomainLanguage, DomainTab } from '@/features/workspace';
-import { todayData } from '@/infrastructure/today-data';
+import { readCanonicalModelIndex } from '@/infrastructure/model-index';
 
 interface Params {
   readonly workspace: string;
@@ -22,31 +22,29 @@ export default async function DomainLanguageRoute({
   readonly params: Promise<Params>;
 }) {
   const { workspace: id, domain } = await params;
-  const data = await todayData(id);
-  const words = data === null ? null : domainWordsOf(data.today.languages, domain);
-  const view = data === null ? null : domainViewOf(data.workspace, data.today.model, domain);
-  if (data === null || view === null) notFound();
-  const tab = (
-    <DomainTab
-      says={`The words ${view.name} uses: what each means, where it lives and what each system calls it.`}
-      title="Language"
-      view={view}
-    />
-  );
-  if (words === null) {
-    return (
-      <>
-        {tab}
-        <p>This domain has not written its words down yet.</p>
-      </>
-    );
-  }
-  const { workspace, today } = data;
-  const page = languagePageOf(workspace, today.languages, today.keyTerms);
+  const native = await readCanonicalModelIndex(id);
+  if (native === null) notFound();
+  const current = modelDomainOf(native, domain);
+  const view = modelDomainViewOf(native, domain);
+  if (current === null || view === null) notFound();
   return (
     <>
-      {tab}
-      <DomainLanguage page={domainLanguageOf(page, domain, words.summary)} />
+      <DomainTab
+        says={`The words ${view.name} uses: what each means, where it lives and what each system calls it.`}
+        title="Language"
+        view={view}
+      />
+      {current.language === null ? (
+        <p>This domain has not written its words down yet.</p>
+      ) : (
+        <DomainLanguage
+          page={domainLanguageOf(
+            modelLanguageOf(native),
+            current.id,
+            current.language.summary ?? null,
+          )}
+        />
+      )}
     </>
   );
 }

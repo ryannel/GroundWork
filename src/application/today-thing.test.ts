@@ -4,7 +4,7 @@ import { derive } from '@/application/plan/derive';
 import type { Component, Workspace } from '@/domain/workspace';
 import type { Attribution } from '@/domain/workspace-model';
 
-import { thingAt } from './plan-pages-things';
+import { thingAt } from './thing-paths';
 import { todayReaderOf } from './today-reader';
 import { codeEvidenceOf, originWord, todayPlaceOf, todayScreensOf } from './today-thing';
 

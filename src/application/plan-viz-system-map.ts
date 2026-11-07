@@ -146,6 +146,7 @@ const counted = (n: number, one: string, many: string): string =>
 function sizeOf(kit: Kit, box: Box): string {
   if (box.kind !== 'system') return '';
   const node = kit.ctx.input.systems.find((s) => s.id === box.id);
+  if (node?.mapped === false) return 'Implementation not mapped';
   const parts = node?.parts ?? box.parts.length;
   const stores = node?.stores ?? 0;
   return counted(parts + stores, 'component', 'components');
@@ -289,7 +290,12 @@ export function drawSystemMap(
   input: SystemMapInput,
   options: { readonly show: MapShow; readonly flip?: ReadonlySet<string> },
 ): SystemMapDrawing | null {
-  if (input.services.length === 0) return null;
+  if (
+    input.services.length === 0 &&
+    (input.placement === undefined || input.systems.length === 0)
+  ) {
+    return null;
+  }
   const agg = aggregate(input, options.show);
   const ctx = contextOf(input, options.show, agg);
   const cols = layoutColumns(input, agg);

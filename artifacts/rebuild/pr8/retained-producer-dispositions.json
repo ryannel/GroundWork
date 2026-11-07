@@ -1,0 +1,1399 @@
+{
+  "format": 1,
+  "original": {
+    "file": "artifacts/rebuild/pr8/original-candidates.json",
+    "sha256": "8bb91071c6ae2e9168573f6d20d496cc8551e3e3ee626c3b06d64371d69f17c2",
+    "rows": 1697
+  },
+  "dispositions": [
+    {
+      "file": "src/infrastructure/scan-explorer/corpus-assets.ts",
+      "sourceSha256": "8536738871ba53cd46724a0cd7bc8b00be9269d621c4839c31445a2d10b931ed",
+      "role": "producer",
+      "reason": "Installs generated explorer pages in the workspace publication folder. Keep it through PR 10 explorer parity.",
+      "evidence": [
+        {
+          "file": "package.json",
+          "line": 63,
+          "text": "\"explorer:install\": \"node --import ./tools/register.ts --conditions=react-server tools/install-corpus-explorer.ts\","
+        },
+        {
+          "file": "tools/install-corpus-explorer.ts",
+          "line": 15,
+          "text": "await copyExplorerAssets("
+        },
+        {
+          "file": "src/infrastructure/scan-explorer/corpus-assets.ts",
+          "line": 9,
+          "text": "// Copies a finished publication into <workspace>/explorer/corpus/<generation>/, where the site reads it on request."
+        },
+        {
+          "file": "docs/scan-trials/service-explorer/README.md",
+          "line": 70,
+          "text": "npm run explorer:publish -- <workspace> <output-root>"
+        },
+        {
+          "file": "docs/rebuild/rebuild.md",
+          "line": 189,
+          "text": "- the explorer (routes `src/app/[workspace]/explorer/…`, `explorer-data/…`, `src/features/service-explorer/*`,"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/infrastructure/scan-explorer/corpus-purpose.ts",
+      "sourceSha256": "71e75629c433a3cb9006fddcfd69e836caffe5ec3639918a462544233bb2efb1",
+      "role": "retirement",
+      "reason": "Reads retained corpus claims for explorer publication and refinement. Keep it through PR 10 explorer parity.",
+      "evidence": [
+        {
+          "file": "tools/publish-corpus-repository.ts",
+          "line": 12,
+          "text": "import { readCorpusPurpose } from '@/infrastructure/scan-explorer/corpus-purpose';"
+        },
+        {
+          "file": "tools/refine-corpus-explorer.ts",
+          "line": 11,
+          "text": "import { readCorpusClaims } from '@/infrastructure/scan-explorer/corpus-purpose';"
+        },
+        {
+          "file": "docs/scan-trials/service-explorer/README.md",
+          "line": 70,
+          "text": "npm run explorer:publish -- <workspace> <output-root>"
+        },
+        {
+          "file": "docs/rebuild/rebuild.md",
+          "line": 189,
+          "text": "- the explorer (routes `src/app/[workspace]/explorer/…`, `explorer-data/…`, `src/features/service-explorer/*`,"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/infrastructure/scan/discovery-inventory-packets.ts",
+      "sourceSha256": "6fbad7e917ff3d8d4341c7102618ce265959fcac7f5d18ee37351e4e915ff64d",
+      "role": "producer",
+      "reason": "Builds pinned input packets for the old discovery writer and its retained verifier. Keep it through PR 10 old schema retirement.",
+      "evidence": [
+        {
+          "file": "tools/scan-discovery-inventory.ts",
+          "line": 22,
+          "text": "const result = await buildDiscoveryPackets({"
+        },
+        {
+          "file": "src/infrastructure/scan/discovery-inventory-packets.ts",
+          "line": 248,
+          "text": "export async function buildDiscoveryPackets(input: {"
+        },
+        {
+          "file": "docs/rebuild/rebuild.md",
+          "line": 188,
+          "text": "- old types, loaders, `legacyViewOf`, `knowledge*`/`scan-discovery`/`scan-interpretation` schemas, scan marks;"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/infrastructure/scan/discovery-inventory-verify.ts",
+      "sourceSha256": "d41b46d2861f3c2e5cc3906c92e46cf1d018967136d815d298be29a2ea81cf53",
+      "role": "retirement",
+      "reason": "Verifies an old digest-pinned discovery publication against its explicit inputs. Keep it through PR 10 old schema retirement.",
+      "evidence": [
+        {
+          "file": "tools/scan-discovery-inventory.ts",
+          "line": 11,
+          "text": "export { readDiscoveryInventory } from '@/infrastructure/scan/discovery-inventory-verify';"
+        },
+        {
+          "file": "src/infrastructure/scan/discovery-inventory-verify.ts",
+          "line": 151,
+          "text": "export async function readDiscoveryInventory(directory: string): Promise<DiscoveryInventory> {"
+        },
+        {
+          "file": "docs/rebuild/rebuild.md",
+          "line": 188,
+          "text": "- old types, loaders, `legacyViewOf`, `knowledge*`/`scan-discovery`/`scan-interpretation` schemas, scan marks;"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/infrastructure/scan/discovery-inventory-version.ts",
+      "sourceSha256": "ed29b33a20ad2eb2fc6d27010e4b6731fc7fbda0ed670902f536845b01515460",
+      "role": "retirement",
+      "reason": "Computes the analysis version for the old discovery writer and verifier. Keep it through PR 10 old schema retirement.",
+      "evidence": [
+        {
+          "file": "tools/scan-discovery-inventory.ts",
+          "line": 20,
+          "text": "const version = await discoveryAnalysisVersion();"
+        },
+        {
+          "file": "src/infrastructure/scan/discovery-inventory-version.ts",
+          "line": 8,
+          "text": "export async function discoveryAnalysisVersion(): Promise<string> {"
+        },
+        {
+          "file": "docs/rebuild/rebuild.md",
+          "line": 188,
+          "text": "- old types, loaders, `legacyViewOf`, `knowledge*`/`scan-discovery`/`scan-interpretation` schemas, scan marks;"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/infrastructure/scan/discovery-review-format.ts",
+      "sourceSha256": "f2280782b1e5dea032ae6312377c8d51ae93c928d124cef18ff6ef6c6fbae3ca",
+      "role": "retirement",
+      "reason": "Parses the optional old discovery review receipt. Keep it through PR 10 old schema retirement.",
+      "evidence": [
+        {
+          "file": "tools/scan-discovery.ts",
+          "line": 49,
+          "text": ": parseDiscoveryReview(JSON.parse(await readFile(flags.review, 'utf8')));"
+        },
+        {
+          "file": "src/infrastructure/scan/discovery-review-format.ts",
+          "line": 54,
+          "text": "export function parseDiscoveryReview(value: unknown): DiscoveryReviewReceipt {"
+        },
+        {
+          "file": "docs/rebuild/rebuild.md",
+          "line": 188,
+          "text": "- old types, loaders, `legacyViewOf`, `knowledge*`/`scan-discovery`/`scan-interpretation` schemas, scan marks;"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/infrastructure/scan/discovery-validation-version.ts",
+      "sourceSha256": "62fa5180eb80157ee2d3f6b2a09c31cc9d80ae10e37fc93a36cbdea50e0cd868",
+      "role": "retirement",
+      "reason": "Computes the old discovery receipt contract versions. Keep it through PR 10 old schema retirement.",
+      "evidence": [
+        {
+          "file": "tools/scan-discovery.ts",
+          "line": 40,
+          "text": "const version = await discoveryValidationVersion();"
+        },
+        {
+          "file": "src/infrastructure/scan/discovery-validation-version.ts",
+          "line": 25,
+          "text": "export async function discoveryValidationVersion(): Promise<{"
+        },
+        {
+          "file": "docs/rebuild/rebuild.md",
+          "line": 188,
+          "text": "- old types, loaders, `legacyViewOf`, `knowledge*`/`scan-discovery`/`scan-interpretation` schemas, scan marks;"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/infrastructure/scan/interpretation-inputs.ts",
+      "sourceSha256": "8e49df303195ea4111149e5fffed5ef3c145f09a06de5d07c8ac5fe15b3d3b31",
+      "role": "retirement",
+      "reason": "Parses the pinned input manifest for the old discovery and interpretation gates. Keep it through PR 10 old schema retirement.",
+      "evidence": [
+        {
+          "file": "tools/scan-discovery-io.ts",
+          "line": 7,
+          "text": "import { interpretationInputManifest } from '@/infrastructure/scan/interpretation-inputs';"
+        },
+        {
+          "file": "tools/scan-interpretation.ts",
+          "line": 7,
+          "text": "import { interpretationInputManifest } from '@/infrastructure/scan/interpretation-inputs';"
+        },
+        {
+          "file": "src/infrastructure/scan/interpretation-inputs.ts",
+          "line": 29,
+          "text": "export function interpretationInputManifest(input: unknown): InterpretationInputManifest {"
+        },
+        {
+          "file": "docs/rebuild/rebuild.md",
+          "line": 188,
+          "text": "- old types, loaders, `legacyViewOf`, `knowledge*`/`scan-discovery`/`scan-interpretation` schemas, scan marks;"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/infrastructure/scan/spring-consumer-bindings.ts",
+      "sourceSha256": "17c771c26ed926c73d67e7c365d5a48e345069906b0d63c0c25131c301a38c80",
+      "role": "support",
+      "reason": "Collects source-analysis facts from parsed Spring inputs.",
+      "evidence": [
+        {
+          "file": "package.json",
+          "line": 67,
+          "text": "\"scan:spring\": \"node --import ./tools/register.ts --conditions=react-server tools/scan-spring.ts\","
+        },
+        {
+          "file": "tools/scan-spring.ts",
+          "line": 6,
+          "text": "import { springFrameworkDocument } from '@/infrastructure/scan/spring-framework-document';"
+        },
+        {
+          "file": "src/infrastructure/scan/spring-framework-document.ts",
+          "line": 17,
+          "text": "import { springProgramBindings } from './spring-program-bindings';"
+        },
+        {
+          "file": "src/infrastructure/scan/spring-program-bindings.ts",
+          "line": 11,
+          "text": "import { collectConsumerBindings } from './spring-consumer-bindings';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        }
+      ]
+    },
+    {
+      "file": "src/infrastructure/scan/spring-event-bindings.ts",
+      "sourceSha256": "adea43700d68ccaef5cadb8a3384ff8d64c280d8e758fcfc61f2daf95532bd09",
+      "role": "support",
+      "reason": "Collects source-analysis facts from parsed Spring inputs.",
+      "evidence": [
+        {
+          "file": "package.json",
+          "line": 67,
+          "text": "\"scan:spring\": \"node --import ./tools/register.ts --conditions=react-server tools/scan-spring.ts\","
+        },
+        {
+          "file": "tools/scan-spring.ts",
+          "line": 6,
+          "text": "import { springFrameworkDocument } from '@/infrastructure/scan/spring-framework-document';"
+        },
+        {
+          "file": "src/infrastructure/scan/spring-framework-document.ts",
+          "line": 17,
+          "text": "import { springProgramBindings } from './spring-program-bindings';"
+        },
+        {
+          "file": "src/infrastructure/scan/spring-program-bindings.ts",
+          "line": 12,
+          "text": "import { collectEventBindings } from './spring-event-bindings';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        }
+      ]
+    },
+    {
+      "file": "src/infrastructure/scan/spring-mongo-operations.ts",
+      "sourceSha256": "692eeda8b9bdca1fc47c016700ec321ec7c61cecf9b30b4e3f02ccdd683d0768",
+      "role": "support",
+      "reason": "Collects source-analysis facts from parsed Spring inputs.",
+      "evidence": [
+        {
+          "file": "package.json",
+          "line": 67,
+          "text": "\"scan:spring\": \"node --import ./tools/register.ts --conditions=react-server tools/scan-spring.ts\","
+        },
+        {
+          "file": "tools/scan-spring.ts",
+          "line": 6,
+          "text": "import { springFrameworkDocument } from '@/infrastructure/scan/spring-framework-document';"
+        },
+        {
+          "file": "src/infrastructure/scan/spring-framework-document.ts",
+          "line": 17,
+          "text": "import { springProgramBindings } from './spring-program-bindings';"
+        },
+        {
+          "file": "src/infrastructure/scan/spring-mongo-bindings.ts",
+          "line": 6,
+          "text": "import { mongoOperations } from './spring-mongo-operations';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        }
+      ]
+    },
+    {
+      "file": "tools/knowledge-source-check.ts",
+      "sourceSha256": "9bcb37fd9a096d69f16afa767d2c53772565353bc18a72b5e5c2e76230d952f7",
+      "role": "retirement",
+      "reason": "Checks pinned clone sources for explicit old knowledge evidence. Keep it through PR 10 old schema retirement.",
+      "evidence": [
+        {
+          "file": "tools/knowledge-validation.ts",
+          "line": 18,
+          "text": "const problems = evidence.flatMap(sourceChecker(root));"
+        },
+        {
+          "file": "tools/knowledge-source-check.ts",
+          "line": 89,
+          "text": "export function sourceChecker(root: string): (evidence: Evidence) => string[] {"
+        },
+        {
+          "file": "docs/rebuild/rebuild.md",
+          "line": 188,
+          "text": "- old types, loaders, `legacyViewOf`, `knowledge*`/`scan-discovery`/`scan-interpretation` schemas, scan marks;"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "tools/knowledge-validation.ts",
+      "sourceSha256": "0d285cad6c109bd7e2ee96c73fda48925731f758d24f996d2784a07d9ba694f3",
+      "role": "producer",
+      "reason": "Validates explicitly supplied old knowledge bundles and can write the requested snapshot. Keep it through PR 10 old schema retirement.",
+      "evidence": [
+        {
+          "file": "package.json",
+          "line": 55,
+          "text": "\"knowledge:validate\": \"node --import ./tools/register.ts --conditions=react-server tools/validate-knowledge.ts\","
+        },
+        {
+          "file": ".agents/skills/groundwork-schema/canonical-execution.md",
+          "line": 26,
+          "text": "Validate arbitrary bundles with `npm run knowledge:validate -- <bundle.json> [<bundle.json> ...]`;"
+        },
+        {
+          "file": "tools/knowledge-validation.ts",
+          "line": 50,
+          "text": "await writeFile(options.writeSnapshot, `${JSON.stringify(manifest, null, 2)}\\n`, {"
+        },
+        {
+          "file": "docs/rebuild/rebuild.md",
+          "line": 188,
+          "text": "- old types, loaders, `legacyViewOf`, `knowledge*`/`scan-discovery`/`scan-interpretation` schemas, scan marks;"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "tools/pack-corpus-explorer.ts",
+      "sourceSha256": "9c5717e40339a79f96c9b0632b99f4a2699a18c2675720d5ce58dea607945121",
+      "role": "producer",
+      "reason": "Packs existing explorer pages into the sealed catalogue. Keep it through PR 10 explorer parity.",
+      "evidence": [
+        {
+          "file": "package.json",
+          "line": 64,
+          "text": "\"explorer:pack\": \"node --import ./tools/register.ts --conditions=react-server tools/pack-corpus-explorer.ts\","
+        },
+        {
+          "file": "tools/pack-corpus-explorer.ts",
+          "line": 51,
+          "text": "await writeFile(path.join(output, 'catalogue.json'), JSON.stringify(sealed));"
+        },
+        {
+          "file": "docs/scan-trials/service-explorer/README.md",
+          "line": 70,
+          "text": "npm run explorer:publish -- <workspace> <output-root>"
+        },
+        {
+          "file": "docs/rebuild/rebuild.md",
+          "line": 189,
+          "text": "- the explorer (routes `src/app/[workspace]/explorer/…`, `explorer-data/…`, `src/features/service-explorer/*`,"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "tools/pack-explorer-repository.ts",
+      "sourceSha256": "d5c35cc5de75683667401b9241668555e5ceec62d69d8089c281be8a28750d18",
+      "role": "producer",
+      "reason": "Checks page and manifest digests and writes packed artifacts. Keep it through PR 10 explorer parity.",
+      "evidence": [
+        {
+          "file": "tools/pack-corpus-explorer.ts",
+          "line": 8,
+          "text": "import { packExplorerRepository } from './pack-explorer-repository';"
+        },
+        {
+          "file": "tools/pack-explorer-repository.ts",
+          "line": 74,
+          "text": "async function readChecked(root: string, artifact: ExplorerArtifact): Promise<string> {"
+        },
+        {
+          "file": "docs/scan-trials/service-explorer/README.md",
+          "line": 70,
+          "text": "npm run explorer:publish -- <workspace> <output-root>"
+        },
+        {
+          "file": "docs/rebuild/rebuild.md",
+          "line": 189,
+          "text": "- the explorer (routes `src/app/[workspace]/explorer/…`, `explorer-data/…`, `src/features/service-explorer/*`,"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "tools/publish-corpus-context.ts",
+      "sourceSha256": "fc56c086813ee0f1bfd76f3b230ecac9e6a1f7efa112c8a238c55cd3bb525fb3",
+      "role": "retirement",
+      "reason": "Builds visual context for retained publication and entry repair. Keep it through PR 10 explorer parity.",
+      "evidence": [
+        {
+          "file": "tools/publish-corpus-repository.ts",
+          "line": 15,
+          "text": "import { corpusVisualContext } from './publish-corpus-context';"
+        },
+        {
+          "file": "tools/repair-corpus-entry-pages.ts",
+          "line": 15,
+          "text": "import { corpusVisualContext } from './publish-corpus-context';"
+        },
+        {
+          "file": "docs/scan-trials/service-explorer/README.md",
+          "line": 70,
+          "text": "npm run explorer:publish -- <workspace> <output-root>"
+        },
+        {
+          "file": "docs/rebuild/rebuild.md",
+          "line": 189,
+          "text": "- the explorer (routes `src/app/[workspace]/explorer/…`, `explorer-data/…`, `src/features/service-explorer/*`,"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "tools/publish-corpus-explorer.ts",
+      "sourceSha256": "9d785da683f2dcf44aa1461e7f6709fff80f2d01c6989da1a32337149be57c68",
+      "role": "producer",
+      "reason": "Reads labels from the canonical model and writes the separate explorer catalogue. Keep it through PR 10 explorer parity.",
+      "evidence": [
+        {
+          "file": "package.json",
+          "line": 58,
+          "text": "\"explorer:publish\": \"node --import ./tools/register.ts --conditions=react-server tools/publish-corpus-explorer.ts\","
+        },
+        {
+          "file": "tools/publish-corpus-explorer.ts",
+          "line": 26,
+          "text": "const model = await readCanonicalModelIndex(workspaceId);"
+        },
+        {
+          "file": "tools/publish-corpus-explorer.ts",
+          "line": 63,
+          "text": "await writeFile(path.join(output, 'catalogue.json'), JSON.stringify(published));"
+        },
+        {
+          "file": "docs/scan-trials/service-explorer/README.md",
+          "line": 70,
+          "text": "npm run explorer:publish -- <workspace> <output-root>"
+        },
+        {
+          "file": "docs/rebuild/rebuild.md",
+          "line": 189,
+          "text": "- the explorer (routes `src/app/[workspace]/explorer/…`, `explorer-data/…`, `src/features/service-explorer/*`,"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "tools/publish-corpus-indexes.ts",
+      "sourceSha256": "081dcb8e2f7a2b46231088a85c4f803c22e7c84a42b77f8e39e9470ecbda76d5",
+      "role": "retirement",
+      "reason": "Derives indexes for the retained explorer publication. Keep it through PR 10 explorer parity.",
+      "evidence": [
+        {
+          "file": "tools/publish-corpus-repository.ts",
+          "line": 16,
+          "text": "import { corpusIndexes } from './publish-corpus-indexes';"
+        },
+        {
+          "file": "tools/publish-corpus-indexes.ts",
+          "line": 29,
+          "text": "export function corpusIndexes(identity: IndexIdentity): CorpusIndex {"
+        },
+        {
+          "file": "docs/scan-trials/service-explorer/README.md",
+          "line": 70,
+          "text": "npm run explorer:publish -- <workspace> <output-root>"
+        },
+        {
+          "file": "docs/rebuild/rebuild.md",
+          "line": 189,
+          "text": "- the explorer (routes `src/app/[workspace]/explorer/…`, `explorer-data/…`, `src/features/service-explorer/*`,"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "tools/publish-corpus-repository.ts",
+      "sourceSha256": "21791c77c314978a02f218d06b12f4d03f7931b70393547a38a35f1d06f9e9de",
+      "role": "producer",
+      "reason": "Builds explorer pages and manifests from supplied corpus files. Keep it through PR 10 explorer parity.",
+      "evidence": [
+        {
+          "file": "tools/publish-corpus-explorer.ts",
+          "line": 14,
+          "text": "import { publishCorpusRepository } from './publish-corpus-repository';"
+        },
+        {
+          "file": "tools/publish-corpus-repository.ts",
+          "line": 19,
+          "text": "export async function publishCorpusRepository("
+        },
+        {
+          "file": "docs/scan-trials/service-explorer/README.md",
+          "line": 70,
+          "text": "npm run explorer:publish -- <workspace> <output-root>"
+        },
+        {
+          "file": "docs/rebuild/rebuild.md",
+          "line": 189,
+          "text": "- the explorer (routes `src/app/[workspace]/explorer/…`, `explorer-data/…`, `src/features/service-explorer/*`,"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "tools/refine-corpus-explorer.ts",
+      "sourceSha256": "21e05f231d286ee027015c9729d5fddd72883c93ffe9c1542b603e6a91d7533b",
+      "role": "producer",
+      "reason": "Refines the named explorer publication and updates its generated catalogue. Keep it through PR 10 explorer parity.",
+      "evidence": [
+        {
+          "file": "package.json",
+          "line": 62,
+          "text": "\"explorer:refine\": \"node --import ./tools/register.ts --conditions=react-server tools/refine-corpus-explorer.ts\","
+        },
+        {
+          "file": "tools/refine-corpus-explorer.ts",
+          "line": 96,
+          "text": "await writeFile(path.join(output, 'catalogue.json'), JSON.stringify(result));"
+        },
+        {
+          "file": "docs/scan-trials/service-explorer/README.md",
+          "line": 70,
+          "text": "npm run explorer:publish -- <workspace> <output-root>"
+        },
+        {
+          "file": "docs/rebuild/rebuild.md",
+          "line": 189,
+          "text": "- the explorer (routes `src/app/[workspace]/explorer/…`, `explorer-data/…`, `src/features/service-explorer/*`,"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "tools/refine-explorer-files.ts",
+      "sourceSha256": "cd40936a01717fe2135d13dc02ffa8396da31ed036af1895fd4edea9c3cbd352",
+      "role": "producer",
+      "reason": "Publishes checked source file inventory pages during explorer refinement. Keep it through PR 10 explorer parity.",
+      "evidence": [
+        {
+          "file": "tools/refine-corpus-explorer.ts",
+          "line": 16,
+          "text": "import { refineSourceFiles } from './refine-explorer-files';"
+        },
+        {
+          "file": "tools/refine-explorer-files.ts",
+          "line": 10,
+          "text": "export async function refineSourceFiles("
+        },
+        {
+          "file": "docs/scan-trials/service-explorer/README.md",
+          "line": 70,
+          "text": "npm run explorer:publish -- <workspace> <output-root>"
+        },
+        {
+          "file": "docs/rebuild/rebuild.md",
+          "line": 189,
+          "text": "- the explorer (routes `src/app/[workspace]/explorer/…`, `explorer-data/…`, `src/features/service-explorer/*`,"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "tools/refine-explorer-interpretation.ts",
+      "sourceSha256": "a895e03b666d899dcd00ee437e74879580eff51cd451337baa7534896bde194e",
+      "role": "producer",
+      "reason": "Publishes interpretation pages from retained corpus claims during refinement. Keep it through PR 10 explorer parity.",
+      "evidence": [
+        {
+          "file": "tools/refine-corpus-explorer.ts",
+          "line": 17,
+          "text": "import { refineInterpretation } from './refine-explorer-interpretation';"
+        },
+        {
+          "file": "tools/refine-explorer-interpretation.ts",
+          "line": 8,
+          "text": "export async function refineInterpretation("
+        },
+        {
+          "file": "docs/scan-trials/service-explorer/README.md",
+          "line": 70,
+          "text": "npm run explorer:publish -- <workspace> <output-root>"
+        },
+        {
+          "file": "docs/rebuild/rebuild.md",
+          "line": 189,
+          "text": "- the explorer (routes `src/app/[workspace]/explorer/…`, `explorer-data/…`, `src/features/service-explorer/*`,"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "tools/refine-explorer-references.ts",
+      "sourceSha256": "03d75f93a174e7190e5e00ab06314b3282f0a9a75451220f0cc55bb3ff7918d6",
+      "role": "producer",
+      "reason": "Adds source references to retained publication pages during refinement. Keep it through PR 10 explorer parity.",
+      "evidence": [
+        {
+          "file": "tools/refine-corpus-explorer.ts",
+          "line": 18,
+          "text": "import { refineSourceReferences } from './refine-explorer-references';"
+        },
+        {
+          "file": "tools/refine-explorer-references.ts",
+          "line": 13,
+          "text": "export async function refineSourceReferences("
+        },
+        {
+          "file": "docs/scan-trials/service-explorer/README.md",
+          "line": 70,
+          "text": "npm run explorer:publish -- <workspace> <output-root>"
+        },
+        {
+          "file": "docs/rebuild/rebuild.md",
+          "line": 189,
+          "text": "- the explorer (routes `src/app/[workspace]/explorer/…`, `explorer-data/…`, `src/features/service-explorer/*`,"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "tools/refine-explorer-store.ts",
+      "sourceSha256": "d4a24ef5f77cdd139cdee8a2fe90c3d9c75b04cf6296b237f8c6e8ab70da8a37",
+      "role": "producer",
+      "reason": "Maintains generated explorer artifacts used by refinement and repair. Keep it through PR 10 explorer parity.",
+      "evidence": [
+        {
+          "file": "tools/refine-corpus-explorer.ts",
+          "line": 19,
+          "text": "import { refinementStore } from './refine-explorer-store';"
+        },
+        {
+          "file": "tools/repair-corpus-entry-pages.ts",
+          "line": 17,
+          "text": "import { refinementStore } from './refine-explorer-store';"
+        },
+        {
+          "file": "tools/refine-explorer-store.ts",
+          "line": 19,
+          "text": "export async function refinementStore("
+        },
+        {
+          "file": "docs/scan-trials/service-explorer/README.md",
+          "line": 70,
+          "text": "npm run explorer:publish -- <workspace> <output-root>"
+        },
+        {
+          "file": "docs/rebuild/rebuild.md",
+          "line": 189,
+          "text": "- the explorer (routes `src/app/[workspace]/explorer/…`, `explorer-data/…`, `src/features/service-explorer/*`,"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "tools/repair-corpus-entries.ts",
+      "sourceSha256": "583d5da2921cf00b63800464155211193096dd9faf9e734a36c30850a10f45c9",
+      "role": "producer",
+      "reason": "Repairs retained entries and writes the updated explorer catalogue. Keep it through PR 10 explorer parity.",
+      "evidence": [
+        {
+          "file": "package.json",
+          "line": 65,
+          "text": "\"explorer:repair-entries\": \"node --import ./tools/register.ts --conditions=react-server tools/repair-corpus-entries.ts\","
+        },
+        {
+          "file": "tools/repair-corpus-entries.ts",
+          "line": 36,
+          "text": "await writeFile(path.join(output, 'catalogue.json'), JSON.stringify(updated));"
+        },
+        {
+          "file": "docs/scan-trials/service-explorer/README.md",
+          "line": 70,
+          "text": "npm run explorer:publish -- <workspace> <output-root>"
+        },
+        {
+          "file": "docs/rebuild/rebuild.md",
+          "line": 189,
+          "text": "- the explorer (routes `src/app/[workspace]/explorer/…`, `explorer-data/…`, `src/features/service-explorer/*`,"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "tools/repair-corpus-entry-pages.ts",
+      "sourceSha256": "b9539119c95e968aa5378f12930517ee95d8919c43b82eb73ae5666d5fecee5c",
+      "role": "producer",
+      "reason": "Repairs generated entry pages in the retained publication. Keep it through PR 10 explorer parity.",
+      "evidence": [
+        {
+          "file": "tools/repair-corpus-entries.ts",
+          "line": 12,
+          "text": "import { repairCorpusEntryPages } from './repair-corpus-entry-pages';"
+        },
+        {
+          "file": "tools/repair-corpus-entry-pages.ts",
+          "line": 33,
+          "text": "export async function repairCorpusEntryPages("
+        },
+        {
+          "file": "docs/scan-trials/service-explorer/README.md",
+          "line": 70,
+          "text": "npm run explorer:publish -- <workspace> <output-root>"
+        },
+        {
+          "file": "docs/rebuild/rebuild.md",
+          "line": 189,
+          "text": "- the explorer (routes `src/app/[workspace]/explorer/…`, `explorer-data/…`, `src/features/service-explorer/*`,"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "tools/scan-diff.ts",
+      "sourceSha256": "10b6d49e2dce8b8384be0a64bcfcb42eef07e8703363eef803e40dc301949f66",
+      "role": "producer",
+      "reason": "Reads the old mark and runs the old source-index subprocess to build a refresh list. PR 9 replaces this scan workflow.",
+      "evidence": [
+        {
+          "file": ".agents/skills/groundwork-scan/legacy-refresh.md",
+          "line": 50,
+          "text": "node tools/scan-diff.ts <workspace> <org/name> \"$dir\" --json"
+        },
+        {
+          "file": "tools/scan-diff.ts",
+          "line": 220,
+          "text": "[path.join(import.meta.dirname, 'sources.ts'), workspace, '--index', '--repo', repo],"
+        },
+        {
+          "file": "docs/rebuild/rebuild.md",
+          "line": 172,
+          "text": "- The scan writes `evidence/` directly with `ev:` ids, refreshes handlers and contracts, reconciles step ids by"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        }
+      ],
+      "stage": 9
+    },
+    {
+      "file": "tools/scan-discovery-inventory.ts",
+      "sourceSha256": "dbc36d82407df9e25da90e731c685b775b17b66c073c05209cfbda07f5d89aea",
+      "role": "producer",
+      "reason": "Builds inventory, packets and input digests from the supplied capture and clone. PR 9 replaces this scan workflow.",
+      "evidence": [
+        {
+          "file": "package.json",
+          "line": 80,
+          "text": "\"scan:discover\": \"node --import ./tools/register.ts --conditions=react-server tools/scan-discovery-inventory.ts\","
+        },
+        {
+          "file": "tools/scan-discovery-inventory.ts",
+          "line": 30,
+          "text": "'inventory.json': result.inventory,"
+        },
+        {
+          "file": "tools/scan-discovery-inventory.ts",
+          "line": 40,
+          "text": "path.join(input.output, 'publication.json'),"
+        },
+        {
+          "file": "docs/rebuild/rebuild.md",
+          "line": 172,
+          "text": "- The scan writes `evidence/` directly with `ev:` ids, refreshes handlers and contracts, reconciles step ids by"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        }
+      ],
+      "stage": 9
+    },
+    {
+      "file": "tools/scan-discovery-io.ts",
+      "sourceSha256": "d2dc1bd5deccaefd836709f4bcd14d2e14ad787417b67885139af1575589df8c",
+      "role": "retirement",
+      "reason": "Loads explicit input files for the old discovery gate. Keep it through PR 10 old schema retirement.",
+      "evidence": [
+        {
+          "file": "tools/scan-discovery.ts",
+          "line": 9,
+          "text": "import { readDiscoveryInput } from './scan-discovery-io';"
+        },
+        {
+          "file": "tools/scan-discovery-io.ts",
+          "line": 53,
+          "text": "export async function readDiscoveryInput(files: DiscoveryFiles): Promise<DiscoveryInput> {"
+        },
+        {
+          "file": "docs/rebuild/rebuild.md",
+          "line": 188,
+          "text": "- old types, loaders, `legacyViewOf`, `knowledge*`/`scan-discovery`/`scan-interpretation` schemas, scan marks;"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "tools/scan-discovery-review.ts",
+      "sourceSha256": "789c11dfc2503b2a4a51251d2fdc4ee9cb5b37945a9d6a190f42a7991e41cf58",
+      "role": "retirement",
+      "reason": "Binds the old discovery receipt to explicit input and document digests. Keep it through PR 10 old schema retirement.",
+      "evidence": [
+        {
+          "file": "tools/scan-discovery.ts",
+          "line": 41,
+          "text": "const reviewIdentity = discoveryReviewIdentity(input, document, {"
+        },
+        {
+          "file": "tools/scan-discovery-review.ts",
+          "line": 71,
+          "text": "export function discoveryValidationReceipt("
+        },
+        {
+          "file": "docs/rebuild/rebuild.md",
+          "line": 188,
+          "text": "- old types, loaders, `legacyViewOf`, `knowledge*`/`scan-discovery`/`scan-interpretation` schemas, scan marks;"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "tools/scan-discovery-types.ts",
+      "sourceSha256": "bb35f1e5ca93d9b4e88dbd2cda9a889109d9fb38c42ab07ffe734887d7285885",
+      "role": "producer",
+      "reason": "Generates types from the old discovery schema. Keep it through PR 10 old schema retirement.",
+      "evidence": [
+        {
+          "file": "package.json",
+          "line": 79,
+          "text": "\"generate:discovery\": \"node tools/scan-discovery-types.ts\","
+        },
+        {
+          "file": "tools/scan-discovery-types.ts",
+          "line": 21,
+          "text": "await writeFile('src/domain/scan/discovery.generated.ts', await generateDiscoveryTypes());"
+        },
+        {
+          "file": "docs/rebuild/rebuild.md",
+          "line": 188,
+          "text": "- old types, loaders, `legacyViewOf`, `knowledge*`/`scan-discovery`/`scan-interpretation` schemas, scan marks;"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "tools/scan-discovery.ts",
+      "sourceSha256": "12620e660aced62c153b8cf2f1c86b495bb3e90429979999e4bd7505f077b141",
+      "role": "retirement",
+      "reason": "Validates explicit discovery files and prints the old receipt. Keep it through PR 10 old schema retirement.",
+      "evidence": [
+        {
+          "file": "package.json",
+          "line": 81,
+          "text": "\"scan:discovery\": \"node --import ./tools/register.ts --conditions=react-server tools/scan-discovery.ts\","
+        },
+        {
+          "file": "tools/scan-discovery.ts",
+          "line": 66,
+          "text": "return !flags.requireComplete || assessment.status === 'complete';"
+        },
+        {
+          "file": "docs/rebuild/rebuild.md",
+          "line": 188,
+          "text": "- old types, loaders, `legacyViewOf`, `knowledge*`/`scan-discovery`/`scan-interpretation` schemas, scan marks;"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "tools/scan-event-review.ts",
+      "sourceSha256": "6abec09edb554c3de7ff92490ab9278ec783d07891bfaa7d8d490f7864e0afb4",
+      "role": "support",
+      "reason": "Assesses an explicitly supplied scan document in the recorded review workflow.",
+      "evidence": [
+        {
+          "file": "tools/scan-events-review.ts",
+          "line": 12,
+          "text": "import { eventQuestionProofs } from './scan-event-review';"
+        },
+        {
+          "file": "docs/scan-pipeline.md",
+          "line": 313,
+          "text": "node --import ./tools/register.ts --conditions=react-server tools/scan-events-review.ts \\"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        }
+      ]
+    },
+    {
+      "file": "tools/scan-interpretation-types.ts",
+      "sourceSha256": "87920375dd3e6ef70252c0cdf67503d7f04eb8facbd79d9d2314911d423749c0",
+      "role": "producer",
+      "reason": "Generates types from the old interpretation schema. Keep it through PR 10 old schema retirement.",
+      "evidence": [
+        {
+          "file": "package.json",
+          "line": 77,
+          "text": "\"generate:interpretation\": \"node --import ./tools/register.ts --conditions=react-server tools/scan-interpretation-types.ts\","
+        },
+        {
+          "file": "tools/scan-interpretation-types.ts",
+          "line": 24,
+          "text": "'src/domain/scan/interpretation.generated.ts',"
+        },
+        {
+          "file": "docs/rebuild/rebuild.md",
+          "line": 188,
+          "text": "- old types, loaders, `legacyViewOf`, `knowledge*`/`scan-discovery`/`scan-interpretation` schemas, scan marks;"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "tools/scan-interpretation.ts",
+      "sourceSha256": "52c397268c6d59da4dc21c0df88f0f4fc0d55fb0161cd116d83c408ee634a32e",
+      "role": "retirement",
+      "reason": "Validates a supplied sidecar and its pinned input manifest. Keep it through PR 10 old schema retirement.",
+      "evidence": [
+        {
+          "file": "package.json",
+          "line": 76,
+          "text": "\"scan:interpretation\": \"node --import ./tools/register.ts --conditions=react-server tools/scan-interpretation.ts\","
+        },
+        {
+          "file": "tools/scan-interpretation.ts",
+          "line": 10,
+          "text": "export async function readInterpretation("
+        },
+        {
+          "file": "docs/rebuild/rebuild.md",
+          "line": 188,
+          "text": "- old types, loaders, `legacyViewOf`, `knowledge*`/`scan-discovery`/`scan-interpretation` schemas, scan marks;"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "tools/scan-mark.ts",
+      "sourceSha256": "d6d28dba7f5b2f5e618994d256823283f82a8f859297551e78c1f164ea3572b3",
+      "role": "producer",
+      "reason": "Checks cited Git blobs using the source-index subprocess and writes the old scan mark. PR 9 replaces this scan workflow.",
+      "evidence": [
+        {
+          "file": ".agents/skills/groundwork-scan/legacy-refresh.md",
+          "line": 114,
+          "text": "node tools/scan-mark.ts <workspace> <org/name> \"$dir\" --branch <branch>"
+        },
+        {
+          "file": "tools/scan-mark.ts",
+          "line": 88,
+          "text": "[path.join(import.meta.dirname, 'sources.ts'), workspace, '--index', '--repo', repo],"
+        },
+        {
+          "file": "tools/scan-mark.ts",
+          "line": 163,
+          "text": "writeFileSync(file, stringify(mark, { lineWidth: 0 }));"
+        },
+        {
+          "file": "docs/rebuild/rebuild.md",
+          "line": 172,
+          "text": "- The scan writes `evidence/` directly with `ev:` ids, refreshes handlers and contracts, reconciles step ids by"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        }
+      ],
+      "stage": 9
+    },
+    {
+      "file": "tools/scan-message-review-consumer.ts",
+      "sourceSha256": "998d8ef76493e2b06acd1c55cf3391c9ee13863f2015ae5200ac9de721f7bd7c",
+      "role": "support",
+      "reason": "Assesses an explicitly supplied scan document in the recorded review workflow.",
+      "evidence": [
+        {
+          "file": "tools/scan-message-review.ts",
+          "line": 6,
+          "text": "import { messageConsumerClauses } from './scan-message-review-consumer';"
+        },
+        {
+          "file": "tools/scan-message-review-suite.ts",
+          "line": 6,
+          "text": "import { messageQuestionProofs } from './scan-message-review';"
+        },
+        {
+          "file": "docs/scan-trials/customer-service-messaging/README.md",
+          "line": 117,
+          "text": "node --import ./tools/register.ts --conditions=react-server tools/scan-messages-review.ts \\"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        }
+      ]
+    },
+    {
+      "file": "tools/scan-message-review.ts",
+      "sourceSha256": "000c3391b23ef703a88476186e57ecb92e6313d53d92f622427a0bce6b15c895",
+      "role": "support",
+      "reason": "Assesses an explicitly supplied scan document in the recorded review workflow.",
+      "evidence": [
+        {
+          "file": "tools/scan-message-review-suite.ts",
+          "line": 6,
+          "text": "import { messageQuestionProofs } from './scan-message-review';"
+        },
+        {
+          "file": "tools/scan-messages-review.ts",
+          "line": 11,
+          "text": "import { messageReviewSuite } from './scan-message-review-suite';"
+        },
+        {
+          "file": "docs/scan-trials/customer-service-messaging/README.md",
+          "line": 117,
+          "text": "node --import ./tools/register.ts --conditions=react-server tools/scan-messages-review.ts \\"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        }
+      ]
+    },
+    {
+      "file": "tools/scan-readiness-interpretation.ts",
+      "sourceSha256": "9cedbe2fbcec77e9019572773d13ccc5841687d10fff416c8f95f4ebf5a1063c",
+      "role": "retirement",
+      "reason": "Loads the interpretation sidecar from the explicit readiness bundle. Keep it through PR 10 old schema retirement.",
+      "evidence": [
+        {
+          "file": "tools/scan-readiness-load.ts",
+          "line": 18,
+          "text": "import { readReadinessInterpretation } from './scan-readiness-interpretation';"
+        },
+        {
+          "file": "tools/scan-readiness-interpretation.ts",
+          "line": 55,
+          "text": "export async function readReadinessInterpretation("
+        },
+        {
+          "file": "docs/rebuild/rebuild.md",
+          "line": 188,
+          "text": "- old types, loaders, `legacyViewOf`, `knowledge*`/`scan-discovery`/`scan-interpretation` schemas, scan marks;"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "tools/scan-status.ts",
+      "sourceSha256": "d8b520cbd222d1bc386f39411452801511ee2d733ce098abe414e3d4117f14a3",
+      "role": "producer",
+      "reason": "Reads authored system repository declarations and marks, then optionally records freshness. PR 9 replaces this scan workflow.",
+      "evidence": [
+        {
+          "file": ".agents/skills/groundwork-scan/legacy-refresh.md",
+          "line": 176,
+          "text": "node tools/scan-status.ts <workspace> --record   # also writes `checked: { at, tip, behind, folders }` into each mark"
+        },
+        {
+          "file": "tools/scan-status.ts",
+          "line": 224,
+          "text": "const listed = reposOf(workspace);"
+        },
+        {
+          "file": "tools/scan-status.ts",
+          "line": 237,
+          "text": "writeFileSync(file, stringify(recorded(raw, status, { at, folders }), { lineWidth: 0 }));"
+        },
+        {
+          "file": "docs/rebuild/rebuild.md",
+          "line": 172,
+          "text": "- The scan writes `evidence/` directly with `ev:` ids, refreshes handlers and contracts, reconciles step ids by"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        }
+      ],
+      "stage": 9
+    },
+    {
+      "file": "tools/sources-model.ts",
+      "sourceSha256": "f8137cbadde5334626448c1b111fbdf52a41f1a41ad8a7c7d850791a4c9b9c2a",
+      "role": "consumer",
+      "reason": "Reads consolidated source evidence through the canonical index and code citation resolver.",
+      "evidence": [
+        {
+          "file": "tools/sources-model.ts",
+          "line": 56,
+          "text": "const index = indexOf(await readModelFolder(folder, id));"
+        },
+        {
+          "file": "tools/sources-model.ts",
+          "line": 28,
+          "text": "const cites = index.cites(id);"
+        },
+        {
+          "file": "tools/native-cli.test.ts",
+          "line": 78,
+          "text": "it('filters by repository while preserving evidence ids and qualified step spans', () => {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/sources-cli.md",
+          "sha256": "ba7ac281e6e74ae50f23fb450e12cb740c550c8f5b6a22b17f9644ca5d1a999b"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "tools/sources.ts",
+      "sourceSha256": "a86c99cda2f63740d7fb2f16db9323f6f75063b1c81f1352df2f21e0a8f9ae4d",
+      "role": "consumer",
+      "reason": "The direct source checker selects the canonical reader for format 2. The format-1 verification branch remains for the PR 9 scan-mark workflow.",
+      "evidence": [
+        {
+          "file": "tools/sources.ts",
+          "line": 350,
+          "text": "const id = await nativeId(folder);"
+        },
+        {
+          "file": "tools/sources.ts",
+          "line": 329,
+          "text": "path.join(tools, 'sources-model.ts'),"
+        },
+        {
+          "file": "tools/scan-diff.ts",
+          "line": 220,
+          "text": "[path.join(import.meta.dirname, 'sources.ts'), workspace, '--index', '--repo', repo],"
+        },
+        {
+          "file": "tools/scan-mark.ts",
+          "line": 88,
+          "text": "[path.join(import.meta.dirname, 'sources.ts'), workspace, '--index', '--repo', repo],"
+        },
+        {
+          "file": ".agents/skills/groundwork-review/SKILL.md",
+          "line": 23,
+          "text": "node tools/sources.ts <workspace> --missing   # extracted facts without sources; add --check to ask GitHub"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/sources-cli.md",
+          "sha256": "ba7ac281e6e74ae50f23fb450e12cb740c550c8f5b6a22b17f9644ca5d1a999b"
+        }
+      ],
+      "status": "migrated"
+    }
+  ]
+}

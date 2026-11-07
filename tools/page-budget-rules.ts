@@ -1,6 +1,9 @@
 // What the page budget judges, apart from fetching the pages: which links lead to pages, which pages are over and
 // which weigh most.
 
+/** The unchanged maximum uncompressed HTML size of a page. */
+export const PAGE_BYTE_LIMIT = 1024 * 1024;
+
 export interface PageSize {
   /** The page's address: `/volvo-cars/reference/apis/`. */
   readonly page: string;

@@ -1,8 +1,6 @@
-import { areaNarratives } from '@/application/area-map/narratives';
-import { pathIn } from '@/infrastructure/disk';
-import { systemNarrativeInputs } from '@/infrastructure/system-narratives';
-import { readToday } from '@/infrastructure/today-model';
-import { workspaceFolder } from '@/infrastructure/workspace-folders';
+import { readCanonicalModelIndex } from '@/infrastructure/model-index';
+import { modelNarrativePacket } from '@/infrastructure/model-narratives';
+import { selectedWorkspace } from '@/infrastructure/workspace-folders';
 
 const [command, workspace, systemId] = process.argv.slice(2);
 if (
@@ -12,37 +10,45 @@ if (
 ) {
   throw new Error('Usage: system-narrative.ts packet|check <workspace> <system>');
 }
-const data = await readToday(workspace);
-const root = await workspaceFolder(workspace);
-const domain = data?.workspace.domains.find((item) =>
-  item.systems.some((system) => system.id === systemId),
-);
-const system = domain?.systems.find((item) => item.id === systemId);
-if (root === null || data === null || domain === undefined || system === undefined) {
-  throw new Error('Unknown workspace or system');
-}
-if (command === 'check') {
-  const result = areaNarratives(system, data.today.model);
-  if (result.notice !== null) throw new Error(result.notice);
-  if (result.stories.length === 0) throw new Error('No saved system narratives');
-  console.log(
-    `${system.name}: ${String(result.stories.length)} current, reference-checked stories`,
-  );
-} else {
-  const inputs = await systemNarrativeInputs(
-    pathIn(root, 'domains', domain.id, 'systems', system.id),
-    root,
-  );
+const selected = await selectedWorkspace(workspace);
+const native = await readCanonicalModelIndex(selected.id);
+if (native === null) throw new Error(`No canonical model for ${selected.id}.`);
+const packet = modelNarrativePacket(native, systemId);
+if (packet === null) throw new Error('Unknown native system');
+if (command === 'packet') {
   console.log(
     JSON.stringify(
       {
         instructions:
-          'Read docs/system-narratives.md. Interpret the supplied evidence; do not invent execution links. Save narratives.yaml beside system.yaml and run check.',
-        system: system.id,
-        ...inputs,
+          'Use schema/workspace.schema.json NarrativesFile format 2. Interpret only these recorded facts; preserve code cites separately from model backs. Save accepted review output beside the actual system file and run check. This deterministic command never calls an LLM.',
+        system: packet.input.system.id,
+        ...packet,
       },
       null,
       2,
     ),
+  );
+} else {
+  const narrative = native.model.domains
+    .flatMap((domain) => domain.systems)
+    .find((system) => system.id === packet.input.system.id)?.narratives;
+  if (narrative === null || narrative === undefined) {
+    throw new Error('No saved native system narratives');
+  }
+  for (const problem of packet.problems) {
+    console.error(`${problem.reference ?? problem.id}: ${problem.message}`);
+  }
+  if (narrative.basis !== packet.basis) {
+    throw new Error(
+      'Story needs review: its native input fingerprint differs; saved content is retained and freshness is not established.',
+    );
+  }
+  if (packet.problems.length > 0) {
+    throw new Error(
+      'Story needs review: a citation, reference or execution backing is unverified.',
+    );
+  }
+  console.log(
+    `${packet.input.system.name}: ${String(narrative.stories.length)} current, citation- and backing-checked stories`,
   );
 }

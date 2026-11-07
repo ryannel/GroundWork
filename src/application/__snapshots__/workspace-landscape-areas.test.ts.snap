@@ -1,0 +1,312 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`authored landscape layout > places a short branch beside the activity that feeds its destination > joins, directed paths and label placement 1`] = `
+{
+  "edges": [
+    {
+      "from": "products",
+      "id": "products-offers",
+      "kind": "exchange",
+      "label": "products information for offers",
+      "path": "M 300,399 L 546.5,399",
+      "points": [
+        {
+          "x": 300,
+          "y": 399,
+        },
+        {
+          "x": 546.5,
+          "y": 399,
+        },
+      ],
+      "to": "offers",
+      "x": 423.25,
+      "y": 371,
+    },
+    {
+      "from": "offers",
+      "id": "offers-browse",
+      "kind": "exchange",
+      "label": "offers information for browse",
+      "path": "M 796.5,399 L 1009,399 Q 1019,399 1019,409 L 1019,655 Q 1019,665 1029,665 L 1043,665",
+      "points": [
+        {
+          "x": 796.5,
+          "y": 399,
+        },
+        {
+          "x": 1019,
+          "y": 399,
+        },
+        {
+          "x": 1019,
+          "y": 665,
+        },
+        {
+          "x": 1043,
+          "y": 665,
+        },
+      ],
+      "to": "browse",
+      "x": 907.75,
+      "y": 371,
+    },
+    {
+      "from": "browse",
+      "id": "browse-buy",
+      "kind": "transition",
+      "label": "browse information for buy",
+      "path": "M 1293,665 L 1505.5,665 Q 1515.5,665 1515.5,655 L 1515.5,438.5 Q 1515.5,428.5 1525.5,428.5 L 1539.5,428.5",
+      "points": [
+        {
+          "x": 1293,
+          "y": 665,
+        },
+        {
+          "x": 1515.5,
+          "y": 665,
+        },
+        {
+          "x": 1515.5,
+          "y": 428.5,
+        },
+        {
+          "x": 1539.5,
+          "y": 428.5,
+        },
+      ],
+      "to": "buy",
+      "x": 1404.25,
+      "y": 637,
+    },
+    {
+      "from": "buy",
+      "id": "buy-delivery",
+      "kind": "transition",
+      "label": "buy information for delivery",
+      "path": "M 1789.5,399 L 2036,399",
+      "points": [
+        {
+          "x": 1789.5,
+          "y": 399,
+        },
+        {
+          "x": 2036,
+          "y": 399,
+        },
+      ],
+      "to": "delivery",
+      "x": 1912.75,
+      "y": 371,
+    },
+    {
+      "from": "fleet",
+      "id": "fleet-buy",
+      "kind": "transition",
+      "label": "fleet information for buy",
+      "path": "M 1293,133 L 1505.5,133 Q 1515.5,133 1515.5,143 L 1515.5,359.5 Q 1515.5,369.5 1525.5,369.5 L 1539.5,369.5",
+      "points": [
+        {
+          "x": 1293,
+          "y": 133,
+        },
+        {
+          "x": 1515.5,
+          "y": 133,
+        },
+        {
+          "x": 1515.5,
+          "y": 369.5,
+        },
+        {
+          "x": 1539.5,
+          "y": 369.5,
+        },
+      ],
+      "to": "buy",
+      "x": 1404.25,
+      "y": 121,
+    },
+    {
+      "from": "accounts",
+      "id": "accounts-buy",
+      "kind": "exchange",
+      "label": "accounts information for buy",
+      "path": "M 1293,399 L 1539.5,399",
+      "points": [
+        {
+          "x": 1293,
+          "y": 399,
+        },
+        {
+          "x": 1539.5,
+          "y": 399,
+        },
+      ],
+      "to": "buy",
+      "x": 1416.25,
+      "y": 371,
+    },
+  ],
+  "facts": [
+    "7 areas",
+    "Inferred",
+    "Reviewed 2026-10-26",
+  ],
+  "headline": "Acme systems support 7 areas of activity. Open one to see the systems and information that make it work.",
+  "height": 798,
+  "limitation": "Partial evidence.",
+  "name": "Acme",
+  "nodes": [
+    {
+      "height": 166,
+      "href": "/acme/areas/fleet/",
+      "id": "fleet",
+      "lines": [
+        "fleet",
+      ],
+      "name": "fleet",
+      "purpose": "fleet",
+      "purposeLines": [
+        "fleet",
+      ],
+      "width": 250,
+      "x": 1043,
+      "y": 50,
+    },
+    {
+      "height": 166,
+      "href": "/acme/areas/products/",
+      "id": "products",
+      "lines": [
+        "products",
+      ],
+      "name": "products",
+      "purpose": "products",
+      "purposeLines": [
+        "products",
+      ],
+      "width": 250,
+      "x": 50,
+      "y": 316,
+    },
+    {
+      "height": 166,
+      "href": "/acme/areas/offers/",
+      "id": "offers",
+      "lines": [
+        "offers",
+      ],
+      "name": "offers",
+      "purpose": "offers",
+      "purposeLines": [
+        "offers",
+      ],
+      "width": 250,
+      "x": 546.5,
+      "y": 316,
+    },
+    {
+      "height": 166,
+      "href": "/acme/areas/accounts/",
+      "id": "accounts",
+      "lines": [
+        "accounts",
+      ],
+      "name": "accounts",
+      "purpose": "accounts",
+      "purposeLines": [
+        "accounts",
+      ],
+      "width": 250,
+      "x": 1043,
+      "y": 316,
+    },
+    {
+      "height": 166,
+      "href": "/acme/areas/buy/",
+      "id": "buy",
+      "lines": [
+        "buy",
+      ],
+      "name": "buy",
+      "purpose": "buy",
+      "purposeLines": [
+        "buy",
+      ],
+      "width": 250,
+      "x": 1539.5,
+      "y": 316,
+    },
+    {
+      "height": 166,
+      "href": "/acme/areas/delivery/",
+      "id": "delivery",
+      "lines": [
+        "delivery",
+      ],
+      "name": "delivery",
+      "purpose": "delivery",
+      "purposeLines": [
+        "delivery",
+      ],
+      "width": 250,
+      "x": 2036,
+      "y": 316,
+    },
+    {
+      "height": 166,
+      "href": "/acme/areas/browse/",
+      "id": "browse",
+      "lines": [
+        "browse",
+      ],
+      "name": "browse",
+      "purpose": "browse",
+      "purposeLines": [
+        "browse",
+      ],
+      "width": 250,
+      "x": 1043,
+      "y": 582,
+    },
+  ],
+  "scope": "Mapped activity.",
+  "width": 2336,
+}
+`;
+
+exports[`draws canonical area identities at the existing route and keeps absent review metadata visible > native address and missing review fields 1`] = `
+{
+  "edges": [],
+  "facts": [
+    "1 areas",
+    "Interpretation not labelled",
+    "Review date not recorded",
+  ],
+  "headline": "Model fixture systems support 1 area of activity. Open one to see the systems and information that make it work.",
+  "height": 280,
+  "limitation": "Limitations not recorded.",
+  "name": "Model fixture",
+  "nodes": [
+    {
+      "height": 166,
+      "href": "/model-fixture/areas/orders/",
+      "id": "area:orders",
+      "lines": [
+        "Orders",
+      ],
+      "name": "Orders",
+      "purpose": "Confirm purchases",
+      "purposeLines": [
+        "Confirm purchases",
+      ],
+      "width": 250,
+      "x": 50,
+      "y": 50,
+    },
+  ],
+  "scope": "Scope not recorded.",
+  "width": 760,
+}
+`;

@@ -1,0 +1,8 @@
+- id: svc:weather-api
+  name: Met Office DataPoint
+  does: Daily frost and rain forecast
+  proposed: null
+  reason: Legacy external does not distinguish a vendor from an unmapped company system.
+  key: identity/svc:weather-api
+  fingerprint: 38df6b3a283de25a9c5c23e34fb46798a237269ce0b77fbab22774ce442b8df1
+  status: pending

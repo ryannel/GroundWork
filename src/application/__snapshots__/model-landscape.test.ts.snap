@@ -1,0 +1,411 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`native workspace landscape > draws declared native domains and people using containment independently of resource ownership > mapped people, scoped evidence and exact domain connections 1`] = `
+{
+  "drawing": {
+    "boxes": [
+      {
+        "h": 104,
+        "id": "actor:customer",
+        "kind": "customer",
+        "w": 200,
+        "x": 32,
+        "y": 32,
+      },
+      {
+        "h": 104,
+        "id": "dom:queries",
+        "kind": "domain",
+        "w": 288,
+        "x": 368,
+        "y": 32,
+      },
+      {
+        "h": 142,
+        "id": "dom:remote",
+        "kind": "domain",
+        "w": 288,
+        "x": 368,
+        "y": 160,
+      },
+      {
+        "h": 104,
+        "id": "dom:unrelated",
+        "kind": "domain",
+        "w": 288,
+        "x": 368,
+        "y": 326,
+      },
+    ],
+    "height": 462,
+    "lines": [
+      {
+        "a": "actor:customer",
+        "arrows": {
+          "end": true,
+          "start": false,
+        },
+        "b": "dom:queries",
+        "d": "M232 84 C300 84 300 84 368 84",
+        "id": "actor:customer|dom:queries",
+        "kind": "use",
+        "mx": 300,
+        "my": 84,
+      },
+      {
+        "a": "dom:queries",
+        "arrows": {
+          "end": true,
+          "start": true,
+        },
+        "b": "dom:remote",
+        "d": "M656 84 C720 84 720 231 656 231",
+        "id": "dom:queries|dom:remote",
+        "kind": "msg",
+        "mx": 704,
+        "my": 157.5,
+      },
+    ],
+    "width": 760,
+  },
+  "facts": [
+    "3 domains",
+    "3 systems",
+    "2 people",
+    "4 components",
+    "3 journeys and flows",
+    "1 system with unmapped implementation",
+    "7 recorded gaps",
+  ],
+  "gaps": [
+    {
+      "id": "api:a",
+      "kind": "no_caller",
+      "message": "No caller is recorded.",
+    },
+    {
+      "id": "api:supplier",
+      "kind": "no_handler",
+      "message": "No handler detail is recorded.",
+    },
+    {
+      "id": "top:remote",
+      "kind": "no_owner",
+      "message": "No cited resource owner is recorded.",
+    },
+    {
+      "id": "sub:b",
+      "kind": "no_handler",
+      "message": "No handler detail is recorded.",
+    },
+    {
+      "id": "job:b",
+      "kind": "no_handler",
+      "message": "No handler detail is recorded.",
+    },
+    {
+      "id": "job:b",
+      "kind": "no_schedule",
+      "message": "No schedule or trigger is recorded.",
+    },
+    {
+      "id": "flow:unknown",
+      "kind": "unknown_actor",
+      "message": "The actor A person not declared is not an unambiguous declared person.",
+      "property": "actor",
+      "reference": "A person not declared",
+    },
+  ],
+  "headline": "Query fixture maps 3 systems in 3 domains.",
+  "map": {
+    "domains": [
+      {
+        "href": "/queries/queries/",
+        "id": "dom:queries",
+        "name": "Queries",
+        "people": [],
+        "purpose": null,
+        "systems": 1,
+      },
+      {
+        "href": "/queries/remote/",
+        "id": "dom:remote",
+        "name": "Remote",
+        "people": [
+          "actor:staff",
+        ],
+        "purpose": null,
+        "systems": 1,
+      },
+      {
+        "href": "/queries/unrelated/",
+        "id": "dom:unrelated",
+        "name": "Unrelated",
+        "people": [],
+        "purpose": null,
+        "systems": 1,
+      },
+    ],
+    "journeys": [
+      {
+        "actor": "actor:customer",
+        "domains": [
+          "dom:queries",
+          "dom:unrelated",
+        ],
+        "href": "/queries/journeys/jny-story/",
+        "key": "jny-story",
+        "kind": "journey",
+        "lines": [
+          "actor:customer|dom:queries",
+        ],
+        "title": "A narrated journey",
+      },
+      {
+        "actor": "actor:customer",
+        "domains": [
+          "dom:queries",
+          "dom:unrelated",
+        ],
+        "href": "/queries/journeys/flow-story/",
+        "key": "flow-story",
+        "kind": "flow",
+        "lines": [
+          "actor:customer|dom:queries",
+        ],
+        "title": "Narrated only",
+      },
+      {
+        "actor": null,
+        "domains": [],
+        "href": "/queries/journeys/flow-unknown/",
+        "key": "flow-unknown",
+        "kind": "flow",
+        "lines": [],
+        "title": "Unknown instigator",
+      },
+    ],
+    "links": [
+      {
+        "a": "actor:customer",
+        "b": "dom:queries",
+        "back": false,
+        "forward": true,
+        "id": "actor:customer|dom:queries",
+        "kinds": [
+          "use",
+        ],
+        "leans": "a",
+        "vias": [
+          "Narrated only",
+        ],
+      },
+      {
+        "a": "dom:queries",
+        "b": "dom:remote",
+        "back": true,
+        "forward": true,
+        "id": "dom:queries|dom:remote",
+        "kinds": [
+          "msg",
+          "data",
+        ],
+        "leans": "both",
+        "vias": [
+          "id",
+          "msg:remote",
+          "Events",
+        ],
+      },
+    ],
+    "people": [
+      {
+        "customer": true,
+        "domains": [
+          "dom:queries",
+        ],
+        "id": "actor:customer",
+        "name": "Customer",
+        "summary": null,
+      },
+      {
+        "customer": false,
+        "domains": [
+          "dom:remote",
+        ],
+        "id": "actor:staff",
+        "name": "Staff",
+        "summary": null,
+      },
+    ],
+  },
+  "name": "Query fixture",
+  "provenance": [
+    {
+      "cites": [
+        {
+          "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "kind": "code",
+          "lines": [
+            1,
+            2,
+          ],
+          "path": "example.ts",
+          "repo": "fixture/a",
+        },
+      ],
+      "entry": "api:a",
+      "from": "svc:a",
+      "handler": "h:a",
+      "kind": "read",
+      "site": "h:a#read",
+      "source": "handler",
+      "to": "st:remote",
+      "via": "sch:remote#id",
+    },
+    {
+      "cites": [
+        {
+          "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "kind": "code",
+          "lines": [
+            1,
+            2,
+          ],
+          "path": "example.ts",
+          "repo": "fixture/a",
+        },
+      ],
+      "entry": "api:a",
+      "from": "svc:a",
+      "handler": "h:a",
+      "kind": "write",
+      "site": "h:a#write",
+      "source": "handler",
+      "to": "st:remote",
+      "via": "sch:remote#id",
+    },
+    {
+      "cites": [
+        {
+          "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "kind": "code",
+          "lines": [
+            1,
+            2,
+          ],
+          "path": "example.ts",
+          "repo": "fixture/a",
+        },
+      ],
+      "entry": "api:a",
+      "from": "svc:a",
+      "handler": "h:a",
+      "kind": "publish",
+      "site": "h:a#publish",
+      "source": "handler",
+      "to": "top:remote",
+      "via": "msg:remote",
+    },
+    {
+      "cites": [
+        {
+          "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "kind": "code",
+          "lines": [
+            1,
+            2,
+          ],
+          "path": "example.ts",
+          "repo": "fixture/a",
+        },
+      ],
+      "entry": "api:a",
+      "from": "svc:a",
+      "handler": "h:a",
+      "kind": "call",
+      "site": "h:a#call",
+      "source": "handler",
+      "to": "ext:supplier",
+      "via": "api:supplier",
+    },
+    {
+      "cites": [],
+      "entry": null,
+      "from": "top:remote",
+      "handler": null,
+      "kind": "consume",
+      "site": "sub:b",
+      "source": "subscription",
+      "to": "svc:b",
+      "via": "msg:remote",
+    },
+    {
+      "cites": [
+        {
+          "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "kind": "code",
+          "lines": [
+            1,
+            2,
+          ],
+          "path": "example.ts",
+          "repo": "fixture/a",
+        },
+      ],
+      "entry": null,
+      "from": "top:remote",
+      "handler": null,
+      "kind": "consume",
+      "site": "rel:consume",
+      "source": "relationship",
+      "to": "svc:a",
+      "via": "top:remote",
+    },
+    {
+      "cites": [
+        {
+          "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "kind": "code",
+          "lines": [
+            1,
+            2,
+          ],
+          "path": "example.ts",
+          "repo": "fixture/a",
+        },
+      ],
+      "entry": null,
+      "from": "svc:b",
+      "handler": null,
+      "kind": "read",
+      "site": "rel:read",
+      "source": "relationship",
+      "to": "st:remote",
+      "via": "st:remote",
+    },
+    {
+      "cites": [
+        {
+          "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "kind": "code",
+          "lines": [
+            1,
+            2,
+          ],
+          "path": "example.ts",
+          "repo": "fixture/a",
+        },
+      ],
+      "entry": null,
+      "from": "svc:b",
+      "handler": null,
+      "kind": "call",
+      "site": "rel:boundary",
+      "source": "relationship",
+      "to": "sys:unmapped",
+      "via": "sys:unmapped",
+    },
+  ],
+}
+`;

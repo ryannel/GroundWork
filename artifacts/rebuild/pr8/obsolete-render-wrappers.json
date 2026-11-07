@@ -1,0 +1,69 @@
+{
+  "scope": "Unused format-1 render wrappers only. Old types, loaders, fixtures and publication producers remain.",
+  "replacementProof": "artifacts/rebuild/pr8/replaced-legacy-views.log",
+  "files": [
+    {
+      "file": "src/features/plan/plan-pages.tsx",
+      "sha256": "b80c8a490df9c7c552062bf41878bb56f66804fa25bb71dc46d690f6f36431db"
+    },
+    {
+      "file": "src/features/plan/plan-shell.tsx",
+      "sha256": "56cd0215482f5366e47e4829f02572451514e570bdda52254ce311c3f355e5ee"
+    },
+    {
+      "file": "src/features/plan/remember/remember.tsx",
+      "sha256": "d1458ebe535fc714174b80aeec63ce263159ef01b4526f4472c4441b067efb9c"
+    },
+    {
+      "file": "src/features/plan/thing-page/thing-page.tsx",
+      "sha256": "944413d886a76bdb19b797d10e5b837addc785ded9a63589c1612eb56dd90586"
+    },
+    {
+      "file": "src/features/plan/today/journey-walk.tsx",
+      "sha256": "08b8fddd6a228525ba32ce295f7e4bf04205117349208f5b82fc335e1b187326"
+    },
+    {
+      "file": "src/features/plan/today/today-map.tsx",
+      "sha256": "a61ae5ef0b41b856539773dffba9e540a7599406e51010daeea205bd5facffb1"
+    },
+    {
+      "file": "src/features/plan/today/today-stops.client.tsx",
+      "sha256": "b67ba0c6e38bc3881bf270f46082110692eacfa2dc25954821e8a2e0ebb328ed"
+    },
+    {
+      "file": "src/features/plan/today/handler-story.tsx",
+      "sha256": "28c0d773b1731cb5979d566b7eac499d5800e018ca09b46f85a95b6b3b152b36",
+      "cause": "Only used by the removed TodayThing wrapper; native record/detail and entry views have focused and HTTP proof."
+    },
+    {
+      "file": "src/features/plan/today/ref-chips.tsx",
+      "sha256": "44d0b4717a1e668b78772d7e283fd96f176dafcf68c6544f009a702582ac3e9e",
+      "cause": "Only used by the removed TodayThing wrapper; native record/detail and entry views have focused and HTTP proof."
+    },
+    {
+      "file": "src/features/plan/today/store-contents.tsx",
+      "sha256": "0b6c0ff3a756b7437fa5f3a85a80a631a340978f2a1a6b09030f1a5650538d5c",
+      "cause": "Only used by the removed TodayThing wrapper; native record/detail and entry views have focused and HTTP proof."
+    },
+    {
+      "file": "src/features/plan/today/thing-inside.tsx",
+      "sha256": "8f1937dd4078742c8c1252016afe6e3eae850c03b57e2f11573f77e082e13c04",
+      "cause": "Only used by the removed TodayThing wrapper; native record/detail and entry views have focused and HTTP proof."
+    },
+    {
+      "file": "src/features/plan/today/today-evidence.tsx",
+      "sha256": "d89f49e92c1b1a9d043c02e43679a13cb7a9f9748f910cae78193de29e81f1d2",
+      "cause": "Only used by the removed TodayThing wrapper; native record/detail and entry views have focused and HTTP proof."
+    },
+    {
+      "file": "src/features/plan/today/today-section.tsx",
+      "sha256": "99ec7b5640cfb5571a7b3b8f3faf26f2940956cba188095d387bef2f5607821c",
+      "cause": "Only used by the removed TodayThing wrapper; native record/detail and entry views have focused and HTTP proof."
+    },
+    {
+      "file": "src/features/plan/today/today-wayfinding.tsx",
+      "sha256": "2e71874d2873e2499cf40b424bebb201061a83c4b1fa3ece6a21f3317e193e64",
+      "cause": "Only used by the removed TodayThing wrapper; native record/detail and entry views have focused and HTTP proof."
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "workspace": "personal",
+  "capture": ".workspaces/rebuild/pr8/http-release/personal",
+  "asOf": "2026-11-05",
+  "checks": [
+    {
+      "route": "/personal/model.json",
+      "file": "route-4bfca9e2c634b07b5fa2.json.gz",
+      "responseSha256": "f814c44e8c19f60f3e824336b0cef43d40fedf89359b3e5588def2fcfca3ff8f",
+      "profile": {
+        "current": {
+          "loaded": 0,
+          "omitted": 0,
+          "total": 0
+        },
+        "kind": "authored-evidence-closure",
+        "lookup": "evidence.json"
+      },
+      "scopes": [
+        {
+          "scope": "current",
+          "authored": "e50fd9dbf39bdab9622dc9bad3a70c38948f019c1d8a394b662c2d06ad7db472",
+          "derived": "aaea48505cf87b89957a37b90b0d7d4daf71e9b6e4fef3b07a997439dc92e7e0",
+          "records": {
+            "total": 0,
+            "loaded": 0,
+            "omitted": 0
+          },
+          "indexedIdentities": 10
+        }
+      ]
+    }
+  ]
+}

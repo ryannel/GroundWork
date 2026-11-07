@@ -133,14 +133,24 @@ function assign(input: SystemMapInput, agg: Aggregate): ReadonlyMap<string, numb
   const ids = input.services.map((s) => s.id);
   const col = stageColumns(input, agg);
   const pairs = agg.links.map((l): [string, string] => [hostOf(agg, l.a), hostOf(agg, l.b)]);
-  return fillGaps(col, ids, neighbours(ids, bothIn(pairs, new Map(ids.map((id) => [id, 0])))));
+  const filled = fillGaps(
+    col,
+    ids,
+    neighbours(ids, bothIn(pairs, new Map(ids.map((id) => [id, 0])))),
+  );
+  return input.placement === undefined
+    ? filled
+    : new Map([
+        ...input.systems.map((system) => [system.id, input.stageOf[system.id] ?? 0] as const),
+        ...filled,
+      ]);
 }
 
 /** The deployables of one system are one unit when they share a column. */
 function systemParts(
   input: SystemMapInput,
   col: ReadonlyMap<string, number>,
-): Map<string, string[]> {
+): ReadonlyMap<string, readonly string[]> {
   const known = new Set(input.systems.map((s) => s.id));
   const tiered = bySystem(input) && input.arrangement !== 'structure';
   const parts = new Map<string, string[]>();
@@ -156,7 +166,14 @@ function systemParts(
   for (const [sys, ids] of parts) {
     if (new Set(ids.map((id) => col.get(id))).size !== 1) parts.delete(sys);
   }
-  return parts;
+  return withEmptySystems(input, parts);
+}
+function withEmptySystems(
+  input: SystemMapInput,
+  parts: ReadonlyMap<string, readonly string[]>,
+): ReadonlyMap<string, readonly string[]> {
+  if (input.placement === undefined) return parts;
+  return new Map([...input.systems.map((system): [string, string[]] => [system.id, []]), ...parts]);
 }
 
 interface Place {
@@ -177,8 +194,12 @@ function startOrder(
     }
   }
   const listed = new Map(input.services.map((s, i) => [s.id, i]));
-  const first = (u: string, map: ReadonlyMap<string, number>, otherwise: number): number =>
-    Math.min(...members(u).map((id) => map.get(id) ?? otherwise));
+  const first = (u: string, map: ReadonlyMap<string, number>, otherwise: number): number => {
+    const ids = members(u);
+    return ids.length === 0
+      ? (map.get(u) ?? otherwise)
+      : Math.min(...ids.map((id) => map.get(id) ?? otherwise));
+  };
   return (a, b) =>
     firstDiff(
       first(a, authored, 999) - first(b, authored, 999),
@@ -262,7 +283,12 @@ export function layoutColumns(input: SystemMapInput, agg: Aggregate): Columns {
   const unitOf = (id: string): string => sysOf.get(hostOf(agg, id)) ?? hostOf(agg, id);
   const membersOf = (u: string): readonly string[] => partsOf.get(u) ?? [u];
   const isInternal = (l: Link): boolean => unitOf(l.a) === unitOf(l.b) && partsOf.has(unitOf(l.a));
-  const units = [...new Set(input.services.map((s) => sysOf.get(s.id) ?? s.id))];
+  const units = [
+    ...new Set([
+      ...input.services.map((s) => sysOf.get(s.id) ?? s.id),
+      ...(input.placement === undefined ? [] : input.systems.map((system) => system.id)),
+    ]),
+  ];
   const used = [...new Set(col.values())].toSorted((a, b) => a - b);
   const colIdx = new Map(used.map((c, i) => [c, i]));
   const colOfU = (u: string): number => colIdx.get(col.get(membersOf(u)[0] ?? u) ?? 0) ?? 0;

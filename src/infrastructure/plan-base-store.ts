@@ -1,12 +1,10 @@
 import 'server-only';
 
 import { parse } from 'yaml';
-import { z } from 'zod';
 
 import type { Issue } from '@/application/plan/check-context';
 import { isRecord } from '@/application/plan/ids';
 import { collectionsOf, type PlanBase } from '@/application/plan/plan-base';
-import type { StackHashes } from '@/application/plan/plan-stack';
 import type { Plan } from '@/domain/plan/plan.generated';
 import { pathIn, readTextIfAny, statOf } from '@/infrastructure/disk';
 
@@ -28,23 +26,7 @@ export interface BaseReading {
   readonly today: Plan | null;
 }
 
-export interface PlanLock extends StackHashes {
-  readonly checkedOn: string;
-  readonly entities: Readonly<Record<string, string>>;
-  /** The hash of what the plans below this one added and changed; null before stacking was locked. */
-  readonly composed: string | null;
-  /** The hash of the plan.yaml that was checked; null when the lock predates recording it. */
-  readonly plan: string | null;
-}
-
-const lockFile = z.strictObject({
-  checked_on: z.string(),
-  entities: z.record(z.string(), z.string()),
-  bases: z.record(z.string(), z.string()).optional(),
-  programme: z.strictObject({ id: z.string(), hash: z.string() }).nullable().optional(),
-  composed: z.string().nullable().optional(),
-  plan: z.string().nullable().optional(),
-});
+export { readPlanLock } from './plan-lock';
 
 export const issueKey = (issue: Issue): string => `${issue.path}\n${issue.message}`;
 
@@ -96,30 +78,6 @@ export async function readPlanBase(
     base: { collections: collectionsOf(data), mode: 'landed', landedOn },
     own: NOTHING_OWN,
     today: null,
-  };
-}
-
-/** The lock beside a plan; null when it has never been checked against today. */
-export async function readPlanLock(
-  workspace: string,
-  slug: string,
-  root?: string,
-): Promise<PlanLock | null> {
-  const folder = await workspaceFolder(workspace, root);
-  if (folder === null) return null;
-  const file = pathIn(folder, 'plans', slug, 'base.lock.json');
-  const text = await readTextIfAny(file);
-  if (text === null) return null;
-  const result = lockFile.safeParse(JSON.parse(text));
-  if (!result.success) throw new Error(`${file}: ${result.error.message}`);
-  const { data } = result;
-  return {
-    checkedOn: data.checked_on,
-    entities: data.entities,
-    bases: data.bases ?? {},
-    programme: data.programme ?? null,
-    composed: data.composed ?? null,
-    plan: data.plan ?? null,
   };
 }
 

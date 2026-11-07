@@ -3,14 +3,13 @@ import 'server-only';
 import { parse } from 'yaml';
 import type { z } from 'zod';
 
-import { legacyViewOf } from '@/application/legacy-view';
 import type { Domain, System, Workspace } from '@/domain/workspace';
 import { checkWorkspace } from '@/domain/workspace-check';
+import { modelRecord } from '@/domain/workspace-model';
 import { pathIn, listFolder, readText } from '@/infrastructure/disk';
 
-import { readModelIfCanonical } from './canonical-model';
 import { readSystemNarratives } from './system-narratives';
-import { workspaceFolders } from './workspace-folders';
+import { workspaceFolder, workspaceFolders } from './workspace-folders';
 import { untilEdited } from './workspace-memo';
 import { domainFile, systemFile, workspaceFile } from './workspace-schema';
 
@@ -19,16 +18,21 @@ const remembered = untilEdited<readonly Workspace[]>();
 // <workspace>/workspace.yaml          the workspace's own repo; see workspace-folders for where it is
 //   domains/<domain>/domain.yaml
 //     systems/<system>/system.yaml
+/** The retained format-1 verification reader does not project native data. Use registrations for discovery. */
 export async function readWorkspaces(root?: string): Promise<readonly Workspace[]> {
   return remembered(root, 'workspaces', async () => {
-    const found = await workspaceFolders(root);
-    return Promise.all(
-      [...found].map(async ([id, folder]) => {
-        const model = await readModelIfCanonical(id, root);
-        return model === null ? readWorkspace(folder) : legacyViewOf(model).workspace;
-      }),
-    );
+    const registered = await workspaceFolders(root);
+    const workspaces = await Promise.all([...registered.values()].map(readLegacyFolder));
+    return workspaces.flatMap((workspace) => workspace ?? []);
   });
+}
+async function readLegacyFolder(folder: string): Promise<Workspace | null> {
+  const raw: unknown = parse(await readText(pathIn(folder, 'workspace.yaml')));
+  return modelRecord(raw)?.format === 2 ? null : readWorkspace(folder);
+}
+export async function readLegacyWorkspace(id: string, root?: string): Promise<Workspace | null> {
+  const folder = await workspaceFolder(id, root);
+  return folder === null ? null : readLegacyFolder(folder);
 }
 
 async function readWorkspace(folder: string): Promise<Workspace> {

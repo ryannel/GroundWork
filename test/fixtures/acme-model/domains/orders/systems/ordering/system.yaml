@@ -1,0 +1,38 @@
+id: sys:ordering
+name: Ordering
+purpose: Records orders and tells people about them.
+team: team:orders
+components:
+  - id: svc:order-api
+    name: Order API
+    kind: service
+    tech: Kotlin
+    does: Records the order and announces it
+  - id: svc:order-mailer
+    name: Order mailer
+    kind: service
+    does: |-
+      Emails the customer about their order
+
+      Previous workspace classification: job.
+  - id: app:order-desk
+    name: Order desk
+    kind: app
+    form: web
+    tech: React
+    does: Where staff look after orders
+  - id: st:orders-db
+    name: orders-db
+    kind: store
+    form: database
+    tech: Postgres 16
+    does: Orders and their lines
+  - id: top:order-events
+    name: order.events
+    kind: topic
+    form: stream
+    tech: Kafka
+    does: order.placed
+homes:
+  acme-ordering:
+    repo: acme/ordering

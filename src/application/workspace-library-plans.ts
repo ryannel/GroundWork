@@ -23,6 +23,7 @@ export interface PlanBrief {
   readonly title: string;
   readonly href: string;
   readonly group: PlanGroup;
+  readonly groupLabel?: string;
   /** What it is waiting on or how far it has come, in a few words. */
   readonly note: string;
   /** The note names a date already gone. */

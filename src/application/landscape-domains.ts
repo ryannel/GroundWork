@@ -167,16 +167,16 @@ function linksOf(input: LandscapeMapInput): MapLink[] {
   }));
 }
 
-/** The domains among the boxes, once each, in the order met. */
-const domainsIn = (boxes: readonly (string | null)[]): string[] => [
-  ...new Set(boxes.flatMap((box) => (box?.startsWith('domain:') === true ? [box] : []))),
+/** The declared domains among the boxes, once each, in the order met. */
+const domainsIn = (boxes: readonly (string | null)[], domains: ReadonlySet<string>): string[] => [
+  ...new Set(boxes.flatMap((box) => (box !== null && domains.has(box) ? [box] : []))),
 ];
 
 function peopleOf(input: LandscapeMapInput): MapPerson[] {
   const place = placerOf(input);
   return input.actors.map((actor) => {
     const used = input.links.filter((l) => l.from === actor.id).map((l) => place(l.to));
-    return { ...actor, domains: domainsIn(used) };
+    return { ...actor, domains: domainsIn(used, new Set(input.domains.map((d) => d.id))) };
   });
 }
 
@@ -198,7 +198,7 @@ function journeysOf(workspace: Workspace, model: Model, input: LandscapeMapInput
       kind: journey.kind,
       href: journeyHref(workspace.id, journey.key),
       actor,
-      domains: domainsIn(ends.flat()),
+      domains: domainsIn(ends.flat(), new Set(input.domains.map((d) => d.id))),
       lines: [...new Set(lines)],
     };
   });
@@ -207,6 +207,14 @@ function journeysOf(workspace: Workspace, model: Model, input: LandscapeMapInput
 /** The workspace as the map draws it: domains, the people in them, the customer, and the lines between. */
 export function domainMapOf(workspace: Workspace, model: Model): DomainMap {
   const input = landscapeMapInput(workspace, model);
+  return domainMapFrom(input, journeysOf(workspace, model, input));
+}
+
+/** Roll bounded presentation records up to declared domains, without reading or deriving a model. */
+export function domainMapFrom(
+  input: LandscapeMapInput,
+  journeys: readonly MapJourney[],
+): DomainMap {
   const people = peopleOf(input);
   return {
     people,
@@ -219,7 +227,7 @@ export function domainMapOf(workspace: Workspace, model: Model): DomainMap {
       people: people.filter((p) => !p.customer && p.domains.includes(d.id)).map((p) => p.id),
     })),
     links: linksOf(input),
-    journeys: journeysOf(workspace, model, input),
+    journeys,
   };
 }
 

@@ -1,0 +1,24 @@
+id: sys:search
+name: Search
+team: team:catalogue
+components:
+  - id: svc:search-indexer
+    name: Search indexer
+    kind: service
+    does: |-
+      Keeps the search index up to date
+
+      Previous workspace classification: job.
+  - id: svc:search-api
+    name: Search API
+    kind: service
+    tech: Go
+    does: Finds products by words
+  - id: st:search-index
+    name: search-index
+    kind: store
+    form: database
+    tech: OpenSearch
+homes:
+  acme-search:
+    repo: acme/search

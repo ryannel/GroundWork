@@ -16,22 +16,23 @@ import { parseArgs } from 'node:util';
 
 import { isMap, isSeq, parseDocument } from 'yaml';
 
-import { isRecord, prop } from '@/application/plan/ids';
+import type { ModelPlanStanding } from '@/application/model-plan-standing';
+import { modelProgressRecords, type ModelPlanProgress } from '@/application/model-progress';
 import { appendEvent, type ProgressSubjects } from '@/application/plan/progress';
 import type {
   BlockReason,
   Commitment,
   LastHeard,
-  PlanStanding,
   StandingDates,
   WorkProgress,
 } from '@/application/plan/work-standing';
 import type { Progress, ProgressEvent } from '@/domain/plan/plan.generated';
-import { readPlanRaw, readProgress } from '@/infrastructure/plan-store';
-import { planDef, defProblems } from '@/infrastructure/plan-validator';
+import { readCanonicalModelIndex } from '@/infrastructure/model-index';
+import { readModelPlanEntry } from '@/infrastructure/model-plans';
+import { readModelStanding } from '@/infrastructure/model-standing';
+import { planDef, defProblems } from '@/infrastructure/plan-schema';
+import { readProgress } from '@/infrastructure/progress-store';
 import { selectedWorkspace, workspaceFolder } from '@/infrastructure/workspace-folders';
-import { readPlanState } from '@/infrastructure/workspace-plans';
-import { readWorkspaces } from '@/infrastructure/workspace-store';
 
 const { positionals, values } = parseArgs({
   allowPositionals: true,
@@ -57,9 +58,8 @@ async function workspaceId(given: string): Promise<string> {
   const folder = path.resolve(given);
   if (existsSync(path.join(folder, 'workspace.yaml'))) {
     process.env.GROUNDWORK_WORKSPACES = folder;
-    const [workspace] = await readWorkspaces();
-    if (workspace === undefined) throw new Error(`${folder}: no workspace read`);
-    return workspace.id;
+    const selected = await selectedWorkspace();
+    return selected.id;
   }
   const found = await selectedWorkspace(given);
   process.env.GROUNDWORK_WORKSPACES = found.folder;
@@ -92,19 +92,14 @@ function eventFromOptions(): Record<string, unknown> {
   };
 }
 
-function idsIn(raw: unknown, key: string): { readonly id: string }[] {
-  const listed = prop(raw, key);
-  if (!Array.isArray(listed)) return [];
-  return listed.flatMap((each) =>
-    isRecord(each) && typeof each.id === 'string' ? [{ id: each.id }] : [],
-  );
-}
-
 /** The work items and milestones of the plan as written: what its events may be about. */
 async function subjectsOf(workspace: string, slug: string): Promise<ProgressSubjects> {
-  const raw = await readPlanRaw(workspace, slug);
-  if (!isRecord(raw)) throw new Error(`plans/${slug}/plan.yaml cannot be read`);
-  return { work_items: idsIn(raw, 'work_items'), milestones: idsIn(raw, 'milestones') };
+  if ((await readCanonicalModelIndex(workspace)) === null) {
+    throw new Error(`No canonical model for ${workspace}.`);
+  }
+  const selected = await readModelPlanEntry(workspace, slug);
+  if (selected === null) throw new Error(`No native plan ${slug} in ${workspace}.`);
+  return selected.plan;
 }
 
 /** The file with one more event, keeping what is already written (comments included). */
@@ -209,7 +204,7 @@ function printLines(head: string, lines: readonly (string | null)[]): void {
   }
 }
 
-function print(standing: PlanStanding): void {
+function print(standing: ModelPlanStanding): void {
   for (const w of standing.work) {
     printLines(
       `${w.item.id}  ${w.item.title}  [${joined([w.team.name, w.team.partner ? '(partner)' : null])}]`,
@@ -237,19 +232,34 @@ function print(standing: PlanStanding): void {
   for (const c of standing.changes) {
     printLines(
       `${c.change}  ${c.state}`,
-      c.ops.map((op) => `op ${String(op.op)} ${op.target ?? ''}: ${op.state}, ${op.detail}`),
+      c.ops.map((op) => `op ${String(op.op)} ${op.target}: ${op.state}, ${op.detail}`),
+    );
+  }
+}
+
+function printEvents(progress: ModelPlanProgress): void {
+  for (const record of modelProgressRecords(progress)) {
+    printLines(
+      `${record.subject}  ${record.kind}  ${record.state ?? 'no state recorded'}  on ${record.at}`,
+      [
+        when('note: ', record.note),
+        when('said by ', record.saidBy),
+        when('promised for ', record.promisedFor),
+        when('confidence ', record.confidence),
+        when('source: ', record.source),
+        when('source note: ', record.raw.source?.note ?? null),
+      ],
     );
   }
 }
 
 async function show(workspace: string, slug: string): Promise<void> {
-  const state = await readPlanState(workspace, slug);
-  if (state === null) throw new Error(`no plan ${slug} in ${workspace}`);
-  if (state.loaded === null) {
-    for (const issue of state.broken.errors) console.error(`${issue.path}: ${issue.message}`);
-    throw new Error(`${slug} cannot be read; fix it first`);
-  }
-  print(state.loaded.standing);
+  const native = await readModelStanding(workspace, slug);
+  if (native === null) throw new Error(`No canonical plan ${slug} in ${workspace}.`);
+  print(native.standing);
+  printEvents(native.progress);
+  for (const issue of native.problems) console.error(`${issue.path}: ${issue.message}`);
+  if (native.problems.length > 0) process.exitCode = 1;
 }
 
 const [command, given, slug] = positionals;

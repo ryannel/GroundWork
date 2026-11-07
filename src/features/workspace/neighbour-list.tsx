@@ -33,7 +33,7 @@ export function NeighbourList({
   if (neighbours.reaches.length === 0 && neighbours.reachedBy.length === 0) {
     return (
       <p className={styles.none}>
-        {name} works on its own: nothing outside it calls, messages or shares data with it.
+        No outside calls, messages or data exchanges are recorded for {name}.
       </p>
     );
   }

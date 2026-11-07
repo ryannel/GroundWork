@@ -15,6 +15,7 @@ import type {
   KeyTerms,
   TermExample,
   TermFit,
+  ResolvedCites,
 } from '@/domain/workspace-model';
 
 export interface TermRow {
@@ -91,7 +92,7 @@ function closest(term: KeyTerm): TermFit | null {
   return CLOSEST.find((fit) => term.anchors.some((a) => a.fit === fit)) ?? null;
 }
 
-interface Lookup {
+export interface LanguageLookup {
   readonly places: Places;
   readonly keyTerms: KeyTerms;
   readonly nameOf: (id: string) => string | null;
@@ -103,7 +104,7 @@ function lookupOf(
   workspace: Workspace,
   languages: readonly DomainLanguage[],
   keyTerms: KeyTerms,
-): Lookup {
+): LanguageLookup {
   const places = placesOf(workspace, languages);
   const terms = new Map(keyTerms.terms.map((t) => [t.id, t.name]));
   const nameOf = (id: string): string | null =>
@@ -112,12 +113,12 @@ function lookupOf(
   return { places, keyTerms, nameOf, label };
 }
 
-function linkOf(lookup: Lookup, to: string, as: string): TermLink {
+function linkOf(lookup: LanguageLookup, to: string, as: string): TermLink {
   const name = lookup.nameOf(to);
   return { id: name === null ? null : to, name: name ?? to, as };
 }
 
-function namesOf(lookup: Lookup, concept: Concept): TermName[] {
+function namesOf(lookup: LanguageLookup, concept: ResolvedCites<Concept>): TermName[] {
   return (concept.aka ?? []).map((aka) => {
     const where = lookup.places.of(aka.in);
     return {
@@ -129,7 +130,7 @@ function namesOf(lookup: Lookup, concept: Concept): TermName[] {
   });
 }
 
-function keyTermDetail(lookup: Lookup, term: KeyTerm): TermDetail {
+function keyTermDetail(lookup: LanguageLookup, term: KeyTerm): TermDetail {
   const words = term.anchors.flatMap((a) => {
     const word = lookup.places.words.get(a.to);
     return word === undefined ? [] : [word.concept];
@@ -158,7 +159,7 @@ function keyTermDetail(lookup: Lookup, term: KeyTerm): TermDetail {
   };
 }
 
-function wordDetail(lookup: Lookup, concept: Concept): TermDetail {
+function wordDetail(lookup: LanguageLookup, concept: ResolvedCites<Concept>): TermDetail {
   const anchored = lookup.keyTerms.terms.flatMap((t) =>
     t.anchors
       .filter((a) => a.to === concept.id)
@@ -180,7 +181,7 @@ function wordDetail(lookup: Lookup, concept: Concept): TermDetail {
   };
 }
 
-function rowOf(lookup: Lookup, detail: TermDetail, fit: TermFit | null): TermRow {
+function rowOf(lookup: LanguageLookup, detail: TermDetail, fit: TermFit | null): TermRow {
   const domains = [
     ...new Set(
       detail.places.flatMap(({ where }) => (where.domain === null ? [] : [where.domain.id])),
@@ -221,7 +222,19 @@ export function languagePageOf(
   languages: readonly DomainLanguage[],
   keyTerms: KeyTerms,
 ): LanguagePage {
-  const lookup = lookupOf(workspace, languages, keyTerms);
+  return languagePageFrom(
+    lookupOf(workspace, languages, keyTerms),
+    workspace.domains.map((d) => ({
+      id: d.id,
+      name: d.name,
+      href: domainHref(workspace.id, d.id),
+    })),
+  );
+}
+
+/** A language directory needs only term lookups and declared domain places. */
+export function languagePageFrom(lookup: LanguageLookup, domains: readonly Place[]): LanguagePage {
+  const keyTerms = lookup.keyTerms;
   const keys = keyTerms.terms.map((t) => [t, keyTermDetail(lookup, t)] as const);
   const words = [...lookup.places.words.values()].map(({ concept }) => wordDetail(lookup, concept));
   return {
@@ -232,11 +245,7 @@ export function languagePageOf(
       keys.map(([t, detail]) => [t, rowOf(lookup, detail, closest(t))] as const),
     ),
     words: words.map((d) => rowOf(lookup, d, null)).toSorted(byName),
-    domains: workspace.domains.map((d) => ({
-      id: d.id,
-      name: d.name,
-      href: domainHref(workspace.id, d.id),
-    })),
+    domains,
     details: Object.fromEntries([...keys.map(([, d]) => d), ...words].map((d) => [d.id, d])),
     labels: Object.fromEntries([...keys.map(([, d]) => d), ...words].map((d) => [d.id, d.name])),
   };

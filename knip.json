@@ -18,6 +18,8 @@
     "src/**/*.{ts,tsx}",
     "test/**/*.ts",
     "eslint/**/*.mjs",
+    "tools/model-plan-base.ts",
+    "tools/rebuild/consumer-inventory.ts",
     "tools/scan-repository-generated.ts",
     "tools/scan-repository-generated-ncc.ts",
     "tools/scan-protobuf-contracts-io.ts",

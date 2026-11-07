@@ -1,9 +1,9 @@
 import path from 'node:path';
 
-import { buildId, localId, rootId } from '@/domain/ids';
+import { buildId, childId, hasPrefix, localId, rootId } from '@/domain/ids';
 import { modelList, modelRecord, modelText } from '@/domain/workspace-model';
 
-import { convertCitations, type MigrationCitations } from './citations';
+import { convertCitations, migrationCitations, type MigrationCitations } from './citations';
 import type { MigrationFile } from './files';
 import { fingerprint, type MigrationReview } from './review';
 
@@ -114,17 +114,129 @@ function interactionOf(
     },
   };
 }
-function journeyFile(file: MigrationFile): CatalogueFile {
+function declaredFlowSteps(files: readonly MigrationFile[]): ReadonlySet<string> {
+  return new Set(
+    files
+      .filter((file) => file.path.startsWith('flows/'))
+      .flatMap((file) => {
+        const flow = modelRecord(file.value);
+        const id = modelText(flow?.id);
+        if (id === null) return [];
+        return modelList(flow?.steps).flatMap((value) => {
+          const step = modelText(modelRecord(value)?.id);
+          if (step === null) return [];
+          return [rootId(step) === id ? step : childId(id, step)];
+        });
+      }),
+  );
+}
+interface JourneySupport {
+  readonly interaction: string;
+  readonly steps: readonly string[];
+}
+function supportingSteps(interactions: readonly Node[]): readonly JourneySupport[] {
+  return interactions.flatMap((interaction) => {
+    const id = modelText(interaction.id);
+    const steps = modelList(interaction.supporting_steps).flatMap((step) => modelText(step) ?? []);
+    return id === null || steps.length === 0 ? [] : [{ interaction: id, steps }];
+  });
+}
+interface JourneyContext {
+  readonly actors: readonly Node[];
+  readonly flowSteps: ReadonlySet<string>;
+  readonly citations: MigrationCitations;
+  readonly review: MigrationReview;
+}
+function journeyContext(
+  files: readonly MigrationFile[],
+  citations: MigrationCitations,
+  review: MigrationReview,
+): JourneyContext {
+  const workspace = modelRecord(files.find((file) => file.path === 'workspace.yaml')?.value);
+  return {
+    actors: nodes(workspace?.actors),
+    flowSteps: declaredFlowSteps(files),
+    citations,
+    review,
+  };
+}
+function actorOf(
+  value: unknown,
+  journey: string,
+  file: MigrationFile,
+  context: JourneyContext,
+): string | undefined {
+  if (value === undefined) return undefined;
+  const actor = context.actors.find((candidate) => candidate.id === value);
+  if (hasPrefix(actor?.id, 'actor')) return actor.id;
+  const named = context.actors.filter((candidate) => candidate.name === value);
+  const id = named[0]?.id;
+  if (named.length === 1 && hasPrefix(id, 'actor')) return id;
+  context.review.add('placements', `journey/${journey}/actor`, file.text, {
+    sourcePath: file.path,
+    actor: value,
+    reason: 'No unique declared actor matches the recorded journey actor.',
+  });
+  return undefined;
+}
+function journeyFile(file: MigrationFile, context: JourneyContext): CatalogueFile {
+  const { flowSteps, citations, review } = context;
   const data = object(file.value);
-  const name = path.posix.basename(file.path, '.yaml');
-  const label = name.replaceAll('-', ' ');
+  const wrapper = modelRecord(data.journey);
+  const metadata = wrapper ?? data;
+  const authored = object(
+    convertCitations(
+      Object.fromEntries(
+        Object.entries(metadata).filter(([key]) =>
+          ['id', 'name', 'actor', 'summary', 'sources', 'cites'].includes(key),
+        ),
+      ),
+      citations,
+    ),
+  );
+  const slug = path.posix.basename(file.path, '.yaml');
+  const label = slug.replaceAll('-', ' ');
+  const id = buildId('jny', localId(modelText(authored.id) ?? slug));
+  const definitions = nodes(data.interactions);
+  const interactions =
+    wrapper?.interactions === undefined
+      ? definitions.map((node) => node.id)
+      : modelList(wrapper.interactions);
+  const support = supportingSteps(definitions);
+  const byInteraction = new Map(support.map((row) => [row.interaction, row.steps]));
+  const linked = interactions.flatMap(
+    (interaction) => byInteraction.get(String(interaction)) ?? [],
+  );
+  const flows = [
+    ...new Set([
+      ...modelList(metadata.flows),
+      ...linked.filter((step) => flowSteps.has(step)).map(rootId),
+    ]),
+  ];
+  const actor = actorOf(authored.actor, id, file, context);
+  if (wrapper !== null || support.length > 0) {
+    review.add('source-notes', `journey/${id}/source`, file.text, {
+      sourcePath: file.path,
+      sourceText: file.text,
+      declaredActor: authored.actor ?? null,
+      supportingSteps: support,
+      unresolved: linked.filter((step) => !flowSteps.has(step)),
+      reason:
+        'Journey flow links retain only declared supporting steps that resolve in the source. The exact original step references stay in this receipt.',
+    });
+  }
   return {
     path: file.path,
     definition: 'JourneyFile',
     value: {
-      id: buildId('jny', name),
-      name: data.name ?? label.charAt(0).toUpperCase() + label.slice(1),
-      interactions: nodes(data.interactions).map((node) => node.id),
+      id,
+      name: authored.name ?? label.charAt(0).toUpperCase() + label.slice(1),
+      interactions,
+      ...Object.fromEntries(
+        Object.entries(authored).filter(([key]) => ['summary', 'cites'].includes(key)),
+      ),
+      ...(actor === undefined ? {} : { actor }),
+      ...(flows.length === 0 ? {} : { flows }),
     },
   };
 }
@@ -133,6 +245,7 @@ export function migrateCatalogues(
   scopes: readonly CatalogueScope[],
   contracts: ReadonlyMap<string, Node>,
   review: MigrationReview,
+  citations: MigrationCitations = migrationCitations([], review, 'workspace'),
 ): readonly CatalogueFile[] {
   const graphs = graphsOf(scopes);
   const locations = screenLocations(scopes);
@@ -162,5 +275,6 @@ export function migrateCatalogues(
     if (identities.has(id)) throw new Error(`Graph declared more than once: ${id}`);
     identities.add(id);
   }
-  return [...graphs, ...journeys.map(journeyFile), ...updated];
+  const context = journeyContext(files, citations, review);
+  return [...graphs, ...journeys.map((file) => journeyFile(file, context)), ...updated];
 }

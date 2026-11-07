@@ -1,0 +1,41 @@
+summary: A **product** is published in the catalogue and found by search. A
+  customer puts it in a basket, places an **order** and pays; the order is
+  announced and the customer is emailed.
+concepts:
+  - id: con:product
+    name: Product
+    terms:
+      - product
+      - item
+    means: Something Acme sells, known by its SKU.
+    born_in: svc:products
+    origin: curated
+stages:
+  - id: stage:publish
+    name: Publish
+    summary: A product is saved and indexed.
+    services:
+      - svc: svc:products
+      - svc: svc:search-indexer
+        from:
+          - svc:products
+    flows:
+      - flow:publish-product
+    origin: curated
+  - id: stage:buy
+    name: Buy
+    summary: The customer orders and pays.
+    services:
+      - svc: svc:shop-web
+      - svc: svc:shop-bff
+        from:
+          - svc:shop-web
+      - svc: svc:accounts
+        from:
+          - svc:shop-bff
+      - svc: svc:order-api
+      - svc: svc:payments
+    flows:
+      - flow:place-order
+      - flow:cancel-order
+    origin: curated

@@ -3,14 +3,13 @@ import path from 'node:path';
 
 import { buildId } from '@/domain/ids';
 import type { ExplorerCatalogue } from '@/domain/service-explorer';
-import { componentsOf } from '@/domain/workspace';
+import { readCanonicalModelIndex } from '@/infrastructure/model-index';
 import { sourceDigest } from '@/infrastructure/scan/source-index';
 import {
   readCorpusCatalogue,
   readCorpusRepository,
 } from '@/infrastructure/scan-explorer/corpus-catalogue';
 import { parseExplorerCatalogue } from '@/infrastructure/service-explorer-catalogue';
-import { readWorkspaces } from '@/infrastructure/workspace-store';
 
 import { publishCorpusRepository } from './publish-corpus-repository';
 
@@ -24,10 +23,8 @@ const catalogue = await readCorpusCatalogue(catalogueFile);
 const snapshot = sourceDigest(`${catalogue.snapshot}:explorer-corpus-v2`);
 const output = path.resolve(outputRoot, snapshot);
 await mkdir(output, { recursive: true });
-const workspaces = await readWorkspaces();
-const workspace = workspaces.find((item) => item.id === workspaceId);
-if (workspace === undefined) throw new Error('Workspace not registered');
-const components = componentsOf(workspace);
+const model = await readCanonicalModelIndex(workspaceId);
+if (model === null) throw new Error(`A consolidated model is not available for ${workspaceId}.`);
 const selections: ExplorerCatalogue['selections'][number][] = [];
 for (const row of catalogue.repositories) {
   const slug = row.repo.split('/').at(-1) ?? row.repo;
@@ -44,15 +41,13 @@ for (const row of catalogue.repositories) {
     selections.push(...parsed.selections);
   } else if (selectedRepo === undefined || slug === selectedRepo) {
     const detail = await readCorpusRepository(catalogue.root, row);
-    const component = components.find(
-      (item) => item.id === buildId('svc', slug) || item.id === slug,
-    );
+    const component = model.get(buildId('svc', slug)) ?? model.get(slug);
     const selection = await publishCorpusRepository(detail, {
       root: catalogue.root,
       output,
       workspace: workspaceId,
       snapshot,
-      name: component?.name ?? slug,
+      name: component === null ? slug : model.label(component.id),
     });
     selections.push(selection);
     await writeFile(checkpoint, JSON.stringify(selection));

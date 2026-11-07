@@ -5,7 +5,7 @@ import type { RealisationState } from '@/application/plan/realisation';
 import type { Inherited } from '@/application/plan/stack-base';
 import type { PlanStanding, WorkStanding } from '@/application/plan/work-standing';
 import { planHref } from '@/application/plan-pages';
-import { thingHref } from '@/application/plan-pages-things';
+import { thingHref } from '@/application/thing-paths';
 import { programmeHref } from '@/application/workspace-paths';
 import { issueUrlOf } from '@/domain/code-links';
 import { inIdScope, withoutIdScope, scopedId, qualifyId, hasPrefix, rootId } from '@/domain/ids';

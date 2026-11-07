@@ -199,6 +199,7 @@ describe('authored landscape layout', () => {
       nodes.get('browse')!.x - nodes.get('offers')!.x,
     );
     expect(view.nodes.filter((node) => node.x === nodes.get('fleet')!.x)).toHaveLength(3);
+    expect(view).toMatchSnapshot('joins, directed paths and label placement');
   });
 
   it('pulls a whole short branch towards a join without stretching its internal connections', () => {
@@ -261,4 +262,18 @@ describe('authored landscape layout', () => {
     expect(view.nodes[3]!.y).toBeGreaterThan(view.nodes[0]!.y);
     expect(view.nodes[3]!.y + view.nodes[3]!.height).toBeLessThan(view.height);
   });
+});
+
+it('draws canonical area identities at the existing route and keeps absent review metadata visible', () => {
+  const view = areaLandscapeOf(
+    { id: 'model-fixture', name: 'Model fixture' },
+    {
+      areas: [{ id: 'area:orders', name: 'Orders', purpose: 'Confirm purchases' }],
+    },
+  );
+  expect(view.nodes[0]).toMatchObject({ id: 'area:orders', href: '/model-fixture/areas/orders/' });
+  expect(view.facts).toContain('Review date not recorded');
+  expect(view.scope).toBe('Scope not recorded.');
+  expect(view.limitation).toBe('Limitations not recorded.');
+  expect(view).toMatchSnapshot('native address and missing review fields');
 });

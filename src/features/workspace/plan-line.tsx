@@ -3,7 +3,7 @@ import {
   STAGE_WORDS,
   type PlanRow,
   type PlanStage,
-} from '@/application/plan-index';
+} from '@/application/plan-list';
 import { plural } from '@/shared/text';
 import { Badge, type BadgeTone } from '@/ui/badge';
 import { Button } from '@/ui/button';
@@ -24,12 +24,28 @@ const TONES: Readonly<Record<PlanStage, BadgeTone>> = {
 const CHECK_WORDS: Readonly<Record<Exclude<PlanCheckState, null>, string>> = {
   never: 'Never checked',
   edited: 'Edited since its check',
+  recheck: 'Recheck after migration',
 };
 
 const CHECK_TITLES: Readonly<Record<Exclude<PlanCheckState, null>, string>> = {
   never: 'This plan has never been checked against today; run npm run plan:base -- check',
   edited: 'This plan has changed since it was last checked; run npm run plan:base -- check',
+  recheck: 'The previous check used the earlier model; run npm run plan:base -- check',
 };
+
+function CheckBadge({ row }: { readonly row: PlanRow }) {
+  if (row.check === null) return null;
+  const detail = CHECK_TITLES[row.check];
+  const title =
+    row.previousCheckedOn === undefined
+      ? detail
+      : `Previously checked on ${row.previousCheckedOn}. ${detail}`;
+  return (
+    <span title={title}>
+      <Badge tone="deprecated">{CHECK_WORDS[row.check]}</Badge>
+    </span>
+  );
+}
 
 interface RowProps {
   readonly row: PlanRow;
@@ -83,10 +99,11 @@ export function PlanLine({ row, nameOf, onDomain, here }: RowProps) {
               {row.date ?? '—'}
             </Text>
           </span>
-          {row.check === null ? null : (
-            <span title={CHECK_TITLES[row.check]}>
-              <Badge tone="deprecated">{CHECK_WORDS[row.check]}</Badge>
-            </span>
+          <CheckBadge row={row} />
+          {row.progressUnknown === undefined || row.progressUnknown === 0 ? null : (
+            <Text size="sm" tone="muted">
+              {plural(row.progressUnknown, 'work item')} with unknown GitHub state
+            </Text>
           )}
           {row.workItems === 0 ? (
             <Text size="sm" tone="faint">
@@ -97,6 +114,7 @@ export function PlanLine({ row, nameOf, onDomain, here }: RowProps) {
               <ProgressBar label={`${row.title}: work done`} max={row.workItems} value={row.done} />
               <Text size="sm">
                 {row.done} of {plural(row.workItems, 'work item')}
+                {row.progressUnknown === undefined ? '' : ' recorded closed'}
               </Text>
             </span>
           )}

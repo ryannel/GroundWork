@@ -1,5 +1,5 @@
 import { spawnSync } from 'node:child_process';
-import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import { cp, mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
 import { afterAll, describe, expect, it } from 'vitest';
@@ -48,11 +48,12 @@ async function fixture(name: string): Promise<{ cwd: string; company: string }> 
     mkdir(company, { recursive: true }),
   ]);
   await Promise.all([
+    cp(path.join(home, 'schema'), path.join(cwd, 'schema'), { recursive: true }),
     writeFile(
       path.join(cwd, 'workspaces/personal/workspace.yaml'),
-      'id: personal\nname: Personal\n',
+      'format: 2\nid: personal\nname: Personal\n',
     ),
-    writeFile(path.join(company, 'workspace.yaml'), 'id: company\nname: Company\n'),
+    writeFile(path.join(company, 'workspace.yaml'), 'format: 2\nid: company\nname: Company\n'),
     writeFile(path.join(cwd, 'groundwork.local.yaml'), 'workspaces: [../company-model]\n'),
   ]);
   return { cwd, company };
@@ -124,7 +125,7 @@ describe('workspace commands', () => {
     const { cwd, company } = await fixture('explicit');
     const result = run('map', ['repos', '--workspace', 'company'], cwd);
     expect(result.status).toBe(0);
-    expect(JSON.parse(result.stdout)).toEqual([]);
+    expect(JSON.parse(result.stdout)).toEqual({ homes: [], repositories: [] });
     expect(result.stderr).toContain(`Workspace: Company (company) at ${company}`);
   });
 
@@ -132,7 +133,7 @@ describe('workspace commands', () => {
     const { cwd } = await fixture('duplicate');
     const copy = path.join(cwd, '..', 'copy');
     await mkdir(copy, { recursive: true });
-    await writeFile(path.join(copy, 'workspace.yaml'), 'id: company\nname: Copy\n');
+    await writeFile(path.join(copy, 'workspace.yaml'), 'format: 2\nid: company\nname: Copy\n');
     const config = path.join(cwd, 'groundwork.local.yaml');
     const before = await readFile(config, 'utf8');
     const result = run('workspace', ['add', copy], cwd);

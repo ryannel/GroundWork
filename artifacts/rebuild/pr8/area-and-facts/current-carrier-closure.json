@@ -1,0 +1,86 @@
+{
+  "handlerEffectEvidence": "volvo-lineage.json.gz and node-preservation-audit.json.gz retain all7533 original effects. Small examples had0handler effects.",
+  "receipt": [
+    {
+      "counts": {
+        "callers": 0,
+        "componentEdges": 1,
+        "messages": 0,
+        "storeAccess": 3,
+        "systemEdges": 1
+      },
+      "derived": {
+        "file": "facts-f67fe0a2f398ce8846a9.json.gz",
+        "sha256": "aaea48505cf87b89957a37b90b0d7d4daf71e9b6e4fef3b07a997439dc92e7e0"
+      },
+      "folder": ".workspaces/rebuild/pr8/area-audit/personal-facts-history",
+      "issues": {
+        "callers": [],
+        "componentEdges": [],
+        "messages": [],
+        "storeAccess": [],
+        "systemEdges": []
+      },
+      "model": {
+        "file": "facts-ff795bb7beb89253c898.json.gz",
+        "sha256": "e50fd9dbf39bdab9622dc9bad3a70c38948f019c1d8a394b662c2d06ad7db472"
+      },
+      "proofSha256": "208f65555be15a4affc06f79acf487a46b8f5dda7a10df65d676cc0e51f0975d",
+      "workspace": "personal"
+    },
+    {
+      "counts": {
+        "callers": 14,
+        "componentEdges": 15,
+        "messages": 12,
+        "storeAccess": 15,
+        "systemEdges": 15
+      },
+      "derived": {
+        "file": "facts-f67fe0a2f398ce8846a9.json.gz",
+        "sha256": "d28ddac06339bb5c0b6ac3df34c9e27eec677f5ab2fc577d3750dcd20a6d7e8c"
+      },
+      "folder": ".workspaces/rebuild/pr8/area-audit/acme-facts-history",
+      "issues": {
+        "callers": [],
+        "componentEdges": [],
+        "messages": [],
+        "storeAccess": [],
+        "systemEdges": []
+      },
+      "model": {
+        "file": "facts-ff795bb7beb89253c898.json.gz",
+        "sha256": "ffb831b893c1c5d76aaf3d39fb29a4a16110c456c2c95fea389ce9cd2bb99a9d"
+      },
+      "proofSha256": "9c1d8f83ce970d42344223ba91ed4f5bf2db8d9fb484e7ef58e06a7475e4f21d",
+      "workspace": "acme"
+    },
+    {
+      "counts": {
+        "callers": 7017,
+        "componentEdges": 1693,
+        "messages": 1249,
+        "storeAccess": 493,
+        "systemEdges": 1693
+      },
+      "derived": {
+        "file": "facts-f67fe0a2f398ce8846a9.json.gz",
+        "sha256": "9c4fee4daa5dc0d38e81dd30492c766df1243982d453e906b5dadba523be5f92"
+      },
+      "folder": ".workspaces/rebuild/pr8/area-audit/volvo-cars-facts-history",
+      "issues": {
+        "callers": [],
+        "componentEdges": [],
+        "messages": [],
+        "storeAccess": [],
+        "systemEdges": []
+      },
+      "model": {
+        "file": "facts-ff795bb7beb89253c898.json.gz",
+        "sha256": "006cb5b84b6e5af430962308ea60c098627aa59fdf71668ce632d6f38a173721"
+      },
+      "proofSha256": "f244687f3c317c51d13003176de43b2c5605e9131fd58e89212fcf1d5fb01741",
+      "workspace": "volvo-cars"
+    }
+  ]
+}

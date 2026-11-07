@@ -47,7 +47,7 @@ interface Spec {
 const flowOf = (stepId: string): string => rootId(stepId);
 
 /** Which service card each topic and store hangs under: its owner, else the first thing that uses it. */
-function hostsOf(input: SystemMapInput): Map<string, string> {
+function inferredHostsOf(input: SystemMapInput): Map<string, string> {
   const svcIds = new Set(input.services.map((s) => s.id));
   const hosts = new Map<string, string>();
   for (const store of input.stores) {
@@ -60,6 +60,22 @@ function hostsOf(input: SystemMapInput): Map<string, string> {
     if (host !== null) hosts.set(store.id, host);
   }
   return hosts;
+}
+
+/** Explicit native placement never borrows the first user's containing system. */
+function hostsOf(input: SystemMapInput): Map<string, string> {
+  const placement = input.placement;
+  if (placement === undefined) return inferredHostsOf(input);
+  const services = new Set(input.services.map((node) => node.id));
+  return new Map(
+    input.stores.flatMap((store) => {
+      const system = placement[store.id];
+      const owner = store.owner;
+      const knownOwner = owner !== null && services.has(owner) && placement[owner] === system;
+      const host = knownOwner ? owner : system;
+      return host === undefined || host === null ? [] : [[store.id, host] as const];
+    }),
+  );
 }
 
 interface RowOn {
@@ -197,6 +213,7 @@ function dataEdge(acc: Acc, e: Edge): void {
     kind: 'data',
     a: e.from,
     b: e.to,
+    ...(acc.input.placement === undefined ? {} : { via: e.via }),
     steps: e.steps,
     rw: { read: e.read, write: e.write },
   });
@@ -293,7 +310,10 @@ export function aggregate(input: SystemMapInput, show: MapShow): Aggregate {
   const topics = new Set(input.stores.filter((s) => s.topic).map((s) => s.id));
   const sink = collect(input.services.map((s) => s.id));
   const isTopic = (id: string): boolean => topics.has(id);
-  const svcIds = new Set(input.services.map((s) => s.id));
+  const svcIds = new Set([
+    ...input.services.map((s) => s.id),
+    ...(input.placement === undefined ? [] : input.systems.map((system) => system.id)),
+  ]);
   const acc: Acc = { ...sink, hostOfSat, isTopic, svcIds, show, input };
   fromEdges(acc);
   fromSteps(acc);

@@ -3,7 +3,7 @@ import { act, cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { Suspense } from 'react';
 import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
 
-import { planReaderOf } from '@/application/plan-pages-things';
+import { planReaderOf } from '@/application/thing-paths';
 import { todayReaderOf, type Reader } from '@/application/today-reader';
 import type { Plan } from '@/domain/plan/plan.generated';
 

@@ -1,0 +1,21 @@
+
+> groundwork@0.0.0 check:quick
+> node --import ./tools/register.ts tools/checks/quick.ts src/app/[workspace]/things src/app/[workspace]/programmes src/app/[workspace]/workspace-catalogues.test.tsx src/features/plan/model-plan-record.tsx src/features/plan/model-workspace-work.tsx src/features/plan/inspector.client.test.tsx
+
+Checking 8 task files.
+Checking formatting...
+All matched files use Prettier code style!
+Format: 0.2s
+Lint: 10.7s
+Types: 3.6s
+
+ RUN  v5.0.4 /Users/RNEL/.codex/worktrees/rebuild-pr8/groundWork
+
+
+ Test Files  9 passed (9)
+   Affected  9 of 437 test files (related to 8 files)
+      Tests  50 passed (50)
+   Start at  10:47:06
+   Duration  1.98s (import 44%, environment 38%, tests 16%, setup 1%, transform 1%)
+
+Related tests: 3.4s

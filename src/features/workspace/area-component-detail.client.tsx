@@ -1,7 +1,11 @@
 'use client';
 
 import { componentKind } from '@/application/area-map/component-summary';
-import type { AreaComponentView, AreaEndpointView } from '@/application/workspace-area';
+import type {
+  AreaBoundaryView,
+  AreaComponentView,
+  AreaEndpointView,
+} from '@/application/workspace-area';
 import { Badge } from '@/ui/badge';
 import { Button } from '@/ui/button';
 import { Chip } from '@/ui/chip';
@@ -241,15 +245,68 @@ function ComponentApi({
   );
 }
 
+function cardKind(component: AreaComponentView, boundary: AreaBoundaryView | undefined): string {
+  if (boundary === undefined) return componentKind(component);
+  return boundary.boundaryKind === 'system' ? 'System boundary' : 'External boundary';
+}
+function detailsLabel(
+  component: AreaComponentView,
+  boundary: AreaBoundaryView | undefined,
+): string {
+  if (boundary !== undefined) return 'Open boundary details →';
+  return component.modelKind === undefined
+    ? 'Open complete component scan →'
+    : 'Open source details →';
+}
+function NativeFacts({
+  component,
+  boundary,
+}: {
+  readonly component: AreaComponentView;
+  readonly boundary: AreaBoundaryView | undefined;
+}) {
+  return (
+    <>
+      {boundary?.gaps.map((message) => (
+        <CanvasInspectorSection key={message}>
+          <Text tone="muted">{message}</Text>
+        </CanvasInspectorSection>
+      ))}
+      {(component.entries ?? []).length === 0 ? null : (
+        <CanvasInspectorSection>
+          <Text weight="strong">Other entries</Text>
+          {component.entries?.map((entry) => (
+            <TextLink key={entry.id} href={entry.href}>
+              {entry.kind}: {entry.name}
+            </TextLink>
+          ))}
+        </CanvasInspectorSection>
+      )}
+      {(component.citations ?? []).length === 0 ? null : (
+        <CanvasInspectorSection>
+          <Text weight="strong">Source evidence</Text>
+          {component.citations?.map((cite) => (
+            <TextLink key={cite.href} href={cite.href}>
+              {cite.label}
+            </TextLink>
+          ))}
+        </CanvasInspectorSection>
+      )}
+    </>
+  );
+}
+
 /** A readable component inspector; selecting it never changes the geometry or scale of the map. */
 export function AreaComponentDetail({
   component,
+  boundary,
   endpoint: endpointId,
   onClose,
   onSelectEndpoint,
   usedBy,
 }: {
   readonly component: AreaComponentView;
+  readonly boundary?: AreaBoundaryView | undefined;
   readonly endpoint: string | undefined;
   readonly onClose: () => void;
   readonly onSelectEndpoint: (id: string) => void;
@@ -261,7 +318,7 @@ export function AreaComponentDetail({
       footer={
         component.explorer === null ? null : (
           <TextLink href={component.explorer} tone="quiet">
-            Open complete component scan →
+            {detailsLabel(component, boundary)}
           </TextLink>
         )
       }
@@ -269,7 +326,7 @@ export function AreaComponentDetail({
         <Cluster spread>
           <Stack gap={1}>
             <Cluster gap={1}>
-              <Badge tone="accent">{componentKind(component)}</Badge>
+              <Badge tone="accent">{cardKind(component, boundary)}</Badge>
               <Text as="h3" weight="strong">
                 {component.name}
               </Text>
@@ -295,6 +352,7 @@ export function AreaComponentDetail({
         </Cluster>
       }
     >
+      <NativeFacts component={component} boundary={boundary} />
       {endpoint === undefined ? null : <EndpointDetail endpoint={endpoint} />}
       <ComponentApi component={component} endpoint={endpointId} onSelect={onSelectEndpoint} />
       <ComponentUsers component={component} users={usedBy} />

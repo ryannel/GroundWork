@@ -2,9 +2,10 @@
 
 import { use, useMemo, useState, useTransition } from 'react';
 
-import { thingAt, topThingIds } from '@/application/plan-pages-things';
+import { topThingIds } from '@/application/plan-pages-things';
+import { thingAt } from '@/application/thing-paths';
 import type { Reader } from '@/application/today-reader';
-import { pendingModel } from '@/features/plan/plan-model';
+import { pendingLegacyModel } from '@/features/plan/legacy-plan-model';
 
 import { InspectorBar } from './inspector-bar.client';
 import { ThingView } from './thing-view.client';
@@ -20,11 +21,11 @@ interface ThingProps {
 // What the inspector shows for one id: the bar, the version it is read at, then the thing. A new id remounts it,
 // so the switch starts on the plan, at the version being read, each time. Today has no versions.
 export function Thing({ id, reader }: ThingProps) {
-  const head = use(pendingModel(reader.modelSrc).model);
+  const head = use(pendingLegacyModel(reader.modelSrc).model);
   const [version, setVersion] = useState<string | null>(null);
   const [, startTransition] = useTransition();
   const shown =
-    version === null ? head : use(pendingModel(revisionSrc(reader.modelSrc, version)).model);
+    version === null ? head : use(pendingLegacyModel(revisionSrc(reader.modelSrc, version)).model);
   const page = useMemo(() => {
     const own = reader.pages?.[id];
     if (own !== undefined) return own;
@@ -47,7 +48,9 @@ export function Thing({ id, reader }: ThingProps) {
   return (
     <>
       <InspectorBar id={id} model={head} page={page} />
-      {reader.mode === 'plan' ? <VersionJump model={head} onChange={jump} value={version} /> : null}
+      {reader.mode === 'plan' ? (
+        <VersionJump plan={head.plan} onChange={jump} value={version} />
+      ) : null}
       {shown === null ? (
         <p className={styles.note}>{`No copy of version ${version ?? ''} was kept.`}</p>
       ) : (

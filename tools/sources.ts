@@ -1,8 +1,7 @@
 // Is every fact in a workspace's system model attributed to the code that proves it?
 //   node tools/sources.ts workspaces/<ws> [--missing] [--check]   report; exits 1 on errors (or unreachable sources)
 //   node tools/sources.ts workspaces/<ws> --index [--repo org/name] JSON: each fact with its sources, for scan tools
-// A fact is any object with an `id` in a system's system.yaml, contracts.yaml or handlers.yaml, or in flows/ and
-// journeys/. Sources on things without an id (handler steps, fields) belong to the fact that holds them.
+// Consolidated workspaces use the model index. The format-1 scan-mark workflow still reads authored YAML.
 // A source is { repo, path, lines, commit, symbol? }, as schema/plan.schema.json defines it; a bare `url` is the
 // older form, still read and reported as a warning. A fact with `origin: documented` cites documents instead:
 // { url, pointer? or heading?, version? }, read where they live, so it is attributed without code.
@@ -255,7 +254,7 @@ function fileLength(source: Located): number | undefined {
   return run.status === 0 ? run.stdout.split('\n').length : undefined;
 }
 
-function unreachable(facts: readonly Fact[]): string[] {
+export function unreachable(facts: readonly Pick<Fact, 'id' | 'sources'>[]): string[] {
   const lengths = new Map<string, number | undefined>();
   const out: string[] = [];
   for (const fact of facts) {
@@ -307,15 +306,57 @@ function report(facts: readonly Fact[], check: boolean): number {
   return errors;
 }
 
+async function nativeId(folder: string): Promise<string | null> {
+  try {
+    const header: unknown = parse(await readFile(path.join(folder, 'workspace.yaml'), 'utf8'));
+    if (!isObject(header) || header.format !== 2) return null;
+    if (typeof header.id !== 'string') throw new Error(`${folder}: workspace id is missing`);
+    return header.id;
+  } catch (error) {
+    if (error instanceof Error && 'code' in error && error.code === 'ENOENT') return null;
+    throw error;
+  }
+}
+
+function runNative(folder: string, id: string, args: readonly string[]): void {
+  const tools = import.meta.dirname;
+  const run = spawnSync(
+    process.execPath,
+    [
+      '--import',
+      path.join(tools, 'register.ts'),
+      '--conditions=react-server',
+      path.join(tools, 'sources-model.ts'),
+      folder,
+      id,
+      ...args,
+    ],
+    { cwd: path.dirname(tools), stdio: 'inherit' },
+  );
+  if (run.error !== undefined) throw run.error;
+  process.exitCode = run.status ?? 1;
+}
+
 async function main(argv: readonly string[]): Promise<void> {
-  const workspace = argv.find((arg) => !arg.startsWith('--'));
+  const workspaceAt = argv.findIndex((arg) => !arg.startsWith('--'));
+  const workspace = argv[workspaceAt];
   if (workspace === undefined) {
     console.error(
       'usage: node tools/sources.ts workspaces/<ws> [--missing] [--check] [--index [--repo org/name]]',
     );
     process.exit(2);
   }
-  const facts = await workspaceFacts(path.resolve(workspace));
+  const folder = path.resolve(workspace);
+  const id = await nativeId(folder);
+  if (id !== null) {
+    runNative(
+      folder,
+      id,
+      argv.filter((_, at) => at !== workspaceAt),
+    );
+    return;
+  }
+  const facts = await workspaceFacts(folder);
   if (argv.includes('--index')) {
     const repo = argv[argv.indexOf('--repo') + 1];
     const picked = argv.includes('--repo')

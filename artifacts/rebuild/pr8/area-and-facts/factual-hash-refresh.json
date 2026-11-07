@@ -1,0 +1,488 @@
+{
+  "causeReceipts": [
+    "graphql-argument-restoration.json",
+    "historical-team-and-proposal-restoration.json"
+  ],
+  "format": 1,
+  "independentStanding": "79f056606403577fa302c50d8659e4400d4d5a1c469e15ddf02dddabc99f3157",
+  "refresh": [
+    {
+      "after": "fb583c320efc75b4f2fa8e1ecf83c5824b6fc7a8e2d021c63756569a6d4f7c54",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts-ff795bb7beb89253c898.json.gz",
+      "path": "",
+      "previousAfter": "9722a0081357d6457763d3733a830b76808bf8b9681feffabe8a39b38f57438a",
+      "workspace": "acme"
+    },
+    {
+      "after": "25ab440cc28d32b1fb921d3c890f28d95dc99c1714643e3dd93b4229529f386f",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts.json.gz",
+      "path": "/current",
+      "previousAfter": "04f27b3398040b2adc2a9de3313ce864f555af10da0e946296d8d4f4eb6bffc4",
+      "workspace": "acme"
+    },
+    {
+      "after": "47e41b91b35d0d4a6d31446328efcd80ba8cf6b836a334aa771eba266a7e39fd",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts-ff795bb7beb89253c898.json.gz",
+      "path": "",
+      "previousAfter": "58a39240defd91ff31ecc50548a6f9b13df95d9e011c16b44f6c585906577c16",
+      "workspace": "personal"
+    },
+    {
+      "after": "c84f5f671f0bf76e4732974353ce4821fb2e66b4d002727dec78e2f7f1ad1e93",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts.json.gz",
+      "path": "/current",
+      "previousAfter": "b8b12066cbc0b7268072d1e8606bc2ac13fb32cab3ebfbec29ff6971fe2a9d96",
+      "workspace": "personal"
+    },
+    {
+      "after": "323e62858d2662ad499c03f5ec69089cff9d279813472175c3026f53ac782b6d",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts-05d651fef9d5075cea17.json.gz",
+      "path": "",
+      "previousAfter": "6b003f9dcfd0be7f8e9843ec54a079a07c362d9726d2d509eb94dcf70cc4218a",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "4f74056ba8c873d4cb4a42a9cfafadb99fa58b3e87d36ceb5204aaa213fa2540",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts-25f8149a3dc82d9d4db9.json.gz",
+      "path": "",
+      "previousAfter": "f7b847ba584d6cfb37c77c2e2950a089122da54a78ffefc2737d415d8d744901",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "09bf22c9c6bc1f1566961cabfeb0994fbec56a3d129fc2d0d8d8a2ecc260aae5",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts-307a96daddfc9fa901e0.json.gz",
+      "path": "",
+      "previousAfter": "24bdb63fd60a893a13ab296b4005040801b34d85efe8ef8fff3c54124deef065",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "9c5da07752ff3b95203f39d93ab590e2bab31eb74cc2db9daf63617a738379d7",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts-31f02872dd9f171b23f0.json.gz",
+      "path": "",
+      "previousAfter": "a0e54d6fb900b3108b61aa6b050e72bcd87f4ef1ace3d27e2a698ff0ad6b8f45",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "a2ce3a2072b13c9b31a1343bef0bbffb25c353fe53fb9771d90fbce380c06b70",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts-3603482bd9417131fd2e.json.gz",
+      "path": "",
+      "previousAfter": "fc8479444255aac75528a524979d1cdd440c051eb007dadcb9f6874adefaf932",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "78e5f0256426faf7ae8198a96051baeab53e89fecc2d7cd3b6d7f8227ce4f71e",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts-3f78bc75f017c2f1c175.json.gz",
+      "path": "",
+      "previousAfter": "5dd367c7a1f0dc77be25119a683e494441df71aeb41aef3c22d390cc7993aa2f",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "f85d34226d5f2febf36073837ba9f81ec8dc83ef92ce7af199d645bf985d48f2",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts-406ad541a8bf91380160.json.gz",
+      "path": "",
+      "previousAfter": "6fbbf887aeb5017f24977aa952f2b487c0e2e952a2e5fa93fe62babfef923a44",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "9a5e2a4eab0e6ff7ef08f82b055c8950359b1620766795b98e3c06ccd260c8a3",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts-4f8b0e03897a4531b523.json.gz",
+      "path": "",
+      "previousAfter": "6b4d24fe891903d1ee9ff58e4778f4f3b8e06b72fbc9eb54f3ff504b81de2a44",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "d6abcc7de89360805e0b635edb08ad255d9891f520102ada349d1b0b9c9dad81",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts-501f1dac339e9f68fc9f.json.gz",
+      "path": "",
+      "previousAfter": "70efec84c7cc69c7bf007b9d8f2b589dc3839cb0bdc79990e53d8f0621eb634f",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "ac3fc3752b5593571c557a9f671204eba18437aa24800b46885fce0382d7216f",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts-740cd6b0b6e82eb73427.json.gz",
+      "path": "",
+      "previousAfter": "ebd4cf122f7f9b17d1ddafb27d7f89731bf758d8222363facf692243bce0d5ab",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "c84428deefb181388b940b0876afce370b23e2036f1a326705b293aa4e049890",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts-843ac4303ffb731a438b.json.gz",
+      "path": "",
+      "previousAfter": "d099d6703deddf190efbc016e5313a139db1b814859c72475e1258dec44c91cf",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "ebc3978bd87c6b4b8e4ad01599c283d0aab84ca632bdaae1b24c0948428302bc",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts-86205f50993b423a636c.json.gz",
+      "path": "",
+      "previousAfter": "eea40afee84b003fb5fb3a00f52a4c08342b6d8df5290a7aaa0ff72aae44fb59",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "9a5e2a4eab0e6ff7ef08f82b055c8950359b1620766795b98e3c06ccd260c8a3",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts-90667743840a9cb7107a.json.gz",
+      "path": "",
+      "previousAfter": "6b4d24fe891903d1ee9ff58e4778f4f3b8e06b72fbc9eb54f3ff504b81de2a44",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "a890079291ec2d6f0413435676d9c3cdaa55257e4cf336293826c66b104d9585",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts-98b407f9586a90cd3885.json.gz",
+      "path": "",
+      "previousAfter": "2392400084e86c938049c06bc349f6a0bef173190ee0dc8ff62a6571a869a36e",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "f284aa017398fc68515f9a8006e20d0d8243e62a2b62ab67f7584654eb69f984",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts-997f33ab2456ca467efb.json.gz",
+      "path": "",
+      "previousAfter": "3adbc7d41d2e646b0116a477a72c75628c5847998f454bcb0cad37f1449e49d3",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "f85d34226d5f2febf36073837ba9f81ec8dc83ef92ce7af199d645bf985d48f2",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts-9cfebbcce7b416099925.json.gz",
+      "path": "",
+      "previousAfter": "6fbbf887aeb5017f24977aa952f2b487c0e2e952a2e5fa93fe62babfef923a44",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "95409f996e0fa70db3de1596769256a94a89094f9097dadd9f62aa026c2c0a45",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts-afb24793985148f036f7.json.gz",
+      "path": "",
+      "previousAfter": "2acb1cad12dd7af6432f3930c55c1898d098243af1ab54e783c5627b3e5a133d",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "f85d34226d5f2febf36073837ba9f81ec8dc83ef92ce7af199d645bf985d48f2",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts-b3e390c9339353c72f8f.json.gz",
+      "path": "",
+      "previousAfter": "6fbbf887aeb5017f24977aa952f2b487c0e2e952a2e5fa93fe62babfef923a44",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "c5b017ff950511d406b73f4d2e0efc2b561408b24213f25f770f89b89dd159fd",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts-b553df7478757752406e.json.gz",
+      "path": "",
+      "previousAfter": "af25057fda1fdefd47624af7982bc3c68f5f7785f2f5a2599e685e718a24d838",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "9c5da07752ff3b95203f39d93ab590e2bab31eb74cc2db9daf63617a738379d7",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts-c823a5841567c5c3b511.json.gz",
+      "path": "",
+      "previousAfter": "a0e54d6fb900b3108b61aa6b050e72bcd87f4ef1ace3d27e2a698ff0ad6b8f45",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "a696a139bac3fa958cd74387be0365f7cb9c6dfae37f04bb27fea878c5b4656f",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts-c93f384036520f825ebb.json.gz",
+      "path": "",
+      "previousAfter": "32988c420062323c793540c73c381dba1b13ce4e837592a16b64ff54c67e9310",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "403e9b3ad27c69ac6a0327ace6dbd467a9a8113cb304ea5db681770fda366be1",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts-ce0ff614e765a1eb0efa.json.gz",
+      "path": "",
+      "previousAfter": "e9b02ec75dd7993882331a3f5fa7f0dd85961f7395da84eed4659cc15b819205",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "edbb1db64e36beed8adfe537b4f336fff0cd6d9ae3e62eb320bbb501bd2444b2",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts-e062ba158c5fb9c8540c.json.gz",
+      "path": "",
+      "previousAfter": "2a43243790ebaacc1ce4ca37870f558a3da9ba5e2413efd14f4e54023936a079",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "09bf22c9c6bc1f1566961cabfeb0994fbec56a3d129fc2d0d8d8a2ecc260aae5",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts-e214377a6f9bff851f0b.json.gz",
+      "path": "",
+      "previousAfter": "24bdb63fd60a893a13ab296b4005040801b34d85efe8ef8fff3c54124deef065",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "ded8897685058f5e7d7a1726c0628c40e2dfc684d81210503985e40bab99e301",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts-e224182301a74b15f1a1.json.gz",
+      "path": "",
+      "previousAfter": "f2fdf9e80d44af0b68a2b08ea1861d7a046ae89cda49a4046414edc81fef4734",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "f85d34226d5f2febf36073837ba9f81ec8dc83ef92ce7af199d645bf985d48f2",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts-e24581dd368847daf73c.json.gz",
+      "path": "",
+      "previousAfter": "6fbbf887aeb5017f24977aa952f2b487c0e2e952a2e5fa93fe62babfef923a44",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "92b8b6d302cdf3ec40ee4544185d2e7ee1fba6a8d9cc45a4df6d2f326de2c7a3",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts-ea20ffa3c47ecc73529e.json.gz",
+      "path": "",
+      "previousAfter": "83da4bf69585dbcb06c91f703f985a74c8dbd08baf79fb1b6f3e64d195402b6c",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "ed8b227b533ed4460a7b13c5df0749a4a0abede24625618879815aa703025398",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts-eb1b0771e0c53f5db8e8.json.gz",
+      "path": "",
+      "previousAfter": "1bae201ba9f24fc10d9355c26e250f9deb70500df55399a1a1ec7032182fde2b",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "274f646b3d802b53fc0d1f0514aa0ae5b3f3b2f69702e90f2d2ea736f6a43dea",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts-fa4bffced31462c523a9.json.gz",
+      "path": "",
+      "previousAfter": "73a7f001b73d69e55cc4e09b0b8a32384a44e271084d2187cdea69b099aedfbc",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "9c5da07752ff3b95203f39d93ab590e2bab31eb74cc2db9daf63617a738379d7",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts-fb87bf5bc7e705bdea44.json.gz",
+      "path": "",
+      "previousAfter": "a0e54d6fb900b3108b61aa6b050e72bcd87f4ef1ace3d27e2a698ff0ad6b8f45",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "f85d34226d5f2febf36073837ba9f81ec8dc83ef92ce7af199d645bf985d48f2",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts-ff795bb7beb89253c898.json.gz",
+      "path": "",
+      "previousAfter": "6fbbf887aeb5017f24977aa952f2b487c0e2e952a2e5fa93fe62babfef923a44",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "3a7dcb8976f735d875532cf6eae699d8f222ceeeb3575264405f887eed29d54c",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts.json.gz",
+      "path": "/current",
+      "previousAfter": "a67f96d92fcea536608b87c3f5e1c605a6ed5491a191e0de094e27ac1ab962ca",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "f2daf2ba84608a7c1acee1af0d8094a3542a091662363ee45dc90f5f96000b78",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts.json.gz",
+      "path": "/plans/0/after/model",
+      "previousAfter": "c069eb7dd428717c4b28abc3ed2ea285d21e897d6b8442866e8e3cc80a3824d6",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "946eb87bc6067ece0f4e183312daa8b5625f427c29aa0c25ff4ad5bef95a48e7",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts.json.gz",
+      "path": "/plans/0/before/model",
+      "previousAfter": "4f9c16ecedc5bb76a3740d45e0444467b46f040e33f0d73c6ef94a88e8dad0f7",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "25e87bf13bac7d32a102504d03fa9c6145be477bd7e4e4b70e00c361219dd0e0",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts.json.gz",
+      "path": "/plans/1/after/model",
+      "previousAfter": "992a7e8350991bdca372784ae5259d796d6c1f022e3a70164ec31c8f6aac89e8",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "82f203f8004547944560e3792adc0d427ac74bf39dcf634dec4170fb1ed76c09",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts.json.gz",
+      "path": "/plans/1/before/model",
+      "previousAfter": "9d6129ea28bdc828b35c31435ab7afdee9e6fd8fc8648c484dc6153916040d04",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "ea16a158c89f52afacd13ad3c62960f07115556e802d57545535f8d8122e8bf5",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts.json.gz",
+      "path": "/plans/2/after/model",
+      "previousAfter": "f1c9b6c08566b9ac7bcae42a7197bd2e1871b088aed24293952c72469bab6111",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "6741fa016dc871c6a1bf08e73d74e3f7db7b1dbd379bfe53f6d7546693feeb8a",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts.json.gz",
+      "path": "/plans/2/before/model",
+      "previousAfter": "1ac39e0430f0db5567a097a641743099921569372f44eba6abf92ca73ccc5e5e",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "b15b752e327baf1cff67bfa4725ea0aca55aac11845b6f785c54460ebe44824d",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts.json.gz",
+      "path": "/plans/3/after/model",
+      "previousAfter": "4d3577fca6793e7370a70aece41d423fad935e0ee810ed0acf74905fcc2db783",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "767d717179066399f2f6da76101016b64205ccf8d00a76d6a6ce4fefaac12e9c",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts.json.gz",
+      "path": "/plans/3/before/model",
+      "previousAfter": "ab4e2fd0ec9b9de17a3484022c68b7614bddf7727a79e42736f0dc75ed11dad1",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "40abdd263161196994038e9b38c0eda467d498b4415e71a6fe5846f013c37452",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts.json.gz",
+      "path": "/plans/4/after/model",
+      "previousAfter": "9447ca663ba2305095266b7372a14d4bcba5eb93fb456318e06fd53ac96576bb",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "56c0675dae9d1396648729329252795d12b5ae5ba9e8dc10e4dfb6026754726f",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts.json.gz",
+      "path": "/plans/4/before/model",
+      "previousAfter": "8590f9bc90cd92c8856287754efe75916545f79c60e746148a0d4cd01e20cd5f",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "e3d57e661cf258e47722f0d957a1b4ecd7137ec9001dc705cceefde57111ead5",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts.json.gz",
+      "path": "/plans/5/after/model",
+      "previousAfter": "4b462d9ad948d8168bff25f78f4a3cb805920360c2c8d28cb4175e6baa8c670d",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "a516bc89719ccbb79795bad0a45ad01a95798f182af0fb9a0d6eff8fc7ed7e15",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts.json.gz",
+      "path": "/plans/5/before/model",
+      "previousAfter": "90c0b759a659ffee1a79592f4fdbffbd54a2e24d7ddb6797b12d97c6fb89a3ba",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "738242e68228cdf3b52b4de072281cbcfddabf10fc30e8b457eba8fd81acec68",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts.json.gz",
+      "path": "/plans/6/after/model",
+      "previousAfter": "8979ab1ec6384d14e516ba70508696a77a5e3ba925062a7fb360e99ad96f64db",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "74093614bdc35fe75c959759c68e0504271f325218c6e9b0a1fce0adec770af5",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts.json.gz",
+      "path": "/plans/6/before/model",
+      "previousAfter": "e7b0caf85c069cfa9fe5b835f668e89a9a149993799328f4071373f252aa6b26",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "3943cae012945b872eade096e2ff053b3f827fc9c400dcea4cc44ee5a4774ae2",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts.json.gz",
+      "path": "/plans/7/after/model",
+      "previousAfter": "436164497e4570c2d93be39803fc03312598e9ae0fbecbe6b5bba8ed031cbc29",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "70ab13dcda7b87ab96c1626c8860101fc6be91005a7696037e9ee25128d8dba5",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts.json.gz",
+      "path": "/plans/7/before/model",
+      "previousAfter": "2cad2e7e4b3db23d7873da89f30f4194b7980f1473eda67a3a4a2516cbb8d403",
+      "workspace": "volvo-cars"
+    },
+    {
+      "after": "61b00562a9352149605688286539ebc9ce9e4274f5c210e32f371409e2151351",
+      "before": "aa9ea2b4e9d33aad3465762ced06a0b2778b0c2e46cee4098590414f3e458400",
+      "cause": "Only exact source-backed raw argument, historical team/proposed-summary metadata and their hash references changed. The three restoration receipts prove every affected scalar and unchanged ordinary indexed facts.",
+      "file": "facts.json.gz",
+      "path": "/plans/7/plan",
+      "previousAfter": "1e65da729f48aaa5652c4ffc01ac7010c05e8c2303c408d75eeb7825f5bbfa64",
+      "workspace": "volvo-cars"
+    }
+  ],
+  "standing": "96f7f834b7509f0ceb238d1de53daff3e10ff7222bd8b6cfbf5ca64709b3d943"
+}

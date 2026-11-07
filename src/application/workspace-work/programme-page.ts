@@ -95,6 +95,7 @@ export interface ProgrammePageVM {
 
 /** A programme as one row of a list: what it is for, how many plans, and the next one held up. */
 export interface ProgrammeRowVM extends ProgrammeVM {
+  readonly unknownProgress?: string;
   readonly plans: number;
   readonly blocked: number;
   readonly nextBlocked: PlanLinkVM | null;

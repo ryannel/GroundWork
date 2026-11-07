@@ -1,0 +1,71 @@
+{
+  "previousTransportReceipt": {
+    "file": "volvo-transport.json",
+    "sha256": "18e8a402ecaf57e4282324fca72f8c38419711a93fd46e820f71f0a9820b53b9",
+    "status": "complete"
+  },
+  "changedSources": [
+    {
+      "file": "src/application/model-transport.ts",
+      "before": "6295069cc38acb28f5d856e7e3f6b70fd55d49b98710f3333fa5a1c4e01cd1e6",
+      "after": "779fdd6096b722dbad90590f36bfdb3407ebd5fb1a660d2c2d08f53fa5f54ce6"
+    },
+    {
+      "file": "src/application/plans-index.ts",
+      "before": "c3fc90b625de3e90979820c779c082897c45f18d44dc46a5416084a24323c837",
+      "after": "a45f49738ba896c4b5f53ee4a5bcd585b04a72663d16663af1b4ac920f1cf253"
+    },
+    {
+      "file": "src/infrastructure/read-model.ts",
+      "before": "bf6711809597b1a9983e29b31de95b4a861062c79d664e849ad27399277e317e",
+      "after": "d1751732b5d475a6f77a41bc122c912b731280928014486d7ea890f434612dbe"
+    },
+    {
+      "file": "src/infrastructure/model-plan-context.ts",
+      "before": "31ded68ca1ba36691e0a9f9b8e466002d464e7f6a0bc7ef8f7197d27e79a3bff",
+      "after": "fdc84e109cf1c14976128d0cf76e76a57759b31564a8ff6d9ed689291fdb34df"
+    }
+  ],
+  "restoredOriginalSourceMatches": {
+    "unchangedReferenceCollectorBody": true,
+    "readModelOnlyAddsFolderEntrypoint": true,
+    "plansOnlyAddsOptionalClosedPolicyAndTargetExport": true
+  },
+  "existingWorkspaceContractsUnchanged": true,
+  "markers": [
+    {
+      "workspace": "personal",
+      "input": "/Users/RNEL/.codex/worktrees/rebuild-pr8/groundWork/workspaces/personal",
+      "baseMarkers": []
+    },
+    {
+      "workspace": "acme",
+      "input": "/Users/RNEL/.codex/worktrees/rebuild-pr8/groundWork/.workspaces/rebuild/acme",
+      "baseMarkers": []
+    },
+    {
+      "workspace": "volvo-cars-registered",
+      "input": "/Users/RNEL/Workspace/volvo-groundwork",
+      "baseMarkers": []
+    },
+    {
+      "workspace": "volvo-cars",
+      "input": "/private/tmp/rebuild-pr7-native-output-02",
+      "baseMarkers": []
+    }
+  ],
+  "focusedProof": {
+    "file": "native-lifecycle-tests.log",
+    "sha256": "4d78d97e14bf8181c36b8770806148276c7cdc2bec93b992432a0258bb22e471",
+    "files": 7,
+    "tests": 33,
+    "passed": true
+  },
+  "defaultEquivalence": "The empty landed set produces equal before/after/proposals; no marker exists in the three measured datasets, so the historical branch is not entered. Current/revision no-marker readers still call that same default projection. No expensive model-query rerun is invalidated by the additive I/O/metadata policy.",
+  "routeLookup": {
+    "current": "evidence.json",
+    "plan": "../../evidence.json?plan=<encoded slug>",
+    "revision": "../../../../evidence.json?plan=<encoded slug>&version=<encoded version>",
+    "carePlanPayloadBytes": 46560023
+  }
+}

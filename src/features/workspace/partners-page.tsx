@@ -16,6 +16,9 @@ interface PartnersPageProps {
 function workText(row: PartnerRowVM): string {
   const { work } = row;
   if (work.total === 0) return 'No work in any plan';
+  if (row.unknownProgress !== undefined) {
+    return `${plural(work.total, 'work item')} in ${plural(work.plans, 'plan')} · ${row.unknownProgress}`;
+  }
   return [
     `${plural(work.total, 'work item')} in ${plural(work.plans, 'plan')}`,
     `${String(work.open)} still to do`,

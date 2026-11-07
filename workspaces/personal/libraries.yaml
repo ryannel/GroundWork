@@ -1,0 +1,9 @@
+libraries:
+  - id: lib:geometry
+    name: Frame geometry
+    summary: |-
+      Frame sizes for the bikes I own
+
+      Previous workspace technology: Python
+
+      Previous workspace team assignment: team:me

@@ -1,0 +1,437 @@
+{
+  "candidate": ".workspaces/rebuild/pr8/area-audit/volvo-cars-facts-metadata",
+  "receipt": [
+    {
+      "counts": {
+        "callers": 345,
+        "componentEdges": 81,
+        "messages": 28,
+        "storeAccess": 79,
+        "systemEdges": 81
+      },
+      "index": {
+        "file": "facts-eefc0325868926d76608.json.gz",
+        "sha256": "9c4fee4daa5dc0d38e81dd30492c766df1243982d453e906b5dadba523be5f92"
+      },
+      "issues": {
+        "callers": [],
+        "componentEdges": [],
+        "messages": [],
+        "storeAccess": [],
+        "systemEdges": []
+      },
+      "model": {
+        "file": "facts-406ad541a8bf91380160.json.gz",
+        "sha256": "503c8290bf92759050b1f0b95d05a2099350fa88d1cd170e26c7d9fad8dee687"
+      },
+      "proofSha256": "6b92df1ffc62c7af6934108ea2f49559fa55e1bdf666b3c7f2bf53156099e555",
+      "side": "before",
+      "slug": "care-se-financing-status"
+    },
+    {
+      "counts": {
+        "callers": 345,
+        "componentEdges": 81,
+        "messages": 28,
+        "storeAccess": 79,
+        "systemEdges": 81
+      },
+      "index": {
+        "file": "facts-e044806a70f18afe0908.json.gz",
+        "sha256": "4d70e7cba9bf0fff14d50ae309af0a488790be1569d4327dd0137454e898f71b"
+      },
+      "issues": {
+        "callers": [],
+        "componentEdges": [],
+        "messages": [],
+        "storeAccess": [],
+        "systemEdges": []
+      },
+      "model": {
+        "file": "facts-307a96daddfc9fa901e0.json.gz",
+        "sha256": "c208659ba8e044393a3cc3eb41df42d354c6d8ec82d3cec0e0b9fa9ee1b97d1f"
+      },
+      "proofSha256": "833422e7ce9a9d2a56faad568320874de65b6a57d03179606595e7af2462e5d8",
+      "side": "after",
+      "slug": "care-se-financing-status"
+    },
+    {
+      "counts": {
+        "callers": 306,
+        "componentEdges": 83,
+        "messages": 28,
+        "storeAccess": 79,
+        "systemEdges": 83
+      },
+      "index": {
+        "file": "facts-ef353eb1afa201bbaba6.json.gz",
+        "sha256": "d49faad61a835e11613e74d2ce22faebff51aafdb9ebc2d336ac411235ecc832"
+      },
+      "issues": {
+        "callers": [],
+        "componentEdges": [],
+        "messages": [],
+        "storeAccess": [],
+        "systemEdges": []
+      },
+      "model": {
+        "file": "facts-fb87bf5bc7e705bdea44.json.gz",
+        "sha256": "2968f20967bdd13b20e7fe545f8e48b65cc4785a2809af0f426658136f210595"
+      },
+      "proofSha256": "b359067bb9015b64f677bdada8ed65b001f928ad6e827c4fab2e3b09b9d3cbac",
+      "side": "before",
+      "slug": "care-se-online"
+    },
+    {
+      "counts": {
+        "callers": 306,
+        "componentEdges": 83,
+        "messages": 28,
+        "storeAccess": 79,
+        "systemEdges": 83
+      },
+      "index": {
+        "file": "facts-04d21c7b6e253c0d5dfc.json.gz",
+        "sha256": "6ccb63e1f80a3b428a79c94a108594544ed3246ae097969aeb1776cc5ed7684e"
+      },
+      "issues": {
+        "callers": [],
+        "componentEdges": [],
+        "messages": [],
+        "storeAccess": [],
+        "systemEdges": []
+      },
+      "model": {
+        "file": "facts-3603482bd9417131fd2e.json.gz",
+        "sha256": "ea9a5dc95fe3a568063a6f7b0eda5fd61757605c665303602b005ef00ef89eb9"
+      },
+      "proofSha256": "b359067bb9015b64f677bdada8ed65b001f928ad6e827c4fab2e3b09b9d3cbac",
+      "side": "after",
+      "slug": "care-se-online"
+    },
+    {
+      "counts": {
+        "callers": 308,
+        "componentEdges": 96,
+        "messages": 28,
+        "storeAccess": 110,
+        "systemEdges": 96
+      },
+      "index": {
+        "file": "facts-b86dace9163fc1515f94.json.gz",
+        "sha256": "d1126c11f7892638dbadfab3f469d5577d2d74016f059ea5c6ac5058006e40dd"
+      },
+      "issues": {
+        "callers": [],
+        "componentEdges": [],
+        "messages": [],
+        "storeAccess": [],
+        "systemEdges": []
+      },
+      "model": {
+        "file": "facts-90667743840a9cb7107a.json.gz",
+        "sha256": "f380e208f29a6db305e8754cd841a59e588af434e3b8571a93e2c10fe6f0e19a"
+      },
+      "proofSha256": "85230485b9f60bbefa7ac03dfe1f26dabccf2ca86595d677065ba0f6e2cd356a",
+      "side": "before",
+      "slug": "care-se-order-change"
+    },
+    {
+      "counts": {
+        "callers": 308,
+        "componentEdges": 96,
+        "messages": 28,
+        "storeAccess": 110,
+        "systemEdges": 96
+      },
+      "index": {
+        "file": "facts-6e0feb0632515991e94b.json.gz",
+        "sha256": "d1126c11f7892638dbadfab3f469d5577d2d74016f059ea5c6ac5058006e40dd"
+      },
+      "issues": {
+        "callers": [],
+        "componentEdges": [],
+        "messages": [],
+        "storeAccess": [],
+        "systemEdges": []
+      },
+      "model": {
+        "file": "facts-b553df7478757752406e.json.gz",
+        "sha256": "1987881ee568b0c070913d49ce6eddbfea5922e7a6f514ce41ac83bad22862c3"
+      },
+      "proofSha256": "85230485b9f60bbefa7ac03dfe1f26dabccf2ca86595d677065ba0f6e2cd356a",
+      "side": "after",
+      "slug": "care-se-order-change"
+    },
+    {
+      "counts": {
+        "callers": 306,
+        "componentEdges": 95,
+        "messages": 28,
+        "storeAccess": 110,
+        "systemEdges": 95
+      },
+      "index": {
+        "file": "facts-2207dcc31324dc464700.json.gz",
+        "sha256": "d49faad61a835e11613e74d2ce22faebff51aafdb9ebc2d336ac411235ecc832"
+      },
+      "issues": {
+        "callers": [],
+        "componentEdges": [],
+        "messages": [],
+        "storeAccess": [],
+        "systemEdges": []
+      },
+      "model": {
+        "file": "facts-c823a5841567c5c3b511.json.gz",
+        "sha256": "2968f20967bdd13b20e7fe545f8e48b65cc4785a2809af0f426658136f210595"
+      },
+      "proofSha256": "db4d825eff5860033fa7c1d44f774c9407b14e81c88ecce912b95e0c397f00d1",
+      "side": "before",
+      "slug": "care-se-sales-tool"
+    },
+    {
+      "counts": {
+        "callers": 306,
+        "componentEdges": 95,
+        "messages": 28,
+        "storeAccess": 110,
+        "systemEdges": 95
+      },
+      "index": {
+        "file": "facts-4cdfffd2c60d06601285.json.gz",
+        "sha256": "d1126c11f7892638dbadfab3f469d5577d2d74016f059ea5c6ac5058006e40dd"
+      },
+      "issues": {
+        "callers": [],
+        "componentEdges": [],
+        "messages": [],
+        "storeAccess": [],
+        "systemEdges": []
+      },
+      "model": {
+        "file": "facts-4f8b0e03897a4531b523.json.gz",
+        "sha256": "f380e208f29a6db305e8754cd841a59e588af434e3b8571a93e2c10fe6f0e19a"
+      },
+      "proofSha256": "413e246126f1eaa5137c4389e16d583a34db064ff815ca96813b3a1e926a944c",
+      "side": "after",
+      "slug": "care-se-sales-tool"
+    },
+    {
+      "counts": {
+        "callers": 304,
+        "componentEdges": 80,
+        "messages": 26,
+        "storeAccess": 79,
+        "systemEdges": 80
+      },
+      "index": {
+        "file": "facts-3e7c9d68d1e0cbd237fb.json.gz",
+        "sha256": "4d70e7cba9bf0fff14d50ae309af0a488790be1569d4327dd0137454e898f71b"
+      },
+      "issues": {
+        "callers": [],
+        "componentEdges": [],
+        "messages": [],
+        "storeAccess": [],
+        "systemEdges": []
+      },
+      "model": {
+        "file": "facts-e214377a6f9bff851f0b.json.gz",
+        "sha256": "c208659ba8e044393a3cc3eb41df42d354c6d8ec82d3cec0e0b9fa9ee1b97d1f"
+      },
+      "proofSha256": "3a1adaa85a6044d3b478fa3a7aa10d078701906426bbd7afa73d5b476e952a3f",
+      "side": "before",
+      "slug": "care-se-stock-reservation"
+    },
+    {
+      "counts": {
+        "callers": 306,
+        "componentEdges": 83,
+        "messages": 28,
+        "storeAccess": 79,
+        "systemEdges": 83
+      },
+      "index": {
+        "file": "facts-d40ba5263ed26f83df29.json.gz",
+        "sha256": "d49faad61a835e11613e74d2ce22faebff51aafdb9ebc2d336ac411235ecc832"
+      },
+      "issues": {
+        "callers": [],
+        "componentEdges": [],
+        "messages": [],
+        "storeAccess": [],
+        "systemEdges": []
+      },
+      "model": {
+        "file": "facts-31f02872dd9f171b23f0.json.gz",
+        "sha256": "2968f20967bdd13b20e7fe545f8e48b65cc4785a2809af0f426658136f210595"
+      },
+      "proofSha256": "b359067bb9015b64f677bdada8ed65b001f928ad6e827c4fab2e3b09b9d3cbac",
+      "side": "after",
+      "slug": "care-se-stock-reservation"
+    },
+    {
+      "counts": {
+        "callers": 248,
+        "componentEdges": 90,
+        "messages": 86,
+        "storeAccess": 97,
+        "systemEdges": 90
+      },
+      "index": {
+        "file": "facts-4ccd02cf2392cc441219.json.gz",
+        "sha256": "9c4fee4daa5dc0d38e81dd30492c766df1243982d453e906b5dadba523be5f92"
+      },
+      "issues": {
+        "callers": [],
+        "componentEdges": [],
+        "messages": [],
+        "storeAccess": [],
+        "systemEdges": []
+      },
+      "model": {
+        "file": "facts-9cfebbcce7b416099925.json.gz",
+        "sha256": "503c8290bf92759050b1f0b95d05a2099350fa88d1cd170e26c7d9fad8dee687"
+      },
+      "proofSha256": "6a7a58fb85dac75e652c2b23b0966eb4a117dbb5f3e31464c15f1d13db290f67",
+      "side": "before",
+      "slug": "immutable-ids"
+    },
+    {
+      "counts": {
+        "callers": 248,
+        "componentEdges": 90,
+        "messages": 86,
+        "storeAccess": 97,
+        "systemEdges": 90
+      },
+      "index": {
+        "file": "facts-6de43b148c774e06f3b4.json.gz",
+        "sha256": "baf080f9101e919de616ffb27e6a74309e968a83a41a8d5aa1880cfe1b47f015"
+      },
+      "issues": {
+        "callers": [],
+        "componentEdges": [],
+        "messages": [],
+        "storeAccess": [],
+        "systemEdges": []
+      },
+      "model": {
+        "file": "facts-98b407f9586a90cd3885.json.gz",
+        "sha256": "eec685ae08cc760cb5c2794107f76c818c41fcd02d2d3bf9e83d710c3695ce33"
+      },
+      "proofSha256": "6a7a58fb85dac75e652c2b23b0966eb4a117dbb5f3e31464c15f1d13db290f67",
+      "side": "after",
+      "slug": "immutable-ids"
+    },
+    {
+      "counts": {
+        "callers": 170,
+        "componentEdges": 51,
+        "messages": 26,
+        "storeAccess": 59,
+        "systemEdges": 51
+      },
+      "index": {
+        "file": "facts-8fabe6fe00a39f5c7942.json.gz",
+        "sha256": "9c4fee4daa5dc0d38e81dd30492c766df1243982d453e906b5dadba523be5f92"
+      },
+      "issues": {
+        "callers": [],
+        "componentEdges": [],
+        "messages": [],
+        "storeAccess": [],
+        "systemEdges": []
+      },
+      "model": {
+        "file": "facts-e24581dd368847daf73c.json.gz",
+        "sha256": "503c8290bf92759050b1f0b95d05a2099350fa88d1cd170e26c7d9fad8dee687"
+      },
+      "proofSha256": "b340c63afed2c5ef7254e5c64a97baf864011b4a9a92be79572597ec178f7408",
+      "side": "before",
+      "slug": "sourced-financing-terms"
+    },
+    {
+      "counts": {
+        "callers": 192,
+        "componentEdges": 60,
+        "messages": 36,
+        "storeAccess": 59,
+        "systemEdges": 60
+      },
+      "index": {
+        "file": "facts-52392a8bf8803fc7d3ba.json.gz",
+        "sha256": "d447f52d36f39d55abc7709a89af38d1441bfdc3abfa0beacdc4897db2214cee"
+      },
+      "issues": {
+        "callers": [],
+        "componentEdges": [],
+        "messages": [],
+        "storeAccess": [],
+        "systemEdges": []
+      },
+      "model": {
+        "file": "facts-c93f384036520f825ebb.json.gz",
+        "sha256": "1cc60f776b09a44768716bffb7d0651afe6e773cbd5b87979021a27e17c17f56"
+      },
+      "proofSha256": "6fb1c427e8c6336aabd80a36f452f52ef0b5842d3ffd76a924250548e42d6e9c",
+      "side": "after",
+      "slug": "sourced-financing-terms"
+    },
+    {
+      "counts": {
+        "callers": 126,
+        "componentEdges": 66,
+        "messages": 20,
+        "storeAccess": 91,
+        "systemEdges": 66
+      },
+      "index": {
+        "file": "facts-8f4145959c179e4b21f7.json.gz",
+        "sha256": "9c4fee4daa5dc0d38e81dd30492c766df1243982d453e906b5dadba523be5f92"
+      },
+      "issues": {
+        "callers": [],
+        "componentEdges": [],
+        "messages": [],
+        "storeAccess": [],
+        "systemEdges": []
+      },
+      "model": {
+        "file": "facts-b3e390c9339353c72f8f.json.gz",
+        "sha256": "503c8290bf92759050b1f0b95d05a2099350fa88d1cd170e26c7d9fad8dee687"
+      },
+      "proofSha256": "691f8ef0742ed1a33ea672bab81b291dba140a308cda3ca051e577ee0ff63cb1",
+      "side": "before",
+      "slug": "unify-price-breakdown"
+    },
+    {
+      "counts": {
+        "callers": 130,
+        "componentEdges": 69,
+        "messages": 20,
+        "storeAccess": 91,
+        "systemEdges": 69
+      },
+      "index": {
+        "file": "facts-0722d53075e794f2df83.json.gz",
+        "sha256": "8060b7f6e17045d63d3a5a1db613841d6ace6380dfb9f6e68676fd78a3e3dc08"
+      },
+      "issues": {
+        "callers": [],
+        "componentEdges": [],
+        "messages": [],
+        "storeAccess": [],
+        "systemEdges": []
+      },
+      "model": {
+        "file": "facts-eb1b0771e0c53f5db8e8.json.gz",
+        "sha256": "2a0dbb8fd6493c406ab56a24aa8c1462cb8fb13250b58a2a16100d697a657a35"
+      },
+      "proofSha256": "cf65c1f431922cd6a3642fa3b2c99b5142693571600aeaad28082a20cf6cc16a",
+      "side": "after",
+      "slug": "unify-price-breakdown"
+    }
+  ]
+}

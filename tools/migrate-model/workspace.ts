@@ -19,6 +19,7 @@ import {
 import { mergeExternals, mergeInterfaceFiles } from './identity-merges';
 import { migrateNarratives, modelBackings } from './narratives';
 import { migratePlan } from './plans';
+import { migrateRetiredStory } from './retired-story';
 import { fingerprint, type MigrationReview } from './review';
 import { migrateFailures, migrateSteps, slug, type StepContext } from './steps';
 
@@ -59,6 +60,19 @@ function declaredId(value: unknown, prefix: string): string {
   if (text === null) throw new Error(`Missing ${prefix} identity.`);
   return buildId(prefix, localId(text));
 }
+/** Target stages refer to their sibling stages, even when a workspace alias has the same word. */
+function localTargetStages(source: unknown, rewritten: Node): Node {
+  if (rewritten.stages === undefined) return rewritten;
+  const original = nodes(modelRecord(source)?.stages);
+  return {
+    ...rewritten,
+    stages: nodes(rewritten.stages).map((stage, position) => ({
+      ...stage,
+      id: original[position]?.id,
+      ...(original[position]?.from === undefined ? {} : { from: original[position].from }),
+    })),
+  };
+}
 function contextualFile(file: MigrationFile, identities: MigrationIdentities): MigrationFile {
   const value = rewriteDocument(file.value, identities.replacements);
   const node = modelRecord(value);
@@ -68,6 +82,9 @@ function contextualFile(file: MigrationFile, identities: MigrationIdentities): M
   }
   if (file.path.endsWith('/system.yaml')) {
     return { ...file, value: { ...node, id: declaredId(modelRecord(file.value)?.id, 'sys') } };
+  }
+  if (file.path.endsWith('/target.yaml')) {
+    return { ...file, value: localTargetStages(file.value, node) };
   }
   if (file.path !== 'landscape.yaml') return { ...file, value };
   const areas = nodes(node.areas).map((area) => ({ ...area, id: declaredId(area.id, 'area') }));
@@ -210,6 +227,58 @@ function reviewedDescription(
   }
   return { ...record, summary: updated };
 }
+function addHistory(record: Node, field: 'summary' | 'does', notes: readonly string[]): Node {
+  if (notes.length === 0) return record;
+  const original = modelText(record[field]);
+  return {
+    ...record,
+    [field]: [original, ...new Set(notes)].filter((value) => value !== null).join('\n\n'),
+  };
+}
+
+function boundaryHistory(record: Node, sources: readonly Node[]): Node {
+  const summary = modelText(record.summary) ?? '';
+  const notes = sources.flatMap((source) => {
+    const technology = modelText(source.tech);
+    const team = modelText(source.team);
+    return [
+      ...(team === null ? [] : [`Previous workspace team assignment: ${team}`]),
+      ...(technology === null || summary.includes(technology)
+        ? []
+        : [`Previous workspace technology: ${technology}`]),
+      ...(source.infrastructure === true ? ['Previously marked as infrastructure.'] : []),
+    ];
+  });
+  return addHistory(record, 'summary', notes);
+}
+
+function retainJobLabel(record: Node, source: Node, handlers: readonly Node[]): Node {
+  if (source.type !== 'job') return record;
+  const hasJob = handlers.some(
+    (handler) => handler.component === record.id && hasPrefix(handler.on, 'job'),
+  );
+  return hasJob ? record : addHistory(record, 'does', ['Previous workspace classification: job.']);
+}
+
+function externalHistory(
+  records: readonly Node[],
+  systems: readonly SystemInput[],
+): readonly Node[] {
+  const sources = new Map<string, Node[]>();
+  for (const system of systems) {
+    for (const component of nodes(system.source.components)) {
+      const id = modelText(component.id);
+      if (id === null) continue;
+      const known = sources.get(id) ?? [];
+      known.push({ ...component, team: component.team ?? system.source.team });
+      sources.set(id, known);
+    }
+  }
+  return records.map((record) =>
+    boundaryHistory(record, sources.get(modelText(record.id) ?? '') ?? []),
+  );
+}
+
 function systemComponents(
   system: SystemInput,
   details: ReadonlyMap<string, readonly Node[]>,
@@ -230,6 +299,7 @@ function systemComponents(
     const id = modelText(component.id) ?? '';
     const old = retired.get(id) ?? id;
     const descriptions = details.get(id) ?? [];
+    const history = { ...component, team: component.team ?? system.source.team };
     const kind = identities.externalKinds.get(old) ?? identities.externalKinds.get(id);
     if (kind === 'external') {
       externals.push(
@@ -240,10 +310,13 @@ function systemComponents(
         ),
       );
     } else if (kind === 'system') {
-      const record = reviewedDescription(
-        identityRecord(component, descriptions, system.citations),
-        identities,
-        'purpose',
+      const record = boundaryHistory(
+        reviewedDescription(
+          identityRecord(component, descriptions, system.citations),
+          identities,
+          'purpose',
+        ),
+        [history],
       );
       unmapped.push({
         id,
@@ -253,9 +326,12 @@ function systemComponents(
         ...(record.cites === undefined ? {} : { cites: record.cites }),
       });
     } else if (component.type === 'library') {
-      libraries.push(identityRecord(component, descriptions, system.citations));
+      libraries.push(
+        boundaryHistory(identityRecord(component, descriptions, system.citations), [history]),
+      );
     } else {
-      components.push(migrateComponent(component, descriptions, system.citations, review));
+      const record = migrateComponent(component, descriptions, system.citations, review);
+      components.push(retainJobLabel(record, component, system.handlers));
     }
   }
   return { components, externals, libraries, unmapped };
@@ -340,14 +416,7 @@ function nativeLandscape(
   citations: MigrationCitations,
   sources: ReadonlyMap<string, readonly unknown[]>,
 ): unknown {
-  const node = modelRecord(convertCitations(modelBackings(value, sources), citations));
-  if (node === null) return value;
-  return {
-    ...node,
-    areas: nodes(node.areas).map((area) =>
-      Object.fromEntries(Object.entries(area).filter(([key]) => key !== 'evidence_count')),
-    ),
-  };
+  return convertCitations(modelBackings(value, sources), citations);
 }
 function auxiliary(
   file: MigrationFile,
@@ -442,7 +511,10 @@ function auxiliaryFiles(
   const output = new Map<string, MigrationFragment>();
   const remaining = files.filter(
     (file) =>
-      !existing.has(file.path) && !/\/(?:handlers|contracts|system)\.yaml$/u.test(file.path),
+      file.path !== 'story.yaml' &&
+      !file.path.endsWith('/base.lock.json') &&
+      !existing.has(file.path) &&
+      !/\/(?:handlers|contracts|system)\.yaml$/u.test(file.path),
   );
   for (const file of remaining) {
     if (/^plans\/.*(?:plan|revisions\/[^/]+)\.yaml$/u.test(file.path)) {
@@ -605,7 +677,7 @@ export function migrateWorkspace(
         : [];
     }),
   );
-  for (const file of migrateCatalogues(files, systems, contracts, review)) {
+  for (const file of migrateCatalogues(files, systems, contracts, review, globalCitations)) {
     output.set(file.path, { family: 'workspace', definition: file.definition, value: file.value });
   }
   const workspace = object(
@@ -623,12 +695,25 @@ export function migrateWorkspace(
   output.set('externals.yaml', {
     family: 'workspace',
     definition: 'ExternalsFile',
-    value: { externals: uniqueRecords(mergeExternals(externals, identities.merges)) },
+    value: {
+      externals: externalHistory(
+        uniqueRecords(mergeExternals(externals, identities.merges)),
+        systems,
+      ),
+    },
   });
   output.set('libraries.yaml', {
     family: 'workspace',
     definition: 'LibrariesFile',
     value: { libraries: uniqueRecords(libraries) },
   });
-  return { files: finishWorkspace(output, systems, files, identities), identities, documents };
+  return {
+    files: migrateRetiredStory(
+      files,
+      finishWorkspace(output, systems, files, identities),
+      globalCitations,
+    ),
+    identities,
+    documents,
+  };
 }

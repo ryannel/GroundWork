@@ -3,7 +3,7 @@ import type { AreaEndpointView } from '@/application/workspace-area';
 export interface ApiSurface {
   readonly id: string;
   readonly label: string;
-  readonly protocol: 'REST' | 'GraphQL' | 'gRPC' | 'HTTP' | 'API';
+  readonly protocol: 'REST' | 'GraphQL' | 'gRPC' | 'HTTP' | 'API' | 'SDK';
   readonly versions: readonly string[];
   readonly endpoints: readonly AreaEndpointView[];
 }
@@ -34,6 +34,7 @@ function inferredRoute(signature: string) {
 }
 
 function routeOf(endpoint: AreaEndpointView) {
+  if (endpoint.protocol === 'sdk') return { protocol: 'SDK' as const, label: 'SDK', version: '' };
   if (endpoint.protocol === 'graphql') {
     return { protocol: 'GraphQL' as const, label: 'GraphQL', version: '' };
   }

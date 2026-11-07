@@ -3,8 +3,8 @@
 import { useRouter } from 'next/navigation';
 import { Suspense, use, useEffect, useRef, useState, type KeyboardEvent } from 'react';
 
+import { modelPaletteEntries } from '@/application/model-search';
 import {
-  paletteEntries,
   paletteGroups,
   searchPalette,
   type PaletteEntry,
@@ -15,7 +15,7 @@ import { Kbd } from '@/ui/kbd';
 
 import { open as openInspector } from './inspector-history';
 import styles from './palette.module.css';
-import { pendingModel } from './plan-model';
+import { pendingNativeModel } from './plan-model';
 
 export const PALETTE_EVENT = 'plan:palette';
 
@@ -115,7 +115,7 @@ const TODAY_WORDS: Words = {
 
 function Results({ src, screens, words, done }: ResultsProps) {
   const router = useRouter();
-  const model = use(pendingModel(src).model);
+  const native = use(pendingNativeModel(src).model);
   const [query, setQuery] = useState('');
   const [active, setActive] = useState(0);
   const [filter, setFilter] = useState<string | null>(null);
@@ -123,8 +123,8 @@ function Results({ src, screens, words, done }: ResultsProps) {
   useEffect(() => {
     input.current?.focus();
   }, []);
-  if (model === null) return <p className={styles.note}>{words.failed}</p>;
-  const entries = paletteEntries(model, screens);
+  if (native === null) return <p className={styles.note}>{words.failed}</p>;
+  const entries = modelPaletteEntries(native, screens);
   const found = searchPalette(entries, query, filter);
   const choose = (entry: PaletteEntry | undefined): void => {
     if (entry === undefined) return;

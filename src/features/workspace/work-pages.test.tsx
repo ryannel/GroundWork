@@ -13,8 +13,10 @@ import {
 } from '@/application/workspace-work/programme-page';
 import { workspacePlanIndexOf } from '@/application/workspace-work/workspace-plan-index';
 
-import { PartnerPage, PartnersPage, ProgrammePage, ProgrammesPage } from './index';
+import { PartnersPage, ProgrammesPage } from './index';
+import { PartnerPage } from './partner-page';
 import { PlanParts } from './plan-parts';
+import { ProgrammePage } from './programme-page';
 
 vi.mock(import('next/navigation'), () => ({ usePathname: () => '/acme/' }));
 

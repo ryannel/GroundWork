@@ -1,0 +1,29 @@
+summary: An **order** is what a customer buys in one go; a **payment** settles it.
+concepts:
+  - id: con:order
+    name: Order
+    terms:
+      - order
+      - purchase
+    means: What a customer buys in one go. Placed once, paid once.
+    born_in: svc:order-api
+    relates:
+      - to: con:payment
+        as: is settled by
+    aka:
+      - in: svc:shop-bff
+        as: Purchase
+        at: sch:order
+  - id: con:order-line
+    name: Order line
+    terms:
+      - line
+    means: One product and its quantity on an order.
+    born_in: svc:order-api
+    part_of: con:order
+  - id: con:payment
+    name: Payment
+    terms:
+      - charge
+    means: Money taken for an order.
+    born_in: svc:payments

@@ -15,7 +15,8 @@ interface WorkspaceShellProps {
   readonly nav: readonly NavGroup[];
   /** Inside a domain: the way back to the workspace and the domain's name. */
   readonly navTop?: RailTop;
-  readonly trail: readonly Crumb[];
+  readonly trail?: readonly Crumb[];
+  readonly workspace?: { readonly id: string; readonly name: string };
   readonly title: string;
   /** What floats over the page: the inspector, the palette, the keys. */
   readonly overlays?: ReactNode;
@@ -30,6 +31,7 @@ export function WorkspaceShell({
   nav,
   navTop,
   trail,
+  workspace,
   title,
   overlays,
   actions,
@@ -40,7 +42,19 @@ export function WorkspaceShell({
     <AppShell
       wide={wide}
       bar={
-        <AppBar lead={<RailToggle label="Show the workspace" />} title={title} trail={trail}>
+        <AppBar
+          lead={<RailToggle label="Show the workspace" />}
+          title={title}
+          trail={
+            trail ??
+            (workspace === undefined
+              ? []
+              : [
+                  { label: 'Workspaces', href: '/' },
+                  { label: workspace.name, href: `/${workspace.id}/` },
+                ])
+          }
+        >
           {actions}
         </AppBar>
       }

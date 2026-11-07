@@ -1,0 +1,30 @@
+interfaces:
+  - id: if:shop-bff
+    kind: rest
+    component: svc:shop-bff
+    entries:
+      - id: api:bff-place-order
+        sig: POST /api/orders
+        response: sch:order
+        method: POST
+        path: /api/orders
+schemas: []
+messages: []
+subscriptions: []
+jobs: []
+interactions:
+  - id: ui:add-to-basket
+    component: app:shop-web
+    on: scr:product-page#buy
+    action: click
+    name: Add to basket
+    to: scr:basket
+    effect: navigate
+  - id: ui:place-order
+    component: app:shop-web
+    on: scr:basket
+    action: submit
+    name: Place order
+    to: scr:confirmation
+    effect: navigate
+operations: []

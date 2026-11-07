@@ -2,9 +2,9 @@ import { describe, expect, it } from 'vitest';
 
 import type { Workspace } from '@/domain/workspace';
 
+import { findWorkspace } from './legacy-workspace-paths';
 import {
   domainFlowHref,
-  findWorkspace,
   flowSlug,
   partnerHref,
   programmeHref,

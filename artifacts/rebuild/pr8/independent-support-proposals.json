@@ -1,0 +1,1933 @@
+{
+  "format": 1,
+  "original": {
+    "file": "artifacts/rebuild/pr8/original-candidates.json",
+    "sha256": "8bb91071c6ae2e9168573f6d20d496cc8551e3e3ee626c3b06d64371d69f17c2",
+    "rows": 1697
+  },
+  "dispositions": [
+    {
+      "file": "src/application/area-map/card-geometry.ts",
+      "sourceSha256": "3af63ea3ecd4205ae0cde22beadf6fb70a7c778ead1674b4b94c170177a97329",
+      "role": "support",
+      "reason": "Lays out drawing cards from bounded geometry and card sizing.",
+      "evidence": [
+        {
+          "file": "src/application/area-map/card-geometry.ts",
+          "line": 10,
+          "text": "export const CARD = {"
+        },
+        {
+          "file": "src/application/area-map/card-geometry.ts",
+          "line": 93,
+          "text": "export function cardLayout(component: AreaComponentView, open: boolean): CardLayout {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-current-views.md",
+          "sha256": "c084814b586def71c6315696813e97c754a00e8bdd1c7ee764491e4d560c6c36"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/application/domain-nav.ts",
+      "sourceSha256": "a5a839a42cb0f81ba29fb57aba952248ce78a4b8f061aee8aeaae40bf24cc9f3",
+      "role": "support",
+      "reason": "Builds bounded domain navigation from the supplied section inputs.",
+      "evidence": [
+        {
+          "file": "src/application/domain-nav.ts",
+          "line": 77,
+          "text": "export function domainNavOf("
+        },
+        {
+          "file": "src/application/domain-nav.ts",
+          "line": 24,
+          "text": "export const sectionId = (title: string): string => title.toLowerCase().replaceAll(' ', '-');"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-current-views.md",
+          "sha256": "c084814b586def71c6315696813e97c754a00e8bdd1c7ee764491e4d560c6c36"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/application/landscape-domains-lines.ts",
+      "sourceSha256": "0417ff0fee212b454caf64e154123718d7b8860d20a83491887f1caba2c6f847",
+      "role": "support",
+      "reason": "Draws paths between already selected domain nodes and links.",
+      "evidence": [
+        {
+          "file": "src/application/landscape-domains-lines.ts",
+          "line": 111,
+          "text": "export function linesOf(links: readonly MapLink[], boxes: readonly MapBox[]): MapLine[] {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-current-views.md",
+          "sha256": "c084814b586def71c6315696813e97c754a00e8bdd1c7ee764491e4d560c6c36"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan-risk-words.ts",
+      "sourceSha256": "4ea6cbb3a6cd279e0033a340f07e8732793ddab950c8855a939b0b91de348ce7",
+      "role": "support",
+      "reason": "Maps the supplied risk level to labels.",
+      "evidence": [
+        {
+          "file": "src/application/plan-risk-words.ts",
+          "line": 19,
+          "text": "export const levelWord = (level: Level3): string => LEVEL_WORD[level];"
+        },
+        {
+          "file": "src/application/plan-risk-words.ts",
+          "line": 12,
+          "text": "export const ROAM_GLOSS: Readonly<Record<string, string>> = {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-current-views.md",
+          "sha256": "c084814b586def71c6315696813e97c754a00e8bdd1c7ee764491e4d560c6c36"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan-viz-flow-drawn.ts",
+      "sourceSha256": "528c01933a0900c79203cf87834ae7cb4d9d131faedee1e5312d0ce5c382bc65",
+      "role": "support",
+      "reason": "Selects a cursor step and layout mode from the supplied visual walk.",
+      "evidence": [
+        {
+          "file": "src/application/plan-viz-flow-drawn.ts",
+          "line": 30,
+          "text": "export function seqWalk(i: number, shown: ReadonlySet<number>): 'current' | 'walked' | '' {"
+        },
+        {
+          "file": "src/application/plan-viz-flow-drawn.ts",
+          "line": 17,
+          "text": "export function walker(shown: ReadonlySet<number>): Walker {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-plan-cutover.md",
+          "sha256": "1365e27dcf1b64c5a8408922dcc39fb4da1c92cb4ff3b106f825c8cd5a87f49f"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan-viz-flow-geometry.ts",
+      "sourceSha256": "4c65f7f08430b930ec1506944a26c43ba04d223b79f00238898d7f258506fb97",
+      "role": "support",
+      "reason": "Wraps labels and computes paths for the supplied drawing.",
+      "evidence": [
+        {
+          "file": "src/application/plan-viz-flow-geometry.ts",
+          "line": 19,
+          "text": "export const clipText = (text: string, n: number): string =>"
+        },
+        {
+          "file": "src/application/plan-viz-flow-geometry.ts",
+          "line": 59,
+          "text": "export function roundPath(pts: readonly Point[], r = ROUND): string {"
+        },
+        {
+          "file": "src/application/plan-viz-flow-geometry.ts",
+          "line": 23,
+          "text": "export const shortTopic = (text: string): string => {"
+        },
+        {
+          "file": "src/application/plan-viz-flow-geometry.ts",
+          "line": 29,
+          "text": "export function wrapText(text: string, n: number, max = 2): string[] {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-plan-cutover.md",
+          "sha256": "1365e27dcf1b64c5a8408922dcc39fb4da1c92cb4ff3b106f825c8cd5a87f49f"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan-viz-system-map-boxes.ts",
+      "sourceSha256": "5dfa3ad8328ed828f8735862b1beb5e343162309c96c51e186f437b8b1cc0a8a",
+      "role": "support",
+      "reason": "The drawing helper computes bounds for supplied system and component cards.",
+      "evidence": [
+        {
+          "file": "src/application/plan-viz-system-map-boxes.ts",
+          "line": 12,
+          "text": "export const CW = 184;"
+        },
+        {
+          "file": "src/application/plan-viz-system-map-boxes.ts",
+          "line": 201,
+          "text": "export function foldedHeight(frame: Box): number {"
+        },
+        {
+          "file": "src/application/plan-viz-system-map-boxes.ts",
+          "line": 13,
+          "text": "export const G = 56;"
+        },
+        {
+          "file": "src/application/plan-viz-system-map-boxes.ts",
+          "line": 16,
+          "text": "export const PAD = 16;"
+        },
+        {
+          "file": "src/application/plan-viz-system-map-boxes.ts",
+          "line": 24,
+          "text": "export const PART_GAP = 8;"
+        },
+        {
+          "file": "src/application/plan-viz-system-map-boxes.ts",
+          "line": 22,
+          "text": "export const SAT_LINE = 13;"
+        },
+        {
+          "file": "src/application/plan-viz-system-map-boxes.ts",
+          "line": 222,
+          "text": "export function satBox("
+        },
+        {
+          "file": "src/application/plan-viz-system-map-boxes.ts",
+          "line": 165,
+          "text": "export function serviceBox(ctx: Context, id: string, at: CardAt): Box {"
+        },
+        {
+          "file": "src/application/plan-viz-system-map-boxes.ts",
+          "line": 20,
+          "text": "export const SG = 6;"
+        },
+        {
+          "file": "src/application/plan-viz-system-map-boxes.ts",
+          "line": 23,
+          "text": "export const SYS_IN = 16;"
+        },
+        {
+          "file": "src/application/plan-viz-system-map-boxes.ts",
+          "line": 188,
+          "text": "export function systemBox("
+        },
+        {
+          "file": "src/application/plan-viz-system-map-boxes.ts",
+          "line": 17,
+          "text": "export const VGAP = 24;"
+        },
+        {
+          "file": "src/application/plan-viz-system-map-boxes.ts",
+          "line": 15,
+          "text": "export const WIDE_G = 128;"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-system-handoff.md",
+          "sha256": "828cc57add7a95c45e211ffc5b039f5f8727328318f00d16a38c2bd8f7301009"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan-viz-system-map-columns.ts",
+      "sourceSha256": "663440f3583188d527195f209343a158c0f62b9fedf0a96edd84391089025710",
+      "role": "support",
+      "reason": "The drawing helper arranges supplied boxes in columns.",
+      "evidence": [
+        {
+          "file": "src/application/plan-viz-system-map-columns.ts",
+          "line": 87,
+          "text": "export function bySystem(input: SystemMapInput): boolean {"
+        },
+        {
+          "file": "src/application/plan-viz-system-map-columns.ts",
+          "line": 277,
+          "text": "export function layoutColumns(input: SystemMapInput, agg: Aggregate): Columns {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-system-handoff.md",
+          "sha256": "828cc57add7a95c45e211ffc5b039f5f8727328318f00d16a38c2bd8f7301009"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan-viz-system-map-geometry.ts",
+      "sourceSha256": "36d11f6614bde0cf318cfb613caf173adc4a18010a6e58d9d94d662f9de2eff8",
+      "role": "support",
+      "reason": "The drawing helper places supplied boxes in the drawing.",
+      "evidence": [
+        {
+          "file": "src/application/plan-viz-system-map-geometry.ts",
+          "line": 55,
+          "text": "export const colX = (c: number, gap: number = G): number => PAD + c * (CW + gap);"
+        },
+        {
+          "file": "src/application/plan-viz-system-map-geometry.ts",
+          "line": 242,
+          "text": "export function placeBoxes(ctx: Context, cols: Columns, flip: ReadonlySet<string>): Placed {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-system-handoff.md",
+          "sha256": "828cc57add7a95c45e211ffc5b039f5f8727328318f00d16a38c2bd8f7301009"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan-viz-system-map-links.ts",
+      "sourceSha256": "2508c810536bb9b29e114bfdd1036df08b989eb91c1c62d1fdf0acb8936cb219",
+      "role": "support",
+      "reason": "The drawing helper groups supplied drawing links.",
+      "evidence": [
+        {
+          "file": "src/application/plan-viz-system-map-links.ts",
+          "line": 308,
+          "text": "export function aggregate(input: SystemMapInput, show: MapShow): Aggregate {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-system-handoff.md",
+          "sha256": "828cc57add7a95c45e211ffc5b039f5f8727328318f00d16a38c2bd8f7301009"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan-viz-system-map-merge.ts",
+      "sourceSha256": "4d9350dced770e3fa0a93bf32e4d3788ba5a3dc78ad5e34cddf7b06e12f2193b",
+      "role": "support",
+      "reason": "The drawing helper merges visual link positions.",
+      "evidence": [
+        {
+          "file": "src/application/plan-viz-system-map-merge.ts",
+          "line": 86,
+          "text": "export function mergeLinks("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-system-handoff.md",
+          "sha256": "828cc57add7a95c45e211ffc5b039f5f8727328318f00d16a38c2bd8f7301009"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan-viz-system-map-part-tiers.ts",
+      "sourceSha256": "5eb7f50edc6d09960a0cdae44d3fc7740099aa62ad04f240dc0a776330648346",
+      "role": "support",
+      "reason": "The drawing helper positions parts inside supplied system rows.",
+      "evidence": [
+        {
+          "file": "src/application/plan-viz-system-map-part-tiers.ts",
+          "line": 36,
+          "text": "export function partTiers(input: SystemMapInput): PartTiers {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-system-handoff.md",
+          "sha256": "828cc57add7a95c45e211ffc5b039f5f8727328318f00d16a38c2bd8f7301009"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan-viz-system-map-roles.ts",
+      "sourceSha256": "0b0100bb14b4466f0d4032f4e35989412b2f990a5a3afe7ba6a58175ed0e06e7",
+      "role": "support",
+      "reason": "The drawing helper places labels and spans in the map drawing.",
+      "evidence": [
+        {
+          "file": "src/application/plan-viz-system-map-roles.ts",
+          "line": 47,
+          "text": "export const roleIndex = (role: MapRole): number => SYSTEM_TIERS.indexOf(role);"
+        },
+        {
+          "file": "src/application/plan-viz-system-map-roles.ts",
+          "line": 53,
+          "text": "export function roleSpansOf(used: readonly number[]): RoleSpan[] {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-system-handoff.md",
+          "sha256": "828cc57add7a95c45e211ffc5b039f5f8727328318f00d16a38c2bd8f7301009"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan-viz-system-map-routes.ts",
+      "sourceSha256": "91dcda5ea4e2894e4428c1f1dae3c7431c04e2027d089a3a5f0b57167d42bc51",
+      "role": "support",
+      "reason": "The drawing helper routes arrows between drawing boxes.",
+      "evidence": [
+        {
+          "file": "src/application/plan-viz-system-map-routes.ts",
+          "line": 241,
+          "text": "export function routeAll("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-system-handoff.md",
+          "sha256": "828cc57add7a95c45e211ffc5b039f5f8727328318f00d16a38c2bd8f7301009"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan-viz-system-map-tips.ts",
+      "sourceSha256": "e1218053cbf2e605d2d8d14f1e57e065dbc44e11ef081e4e8fb652bcf2dc9b26",
+      "role": "support",
+      "reason": "The drawing helper formats labels and tooltips for supplied cards and arrows.",
+      "evidence": [
+        {
+          "file": "src/application/plan-viz-system-map-tips.ts",
+          "line": 19,
+          "text": "export function cardTip(ctx: Context, box: Box): string {"
+        },
+        {
+          "file": "src/application/plan-viz-system-map-tips.ts",
+          "line": 75,
+          "text": "export function carried("
+        },
+        {
+          "file": "src/application/plan-viz-system-map-tips.ts",
+          "line": 42,
+          "text": "export function innerText("
+        },
+        {
+          "file": "src/application/plan-viz-system-map-tips.ts",
+          "line": 120,
+          "text": "export function lineTip(ctx: Context, l: Merged): string {"
+        },
+        {
+          "file": "src/application/plan-viz-system-map-tips.ts",
+          "line": 113,
+          "text": "export function pairTip(ctx: Context, l: Merged): string {"
+        },
+        {
+          "file": "src/application/plan-viz-system-map-tips.ts",
+          "line": 137,
+          "text": "export function rowTip(label: string, endpoints: number): string {"
+        },
+        {
+          "file": "src/application/plan-viz-system-map-tips.ts",
+          "line": 51,
+          "text": "export function systemTip(ctx: Context, box: Box, inside: readonly string[]): string {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-system-handoff.md",
+          "sha256": "828cc57add7a95c45e211ffc5b039f5f8727328318f00d16a38c2bd8f7301009"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan-viz-system-map-types.ts",
+      "sourceSha256": "94a22f57cceb36dd2450273c0040e7e546c7a1e571cbe19e223f52906ecce596",
+      "role": "support",
+      "reason": "The drawing helper provides literal display-mode constants.",
+      "evidence": [
+        {
+          "file": "src/application/plan-viz-system-map-types.ts",
+          "line": 116,
+          "text": "export const SHOW_ALL: MapShow = { parts: true, ifs: true, topics: true, stores: true };"
+        },
+        {
+          "file": "src/application/plan-viz-system-map-types.ts",
+          "line": 117,
+          "text": "export const SHOW_OVERVIEW: MapShow = { parts: false, ifs: false, topics: false, stores: false };"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-system-handoff.md",
+          "sha256": "828cc57add7a95c45e211ffc5b039f5f8727328318f00d16a38c2bd8f7301009"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan-viz-system-map.ts",
+      "sourceSha256": "a4e867b5184aa3e99ed547a034693275f1b5a7f15ea3ddcf7c607be54150e959",
+      "role": "support",
+      "reason": "Draws the supplied bounded system map without selecting workspace facts.",
+      "evidence": [
+        {
+          "file": "src/application/plan-viz-system-map.ts",
+          "line": 289,
+          "text": "export function drawSystemMap("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-system-handoff.md",
+          "sha256": "828cc57add7a95c45e211ffc5b039f5f8727328318f00d16a38c2bd8f7301009"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan-viz-zoompane.ts",
+      "sourceSha256": "a6879dc341ca2f26e4f26c51000966e23e638648f0ce00835aec7e972c2b463b",
+      "role": "support",
+      "reason": "Computes pan, zoom and viewport geometry for the supplied drawing.",
+      "evidence": [
+        {
+          "file": "src/application/plan-viz-zoompane.ts",
+          "line": 64,
+          "text": "export function frameDiagram(framing: Framing): PaneView {"
+        },
+        {
+          "file": "src/application/plan-viz-zoompane.ts",
+          "line": 128,
+          "text": "export function isPartial("
+        },
+        {
+          "file": "src/application/plan-viz-zoompane.ts",
+          "line": 119,
+          "text": "export const panned = (view: PaneView, x: number, y: number): PaneView => ({"
+        },
+        {
+          "file": "src/application/plan-viz-zoompane.ts",
+          "line": 159,
+          "text": "export function scrollCue(box: {"
+        },
+        {
+          "file": "src/application/plan-viz-zoompane.ts",
+          "line": 113,
+          "text": "export function stepScale(view: PaneView, command: 'in' | 'out' | 'reset'): number {"
+        },
+        {
+          "file": "src/application/plan-viz-zoompane.ts",
+          "line": 107,
+          "text": "export function wheelScale(view: PaneView, deltaY: number, lines: boolean): number {"
+        },
+        {
+          "file": "src/application/plan-viz-zoompane.ts",
+          "line": 91,
+          "text": "export function zoomAbout("
+        },
+        {
+          "file": "src/application/plan-viz-zoompane.ts",
+          "line": 156,
+          "text": "export const zoomKey = (key: string): ZoomCommand | null => KEYS[key] ?? null;"
+        },
+        {
+          "file": "src/application/plan-viz-zoompane.ts",
+          "line": 141,
+          "text": "export const zoomPercent = (view: PaneView | null): string =>"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-system-handoff.md",
+          "sha256": "828cc57add7a95c45e211ffc5b039f5f8727328318f00d16a38c2bd8f7301009"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/federation-index.ts",
+      "sourceSha256": "4e7b5ab0c31ee7d435824fbd949e630ab1ab94381d9a443ba537a205a479a2fb",
+      "role": "support",
+      "reason": "Provides a generic graph-keyed memo for supplied graph queries.",
+      "evidence": [
+        {
+          "file": "src/application/plan/federation-index.ts",
+          "line": 20,
+          "text": "export function memoPerGraph<T extends object>(): ("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-system-handoff.md",
+          "sha256": "828cc57add7a95c45e211ffc5b039f5f8727328318f00d16a38c2bd8f7301009"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/ids.ts",
+      "sourceSha256": "0c3ee91a4d170fadd1b43b8d7839b8b812a09910e0ff55c5b3148f87459d1357",
+      "role": "support",
+      "reason": "Provides structural value, ID and pointer formatting helpers.",
+      "evidence": [
+        {
+          "file": "src/application/plan/ids.ts",
+          "line": 50,
+          "text": "export function formatPath(segments: readonly PathSegment[]): string {"
+        },
+        {
+          "file": "src/application/plan/ids.ts",
+          "line": 7,
+          "text": "export function isRecord(value: unknown): value is Rec {"
+        },
+        {
+          "file": "src/application/plan/ids.ts",
+          "line": 60,
+          "text": "export function pointerToSegments(pointer: string): PathSegment[] {"
+        },
+        {
+          "file": "src/application/plan/ids.ts",
+          "line": 12,
+          "text": "export function prop(value: unknown, key: string): unknown {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/progress-draft.ts",
+      "sourceSha256": "d17e2eeebac67e7fc0f40e522cb1cd90f2482b09b7327a48001587345603a053",
+      "role": "support",
+      "reason": "Formats independently authored progress drafts, commands and source labels.",
+      "evidence": [
+        {
+          "file": "src/application/plan/progress-draft.ts",
+          "line": 152,
+          "text": "export function agentPrompt(workspace: string, plan: string, event: ProgressEvent): string {"
+        },
+        {
+          "file": "src/application/plan/progress-draft.ts",
+          "line": 11,
+          "text": "export const CONFIDENCES: readonly Confidence[] = ['high', 'medium', 'low'];"
+        },
+        {
+          "file": "src/application/plan/progress-draft.ts",
+          "line": 66,
+          "text": "export function draftEvent(draft: ProgressDraft): ProgressEvent {"
+        },
+        {
+          "file": "src/application/plan/progress-draft.ts",
+          "line": 96,
+          "text": "export function eventYaml(event: ProgressEvent): string {"
+        },
+        {
+          "file": "src/application/plan/progress-draft.ts",
+          "line": 131,
+          "text": "export function progressCommand(workspace: string, plan: string, event: ProgressEvent): string {"
+        },
+        {
+          "file": "src/application/plan/progress-draft.ts",
+          "line": 12,
+          "text": "export const SOURCE_KINDS: readonly SourceKind[] = ["
+        },
+        {
+          "file": "src/application/plan/progress-draft.ts",
+          "line": 41,
+          "text": "export function statesFor(kind: DraftKind): readonly string[] {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-cli-handoff.md",
+          "sha256": "7640d6986db1b1744bce717b831891e9c225e3199b9408b55fa38de0527f592b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/progress.ts",
+      "sourceSha256": "a737d2845f8bcc5fc832a3568ad178f8528035c26b7618534405ddc477e53fce",
+      "role": "support",
+      "reason": "Validates and queries the independent append-only progress events.",
+      "evidence": [
+        {
+          "file": "src/application/plan/progress.ts",
+          "line": 108,
+          "text": "export function appendEvent("
+        },
+        {
+          "file": "src/application/plan/progress.ts",
+          "line": 60,
+          "text": "export function checkProgress(plan: ProgressSubjects, progress: Progress): Issue[] {"
+        },
+        {
+          "file": "src/application/plan/progress.ts",
+          "line": 133,
+          "text": "export function issueStatusOf(progress: Progress): IssueStatus {"
+        },
+        {
+          "file": "src/application/plan/progress.ts",
+          "line": 85,
+          "text": "export function latestEvent("
+        },
+        {
+          "file": "src/application/plan/progress.ts",
+          "line": 74,
+          "text": "export const sourceUrl = (event: ProgressEvent): string | undefined => {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-cli-handoff.md",
+          "sha256": "7640d6986db1b1744bce717b831891e9c225e3199b9408b55fa38de0527f592b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/revision-ledger.ts",
+      "sourceSha256": "2bab087cbde89f9e6c6d631fc31c439fe075c9fe81d52cd1d52956a536001f0f",
+      "role": "support",
+      "reason": "Reads the supplied revision ledger metadata.",
+      "evidence": [
+        {
+          "file": "src/application/plan/revision-ledger.ts",
+          "line": 14,
+          "text": "export const ledgerOf = <Entry extends RevisionIdentity>(plan: Ledgered<Entry>): readonly Entry[] =>"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-plan-cutover.md",
+          "sha256": "1365e27dcf1b64c5a8408922dcc39fb4da1c92cb4ff3b106f825c8cd5a87f49f"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/work-standing.ts",
+      "sourceSha256": "074271b85c8e2353b1d95e46f6dacbe1093fa4c7c4d8e4056acf172d266ddad9",
+      "role": "support",
+      "reason": "Computes work commitments, dates and blockers from supplied metadata and recorded events.",
+      "evidence": [
+        {
+          "file": "src/application/plan/work-standing.ts",
+          "line": 259,
+          "text": "export function commitmentsOf("
+        },
+        {
+          "file": "src/application/plan/work-standing.ts",
+          "line": 162,
+          "text": "export function gapDays(promisedFor: string | null, neededBy: string | null): number | null {"
+        },
+        {
+          "file": "src/application/plan/work-standing.ts",
+          "line": 346,
+          "text": "export function standingOf("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-cli-handoff.md",
+          "sha256": "7640d6986db1b1744bce717b831891e9c225e3199b9408b55fa38de0527f592b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/application/workspace-paths.ts",
+      "sourceSha256": "4618fe68570c20d21cf5a7b67173d15fd98634fb046d17e78f6de92a4f82e2dc",
+      "role": "support",
+      "reason": "Builds workspace and scoped addresses from supplied slugs.",
+      "evidence": [
+        {
+          "file": "src/application/workspace-paths.ts",
+          "line": 52,
+          "text": "export function domainFlowHref(workspace: string, domain: string, flow: string): string {"
+        },
+        {
+          "file": "src/application/workspace-paths.ts",
+          "line": 41,
+          "text": "export function flowSlug(id: string): string {"
+        },
+        {
+          "file": "src/application/workspace-paths.ts",
+          "line": 7,
+          "text": "export const languageHref = (workspace: string): string => `/${workspace}/language/`;"
+        },
+        {
+          "file": "src/application/workspace-paths.ts",
+          "line": 25,
+          "text": "export const partnerHref = (workspace: string, team: string): string =>"
+        },
+        {
+          "file": "src/application/workspace-paths.ts",
+          "line": 20,
+          "text": "export const partnersHref = (workspace: string): string => `/${workspace}/partners/`;"
+        },
+        {
+          "file": "src/application/workspace-paths.ts",
+          "line": 11,
+          "text": "export const peopleHref = (workspace: string): string => `/${workspace}/people/`;"
+        },
+        {
+          "file": "src/application/workspace-paths.ts",
+          "line": 13,
+          "text": "export const plansHref = (workspace: string): string => `/${workspace}/plans/`;"
+        },
+        {
+          "file": "src/application/workspace-paths.ts",
+          "line": 17,
+          "text": "export const programmeHref = (workspace: string, programme: string): string =>"
+        },
+        {
+          "file": "src/application/workspace-paths.ts",
+          "line": 15,
+          "text": "export const programmesHref = (workspace: string): string => `/${workspace}/programmes/`;"
+        },
+        {
+          "file": "src/application/workspace-paths.ts",
+          "line": 45,
+          "text": "export function systemFlowHref("
+        },
+        {
+          "file": "src/application/workspace-paths.ts",
+          "line": 9,
+          "text": "export const valueFlowsHref = (workspace: string): string => `/${workspace}/value-flows/`;"
+        },
+        {
+          "file": "src/application/workspace-paths.ts",
+          "line": 3,
+          "text": "export function workspaceHref(workspace: string): string {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/application/workspace-target-flow.ts",
+      "sourceSha256": "70686c7f44f5b1bbbc41a8261e3b1f495649f6deed37ce28de636d0d1684c9d5",
+      "role": "support",
+      "reason": "Draws the supplied authored target stages and their layout.",
+      "evidence": [
+        {
+          "file": "src/application/workspace-target-flow.ts",
+          "line": 10,
+          "text": "export const CARD_W = 200;"
+        },
+        {
+          "file": "src/application/workspace-target-flow.ts",
+          "line": 270,
+          "text": "export function targetFlowOf(stages: readonly FlowStageIn[]): TargetFlow {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-current-views.md",
+          "sha256": "c084814b586def71c6315696813e97c754a00e8bdd1c7ee764491e4d560c6c36"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/domain/ids.ts",
+      "sourceSha256": "39c00a3b3acc9d09b4b0d076a0177ccfe27de51d48cc3390a5f6d062fa9bac9e",
+      "role": "support",
+      "reason": "Defines ID grammar and reference operations on supplied values.",
+      "evidence": [
+        {
+          "file": "src/domain/ids.ts",
+          "line": 209,
+          "text": "export const appendChild = (parent: string, child: string): string =>"
+        },
+        {
+          "file": "src/domain/ids.ts",
+          "line": 64,
+          "text": "export function buildId(prefix: string, local: string): string {"
+        },
+        {
+          "file": "src/domain/ids.ts",
+          "line": 101,
+          "text": "export function childId(parent: string, child: unknown): string {"
+        },
+        {
+          "file": "src/domain/ids.ts",
+          "line": 107,
+          "text": "export function failureId(parent: string, failure: string): string {"
+        },
+        {
+          "file": "src/domain/ids.ts",
+          "line": 67,
+          "text": "export function hasPrefix<Prefix extends string>("
+        },
+        {
+          "file": "src/domain/ids.ts",
+          "line": 165,
+          "text": "export function idToToken(id: string): string {"
+        },
+        {
+          "file": "src/domain/ids.ts",
+          "line": 217,
+          "text": "export const isAuthoredReference = (id: string): boolean => /^[a-z]+:[\\w.#-]+$/u.test(id);"
+        },
+        {
+          "file": "src/domain/ids.ts",
+          "line": 299,
+          "text": "export function isChildId(value: unknown): boolean {"
+        },
+        {
+          "file": "src/domain/ids.ts",
+          "line": 211,
+          "text": "export const isQualifiedId = (id: string): boolean => id.includes(':');"
+        },
+        {
+          "file": "src/domain/ids.ts",
+          "line": 264,
+          "text": "export const isWithinId = (part: string, whole: string): boolean =>"
+        },
+        {
+          "file": "src/domain/ids.ts",
+          "line": 139,
+          "text": "export function kindOf(id: unknown): IdKind | null {"
+        },
+        {
+          "file": "src/domain/ids.ts",
+          "line": 268,
+          "text": "export const lastIdPart = (id: string): string => id.split(/[:#]/u).pop() ?? id;"
+        },
+        {
+          "file": "src/domain/ids.ts",
+          "line": 206,
+          "text": "export const localId = (id: string): string => id.replace(/^[a-z]+:/u, '');"
+        },
+        {
+          "file": "src/domain/ids.ts",
+          "line": 104,
+          "text": "export function nestedId(parent: string, path: readonly string[]): string {"
+        },
+        {
+          "file": "src/domain/ids.ts",
+          "line": 123,
+          "text": "export function parseId(id: unknown): ParsedId | null {"
+        },
+        {
+          "file": "src/domain/ids.ts",
+          "line": 152,
+          "text": "export function planEntityTypeOf(id: unknown): EntityType | null {"
+        },
+        {
+          "file": "src/domain/ids.ts",
+          "line": 113,
+          "text": "export function qualifiedOf(id: string): { readonly scope: string; readonly id: string } | null {"
+        },
+        {
+          "file": "src/domain/ids.ts",
+          "line": 119,
+          "text": "export function qualifyId(scope: string, id: string): string {"
+        },
+        {
+          "file": "src/domain/ids.ts",
+          "line": 189,
+          "text": "export function resolveAlias("
+        },
+        {
+          "file": "src/domain/ids.ts",
+          "line": 281,
+          "text": "export function rewriteIdReferences("
+        },
+        {
+          "file": "src/domain/ids.ts",
+          "line": 93,
+          "text": "export function rootId(id: string): string;"
+        },
+        {
+          "file": "src/domain/ids.ts",
+          "line": 84,
+          "text": "export function stripPrefix(id: string, prefix: string): string;"
+        },
+        {
+          "file": "src/domain/ids.ts",
+          "line": 170,
+          "text": "export function tokenToId(token: string): string | null {"
+        },
+        {
+          "file": "src/domain/ids.ts",
+          "line": 215,
+          "text": "export const workspaceIdPattern = /^[a-z0-9][a-z0-9:-]*$/u;"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/domain/ids.test.ts",
+          "sha256": "8652f831f3670092f0e4c17e9c58da100d9e418b3b74f4231ba1bb86c8c49987"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/domain/plan/plan-ids.ts",
+      "sourceSha256": "ac402b6a521f66b75ace28d166a3a492ed65c46be1fc836bed7b9d7a909ef016",
+      "role": "support",
+      "reason": "Exports a literal list of plan collections for ID and shape handling.",
+      "evidence": [
+        {
+          "file": "src/domain/plan/plan-ids.ts",
+          "line": 44,
+          "text": "export const SYSTEM_COLLECTIONS = {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/domain/model/contracts.generated.ts",
+      "sourceSha256": "2d72c7d267b24408cd048a03914323da384abc26e4f11fafc20751e253f8eeb1",
+      "role": "support",
+      "reason": "Generated type declarations for the canonical contracts contract are imported by the generated validation registry.",
+      "evidence": [
+        {
+          "file": "src/domain/model/contracts.generated.ts",
+          "line": 1,
+          "text": "/* Generated by tools/generate-plan-types.ts. Do not edit: run npm run generate. */"
+        },
+        {
+          "file": "src/infrastructure/model-schema.ts",
+          "line": 12,
+          "text": "} from '@/domain/model/contracts.generated';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/infrastructure/model-schema.test.ts",
+          "sha256": "6f16582a87803f6b07158e519f5995cae0aea3241003615c26a38ee9d7538d11"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/domain/model/workspace.generated.ts",
+      "sourceSha256": "ff9728c661b19c7cec628a6e137c6345cf0caecd19f59a365809e81c394269da",
+      "role": "support",
+      "reason": "Generated type declarations for the canonical workspace contract are imported by the generated validation registry.",
+      "evidence": [
+        {
+          "file": "src/domain/model/workspace.generated.ts",
+          "line": 1,
+          "text": "/* Generated from schema/workspace.schema.json by tools/generate-plan-types.ts. Do not edit: run npm run generate. */"
+        },
+        {
+          "file": "src/domain/model/contracts.generated.ts",
+          "line": 4,
+          "text": "import type { WorkspaceDocumentTypes } from '@/domain/model/workspace.generated';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/infrastructure/model-schema.test.ts",
+          "sha256": "6f16582a87803f6b07158e519f5995cae0aea3241003615c26a38ee9d7538d11"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/domain/model/plan.generated.ts",
+      "sourceSha256": "a4ffafba84e25365c5616c5993ef51468379da099822bf1ec553591ed658d86f",
+      "role": "support",
+      "reason": "Generated type declarations for the canonical plan contract are imported by the generated validation registry.",
+      "evidence": [
+        {
+          "file": "src/domain/model/plan.generated.ts",
+          "line": 1,
+          "text": "/* Generated from schema/plan.schema.json by tools/generate-plan-types.ts. Do not edit: run npm run generate. */"
+        },
+        {
+          "file": "src/domain/model/contracts.generated.ts",
+          "line": 3,
+          "text": "import type { CanonicalPlanTypes } from '@/domain/model/plan.generated';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/infrastructure/model-schema.test.ts",
+          "sha256": "6f16582a87803f6b07158e519f5995cae0aea3241003615c26a38ee9d7538d11"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/domain/model/evidence.generated.ts",
+      "sourceSha256": "365a8ac86ab3fccd46e2828a8da69bf873877fdd7662519557fd0715fa4b7682",
+      "role": "support",
+      "reason": "Generated type declarations for the canonical evidence contract are imported by the generated validation registry.",
+      "evidence": [
+        {
+          "file": "src/domain/model/evidence.generated.ts",
+          "line": 1,
+          "text": "/* Generated from schema/evidence.schema.json by tools/generate-plan-types.ts. Do not edit: run npm run generate. */"
+        },
+        {
+          "file": "src/domain/model/contracts.generated.ts",
+          "line": 2,
+          "text": "import type { CanonicalEvidenceTypes } from '@/domain/model/evidence.generated';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/infrastructure/model-schema.test.ts",
+          "sha256": "6f16582a87803f6b07158e519f5995cae0aea3241003615c26a38ee9d7538d11"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/domain/plan/plan.generated.ts",
+      "sourceSha256": "02196e7105687b647ba8c8999f2076ffef86725d81adf19b8892080e1cf2aa88",
+      "role": "support",
+      "reason": "The independent progress reader uses the generated Progress contract. Preserve Progress and ProgressEvent when retiring the old fact types in PR 10.",
+      "evidence": [
+        {
+          "file": "src/domain/plan/plan.generated.ts",
+          "line": 1982,
+          "text": "export interface ProgressEvent {"
+        },
+        {
+          "file": "src/domain/plan/plan.generated.ts",
+          "line": 2037,
+          "text": "export interface Progress {"
+        },
+        {
+          "file": "src/infrastructure/progress-store.ts",
+          "line": 4,
+          "text": "import type { Progress } from '@/domain/plan/plan.generated';"
+        },
+        {
+          "file": "src/application/model-progress.ts",
+          "line": 4,
+          "text": "import type { Progress, ProgressEvent } from '@/domain/plan/plan.generated';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/infrastructure/model-plan-context.test.ts",
+          "sha256": "7c17803752579f4aa7256f6ecd883459fff12976e05b693a0e40c19bb677ec2c"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/infrastructure/plan-fixture.ts",
+      "sourceSha256": "58e0ebadf2c3646fb916f647643478a38ec58336e486e17e53d643ff31ce0369",
+      "role": "support",
+      "reason": "The fixture loader reads and validates a pinned file under test/fixtures. Its old plan inputs are used by fixture tests.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/plan-fixture.ts",
+          "line": 12,
+          "text": "const text = await readText(pathIn(process.cwd(), 'test', 'fixtures', name));"
+        },
+        {
+          "file": "src/features/plan/plan-model.test.ts",
+          "line": 14,
+          "text": "const { loadFixture } = await import('@/infrastructure/plan-fixture');"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/features/plan/plan-model.test.ts",
+          "sha256": "1cb56dd3a0378df9674292bd3e5e34792724ae6db3e4f104f61d121c94c75d30"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/infrastructure/plan-files.ts",
+      "sourceSha256": "0fd4b97f5bec486deb749a41269bf0d9c057649d3b3fe041afc146903931ac31",
+      "role": "support",
+      "reason": "The scoped file reader serves only selected asset and mockup bytes.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/plan-files.ts",
+          "line": 26,
+          "text": "export const contentTypeOf = (file: string): string =>"
+        },
+        {
+          "file": "src/infrastructure/plan-files.ts",
+          "line": 30,
+          "text": "export async function readPlanFile("
+        },
+        {
+          "file": "src/infrastructure/plan-files.ts",
+          "line": 41,
+          "text": "export async function readWorkspaceAsset("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/infrastructure/plan-files.test.ts",
+          "sha256": "438264769b7eeb36193973381d6e8559b31ac33d0c00e12a0c8a29f4284fe1f7"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/infrastructure/plan-schema-errors.ts",
+      "sourceSha256": "2500cf478f364abf416c3f02f4afdcfd402085c532f3353b0c086cf25a664d5d",
+      "role": "support",
+      "reason": "Formats structural schema issues from a supplied validator result.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/plan-schema-errors.ts",
+          "line": 238,
+          "text": "export function shapeProblems(errors: readonly ErrorObject[]): ShapeProblem[] {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/infrastructure/model-schema.test.ts",
+          "sha256": "6f16582a87803f6b07158e519f5995cae0aea3241003615c26a38ee9d7538d11"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/infrastructure/progress-store.ts",
+      "sourceSha256": "b35e1b0b5af003f86e56289ccdcea446cb404c1691261f5cd717978d79355dce",
+      "role": "support",
+      "reason": "Reads and validates independent progress events for the selected plan folder.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/progress-store.ts",
+          "line": 19,
+          "text": "export async function readProgress("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-cli-handoff.md",
+          "sha256": "7640d6986db1b1744bce717b831891e9c225e3199b9408b55fa38de0527f592b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/infrastructure/workspace-folders.ts",
+      "sourceSha256": "beeaebf8f43f9b583ab8ddd060775067cd402ad32c6734ee6b6821ecf1f4835d",
+      "role": "support",
+      "reason": "Resolves the workspace registration and folder without loading workspace facts.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/workspace-folders.ts",
+          "line": 56,
+          "text": "export function folderOf(entry: LocalEntry): string {"
+        },
+        {
+          "file": "src/infrastructure/workspace-folders.ts",
+          "line": 197,
+          "text": "export function localWorkspaceDetails(): boolean {"
+        },
+        {
+          "file": "src/infrastructure/workspace-folders.ts",
+          "line": 180,
+          "text": "export async function readLocal("
+        },
+        {
+          "file": "src/infrastructure/workspace-folders.ts",
+          "line": 171,
+          "text": "export async function registeredAt("
+        },
+        {
+          "file": "src/infrastructure/workspace-folders.ts",
+          "line": 138,
+          "text": "export async function registrationsAt("
+        },
+        {
+          "file": "src/infrastructure/workspace-folders.ts",
+          "line": 202,
+          "text": "export async function selectedWorkspace(id?: string): Promise<WorkspaceRegistration> {"
+        },
+        {
+          "file": "src/infrastructure/workspace-folders.ts",
+          "line": 226,
+          "text": "export async function workspaceFolder(id: string, root?: string): Promise<string | null> {"
+        },
+        {
+          "file": "src/infrastructure/workspace-folders.ts",
+          "line": 219,
+          "text": "export async function workspaceFolders(root?: string): Promise<ReadonlyMap<string, string>> {"
+        },
+        {
+          "file": "src/infrastructure/workspace-folders.ts",
+          "line": 190,
+          "text": "export async function workspaceRegistrations(): Promise<readonly WorkspaceRegistration[]> {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/infrastructure/workspace-folders.test.ts",
+          "sha256": "c621a9354f3199785a1eb744a4653e2447f7bee24b12b92bf738f1bef8c530d7"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/infrastructure/workspace-schema.ts",
+      "sourceSha256": "006c655e929cbd4a6e843bc3587776db6b89e5d1303ec4753b339ba257a2c259",
+      "role": "support",
+      "reason": "The registered workspace reader uses only the two ID and name validators. Preserve those constraints before removing the remaining format-1 validators in PR 10.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/workspace-schema.ts",
+          "line": 58,
+          "text": "export const workspaceFile = z.strictObject({"
+        },
+        {
+          "file": "src/infrastructure/workspace-folders.ts",
+          "line": 62,
+          "text": "id: workspaceFile.shape.id,"
+        },
+        {
+          "file": "src/infrastructure/workspace-folders.ts",
+          "line": 63,
+          "text": "name: workspaceFile.shape.name,"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/infrastructure/workspace-folders.test.ts",
+          "sha256": "c621a9354f3199785a1eb744a4653e2447f7bee24b12b92bf738f1bef8c530d7"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/features/design/design-diagrams.tsx",
+      "sourceSha256": "f8a93e8625da1bf4e7d7b49f4d89633a5c2488a648bc4f09edf241d59569381d",
+      "role": "support",
+      "reason": "Renders local drawing specimens without a workspace input.",
+      "evidence": [
+        {
+          "file": "src/features/design/design-diagrams.tsx",
+          "line": 12,
+          "text": "export function DiagramsSection() {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/features/design/design-layout.tsx",
+      "sourceSha256": "2866ab13e758f644d813b90266bea6443eb1a4c80302e86bce11cdce563f5aea",
+      "role": "support",
+      "reason": "Renders local navigation and layout specimens without a workspace input.",
+      "evidence": [
+        {
+          "file": "src/features/design/design-layout.tsx",
+          "line": 12,
+          "text": "export function LayoutSection() {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/features/plan/inspector/entity-head.tsx",
+      "sourceSha256": "c4468e65f5c9caea40633aaf935c3a82d6d4c3ccbf335fa0a47af2923cc951f0",
+      "role": "support",
+      "reason": "Renders bounded inspector labels and actions.",
+      "evidence": [
+        {
+          "file": "src/features/plan/inspector/entity-head.tsx",
+          "line": 29,
+          "text": "export function EntityHead({"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-current-views.md",
+          "sha256": "c084814b586def71c6315696813e97c754a00e8bdd1c7ee764491e4d560c6c36"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/features/plan/inspector/inspector-bar.client.tsx",
+      "sourceSha256": "c17968d929a950901aa99c4fe5684b24be7ccdd4b751cc5692d665c56add027e",
+      "role": "support",
+      "reason": "Renders bounded inspector navigation and selection controls.",
+      "evidence": [
+        {
+          "file": "src/features/plan/inspector/inspector-bar.client.tsx",
+          "line": 25,
+          "text": "export function InspectorBar({ id, model, page = null }: InspectorBarProps) {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-current-views.md",
+          "sha256": "c084814b586def71c6315696813e97c754a00e8bdd1c7ee764491e4d560c6c36"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/features/plan/inspector/version-jump.client.tsx",
+      "sourceSha256": "016f8189b8580c789be3848a789011f8263bf61c279eeb7b7c7b039290c0b3a1",
+      "role": "support",
+      "reason": "Presents the version choices and forms the address of a chosen revision.",
+      "evidence": [
+        {
+          "file": "src/features/plan/inspector/version-jump.client.tsx",
+          "line": 48,
+          "text": "export const revisionSrc = (src: string, version: string): string =>"
+        },
+        {
+          "file": "src/features/plan/inspector/version-jump.client.tsx",
+          "line": 18,
+          "text": "export function VersionJump({ plan, value, onChange }: VersionJumpProps) {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-current-views.md",
+          "sha256": "c084814b586def71c6315696813e97c754a00e8bdd1c7ee764491e4d560c6c36"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/features/plan/thing-page/thing-register.tsx",
+      "sourceSha256": "2d9b43fd351a3964071a9959e5081053028cf4ab651c6ec1d99d331ce2431b34",
+      "role": "support",
+      "reason": "Renders the supplied thing register rows.",
+      "evidence": [
+        {
+          "file": "src/features/plan/thing-page/thing-register.tsx",
+          "line": 17,
+          "text": "export function ThingRegister({ model, base, id, siblings, title }: ThingRegisterProps) {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-current-views.md",
+          "sha256": "c084814b586def71c6315696813e97c754a00e8bdd1c7ee764491e4d560c6c36"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/features/plan/viz/flow-diagram/flow-hit.tsx",
+      "sourceSha256": "3dc4e12ec139e3e2e3699e1c8b12cc865b83ec654922a93f785b3d6e0af3b1ec",
+      "role": "support",
+      "reason": "Renders the interactive hit region for a supplied flow node.",
+      "evidence": [
+        {
+          "file": "src/features/plan/viz/flow-diagram/flow-hit.tsx",
+          "line": 30,
+          "text": "export function Hit({ x, y, w, h, label, inspect, step }: HitProps) {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-current-views.md",
+          "sha256": "c084814b586def71c6315696813e97c754a00e8bdd1c7ee764491e4d560c6c36"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/features/plan/viz/system-map/map-bands.tsx",
+      "sourceSha256": "46e134747f47db1e099fd6bd627bd9bd9778bbe732bdfdb5ae72a0ac3d2fc11f",
+      "role": "support",
+      "reason": "Renders bounded system map drawing bands.",
+      "evidence": [
+        {
+          "file": "src/features/plan/viz/system-map/map-bands.tsx",
+          "line": 14,
+          "text": "export function MapBands({ bands, h }: MapBandsProps) {"
+        },
+        {
+          "file": "src/features/plan/viz/system-map/map-bands.tsx",
+          "line": 41,
+          "text": "export function MapOutside({ outside, w, h }: MapOutsideProps) {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-system-handoff.md",
+          "sha256": "828cc57add7a95c45e211ffc5b039f5f8727328318f00d16a38c2bd8f7301009"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/features/plan/viz/system-map/map-satellite.tsx",
+      "sourceSha256": "463b57807cfc961aeb0a7a6df606e8f249aa3e9c0b9b845e0ee8bffe5f88287a",
+      "role": "support",
+      "reason": "Renders a bounded system map drawing part.",
+      "evidence": [
+        {
+          "file": "src/features/plan/viz/system-map/map-satellite.tsx",
+          "line": 76,
+          "text": "export function MapSatellite({ node }: { readonly node: DrawnNode }) {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-system-handoff.md",
+          "sha256": "828cc57add7a95c45e211ffc5b039f5f8727328318f00d16a38c2bd8f7301009"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/features/plan/viz/system-map/map-stripe.tsx",
+      "sourceSha256": "db21567f67058719e35460604c4d69526f44e28fdb0cf5eec5f968fb8383dc80",
+      "role": "support",
+      "reason": "Renders a bounded drawing stripe.",
+      "evidence": [
+        {
+          "file": "src/features/plan/viz/system-map/map-stripe.tsx",
+          "line": 13,
+          "text": "export function MapStripe({ h, r, slot }: MapStripeProps) {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-system-handoff.md",
+          "sha256": "828cc57add7a95c45e211ffc5b039f5f8727328318f00d16a38c2bd8f7301009"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/features/plan/viz/zoompane/use-zoom-pane.ts",
+      "sourceSha256": "bf18e162d10d18997bf2a08a664af167b5942116bef1c31de24972d88e9e2032",
+      "role": "support",
+      "reason": "Handles zoom and pan controls on a supplied drawing.",
+      "evidence": [
+        {
+          "file": "src/features/plan/viz/zoompane/use-zoom-pane.ts",
+          "line": 126,
+          "text": "export function useZoomPane("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-system-handoff.md",
+          "sha256": "828cc57add7a95c45e211ffc5b039f5f8727328318f00d16a38c2bd8f7301009"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/features/plan/viz/zoompane/zoom-pane.client.tsx",
+      "sourceSha256": "4a9b13f93799ba8b8ad0f995a570690797fa66743641ec1762f444e6598fb7a1",
+      "role": "support",
+      "reason": "Renders viewport controls for a supplied drawing.",
+      "evidence": [
+        {
+          "file": "src/features/plan/viz/zoompane/zoom-pane.client.tsx",
+          "line": 45,
+          "text": "export const StopFocus = createContext<Bounds | null | undefined>(undefined);"
+        },
+        {
+          "file": "src/features/plan/viz/zoompane/zoom-pane.client.tsx",
+          "line": 212,
+          "text": "export function ZoomPane({ children, inline, label, legend, ...own }: ZoomPaneProps) {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-system-handoff.md",
+          "sha256": "828cc57add7a95c45e211ffc5b039f5f8727328318f00d16a38c2bd8f7301009"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/features/workspace/area-expanded-system.client.tsx",
+      "sourceSha256": "e96fac1948cbb1c33172d11a19c7d35bf00c16472b21e46a962541686e128ecc",
+      "role": "support",
+      "reason": "Renders supplied area system and component cards.",
+      "evidence": [
+        {
+          "file": "src/features/workspace/area-expanded-system.client.tsx",
+          "line": 254,
+          "text": "export function AreaExpandedSystem({"
+        },
+        {
+          "file": "src/features/workspace/area-expanded-system.client.tsx",
+          "line": 162,
+          "text": "export function ComponentCluster({"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-current-views.md",
+          "sha256": "c084814b586def71c6315696813e97c754a00e8bdd1c7ee764491e4d560c6c36"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/features/workspace/area-value-map.client.tsx",
+      "sourceSha256": "f5ac3322f3a52f6b9ffcd25c0a725bb25c773a045b0ba62f9959c3b110e3a632",
+      "role": "support",
+      "reason": "Draws the supplied area and its bounded layout.",
+      "evidence": [
+        {
+          "file": "src/features/workspace/area-value-map.client.tsx",
+          "line": 265,
+          "text": "export function AreaValueMap({"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-current-views.md",
+          "sha256": "c084814b586def71c6315696813e97c754a00e8bdd1c7ee764491e4d560c6c36"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/features/workspace/domain-target.tsx",
+      "sourceSha256": "350ae7042a84596157c09cf096b9a0faaa2a1c343561b1df526248d30683bf26",
+      "role": "support",
+      "reason": "Renders the supplied target stages and controls.",
+      "evidence": [
+        {
+          "file": "src/features/workspace/domain-target.tsx",
+          "line": 69,
+          "text": "export function DomainTarget({"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-current-views.md",
+          "sha256": "c084814b586def71c6315696813e97c754a00e8bdd1c7ee764491e4d560c6c36"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/features/workspace/landscape-map.client.tsx",
+      "sourceSha256": "2d4b5ea97d22022e804a6e5c17acf929c3a012062f42972dc6617b0a22882e0a",
+      "role": "support",
+      "reason": "Draws a bounded workspace overview map.",
+      "evidence": [
+        {
+          "file": "src/features/workspace/landscape-map.client.tsx",
+          "line": 148,
+          "text": "export function LandscapeMap({"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-current-views.md",
+          "sha256": "c084814b586def71c6315696813e97c754a00e8bdd1c7ee764491e4d560c6c36"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/features/workspace/term-fit.tsx",
+      "sourceSha256": "b041507cfa35ce8a07d4c4e6a85a45fbb7ef37182125bdb0c6a69731149515e7",
+      "role": "support",
+      "reason": "Renders a supplied term fit indicator.",
+      "evidence": [
+        {
+          "file": "src/features/workspace/term-fit.tsx",
+          "line": 13,
+          "text": "export function TermFitBadge({ fit }: { readonly fit: TermFit | null }) {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-current-views.md",
+          "sha256": "c084814b586def71c6315696813e97c754a00e8bdd1c7ee764491e4d560c6c36"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/features/workspace/workspace-shell.tsx",
+      "sourceSha256": "a4f1ac32866762b5da8d453ad6fa48c93683b1855492888527e018c42055fe05",
+      "role": "support",
+      "reason": "Composes bounded workspace navigation and page children.",
+      "evidence": [
+        {
+          "file": "src/features/workspace/workspace-shell.tsx",
+          "line": 30,
+          "text": "export function WorkspaceShell({"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-current-views.md",
+          "sha256": "c084814b586def71c6315696813e97c754a00e8bdd1c7ee764491e4d560c6c36"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/features/workspaces/workspace-panel.tsx",
+      "sourceSha256": "6b6eca43e2dd3e3180b9d86d30f81a700f6f5eca8282f6044ae5ce7c90503d55",
+      "role": "support",
+      "reason": "Renders supplied workspace library counts and links.",
+      "evidence": [
+        {
+          "file": "src/features/workspaces/workspace-panel.tsx",
+          "line": 26,
+          "text": "export function WorkspacePanel({ card }: WorkspacePanelProps) {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-current-views.md",
+          "sha256": "c084814b586def71c6315696813e97c754a00e8bdd1c7ee764491e4d560c6c36"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/ui/flow-card.tsx",
+      "sourceSha256": "6ee3d46cbdec9ddf7907779be255f8ecdc8b7caa33213f9d2630d7037a23454f",
+      "role": "support",
+      "reason": "Draws supplied flow labels and rows without a model reader.",
+      "evidence": [
+        {
+          "file": "src/ui/flow-card.tsx",
+          "line": 22,
+          "text": "export function FlowCard({"
+        },
+        {
+          "file": "src/ui/flow-card.tsx",
+          "line": 62,
+          "text": "export function FlowCardRow({"
+        },
+        {
+          "file": "src/ui/flow-card.tsx",
+          "line": 100,
+          "text": "export function FlowLines({"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-current-views.md",
+          "sha256": "c084814b586def71c6315696813e97c754a00e8bdd1c7ee764491e4d560c6c36"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    }
+  ],
+  "unproved": []
+}

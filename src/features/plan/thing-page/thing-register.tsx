@@ -1,12 +1,11 @@
 import Link from 'next/link';
 
-import type { Model } from '@/application/plan/derive';
-import { thingAt } from '@/application/plan-pages-things';
+import { thingAt } from '@/application/thing-paths';
 
 import styles from './thing-register.module.css';
 
 interface ThingRegisterProps {
-  readonly model: Model;
+  readonly model: { readonly label: (id: string) => string };
   /** Where the things' pages are, ending in a slash. */
   readonly base: string;
   readonly id: string;

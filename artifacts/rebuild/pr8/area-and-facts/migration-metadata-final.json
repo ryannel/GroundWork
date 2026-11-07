@@ -1,0 +1,32 @@
+{
+  "format": 1,
+  "scope": "Observed raw GraphQL argument signatures, prior team placements and proposed component description preservation",
+  "sourceSha256": {
+    "tools/migrate-model/contracts.ts": "09c8c1703569113510f1097ededd4af0b9758a4ea79cab86645658f10eb21682",
+    "tools/migrate-model/workspace.ts": "39457f2485d7bc5a5b76cf7952690419a6936440d9c7b88fe32f01afdb3ce8f1",
+    "tools/migrate-model/plans.ts": "9a5081af6ef175633fe95ae3c0f098d04d0830f7ceb83882ac62245e42072a69",
+    "tools/migrate-model/conversion.test.ts": "22dd1f9c7794db2bc32461f4ed71046d09ed4438ba4461345f5e68cf1506b34c",
+    "tools/migrate-model/plans.test.ts": "c509dbb3d6cb2ba3bdab1beb2d16aeb56146e64c9bd55b0027d07be2a56c6653"
+  },
+  "focusedTests": {
+    "command": "npx vitest run --project scanner tools/migrate-model/conversion.test.ts tools/migrate-model/plans.test.ts",
+    "files": 2,
+    "passed": 20,
+    "failed": 0,
+    "durationMs": 357,
+    "session": 32312
+  },
+  "focusedLint": {
+    "command": "npx eslint tools/migrate-model/{contracts,workspace,plans,conversion.test,plans.test}.ts",
+    "exitCode": 0,
+    "session": 32312
+  },
+  "broadRerunRequired": false,
+  "reason": "Deterministic offline converter and owning tests changed. Existing app source and query semantics unchanged.",
+  "incrementalTypecheck": {
+    "command": "npm run --silent typecheck",
+    "exitCode": 0,
+    "log": ".workspaces/rebuild/pr8/area-audit/metadata-typecheck.log",
+    "session": 32312
+  }
+}

@@ -1,0 +1,30 @@
+interfaces:
+  - id: if:search-rest
+    kind: rest
+    component: svc:search-api
+    entries:
+      - id: api:search-query
+        sig: GET /search?q={words}
+        response: sch:search-doc
+        idempotent: true
+        method: GET
+        path: /search?q={words}
+schemas:
+  - id: sch:search-doc
+    name: SearchDoc
+    kind: record
+    store: st:search-index
+    fields:
+      - name: sku
+        type: string
+        required: true
+        key: true
+        id: sku
+      - name: words
+        type: string
+        id: words
+messages: []
+subscriptions: []
+jobs: []
+interactions: []
+operations: []

@@ -1,5 +1,5 @@
 import type { Neighbours, Outline, Page } from '@/application/plan-pages';
-import { planReaderOf } from '@/application/plan-pages-things';
+import { planReaderOf } from '@/application/thing-paths';
 
 import { CheatSheet } from './cheat-sheet.client';
 import { Inspector } from './inspector.client';

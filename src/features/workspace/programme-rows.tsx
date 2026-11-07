@@ -5,7 +5,11 @@ import { Stack } from '@/ui/stack';
 import { Text, TextLink } from '@/ui/text';
 
 function Held({ row }: { readonly row: ProgrammeRowVM }) {
-  const counts = `${plural(row.plans, 'plan')} · ${row.blocked === 0 ? 'none' : String(row.blocked)} held up`;
+  const held = row.blocked === 0 ? 'none' : String(row.blocked);
+  const counts =
+    row.unknownProgress === undefined
+      ? `${plural(row.plans, 'plan')} · ${held} held up`
+      : `${plural(row.plans, 'plan')} · ${row.unknownProgress}`;
   return (
     <Text size="sm" tone="muted">
       {counts}

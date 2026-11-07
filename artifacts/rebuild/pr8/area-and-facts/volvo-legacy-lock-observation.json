@@ -1,0 +1,344 @@
+{
+  "frozenClean": [
+    "care-se-financing-status",
+    "care-se-online",
+    "care-se-order-change",
+    "care-se-sales-tool",
+    "care-se-stock-reservation",
+    "unify-price-breakdown"
+  ],
+  "legacyLocks": 8,
+  "nowReportedEdited": [
+    "care-se-financing-status",
+    "care-se-online",
+    "care-se-order-change",
+    "care-se-sales-tool",
+    "care-se-stock-reservation",
+    "immutable-ids",
+    "sourced-financing-terms",
+    "unify-price-breakdown"
+  ],
+  "nowReportedStale": [
+    "care-se-financing-status",
+    "care-se-online",
+    "care-se-order-change",
+    "care-se-sales-tool",
+    "care-se-stock-reservation"
+  ],
+  "plans": [
+    {
+      "checkedOn": "2026-11-05",
+      "frozen": {
+        "drift": [],
+        "edited": false,
+        "stale": false
+      },
+      "lockedIds": [
+        "h:conditional-order-post-checkout-v2",
+        "h:fae-bank-create-application",
+        "h:fae-create-application",
+        "msg:fae-finance-application-create",
+        "msg:fae-finance-application-reject",
+        "msg:fae-finance-application-update"
+      ],
+      "slug": "care-se-financing-status",
+      "source": "/Users/RNEL/Workspace/volvo-groundwork/plans/care-se-financing-status/base.lock.json",
+      "sourceSha256": "ff8e2a85ff924b7c1f67f138be1e128c439527241937941ceb2c43c1bd4bc5f5",
+      "targetHashes": {
+        "nativePlan": "f9ac6500696231fcbf3a31b912f83e2fedb1520f06235224b7f3c45abf02185e",
+        "priorPlan": "783f11ef"
+      },
+      "unsupportedCrossFormatComparison": {
+        "drift": [
+          "h:conditional-order-post-checkout-v2",
+          "h:fae-bank-create-application",
+          "h:fae-create-application",
+          "msg:fae-finance-application-create",
+          "msg:fae-finance-application-reject",
+          "msg:fae-finance-application-update"
+        ],
+        "edited": true,
+        "stale": true
+      }
+    },
+    {
+      "checkedOn": "2026-11-05",
+      "frozen": {
+        "drift": [],
+        "edited": false,
+        "stale": false
+      },
+      "lockedIds": [],
+      "slug": "care-se-online",
+      "source": "/Users/RNEL/Workspace/volvo-groundwork/plans/care-se-online/base.lock.json",
+      "sourceSha256": "ed27c5997ec9bb97131845f61bc71d678f24b2308b635653a19190506a678ea3",
+      "targetHashes": {
+        "nativePlan": "8c6d401c3024ea8eff55437c3b801abfc38c84a889af3e55abf0d57237eb1b73",
+        "priorPlan": "afa5ae1d"
+      },
+      "unsupportedCrossFormatComparison": {
+        "drift": [],
+        "edited": true,
+        "stale": true
+      }
+    },
+    {
+      "checkedOn": "2026-11-05",
+      "frozen": {
+        "drift": [],
+        "edited": false,
+        "stale": false
+      },
+      "lockedIds": [
+        "svc:retail-sales-tool"
+      ],
+      "slug": "care-se-order-change",
+      "source": "/Users/RNEL/Workspace/volvo-groundwork/plans/care-se-order-change/base.lock.json",
+      "sourceSha256": "df5ada1e917354196ea9dbaeec22f5f7619c933320e2f047a8446b22ed75ceef",
+      "targetHashes": {
+        "nativePlan": "53ae51346a4f8b5eb19310030b9005a123339af5543f22d75b3544f610d4a727",
+        "priorPlan": "724a3028"
+      },
+      "unsupportedCrossFormatComparison": {
+        "drift": [
+          "svc:retail-sales-tool"
+        ],
+        "edited": true,
+        "stale": true
+      }
+    },
+    {
+      "checkedOn": "2026-11-05",
+      "frozen": {
+        "drift": [],
+        "edited": false,
+        "stale": false
+      },
+      "lockedIds": [
+        "h:conditional-order-post-checkout-v2"
+      ],
+      "slug": "care-se-sales-tool",
+      "source": "/Users/RNEL/Workspace/volvo-groundwork/plans/care-se-sales-tool/base.lock.json",
+      "sourceSha256": "447acbeff061161e097e83a1fa5bfb166b6a22d777c0d6fb919c281a5755ecf8",
+      "targetHashes": {
+        "nativePlan": "75495880f3bf6790ba9813e51118521bb1e834e50bca6b48ee5278c3d5e26c51",
+        "priorPlan": "27e9b22f"
+      },
+      "unsupportedCrossFormatComparison": {
+        "drift": [
+          "h:conditional-order-post-checkout-v2"
+        ],
+        "edited": true,
+        "stale": true
+      }
+    },
+    {
+      "checkedOn": "2026-11-05",
+      "frozen": {
+        "drift": [],
+        "edited": false,
+        "stale": false
+      },
+      "lockedIds": [
+        "h:conditional-order-post-checkout-v2",
+        "msg:fae-finance-application-reject",
+        "msg:fae-finance-application-update"
+      ],
+      "slug": "care-se-stock-reservation",
+      "source": "/Users/RNEL/Workspace/volvo-groundwork/plans/care-se-stock-reservation/base.lock.json",
+      "sourceSha256": "0e301b0fa32db4ae1bc356023b0e7f2293c9e8bd38894e71bcdc5510c8b0d750",
+      "targetHashes": {
+        "nativePlan": "87f9df2e5ce7b887fc51ec19a64445a24536eb954875be6638f57feade4034e1",
+        "priorPlan": "8dae4af6"
+      },
+      "unsupportedCrossFormatComparison": {
+        "drift": [
+          "h:conditional-order-post-checkout-v2",
+          "msg:fae-finance-application-reject",
+          "msg:fae-finance-application-update"
+        ],
+        "edited": true,
+        "stale": true
+      }
+    },
+    {
+      "checkedOn": "2026-10-16",
+      "frozen": {
+        "drift": [
+          "api:assortment-product-get",
+          "api:assortment-products-batch",
+          "api:assortment-variant-get",
+          "api:assortment-variants-batch"
+        ],
+        "edited": true,
+        "stale": false
+      },
+      "lockedIds": [
+        "api:assortment-product-get",
+        "api:assortment-products-batch",
+        "api:assortment-variant-get",
+        "api:assortment-variants-batch",
+        "flow:assortment-cache-pds-delete#remove-hot",
+        "flow:assortment-cache-pds-upsert#remove-omitted",
+        "flow:assortment-cache-pds-upsert#write-both",
+        "flow:assortment-read-current-view#request",
+        "flow:mas-commercial-item-update#refresh-views"
+      ],
+      "slug": "immutable-ids",
+      "source": "/Users/RNEL/Workspace/volvo-groundwork/plans/immutable-ids/base.lock.json",
+      "sourceSha256": "1b0adeac907d033ecca15d32021a8dd3d53541c8ea41f8882a88a9906520fc49",
+      "targetHashes": {
+        "nativePlan": "1787d2bce122aef1f3ed4dfd85fc70ec7d621691a97825f6263bf7f06c30a15e",
+        "priorPlan": null
+      },
+      "unsupportedCrossFormatComparison": {
+        "drift": [
+          "api:assortment-product-get",
+          "api:assortment-products-batch",
+          "api:assortment-variant-get",
+          "api:assortment-variants-batch",
+          "flow:assortment-cache-pds-delete#remove-hot",
+          "flow:assortment-cache-pds-upsert#remove-omitted",
+          "flow:assortment-cache-pds-upsert#write-both",
+          "flow:assortment-read-current-view#request",
+          "flow:mas-commercial-item-update#refresh-views"
+        ],
+        "edited": true,
+        "stale": false
+      }
+    },
+    {
+      "checkedOn": "2026-10-16",
+      "frozen": {
+        "drift": [
+          "api:fo-admin-activate-template",
+          "api:fo-admin-create-finance",
+          "api:gpe-configuration-get-financing-products",
+          "api:price-core-create-financing-product",
+          "api:price-core-update-financing-product",
+          "flow:activate-financing-offer",
+          "flow:activate-financing-offer#activate",
+          "flow:admin-create-finance",
+          "flow:admin-create-finance#create-finance",
+          "flow:admin-create-finance#create-term",
+          "flow:gpe-price-data-import-financing-products",
+          "flow:gpe-price-data-import-financing-products#read-products",
+          "flow:list-financing-products",
+          "flow:list-financing-products#merge",
+          "flow:list-financing-products#read-fae",
+          "flow:list-financing-products#read-redis",
+          "flow:price-core-author-financing-product#create",
+          "sch:gpe-financing-product-dto",
+          "sch:redis-financing-products",
+          "sch:redis-financing-products#Products"
+        ],
+        "edited": true,
+        "stale": false
+      },
+      "lockedIds": [
+        "api:fo-admin-activate-template",
+        "api:fo-admin-create-finance",
+        "api:gpe-configuration-get-financing-products",
+        "api:price-core-create-financing-product",
+        "api:price-core-update-financing-product",
+        "flow:activate-financing-offer",
+        "flow:activate-financing-offer#activate",
+        "flow:activate-financing-offer#check-options",
+        "flow:activate-financing-offer#fetch-sourced-terms",
+        "flow:admin-create-finance",
+        "flow:admin-create-finance#create-finance",
+        "flow:admin-create-finance#create-term",
+        "flow:gpe-price-data-import-financing-products",
+        "flow:gpe-price-data-import-financing-products#read-products",
+        "flow:gpe-price-data-refresh-price-core-terms#save-terms",
+        "flow:list-financing-products",
+        "flow:list-financing-products#merge",
+        "flow:list-financing-products#read-fae",
+        "flow:list-financing-products#read-redis",
+        "flow:price-core-author-financing-product#create",
+        "flow:resolve-financing-product-terms#resolve-source",
+        "msg:gpe-financing-products-updated",
+        "msg:price-financing-products-updated-public",
+        "sch:financing-offer-archived-event#Reason",
+        "sch:financing-offers-event#payload",
+        "sch:gpe-financing-product-dto",
+        "sch:gpe-financing-product-dto#source",
+        "sch:redis-financing-products",
+        "sch:redis-financing-products#Products",
+        "st:price-financing-products-updated-public"
+      ],
+      "slug": "sourced-financing-terms",
+      "source": "/Users/RNEL/Workspace/volvo-groundwork/plans/sourced-financing-terms/base.lock.json",
+      "sourceSha256": "09c196c3a8da46ccb6d76a2136f73f1145003066357d7fd816077b62a13b6bed",
+      "targetHashes": {
+        "nativePlan": "b881304cb04d4e07e0de50fd566df5f16c6bdaf214ff83123ff8cee0b62749e3",
+        "priorPlan": null
+      },
+      "unsupportedCrossFormatComparison": {
+        "drift": [
+          "api:fo-admin-activate-template",
+          "api:fo-admin-create-finance",
+          "api:gpe-configuration-get-financing-products",
+          "api:price-core-create-financing-product",
+          "api:price-core-update-financing-product",
+          "flow:activate-financing-offer",
+          "flow:activate-financing-offer#activate",
+          "flow:admin-create-finance",
+          "flow:admin-create-finance#create-finance",
+          "flow:admin-create-finance#create-term",
+          "flow:gpe-price-data-import-financing-products",
+          "flow:gpe-price-data-import-financing-products#read-products",
+          "flow:list-financing-products",
+          "flow:list-financing-products#merge",
+          "flow:list-financing-products#read-fae",
+          "flow:list-financing-products#read-redis",
+          "flow:price-core-author-financing-product#create",
+          "msg:gpe-financing-products-updated",
+          "msg:price-financing-products-updated-public",
+          "sch:financing-offer-archived-event#Reason",
+          "sch:financing-offers-event#payload",
+          "sch:gpe-financing-product-dto",
+          "sch:gpe-financing-product-dto#source",
+          "sch:redis-financing-products",
+          "sch:redis-financing-products#Products",
+          "st:price-financing-products-updated-public"
+        ],
+        "edited": true,
+        "stale": false
+      }
+    },
+    {
+      "checkedOn": "2026-11-05",
+      "frozen": {
+        "drift": [],
+        "edited": false,
+        "stale": false
+      },
+      "lockedIds": [
+        "flow:gpe-price-configuration-calculation#assemble-response",
+        "flow:gpe-price-configuration-calculation#load-pretax",
+        "flow:render-price-breakdown#calculate-price",
+        "flow:render-price-breakdown#query-price-breakdown",
+        "sch:gpe-price-response#items"
+      ],
+      "slug": "unify-price-breakdown",
+      "source": "/Users/RNEL/Workspace/volvo-groundwork/plans/unify-price-breakdown/base.lock.json",
+      "sourceSha256": "0a2b28a24bfc0c8f5c173eefd48594b9b000a77a111e101c2a50fd7c6b824ddf",
+      "targetHashes": {
+        "nativePlan": "c1b54b1e827339a4be18dea11eab4d976005971ec4782e1f0d6a73f803861f3a",
+        "priorPlan": "f6686502"
+      },
+      "unsupportedCrossFormatComparison": {
+        "drift": [
+          "flow:gpe-price-configuration-calculation#assemble-response",
+          "flow:gpe-price-configuration-calculation#load-pretax",
+          "flow:render-price-breakdown#calculate-price",
+          "flow:render-price-breakdown#query-price-breakdown",
+          "sch:gpe-price-response#items"
+        ],
+        "edited": true,
+        "stale": false
+      }
+    }
+  ]
+}

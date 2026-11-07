@@ -1,4 +1,4 @@
-import type { PlanRow } from '@/application/plan-index';
+import type { PlanRow } from '@/application/plan-list';
 import type { ProgrammeRowVM } from '@/application/workspace-work/programme-page';
 import { plural } from '@/shared/text';
 import { Callout } from '@/ui/callout';

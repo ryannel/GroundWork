@@ -1,0 +1,532 @@
+{
+  "format": 1,
+  "original": {
+    "file": "artifacts/rebuild/pr8/original-candidates.json",
+    "sha256": "8bb91071c6ae2e9168573f6d20d496cc8551e3e3ee626c3b06d64371d69f17c2",
+    "rows": 1697
+  },
+  "rows": [
+    {
+      "file": "src/features/plan/plan-pages.tsx",
+      "beforeSha256": "b80c8a490df9c7c552062bf41878bb56f66804fa25bb71dc46d690f6f36431db",
+      "present": false,
+      "replacement": "src/features/plan/model-plan-page.tsx"
+    },
+    {
+      "file": "src/features/plan/plan-shell.tsx",
+      "beforeSha256": "56cd0215482f5366e47e4829f02572451514e570bdda52254ce311c3f355e5ee",
+      "present": false,
+      "replacement": "src/features/plan/plan-frame.tsx"
+    },
+    {
+      "file": "src/features/plan/remember/remember.tsx",
+      "beforeSha256": "d1458ebe535fc714174b80aeec63ce263159ef01b4526f4472c4441b067efb9c",
+      "present": false,
+      "replacement": "src/features/plan/model-plan-page.tsx"
+    },
+    {
+      "file": "src/features/plan/thing-page/thing-page.tsx",
+      "beforeSha256": "944413d886a76bdb19b797d10e5b837addc785ded9a63589c1612eb56dd90586",
+      "present": false,
+      "replacement": "src/features/plan/model-plan-page.tsx"
+    },
+    {
+      "file": "src/features/plan/today/journey-walk.tsx",
+      "beforeSha256": "08b8fddd6a228525ba32ce295f7e4bf04205117349208f5b82fc335e1b187326",
+      "present": false,
+      "replacement": "src/features/plan/today/model-journey.tsx"
+    },
+    {
+      "file": "src/features/plan/today/today-map.tsx",
+      "beforeSha256": "a61ae5ef0b41b856539773dffba9e540a7599406e51010daeea205bd5facffb1",
+      "present": false,
+      "replacement": "src/features/plan/viz/system-map/system-map.client.tsx"
+    },
+    {
+      "file": "src/features/plan/today/handler-story.tsx",
+      "beforeSha256": "28c0d773b1731cb5979d566b7eac499d5800e018ca09b46f85a95b6b3b152b36",
+      "present": false,
+      "replacement": "src/features/plan/today/model-today-thing.tsx"
+    },
+    {
+      "file": "src/features/plan/today/store-contents.tsx",
+      "beforeSha256": "0b6c0ff3a756b7437fa5f3a85a80a631a340978f2a1a6b09030f1a5650538d5c",
+      "present": false,
+      "replacement": "src/features/plan/today/model-today-thing.tsx"
+    },
+    {
+      "file": "src/features/plan/today/thing-inside.tsx",
+      "beforeSha256": "8f1937dd4078742c8c1252016afe6e3eae850c03b57e2f11573f77e082e13c04",
+      "present": false,
+      "replacement": "src/features/plan/today/model-today-thing.tsx"
+    },
+    {
+      "file": "src/features/plan/today/today-evidence.tsx",
+      "beforeSha256": "d89f49e92c1b1a9d043c02e43679a13cb7a9f9748f910cae78193de29e81f1d2",
+      "present": false,
+      "replacement": "src/features/plan/today/model-today-thing.tsx"
+    },
+    {
+      "file": "src/features/plan/today/today-wayfinding.tsx",
+      "beforeSha256": "2e71874d2873e2499cf40b424bebb201061a83c4b1fa3ece6a21f3317e193e64",
+      "present": false,
+      "replacement": "src/features/plan/today/model-today-thing.tsx"
+    },
+    {
+      "file": "src/app/[workspace]/[domain]/(overview)/map/page.tsx",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "sourceSha256": "b47c4a0213ab1d86a0eaaf3928506ce6319ff51a2524add11fc2f597329c9506"
+    },
+    {
+      "file": "src/app/[workspace]/[domain]/[system]/layout.tsx",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "sourceSha256": "9de245f2dee2d61f992ca8ed8948ee9558c2975a6747820ba7f9639575fc8ac2"
+    },
+    {
+      "file": "src/app/[workspace]/programmes/[programme]/page.tsx",
+      "reachable": true,
+      "factBindings": [
+        "*"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "sourceSha256": "d2fcb4b85feeef4e4a3c7ef42ed7fe54adff6f53b4581d45fcf7085d19aee76d"
+    },
+    {
+      "file": "src/application/entry-flow-page.ts",
+      "reachable": true,
+      "factBindings": [
+        "entryFlowPageOf",
+        "entryFlowPlanId"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "sourceSha256": "feaa3b5e591c0e4717be6c8ad4b879043fdb8a987a306330fb2b7481adcb15da"
+    },
+    {
+      "file": "src/application/model-entity-card.ts",
+      "reachable": true,
+      "factBindings": [
+        "modelEntityCard"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "sourceSha256": "b1796398db22f7209111436a00275451c4dfbf5ec5214a4ed9a4356e87d6dd16"
+    },
+    {
+      "file": "src/application/model-flow.ts",
+      "reachable": true,
+      "factBindings": [
+        "modelFlowMermaidOf",
+        "modelFlowOf"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "sourceSha256": "fb07a35e5894bd58c4c425ca98dce5833d628a8ba41c946cfcaed4da5d144b8a"
+    },
+    {
+      "file": "src/application/model-inspection.ts",
+      "reachable": true,
+      "factBindings": [
+        "modelInspectionOf",
+        "modelInspectionRecords",
+        "modelInspectionRef"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "sourceSha256": "348c9bcaf03ec00af15b531c1a572b580bbc654b8904ebc3dedaf8feacccc104"
+    },
+    {
+      "file": "src/application/model-reference.ts",
+      "reachable": true,
+      "factBindings": [
+        "modelReferenceOf",
+        "modelReferencePage"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "sourceSha256": "0f6745b028f791e5e586a84596aca28a597f5bbf941b8f2326d7ad3902c45399"
+    },
+    {
+      "file": "src/application/model-system-map-input.ts",
+      "reachable": true,
+      "factBindings": [
+        "modelSystemMapWire"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "sourceSha256": "1afbe551d9b4311930711b6dd6cb12e1d7bec4f2bbd5684360a045155a2c30da"
+    },
+    {
+      "file": "src/application/model-system.ts",
+      "reachable": true,
+      "factBindings": [
+        "modelSystemAt",
+        "modelSystemFlowOf",
+        "modelSystemViewOf"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "sourceSha256": "1d6eb41126f7f9887e8ff3aae2b066ad2b6c0683a495d00297de2b3ebdde68c8"
+    },
+    {
+      "file": "src/application/plan-index.ts",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-index.ts"
+      ],
+      "activeLegacyPath": [],
+      "sourceSha256": "df1deb72d907acb6827ad4f51f7aa9d70ae0f6307cd45ec1b4884bffa089696b"
+    },
+    {
+      "file": "src/application/plan-pages-things.ts",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-pages-things.ts"
+      ],
+      "activeLegacyPath": [],
+      "sourceSha256": "f169308e68ce964fd08813c98cb81933d218a8220a7010ec2d75212a74d1a921"
+    },
+    {
+      "file": "src/application/plan-pages.ts",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/plan-pages.ts"
+      ],
+      "activeLegacyPath": [],
+      "sourceSha256": "38f9600e847f94b4e4f7d910bd656d0308180f1894cd4ce1edb1badedc00a479"
+    },
+    {
+      "file": "src/application/plan-story-recap.ts",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "sourceSha256": "bdb86547de498a2ea7ad6d0507b11e857a43fa1aa92160bfb65d776c0c70f31a"
+    },
+    {
+      "file": "src/application/plan-viz-system-map-types.ts",
+      "reachable": true,
+      "factBindings": [
+        "SHOW_ALL",
+        "SHOW_OVERVIEW"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "sourceSha256": "f0da1ca17b2477994d38ebc9278cb1e69980baa02d323666313cdfb3c94d823e"
+    },
+    {
+      "file": "src/application/workspace-library.ts",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/application/workspace-library.ts"
+      ],
+      "activeLegacyPath": [],
+      "sourceSha256": "af429e3df83c2c989a9d0dbf8b0f6e8a0810ff7563648de0255db3e42bbc91a4"
+    },
+    {
+      "file": "src/features/plan/inspector/entity-details.tsx",
+      "reachable": true,
+      "factBindings": [
+        "EntityDetailsContent"
+      ],
+      "legacyPath": [
+        "src/features/plan/inspector/entity-details.tsx",
+        "src/features/plan/common/model-text.tsx#ModelText",
+        "src/features/plan/common/entity-chip.tsx#EntityMention",
+        "src/application/plan-chips.ts#chipInfo"
+      ],
+      "activeLegacyPath": [],
+      "sourceSha256": "a048641ac8a915c8b30f310db066cadbb8dfb6c62c0117a16787959ef286ef46"
+    },
+    {
+      "file": "src/features/plan/inspector/hover-card.client.tsx",
+      "reachable": true,
+      "factBindings": [
+        "HoverCard"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "sourceSha256": "4099da16ac7aaa0cc01c2e95ce46a81e94052282ccb36b87ad3fba0b23ccfaf1"
+    },
+    {
+      "file": "src/features/plan/inspector/native-progress.tsx",
+      "reachable": true,
+      "factBindings": [
+        "NativeProgress"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "sourceSha256": "d1a69507bad6d74a731727ee7ef0479707c9090bed0fa4af1f8c75e449d4ba51"
+    },
+    {
+      "file": "src/features/plan/model-plan-assets.tsx",
+      "reachable": true,
+      "factBindings": [
+        "ModelPlanAssets"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "sourceSha256": "9506ec9bc669453199f7ac0200c901b163f2ad4fe49a0a3006aa0255398a99e4"
+    },
+    {
+      "file": "src/features/plan/model-plan-page.tsx",
+      "reachable": true,
+      "factBindings": [
+        "ModelPlanPage",
+        "ModelPlanThingPage"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "sourceSha256": "21c1c7e35cdf33b3b8fc3765d166f2e219378d44f6c641e242a6f6895e1c1fed"
+    },
+    {
+      "file": "src/features/plan/model-plan-progress.tsx",
+      "reachable": true,
+      "factBindings": [
+        "ModelPlanPart",
+        "ModelPlanProgressFeed",
+        "ModelPlanWork"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "sourceSha256": "da13166ca04421373e9783202b0e490ea0c38dca40f28de52584d3c3b00f11de"
+    },
+    {
+      "file": "src/features/plan/model-workspace-work.tsx",
+      "reachable": true,
+      "factBindings": [
+        "ModelPartnerPageView",
+        "ModelProgrammePageView"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "sourceSha256": "85fe34c33a0b1f32e1c42df3114332f705e24a1a3cbd9d652f3c8ee3e71352d0"
+    },
+    {
+      "file": "src/features/plan/screen-bodies.tsx",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "sourceSha256": "4ed2a90cbb2e169efea64b40dbbb23ec5d5c69aabf37b51e8bd99798e70afbd0"
+    },
+    {
+      "file": "src/features/plan/today/model-journey.tsx",
+      "reachable": true,
+      "factBindings": [
+        "ModelJourney"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "sourceSha256": "e23588767f325acaee891a5b5efb991bcb43151340aa188d63870956d915ed7f"
+    },
+    {
+      "file": "src/features/plan/today/model-today-flow.tsx",
+      "reachable": true,
+      "factBindings": [
+        "ModelTodayFlow"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "sourceSha256": "ad7f442940aa753f44a47551307aa5656cbb46d55ef6197ec053d95362fd27ea"
+    },
+    {
+      "file": "src/features/plan/today/reference-pages.tsx",
+      "reachable": true,
+      "factBindings": [
+        "ModelTodayCatalogue",
+        "ModelTodayReference"
+      ],
+      "legacyPath": [
+        "src/features/plan/today/reference-pages.tsx",
+        "src/application/today-reference.ts#referenceOf"
+      ],
+      "activeLegacyPath": [],
+      "sourceSha256": "5105872e555af2e4efea84ec4a51a4e93d27793722a3f7aa26df70adc158127b"
+    },
+    {
+      "file": "src/features/plan/today/today-overlays.tsx",
+      "reachable": true,
+      "factBindings": [
+        "ModelTodayOverlays",
+        "TodaySearch"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "sourceSha256": "56a84a122edd4085922c6b3c0bf499c319c4fd7ee05f0937f168a56025de154e"
+    },
+    {
+      "file": "src/features/plan/today/today-thing.tsx",
+      "reachable": true,
+      "factBindings": [
+        "TodayThingFrame"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "sourceSha256": "40d62a7891aeab4a1beb264bdb5c5c3d5738f80f63f20cc0c5d142bfb3a3ecff"
+    },
+    {
+      "file": "src/features/plan/viz/system-map/system-map.client.tsx",
+      "reachable": true,
+      "factBindings": [
+        "SystemMapView"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "sourceSha256": "72b19b0512156674b719a0e7fdaea21e0b4293d78ae15eb11ee40bf628bd0a31"
+    },
+    {
+      "file": "src/infrastructure/model-plan-base.ts",
+      "reachable": true,
+      "factBindings": [
+        "readModelFrozenBases",
+        "readModelPlanBase",
+        "readModelPlanBaseMarkers"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "sourceSha256": "755dabf4e7c03457af745a22c7c37d63c461a6479effbd2b7f56c9cbc8978501"
+    },
+    {
+      "file": "src/infrastructure/model-plan-data.ts",
+      "reachable": true,
+      "factBindings": [
+        "modelPlanData"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "sourceSha256": "c1248c8005f94a77245a94ab2c88d5dd231576d316c5bf5b9b4d461dba5ffb1e"
+    },
+    {
+      "file": "src/infrastructure/model-plan-lock.ts",
+      "reachable": true,
+      "factBindings": [
+        "modelPlanCheckOf",
+        "modelPlanLockOf"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "sourceSha256": "49fb25e52d8f662827a863267f5e479bfc656cd856e6940c497c8a59cc996756"
+    },
+    {
+      "file": "src/infrastructure/model-standing.ts",
+      "reachable": true,
+      "factBindings": [
+        "readModelStanding"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "sourceSha256": "fc4cc632b0237c20d36409ae8305e5781788b12a8cc565f1d038a2b887cc6788"
+    },
+    {
+      "file": "src/infrastructure/model-workspace-work.ts",
+      "reachable": true,
+      "factBindings": [
+        "readModelWorkspaceWork"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "sourceSha256": "b103c39b90aafa1b19f55bee3835514065bc79bc5d3d3ce47c63dd3d5a1c69ae"
+    },
+    {
+      "file": "src/infrastructure/plan-base-store.ts",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/infrastructure/plan-base-store.ts",
+        "src/infrastructure/today-model.ts#readToday",
+        "src/application/workspace-model.ts#systemModelOf"
+      ],
+      "activeLegacyPath": [],
+      "sourceSha256": "115291e17ae40a17468bf0d180b3a1fbb780fc3a1119f0fa0d8c38880a3c2cf8"
+    },
+    {
+      "file": "src/infrastructure/plan-store.ts",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [
+        "src/infrastructure/plan-store.ts",
+        "src/infrastructure/plan-base-store.ts#readPlanBase",
+        "src/infrastructure/today-model.ts#readToday",
+        "src/application/workspace-model.ts#systemModelOf"
+      ],
+      "activeLegacyPath": [],
+      "sourceSha256": "02228ce0d4b917cc59aab772bcb185df396f2362d63d64c15d1bbd43c587ea0b"
+    },
+    {
+      "file": "tools/rebuild/consumer-inventory.ts",
+      "reachable": true,
+      "factBindings": [
+        "candidateRows",
+        "consumerInventory",
+        "inventoryReview",
+        "readInventorySource",
+        "sourceHash",
+        "usesCanonicalModel"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "sourceSha256": "da2dbbf299e4a51a692b6a7def8ea7406ae5c9cea88ffc166412eceed04789a7"
+    },
+    {
+      "file": "tools/rebuild/fact-lineage.ts",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "sourceSha256": "96a87774ae49ef0e00b2b986d50961262c83e82a908d7f59971940ccdb89052d"
+    },
+    {
+      "file": "tools/rebuild/inventory.ts",
+      "reachable": true,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "sourceSha256": "e69cc0f5f7897a0e50d0a22b47ba706a75fad735c74cebddf5a23a9bd6baf0c6"
+    },
+    {
+      "file": "tools/rebuild/lineage.ts",
+      "reachable": false,
+      "factBindings": [],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "sourceSha256": "447634cb98fd01bb699cbdd8f6fde9b348c68fbd1fcff9e08abd91336119df43"
+    },
+    {
+      "file": "tools/rebuild/model-facts.ts",
+      "reachable": true,
+      "factBindings": [
+        "factChecksums",
+        "writeModelFacts"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "sourceSha256": "fa6ca407a4fccb4f0a0dcd71cb787b709ed18cda6e51bbce104f2173e9f222dc"
+    },
+    {
+      "file": "tools/rebuild/model-routes.ts",
+      "reachable": true,
+      "factBindings": [
+        "selectedModelRoutes"
+      ],
+      "legacyPath": [],
+      "activeLegacyPath": [],
+      "sourceSha256": "b9eb4904c56a865b9298559c929ecef0913f2aca2b52820af7ebab66daab9191"
+    }
+  ]
+}

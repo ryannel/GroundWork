@@ -46,17 +46,12 @@ import { parseArgs } from 'node:util';
 import { stringify } from 'yaml';
 
 import { indexOf } from '@/application/model-index';
-import { languageWarnings } from '@/application/workspace-language';
-import { systemModelOf } from '@/application/workspace-model';
 import { workspaceHref } from '@/application/workspace-paths';
-import { targetWarnings } from '@/application/workspace-target';
-import type { Workspace } from '@/domain/workspace';
 import type { WorkspaceModel } from '@/domain/workspace-model';
 import { readModelIfCanonical } from '@/infrastructure/canonical-model';
+import { readModelFrozenBases } from '@/infrastructure/model-plan-base';
 import { readModelPlans } from '@/infrastructure/model-plans';
-import { listPlans, readOverlaps, readPlan } from '@/infrastructure/plan-store';
-import { checkPlanData } from '@/infrastructure/plan-validator';
-import { validatePlanProjections } from '@/infrastructure/validate-model';
+import { validateModel, validatePlanProjections } from '@/infrastructure/validate-model';
 import {
   folderOf,
   type LocalEntry,
@@ -64,10 +59,6 @@ import {
   registeredAt,
   registrationsAt,
 } from '@/infrastructure/workspace-folders';
-import { readWorkspaceModel } from '@/infrastructure/workspace-model';
-import { checkPlanState } from '@/infrastructure/workspace-plans';
-import { readProgrammes } from '@/infrastructure/workspace-programmes';
-import { readWorkspaces } from '@/infrastructure/workspace-store';
 
 const HOME = process.cwd();
 const LOCAL = path.join(HOME, 'groundwork.local.yaml');
@@ -89,12 +80,22 @@ const { positionals, values } = parseArgs({
   },
 });
 
-/** Read the workspace in `folder` exactly as the app would, so a bad one fails here and not in the build. */
-async function validate(folder: string): Promise<string> {
+/** Resolve a registered folder through the same consolidated reader as the app. */
+async function canonicalAt(folder: string): Promise<WorkspaceModel> {
   process.env.GROUNDWORK_WORKSPACES = folder;
-  const [workspace] = await readWorkspaces();
-  if (workspace === undefined) throw new Error(`${folder}: no workspace read`);
-  return workspace.id;
+  const [registered] = await registrationsAt(HOME, { env: folder, local: true });
+  if (registered === undefined) throw new Error(`${folder}: no workspace read`);
+  const model = await readModelIfCanonical(registered.id);
+  if (model === null) throw new Error(`${folder}: a consolidated model (format: 2) is required.`);
+  return model;
+}
+async function validate(folder: string): Promise<string> {
+  const model = await canonicalAt(folder);
+  const issues = await validateModel(model);
+  if (issues.length > 0) {
+    throw new Error(issues.map((issue) => `${issue.at}: ${issue.message}`).join('\n'));
+  }
+  return model.id;
 }
 
 const HEADER =
@@ -250,7 +251,7 @@ async function remove(id: string): Promise<void> {
 
 function workspaceYaml(id: string, name: string): string {
   const body = stringify({
-    format: 1,
+    format: 2,
     id,
     name,
     ...(values.description === undefined ? {} : { description: values.description }),
@@ -349,31 +350,6 @@ async function make(given: string): Promise<void> {
 
 const count = (n: number, word: string): string => `${String(n)} ${word}${n === 1 ? '' : 's'}`;
 
-async function checkPlans(
-  workspace: string,
-): Promise<{ readonly slugs: readonly string[]; readonly broken: number }> {
-  const slugs = await listPlans(workspace);
-  const states = await Promise.all(slugs.map(async (slug) => checkPlanState(workspace, slug)));
-  const broken = states.flatMap((state) => (state?.broken ? [state.broken] : []));
-  for (const plan of broken) {
-    for (const issue of plan.errors) {
-      console.error(`plans/${plan.slug}: ${issue.path}: ${issue.message}`);
-    }
-  }
-  return { slugs, broken: broken.length };
-}
-
-/** Lists the open plans that change the same thing, neither building on the other; returns how many. */
-async function reportOverlaps(workspace: string): Promise<number> {
-  const overlaps = await readOverlaps(workspace);
-  for (const overlap of overlaps) {
-    console.warn(
-      `overlap: ${overlap.kind} on ${overlap.target}: ${overlap.changes.join(' and ')}; neither plan builds on the other`,
-    );
-  }
-  return overlaps.length;
-}
-
 /** Canonical checks use the same strict model and plan projection boundaries as migration validation. */
 async function checkCanonical(model: WorkspaceModel): Promise<string> {
   const index = indexOf(model);
@@ -387,7 +363,8 @@ async function checkCanonical(model: WorkspaceModel): Promise<string> {
       })),
   ];
   const plans = await readModelPlans(model.id);
-  const batch = await validatePlanProjections(plans, model);
+  const frozenBases = await readModelFrozenBases(model.id);
+  const batch = await validatePlanProjections(plans, model, { frozenBases });
   const broken = plans.length - batch.plans.filter((plan) => plan.problems.length === 0).length;
   problems.push(...batch.problems);
   for (const problem of problems) console.error(`${problem.at}: ${problem.message}`);
@@ -411,86 +388,14 @@ async function checkCanonical(model: WorkspaceModel): Promise<string> {
 
 /** Check the workspace in `given`; exits 1 on any error. Its id, to read its plans by. */
 async function check(given: string): Promise<string> {
-  const folder = path.resolve(given);
-  process.env.GROUNDWORK_WORKSPACES = folder;
-  const [registered] = await registrationsAt(HOME, { env: folder, local: true });
-  if (registered === undefined) throw new Error(`${folder}: no workspace read`);
-  const canonical = await readModelIfCanonical(registered.id);
-  if (canonical !== null) return checkCanonical(canonical);
-  const [workspace] = await readWorkspaces();
-  if (workspace === undefined) throw new Error(`${folder}: no workspace read`);
-  return checkLegacy(workspace);
+  return checkCanonical(await canonicalAt(path.resolve(given)));
 }
 
-/** Preserve the existing format-1 model, programme and lock checks. */
-async function checkLegacy(workspace: Workspace): Promise<string> {
-  const model = await readWorkspaceModel(workspace);
-  const system = systemModelOf(workspace, model);
-  const today = await checkPlanData(system.plan);
-  for (const issue of today.errors) console.error(`today: ${issue.path}: ${issue.message}`);
-  const language = languageWarnings(workspace, model);
-  const target = targetWarnings(system);
-  for (const issue of target) console.warn(`target: ${issue}`);
-  if (values.warnings) {
-    for (const issue of today.warnings) console.warn(`today: ${issue.path}: ${issue.message}`);
-    for (const issue of language) console.warn(`language: ${issue}`);
-  }
-  const programmes = await readProgrammes(workspace);
-  for (const programme of programmes) {
-    for (const issue of programme.errors) {
-      console.error(`programmes/${programme.id}: ${issue.path}: ${issue.message}`);
-    }
-  }
-  const brokenProgrammes = programmes.filter((programme) => programme.errors.length > 0).length;
-  const { slugs, broken } = await checkPlans(workspace.id);
-  const overlaps = await reportOverlaps(workspace.id);
-  const systems = workspace.domains.reduce((sum, domain) => sum + domain.systems.length, 0);
-  const read = slugs.length - broken;
-  const counts = [
-    count(workspace.domains.length, 'domain'),
-    count(systems, 'system'),
-    count(model.flows.length, 'flow'),
-    count(
-      model.languages.reduce((sum, { concepts }) => sum + concepts.length, 0),
-      'concept',
-    ),
-    `${String(programmes.length - brokenProgrammes)} of ${count(programmes.length, 'programme')} read`,
-    `${String(read)} of ${count(slugs.length, 'plan')} read`,
-    count(model.targets.length, 'target'),
-    count(today.warnings.length + language.length + target.length + overlaps, 'warning'),
-  ];
-  console.log(`${workspace.id}: ${counts.join(', ')}`);
-  if (broken > 0 || brokenProgrammes > 0 || today.errors.length > 0) process.exitCode = 1;
-  return workspace.id;
-}
-
-const PLAN_FILE = /^plans\/([^/]+)\/plan\.yaml$/u;
+const PLAN_FILE = /^plans\/[^/]+\/plan\.yaml$/u;
 
 function gitLines(folder: string, args: readonly string[]): string[] {
   const out = execFileSync('git', args, { cwd: folder, encoding: 'utf8', stdio: 'pipe' });
   return out.split('\0').filter((line) => line !== '');
-}
-
-/** Why each staged plan's lock does not hold the check of what it says now: never checked, edited since, or unstaged. */
-async function unlocked(
-  workspace: string,
-  folder: string,
-  staged: readonly string[],
-): Promise<string[]> {
-  const unstaged = new Set(gitLines(folder, ['diff', '--name-only', '-z']));
-  const slugs = staged.flatMap((file) => PLAN_FILE.exec(file)?.[1] ?? []);
-  const reads = await Promise.all(
-    slugs.map(async (slug) => ({ slug, read: await readPlan(workspace, slug) })),
-  );
-  return reads.flatMap(({ slug, read }) => {
-    const lock = `plans/${slug}/base.lock.json`;
-    const run = `run npm run plan:base -- check ${slug} --workspace ${workspace} in ${HOME}`;
-    if (read.base.mode !== 'live') return [];
-    if (read.base.checkedOn === null) return [`plans/${slug} has never been checked; ${run}`];
-    if (read.base.edited) return [`plans/${slug} has changed since its check; ${run}`];
-    if (unstaged.has(lock)) return [`${lock} has changed but is not staged; stage it`];
-    return [];
-  });
 }
 
 /** Fresh canonical projection checks replace a legacy lock; staged plans must match the checked text. */
@@ -511,12 +416,8 @@ async function precommit(given: string): Promise<void> {
     (file) => /\.(?:ya?ml|json)$/u.test(file) && !/^(?:explorer|evidence)\//u.test(file),
   );
   if (read.length === 0) return;
-  const workspace = await check(folder);
-  const canonical = await readModelIfCanonical(workspace);
-  const problems =
-    canonical === null
-      ? await unlocked(workspace, folder, staged)
-      : unstagedCanonicalPlans(folder, staged);
+  await check(folder);
+  const problems = unstagedCanonicalPlans(folder, staged);
   for (const problem of problems) console.error(problem);
   if (problems.length > 0) process.exitCode = 1;
   if (process.exitCode === 1) {
