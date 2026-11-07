@@ -151,29 +151,6 @@
   },
   {
     "category": "id construction, parsing or literal",
-    "file": "src/app/[workspace]/model.json/route.test.ts",
-    "hits": [
-      {
-        "line": 29,
-        "text": "- { id: 'wi:confirm', team: 'team:orders', title: Check confirmation }"
-      },
-      {
-        "line": 49,
-        "text": "plan: { meta: { title: 'Explain confirmation' } },"
-      },
-      {
-        "line": 60,
-        "text": "plan: { meta: { title: 'Archived confirmation' } },"
-      },
-      {
-        "line": 66,
-        "text": "(await readPlan(request, { params: Promise.resolve({ workspace, plan: 'missing' }) })).status,"
-      }
-    ],
-    "status": "adapter"
-  },
-  {
-    "category": "id construction, parsing or literal",
     "file": "src/app/[workspace]/page.test.tsx",
     "hits": [
       {
@@ -221,6 +198,36 @@
       {
         "line": 82,
         "text": "plan: 'native',"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "src/app/[workspace]/plans/[plan]/plan.json/route.test.ts",
+    "hits": [
+      {
+        "line": 23,
+        "text": "- { id: 'wi:confirm', team: 'team:orders', title: Check confirmation }"
+      },
+      {
+        "line": 37,
+        "text": "plan: { meta: { title: 'Explain confirmation' } },"
+      },
+      {
+        "line": 43,
+        "text": "const missing = await GET(request, { params: Promise.resolve({ workspace, plan: 'missing' }) });"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "src/app/[workspace]/plans/[plan]/revisions/[version]/plan.json/route.test.ts",
+    "hits": [
+      {
+        "line": 34,
+        "text": "plan: { meta: { title: 'Archived confirmation' } },"
       }
     ],
     "status": "adapter"
@@ -38355,7 +38362,7 @@
     "file": "src/infrastructure/workspace-store.ts",
     "hits": [
       {
-        "line": 101,
+        "line": 100,
         "text": "team: file.team ?? null,"
       }
     ],

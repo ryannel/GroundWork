@@ -3,4 +3,4 @@
 > node --import ./tools/register.ts --conditions=react-server tools/rebuild/inventory.ts --check-consumers
 
 Explorer: 20 capabilities; none retired or proven.
-1697 original candidates; 184 fresh discoveries; 148 runtime consumer rows (0 adapters); 583 pending producer/retirement/skill rows; 0 uncentralised runtime id/URL operations.
+1697 original candidates; 186 fresh discoveries; 148 runtime consumer rows (0 adapters); 583 pending producer/retirement/skill rows; 0 uncentralised runtime id/URL operations.
