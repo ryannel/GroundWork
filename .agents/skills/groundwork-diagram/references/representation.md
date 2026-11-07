@@ -2,7 +2,7 @@
 
 Run commands from the Groundwork checkout. `<ws>` is the registered workspace ID; `<workspace>` is its
 filesystem path. Read [system narratives](../../../../docs/system-narratives.md) for the production formats
-and [legacy YAML](../../groundwork-schema/legacy-yaml.md) when repairing facts. For newer scan captures,
+and [the consolidated schema](../../groundwork-schema/SKILL.md) when repairing facts. For newer scan captures,
 retain their evidence/interpretation contract; do not write invented production keys into immutable bundles.
 
 | Meaning                                                         | Existing representation                                                             |
@@ -41,7 +41,7 @@ and recheck them on refresh. Do not imply automatic freshness enforcement where 
 
 Useful implementation boundaries when investigating rendering:
 
-- `src/application/workspace-area.ts`: validates value-flow references and constructs the area view.
+- `src/application/model-area.ts`: validates value-flow references and constructs the area view.
 - `src/application/area-map/resources.ts`: global resource usage and private ownership.
 - `src/application/area-map/value-flow-components.ts`: folding and component identities.
 - `src/application/area-map/value-flow-connections.ts`: projected/rolled-up relationships.

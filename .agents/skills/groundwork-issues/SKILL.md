@@ -5,6 +5,9 @@ description: File a Groundwork plan's work items as GitHub issues with the gh CL
 
 # Plan work items to GitHub issues
 
+Use the stable work item IDs in the registered workspace's native plan. Store the issue number
+with that work item and keep progress in the adjacent `progress.yaml`.
+
 First run `npm run --silent workspace -- list --json` in the Groundwork checkout. Resolve the plan's workspace folder
 from the registry rather than `workspaces/`; see [workspace discovery](../README.md#find-the-workspace-first).
 

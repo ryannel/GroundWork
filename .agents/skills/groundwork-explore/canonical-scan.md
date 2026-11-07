@@ -1,5 +1,8 @@
 # Canonical repository scans
 
+Historical reference for retained proof. For current workspace authoring, use the consolidated
+[Groundwork schema](../groundwork-schema/SKILL.md) and [native scan](../groundwork-scan/SKILL.md).
+
 Use this workflow to populate the current execution model. It writes v3 knowledge JSON, not the production
 workspace YAML. Read `schema/knowledge.schema.json` for exact keys/enums and
 `docs/scan-trials/runtime-components.md` for the accepted model and query contracts. Do not change the
@@ -338,9 +341,9 @@ references across their combined selection, and writes no database. Add `--sourc
 local files and ranges; this does not prove a citation supports its claim or that the code is deployed.
 
 ```sh
-npm run knowledge:validate -- /path/to/bundle.json --sources /path/to/clones
-npm run knowledge:validate -- /path/to/producer.json /path/to/consumer.json --write-snapshot /path/to/new-snapshot.json --sources /path/to/clones
-npm run knowledge:validate -- docs/scan-trials/soft-offer-proof/runtime/bundle.json --snapshot docs/scan-trials/soft-offer-proof/runtime/snapshot.json --sources /path/to/clones
+the historical bundle validator -- /path/to/bundle.json --sources /path/to/clones
+the historical bundle validator -- /path/to/producer.json /path/to/consumer.json --write-snapshot /path/to/new-snapshot.json --sources /path/to/clones
+the historical bundle validator -- docs/scan-trials/soft-offer-proof/runtime/bundle.json --snapshot docs/scan-trials/soft-offer-proof/runtime/snapshot.json --sources /path/to/clones
 ```
 
 To run the small example without private repositories or network access:
@@ -349,7 +352,7 @@ To run the small example without private repositories or network access:
 example_root=$(mktemp -d /tmp/groundwork-scan-example.XXXXXX)
 mkdir -p "$example_root/example"
 git clone test/fixtures/knowledge/notification/source.bundle "$example_root/example/notification-api"
-npm run knowledge:validate -- test/fixtures/knowledge/notification/bundle.json --snapshot test/fixtures/knowledge/notification/snapshot.json --sources "$example_root"
+the historical bundle validator -- test/fixtures/knowledge/notification/bundle.json --snapshot test/fixtures/knowledge/notification/snapshot.json --sources "$example_root"
 npx vitest run --project unit tools/scan-example.test.ts
 ```
 

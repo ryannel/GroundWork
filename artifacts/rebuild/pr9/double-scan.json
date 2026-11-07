@@ -1,0 +1,59 @@
+{
+  "gitDiffExitCode": 0,
+  "filesCompared": 1599,
+  "requiredFilesByKind": {
+    "evidence": 919,
+    "contracts": 49,
+    "handlers": 190
+  },
+  "treeSha256": "eae56e04e4349eda5096f9db55008a64678315b47dc15948c9b74093c099066c",
+  "exactByteMatches": 1599,
+  "scan01": {
+    "workspace": "volvo-cars",
+    "repo": "volvo-cars/cdls-mono-volvocars",
+    "commit": "75e70a353571b6ae78475636fe0e0056e5a7c2db",
+    "tree": "f03e55de85a0d76a08f627c794607a135ee988dd",
+    "trackedFiles": 32697,
+    "selectedFiles": 26502,
+    "checkedFiles": 1692,
+    "checkedBlobs": 1690,
+    "sourcePass": {
+      "digest": "c6cc543bcd0257f4102a5402b2193393311c540b0501222f359b7d3b2fad0c8d",
+      "completedShards": 2651
+    },
+    "refreshed": 5069,
+    "updatedFiles": 90,
+    "newEvidence": 3347,
+    "promotedAnalysis": 0,
+    "ambiguousStepMatches": [],
+    "retiredSteps": [],
+    "gapReasons": {
+      "changed_blob": 106,
+      "missing_file": 2
+    }
+  },
+  "scan02": {
+    "workspace": "volvo-cars",
+    "repo": "volvo-cars/cdls-mono-volvocars",
+    "commit": "75e70a353571b6ae78475636fe0e0056e5a7c2db",
+    "tree": "f03e55de85a0d76a08f627c794607a135ee988dd",
+    "trackedFiles": 32697,
+    "selectedFiles": 26502,
+    "checkedFiles": 1692,
+    "checkedBlobs": 1690,
+    "sourcePass": {
+      "digest": "c6cc543bcd0257f4102a5402b2193393311c540b0501222f359b7d3b2fad0c8d",
+      "completedShards": 2651
+    },
+    "refreshed": 0,
+    "updatedFiles": 0,
+    "newEvidence": 0,
+    "promotedAnalysis": 0,
+    "ambiguousStepMatches": [],
+    "retiredSteps": [],
+    "gapReasons": {
+      "changed_blob": 106,
+      "missing_file": 2
+    }
+  }
+}

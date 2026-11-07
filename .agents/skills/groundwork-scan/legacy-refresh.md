@@ -1,5 +1,8 @@
 # Legacy workspace refresh
 
+Historical reference for retained proof. For current workspace authoring, use the consolidated
+[Groundwork schema](../groundwork-schema/SKILL.md) and [native scan](../groundwork-scan/SKILL.md).
+
 The production system model lives at `<workspace>/domains/<d>/systems/<s>/`; plans are overlays on it.
 The remaining steps maintain that reader's generated YAML and do not populate the canonical schema.
 
@@ -19,7 +22,7 @@ follow their semantic dependencies too. Repos with no mark yet get a full read.
 | `domains/<d>/systems/<s>/contracts.yaml`      | the scan                                                    | rewrite entries with `origin: extracted`; leave `seeded` and `curated` entries alone |
 | `domains/<d>/systems/<s>/handlers.yaml`       | the scan                                                    | as for contracts                                                                     |
 | `story.yaml`, `flows/`, `journeys/`, `plans/` | people                                                      | read only; report what no longer matches                                             |
-| `scans/<org>/<name>.yaml`                     | the scan, through `tools/scan-mark.ts`                      | write, only after the merge validates                                                |
+| `scans/<org>/<name>.yaml`                     | the scan, through the historical scan mark writer           | write, only after the merge validates                                                |
 
 A `curated` entry in a generated file is one a person corrected; the scan proposes changes to it in the report
 instead of overwriting it. `system.yaml` overrides `name` and `does` for its components: the scan's own `does` is
@@ -47,7 +50,7 @@ only the fallback.
 3. **Work out what to read** (with `--since`):
 
    ```bash
-   node tools/scan-diff.ts <workspace> <org/name> "$dir" --json
+   the historical scan diff <workspace> <org/name> "$dir" --json
    ```
 
    - exit 2: no mark yet; read this repo in full;
@@ -111,7 +114,7 @@ only the fallback.
 8. **Report** (below), and only then **move the marks**, one per repo whose merge validated:
 
    ```bash
-   node tools/scan-mark.ts <workspace> <org/name> "$dir" --branch <branch>
+   the historical scan mark writer <workspace> <org/name> "$dir" --branch <branch>
    ```
 
    It refuses when a fact still cites a file whose content at the cited commit is not what HEAD holds (an
@@ -172,8 +175,8 @@ A repo's mark is behind when its `head` is older than the tip of its branch. Ask
 at once:
 
 ```bash
-node tools/scan-status.ts <workspace>            # never scanned, up to date, or "37 commits behind (3f9c2e1 → 8a1b4d0)"
-node tools/scan-status.ts <workspace> --record   # also writes `checked: { at, tip, behind, folders }` into each mark
+the historical scan status reader <workspace>            # never scanned, up to date, or "37 commits behind (3f9c2e1 → 8a1b4d0)"
+the historical scan status reader <workspace> --record   # also writes `checked: { at, tip, behind, folders }` into each mark
 ```
 
 It asks the remote with `git ls-remote`, counts commits in the clone under the scan cache when there is one, and
@@ -195,7 +198,7 @@ When it exists it should:
 - do every rule in step 5, writing only `contracts.yaml` and `handlers.yaml` (and source paths in curated files
   for renames);
 - print the report sections 2 to 6 as JSON for this skill to word;
-- never write `scans/`: that is `tools/scan-mark.ts`, after validation.
+- never write `scans/`: that is the historical scan mark writer, after validation.
 
 ## Validating
 

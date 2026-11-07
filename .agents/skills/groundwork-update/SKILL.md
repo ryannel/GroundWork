@@ -34,7 +34,7 @@ state,closedAt,url` and record it through the progress tool, which checks the ev
    milestones moved, questions opened or resolved, work items added, removed or moved between milestones, ops
    added or removed. Plan Atlas's semantic `diff.mjs` is not ported yet (TODO).
 3. **What changed underneath.** `git -C <workspace> diff <ref> -- domains flows journeys` for the
-   system model, and `scans/` for re-scans since. Any change to an id the plan's ops target is drift,
+   system model, and the repository pins in `evidence/` for rescans since. Any change to an id the plan's ops target is drift,
    and the plan's cover names it when `base.lock.json` no longer matches. A plan it builds on, or its programme,
    that changed since the lock is drift too; `git -C <workspace> diff <ref> -- plans/<base> programmes/<id>`. Flag these separately; someone must say so
    out loud.

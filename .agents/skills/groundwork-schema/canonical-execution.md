@@ -1,5 +1,8 @@
 # Canonical execution records
 
+Historical reference for retained proof. For current workspace authoring, use the consolidated
+[Groundwork schema](../groundwork-schema/SKILL.md) and [native scan](../groundwork-scan/SKILL.md).
+
 Read `schema/knowledge.schema.json`, `docs/scan-trials/runtime-components.md` and the practical
 [canonical authoring workflow](../groundwork-explore/canonical-scan.md). Objects are closed: consult the schema
 for every field and enum. Generate domain types with `npm run generate:knowledge`.
@@ -23,7 +26,7 @@ with a gap for unresolved wire shape/presence. Use interaction `selection` for t
 `result` for the returned object, explaining the unresolved placement in the transformation. Do not label an
 SDK object an HTTP body merely because the object fields are known.
 
-Validate arbitrary bundles with `npm run knowledge:validate -- <bundle.json> [<bundle.json> ...]`;
+Validate arbitrary bundles with `the historical bundle validator -- <bundle.json> [<bundle.json> ...]`;
 `--sources <clone-root>` checks pinned files/ranges, `--snapshot <snapshot.json>` verifies a selection and
 `--write-snapshot <new.json>` creates one without overwriting an existing manifest. Structural/semantic
 validation is distinct from completeness and source verification. Native coverage is per obligation and uses

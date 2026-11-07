@@ -1,0 +1,423 @@
+{
+  "workspace": "volvo-cars",
+  "sourceDataCommit": "34024371b52b90aea8c234a1f3fa79263580c765",
+  "method": "Count each declared current handler once for each repository resolved from that handler’s own citations. Uncited handlers do not contribute to a repository count.",
+  "totalHandlers": 1937,
+  "uncitedHandlers": 0,
+  "multiRepositoryHandlers": 3,
+  "target": {
+    "repo": "volvo-cars/cdls-mono-volvocars",
+    "handlerCount": 772,
+    "commit": "75e70a353571b6ae78475636fe0e0056e5a7c2db",
+    "citedCommitCounts": {
+      "8e1fd20c525fd3ef46f89fa7734dba06b06c79fc": 767,
+      "b10395a3a6b367bf67d258ca21faa8f7bd91d165": 5
+    }
+  },
+  "ranked": [
+    {
+      "repo": "volvo-cars/cdls-mono-volvocars",
+      "handlerCount": 772
+    },
+    {
+      "repo": "volvo-cars/cds-om-order-manager",
+      "handlerCount": 119
+    },
+    {
+      "repo": "volvo-cars/fleet-account",
+      "handlerCount": 82
+    },
+    {
+      "repo": "volvo-cars/test-drive-api",
+      "handlerCount": 78
+    },
+    {
+      "repo": "volvo-cars/graphql-federation-mono",
+      "handlerCount": 61
+    },
+    {
+      "repo": "volvo-cars/popcat-assortment-api",
+      "handlerCount": 33
+    },
+    {
+      "repo": "volvo-cars/cds-finance-engine-experience-service",
+      "handlerCount": 24
+    },
+    {
+      "repo": "volvo-cars/cds-finance-engine-integration-service",
+      "handlerCount": 23
+    },
+    {
+      "repo": "volvo-cars/ccdp-leads-api",
+      "handlerCount": 22
+    },
+    {
+      "repo": "volvo-cars/prism",
+      "handlerCount": 21
+    },
+    {
+      "repo": "volvo-cars/urax",
+      "handlerCount": 21
+    },
+    {
+      "repo": "volvo-cars/gpe-price",
+      "handlerCount": 18
+    },
+    {
+      "repo": "volvo-cars/offer-management",
+      "handlerCount": 18
+    },
+    {
+      "repo": "volvo-cars/ooe-financing-offers",
+      "handlerCount": 18
+    },
+    {
+      "repo": "volvo-cars/cds-finance-engine-data-synchronizer",
+      "handlerCount": 16
+    },
+    {
+      "repo": "volvo-cars/disco-frontend",
+      "handlerCount": 16
+    },
+    {
+      "repo": "volvo-cars/rules-engine-offer-service",
+      "handlerCount": 16
+    },
+    {
+      "repo": "volvo-cars/cds-ecom-storefront",
+      "handlerCount": 15
+    },
+    {
+      "repo": "volvo-cars/product-configuration-facade",
+      "handlerCount": 15
+    },
+    {
+      "repo": "volvo-cars/cce-optimization-facade",
+      "handlerCount": 14
+    },
+    {
+      "repo": "volvo-cars/cds-finance-engine-bank-integration",
+      "handlerCount": 14
+    },
+    {
+      "repo": "volvo-cars/cdshop-paymentservice-api",
+      "handlerCount": 14
+    },
+    {
+      "repo": "volvo-cars/disco-query",
+      "handlerCount": 14
+    },
+    {
+      "repo": "volvo-cars/product-service",
+      "handlerCount": 14
+    },
+    {
+      "repo": "volvo-cars/cds-ecom-customer-service",
+      "handlerCount": 13
+    },
+    {
+      "repo": "volvo-cars/popcat-product-details-service",
+      "handlerCount": 13
+    },
+    {
+      "repo": "volvo-cars/product-catalog-api",
+      "handlerCount": 13
+    },
+    {
+      "repo": "volvo-cars/rdm-commercial-partner-graphql-api",
+      "handlerCount": 13
+    },
+    {
+      "repo": "volvo-cars/techno",
+      "handlerCount": 13
+    },
+    {
+      "repo": "volvo-cars/vlc-integration-layer",
+      "handlerCount": 13
+    },
+    {
+      "repo": "volvo-cars/cce-filter-service",
+      "handlerCount": 12
+    },
+    {
+      "repo": "volvo-cars/cds-finance-engine-core-service",
+      "handlerCount": 12
+    },
+    {
+      "repo": "volvo-cars/tax-calculator",
+      "handlerCount": 12
+    },
+    {
+      "repo": "volvo-cars/disco-data",
+      "handlerCount": 11
+    },
+    {
+      "repo": "volvo-cars/lcs",
+      "handlerCount": 11
+    },
+    {
+      "repo": "volvo-cars/prismedia",
+      "handlerCount": 11
+    },
+    {
+      "repo": "volvo-cars/product-offer-search",
+      "handlerCount": 11
+    },
+    {
+      "repo": "volvo-cars/cce-admin-ui",
+      "handlerCount": 10
+    },
+    {
+      "repo": "volvo-cars/cds-ecom-orchestrator",
+      "handlerCount": 10
+    },
+    {
+      "repo": "volvo-cars/popcat-assortment-admin-api",
+      "handlerCount": 10
+    },
+    {
+      "repo": "volvo-cars/visibility-service",
+      "handlerCount": 10
+    },
+    {
+      "repo": "volvo-cars/cce-car-spec-adapter",
+      "handlerCount": 9
+    },
+    {
+      "repo": "volvo-cars/cds-ecom-cart-service",
+      "handlerCount": 9
+    },
+    {
+      "repo": "volvo-cars/cds-ecom-search-service",
+      "handlerCount": 9
+    },
+    {
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "handlerCount": 9
+    },
+    {
+      "repo": "volvo-cars/pop-authz",
+      "handlerCount": 9
+    },
+    {
+      "repo": "volvo-cars/popcat-prins-ingestion",
+      "handlerCount": 9
+    },
+    {
+      "repo": "volvo-cars/caas-car-configurator",
+      "handlerCount": 8
+    },
+    {
+      "repo": "volvo-cars/cce-cpam-ingress",
+      "handlerCount": 8
+    },
+    {
+      "repo": "volvo-cars/cds-ecom-conditional-order",
+      "handlerCount": 8
+    },
+    {
+      "repo": "volvo-cars/cds-paymentservice-transaction",
+      "handlerCount": 8
+    },
+    {
+      "repo": "volvo-cars/cdshop-paymentservice-experience",
+      "handlerCount": 8
+    },
+    {
+      "repo": "volvo-cars/cdshop-paymentservice-integration",
+      "handlerCount": 8
+    },
+    {
+      "repo": "volvo-cars/pop-offers-green-light-service",
+      "handlerCount": 8
+    },
+    {
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "handlerCount": 8
+    },
+    {
+      "repo": "volvo-cars/ccdp-leads-forms-backend-config-editor-api",
+      "handlerCount": 7
+    },
+    {
+      "repo": "volvo-cars/cds-paymentservice-customer",
+      "handlerCount": 7
+    },
+    {
+      "repo": "volvo-cars/price-core-ui-mono",
+      "handlerCount": 7
+    },
+    {
+      "repo": "volvo-cars/ccdp-leads-forms-backend-api",
+      "handlerCount": 6
+    },
+    {
+      "repo": "volvo-cars/cce-optimization-api",
+      "handlerCount": 6
+    },
+    {
+      "repo": "volvo-cars/cds-ecom-customer-crm-synchronizer",
+      "handlerCount": 6
+    },
+    {
+      "repo": "volvo-cars/cds-om-order-status-tracking-service",
+      "handlerCount": 6
+    },
+    {
+      "repo": "volvo-cars/gpe-pretax",
+      "handlerCount": 6
+    },
+    {
+      "repo": "volvo-cars/marketing-feeds-api",
+      "handlerCount": 6
+    },
+    {
+      "repo": "volvo-cars/product-catalog-ui",
+      "handlerCount": 6
+    },
+    {
+      "repo": "volvo-cars/rules-engine-offers-read-view",
+      "handlerCount": 6
+    },
+    {
+      "repo": "volvo-cars/SF-EMEA-GEARSET",
+      "handlerCount": 6
+    },
+    {
+      "repo": "volvo-cars/tyre-label-service",
+      "handlerCount": 6
+    },
+    {
+      "repo": "volvo-cars/cds-finance-engine-scheduler",
+      "handlerCount": 5
+    },
+    {
+      "repo": "volvo-cars/cce-car-configuration-generator",
+      "handlerCount": 4
+    },
+    {
+      "repo": "volvo-cars/cds-ecom-tnc-service",
+      "handlerCount": 4
+    },
+    {
+      "repo": "volvo-cars/cds-finance-engine-inbound-api",
+      "handlerCount": 4
+    },
+    {
+      "repo": "volvo-cars/cpam-facade",
+      "handlerCount": 4
+    },
+    {
+      "repo": "volvo-cars/popcat-carfeatures",
+      "handlerCount": 4
+    },
+    {
+      "repo": "volvo-cars/popcat-eligibility-api",
+      "handlerCount": 4
+    },
+    {
+      "repo": "volvo-cars/pricing-catalog-api",
+      "handlerCount": 4
+    },
+    {
+      "repo": "volvo-cars/stock-catalog-api",
+      "handlerCount": 4
+    },
+    {
+      "repo": "volvo-cars/account-profile-api",
+      "handlerCount": 3
+    },
+    {
+      "repo": "volvo-cars/ccdp-leads-dashboard",
+      "handlerCount": 3
+    },
+    {
+      "repo": "volvo-cars/ccdp-leads-volvo-cm-integration-api",
+      "handlerCount": 3
+    },
+    {
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "handlerCount": 3
+    },
+    {
+      "repo": "volvo-cars/CLE.ReservationApi",
+      "handlerCount": 3
+    },
+    {
+      "repo": "volvo-cars/gpe-financial-calculator",
+      "handlerCount": 3
+    },
+    {
+      "repo": "volvo-cars/graphql-federation-router",
+      "handlerCount": 3
+    },
+    {
+      "repo": "volvo-cars/urax-ui",
+      "handlerCount": 3
+    },
+    {
+      "repo": "volvo-cars/wltp-facade",
+      "handlerCount": 3
+    },
+    {
+      "repo": "volvo-cars/cce-retail-ingress",
+      "handlerCount": 2
+    },
+    {
+      "repo": "volvo-cars/cds-finance-engine-event-processor",
+      "handlerCount": 2
+    },
+    {
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "handlerCount": 2
+    },
+    {
+      "repo": "volvo-cars/gpe-configuration",
+      "handlerCount": 2
+    },
+    {
+      "repo": "volvo-cars/gpe-external-price",
+      "handlerCount": 2
+    },
+    {
+      "repo": "volvo-cars/gpe-green-light",
+      "handlerCount": 2
+    },
+    {
+      "repo": "volvo-cars/ccdp-lead-capture-ai-bot",
+      "handlerCount": 1
+    },
+    {
+      "repo": "volvo-cars/cce-policy-admin",
+      "handlerCount": 1
+    },
+    {
+      "repo": "volvo-cars/cce-prins-validator",
+      "handlerCount": 1
+    },
+    {
+      "repo": "volvo-cars/cds-finance-engine",
+      "handlerCount": 1
+    },
+    {
+      "repo": "volvo-cars/disco-offer",
+      "handlerCount": 1
+    },
+    {
+      "repo": "volvo-cars/gpe-price-data",
+      "handlerCount": 1
+    },
+    {
+      "repo": "volvo-cars/graphql-federation-mono-gitops",
+      "handlerCount": 1
+    },
+    {
+      "repo": "volvo-cars/price-data-management",
+      "handlerCount": 1
+    },
+    {
+      "repo": "volvo-cars/product-offer-bto-enabled-baseliner",
+      "handlerCount": 1
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "repository": "volvo-cars/cdls-mono-volvocars",
+  "commit": "75e70a353571b6ae78475636fe0e0056e5a7c2db",
+  "tree": "f03e55de85a0d76a08f627c794607a135ee988dd",
+  "sourcePassPlanDigest": "80d4fe4e1908c44eb3422a9d2489322b7e3656670d536ffc9b5e5a8c9ff23205",
+  "reportDigest": "c6cc543bcd0257f4102a5402b2193393311c540b0501222f359b7d3b2fad0c8d",
+  "validatedTasks": 2651,
+  "selectedFiles": 26502,
+  "semanticAcceptance": "not_established",
+  "elapsedMs": 58551
+}

@@ -9675,7 +9675,7 @@
         {
           "file": ".agents/skills/groundwork-review/SKILL.md",
           "line": 23,
-          "text": "node tools/sources.ts <workspace> --missing   # extracted facts without sources; add --check to ask GitHub"
+          "text": "npm run map -- show <id> --workspace <ws>     # the model record, its cited code and evidence gaps"
         }
       ],
       "file": "tools/sources.ts",

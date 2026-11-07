@@ -1,0 +1,424 @@
+{
+  "format": 1,
+  "original": {
+    "file": "artifacts/rebuild/pr8/original-candidates.json",
+    "sha256": "8bb91071c6ae2e9168573f6d20d496cc8551e3e3ee626c3b06d64371d69f17c2",
+    "rows": 1697
+  },
+  "dispositions": [
+    {
+      "file": "tools/scan-model.ts",
+      "sourceSha256": "13fc89f37867a70bd75172530af026371bdff5823d53fb990e86aa26991ec11d",
+      "role": "support",
+      "reason": "The native scan selects a registered workspace and stages canonical output for review.",
+      "evidence": [
+        {
+          "file": "tools/scan-model.ts",
+          "line": 220,
+          "text": "async function nativeScan(args: readonly string[]): Promise<void> {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr9/handoff.md",
+          "sha256": "2ad1498b4972a8f8bfbc257db87ab31ccb54f68dc8cd3c7df6a0a0b653463001"
+        }
+      ]
+    },
+    {
+      "file": "tools/scan-model/accepted.ts",
+      "sourceSha256": "6a413f14b86f1bd795d3f0c0a8ba3a9af9fcf383c34c58d4aae6805b6d8fa947",
+      "role": "support",
+      "reason": "Pinned accepted observations use the consolidated contracts and preserve existing identities.",
+      "evidence": [
+        {
+          "file": "tools/scan-model/accepted.ts",
+          "line": 75,
+          "text": "export async function acceptedScan("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr9/handoff.md",
+          "sha256": "2ad1498b4972a8f8bfbc257db87ab31ccb54f68dc8cd3c7df6a0a0b653463001"
+        }
+      ]
+    },
+    {
+      "file": "tools/scan-model/analysis.ts",
+      "sourceSha256": "b2b51e569539129f0aedc4a208490c981ad5e2970ff3cd34ff07554e60baf469",
+      "role": "support",
+      "reason": "Cited cache records and their verified support become canonical evidence.",
+      "evidence": [
+        {
+          "file": "tools/scan-model/analysis.ts",
+          "line": 158,
+          "text": "export async function citedAnalysis(input: AnalysisRequest): Promise<readonly RecordToPromote[]> {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr9/handoff.md",
+          "sha256": "2ad1498b4972a8f8bfbc257db87ab31ccb54f68dc8cd3c7df6a0a0b653463001"
+        }
+      ]
+    },
+    {
+      "file": "tools/scan-model/contracts.ts",
+      "sourceSha256": "970f351202cda44c26b47a37b807f2d46095256cc7302017892aecd4ff7a2a0a",
+      "role": "support",
+      "reason": "A cited route and a unique declared schema can supply missing contract shape.",
+      "evidence": [
+        {
+          "file": "tools/scan-model/contracts.ts",
+          "line": 60,
+          "text": "export function routeContracts("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr9/handoff.md",
+          "sha256": "2ad1498b4972a8f8bfbc257db87ab31ccb54f68dc8cd3c7df6a0a0b653463001"
+        }
+      ]
+    },
+    {
+      "file": "tools/scan-model/output.ts",
+      "sourceSha256": "f7506f04bbc5072e2ffc03be57ce14fd1e5618d71e999e8bb7d30281f670a06d",
+      "role": "support",
+      "reason": "Candidate publication reads and validates the consolidated model before exposing the output.",
+      "evidence": [
+        {
+          "file": "tools/scan-model/output.ts",
+          "line": 105,
+          "text": "export async function publishScan(input: ScanOutput): Promise<void> {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr9/handoff.md",
+          "sha256": "2ad1498b4972a8f8bfbc257db87ab31ccb54f68dc8cd3c7df6a0a0b653463001"
+        }
+      ]
+    },
+    {
+      "file": "tools/scan-model/refresh.ts",
+      "sourceSha256": "9fc7ed60ec09f60a041a6c4526e3b5dbdfb5b7a9e96473f76c2bc6be16efda0a",
+      "role": "support",
+      "reason": "The native writer updates handler and contract files in their canonical layout.",
+      "evidence": [
+        {
+          "file": "tools/scan-model/refresh.ts",
+          "line": 238,
+          "text": "export async function refreshedFiles("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr9/handoff.md",
+          "sha256": "2ad1498b4972a8f8bfbc257db87ab31ccb54f68dc8cd3c7df6a0a0b653463001"
+        }
+      ]
+    },
+    {
+      "file": "tools/scan-model/source.ts",
+      "sourceSha256": "f7080e2ef7389a420c28eab3b6d25badcc5574536a5e7e1ce131ae91b3d1a965",
+      "role": "support",
+      "reason": "The native scan reads the pinned tree and keeps persisted source IDs.",
+      "evidence": [
+        {
+          "file": "tools/scan-model/source.ts",
+          "line": 156,
+          "text": "export function scanSource(input: SourceInput): PinnedScan {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr9/handoff.md",
+          "sha256": "2ad1498b4972a8f8bfbc257db87ab31ccb54f68dc8cd3c7df6a0a0b653463001"
+        }
+      ]
+    },
+    {
+      "file": "tools/scan-model/steps.ts",
+      "sourceSha256": "1f5d54bf46b3456e3070b7d9ea05d33293239413d5dd481c1b08ce6e3fdb14f1",
+      "role": "support",
+      "reason": "Source-aligned step reconciliation retains IDs within each control-flow branch.",
+      "evidence": [
+        {
+          "file": "tools/scan-model/steps.ts",
+          "line": 229,
+          "text": "export function reconcileSteps(scope: StepScope): StepMatch {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr9/handoff.md",
+          "sha256": "2ad1498b4972a8f8bfbc257db87ab31ccb54f68dc8cd3c7df6a0a0b653463001"
+        }
+      ]
+    },
+    {
+      "file": "tools/rebuild/skill-producers.ts",
+      "sourceSha256": "44d624e24a666c265772b0aa49a5e3451e72272172692e0de8757522a6c6cdb8",
+      "role": "support",
+      "reason": "The inventory resolves package aliases and direct producer paths used by the active skill files.",
+      "evidence": [
+        {
+          "file": "tools/rebuild/skill-producers.ts",
+          "line": 54,
+          "text": "export function skillProducerUses("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr9/handoff.md",
+          "sha256": "2ad1498b4972a8f8bfbc257db87ab31ccb54f68dc8cd3c7df6a0a0b653463001"
+        }
+      ]
+    },
+    {
+      "file": "tools/knowledge-validation.ts",
+      "sourceSha256": "0d285cad6c109bd7e2ee96c73fda48925731f758d24f996d2784a07d9ba694f3",
+      "role": "producer",
+      "reason": "Validates explicitly supplied old knowledge bundles and can write the requested snapshot. Keep it through PR 10 old schema retirement.",
+      "evidence": [
+        {
+          "file": "package.json",
+          "line": 55,
+          "text": "\"knowledge:validate\": \"node --import ./tools/register.ts --conditions=react-server tools/validate-knowledge.ts\","
+        },
+        {
+          "file": "package.json",
+          "line": 55,
+          "text": "\"knowledge:validate\": \"node --import ./tools/register.ts --conditions=react-server tools/validate-knowledge.ts\","
+        },
+        {
+          "file": "tools/knowledge-validation.ts",
+          "line": 50,
+          "text": "await writeFile(options.writeSnapshot, `${JSON.stringify(manifest, null, 2)}\\n`, {"
+        },
+        {
+          "file": "docs/rebuild/rebuild.md",
+          "line": 188,
+          "text": "- old types, loaders, `legacyViewOf`, `knowledge*`/`scan-discovery`/`scan-interpretation` schemas, scan marks;"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "tools/scan-diff.ts",
+      "sourceSha256": "10b6d49e2dce8b8384be0a64bcfcb42eef07e8703363eef803e40dc301949f66",
+      "role": "producer",
+      "reason": "Reads the old mark and runs the old source-index subprocess to build a refresh list. PR 9 replaces this scan workflow.",
+      "evidence": [
+        {
+          "file": "tools/scan-diff.ts",
+          "line": 2,
+          "text": "//   node tools/scan-diff.ts workspaces/<ws> <org/name> <repo-dir> [--to <ref>] [--json]"
+        },
+        {
+          "file": "tools/scan-diff.ts",
+          "line": 220,
+          "text": "[path.join(import.meta.dirname, 'sources.ts'), workspace, '--index', '--repo', repo],"
+        },
+        {
+          "file": "docs/rebuild/rebuild.md",
+          "line": 172,
+          "text": "- The scan writes `evidence/` directly with `ev:` ids, refreshes handlers and contracts, reconciles step ids by"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        }
+      ],
+      "stage": 9
+    },
+    {
+      "file": "tools/scan-mark.ts",
+      "sourceSha256": "d6d28dba7f5b2f5e618994d256823283f82a8f859297551e78c1f164ea3572b3",
+      "role": "producer",
+      "reason": "Checks cited Git blobs using the source-index subprocess and writes the old scan mark. PR 9 replaces this scan workflow.",
+      "evidence": [
+        {
+          "file": "tools/scan-mark.ts",
+          "line": 2,
+          "text": "//   node tools/scan-mark.ts workspaces/<ws> <org/name> <repo-dir> [--branch <name>] [--scanner <name@v>] [--force]"
+        },
+        {
+          "file": "tools/scan-mark.ts",
+          "line": 88,
+          "text": "[path.join(import.meta.dirname, 'sources.ts'), workspace, '--index', '--repo', repo],"
+        },
+        {
+          "file": "tools/scan-mark.ts",
+          "line": 163,
+          "text": "writeFileSync(file, stringify(mark, { lineWidth: 0 }));"
+        },
+        {
+          "file": "docs/rebuild/rebuild.md",
+          "line": 172,
+          "text": "- The scan writes `evidence/` directly with `ev:` ids, refreshes handlers and contracts, reconciles step ids by"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        }
+      ],
+      "stage": 9
+    },
+    {
+      "file": "tools/scan-status.ts",
+      "sourceSha256": "d8b520cbd222d1bc386f39411452801511ee2d733ce098abe414e3d4117f14a3",
+      "role": "producer",
+      "reason": "Reads authored system repository declarations and marks, then optionally records freshness. PR 9 replaces this scan workflow.",
+      "evidence": [
+        {
+          "file": "tools/scan-status.ts",
+          "line": 2,
+          "text": "//   node tools/scan-status.ts workspaces/<ws> [--record] [--json] [--clones <dir>]"
+        },
+        {
+          "file": "tools/scan-status.ts",
+          "line": 224,
+          "text": "const listed = reposOf(workspace);"
+        },
+        {
+          "file": "tools/scan-status.ts",
+          "line": 237,
+          "text": "writeFileSync(file, stringify(recorded(raw, status, { at, folders }), { lineWidth: 0 }));"
+        },
+        {
+          "file": "docs/rebuild/rebuild.md",
+          "line": 172,
+          "text": "- The scan writes `evidence/` directly with `ev:` ids, refreshes handlers and contracts, reconciles step ids by"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-producer-boundary.md",
+          "sha256": "ec46f28369dec7d5b57cd0526ca49f616b006d45a1133c4180c3df305c3275b1"
+        }
+      ],
+      "stage": 9
+    },
+    {
+      "file": "tools/sources.ts",
+      "sourceSha256": "a86c99cda2f63740d7fb2f16db9323f6f75063b1c81f1352df2f21e0a8f9ae4d",
+      "role": "consumer",
+      "reason": "The direct source checker selects the canonical reader for format 2. The format-1 verification branch remains for the PR 9 scan-mark workflow.",
+      "evidence": [
+        {
+          "file": "tools/sources.ts",
+          "line": 350,
+          "text": "const id = await nativeId(folder);"
+        },
+        {
+          "file": "tools/sources.ts",
+          "line": 329,
+          "text": "path.join(tools, 'sources-model.ts'),"
+        },
+        {
+          "file": "tools/scan-diff.ts",
+          "line": 220,
+          "text": "[path.join(import.meta.dirname, 'sources.ts'), workspace, '--index', '--repo', repo],"
+        },
+        {
+          "file": "tools/scan-mark.ts",
+          "line": 88,
+          "text": "[path.join(import.meta.dirname, 'sources.ts'), workspace, '--index', '--repo', repo],"
+        },
+        {
+          "file": ".agents/skills/groundwork-review/SKILL.md",
+          "line": 23,
+          "text": "npm run map -- show <id> --workspace <ws>     # the model record, its cited code and evidence gaps"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/sources-cli.md",
+          "sha256": "ba7ac281e6e74ae50f23fb450e12cb740c550c8f5b6a22b17f9644ca5d1a999b"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "tools/migrate-model/evidence.ts",
+      "sourceSha256": "0632ad50efd8c79b7e11c7efc2a9dd23ca8d6678e6c64bd06cd4963a6b1a07ea",
+      "role": "support",
+      "reason": "Supports the isolated deterministic migration command. Its reviewed inputs and separate output folder form a migration proof rather than a registered workspace reader.",
+      "evidence": [
+        {
+          "file": "tools/migrate-model/evidence.ts",
+          "line": 240,
+          "text": "export async function migrateEvidence("
+        },
+        {
+          "file": "tools/migrate-model/evidence.ts",
+          "line": 240,
+          "text": "export async function migrateEvidence("
+        },
+        {
+          "file": "tools/migrate-model/runner.ts",
+          "line": 38,
+          "text": "if (within(source, out) || within(source, report)) {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr6-handoff.md",
+          "sha256": "5ceea1c9194d020c679483d8d08ae55a6b5c6f1fc4514a4485c3fbd81e5b42dc"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        },
+        {
+          "file": "artifacts/rebuild/pr9/handoff.md",
+          "sha256": "2ad1498b4972a8f8bfbc257db87ab31ccb54f68dc8cd3c7df6a0a0b653463001"
+        }
+      ]
+    },
+    {
+      "file": "tools/rebuild/inventory.ts",
+      "sourceSha256": "3498001c10c611a322be45cda22ae18bab1f52bce2dfcf4864d844d9d8f9f67c",
+      "role": "support",
+      "reason": "Inventories current source, requested native bindings and proof metadata while preserving the complete frozen original denominator.",
+      "evidence": [
+        {
+          "file": "tools/rebuild/inventory.ts",
+          "line": 2,
+          "text": "import { execFileSync } from 'node:child_process';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "tools/rebuild/consumer-inventory.test.ts",
+          "sha256": "450bcd9903ef5ad26efbcd42d70d95618e6f2b24988c9c8c92de99dae6b5e570"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-tests.log",
+          "sha256": "165cbc0b9fbb63c949abcea5d710af38a44a29fe7c56a872c7ae4f300aed39dc"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        },
+        {
+          "file": "artifacts/rebuild/pr9/handoff.md",
+          "sha256": "2ad1498b4972a8f8bfbc257db87ab31ccb54f68dc8cd3c7df6a0a0b653463001"
+        }
+      ]
+    }
+  ]
+}

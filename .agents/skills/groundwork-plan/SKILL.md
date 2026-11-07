@@ -121,7 +121,7 @@ changes:
   `check` again to move the lock forward. Run it after every edit to a plan and commit the lock with it: the
   workspace's pre-commit hook refuses a plan whose lock does not hold the check of what it says now.
 - **Land it when it ships.** `npm run plan:base -- land <plan>` freezes today's part of the model into
-  `base.yaml` and drops the lock, so a shipped plan keeps reading against the system it changed, not today. Plans
+  a frozen `base/` with its `base.yaml` marker, and drops the lock, so a shipped plan keeps reading against the system it changed, not today. Plans
   land in order: it refuses while a plan this one builds on has not landed.
 
 ## Conventions
@@ -224,7 +224,7 @@ the workspace repo's pre-commit hook runs both. Check a plan by:
 ```bash
 npm run workspace -- check <workspace>       # the workspace, its model and every plan, checked through
 npm run dev                                  # then open /<ws>/plans/<plan>/ and walk every chapter
-node tools/sources.ts <workspace>            # the model's facts still cite code
+npm run map -- show <id> --workspace <ws>    # verify current facts and their citations
 npm run plan:base -- check <plan>            # fits its base; writes base.lock.json
 npm run progress -- show <workspace> <plan>  # where each work item, milestone and team stands
 ```

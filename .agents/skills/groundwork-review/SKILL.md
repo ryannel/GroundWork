@@ -20,7 +20,7 @@ where the answer lives).
 
 ```bash
 npm run workspace -- check <workspace>        # the workspace, its model and every plan, as the app reads them
-node tools/sources.ts <workspace> --missing   # extracted facts without sources; add --check to ask GitHub
+npm run map -- show <id> --workspace <ws>     # the model record, its cited code and evidence gaps
 npm run map -- repos --workspace <ws>         # the commit each repo was read at
 npm run progress -- show <workspace> <plan>   # commitments, progress and last heard per item, team and milestone
 npm run dev                                   # then walk /<ws>/plans/<plan>/ chapter by chapter
@@ -42,7 +42,7 @@ the critical path with `meta.appetite`.
   `screens` or `handlers`: Blocker; today lives in the model, and planned behaviour is an op.
 - **Lock and drift.** An open plan without `base.lock.json`, one edited since its check, or one whose cover says
   today has changed under it (an op whose target changed or vanished since the lock): Major; re-read the targets, fix the ops, run
-  `npm run plan:base -- check <plan>`. A shipped plan without `base.yaml`: Minor; land it.
+  `npm run plan:base -- check <plan>`. A shipped plan without its `base.yaml` marker and frozen `base/`: Minor; land it.
 - **Stacking.** A plan whose cover says a plan it builds on (or its programme) changed since it was checked: Major;
   read what changed, fix the ops, re-check. A `builds_on` edge nothing explains (no op targets what that plan adds,
   no work waits on its work): Minor; drop it, or order work with `depends_on` instead. A base that was abandoned:
@@ -85,11 +85,11 @@ changed in place, empty chapter), Major (unattributed or stale fact, newcomer qu
 owner, e2e or rollout), Minor (wording, glossary, story polish).
 
 ```markdown
-| #   | Sev     | Path                    | Finding                                     | Fix                                                                                                                               |
-| --- | ------- | ----------------------- | ------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | Blocker | services[2]             | The plan copies svc:billing from the model. | Delete it; `{ modify: svc:billing, set: { does: "…" } }` in chg:billing-skip-paused if it changes.                                |
-| 2   | Major   | changes[0].ops[1]       | The new pause rule has no handler op.       | `{ modify: h:billing-run-invoice, append: { steps: [{ if: the subscription is paused, then: [{ return: skipped }] }] } }`         |
-| 3   | Major   | api:subs-cancel (model) | No source.                                  | Re-scan acme/subscriptions, or `sources: [{ repo: acme/subscriptions, path: src/api/cancel.kt, lines: [20, 58], commit: <sha> }]` |
+| #   | Sev     | Path                    | Finding                                     | Fix                                                                                                                       |
+| --- | ------- | ----------------------- | ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| 1   | Blocker | services[2]             | The plan copies svc:billing from the model. | Delete it; `{ modify: svc:billing, set: { does: "…" } }` in chg:billing-skip-paused if it changes.                        |
+| 2   | Major   | changes[0].ops[1]       | The new pause rule has no handler op.       | `{ modify: h:billing-run-invoice, append: { steps: [{ if: the subscription is paused, then: [{ return: skipped }] }] } }` |
+| 3   | Major   | api:subs-cancel (model) | No source.                                  | Re-scan acme/subscriptions, or `cites: [subscriptions:src/api/cancel.kt@<sha>#L20-58]`                                    |
 ```
 
 End with the validator status, counts by severity, and the one fix that most improves the reader's experience.

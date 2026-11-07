@@ -12,70 +12,53 @@ Produce a commit-pinned account of the requested repositories, their behaviour, 
 remaining gaps. User instructions determine scope, model and parallelism. An existing stop remains in force
 until the user resumes that scope; skill maintenance and fixture tests do not restart repository scans.
 
-## Choose the requested format
+## Scan the registered workspace
 
-| Requested work                                                    | Read when needed                                                                                                         | Output                                                   |
-| ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------- |
-| Current question-led scans, reusable extractors or scan freshness | [Pipeline](../../../docs/scan-pipeline.md) and [repository workflow](../../../docs/scan-trials/scan-readiness/README.md) | `scan/v1` evidence and a separate interpretation sidecar |
-| Existing runtime-component or endpoint execution proofs           | [Canonical orchestration](canonical-orchestration.md)                                                                    | `knowledge/v3` bundles and snapshot                      |
-| Refresh the model read by the current application                 | [Legacy refresh](legacy-refresh.md)                                                                                      | Validated production YAML and scan marks                 |
+Select the repository and full commit from the authorised source. Use a clone root laid out as
+`<clone-root>/<organisation>/<repository>`. The checkout's working tree does not set the scan pin.
 
-Infer the mode from the request; clarify only a material ambiguity. Read the selected guidance, not every
-mode. Keep formats separate. A scan does not itself migrate the app or authorise production changes.
+```sh
+npm run scan:model -- --workspace <id> --repo <organisation/repository> \
+  --commit <full-sha> --clone-root <clone-root> --out <new-workspace-folder>
+npm run workspace -- check <new-workspace-folder>
+```
 
-## Work from questions and evidence
+For a verified retained source checkpoint at the same pin, pass `--source-pass <folder>` to
+verify and reuse its completed shards. A fresh span check uses the pinned Git tree.
 
-Read the relevant previous run's learning links and existing regressions; carry unresolved patterns into the
-brief rather than rediscovering them. Use scripted inventory and extraction before asking agents to
-reconstruct framework behaviour.
-Pin repository, commit, selection, source policy and analysis versions. For whole repositories, use
-`scan:pass` with a shared cache and its checkpoint/resume or `--previous` workflow. Use `scan:entries` for
-supported Spring entry discovery and `scan:entry` for bounded evidence on demand. Other framework support
-must be checked against actual tooling; the fixed Go/Next.js benchmarks are not whole-repository coverage. For
-C#/ASP.NET, use the [source program workflow](../../../docs/scan-trials/rescan-acceptance/csharp.md):
-controller, call and schema joins across source shards require the reusable program aggregation step.
+The scan writes a separate candidate with native `ev:` evidence and updated model files. Review the
+candidate and its receipt before applying data. A source span can be refreshed when it resolves to
+the pinned code. The same filename or line number alone does not establish continuity. Report the
+repository tree, source files checked, model records refreshed and unresolved references. An
+unexamined path cannot establish absence or justify removing a step.
 
-Before a corpus run, use the [re-scan preflight and acceptance contract](../../../docs/scan-trials/rescan-acceptance/README.md).
-Reconcile the actual pinned roster and language/framework routing. Representative tooling proofs establish
-launch eligibility; each resulting repository still needs its own coverage and publication checks. A Spring
-readiness receipt cannot certify another language, framework or the whole workspace.
+Pass an accepted packet with `--accept <file>`. It names the repository and commit. Each
+handler row records the fingerprint of the current handler and a complete, cited observation.
+Each contract row records the current record fingerprint, exact values and evidence IDs.
+If the model cites a cached record, pass `--analysis <receipt.json>` with the repository, commit
+and exact SHA-256 hashes of the cache families. The scan promotes the cited records and their
+supporting evidence into the candidate.
 
-Account for discovered endpoints, consumers, jobs, stores and outbound boundaries, including explicit
-exclusions. Trace the questions that matter: control branches, values crossing calls, stored/message/API
-shapes, asynchronous continuations and failures. Do not equate inventory counts or schema validity with
-behavioural coverage. Preserve source anchors, partial results and unresolved boundaries.
-
-Parallelise independent work within the user's requested settings. Give each explorer a pinned scope,
-questions, existing evidence, output location and resource bounds; use
-[groundwork-explore](../groundwork-explore/SKILL.md). Keep implementation and review work proportional to
-the ambiguity. Cold/warm benchmarks and bespoke acceptance packs are validation tools, not work to repeat
-for every repository.
+Keep human-written conclusions in a review file until a person accepts them. Reconcile handler steps
+by an aligned source span and a control-flow path, retaining their declared IDs. If the match is
+ambiguous, preserve the old step and report the candidates. Check request and response shapes against
+the route binding and declared type. A local declaration does not prove an external contract.
 
 ## Owners and partners
 
 - **Owners come from evidence.** Report the handles the evidence names for each system, most specific first: a
   folder's CODEOWNERS, the repo's CODEOWNERS, Backstage `spec.owner`, the repo's GitHub teams, the deployment
-  config. Map each to a team through its `handles` in `workspace.yaml`, and propose a handle that no team holds. A
-  `team:` in `system.yaml` is typed only when evidence is missing or disagrees, and a typed team wins. Collecting
-  this evidence is not scripted yet; read it by hand and say where each handle came from.
-- **A partner's systems are read from its documents**, since we cannot read its code (the team has
-  `partner: true`). Each fact is `origin: documented` and cites where it was read:
-  `{ url, pointer, version }` for an API document (a JSON pointer or operation id), `{ url, heading, version }` for
-  a prose page. The url may be one the app cannot reach (an internal network, Notion); cite it anyway. Read the
-  document where it lives; never copy it into the workspace. Facts from prose are **Inferred**. A partner's system
-  has no handlers by default: a flow hop into it ends at its endpoint. See
-  [cookbook §21](../groundwork-schema/cookbook.md#21-plans-together-programmes-increments-and-partners).
+  config. Map each to a team through its `handles` in `workspace.yaml`, and propose a handle that no team holds. Confirm the declared
+  `team:` in `system.yaml` against those observations. Keep unsupported ownership open.
+- **A partner's systems are read from its documents.** Record the accessible document reference and
+  whether the conclusion comes from a declared contract or prose. Keep the implementation, handlers
+  and owning team open when the evidence does not establish them.
 
 ## Interpret and improve
 
-After extraction, use the LLM to explain probable purpose, actors, actions, journeys and relationships from
-the source and surrounding context. Follow [interpretation](../groundwork-schema/interpretation.md): keep
-the **Inferred** label visible, record confidence and rationale, and separate model usage from scripted
-extraction. Source-complete does not mean interpretation-complete. Before repository-level prose, retain
-an independent candidate inventory of source runtime/app boundaries and entries/operations, then reconcile
-it through the discovery coverage contract in that reference. Five area attempts or component totals do not
-establish activity coverage; preserve discovery-partial results and require independent challenge for a
-complete discovery claim. Repair from retained evidence first, extracting only missing affected slices.
+Use the evidence to explain probable purpose, actors, actions, journeys and relationships. Keep
+interpretation in a separate review file with an **Inferred** label, confidence, rationale and
+limitations. A person accepts any LLM-produced row before a deterministic command applies it.
 
 When tooling misses, misstates or repeatedly needs manual reconstruction of relevant behaviour, follow
 [learning from scan gaps](learning.md). Treat a reproducible tooling gap as repair work within the authorised
@@ -86,24 +69,7 @@ unknown; LLM guesses cannot close a source-proof gap.
 
 ## Finish the requested scope
 
-Publish only validated selections. Report repository/revision coverage, supported and partial questions,
-inferred interpretations, exclusions, freshness authority, reuse/work metrics and model usage where known.
-For each learning gap, name the reusable correction and verification, or the reason it remains deferred.
-For service exploration, bind implementations to source-declared runtime components and project bounded
-queries through `src/application/scan-explorer`; keep source payloads and provider contracts distinct.
-Use the [service explorer contract](../../../docs/scan-trials/service-explorer/README.md) when publishing UI
-data. Reverse caller matches need target and transport evidence; similar names are only candidates.
-
-Do not silently lower denominators, promote partial answers, rewrite old receipts or advance production
-marks from an unvalidated capture. Reuse compatible indexes; invalidate affected facts and interpretations
-when their inputs or analysis change. A local Git observation does not establish remote or deployed currency.
-
-When the task includes a landscape, reconcile the new evidence through
-[groundwork-landscape](../groundwork-landscape/SKILL.md). Technical boundaries remain independent of teams
-and arbitrary domain/system grouping. When publication updates a workspace with reviewed charts, reconcile
-its affected systems and neighbouring areas through the diagram
-[maintenance workflow](../groundwork-diagram/references/maintenance.md), preserving unchanged choices.
-For new charts, use [groundwork-diagram](../groundwork-diagram/SKILL.md) after publication. Evidence-only
-or proposal-only scan requests retain that scope; they do not authorise production chart changes.
-Complete the requested publication, interpretation and affected validation, or retain the specific
-unresolved boundary alongside useful completed work.
+Publish only validated selections. Report the examined revision, coverage, partial questions,
+inferences, exclusions and freshness authority. A local Git observation does not establish remote
+or deployed state. Follow [landscape reconciliation](../groundwork-landscape/SKILL.md) or
+[chart maintenance](../groundwork-diagram/SKILL.md) when the authorised change affects those views.
