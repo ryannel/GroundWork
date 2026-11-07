@@ -5,8 +5,7 @@ import path from 'node:path';
 import { afterAll, describe, expect, it } from 'vitest';
 import { parse } from 'yaml';
 
-import { pauseOrdersOverlay } from '@/../test/fixtures/acme/plans/pause-orders';
-import { acmeFiles, writeWorkspace } from '@/../test/workspace-kit';
+import { writeWorkspace } from '@/../test/workspace-kit';
 
 const home = process.cwd();
 const scratch = path.join(home, 'node_modules', '.cache');
@@ -33,8 +32,27 @@ function progress(args: readonly string[]) {
 async function workspace(name: string): Promise<string> {
   const folder = path.join(root, name, 'acme');
   await writeWorkspace(folder, {
-    ...acmeFiles(),
-    'plans/pause-orders/plan.yaml': pauseOrdersOverlay(),
+    'workspace.yaml': {
+      format: 2,
+      id: 'acme',
+      name: 'Acme',
+      teams: [{ id: 'team:orders', name: 'Orders' }],
+    },
+    'plans/pause-orders/plan.yaml': {
+      meta: { id: 'plan:pause-orders', title: 'Let an order clerk pause an order' },
+      problem: { summary: 'The order clerk needs to pause an order.' },
+      changes: [{ id: 'chg:pause-endpoint', title: 'Add the pause endpoint', ops: [] }],
+      milestones: [{ id: 'ms:pause', name: 'Clerks can pause' }],
+      work_items: [
+        {
+          id: 'wi:pause-api',
+          title: 'Pause endpoint',
+          team: 'team:orders',
+          milestone: 'ms:pause',
+          implements: ['chg:pause-endpoint'],
+        },
+      ],
+    },
   });
   return folder;
 }
