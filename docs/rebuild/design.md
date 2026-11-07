@@ -496,9 +496,8 @@ The rebuild plan (`rebuild.md`) holds the order and proofs. The design-level rul
 ## 10. Decisions
 
 1. **Explorer: retired**, replaced by the entry flow view, after the parity report.
-2. **Analysis cache: committed compressed** (about 0.35 GB) until the scan can rebuild it. The reviewers
-   preferred keeping it a cache and promoting only cited records to evidence; either way, every record the model
-   cites is promoted to `evidence/`. _Reconfirm with the user._
+2. **Analysis cache: kept local and compressed.** Commit only records cited by the model to
+   `evidence/`. Preserve the local cache and prove its readers before replacing its representation.
 3. **Coverage**: the scan fills missing request/response schemas from route bindings and type contracts,
    cited with `ev:`; what evidence cannot support stays a gap.
 
@@ -613,3 +612,16 @@ validators retain their existing citation requirements.
 
 The audit, original denominators and recovery proof are recorded in
 `artifacts/rebuild/pr10/interpretation-amendment.md`.
+
+### PR10 clarification: preserve historical entry snapshots
+
+Keep the original entry addresses at their recorded pins. Use the current native entry where its
+identity is proven, and preserve the original selection and linked data details as a read-only
+historical snapshot where that match is unavailable. Historical source and scope remain visible.
+An archived entry does not establish current behaviour. Arbitrary method-only views may retire
+after their pinned source destinations are preserved.
+
+The Volvo data change preserves the exact published flow and linked data bytes. The route
+compatibility proof covers the live and fallback publications independently, including the older
+Customer Service pin. The entry crosswalk and source verification are recorded in
+`artifacts/rebuild/pr10/legacy-entry-crosswalk.md`.

@@ -40,3 +40,10 @@ need a retained companion receipt. Published Inferred material remains interpret
 A pinned recovery closes the observed citation set for 65 additional claims. The proposed
 preservation has 215 canonical candidates and 346 context-only interpretations. See
 `interpretation-amendment.md` for the exact closure and approved archive scope.
+
+Volvo PR 3 merged the exact historical entry archive. The original 1,725 published entries and
+their retained linked detail are available through the archive reader. The 18 frozen Volvo
+repository selectors passed the base-path preview. The full active-publication audit separately
+found 86,991 data and 104,867 overview addresses outside the approved entry archive. The original
+reader remains available for those addresses. The executable retirement check reports 14 open
+capabilities. See `historical-release.md` and `direct-address-audit.md`.

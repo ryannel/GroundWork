@@ -1,5 +1,6 @@
-import { mkdir, mkdtemp, readdir, rm } from 'node:fs/promises';
+import { mkdir, mkdtemp, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
+import { gzipSync } from 'node:zlib';
 
 import { afterAll, describe, expect, it, vi } from 'vitest';
 
@@ -235,6 +236,22 @@ describe('evidence index', () => {
       lineStart: 9,
       lineEnd: 14,
     });
+  });
+
+  it('rebuilds the same links from compressed analysis and rejects duplicate representations', async () => {
+    const { workspace } = await indexed();
+    const original = await evidenceIndex(workspace);
+    const expected = original?.record('profile-api', 'binding:1');
+    expect(expected?.linksOut).toHaveLength(2);
+    const file = path.join(workspace, '.groundwork', 'analysis', 'profile-api', 'bindings.jsonl');
+    await writeFile(`${file}.gz`, gzipSync(await readFile(file)));
+    await expect(buildEvidenceIndex(workspace)).rejects.toThrow(
+      'repeated evidence family bindings',
+    );
+    await rm(file);
+    await buildEvidenceIndex(workspace);
+    const rebuilt = await evidenceIndex(workspace);
+    expect(rebuilt?.record('profile-api', 'binding:1')).toEqual(expected);
   });
 
   it('has no index for a workspace never indexed', async () => {

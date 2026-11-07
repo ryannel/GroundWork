@@ -131,7 +131,7 @@
         },
         {
           "file": "src/infrastructure/scan-explorer/evidence-files.ts",
-          "line": 10,
+          "line": 12,
           "text": "import type { DiscoverySummary } from '@/application/evidence/evidence-discovery';"
         }
       ],
@@ -151,6 +151,10 @@
         {
           "file": "artifacts/rebuild/pr10/progress.md",
           "sha256": "f04a5bcaf03723849c3b079eac4bc7d0c76117335b4ed1018ed114b3eed65244"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/historical-release.md",
+          "sha256": "23ba38b43e312aecd15060dfc28bd577b9294a6e4d1d08383b49b0eae7095c0f"
         }
       ]
     },
@@ -1284,6 +1288,130 @@
         }
       ],
       "status": "migrated"
+    },
+    {
+      "file": "src/app/[workspace]/explorer/page.tsx",
+      "sourceSha256": "16f4344e45996724344fd5a53a95af1f9ebca889d6fc10352410c9ef9b92597e",
+      "role": "consumer",
+      "reason": "The retained explorer route selects its workspace navigation from the canonical model. Its separate publication remains covered by the PR 10 proof.",
+      "evidence": [
+        {
+          "file": "src/app/[workspace]/explorer/page.tsx",
+          "line": 37,
+          "text": "const native = await readCanonicalModelIndex(id);"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8-cutover-handoff.md",
+          "sha256": "507eabff8ad9d76f190305aa29eb29c06132858b4de273eae08570584202896a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/route-binding-audit.json",
+          "sha256": "1f8796dd0780c4424e1e786442c63664b3e879efbc06d2d822587acd2ecc4900"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/release/hook-fixes-focused.log",
+          "sha256": "76c69e8c5dd6d7d3ef2570d18d75f2dac3964ef533d1043aaa742d628186d642"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/historical-release.md",
+          "sha256": "23ba38b43e312aecd15060dfc28bd577b9294a6e4d1d08383b49b0eae7095c0f"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "tools/explorer-parity.ts",
+      "sourceSha256": "d99377ab44e257ce89fdb5adb0f9d1d5519c2490a7927b92b525218dcf6299c1",
+      "role": "support",
+      "reason": "Compares retained explorer proof inventories and recorded replacement identities.",
+      "evidence": [
+        {
+          "file": "tools/explorer-parity.ts",
+          "line": 151,
+          "text": "export async function writeExplorerParity(): Promise<void> {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8-cutover-handoff.md",
+          "sha256": "507eabff8ad9d76f190305aa29eb29c06132858b4de273eae08570584202896a"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/historical-release.md",
+          "sha256": "23ba38b43e312aecd15060dfc28bd577b9294a6e4d1d08383b49b0eae7095c0f"
+        }
+      ]
+    },
+    {
+      "file": "tools/scan-model/analysis.ts",
+      "sourceSha256": "a90bdeb55e3cffb69a46ffea982ecef849f34c1d0b57e6c4478dd87e8d8cd50b",
+      "role": "support",
+      "reason": "Cited cache records and their verified support become canonical evidence.",
+      "evidence": [
+        {
+          "file": "tools/scan-model/analysis.ts",
+          "line": 164,
+          "text": "export async function citedAnalysis(input: AnalysisRequest): Promise<readonly RecordToPromote[]> {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr9/handoff.md",
+          "sha256": "dc7f9dfcf9829123f0e0ed1f6128fa165a26069ab1bdc88b108d50590be2a5f1"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/historical-release.md",
+          "sha256": "23ba38b43e312aecd15060dfc28bd577b9294a6e4d1d08383b49b0eae7095c0f"
+        }
+      ]
+    },
+    {
+      "file": "src/application/entry-history.ts",
+      "sourceSha256": "34e9f0413eecf2fc6d23aa822a4f17eb960ab5796d5852c895cd22cef58d60ff",
+      "role": "support",
+      "reason": "Keeps the old explorer address within the exact historical scope.",
+      "evidence": [
+        {
+          "file": "src/application/entry-history.ts",
+          "line": 46,
+          "text": "export function historicalEntryHref(workspace: string, address: HistoricalAddress = {}): string {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr10/historical-release.md",
+          "sha256": "23ba38b43e312aecd15060dfc28bd577b9294a6e4d1d08383b49b0eae7095c0f"
+        }
+      ]
+    },
+    {
+      "file": "tools/rebuild/explorer-retirement.ts",
+      "sourceSha256": "a46270d8f28401ea1829037298cc2f71bd04d1ac2f8fbf97f3a96350af092e9c",
+      "role": "support",
+      "reason": "Checks every original explorer capability against its recorded retirement disposition and proof.",
+      "evidence": [
+        {
+          "file": "tools/rebuild/explorer-retirement.ts",
+          "line": 40,
+          "text": "export async function checkExplorerRetirement(): Promise<boolean> {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr10/direct-address-audit.md",
+          "sha256": "a5bb5a3a40c69ed6cbbb8493eb235334b886698a7fcff1b1ccbebae64d0bc9e9"
+        }
+      ]
     }
   ]
 }

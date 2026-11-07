@@ -28,6 +28,9 @@ export function homeUrlOf(home: { readonly repo: string; readonly path?: string 
   const base = repositoryUrl(home.repo);
   return home.path === undefined || home.path === null ? base : `${base}/tree/HEAD/${home.path}`;
 }
+export function repositoryTreeUrl(repo: string, commit: string): string {
+  return `${repositoryUrl(repo)}/tree/${encodeURIComponent(commit)}`;
+}
 export function issueUrlOf(repo: string, issue: number): string {
   return `${repositoryUrl(repo)}/issues/${String(issue)}`;
 }

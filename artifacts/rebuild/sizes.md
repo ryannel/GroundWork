@@ -7,9 +7,10 @@
 | Selected corpus generation | 3,929,256 KiB | Same | Live. |
 | Unselected corpus generation | 3,568,816 KiB | Same | Retained. |
 | Syntax cache | 28,309,472 KiB | Same | Retained. |
-| Analysis cache | 3,695,088 KiB | Same | Compression and retention decision pending. |
+| Analysis cache | 3,782,951,805 bytes | 536,794,280 bytes | Local compressed history. Original bytes still retained while the retirement gate is open. |
 | Evidence folder | 115,924 KiB | 119,212 KiB | Original format-1 and merged format-2 checkouts. |
 | Volvo interpretation archive | — | 21,612 KiB | Added in Volvo PR 2. |
+| Volvo historical entry archive | — | 38,358,195 bytes | Added in Volvo PR 3. |
 | Domains folder | 16,580 KiB | 25,496 KiB | Original format-1 and merged format-2 checkouts. |
 
 Folder sizes measure allocated space from `du -sk` on the same filesystem. The tracked

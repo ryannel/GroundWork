@@ -1,5 +1,4 @@
 import { createHash, timingSafeEqual } from 'node:crypto';
-import { createReadStream } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { finished } from 'node:stream/promises';
@@ -18,7 +17,11 @@ import type { ContractData } from '@/domain/model/contracts.generated';
 import { modelRecord } from '@/domain/workspace-model';
 import { modelValidator } from '@/infrastructure/model-schema';
 import { readPinnedSource } from '@/infrastructure/scan/scoped-source-git';
-import { readRecords } from '@/infrastructure/scan-explorer/evidence-files';
+import {
+  recordBytes,
+  recordFiles,
+  readRecords,
+} from '@/infrastructure/scan-explorer/evidence-files';
 
 type AnalysisFamily = Extract<EvidenceFamily, 'sources' | 'bindings' | 'summaries' | 'gaps'>;
 type EvidenceFile = ContractData<'evidence', 'EvidenceFile'>;
@@ -45,8 +48,8 @@ function analysisFamily(family: string): family is AnalysisFamily {
 
 async function fileDigest(file: string): Promise<string> {
   const hash = createHash('sha256');
-  const stream = createReadStream(file);
-  stream.on('data', (bytes) => {
+  const stream = recordBytes(file);
+  stream.on('data', (bytes: Buffer) => {
     hash.update(bytes);
   });
   await finished(stream);
@@ -62,11 +65,14 @@ async function analysisFiles(receipt: string, input: AnalysisRequest) {
   if (document.repo !== input.repo || document.commit !== input.commit) {
     throw new Error('The analysis cache belongs to another repository or commit.');
   }
+  const available = await recordFiles(path.dirname(receipt));
   return Object.entries(files).map(([family, hash]) => {
     if (!analysisFamily(family) || typeof hash !== 'string' || !/^[a-f\d]{64}$/u.test(hash)) {
       throw new Error(`Invalid analysis cache receipt entry ${family}.`);
     }
-    return { family, hash, file: path.join(path.dirname(receipt), `${family}.jsonl`) };
+    const file = available.get(family);
+    if (file === undefined) throw new Error(`Missing analysis cache family ${family}.`);
+    return { family, hash, file };
   });
 }
 

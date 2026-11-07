@@ -1089,7 +1089,7 @@
       "evidence": [
         {
           "file": "src/app/[workspace]/explorer/page.tsx",
-          "line": 18,
+          "line": 37,
           "text": "const native = await readCanonicalModelIndex(id);"
         }
       ],
@@ -1110,11 +1110,15 @@
         {
           "file": "artifacts/rebuild/pr8/release/hook-fixes-focused.log",
           "sha256": "76c69e8c5dd6d7d3ef2570d18d75f2dac3964ef533d1043aaa742d628186d642"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/historical-release.md",
+          "sha256": "23ba38b43e312aecd15060dfc28bd577b9294a6e4d1d08383b49b0eae7095c0f"
         }
       ],
       "reason": "The retained explorer route selects its workspace navigation from the canonical model. Its separate publication remains covered by the PR 10 proof.",
       "role": "consumer",
-      "sourceSha256": "f7543e84980e77a4e7b1619026d42b7df2a541e29f40d242c0e380c0b36cb241",
+      "sourceSha256": "16f4344e45996724344fd5a53a95af1f9ebca889d6fc10352410c9ef9b92597e",
       "status": "migrated"
     },
     "factBindings": [
@@ -1123,11 +1127,11 @@
     "file": "src/app/[workspace]/explorer/page.tsx",
     "hits": [
       {
-        "line": 8,
+        "line": 10,
         "text": "import { readExplorerCatalogue } from '@/infrastructure/service-explorer-catalogue';"
       },
       {
-        "line": 9,
+        "line": 11,
         "text": "import { readExplorerManifest } from '@/infrastructure/service-explorer-files';"
       }
     ],
@@ -1161,7 +1165,7 @@
     "reachable": true,
     "reason": "The retained explorer route selects its workspace navigation from the canonical model. Its separate publication remains covered by the PR 10 proof.",
     "role": "consumer",
-    "sourceSha256": "f7543e84980e77a4e7b1619026d42b7df2a541e29f40d242c0e380c0b36cb241",
+    "sourceSha256": "16f4344e45996724344fd5a53a95af1f9ebca889d6fc10352410c9ef9b92597e",
     "status": "migrated"
   },
   {

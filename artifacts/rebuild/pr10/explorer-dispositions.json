@@ -1,0 +1,116 @@
+{
+  "dispositions": [
+    {
+      "capability": "All source operations disclosure",
+      "status": "open",
+      "reason": "Some method-only direct addresses remain on the old reader."
+    },
+    {
+      "capability": "Repository and service overview",
+      "status": "proved",
+      "reason": "Exact archived repository scopes and all 18 frozen Volvo selectors resolve.",
+      "proof": "artifacts/rebuild/pr10/historical-release.md",
+      "sha256": "23ba38b43e312aecd15060dfc28bd577b9294a6e4d1d08383b49b0eae7095c0f"
+    },
+    {
+      "capability": "Repository selection and search",
+      "status": "open",
+      "reason": "The repository search exists and still needs a production interaction proof."
+    },
+    {
+      "capability": "Endpoint, consumer and job entry links",
+      "status": "proved",
+      "reason": "All 1,725 published entries preserve exact original bytes and pins.",
+      "proof": "artifacts/rebuild/pr10/historical-release.md",
+      "sha256": "23ba38b43e312aecd15060dfc28bd577b9294a6e4d1d08383b49b0eae7095c0f"
+    },
+    {
+      "capability": "Direct entry and selected-node URLs; history",
+      "status": "open",
+      "reason": "The remaining directly addressable pages need exact dispositions."
+    },
+    {
+      "capability": "Caller lists and published references",
+      "status": "open",
+      "reason": "The archived caller roots and all their reference paths need an independent comparison."
+    },
+    {
+      "capability": "References in the selected view",
+      "status": "open",
+      "reason": "The archived selected-view reference closure needs verification."
+    },
+    {
+      "capability": "Data shapes, required and nullable fields",
+      "status": "proved",
+      "reason": "Archived data keeps the original types, required and nullable values.",
+      "proof": "artifacts/rebuild/pr10/historical-release.md",
+      "sha256": "23ba38b43e312aecd15060dfc28bd577b9294a6e4d1d08383b49b0eae7095c0f"
+    },
+    {
+      "capability": "Nested schema drill",
+      "status": "open",
+      "reason": "The nested data links need an exhaustive target comparison."
+    },
+    {
+      "capability": "Source file index and method links",
+      "status": "open",
+      "reason": "Some source index addresses remain on the old reader."
+    },
+    {
+      "capability": "Source text and long source detail",
+      "status": "open",
+      "reason": "Retirement is approved after the remaining pinned source destinations are proved."
+    },
+    {
+      "capability": "Method-level flows and implementation drill",
+      "status": "open",
+      "reason": "Known method destinations are archived and the full direct-address inventory is pending."
+    },
+    {
+      "capability": "Branches, calls, failures, asynchronous and data links",
+      "status": "proved",
+      "reason": "Every published entry retains its original nodes and links, displayed through the shared canvas.",
+      "proof": "artifacts/rebuild/pr10/historical-release.md",
+      "sha256": "23ba38b43e312aecd15060dfc28bd577b9294a6e4d1d08383b49b0eae7095c0f"
+    },
+    {
+      "capability": "Reviewed Inferred context and confidence",
+      "status": "proved",
+      "reason": "All 561 interpretations and their original reviews and context are retained at their pins.",
+      "proof": "artifacts/rebuild/pr10/archive-release.md",
+      "sha256": "108d4baac32c42db861332ed256e89baa4bf94bb82c820245deb7fbd5a1fd33f"
+    },
+    {
+      "capability": "Search within indexes",
+      "status": "open",
+      "reason": "Entry search is implemented and the remaining index search needs an exact disposition."
+    },
+    {
+      "capability": "Inspector selection and connection lists",
+      "status": "open",
+      "reason": "The historical canvas has the original links. Selected connection navigation needs a focused proof."
+    },
+    {
+      "capability": "Pan, zoom, fit and full screen",
+      "status": "open",
+      "reason": "The historical canvas reuses the controls. Current entry canvas parity remains open."
+    },
+    {
+      "capability": "Gaps and partial selection notices",
+      "status": "proved",
+      "reason": "The archive retains exact gaps and partial source status.",
+      "proof": "artifacts/rebuild/pr10/historical-release.md",
+      "sha256": "23ba38b43e312aecd15060dfc28bd577b9294a6e4d1d08383b49b0eae7095c0f"
+    },
+    {
+      "capability": "Loading errors, retry and bounded asset verification",
+      "status": "open",
+      "reason": "Checksum and bounds are verified. Production loading and retry still need a focused comparison."
+    },
+    {
+      "capability": "Legacy manifest fallback and corpus publication",
+      "status": "open",
+      "reason": "Both old publications remain accessible for unproved direct destinations."
+    }
+  ]
+}

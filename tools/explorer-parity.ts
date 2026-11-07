@@ -7,6 +7,8 @@ import { readExplorerCatalogue } from '@/infrastructure/service-explorer-catalog
 import { readExplorerManifest } from '@/infrastructure/service-explorer-files';
 import { workspaceRegistrations } from '@/infrastructure/workspace-folders';
 
+import { checkExplorerRetirement } from './rebuild/explorer-retirement';
+
 interface Capability {
   readonly capability: string;
   readonly file: string;
@@ -201,5 +203,7 @@ if (
   process.argv[1] !== undefined &&
   fileURLToPath(import.meta.url) === path.resolve(process.argv[1])
 ) {
-  await writeExplorerParity();
+  if (process.argv.includes('--check-retirement')) {
+    if (!(await checkExplorerRetirement())) process.exitCode = 1;
+  } else await writeExplorerParity();
 }
