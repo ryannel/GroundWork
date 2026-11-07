@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useSyncExternalStore } from 'react';
 
 import type { EntryFlowView, FlowNode } from '@/application/entry-flow';
 import { Button } from '@/ui/button';
@@ -16,6 +16,30 @@ import {
 } from '@/ui/entry-canvas';
 import { Stack } from '@/ui/stack';
 import { Text, TextLink } from '@/ui/text';
+
+const SELECTION_CHANGED = 'groundwork:entry-selection';
+
+function subscribeSelection(change: () => void): () => void {
+  globalThis.addEventListener('popstate', change);
+  globalThis.addEventListener(SELECTION_CHANGED, change);
+  return () => {
+    globalThis.removeEventListener('popstate', change);
+    globalThis.removeEventListener(SELECTION_CHANGED, change);
+  };
+}
+
+function selectedInAddress(): string | null {
+  return new URLSearchParams(globalThis.location.search).get('step');
+}
+
+function selectInAddress(id: string | null): void {
+  if (selectedInAddress() === id) return;
+  const address = new URL(globalThis.location.href);
+  if (id === null) address.searchParams.delete('step');
+  else address.searchParams.set('step', id);
+  globalThis.history.pushState(null, '', address);
+  globalThis.dispatchEvent(new Event(SELECTION_CHANGED));
+}
 
 function allNodes(nodes: readonly FlowNode[]): readonly FlowNode[] {
   return nodes.flatMap((node) => [
@@ -80,9 +104,11 @@ function NodeInspector({ node }: { readonly node: FlowNode | undefined }) {
       <Text mono size="sm">
         {node.id}
       </Text>
-      {node.drill === null ? null : (
-        <TextLink href={node.drill.href}>Follow {node.drill.label} →</TextLink>
-      )}
+      {node.drills.map((drill) => (
+        <TextLink href={drill.href} key={drill.href}>
+          Follow {drill.label} →
+        </TextLink>
+      ))}
       <Text as="h3" weight="strong">
         Citations
       </Text>
@@ -111,7 +137,7 @@ function NodeInspector({ node }: { readonly node: FlowNode | undefined }) {
   );
 }
 export function EntryFlow({ flow }: { readonly flow: EntryFlowView }) {
-  const [selected, setSelected] = useState<string | null>(null);
+  const selected = useSyncExternalStore(subscribeSelection, selectedInAddress, () => null);
   const nodes = flow.handlers.flatMap((handler) => [
     ...allNodes(handler.nodes),
     ...handler.failures,
@@ -141,7 +167,7 @@ export function EntryFlow({ flow }: { readonly flow: EntryFlowView }) {
                 <Button
                   key={`${effect.site}-${effect.label}`}
                   onClick={() => {
-                    setSelected(effect.site);
+                    selectInAddress(effect.site);
                   }}
                   variant="quiet"
                 >
@@ -158,7 +184,7 @@ export function EntryFlow({ flow }: { readonly flow: EntryFlowView }) {
           <Stack>
             <Button
               onClick={() => {
-                setSelected(null);
+                selectInAddress(null);
               }}
               variant="quiet"
             >
@@ -174,10 +200,10 @@ export function EntryFlow({ flow }: { readonly flow: EntryFlowView }) {
           <Stack gap={6}>
             {flow.handlers.map((handler) => (
               <EntryGroup key={handler.id} title={handler.summary ?? handler.id}>
-                <Nodes nodes={handler.nodes} select={setSelected} selected={selected} />
+                <Nodes nodes={handler.nodes} select={selectInAddress} selected={selected} />
                 {handler.failures.length === 0 ? null : (
                   <EntryGroup title="Recorded failures">
-                    <Nodes nodes={handler.failures} select={setSelected} selected={selected} />
+                    <Nodes nodes={handler.failures} select={selectInAddress} selected={selected} />
                   </EntryGroup>
                 )}
               </EntryGroup>

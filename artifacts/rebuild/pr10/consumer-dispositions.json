@@ -1,0 +1,351 @@
+{
+  "format": 1,
+  "original": {
+    "file": "artifacts/rebuild/pr8/original-candidates.json",
+    "sha256": "8bb91071c6ae2e9168573f6d20d496cc8551e3e3ee626c3b06d64371d69f17c2",
+    "rows": 1697
+  },
+  "dispositions": [
+    {
+      "file": "src/app/page.tsx",
+      "sourceSha256": "f48617f809919647be7d8c31aee55d7f469a39cf6d9c9ab0adba178cd63fdd89",
+      "role": "consumer",
+      "reason": "The home library reads registration and canonical workspace counts, proven with a mixed registered library.",
+      "evidence": [
+        {
+          "file": "src/app/page.tsx",
+          "line": 10,
+          "text": "return <WorkspaceLibrary library={await readWorkspaceLibrary()} />;"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/infrastructure/workspace-library.test.ts",
+          "sha256": "5fb06b9c852542ace7468cb7493cfbec62331ea175ae9260c896d5c30ef3dbe2"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/route-binding-audit.json",
+          "sha256": "1f8796dd0780c4424e1e786442c63664b3e879efbc06d2d822587acd2ecc4900"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/verification.md",
+          "sha256": "c8ede685a77d504ef5b938a3336e6025fb97afe4665191cc7bc0b1b9b1999704"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/entry-flow.test.ts",
+      "sourceSha256": "899ff22b6f30b49313a99a62bb73bb037aa94c1ecc619e08488e2360a38e8377",
+      "role": "support",
+      "reason": "The native system overview keeps complete canonical records and exact counted gaps, with bounded lists and canonical scope links; the receipt pins these exact sources and focused proofs.",
+      "evidence": [
+        {
+          "file": "src/application/entry-flow.test.ts",
+          "line": 42,
+          "text": "it('retains every handler identity and authored order, with no runtime index in the serialised projection', () => {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/system-overview-budget.json",
+          "sha256": "95a4109392837678ab6d53e44f1215f89b101d611ef2f3794e28b12fab8bce49"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/system-overview-budget.md",
+          "sha256": "9fbcf02f8535f3c48e555e35998e4805de88163a6ea10c6c72a5f7d5a03ddf0f"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/verification.md",
+          "sha256": "c8ede685a77d504ef5b938a3336e6025fb97afe4665191cc7bc0b1b9b1999704"
+        }
+      ]
+    },
+    {
+      "file": "src/application/entry-flow.ts",
+      "sourceSha256": "ea94408d3f6ab004a8043d2cd7f54c8a2ed18217419c59825129f4f916807f11",
+      "role": "consumer",
+      "reason": "Projects canonical entry execution and cited backing to the node view.",
+      "evidence": [
+        {
+          "file": "src/application/entry-flow.ts",
+          "line": 206,
+          "text": "export function entryFlowOf("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-current-views.md",
+          "sha256": "c084814b586def71c6315696813e97c754a00e8bdd1c7ee764491e4d560c6c36"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/verification.md",
+          "sha256": "c8ede685a77d504ef5b938a3336e6025fb97afe4665191cc7bc0b1b9b1999704"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/evidence/evidence-discovery.ts",
+      "sourceSha256": "27fac74f7ea9a5eecdb0ad82bde236bfd5ad8d8953c4925977a408fc8d5b6897",
+      "role": "support",
+      "reason": "Provides bounded discovery evidence readers to the evidence-index build and the evidence migration workflow.",
+      "evidence": [
+        {
+          "file": "src/application/evidence/evidence-discovery.ts",
+          "line": 37,
+          "text": "export function discoveryClaims(detail: EvidenceFields): EvidenceRecord[] {"
+        },
+        {
+          "file": "tools/evidence/migrate.ts",
+          "line": 4,
+          "text": "import {"
+        },
+        {
+          "file": "src/infrastructure/scan-explorer/evidence-files.ts",
+          "line": 10,
+          "text": "import type { DiscoverySummary } from '@/application/evidence/evidence-discovery';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/infrastructure/scan-explorer/evidence-index-builder.ts",
+          "sha256": "3d4e388a47b2d81a869dde0da5094a77344039722be05d006bcb598e6ba1efa4"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/verification.md",
+          "sha256": "c8ede685a77d504ef5b938a3336e6025fb97afe4665191cc7bc0b1b9b1999704"
+        }
+      ]
+    },
+    {
+      "file": "src/application/legacy-view.ts",
+      "sourceSha256": null,
+      "role": "retirement",
+      "stage": 10,
+      "status": "deleted",
+      "reason": "The replacement has exact comparisons for all three workspaces and no live entry point reaches the old adapter.",
+      "evidence": [
+        {
+          "file": "artifacts/rebuild/pr10/legacy-view.md",
+          "line": 3,
+          "text": "The adapter has no production caller. PR 8 classified its former runtime callers against the"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr10/legacy-view.md",
+          "sha256": "7ad5c402f8fef5403bd358dca24be6156b73c02862f3a6fce2ec3329383cbb62"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/legacy-retention-binding-audit.json",
+          "sha256": "3bf0a24e25902aea18c411a305e22e50685963387c2dd6e6d4dbcfb92b2c89cc"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/release/comparison.json",
+          "sha256": "c01d7753b87922d91fffd7b9cc7cf1067cf48057672ce778b824203644a707fb"
+        }
+      ]
+    },
+    {
+      "file": "src/application/model-index.ts",
+      "sourceSha256": "41c8d7eca041d7b3dd4443ec11c6ec2ac32a7c3d51bc0d1a41c0658c30bb3da6",
+      "role": "consumer",
+      "reason": "The active index builds native facts. It reuses the node when placement requires no alias rewrite. All eight Volvo before and after authored and derived hashes and proposed effects match exactly.",
+      "evidence": [
+        {
+          "file": "src/application/model-index.ts",
+          "line": 667,
+          "text": "export function indexOf(model: WorkspaceModel): ModelIndex {"
+        },
+        {
+          "file": "src/application/model-index.ts",
+          "line": 119,
+          "text": "const component = resolveAlias(node.place.component, aliases).id;"
+        },
+        {
+          "file": "src/application/model-index.ts",
+          "line": 120,
+          "text": "return component === node.place.component"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/reader/volvo-projection-heap-before.log",
+          "sha256": "8548b5d791601eb2f6f7cb32099ac946814b4753011155c34c408ae576452796"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/volvo-projection-heap-after.log",
+          "sha256": "d56292835e6baa5555329e6f9ebc5e6bb0f9a5641d6e7ddda91a3e50aff953be"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/projection-focused.log",
+          "sha256": "8f079127230b83b1686291a4979104e1e392d4cab5d0834215f019806bc7f138"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/verification.md",
+          "sha256": "c8ede685a77d504ef5b938a3336e6025fb97afe4665191cc7bc0b1b9b1999704"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/infrastructure/workspace-library.ts",
+      "sourceSha256": "2c46dbe0b6290e8d924eba29c9ffc8f3befd854052f7f9b9112e6dad95ac251e",
+      "role": "consumer",
+      "reason": "Reads registry metadata and canonical workspace counts for the library.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/workspace-library.ts",
+          "line": 11,
+          "text": "export async function readWorkspaceLibrary(): Promise<Library> {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/infrastructure/workspace-library.test.ts",
+          "sha256": "5fb06b9c852542ace7468cb7493cfbec62331ea175ae9260c896d5c30ef3dbe2"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/verification.md",
+          "sha256": "c8ede685a77d504ef5b938a3336e6025fb97afe4665191cc7bc0b1b9b1999704"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "tools/evidence/build-index.ts",
+      "sourceSha256": "eccf09fc79b55ab2303e74d58c4e22d49d30994c5e9a44ae30ff91af45d7bdc6",
+      "role": "support",
+      "reason": "Builds the independent SQLite evidence index from the workspace evidence folder.",
+      "evidence": [
+        {
+          "file": "tools/evidence/build-index.ts",
+          "line": 11,
+          "text": "const built = await buildEvidenceIndex(workspace);"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/infrastructure/scan-explorer/evidence-index-builder.ts",
+          "sha256": "3d4e388a47b2d81a869dde0da5094a77344039722be05d006bcb598e6ba1efa4"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/retained-contract-binding-audit.json",
+          "sha256": "af2dacde97cf719e1727410010c11dbd613b8602e9d917249326bcc51a3149b5"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/verification.md",
+          "sha256": "c8ede685a77d504ef5b938a3336e6025fb97afe4665191cc7bc0b1b9b1999704"
+        }
+      ]
+    },
+    {
+      "file": "tools/rebuild/consumer-inventory.ts",
+      "sourceSha256": "29df187e00863a93e38798add1059b41f2da6f7cf5d93d498c8d67c7a01da0b7",
+      "role": "support",
+      "reason": "Inventories current source, requested native bindings and proof metadata while preserving the complete frozen original denominator.",
+      "evidence": [
+        {
+          "file": "tools/rebuild/consumer-inventory.ts",
+          "line": 760,
+          "text": "export function candidateRows(value: unknown): readonly Candidate[] {"
+        },
+        {
+          "file": "tools/rebuild/consumer-inventory.ts",
+          "line": 678,
+          "text": "export function consumerInventory("
+        },
+        {
+          "file": "tools/rebuild/consumer-inventory.ts",
+          "line": 816,
+          "text": "export function inventoryReview(value: unknown): {"
+        },
+        {
+          "file": "tools/rebuild/consumer-inventory.ts",
+          "line": 43,
+          "text": "export async function readInventorySource(file: string): Promise<string | null> {"
+        },
+        {
+          "file": "tools/rebuild/consumer-inventory.ts",
+          "line": 56,
+          "text": "export const sourceHash = (text: string): string => createHash('sha256').update(text).digest('hex');"
+        },
+        {
+          "file": "tools/rebuild/consumer-inventory.ts",
+          "line": 51,
+          "text": "export function usesCanonicalModel(text: string): boolean {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "tools/rebuild/consumer-inventory.test.ts",
+          "sha256": "4468f42ad0133991b0cd6a7fe5b1434dd1688254f8dbef425a19b1cda1eebcac"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-tests.log",
+          "sha256": "165cbc0b9fbb63c949abcea5d710af38a44a29fe7c56a872c7ae4f300aed39dc"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/verification.md",
+          "sha256": "c8ede685a77d504ef5b938a3336e6025fb97afe4665191cc7bc0b1b9b1999704"
+        }
+      ]
+    },
+    {
+      "file": "tools/rebuild/inventory.ts",
+      "sourceSha256": "462b0a9596f2db930c4ff4eba5687911447d2da7884b92bf8a10f397aa055720",
+      "role": "support",
+      "reason": "Inventories current source, requested native bindings and proof metadata while preserving the complete frozen original denominator.",
+      "evidence": [
+        {
+          "file": "tools/rebuild/inventory.ts",
+          "line": 2,
+          "text": "import { execFileSync } from 'node:child_process';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "tools/rebuild/consumer-inventory.test.ts",
+          "sha256": "4468f42ad0133991b0cd6a7fe5b1434dd1688254f8dbef425a19b1cda1eebcac"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-tests.log",
+          "sha256": "165cbc0b9fbb63c949abcea5d710af38a44a29fe7c56a872c7ae4f300aed39dc"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
+          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        },
+        {
+          "file": "artifacts/rebuild/pr9/handoff.md",
+          "sha256": "dc7f9dfcf9829123f0e0ed1f6128fa165a26069ab1bdc88b108d50590be2a5f1"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/verification.md",
+          "sha256": "c8ede685a77d504ef5b938a3336e6025fb97afe4665191cc7bc0b1b9b1999704"
+        }
+      ]
+    }
+  ]
+}

@@ -3,9 +3,10 @@ import { describe, expect, it } from 'vitest';
 import { citedLines, indexedRecord, recordLabel, recordLinks } from './evidence-index-rows';
 import { limitOf, matchExpression } from './evidence-query';
 
-const sources = citedLines([
-  { kind: 'source', id: 'source:1', path: 'Api/SettingsController.cs', lines: [10, 24] },
-]);
+const sources = citedLines(
+  [{ kind: 'source', id: 'source:1', path: 'Api/SettingsController.cs', lines: [10, 24] }],
+  new Map(),
+);
 
 describe('evidence index rows', () => {
   it('labels a route by its methods and template', () => {

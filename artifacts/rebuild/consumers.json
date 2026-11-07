@@ -2507,7 +2507,7 @@
       "proofs": [
         {
           "file": "src/infrastructure/workspace-library.test.ts",
-          "sha256": "4d010d3641573954a6ec9f71ddbfaf6971dd91c47590e84447837f808836aabd"
+          "sha256": "5fb06b9c852542ace7468cb7493cfbec62331ea175ae9260c896d5c30ef3dbe2"
         },
         {
           "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
@@ -2516,6 +2516,10 @@
         {
           "file": "artifacts/rebuild/pr8/route-binding-audit.json",
           "sha256": "1f8796dd0780c4424e1e786442c63664b3e879efbc06d2d822587acd2ecc4900"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/verification.md",
+          "sha256": "c8ede685a77d504ef5b938a3336e6025fb97afe4665191cc7bc0b1b9b1999704"
         }
       ],
       "reason": "The home library reads registration and canonical workspace counts, proven with a mixed registered library.",
@@ -2705,7 +2709,7 @@
       "evidence": [
         {
           "file": "src/application/entry-flow.ts",
-          "line": 200,
+          "line": 206,
           "text": "export function entryFlowOf("
         }
       ],
@@ -2718,11 +2722,15 @@
         {
           "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
           "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/verification.md",
+          "sha256": "c8ede685a77d504ef5b938a3336e6025fb97afe4665191cc7bc0b1b9b1999704"
         }
       ],
       "reason": "Projects canonical entry execution and cited backing to the node view.",
       "role": "consumer",
-      "sourceSha256": "ed570407cee3537f55492520febfa7883524512a7f050977ac3986e19bbf9ed5",
+      "sourceSha256": "ea94408d3f6ab004a8043d2cd7f54c8a2ed18217419c59825129f4f916807f11",
       "status": "migrated"
     },
     "factBindings": [
@@ -2753,7 +2761,7 @@
     "reachable": true,
     "reason": "Projects canonical entry execution and cited backing to the node view.",
     "role": "consumer",
-    "sourceSha256": "ed570407cee3537f55492520febfa7883524512a7f050977ac3986e19bbf9ed5",
+    "sourceSha256": "ea94408d3f6ab004a8043d2cd7f54c8a2ed18217419c59825129f4f916807f11",
     "status": "migrated"
   },
   {
@@ -3425,17 +3433,17 @@
       "evidence": [
         {
           "file": "src/application/model-index.ts",
-          "line": 666,
+          "line": 667,
           "text": "export function indexOf(model: WorkspaceModel): ModelIndex {"
         },
         {
           "file": "src/application/model-index.ts",
-          "line": 118,
+          "line": 119,
           "text": "const component = resolveAlias(node.place.component, aliases).id;"
         },
         {
           "file": "src/application/model-index.ts",
-          "line": 119,
+          "line": 120,
           "text": "return component === node.place.component"
         }
       ],
@@ -3452,11 +3460,15 @@
         {
           "file": "artifacts/rebuild/pr8/reader/projection-focused.log",
           "sha256": "8f079127230b83b1686291a4979104e1e392d4cab5d0834215f019806bc7f138"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/verification.md",
+          "sha256": "c8ede685a77d504ef5b938a3336e6025fb97afe4665191cc7bc0b1b9b1999704"
         }
       ],
       "reason": "The active index builds native facts. It reuses the node when placement requires no alias rewrite. All eight Volvo before and after authored and derived hashes and proposed effects match exactly.",
       "role": "consumer",
-      "sourceSha256": "d0d4c937ebb8a71e5e23032bffdf3d8e20ff37c266e79073cb642b90aa39c976",
+      "sourceSha256": "41c8d7eca041d7b3dd4443ec11c6ec2ac32a7c3d51bc0d1a41c0658c30bb3da6",
       "status": "migrated"
     },
     "factBindings": [
@@ -3477,19 +3489,19 @@
         "text": "readonly model: WorkspaceModel;"
       },
       {
-        "line": 73,
+        "line": 74,
         "text": "readonly model: WorkspaceModel;"
       },
       {
-        "line": 110,
+        "line": 111,
         "text": "function createLookup(model: WorkspaceModel): Lookup {"
       },
       {
-        "line": 170,
+        "line": 171,
         "text": "function handlersIn(model: WorkspaceModel): readonly ModelHandler[] {"
       },
       {
-        "line": 666,
+        "line": 667,
         "text": "export function indexOf(model: WorkspaceModel): ModelIndex {"
       }
     ],
@@ -3535,7 +3547,7 @@
     "reachable": true,
     "reason": "The active index builds native facts. It reuses the node when placement requires no alias rewrite. All eight Volvo before and after authored and derived hashes and proposed effects match exactly.",
     "role": "consumer",
-    "sourceSha256": "d0d4c937ebb8a71e5e23032bffdf3d8e20ff37c266e79073cb642b90aa39c976",
+    "sourceSha256": "41c8d7eca041d7b3dd4443ec11c6ec2ac32a7c3d51bc0d1a41c0658c30bb3da6",
     "status": "migrated"
   },
   {
@@ -8320,11 +8332,15 @@
       "proofs": [
         {
           "file": "src/infrastructure/workspace-library.test.ts",
-          "sha256": "4d010d3641573954a6ec9f71ddbfaf6971dd91c47590e84447837f808836aabd"
+          "sha256": "5fb06b9c852542ace7468cb7493cfbec62331ea175ae9260c896d5c30ef3dbe2"
         },
         {
           "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
           "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/verification.md",
+          "sha256": "c8ede685a77d504ef5b938a3336e6025fb97afe4665191cc7bc0b1b9b1999704"
         }
       ],
       "reason": "Reads registry metadata and canonical workspace counts for the library.",

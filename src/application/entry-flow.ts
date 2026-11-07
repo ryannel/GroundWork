@@ -31,7 +31,7 @@ export interface FlowNode {
   readonly branches: readonly FlowBranch[];
   readonly citations: readonly FlowCitation[];
   readonly contract: string | null;
-  readonly drill: { readonly label: string; readonly href: string } | null;
+  readonly drills: readonly { readonly label: string; readonly href: string }[];
 }
 export interface FlowSummary {
   readonly label: string;
@@ -123,15 +123,21 @@ function contractOf(data: Readonly<Record<string, unknown>>, index: ModelIndex):
   if (entity === null) return null;
   return JSON.stringify({ ...entity.data, id: entity.id, kind: entity.kind }, null, 2);
 }
-function drillOf(
+function drillsOf(
   data: Readonly<Record<string, unknown>>,
   index: ModelIndex,
   context: EntryFlowContext,
-): FlowNode['drill'] {
+): FlowNode['drills'] {
   const cause = index.get(modelText(data.causes) ?? '');
-  const entry = modelText(cause?.data.on) ?? modelText(data.call);
-  if (entry === null || index.flowOf(entry) === null) return null;
-  return { label: index.label(entry), href: entryFlowHref(index.model.id, { ...context, entry }) };
+  const direct = modelText(cause?.data.on) ?? modelText(data.call);
+  const entry = direct === null ? null : (index.flowOf(direct)?.entry.id ?? null);
+  const message = modelText(data.publish);
+  const subscriptions = message === null ? [] : index.subscriptions(message);
+  const targets = entry === null ? subscriptions : [entry, ...subscriptions];
+  return [...new Set(targets)].map((target) => ({
+    label: index.label(target),
+    href: entryFlowHref(index.model.id, { ...context, entry: target }),
+  }));
 }
 function branchOf(
   label: string,
@@ -193,7 +199,7 @@ function nodeOf(
     branches: branchesOf(data, id, index, context),
     citations: index.cites(id).map(citationOf),
     contract: contractOf(data, index),
-    drill: drillOf(data, index, context),
+    drills: drillsOf(data, index, context),
   };
 }
 /** Project flowOf once on the server. Only the selected flow's plain values cross into the browser. */

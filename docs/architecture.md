@@ -88,12 +88,12 @@ attribution. Proposed context cannot enter the strict current-model boundary. Na
 and precommit use this same batch boundary; native precommit also checks that staged plans match the
 working text just validated. Format-1 lock checks remain in their existing path.
 
-`legacyViewOf` is the named compatibility boundary for workspace/domain page consumers. Its workspace tree
-retains canonical facets on their containing systems, with explicit aliases for legacy identity and narrative
-fields. A recursive loss report compares every source field with that carrier. The page projection uses legacy
-representations only where they are supported; it does not guess a transport, store form or service owner.
-Other legacy consumers continue on the existing reader until their migration. Transitional `Model.place`
-queries accept containment explicitly and never derive it from resource ownership.
+Workspace and domain pages derive their views directly from the consolidated model. Their native
+projections preserve declared placement, resource ownership and narrative evidence. The rebuild
+handoff records the compared pages, facts and original carrier receipts. Format-1 readers remain
+for retained migration and verification inputs. Shared view types stay independent of these readers.
+The current index derives placement from containment and ownership from declared evidence.
+Keep those concerns separate when projecting a view.
 
 ## The model
 

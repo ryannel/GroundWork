@@ -3,6 +3,8 @@ import path from 'node:path';
 
 import { afterAll, describe, expect, it, vi } from 'vitest';
 
+import type { EvidenceRecord } from '@/domain/evidence/evidence';
+
 vi.mock(import('server-only'), () => ({}));
 
 const { pruneEvidence, writeRepositoryEvidence } =
@@ -181,6 +183,58 @@ describe('evidence index', () => {
       'source:2',
       'binding:1',
     ]);
+  });
+
+  it('indexes canonical sources and records through exact file identities', async () => {
+    const workspace = await scratchWorkspace();
+    const sourcePath = 'Api/Account.cs';
+    const file = { kind: 'file', id: 'ev:file', path: sourcePath, blob: 'verified-blob' };
+    const source = {
+      kind: 'source',
+      id: 'ev:source',
+      file: file.id,
+      host: 'ev:host',
+      authority: 'declared',
+      lines: [9, 14],
+    };
+    const route = {
+      kind: 'aspnet_route_binding',
+      id: 'ev:route',
+      source: source.id,
+      httpMethods: ['GET'],
+      template: 'v1/account',
+    };
+    const unmatched = { ...source, id: 'ev:unmatched', file: 'ev:missing' };
+    await writeRepositoryEvidence(workspace, {
+      name: 'profile-api',
+      repository,
+      discovery: null,
+      families: new Map<string, readonly EvidenceRecord[]>([
+        ['files', [file]],
+        ['sources', [source, unmatched]],
+        ['framework', [route]],
+      ]),
+      analysis: new Map(),
+    });
+    await buildEvidenceIndex(workspace);
+    const query = await evidenceIndex(workspace);
+    expect(query?.repositories()).toHaveLength(1);
+    expect(query?.repository('profile-api')?.commit).toBe(repository.commit);
+    expect(query?.records('profile-api', { path: sourcePath }).map(({ id }) => id)).toEqual([
+      file.id,
+      route.id,
+      source.id,
+    ]);
+    const detail = query?.record('profile-api', source.id);
+    expect(detail).toMatchObject({ path: sourcePath, lineStart: 9, lineEnd: 14, record: source });
+    expect(detail?.linksOut[0]?.record.id).toBe(file.id);
+    expect(detail?.linksIn[0]?.record.id).toBe(route.id);
+    expect(query?.record('profile-api', unmatched.id)?.path).toBeNull();
+    expect(query?.search('account', { family: 'framework' })[0]).toMatchObject({
+      path: sourcePath,
+      lineStart: 9,
+      lineEnd: 14,
+    });
   });
 
   it('has no index for a workspace never indexed', async () => {

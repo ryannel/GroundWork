@@ -25,7 +25,10 @@ beforeAll(async () => {
   if (projected === null) throw new Error('Missing entry');
   flow = projected;
 });
-afterEach(cleanup);
+afterEach(() => {
+  cleanup();
+  globalThis.history.replaceState(null, '', '/');
+});
 afterAll(async () => rm(root, { recursive: true, force: true }));
 it('selects the backed store-write node from the top strip and reveals its exact source and field', () => {
   render(<EntryFlow flow={flow} />);
@@ -51,6 +54,25 @@ it('follows an explicit causes link to the receiving entry rather than inferring
   expect(screen.getByText('Payment facts')).toBeTruthy();
   expect(screen.getByText('Recorded failures')).toBeTruthy();
 });
+it('reopens an exact step address and restores it on Back without changing plan context', async () => {
+  const entryAddress = '/model-fixture/entries/?id=api%3Aconfirm&plan=plan-confirm&version=after';
+  globalThis.history.replaceState(null, '', `${entryAddress}&step=h%3Aconfirm%23tx%2Fsave`);
+  render(<EntryFlow flow={flow} />);
+  const inspector = within(screen.getByRole('complementary', { name: 'Flow inspector' }));
+  expect(inspector.getByText('h:confirm#tx/save')).toBeTruthy();
+  fireEvent.click(
+    screen.getByRole('button', { name: 'return return 503 The database is unavailable' }),
+  );
+  expect(inspector.getByText('h:confirm#!db-down')).toBeTruthy();
+  expect(globalThis.location.pathname + globalThis.location.search).toBe(
+    `${entryAddress}&step=h%3Aconfirm%23%21db-down`,
+  );
+  globalThis.history.back();
+  await expect(inspector.findByText('h:confirm#tx/save')).resolves.toBeTruthy();
+  fireEvent.click(inspector.getByRole('button', { name: 'Close details' }));
+  expect(globalThis.location.pathname + globalThis.location.search).toBe(entryAddress);
+});
+
 it('keeps missing detail and gaps visible in a flow without a handler', () => {
   render(
     <EntryFlow

@@ -156,8 +156,14 @@ const pr8Review = inventoryReview(
 const pr9Review = inventoryReview(
   JSON.parse(await readFile('artifacts/rebuild/pr9/consumer-dispositions.json', 'utf8')),
 );
+const pr10Review = inventoryReview(
+  JSON.parse(await readFile('artifacts/rebuild/pr10/consumer-dispositions.json', 'utf8')),
+);
 const reviewed = new Map(
-  [...pr8Review.dispositions, ...pr9Review.dispositions].map((row) => [row.file, row]),
+  [...pr8Review.dispositions, ...pr9Review.dispositions, ...pr10Review.dispositions].map((row) => [
+    row.file,
+    row,
+  ]),
 );
 const manifest = { original: pr8Review.original, dispositions: [...reviewed.values()] };
 const originalText = await readFile(manifest.original.file, 'utf8');
