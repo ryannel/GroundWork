@@ -131,7 +131,12 @@ function NodeInspector({ node }: { readonly node: FlowNode | undefined }) {
       )}
       <CodeBlock label="Recorded step">{node.detail}</CodeBlock>
       {node.contract === null ? null : (
-        <CodeBlock label="Referenced contract">{node.contract}</CodeBlock>
+        <>
+          {node.contract.schema === null ? null : (
+            <TextLink href={node.contract.schema.href}>{node.contract.schema.label}</TextLink>
+          )}
+          <CodeBlock label="Referenced contract">{node.contract.detail}</CodeBlock>
+        </>
       )}
     </Stack>
   );
@@ -157,7 +162,16 @@ export function EntryFlow({ flow }: { readonly flow: EntryFlowView }) {
             </Stack>
           )
         }
-        component={<Text weight="strong">{flow.component}</Text>}
+        component={
+          <Stack gap={2}>
+            <Text weight="strong">{flow.component}</Text>
+            {flow.schemas.map((schema) => (
+              <TextLink key={schema.label} href={schema.href}>
+                {schema.label}
+              </TextLink>
+            ))}
+          </Stack>
+        }
         effects={
           flow.effects.length === 0 ? (
             <Text tone="muted">No effect recorded</Text>

@@ -87,7 +87,9 @@ it('links code to its pinned lines, keeps evidence references and drills only th
   expect(nodes.find((node) => node.id === 'h:confirm#tx/save')?.citations[0]?.href).toBe(
     `https://github.com/example/orders/blob/${'a'.repeat(40)}/apps/ordering/src/Confirm.ts#L12-L16`,
   );
-  expect(nodes.find((node) => node.id === 'h:confirm#tx/save')?.contract).toContain('status');
+  expect(nodes.find((node) => node.id === 'h:confirm#tx/save')?.contract?.detail).toContain(
+    'status',
+  );
   expect(nodes.find((node) => node.id === 'h:confirm#deliver/send')?.drills).toEqual([
     { label: 'sub:on-confirmed', href: '/model-fixture/entries/?id=sub-on-confirmed' },
   ]);
@@ -97,6 +99,22 @@ it('links code to its pinned lines, keeps evidence references and drills only th
   expect(nodes.find((node) => node.id === 'h:confirm#tx/queue')?.drills).toEqual([]);
   const relay = entryFlowOf(indexOf(model), 'job:relay');
   expect(relay?.handlers[0]?.nodes[0]?.citations).toEqual([{ label: 'ev:source', href: null }]);
+});
+it('opens referenced schemas in the exact workspace or selected plan view', () => {
+  const current = entryFlowOf(indexOf(model), 'api:confirm');
+  expect(current?.schemas.map((schema) => schema.href)).toEqual([
+    '/model-fixture/things/?id=sch%3Aconfirm',
+    '/model-fixture/things/?id=sch%3Aorder',
+  ]);
+  const before = entryFlowOf(indexOf(model), 'api:confirm', {
+    plan: 'plan:confirm',
+    version: 'before',
+    planSlug: 'actual-plan-folder',
+  });
+  const nodes = before?.handlers.flatMap((handler) => flatten(handler.nodes)) ?? [];
+  expect(nodes.find((node) => node.id === 'h:confirm#tx/save')?.contract?.schema?.href).toBe(
+    '/model-fixture/plans/actual-plan-folder/things/?id=sch-order&view=before',
+  );
 });
 it('follows every exact subscription for a publish without a causes link', () => {
   const variant: WorkspaceModel = {

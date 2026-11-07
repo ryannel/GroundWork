@@ -31,6 +31,8 @@ export async function readEntryFlowPage(
     entries.map((entry) => entry.plan),
     query,
     current,
-    context,
+    context === undefined || selected === undefined
+      ? undefined
+      : { projection: context, slug: selected.slug },
   );
 }

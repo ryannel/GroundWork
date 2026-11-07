@@ -35,7 +35,12 @@ it('selects the backed store-write node from the top strip and reveals its exact
   fireEvent.click(screen.getByRole('button', { name: 'write · Orders database' }));
   const inspector = within(screen.getByRole('complementary', { name: 'Flow inspector' }));
   expect(inspector.getByText('h:confirm#tx/save')).toBeTruthy();
-  expect(inspector.getByRole('link').getAttribute('href')).toContain('#L12-L16');
+  expect(inspector.getByRole('link', { name: /Confirm.ts/u }).getAttribute('href')).toContain(
+    '#L12-L16',
+  );
+  expect(inspector.getByRole('link', { name: /Open schema/u }).getAttribute('href')).toContain(
+    'sch%3Aorder',
+  );
   expect(inspector.getByText(/"name": "status"/u)).toBeTruthy();
   expect(
     screen.getByRole('button', { name: 'write write · status' }).getAttribute('aria-pressed'),

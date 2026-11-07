@@ -23,3 +23,10 @@ current record pins `6619027a…`. The older link needs a historical destination
 The unmatched rows are entry links. Approval to remove method-only browsing leaves these entry
 destinations in scope. Source matches and possible native candidates in the local audit are
 separate fields so a candidate can never become an automatic redirect.
+
+A separate artefact audit checked all 1,725 entry pages and each selected index and pack through
+their published lengths and hashes. All 1,725 pages have pinned source links. Every such link
+resolves to a Git blob and, where present, a valid line range at its recorded commit. This includes
+the 22 historical Customer Service pages. The entry pages total 23,787,115 live bytes and
+213,059 fallback bytes. They directly reference 3,320 live and 29 fallback data pages. The audit
+found no missing direct target.

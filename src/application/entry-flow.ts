@@ -1,5 +1,5 @@
 import { permalinkOf } from '@/domain/code-links';
-import { appendChild, failureId } from '@/domain/ids';
+import { appendChild, failureId, rootId } from '@/domain/ids';
 import {
   modelList,
   modelRecord,
@@ -10,12 +10,19 @@ import {
 
 import { entryFlowHref, type EntryFlowAddress } from './entry-flow-paths';
 import type { ModelIndex } from './model-index';
+import { thingHref } from './thing-paths';
 
-export type EntryFlowContext = Pick<EntryFlowAddress, 'plan' | 'version'>;
+export type EntryFlowContext = Pick<EntryFlowAddress, 'plan' | 'version'> & {
+  readonly planSlug?: string;
+};
 
 export interface FlowCitation {
   readonly label: string;
   readonly href: string | null;
+}
+interface FlowLink {
+  readonly label: string;
+  readonly href: string;
 }
 export interface FlowBranch {
   readonly label: string;
@@ -30,8 +37,11 @@ export interface FlowNode {
   readonly async: boolean;
   readonly branches: readonly FlowBranch[];
   readonly citations: readonly FlowCitation[];
-  readonly contract: string | null;
-  readonly drills: readonly { readonly label: string; readonly href: string }[];
+  readonly contract: {
+    readonly detail: string;
+    readonly schema: FlowLink | null;
+  } | null;
+  readonly drills: readonly FlowLink[];
 }
 export interface FlowSummary {
   readonly label: string;
@@ -43,6 +53,7 @@ export interface EntryFlowView {
   readonly kind: string;
   readonly component: string;
   readonly summary: string | null;
+  readonly schemas: readonly FlowLink[];
   readonly callers: readonly FlowSummary[];
   readonly effects: readonly FlowSummary[];
   readonly handlers: readonly {
@@ -117,11 +128,32 @@ function titleOf(data: Readonly<Record<string, unknown>>, index: ModelIndex): st
   if (kind === 'return' || kind === 'wait') return `${kind} ${String(data[kind])}`;
   return kind === 'step' ? 'Recorded step' : kind;
 }
-function contractOf(data: Readonly<Record<string, unknown>>, index: ModelIndex): string | null {
+function schemaLink(
+  id: string,
+  index: ModelIndex,
+  context: EntryFlowContext,
+  prefix: string,
+): FlowLink | null {
+  const schema = index.get(rootId(id));
+  if (schema?.kind !== 'schema') return null;
+  const label = `${prefix} · ${index.label(schema.id)}`;
+  if (context.plan === undefined) return { label, href: index.href(schema.id) };
+  if (context.planSlug === undefined) return null;
+  const base = thingHref({ workspace: index.model.id, slug: context.planSlug }, schema.id);
+  return { label, href: context.version === 'before' ? `${base}&view=before` : base };
+}
+function contractOf(
+  data: Readonly<Record<string, unknown>>,
+  index: ModelIndex,
+  context: EntryFlowContext,
+): FlowNode['contract'] {
   const target = targetOf(data);
   const entity = target === null ? null : index.get(target);
   if (entity === null) return null;
-  return JSON.stringify({ ...entity.data, id: entity.id, kind: entity.kind }, null, 2);
+  return {
+    detail: JSON.stringify({ ...entity.data, id: entity.id, kind: entity.kind }, null, 2),
+    schema: schemaLink(entity.id, index, context, 'Open schema'),
+  };
 }
 function drillsOf(
   data: Readonly<Record<string, unknown>>,
@@ -198,7 +230,7 @@ function nodeOf(
     async: data.async === true,
     branches: branchesOf(data, id, index, context),
     citations: index.cites(id).map(citationOf),
-    contract: contractOf(data, index),
+    contract: contractOf(data, index, context),
     drills: drillsOf(data, index, context),
   };
 }
@@ -216,6 +248,16 @@ export function entryFlowOf(
     kind: flow.entry.kind,
     component: providerOf(flow.entry, index),
     summary: modelText(flow.entry.data.summary),
+    schemas: (
+      [
+        ['request', 'Request'],
+        ['response', 'Response'],
+      ] as const
+    ).flatMap(([key, label]) => {
+      const reference = modelText(flow.entry.data[key]);
+      const link = reference === null ? null : schemaLink(reference, index, context, label);
+      return link === null ? [] : [link];
+    }),
     callers: flow.callers.map((edge) => ({ label: index.label(edge.from), site: edge.site })),
     effects: flow.reaches.map((edge) => ({
       label: `${edge.kind} · ${index.label(edge.to)}`,

@@ -44,7 +44,7 @@
     },
     {
       "file": "src/application/entry-flow.test.ts",
-      "sourceSha256": "899ff22b6f30b49313a99a62bb73bb037aa94c1ecc619e08488e2360a38e8377",
+      "sourceSha256": "38afb00d4e7e5433e773b6338353dd58ddd0c28b0edf127c64ca5c3aeed553e3",
       "role": "support",
       "reason": "The native system overview keeps complete canonical records and exact counted gaps, with bounded lists and canonical scope links; the receipt pins these exact sources and focused proofs.",
       "evidence": [
@@ -70,18 +70,22 @@
         {
           "file": "artifacts/rebuild/pr10/progress.md",
           "sha256": "f04a5bcaf03723849c3b079eac4bc7d0c76117335b4ed1018ed114b3eed65244"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/entry-schemas.md",
+          "sha256": "7dbeb1ac4ed0d3e4faebd3be32a1f35cb657ca1c64fd08929c65f9db316d219f"
         }
       ]
     },
     {
       "file": "src/application/entry-flow.ts",
-      "sourceSha256": "ea94408d3f6ab004a8043d2cd7f54c8a2ed18217419c59825129f4f916807f11",
+      "sourceSha256": "1efc29ae34a0195cb7f4def82802d4c5425c92fe8dc05a622f4bb20990483bc0",
       "role": "consumer",
       "reason": "Projects canonical entry execution and cited backing to the node view.",
       "evidence": [
         {
           "file": "src/application/entry-flow.ts",
-          "line": 206,
+          "line": 238,
           "text": "export function entryFlowOf("
         }
       ],
@@ -101,6 +105,10 @@
         {
           "file": "artifacts/rebuild/pr10/progress.md",
           "sha256": "f04a5bcaf03723849c3b079eac4bc7d0c76117335b4ed1018ed114b3eed65244"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/entry-schemas.md",
+          "sha256": "7dbeb1ac4ed0d3e4faebd3be32a1f35cb657ca1c64fd08929c65f9db316d219f"
         }
       ],
       "status": "migrated"
@@ -1216,6 +1224,66 @@
           "sha256": "08599d94feabfb08f5a8302a78792588ed74dbf8b5666334aa8aad259af05a82"
         }
       ]
+    },
+    {
+      "file": "src/app/[workspace]/entries/page.tsx",
+      "sourceSha256": "99ea418b5aa640aeb00f0c235e9c98fe2293537d6ecce6191a216ecc36fab6f5",
+      "role": "consumer",
+      "reason": "The entry flow route reads the selected native entry and sends the existing serialisable flow view.",
+      "evidence": [
+        {
+          "file": "src/app/[workspace]/entries/page.tsx",
+          "line": 20,
+          "text": "const data = await readEntryFlowPage(workspace, await searchParams);"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/infrastructure/entry-flow-page.ts",
+          "sha256": "8a5fcfbb03655c505a05b734aadeb1b048bab686d434a9b7777f1211d2156916"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-current-views.md",
+          "sha256": "c084814b586def71c6315696813e97c754a00e8bdd1c7ee764491e4d560c6c36"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/route-binding-audit.json",
+          "sha256": "1f8796dd0780c4424e1e786442c63664b3e879efbc06d2d822587acd2ecc4900"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/entry-schemas.md",
+          "sha256": "7dbeb1ac4ed0d3e4faebd3be32a1f35cb657ca1c64fd08929c65f9db316d219f"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/entry-flow-page.ts",
+      "sourceSha256": "b8ac1f5b47aa9d5766b0b72bcad1610b91ffd4cea1244de23cef26fe1c9addba",
+      "role": "consumer",
+      "reason": "The native system overview keeps complete canonical records and exact counted gaps, with bounded lists and canonical scope links; the receipt pins these exact sources and focused proofs.",
+      "evidence": [
+        {
+          "file": "src/application/entry-flow-page.ts",
+          "line": 157,
+          "text": "export function entryFlowPlanId(query: SearchParams): string | null {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/system-overview-budget.json",
+          "sha256": "95a4109392837678ab6d53e44f1215f89b101d611ef2f3794e28b12fab8bce49"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/system-overview-budget.md",
+          "sha256": "9fbcf02f8535f3c48e555e35998e4805de88163a6ea10c6c72a5f7d5a03ddf0f"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/entry-schemas.md",
+          "sha256": "7dbeb1ac4ed0d3e4faebd3be32a1f35cb657ca1c64fd08929c65f9db316d219f"
+        }
+      ],
+      "status": "migrated"
     }
   ]
 }
