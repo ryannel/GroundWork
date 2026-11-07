@@ -8,20 +8,20 @@
   "dispositions": [
     {
       "file": "tools/scan-model.ts",
-      "sourceSha256": "13fc89f37867a70bd75172530af026371bdff5823d53fb990e86aa26991ec11d",
+      "sourceSha256": "9aa52cae3d15890e561838e0b7129e87cfbf018254ac0fd3f9c573392858f040",
       "role": "support",
       "reason": "The native scan selects a registered workspace and stages canonical output for review.",
       "evidence": [
         {
           "file": "tools/scan-model.ts",
-          "line": 220,
+          "line": 228,
           "text": "async function nativeScan(args: readonly string[]): Promise<void> {"
         }
       ],
       "proofs": [
         {
           "file": "artifacts/rebuild/pr9/handoff.md",
-          "sha256": "2ad1498b4972a8f8bfbc257db87ab31ccb54f68dc8cd3c7df6a0a0b653463001"
+          "sha256": "fb812194f7791539a818aeebc5f73e8bdffa378826fd690e1055bbc83c3f32e1"
         }
       ]
     },
@@ -40,7 +40,7 @@
       "proofs": [
         {
           "file": "artifacts/rebuild/pr9/handoff.md",
-          "sha256": "2ad1498b4972a8f8bfbc257db87ab31ccb54f68dc8cd3c7df6a0a0b653463001"
+          "sha256": "fb812194f7791539a818aeebc5f73e8bdffa378826fd690e1055bbc83c3f32e1"
         }
       ]
     },
@@ -59,7 +59,7 @@
       "proofs": [
         {
           "file": "artifacts/rebuild/pr9/handoff.md",
-          "sha256": "2ad1498b4972a8f8bfbc257db87ab31ccb54f68dc8cd3c7df6a0a0b653463001"
+          "sha256": "fb812194f7791539a818aeebc5f73e8bdffa378826fd690e1055bbc83c3f32e1"
         }
       ]
     },
@@ -78,7 +78,7 @@
       "proofs": [
         {
           "file": "artifacts/rebuild/pr9/handoff.md",
-          "sha256": "2ad1498b4972a8f8bfbc257db87ab31ccb54f68dc8cd3c7df6a0a0b653463001"
+          "sha256": "fb812194f7791539a818aeebc5f73e8bdffa378826fd690e1055bbc83c3f32e1"
         }
       ]
     },
@@ -97,7 +97,7 @@
       "proofs": [
         {
           "file": "artifacts/rebuild/pr9/handoff.md",
-          "sha256": "2ad1498b4972a8f8bfbc257db87ab31ccb54f68dc8cd3c7df6a0a0b653463001"
+          "sha256": "fb812194f7791539a818aeebc5f73e8bdffa378826fd690e1055bbc83c3f32e1"
         }
       ]
     },
@@ -116,26 +116,26 @@
       "proofs": [
         {
           "file": "artifacts/rebuild/pr9/handoff.md",
-          "sha256": "2ad1498b4972a8f8bfbc257db87ab31ccb54f68dc8cd3c7df6a0a0b653463001"
+          "sha256": "fb812194f7791539a818aeebc5f73e8bdffa378826fd690e1055bbc83c3f32e1"
         }
       ]
     },
     {
       "file": "tools/scan-model/source.ts",
-      "sourceSha256": "f7080e2ef7389a420c28eab3b6d25badcc5574536a5e7e1ce131ae91b3d1a965",
+      "sourceSha256": "72d4ec9ce438595c4d312929337f2fc916619bb0dab2bc2d0894f9d560d4339b",
       "role": "support",
       "reason": "The native scan reads the pinned tree and keeps persisted source IDs.",
       "evidence": [
         {
           "file": "tools/scan-model/source.ts",
-          "line": 156,
+          "line": 160,
           "text": "export function scanSource(input: SourceInput): PinnedScan {"
         }
       ],
       "proofs": [
         {
           "file": "artifacts/rebuild/pr9/handoff.md",
-          "sha256": "2ad1498b4972a8f8bfbc257db87ab31ccb54f68dc8cd3c7df6a0a0b653463001"
+          "sha256": "fb812194f7791539a818aeebc5f73e8bdffa378826fd690e1055bbc83c3f32e1"
         }
       ]
     },
@@ -154,7 +154,7 @@
       "proofs": [
         {
           "file": "artifacts/rebuild/pr9/handoff.md",
-          "sha256": "2ad1498b4972a8f8bfbc257db87ab31ccb54f68dc8cd3c7df6a0a0b653463001"
+          "sha256": "fb812194f7791539a818aeebc5f73e8bdffa378826fd690e1055bbc83c3f32e1"
         }
       ]
     },
@@ -173,7 +173,7 @@
       "proofs": [
         {
           "file": "artifacts/rebuild/pr9/handoff.md",
-          "sha256": "2ad1498b4972a8f8bfbc257db87ab31ccb54f68dc8cd3c7df6a0a0b653463001"
+          "sha256": "fb812194f7791539a818aeebc5f73e8bdffa378826fd690e1055bbc83c3f32e1"
         }
       ]
     },
@@ -385,7 +385,7 @@
         },
         {
           "file": "artifacts/rebuild/pr9/handoff.md",
-          "sha256": "2ad1498b4972a8f8bfbc257db87ab31ccb54f68dc8cd3c7df6a0a0b653463001"
+          "sha256": "fb812194f7791539a818aeebc5f73e8bdffa378826fd690e1055bbc83c3f32e1"
         }
       ]
     },
@@ -416,7 +416,7 @@
         },
         {
           "file": "artifacts/rebuild/pr9/handoff.md",
-          "sha256": "2ad1498b4972a8f8bfbc257db87ab31ccb54f68dc8cd3c7df6a0a0b653463001"
+          "sha256": "fb812194f7791539a818aeebc5f73e8bdffa378826fd690e1055bbc83c3f32e1"
         }
       ]
     }

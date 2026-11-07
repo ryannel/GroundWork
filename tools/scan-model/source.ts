@@ -58,8 +58,12 @@ export function sourceKey(source: Code): string {
   return JSON.stringify([source.repo, source.commit, source.path, source.lines, source.symbol]);
 }
 
-export function spanKey(source: Pick<Source, 'file' | 'lines' | 'symbol'>): string {
+function spanKey(source: Pick<Source, 'file' | 'lines' | 'symbol'>): string {
   return JSON.stringify([source.file, source.lines, source.symbol]);
+}
+
+export function stepSpanOf(source: Pick<Source, 'file' | 'lines'>): string {
+  return JSON.stringify([source.file, source.lines]);
 }
 
 function existingSpans(sources: readonly Source[]): ReadonlyMap<string, readonly Source[]> {

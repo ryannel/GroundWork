@@ -21,7 +21,7 @@ import { citedAnalysis } from './scan-model/analysis';
 import { routeContracts } from './scan-model/contracts';
 import { appendEvidence, evidenceDirectory, publishScan } from './scan-model/output';
 import { refreshedFiles } from './scan-model/refresh';
-import { scanSource, sourceKey, spanKey } from './scan-model/source';
+import { scanSource, sourceKey, stepSpanOf } from './scan-model/source';
 
 const SCANNED_KINDS = new Set([
   'handler',
@@ -185,8 +185,16 @@ async function evidencePlan(
     files: observed.files,
     hosts: new Set([observed.host]),
   });
-  for (const { value } of promoted) evidenceIds.add(value.id);
-  return { ...observed, fresh, promoted, evidenceIds };
+  const sourceSpans = new Map(
+    [...observed.observations].map(([id, source]) => [id, stepSpanOf(source)]),
+  );
+  for (const { family, value } of promoted) {
+    evidenceIds.add(value.id);
+    if (family === 'sources' && check(value)) {
+      sourceSpans.set(value.id, stepSpanOf(value));
+    }
+  }
+  return { ...observed, fresh, promoted, evidenceIds, sourceSpans };
 }
 
 async function evidenceWrites(
@@ -240,7 +248,7 @@ async function nativeScan(args: readonly string[]): Promise<void> {
     additions: plan.additions,
     accepted: review,
     observedContracts: routeContracts(index, previous),
-    sourceSpans: new Map([...plan.observations].map(([id, source]) => [id, spanKey(source)])),
+    sourceSpans: plan.sourceSpans,
     evidenceIds: plan.evidenceIds,
     schemaIds: new Set(index.entities.filter(({ kind }) => kind === 'schema').map(({ id }) => id)),
     aliases: model.aliases,

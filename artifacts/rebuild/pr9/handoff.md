@@ -25,3 +25,11 @@ reader and projected all 14 areas. All PR9 data checks ran on temporary copies.
 The scope is a refresh at the repository's recorded pin. Moving an existing repository to a
 new pin or asserting complete handler coverage needs verified replacement evidence. The
 historical checkpoint reports source extraction only. It does not establish deployed behaviour.
+
+An end-to-end pinned fixture promotes a previously uncited source span, applies an accepted new step
+and leaves the resulting files unchanged on replay. The Volvo scan inputs cite no cache records,
+so this correction has no effect on the recorded Volvo file comparison.
+
+The production budget measured 855 pages with the refreshed Volvo candidate and 152 in a separate
+run with the canonical personal and Acme workspaces. Both passed the 1,024 KB ceiling. The largest
+page was the Commercial Backbone map at 927 KB. Both runs included the model fixture.

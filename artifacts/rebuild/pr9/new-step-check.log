@@ -1,0 +1,21 @@
+
+> groundwork@0.0.0 check:quick
+> node --import ./tools/register.ts tools/checks/quick.ts tools/scan-model.ts tools/scan-model/source.ts tools/scan-model/new-step.test.ts
+
+Checking 3 task files.
+Checking formatting...
+All matched files use Prettier code style!
+Format: 0.2s
+Lint: 6.1s
+Types: 2.9s
+
+ RUN  v5.0.4 /Users/RNEL/.codex/worktrees/rebuild-pr9/groundWork
+
+
+ Test Files  1 passed (1)
+   Affected  1 of 658 test files (related to 3 files)
+      Tests  1 passed (1)
+   Start at  14:14:33
+   Duration  2.24s (tests 86%, import 12%, transform 1%)
+
+Related tests: 4.8s
