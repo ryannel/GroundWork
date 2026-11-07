@@ -1,10 +1,12 @@
 import { describe, expect, it } from 'vitest';
 
+import { modelOp } from '@/../test/fixtures/model-op';
 import { queryModel, systemProviderModel } from '@/../test/fixtures/model-queries';
 import type { ModelPlan, ModelRepository, WorkspaceModel } from '@/domain/workspace-model';
 
-import { modelInspectionOf, modelInspectionRecords } from './model-inspection';
-import { modelContextOf } from './model-reader';
+import { modelInspectionOf, modelInspectionRecords, modelInspectionRef } from './model-inspection';
+import { modelContextOf, selectedPlanPayload } from './model-reader';
+import { selectedPlanProjection } from './plans-index';
 
 const plan: ModelPlan = {
   meta: { id: 'plan:inspect', title: 'Inspect the actual proposal' },
@@ -260,4 +262,86 @@ it('resolves evidence through its actual pinned repository and retains supportin
   });
   expect(refs(inspection?.view.uses ?? [])).toContain('ev:source');
   expect(modelInspectionRecords(context).some((record) => record.id.startsWith('ev:'))).toBe(false);
+});
+
+it('keeps exact display records for the main current and plan reference kinds', () => {
+  const selected = projected();
+  const ids = [
+    'api:a',
+    'h:a#call',
+    'svc:a',
+    'st:remote',
+    'if:a',
+    'sys:unmapped',
+    'sub:b',
+    'job:b',
+    'rel:read',
+    'plan:inspect',
+    'stage:inspect',
+    'req:visible',
+    'sch:remote#id',
+  ];
+  const inspections = ids.map((id) => ({ id, inspection: modelInspectionOf(selected, id) }));
+  expect(inspections.every(({ inspection }) => inspection !== null)).toBe(true);
+  expect(inspections).toMatchSnapshot(
+    'exact references, execution sources, qualifications and record fields',
+  );
+});
+
+it('attributes nested additions, retirement and removal to the selected plan and keeps both labels', () => {
+  const model = queryModel();
+  const overlay: ModelPlan = {
+    meta: { id: 'plan:lifecycle', title: 'Change three recorded kinds' },
+    problem: { summary: 'Retain the exact before and after facts.' },
+    changes: [
+      {
+        id: 'chg:shape',
+        title: 'Name the component and add one field',
+        ops: [
+          modelOp({ modify: 'svc:a', set: { name: 'Proposed A' } }),
+          modelOp({
+            add: 'field',
+            into: 'sch:remote',
+            value: { id: 'fresh', name: 'Fresh', type: 'string' },
+          }),
+        ],
+      },
+      {
+        id: 'chg:retire',
+        title: 'Deprecate the endpoint and remove the job',
+        ops: [
+          modelOp({ deprecate: 'api:a', reason: 'An explicit plan choice' }),
+          modelOp({ remove: 'job:b', reason: 'An explicit plan choice' }),
+        ],
+      },
+    ],
+  };
+  const projection = selectedPlanProjection(overlay, [overlay], model);
+  const selected = modelContextOf(selectedPlanPayload(projection));
+  const field = modelInspectionOf(selected, 'sch:remote#fresh');
+  expect(modelInspectionOf(selected, 'sch:remote#fresh', 'before')).toBeNull();
+  expect(field?.view.status).toBe('added');
+  expect(field?.view.changes).toEqual([
+    { changeId: 'chg:shape', kind: 'added', summary: 'Name the component and add one field' },
+  ]);
+  expect(modelInspectionOf(selected, 'api:a')?.view.status).toBe('deprecated');
+  expect(modelInspectionOf(selected, 'api:a')?.view.changes[0]?.kind).toBe('deprecated');
+  expect(modelInspectionOf(selected, 'job:b')).toBeNull();
+  const job = modelInspectionOf(selected, 'job:b', 'before');
+  expect(job?.view.status).toBe('removed');
+  expect(job?.view.changes).toEqual([
+    {
+      changeId: 'chg:retire',
+      kind: 'removed',
+      summary: 'Deprecate the endpoint and remove the job',
+    },
+  ]);
+  expect(modelInspectionRef(selected, 'svc:a', 'before').label).toBe('A');
+  expect(modelInspectionRef(selected, 'svc:a').label).toBe('Proposed A');
+  expect(modelInspectionRef(selected, 'sch:remote#fresh', 'before')).toEqual(
+    modelInspectionRef(selected, 'sch:remote#fresh'),
+  );
+  expect(modelInspectionRef(selected, 'job:b')).toEqual(
+    modelInspectionRef(selected, 'job:b', 'before'),
+  );
 });

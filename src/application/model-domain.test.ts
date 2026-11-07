@@ -136,6 +136,7 @@ describe('native domain views', () => {
     const serialised = JSON.stringify(view);
     expect(JSON.parse(serialised)).toEqual(view);
     expect(JSON.stringify(model)).toBe(before);
+    expect({ view, remote }).toMatchSnapshot('declared scope, placement, neighbours and gaps');
   });
 
   it('retains authored journey and flow wording without deriving execution from narration', () => {

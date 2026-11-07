@@ -95,6 +95,9 @@ describe('native workspace landscape', () => {
     const serialised = JSON.stringify(landscape);
     expect(JSON.parse(serialised)).toEqual(landscape);
     expect(JSON.stringify(model)).toBe(before);
+    expect(landscape).toMatchSnapshot(
+      'mapped people, scoped evidence and exact domain connections',
+    );
   });
 
   it('retains narrated journey placement without adding execution links or inventing unknown actors', () => {

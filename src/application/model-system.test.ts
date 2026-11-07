@@ -40,6 +40,7 @@ describe('native system views', () => {
       message: 'No cited resource owner is recorded.',
     });
     expect(JSON.stringify(model)).toBe(original);
+    expect({ a, b }).toMatchSnapshot('system records and declared component placement');
   });
 
   it('retains an unmapped system and its real API without manufacturing a component or operator', () => {
@@ -59,6 +60,7 @@ describe('native system views', () => {
     );
     expect(modelSystemViewOf(index, { domain: 'missing', system: 'unmapped' })).toBeNull();
     expect(modelSystemViewOf(index, { domain: 'queries', system: 'missing' })).toBeNull();
+    expect(view).toMatchSnapshot('unmapped provider with recorded entry and no components');
   });
 
   it('shows the actual scan pin and cited record count without inventing remote freshness', () => {

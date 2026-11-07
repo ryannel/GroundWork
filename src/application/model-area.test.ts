@@ -8,12 +8,14 @@ import { parse, stringify } from 'yaml';
 import type { WorkspaceModel } from '@/domain/workspace-model';
 import { readModel } from '@/infrastructure/read-model';
 
+import { areaBoundaryBoxes, areaBoundaryOf } from './area-map/boundaries';
 import { platformComponents } from './area-map/platform';
 import { unpackAreaMapView, packAreaMapView, packAreaMapOverview } from './area-map/transport';
 import { valueFlowConnections } from './area-map/value-flow-connections';
 import { valueFlowLayout } from './area-map/value-flow-layout';
 import { modelAreaViewOf } from './model-area';
 import { indexOf, type ModelIndex } from './model-index';
+import { modelSystemMapInput } from './model-system-map-input';
 import { modelValueFlowsOf } from './model-value-flows';
 import { searchValueFlows } from './workspace-value-flows';
 
@@ -172,6 +174,7 @@ it('retains authored bands, connections, captions and resolved citations through
   expect(connections.some((connection) => connection.label === 'Known external boundary')).toBe(
     true,
   );
+  expect({ drawing, connections }).toMatchSnapshot('band anchors and exact connection routing');
 });
 it('uses actual entries, SDK protocol, known API callers and recorded technical evidence', () => {
   const view = modelAreaViewOf(index, 'orders');
@@ -189,6 +192,18 @@ it('uses actual entries, SDK protocol, known API callers and recorded technical 
   ).toBe('sdk');
   expect(view?.technicalRelationships.every((edge) => edge.native !== undefined)).toBe(true);
   expect(view?.area.evidenceCount).toBe(1);
+  expect(view?.technicalRelationships.map((edge) => edge.native?.site)).toEqual([
+    'h:confirm#load',
+    'h:confirm#tx/save',
+    'h:confirm#lines/reserve',
+    'h:confirm#enrich/order',
+    'h:confirm#enrich/payment',
+    'h:confirm#deliver/send',
+    'h:click#submit',
+    'sub:on-confirmed',
+    'gql:order',
+  ]);
+  expect(view).toMatchSnapshot('recorded area, entry protocols, resource modes and evidence');
 });
 it('keeps the catalogue on the same bands and existing bare area filter/address', () => {
   const catalogue = modelValueFlowsOf(index);
@@ -201,6 +216,7 @@ it('keeps the catalogue on the same bands and existing bare area filter/address'
   );
   expect(searchValueFlows(catalogue, '', 'orders')).toEqual(catalogue);
   expect(searchValueFlows(catalogue, '', 'area:orders')).toEqual(catalogue);
+  expect(catalogue).toMatchSnapshot('authored value-flow catalogue');
 });
 
 it('preserves an explicit infrastructure flag through the native area card and map transport', () => {
@@ -228,4 +244,52 @@ it('preserves an explicit infrastructure flag through the native area card and m
   expect(platformComponents(view)).toEqual(new Set(['svc:ordering']));
   const transported = unpackAreaMapView(packAreaMapView(view));
   expect(platformComponents(transported)).toEqual(new Set(['svc:ordering']));
+});
+
+it('places external and unmapped boundaries below the systems without creating components', () => {
+  const view = modelAreaViewOf(index, 'orders');
+  const [system, external] = view?.boundaries ?? [];
+  if (view === null || system === undefined || external === undefined) {
+    throw new Error('Missing recorded boundary fixtures');
+  }
+  const boundaries = [
+    system,
+    external,
+    { ...system, id: 'sys:another' },
+    { ...external, id: 'ext:another' },
+  ];
+  const area = { ...view, boundaries };
+  const systems = [{ id: 'sys:ordering', x: 80, y: 70, width: 400, height: 240, rank: 0 }];
+  expect(areaBoundaryOf(area, 'ext:payments')).toBe(external);
+  expect(areaBoundaryOf(area, 'ext:missing')).toBeUndefined();
+  expect(areaBoundaryOf({ ...view, boundaries: [] }, 'ext:payments')).toBeUndefined();
+  expect(areaBoundaryBoxes({ ...view, boundaries: [] }, systems)).toEqual([]);
+  const boxes = areaBoundaryBoxes(area, systems);
+  expect(boxes.map(({ boundary, ...box }) => ({ ...box, source: boundary.id }))).toMatchSnapshot(
+    'four boundary cards, wrapping below the system',
+  );
+});
+
+it('keeps the recorded call labels, resource directions and scope when opening an old component identity', () => {
+  const scoped = modelSystemMapInput(index, { focus: ['svc:old-ordering'], lens: 'team:orders' });
+  expect(scoped).toEqual(
+    modelSystemMapInput(index, { focus: ['svc:ordering'], lens: 'team:orders' }),
+  );
+  expect(scoped.callWords).toMatchObject({
+    'api:confirm': 'REST call',
+    'api:charge': 'SDK call',
+    'gql:order': 'GraphQL operation',
+  });
+  expect(scoped.carries?.['api:confirm']).toBe(index.label('sch:order'));
+  expect(scoped.callWords).not.toHaveProperty('api:grpc-confirm');
+  expect(index.edges('svc:ordering').some((edge) => edge.kind === 'causes')).toBe(true);
+  expect(scoped.edges.some((edge) => edge.via === 'h:on-confirmed')).toBe(false);
+  expect(
+    scoped.edges.filter((edge) => edge.to === 'st:orders').map(({ read, write }) => [read, write]),
+  ).toEqual([
+    [true, false],
+    [false, true],
+    [true, false],
+  ]);
+  expect(scoped).toMatchSnapshot('cited map links, topic carries and canonical component focus');
 });

@@ -9,10 +9,12 @@ import {
   modelPlanBar,
   modelPlanFocus,
   modelPlanOutline,
+  modelPlanOutlineFromCurrent,
   modelPlanScreen,
 } from './model-plan-pages';
-import { modelContextOf } from './model-reader';
+import { modelContextOf, selectedPlanPayload } from './model-reader';
 import { findPage, type Page } from './plan-navigation';
+import { selectedPlanProjection } from './plans-index';
 
 const at = { workspace: 'queries', slug: 'reviewed-plan' };
 const plan: ModelPlan = {
@@ -316,4 +318,170 @@ it('retains the recorded contracts, empty journey and end-to-end proof addresses
   expect(modelPlanScreen(ctx, e2e).blocks[0]?.records.map((record) => record.data)).toEqual([
     legacyAddresses.tests?.[0],
   ]);
+});
+
+it('keeps the ordered page frame, records and catalogue kinds for the authored plan', () => {
+  const selected = context();
+  const outline = modelPlanOutline(selected, at);
+  const screens = outline.pages.map((entry) => {
+    const { page: address, blocks, catalogue, ...view } = modelPlanScreen(selected, entry);
+    return {
+      address: address.href,
+      ...view,
+      blocks: blocks.map((block) => ({
+        title: block.title,
+        summary: block.summary,
+        records: block.records.map(({ id, title, data }) => ({
+          id,
+          title,
+          fields: Object.keys(data),
+        })),
+      })),
+      catalogue,
+    };
+  });
+  expect({ bar: modelPlanBar(selected, outline), screens }).toMatchSnapshot(
+    'ordered plan navigation, authored record sections and references',
+  );
+});
+
+it('groups changed flows only when there are more than three changes and more than three distinct flows', () => {
+  const source = queryModel();
+  const names = ['receive', 'review', 'accept', 'complete'];
+  const current: WorkspaceModel = {
+    ...source,
+    flows: names.slice(0, 3).map((name) => ({
+      id: `flow:${name}`,
+      name: `The ${name} flow`,
+      steps: [{ id: 'step', from: 'svc:a', to: 'svc:b', action: 'A recorded step' }],
+    })),
+  };
+  const variants = [
+    { changes: 3, flows: 4 },
+    { changes: 4, flows: 3 },
+    { changes: 4, flows: 4 },
+  ];
+  for (const size of variants) {
+    const target: ModelPlan = {
+      ...plan,
+      story: { summary: 'Retain both flow and contract changes.', scope: ['sys:a'] },
+      changes: [
+        {
+          id: 'chg:receive',
+          title: 'Receive',
+          ops: [
+            modelOp({ modify: 'flow:receive#step', set: { action: 'Review the recorded step' } }),
+            modelOp({ modify: 'flow:receive', set: { summary: 'Still the same flow' } }),
+          ],
+        },
+        {
+          id: 'chg:review',
+          title: 'Review',
+          ops: [modelOp({ modify: 'flow:review', set: { summary: 'Review before accepting' } })],
+        },
+        {
+          id: 'chg:accept',
+          title: 'Accept',
+          ops: [
+            modelOp({ modify: 'flow:accept', set: { summary: 'Accept the recorded value' } }),
+            modelOp({ modify: 'api:a', set: { name: 'Changed contract' } }),
+            ...(size.flows === 4
+              ? [
+                  modelOp({
+                    add: 'flow',
+                    value: { id: 'flow:complete', name: 'A new completion flow', steps: [] },
+                  }),
+                ]
+              : []),
+          ],
+        },
+        ...(size.changes === 4 ? [{ id: 'chg:complete', title: 'Complete the review' }] : []),
+      ],
+    };
+    const selected = modelContextOf({ plan: target, before: current, after: current });
+    const outline = modelPlanOutlineFromCurrent(target, at, selected.beforeIndex);
+    const group = findPage(outline, 'changes', 'flows');
+    expect(group !== null).toBe(size.changes === 4 && size.flows === 4);
+    expect(findPage(outline, 'changes', 'contracts')).not.toBeNull();
+    expect(findPage(outline, 'changes', 'more') !== null).toBe(size.changes === 3);
+    const changed = outline.pages.filter((entry) => entry.chapter === 'changes');
+    const shown = changed.flatMap((entry) => modelPlanScreen(selected, entry).flowIds);
+    expect(shown).toEqual(names.slice(0, size.flows).map((name) => `flow:${name}`));
+    expect(findPage(outline, 'journey', 'flow-complete')?.title).toBe(
+      size.flows === 4 ? 'A new completion flow' : undefined,
+    );
+  }
+});
+
+it('reads the chosen model side and links an after-only child through its recorded schema change', () => {
+  const before = context().beforeIndex.model;
+  const overlay: ModelPlan = {
+    ...plan,
+    changes: [
+      {
+        id: 'chg:contract',
+        title: 'Change the contract',
+        ops: [
+          modelOp({ modify: 'api:a', set: { summary: 'A revised recorded endpoint' } }),
+          modelOp({ modify: 'dom:queries', set: { purpose: 'A revised domain purpose' } }),
+          modelOp({ modify: 'sch:remote', set: { name: 'A revised schema' } }),
+          modelOp({
+            add: 'field',
+            into: 'sch:remote',
+            value: { id: 'fresh', name: 'Fresh', type: 'string' },
+          }),
+        ],
+      },
+    ],
+  };
+  const selected = modelContextOf(
+    selectedPlanPayload(selectedPlanProjection(overlay, [overlay], before)),
+  );
+  const outline = modelPlanOutline(selected, at);
+  const today = findPage(outline, 'today', 'domain');
+  const changes = findPage(outline, 'changes', 'contracts');
+  if (today === null || changes === null) throw new Error('Missing declared plan pages');
+  const purpose = (options?: { before: boolean }) =>
+    modelPlanScreen(selected, today, options).blocks.find((block) => block.title === 'Domains')
+      ?.records[0]?.data.purpose;
+  const endpointSummary = (options?: { before: boolean }) =>
+    modelPlanScreen(selected, changes, options).blocks[0]?.records.find(
+      (record) => record.id === 'api:a',
+    )?.data.summary;
+  expect(purpose()).toBe('The recorded domain purpose.');
+  expect(purpose({ before: false })).toBe('A revised domain purpose');
+  expect(endpointSummary()).toBe('A revised recorded endpoint');
+  expect(endpointSummary({ before: true })).toBeUndefined();
+  expect(selected.beforeIndex.get('sch:remote#fresh')).toBeNull();
+  expect(selected.afterIndex.get('sch:remote#fresh')?.data.name).toBe('Fresh');
+  expect(modelAheadStop(selected, at, 'sch:remote#fresh')?.href).toBe(
+    '/queries/plans/reviewed-plan/changes/chg-contract/',
+  );
+});
+
+it('uses the latest approved revision and keeps proposed and rejected versions distinct', () => {
+  const base = context();
+  const versions: ModelPlan = {
+    ...plan,
+    meta: {
+      ...plan.meta,
+      status: 'approved',
+      revisions: [
+        { version: '0.9', status: 'approved', date: '2026-09-01' },
+        { version: '1.0', status: 'approved', date: '2026-10-01' },
+        { version: '1.1', status: 'rejected', date: '2026-10-11', reason: 'Out of scope' },
+        { version: '2.0', status: 'proposed', date: '2026-11-01', summary: 'Proposed wording' },
+      ],
+    },
+  };
+  const selected = { ...base, plan: versions };
+  const outline = modelPlanOutline(selected, at);
+  const bar = modelPlanBar(selected, outline);
+  expect(bar.stage).toEqual({ word: 'Approved', tone: 'added' });
+  expect(bar.versions).toMatchSnapshot('explicit lifecycle and version addresses');
+  const missing = findPage(outline, 'versions', 'v1.1');
+  if (missing === null) throw new Error('Missing recorded version entry');
+  expect(modelPlanScreen(selected, missing).blocks).toMatchSnapshot(
+    'recorded revision with no saved snapshot',
+  );
 });

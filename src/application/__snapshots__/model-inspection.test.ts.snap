@@ -1,0 +1,1931 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`keeps exact display records for the main current and plan reference kinds > exact references, execution sources, qualifications and record fields 1`] = `
+[
+  {
+    "id": "api:a",
+    "inspection": {
+      "gaps": [
+        {
+          "id": "api:a",
+          "kind": "no_caller",
+          "message": "No caller is recorded.",
+        },
+      ],
+      "href": "/queries/entries/?id=api%3Aa",
+      "raw": {
+        "id": "api:a",
+        "method": "GET",
+        "path": "/a",
+      },
+      "view": {
+        "changes": [],
+        "facts": [
+          {
+            "href": null,
+            "label": "Method",
+            "value": "GET",
+          },
+          {
+            "href": null,
+            "label": "Path",
+            "value": "/a",
+          },
+        ],
+        "glyph": "⇄",
+        "id": "api:a",
+        "image": null,
+        "mentionedIn": [
+          {
+            "glyph": "·",
+            "id": "plan:inspect",
+            "label": "Inspect the actual proposal",
+            "status": "existing",
+          },
+          {
+            "glyph": "▸",
+            "id": "stage:inspect",
+            "label": "Inspect",
+            "status": "existing",
+          },
+          {
+            "glyph": "❝",
+            "id": "sc:normal",
+            "label": "Normal path",
+            "status": "existing",
+          },
+          {
+            "glyph": "·",
+            "id": "req:visible",
+            "label": "Keep [[api:a]] visible.",
+            "status": "existing",
+          },
+        ],
+        "mentionedParts": [],
+        "name": "GET /a",
+        "owner": [
+          {
+            "glyph": "●",
+            "id": "team:a",
+            "label": "A",
+            "status": "existing",
+          },
+        ],
+        "planLevel": false,
+        "sections": [],
+        "sources": [],
+        "status": "existing",
+        "text": null,
+        "type": "endpoint",
+        "usedBy": [
+          {
+            "label": "Referenced by authored facts",
+            "refs": [
+              {
+                "glyph": "⊡",
+                "id": "if:a",
+                "label": "if:a",
+                "status": "existing",
+              },
+              {
+                "glyph": "ƒ",
+                "id": "h:a",
+                "label": "h:a",
+                "status": "modified",
+              },
+              {
+                "glyph": "·",
+                "id": "plan:inspect",
+                "label": "Inspect the actual proposal",
+                "status": "existing",
+              },
+              {
+                "glyph": "▸",
+                "id": "stage:inspect",
+                "label": "Inspect",
+                "status": "existing",
+              },
+              {
+                "glyph": "❝",
+                "id": "sc:normal",
+                "label": "Normal path",
+                "status": "existing",
+              },
+              {
+                "glyph": "·",
+                "id": "req:visible",
+                "label": "Keep [[api:a]] visible.",
+                "status": "existing",
+              },
+            ],
+          },
+        ],
+        "uses": [
+          {
+            "label": "Placement",
+            "refs": [
+              {
+                "glyph": "⧉",
+                "id": "queries",
+                "label": "Query fixture",
+                "status": "modified",
+              },
+              {
+                "glyph": "⧉",
+                "id": "dom:queries",
+                "label": "Queries",
+                "status": "modified",
+              },
+              {
+                "glyph": "⧉",
+                "id": "sys:a",
+                "label": "A",
+                "status": "modified",
+              },
+              {
+                "glyph": "▣",
+                "id": "svc:a",
+                "label": "A",
+                "status": "existing",
+              },
+            ],
+          },
+          {
+            "label": "Declared provider",
+            "refs": [
+              {
+                "glyph": "▣",
+                "id": "svc:a",
+                "label": "A",
+                "status": "existing",
+              },
+            ],
+          },
+          {
+            "label": "Outgoing read",
+            "refs": [
+              {
+                "glyph": "⛁",
+                "id": "st:remote",
+                "label": "Remote",
+                "status": "existing",
+              },
+              {
+                "glyph": "▭",
+                "id": "sch:remote#id",
+                "label": "id",
+                "status": "existing",
+              },
+              {
+                "glyph": "↳",
+                "id": "h:a#read",
+                "label": "h:a#read",
+                "status": "existing",
+              },
+              {
+                "glyph": "ƒ",
+                "id": "h:a",
+                "label": "h:a",
+                "status": "modified",
+              },
+            ],
+          },
+          {
+            "label": "Outgoing write",
+            "refs": [
+              {
+                "glyph": "⛁",
+                "id": "st:remote",
+                "label": "Remote",
+                "status": "existing",
+              },
+              {
+                "glyph": "▭",
+                "id": "sch:remote#id",
+                "label": "id",
+                "status": "existing",
+              },
+              {
+                "glyph": "↳",
+                "id": "h:a#write",
+                "label": "h:a#write",
+                "status": "existing",
+              },
+              {
+                "glyph": "ƒ",
+                "id": "h:a",
+                "label": "h:a",
+                "status": "modified",
+              },
+            ],
+          },
+          {
+            "label": "Outgoing publish",
+            "refs": [
+              {
+                "glyph": "⇶",
+                "id": "top:remote",
+                "label": "Events",
+                "status": "existing",
+              },
+              {
+                "glyph": "⚡",
+                "id": "msg:remote",
+                "label": "msg:remote",
+                "status": "existing",
+              },
+              {
+                "glyph": "↳",
+                "id": "h:a#publish",
+                "label": "h:a#publish",
+                "status": "existing",
+              },
+              {
+                "glyph": "ƒ",
+                "id": "h:a",
+                "label": "h:a",
+                "status": "modified",
+              },
+            ],
+          },
+          {
+            "label": "Outgoing call",
+            "refs": [
+              {
+                "glyph": "◇",
+                "id": "ext:supplier",
+                "label": "Supplier",
+                "status": "existing",
+              },
+              {
+                "glyph": "⇄",
+                "id": "api:supplier",
+                "label": "api:supplier",
+                "status": "existing",
+              },
+              {
+                "glyph": "↳",
+                "id": "h:a#call",
+                "label": "h:a#call",
+                "status": "modified",
+              },
+              {
+                "glyph": "ƒ",
+                "id": "h:a",
+                "label": "h:a",
+                "status": "modified",
+              },
+            ],
+          },
+        ],
+      },
+    },
+  },
+  {
+    "id": "h:a#call",
+    "inspection": {
+      "gaps": [
+        {
+          "id": "h:a#call",
+          "kind": "proposed_effect",
+          "message": "Synthetic unverified proposal",
+        },
+      ],
+      "href": "/queries/entries/?id=api%3Aa&step=h%3Aa%23call",
+      "raw": {
+        "call": "api:supplier",
+        "cites": [
+          {
+            "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "kind": "code",
+            "lines": [
+              1,
+              2,
+            ],
+            "path": "example.ts",
+            "repo": "fixture/a",
+          },
+        ],
+        "id": "call",
+        "when": "Approval is recorded",
+      },
+      "view": {
+        "changes": [
+          {
+            "changeId": "chg:condition",
+            "kind": "modified",
+            "summary": "Qualify the request",
+          },
+        ],
+        "facts": [
+          {
+            "href": null,
+            "label": "When",
+            "value": "Approval is recorded",
+          },
+        ],
+        "glyph": "↳",
+        "id": "h:a#call",
+        "image": null,
+        "mentionedIn": [
+          {
+            "glyph": "Δ",
+            "id": "chg:condition",
+            "label": "Qualify the request",
+            "status": "existing",
+          },
+        ],
+        "mentionedParts": [],
+        "name": "h:a#call",
+        "owner": [
+          {
+            "glyph": "●",
+            "id": "team:a",
+            "label": "A",
+            "status": "existing",
+          },
+        ],
+        "planLevel": false,
+        "sections": [],
+        "sources": [
+          {
+            "href": "https://github.com/fixture/a/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/example.ts#L1-L2",
+            "label": "fixture/a · example.ts:1–2",
+          },
+        ],
+        "status": "modified",
+        "text": null,
+        "type": "step",
+        "usedBy": [
+          {
+            "label": "Referenced by authored facts",
+            "refs": [
+              {
+                "glyph": "⧉",
+                "id": "queries",
+                "label": "Query fixture",
+                "status": "modified",
+              },
+              {
+                "glyph": "Δ",
+                "id": "chg:condition",
+                "label": "Qualify the request",
+                "status": "existing",
+              },
+            ],
+          },
+        ],
+        "uses": [
+          {
+            "label": "Placement",
+            "refs": [
+              {
+                "glyph": "⧉",
+                "id": "queries",
+                "label": "Query fixture",
+                "status": "modified",
+              },
+              {
+                "glyph": "⧉",
+                "id": "dom:queries",
+                "label": "Queries",
+                "status": "modified",
+              },
+              {
+                "glyph": "⧉",
+                "id": "sys:a",
+                "label": "A",
+                "status": "modified",
+              },
+              {
+                "glyph": "▣",
+                "id": "svc:a",
+                "label": "A",
+                "status": "existing",
+              },
+            ],
+          },
+          {
+            "label": "Recorded references",
+            "refs": [
+              {
+                "glyph": "⇄",
+                "id": "api:supplier",
+                "label": "api:supplier",
+                "status": "existing",
+              },
+            ],
+          },
+          {
+            "label": "Outgoing call",
+            "refs": [
+              {
+                "glyph": "◇",
+                "id": "ext:supplier",
+                "label": "Supplier",
+                "status": "existing",
+              },
+              {
+                "glyph": "⇄",
+                "id": "api:supplier",
+                "label": "api:supplier",
+                "status": "existing",
+              },
+              {
+                "glyph": "ƒ",
+                "id": "h:a",
+                "label": "h:a",
+                "status": "modified",
+              },
+              {
+                "glyph": "⇄",
+                "id": "api:a",
+                "label": "GET /a",
+                "status": "existing",
+              },
+            ],
+          },
+        ],
+      },
+    },
+  },
+  {
+    "id": "svc:a",
+    "inspection": {
+      "gaps": [],
+      "href": "/queries/things/?id=svc%3Aa",
+      "raw": {
+        "homes": [
+          "a",
+        ],
+        "id": "svc:a",
+        "kind": "service",
+        "name": "A",
+      },
+      "view": {
+        "changes": [],
+        "facts": [
+          {
+            "href": null,
+            "label": "Kind",
+            "value": "service",
+          },
+        ],
+        "glyph": "▣",
+        "id": "svc:a",
+        "image": null,
+        "mentionedIn": [
+          {
+            "glyph": "▸",
+            "id": "stage:inspect",
+            "label": "Inspect",
+            "status": "existing",
+          },
+        ],
+        "mentionedParts": [],
+        "name": "A",
+        "owner": [
+          {
+            "glyph": "●",
+            "id": "team:a",
+            "label": "A",
+            "status": "existing",
+          },
+        ],
+        "planLevel": false,
+        "sections": [],
+        "sources": [],
+        "status": "existing",
+        "text": null,
+        "type": "service",
+        "usedBy": [
+          {
+            "label": "Incoming consume",
+            "refs": [
+              {
+                "glyph": "⇶",
+                "id": "top:remote",
+                "label": "Events",
+                "status": "existing",
+              },
+              {
+                "glyph": "·",
+                "id": "rel:consume",
+                "label": "Registers a topic consumer",
+                "status": "existing",
+              },
+            ],
+          },
+          {
+            "label": "Referenced by authored facts",
+            "refs": [
+              {
+                "glyph": "⧉",
+                "id": "sys:a",
+                "label": "A",
+                "status": "modified",
+              },
+              {
+                "glyph": "⊡",
+                "id": "if:a",
+                "label": "if:a",
+                "status": "existing",
+              },
+              {
+                "glyph": "ƒ",
+                "id": "h:a",
+                "label": "h:a",
+                "status": "modified",
+              },
+              {
+                "glyph": "·",
+                "id": "rel:consume",
+                "label": "Registers a topic consumer",
+                "status": "existing",
+              },
+              {
+                "glyph": "▸",
+                "id": "stage:inspect",
+                "label": "Inspect",
+                "status": "existing",
+              },
+            ],
+          },
+        ],
+        "uses": [
+          {
+            "label": "Placement",
+            "refs": [
+              {
+                "glyph": "⧉",
+                "id": "queries",
+                "label": "Query fixture",
+                "status": "modified",
+              },
+              {
+                "glyph": "⧉",
+                "id": "dom:queries",
+                "label": "Queries",
+                "status": "modified",
+              },
+              {
+                "glyph": "⧉",
+                "id": "sys:a",
+                "label": "A",
+                "status": "modified",
+              },
+            ],
+          },
+          {
+            "label": "Outgoing read",
+            "refs": [
+              {
+                "glyph": "⛁",
+                "id": "st:remote",
+                "label": "Remote",
+                "status": "existing",
+              },
+              {
+                "glyph": "▭",
+                "id": "sch:remote#id",
+                "label": "id",
+                "status": "existing",
+              },
+              {
+                "glyph": "↳",
+                "id": "h:a#read",
+                "label": "h:a#read",
+                "status": "existing",
+              },
+              {
+                "glyph": "ƒ",
+                "id": "h:a",
+                "label": "h:a",
+                "status": "modified",
+              },
+              {
+                "glyph": "⇄",
+                "id": "api:a",
+                "label": "GET /a",
+                "status": "existing",
+              },
+            ],
+          },
+          {
+            "label": "Outgoing write",
+            "refs": [
+              {
+                "glyph": "⛁",
+                "id": "st:remote",
+                "label": "Remote",
+                "status": "existing",
+              },
+              {
+                "glyph": "▭",
+                "id": "sch:remote#id",
+                "label": "id",
+                "status": "existing",
+              },
+              {
+                "glyph": "↳",
+                "id": "h:a#write",
+                "label": "h:a#write",
+                "status": "existing",
+              },
+              {
+                "glyph": "ƒ",
+                "id": "h:a",
+                "label": "h:a",
+                "status": "modified",
+              },
+              {
+                "glyph": "⇄",
+                "id": "api:a",
+                "label": "GET /a",
+                "status": "existing",
+              },
+            ],
+          },
+          {
+            "label": "Outgoing publish",
+            "refs": [
+              {
+                "glyph": "⇶",
+                "id": "top:remote",
+                "label": "Events",
+                "status": "existing",
+              },
+              {
+                "glyph": "⚡",
+                "id": "msg:remote",
+                "label": "msg:remote",
+                "status": "existing",
+              },
+              {
+                "glyph": "↳",
+                "id": "h:a#publish",
+                "label": "h:a#publish",
+                "status": "existing",
+              },
+              {
+                "glyph": "ƒ",
+                "id": "h:a",
+                "label": "h:a",
+                "status": "modified",
+              },
+              {
+                "glyph": "⇄",
+                "id": "api:a",
+                "label": "GET /a",
+                "status": "existing",
+              },
+            ],
+          },
+          {
+            "label": "Outgoing call",
+            "refs": [
+              {
+                "glyph": "◇",
+                "id": "ext:supplier",
+                "label": "Supplier",
+                "status": "existing",
+              },
+              {
+                "glyph": "⇄",
+                "id": "api:supplier",
+                "label": "api:supplier",
+                "status": "existing",
+              },
+              {
+                "glyph": "↳",
+                "id": "h:a#call",
+                "label": "h:a#call",
+                "status": "modified",
+              },
+              {
+                "glyph": "ƒ",
+                "id": "h:a",
+                "label": "h:a",
+                "status": "modified",
+              },
+              {
+                "glyph": "⇄",
+                "id": "api:a",
+                "label": "GET /a",
+                "status": "existing",
+              },
+            ],
+          },
+        ],
+      },
+    },
+  },
+  {
+    "id": "st:remote",
+    "inspection": {
+      "gaps": [],
+      "href": "/queries/things/?id=st%3Aremote",
+      "raw": {
+        "form": "database",
+        "id": "st:remote",
+        "kind": "store",
+        "name": "Remote",
+        "owner": {
+          "cites": [
+            {
+              "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "kind": "code",
+              "lines": [
+                1,
+                2,
+              ],
+              "path": "example.ts",
+              "repo": "fixture/a",
+            },
+          ],
+          "id": "svc:a",
+        },
+      },
+      "view": {
+        "changes": [],
+        "facts": [
+          {
+            "href": null,
+            "label": "Kind",
+            "value": "store",
+          },
+          {
+            "href": null,
+            "label": "Form",
+            "value": "database",
+          },
+        ],
+        "glyph": "⛁",
+        "id": "st:remote",
+        "image": null,
+        "mentionedIn": [],
+        "mentionedParts": [],
+        "name": "Remote",
+        "owner": [
+          {
+            "glyph": "●",
+            "id": "team:b",
+            "label": "B",
+            "status": "existing",
+          },
+          {
+            "glyph": "▣",
+            "id": "svc:a",
+            "label": "A",
+            "status": "existing",
+          },
+        ],
+        "planLevel": false,
+        "sections": [],
+        "sources": [],
+        "status": "existing",
+        "text": null,
+        "type": "store",
+        "usedBy": [
+          {
+            "label": "Incoming read",
+            "refs": [
+              {
+                "glyph": "▣",
+                "id": "svc:a",
+                "label": "A",
+                "status": "existing",
+              },
+              {
+                "glyph": "↳",
+                "id": "h:a#read",
+                "label": "h:a#read",
+                "status": "existing",
+              },
+              {
+                "glyph": "ƒ",
+                "id": "h:a",
+                "label": "h:a",
+                "status": "modified",
+              },
+              {
+                "glyph": "⇄",
+                "id": "api:a",
+                "label": "GET /a",
+                "status": "existing",
+              },
+              {
+                "glyph": "▣",
+                "id": "svc:b",
+                "label": "B",
+                "status": "existing",
+              },
+              {
+                "glyph": "·",
+                "id": "rel:read",
+                "label": "Configures read access",
+                "status": "existing",
+              },
+            ],
+          },
+          {
+            "label": "Incoming write",
+            "refs": [
+              {
+                "glyph": "▣",
+                "id": "svc:a",
+                "label": "A",
+                "status": "existing",
+              },
+              {
+                "glyph": "↳",
+                "id": "h:a#write",
+                "label": "h:a#write",
+                "status": "existing",
+              },
+              {
+                "glyph": "ƒ",
+                "id": "h:a",
+                "label": "h:a",
+                "status": "modified",
+              },
+              {
+                "glyph": "⇄",
+                "id": "api:a",
+                "label": "GET /a",
+                "status": "existing",
+              },
+            ],
+          },
+          {
+            "label": "Referenced by authored facts",
+            "refs": [
+              {
+                "glyph": "ƒ",
+                "id": "h:a",
+                "label": "h:a",
+                "status": "modified",
+              },
+              {
+                "glyph": "↳",
+                "id": "h:a#read",
+                "label": "h:a#read",
+                "status": "existing",
+              },
+              {
+                "glyph": "↳",
+                "id": "h:a#write",
+                "label": "h:a#write",
+                "status": "existing",
+              },
+              {
+                "glyph": "⧉",
+                "id": "sys:b",
+                "label": "B",
+                "status": "existing",
+              },
+              {
+                "glyph": "▤",
+                "id": "sch:remote",
+                "label": "sch:remote",
+                "status": "existing",
+              },
+              {
+                "glyph": "·",
+                "id": "rel:read",
+                "label": "Configures read access",
+                "status": "existing",
+              },
+            ],
+          },
+        ],
+        "uses": [
+          {
+            "label": "Placement",
+            "refs": [
+              {
+                "glyph": "⧉",
+                "id": "queries",
+                "label": "Query fixture",
+                "status": "modified",
+              },
+              {
+                "glyph": "⧉",
+                "id": "dom:queries",
+                "label": "Queries",
+                "status": "modified",
+              },
+              {
+                "glyph": "⧉",
+                "id": "sys:b",
+                "label": "B",
+                "status": "existing",
+              },
+            ],
+          },
+        ],
+      },
+    },
+  },
+  {
+    "id": "if:a",
+    "inspection": {
+      "gaps": [
+        {
+          "id": "api:a",
+          "kind": "no_caller",
+          "message": "No caller is recorded.",
+        },
+      ],
+      "href": "/queries/things/?id=if%3Aa",
+      "raw": {
+        "component": "svc:a",
+        "entries": [
+          {
+            "id": "api:a",
+            "method": "GET",
+            "path": "/a",
+          },
+        ],
+        "id": "if:a",
+        "kind": "rest",
+      },
+      "view": {
+        "changes": [],
+        "facts": [
+          {
+            "href": null,
+            "label": "Kind",
+            "value": "rest",
+          },
+        ],
+        "glyph": "⊡",
+        "id": "if:a",
+        "image": null,
+        "mentionedIn": [],
+        "mentionedParts": [],
+        "name": "if:a",
+        "owner": [
+          {
+            "glyph": "●",
+            "id": "team:a",
+            "label": "A",
+            "status": "existing",
+          },
+        ],
+        "planLevel": false,
+        "sections": [],
+        "sources": [],
+        "status": "existing",
+        "text": null,
+        "type": "interface",
+        "usedBy": [
+          {
+            "label": "Referenced by authored facts",
+            "refs": [
+              {
+                "glyph": "⧉",
+                "id": "sys:a",
+                "label": "A",
+                "status": "modified",
+              },
+            ],
+          },
+        ],
+        "uses": [
+          {
+            "label": "Placement",
+            "refs": [
+              {
+                "glyph": "⧉",
+                "id": "queries",
+                "label": "Query fixture",
+                "status": "modified",
+              },
+              {
+                "glyph": "⧉",
+                "id": "dom:queries",
+                "label": "Queries",
+                "status": "modified",
+              },
+              {
+                "glyph": "⧉",
+                "id": "sys:a",
+                "label": "A",
+                "status": "modified",
+              },
+              {
+                "glyph": "▣",
+                "id": "svc:a",
+                "label": "A",
+                "status": "existing",
+              },
+            ],
+          },
+          {
+            "label": "Declared provider",
+            "refs": [
+              {
+                "glyph": "▣",
+                "id": "svc:a",
+                "label": "A",
+                "status": "existing",
+              },
+            ],
+          },
+          {
+            "label": "Contains",
+            "refs": [
+              {
+                "glyph": "⇄",
+                "id": "api:a",
+                "label": "GET /a",
+                "status": "existing",
+              },
+            ],
+          },
+          {
+            "label": "Recorded references",
+            "refs": [
+              {
+                "glyph": "▣",
+                "id": "svc:a",
+                "label": "A",
+                "status": "existing",
+              },
+              {
+                "glyph": "⇄",
+                "id": "api:a",
+                "label": "GET /a",
+                "status": "existing",
+              },
+            ],
+          },
+        ],
+      },
+    },
+  },
+  {
+    "id": "sys:unmapped",
+    "inspection": {
+      "gaps": [],
+      "href": "/queries/queries/unmapped/",
+      "raw": {
+        "components": [],
+        "handlers": [],
+        "id": "sys:unmapped",
+        "interactions": [],
+        "interfaces": [],
+        "jobs": [],
+        "mapped": false,
+        "messages": [],
+        "name": "Unmapped",
+        "narratives": null,
+        "operations": [],
+        "schemas": [],
+        "screens": [],
+        "subscriptions": [],
+      },
+      "view": {
+        "changes": [],
+        "facts": [
+          {
+            "href": null,
+            "label": "Mapped",
+            "value": "false",
+          },
+        ],
+        "glyph": "⧉",
+        "id": "sys:unmapped",
+        "image": null,
+        "mentionedIn": [],
+        "mentionedParts": [],
+        "name": "Unmapped",
+        "owner": [],
+        "planLevel": false,
+        "sections": [],
+        "sources": [],
+        "status": "existing",
+        "text": null,
+        "type": "unmapped system",
+        "usedBy": [
+          {
+            "label": "Incoming call",
+            "refs": [
+              {
+                "glyph": "▣",
+                "id": "svc:b",
+                "label": "B",
+                "status": "existing",
+              },
+              {
+                "glyph": "·",
+                "id": "rel:boundary",
+                "label": "Registers an unmapped client",
+                "status": "existing",
+              },
+            ],
+          },
+          {
+            "label": "Referenced by authored facts",
+            "refs": [
+              {
+                "glyph": "⧉",
+                "id": "dom:queries",
+                "label": "Queries",
+                "status": "modified",
+              },
+              {
+                "glyph": "·",
+                "id": "rel:boundary",
+                "label": "Registers an unmapped client",
+                "status": "existing",
+              },
+            ],
+          },
+        ],
+        "uses": [
+          {
+            "label": "Placement",
+            "refs": [
+              {
+                "glyph": "⧉",
+                "id": "queries",
+                "label": "Query fixture",
+                "status": "modified",
+              },
+              {
+                "glyph": "⧉",
+                "id": "dom:queries",
+                "label": "Queries",
+                "status": "modified",
+              },
+            ],
+          },
+        ],
+      },
+    },
+  },
+  {
+    "id": "sub:b",
+    "inspection": {
+      "gaps": [
+        {
+          "id": "sub:b",
+          "kind": "no_handler",
+          "message": "No handler detail is recorded.",
+        },
+      ],
+      "href": "/queries/entries/?id=sub%3Ab",
+      "raw": {
+        "component": "svc:b",
+        "id": "sub:b",
+        "message": "msg:remote",
+      },
+      "view": {
+        "changes": [],
+        "facts": [],
+        "glyph": "⇶",
+        "id": "sub:b",
+        "image": null,
+        "mentionedIn": [],
+        "mentionedParts": [],
+        "name": "sub:b",
+        "owner": [
+          {
+            "glyph": "●",
+            "id": "team:b",
+            "label": "B",
+            "status": "existing",
+          },
+        ],
+        "planLevel": false,
+        "sections": [],
+        "sources": [],
+        "status": "existing",
+        "text": null,
+        "type": "subscription",
+        "usedBy": [
+          {
+            "label": "Referenced by authored facts",
+            "refs": [
+              {
+                "glyph": "⧉",
+                "id": "sys:b",
+                "label": "B",
+                "status": "existing",
+              },
+            ],
+          },
+        ],
+        "uses": [
+          {
+            "label": "Placement",
+            "refs": [
+              {
+                "glyph": "⧉",
+                "id": "queries",
+                "label": "Query fixture",
+                "status": "modified",
+              },
+              {
+                "glyph": "⧉",
+                "id": "dom:queries",
+                "label": "Queries",
+                "status": "modified",
+              },
+              {
+                "glyph": "⧉",
+                "id": "sys:b",
+                "label": "B",
+                "status": "existing",
+              },
+              {
+                "glyph": "▣",
+                "id": "svc:b",
+                "label": "B",
+                "status": "existing",
+              },
+            ],
+          },
+          {
+            "label": "Recorded references",
+            "refs": [
+              {
+                "glyph": "▣",
+                "id": "svc:b",
+                "label": "B",
+                "status": "existing",
+              },
+              {
+                "glyph": "⚡",
+                "id": "msg:remote",
+                "label": "msg:remote",
+                "status": "existing",
+              },
+            ],
+          },
+          {
+            "label": "Outgoing consume",
+            "refs": [
+              {
+                "glyph": "▣",
+                "id": "svc:b",
+                "label": "B",
+                "status": "existing",
+              },
+              {
+                "glyph": "⚡",
+                "id": "msg:remote",
+                "label": "msg:remote",
+                "status": "existing",
+              },
+            ],
+          },
+        ],
+      },
+    },
+  },
+  {
+    "id": "job:b",
+    "inspection": {
+      "gaps": [
+        {
+          "id": "job:b",
+          "kind": "no_handler",
+          "message": "No handler detail is recorded.",
+        },
+        {
+          "id": "job:b",
+          "kind": "no_schedule",
+          "message": "No schedule or trigger is recorded.",
+        },
+      ],
+      "href": "/queries/entries/?id=job%3Ab",
+      "raw": {
+        "component": "svc:b",
+        "id": "job:b",
+      },
+      "view": {
+        "changes": [],
+        "facts": [],
+        "glyph": "⏱",
+        "id": "job:b",
+        "image": null,
+        "mentionedIn": [],
+        "mentionedParts": [],
+        "name": "job:b",
+        "owner": [
+          {
+            "glyph": "●",
+            "id": "team:b",
+            "label": "B",
+            "status": "existing",
+          },
+        ],
+        "planLevel": false,
+        "sections": [],
+        "sources": [],
+        "status": "existing",
+        "text": null,
+        "type": "job",
+        "usedBy": [
+          {
+            "label": "Referenced by authored facts",
+            "refs": [
+              {
+                "glyph": "⧉",
+                "id": "sys:b",
+                "label": "B",
+                "status": "existing",
+              },
+            ],
+          },
+        ],
+        "uses": [
+          {
+            "label": "Placement",
+            "refs": [
+              {
+                "glyph": "⧉",
+                "id": "queries",
+                "label": "Query fixture",
+                "status": "modified",
+              },
+              {
+                "glyph": "⧉",
+                "id": "dom:queries",
+                "label": "Queries",
+                "status": "modified",
+              },
+              {
+                "glyph": "⧉",
+                "id": "sys:b",
+                "label": "B",
+                "status": "existing",
+              },
+              {
+                "glyph": "▣",
+                "id": "svc:b",
+                "label": "B",
+                "status": "existing",
+              },
+            ],
+          },
+          {
+            "label": "Recorded references",
+            "refs": [
+              {
+                "glyph": "▣",
+                "id": "svc:b",
+                "label": "B",
+                "status": "existing",
+              },
+            ],
+          },
+        ],
+      },
+    },
+  },
+  {
+    "id": "rel:read",
+    "inspection": {
+      "gaps": [],
+      "href": "/queries/things/?id=rel%3Aread",
+      "raw": {
+        "cites": [
+          {
+            "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "kind": "code",
+            "lines": [
+              1,
+              2,
+            ],
+            "path": "example.ts",
+            "repo": "fixture/a",
+          },
+        ],
+        "from": "svc:b",
+        "id": "rel:read",
+        "kind": "read",
+        "reason": "Only configuration is recorded.",
+        "says": "Configures read access",
+        "to": "st:remote",
+      },
+      "view": {
+        "changes": [],
+        "facts": [
+          {
+            "href": null,
+            "label": "Kind",
+            "value": "read",
+          },
+          {
+            "href": null,
+            "label": "Says",
+            "value": "Configures read access",
+          },
+          {
+            "href": null,
+            "label": "Reason",
+            "value": "Only configuration is recorded.",
+          },
+        ],
+        "glyph": "·",
+        "id": "rel:read",
+        "image": null,
+        "mentionedIn": [],
+        "mentionedParts": [],
+        "name": "Configures read access",
+        "owner": [
+          {
+            "glyph": "●",
+            "id": "team:b",
+            "label": "B",
+            "status": "existing",
+          },
+        ],
+        "planLevel": false,
+        "sections": [],
+        "sources": [
+          {
+            "href": "https://github.com/fixture/a/blob/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/example.ts#L1-L2",
+            "label": "fixture/a · example.ts:1–2",
+          },
+        ],
+        "status": "existing",
+        "text": null,
+        "type": "relationship",
+        "usedBy": [
+          {
+            "label": "Referenced by authored facts",
+            "refs": [
+              {
+                "glyph": "⧉",
+                "id": "sys:b",
+                "label": "B",
+                "status": "existing",
+              },
+            ],
+          },
+        ],
+        "uses": [
+          {
+            "label": "Placement",
+            "refs": [
+              {
+                "glyph": "⧉",
+                "id": "queries",
+                "label": "Query fixture",
+                "status": "modified",
+              },
+              {
+                "glyph": "⧉",
+                "id": "dom:queries",
+                "label": "Queries",
+                "status": "modified",
+              },
+              {
+                "glyph": "⧉",
+                "id": "sys:b",
+                "label": "B",
+                "status": "existing",
+              },
+            ],
+          },
+          {
+            "label": "Recorded references",
+            "refs": [
+              {
+                "glyph": "▣",
+                "id": "svc:b",
+                "label": "B",
+                "status": "existing",
+              },
+              {
+                "glyph": "⛁",
+                "id": "st:remote",
+                "label": "Remote",
+                "status": "existing",
+              },
+            ],
+          },
+          {
+            "label": "Outgoing read",
+            "refs": [
+              {
+                "glyph": "⛁",
+                "id": "st:remote",
+                "label": "Remote",
+                "status": "existing",
+              },
+            ],
+          },
+        ],
+      },
+    },
+  },
+  {
+    "id": "plan:inspect",
+    "inspection": {
+      "gaps": [],
+      "href": null,
+      "raw": {
+        "changes": [
+          {
+            "id": "chg:condition",
+            "ops": [
+              {
+                "modify": "h:a#call",
+              },
+            ],
+            "requires": [
+              {
+                "id": "req:visible",
+                "text": "Keep [[api:a]] visible.",
+              },
+            ],
+            "title": "Qualify the request",
+          },
+        ],
+        "meta": {
+          "id": "plan:inspect",
+          "title": "Inspect the actual proposal",
+        },
+        "problem": {
+          "scenarios": [
+            {
+              "id": "sc:normal",
+              "story": "Use [[api:a]].",
+              "title": "Normal path",
+            },
+          ],
+          "summary": "Keep [[api:a]] visible.",
+        },
+        "story": {
+          "scope": [
+            "api:a",
+          ],
+          "stages": [
+            {
+              "components": [
+                {
+                  "component": "svc:a",
+                },
+              ],
+              "id": "stage:inspect",
+              "name": "Inspect",
+              "summary": "Read [[api:a]].",
+            },
+          ],
+          "summary": "Keep the authored story.",
+        },
+      },
+      "view": {
+        "changes": [],
+        "facts": [],
+        "glyph": "·",
+        "id": "plan:inspect",
+        "image": null,
+        "mentionedIn": [],
+        "mentionedParts": [],
+        "name": "Inspect the actual proposal",
+        "owner": [],
+        "planLevel": true,
+        "sections": [
+          {
+            "label": "Story",
+            "text": "Keep the authored story.",
+          },
+        ],
+        "sources": [],
+        "status": "existing",
+        "text": "Keep [[api:a]] visible.",
+        "type": "plan",
+        "usedBy": [],
+        "uses": [
+          {
+            "label": "Recorded references",
+            "refs": [
+              {
+                "glyph": "⇄",
+                "id": "api:a",
+                "label": "GET /a",
+                "status": "existing",
+              },
+              {
+                "glyph": "❝",
+                "id": "sc:normal",
+                "label": "Normal path",
+                "status": "existing",
+              },
+              {
+                "glyph": "▸",
+                "id": "stage:inspect",
+                "label": "Inspect",
+                "status": "existing",
+              },
+              {
+                "glyph": "Δ",
+                "id": "chg:condition",
+                "label": "Qualify the request",
+                "status": "existing",
+              },
+            ],
+          },
+        ],
+      },
+    },
+  },
+  {
+    "id": "stage:inspect",
+    "inspection": {
+      "gaps": [],
+      "href": null,
+      "raw": {
+        "components": [
+          {
+            "component": "svc:a",
+          },
+        ],
+        "id": "stage:inspect",
+        "name": "Inspect",
+        "summary": "Read [[api:a]].",
+      },
+      "view": {
+        "changes": [],
+        "facts": [],
+        "glyph": "▸",
+        "id": "stage:inspect",
+        "image": null,
+        "mentionedIn": [
+          {
+            "glyph": "·",
+            "id": "plan:inspect",
+            "label": "Inspect the actual proposal",
+            "status": "existing",
+          },
+        ],
+        "mentionedParts": [],
+        "name": "Inspect",
+        "owner": [],
+        "planLevel": true,
+        "sections": [],
+        "sources": [],
+        "status": "existing",
+        "text": "Read [[api:a]].",
+        "type": "stage",
+        "usedBy": [
+          {
+            "label": "Referenced by authored facts",
+            "refs": [
+              {
+                "glyph": "·",
+                "id": "plan:inspect",
+                "label": "Inspect the actual proposal",
+                "status": "existing",
+              },
+            ],
+          },
+        ],
+        "uses": [
+          {
+            "label": "Recorded references",
+            "refs": [
+              {
+                "glyph": "⇄",
+                "id": "api:a",
+                "label": "GET /a",
+                "status": "existing",
+              },
+              {
+                "glyph": "▣",
+                "id": "svc:a",
+                "label": "A",
+                "status": "existing",
+              },
+            ],
+          },
+        ],
+      },
+    },
+  },
+  {
+    "id": "req:visible",
+    "inspection": {
+      "gaps": [],
+      "href": null,
+      "raw": {
+        "id": "req:visible",
+        "text": "Keep [[api:a]] visible.",
+      },
+      "view": {
+        "changes": [],
+        "facts": [],
+        "glyph": "·",
+        "id": "req:visible",
+        "image": null,
+        "mentionedIn": [
+          {
+            "glyph": "Δ",
+            "id": "chg:condition",
+            "label": "Qualify the request",
+            "status": "existing",
+          },
+        ],
+        "mentionedParts": [],
+        "name": "Keep [[api:a]] visible.",
+        "owner": [],
+        "planLevel": true,
+        "sections": [],
+        "sources": [],
+        "status": "existing",
+        "text": "Keep [[api:a]] visible.",
+        "type": "requirement",
+        "usedBy": [
+          {
+            "label": "Referenced by authored facts",
+            "refs": [
+              {
+                "glyph": "Δ",
+                "id": "chg:condition",
+                "label": "Qualify the request",
+                "status": "existing",
+              },
+            ],
+          },
+        ],
+        "uses": [
+          {
+            "label": "Recorded references",
+            "refs": [
+              {
+                "glyph": "⇄",
+                "id": "api:a",
+                "label": "GET /a",
+                "status": "existing",
+              },
+            ],
+          },
+        ],
+      },
+    },
+  },
+  {
+    "id": "sch:remote#id",
+    "inspection": {
+      "gaps": [],
+      "href": "/queries/things/?id=sch%3Aremote%23id",
+      "raw": {
+        "id": "id",
+        "name": "id",
+        "type": "string",
+      },
+      "view": {
+        "changes": [],
+        "facts": [
+          {
+            "href": null,
+            "label": "Type",
+            "value": "string",
+          },
+        ],
+        "glyph": "▭",
+        "id": "sch:remote#id",
+        "image": null,
+        "mentionedIn": [],
+        "mentionedParts": [],
+        "name": "id",
+        "owner": [
+          {
+            "glyph": "●",
+            "id": "team:b",
+            "label": "B",
+            "status": "existing",
+          },
+        ],
+        "planLevel": false,
+        "sections": [],
+        "sources": [],
+        "status": "existing",
+        "text": null,
+        "type": "field",
+        "usedBy": [
+          {
+            "label": "Incoming read",
+            "refs": [
+              {
+                "glyph": "▣",
+                "id": "svc:a",
+                "label": "A",
+                "status": "existing",
+              },
+              {
+                "glyph": "↳",
+                "id": "h:a#read",
+                "label": "h:a#read",
+                "status": "existing",
+              },
+              {
+                "glyph": "ƒ",
+                "id": "h:a",
+                "label": "h:a",
+                "status": "modified",
+              },
+              {
+                "glyph": "⇄",
+                "id": "api:a",
+                "label": "GET /a",
+                "status": "existing",
+              },
+            ],
+          },
+          {
+            "label": "Incoming write",
+            "refs": [
+              {
+                "glyph": "▣",
+                "id": "svc:a",
+                "label": "A",
+                "status": "existing",
+              },
+              {
+                "glyph": "↳",
+                "id": "h:a#write",
+                "label": "h:a#write",
+                "status": "existing",
+              },
+              {
+                "glyph": "ƒ",
+                "id": "h:a",
+                "label": "h:a",
+                "status": "modified",
+              },
+              {
+                "glyph": "⇄",
+                "id": "api:a",
+                "label": "GET /a",
+                "status": "existing",
+              },
+            ],
+          },
+          {
+            "label": "Referenced by authored facts",
+            "refs": [
+              {
+                "glyph": "ƒ",
+                "id": "h:a",
+                "label": "h:a",
+                "status": "modified",
+              },
+              {
+                "glyph": "↳",
+                "id": "h:a#read",
+                "label": "h:a#read",
+                "status": "existing",
+              },
+              {
+                "glyph": "↳",
+                "id": "h:a#write",
+                "label": "h:a#write",
+                "status": "existing",
+              },
+            ],
+          },
+        ],
+        "uses": [
+          {
+            "label": "Placement",
+            "refs": [
+              {
+                "glyph": "⧉",
+                "id": "queries",
+                "label": "Query fixture",
+                "status": "modified",
+              },
+              {
+                "glyph": "⧉",
+                "id": "dom:queries",
+                "label": "Queries",
+                "status": "modified",
+              },
+              {
+                "glyph": "⧉",
+                "id": "sys:b",
+                "label": "B",
+                "status": "existing",
+              },
+              {
+                "glyph": "⛁",
+                "id": "st:remote",
+                "label": "Remote",
+                "status": "existing",
+              },
+            ],
+          },
+        ],
+      },
+    },
+  },
+]
+`;

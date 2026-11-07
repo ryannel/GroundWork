@@ -6,7 +6,13 @@ import type { AreaComponentView, AreaSystemView } from '@/application/workspace-
 import { areaTechnicalRelationships } from '@/application/workspace-area-relationships';
 import type { Plan } from '@/domain/plan/plan.generated';
 
-import { resourceSummary } from './component-summary';
+import {
+  componentKind,
+  linkedResources,
+  resourceCaption,
+  resourceLocation,
+  resourceSummary,
+} from './component-summary';
 import { resourcesOf, withAreaResources } from './resources';
 
 // These synthetic resources are declared here, independently of ownership and access.
@@ -480,4 +486,28 @@ describe('area resource overview', () => {
       expect.objectContaining({ id: 'st:private-bus', use: 'Reads and writes' }),
     );
   });
+});
+
+it('finds recorded resource cards without repeating attachments in the linked resource list', () => {
+  const { model, systems } = fixture();
+  const view = withAreaResources(systems, model);
+  const location = resourceLocation(view, 'st:records');
+  if (location === null) throw new Error('The declared records store must be visible');
+  expect(location.system.id).toBe('offers');
+  expect(location.resource.id).toBe('st:records');
+  expect(resourceLocation(view, 'st:missing')).toBeNull();
+  const offers = systems[0]?.components[0];
+  if (offers === undefined) throw new Error('The fixture needs an offer component');
+  expect(
+    linkedResources({ ...offers, attachments: [location.resource] }).map(({ id }) => id),
+  ).toEqual(['st:cache', 'st:changes']);
+  const cache = offers.resources.find((resource) => resource.id === 'st:cache');
+  if (cache === undefined) throw new Error('The fixture needs the declared cache access');
+  expect(resourceCaption(cache)).toBe('Redis cache');
+  expect(resourceCaption({ ...cache, technology: null })).toBe('Technology not recorded cache');
+  expect(componentKind({ ...offers, kind: 'database', category: 'cache' })).toBe('Cache');
+  expect(componentKind({ ...offers, kind: 'queue', category: 'queue' })).toBe('Queue');
+  expect(componentKind({ ...offers, kind: 'queue', modelKind: 'topic', category: 'queue' })).toBe(
+    'Topic',
+  );
 });

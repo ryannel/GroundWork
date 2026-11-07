@@ -4,8 +4,11 @@ import { describe, expect, it } from 'vitest';
 import { contractsPlans, stagedDeliveryTime } from '@/../test/fixtures/acme/plans/contracts-plans';
 import { modelOf } from '@/../test/plan-kit';
 import { SHOW_ALL, SHOW_OVERVIEW, drawSystemMap } from '@/application/plan-viz-system-map';
+import { layoutColumns } from '@/application/plan-viz-system-map-columns';
 import { systemMapInput } from '@/application/plan-viz-system-map-input';
+import type { Aggregate, Link } from '@/application/plan-viz-system-map-links';
 import { traceOf } from '@/application/plan-viz-system-map-trace';
+import type { MapServiceIn, SystemMapInput } from '@/application/plan-viz-system-map-types';
 
 const PLANS = [...contractsPlans(), ['staged delivery-time', stagedDeliveryTime()] as const];
 const load = () => modelOf(stagedDeliveryTime());
@@ -51,6 +54,7 @@ describe('system map layout', () => {
     expect(inside).toBeGreaterThan(0);
     expect(system.partCount).toBe(inside);
     expect(folded?.nodes.find((n) => n.id === system.id)?.partCount).toBe(inside);
+    expect({ open, folded }).toMatchSnapshot('format 1 staged map keeps both arrangements');
   });
 
   it('dims everything outside a team lens', () => {
@@ -87,4 +91,88 @@ describe('system map trace', () => {
     const parts = drawing.nodes.filter((n) => n.system === system.id);
     expect(parts.every((p) => lit.nodes.has(p.id))).toBe(true);
   });
+});
+
+function placementFixture(): { input: SystemMapInput; aggregate: Aggregate } {
+  const services = ['caller', 'supplier', 'reader', 'archive'].map((name): MapServiceIn => ({
+    id: `svc:${name}`,
+    name,
+    system: null,
+    kind: 'service',
+    does: '',
+    team: null,
+    teamSlot: 8,
+  }));
+  const connections: readonly (readonly [Link['kind'], string, string])[] = [
+    ['api', 'svc:caller', 'svc:supplier'],
+    ['msg', 'svc:supplier', 'svc:reader'],
+    ['data', 'svc:reader', 'st:archive'],
+  ];
+  const input: SystemMapInput = {
+    services,
+    systems: [],
+    stores: [],
+    edges: [],
+    steps: [],
+    stages: [],
+    stageOf: {},
+    refs: {},
+    interfaceOf: {},
+    labels: {},
+    lens: null,
+    focus: null,
+  };
+  return {
+    input,
+    aggregate: {
+      links: connections.map(([kind, a, b]): Link => ({
+        key: `${kind}|${a}|${b}`,
+        kind,
+        a,
+        b,
+        row: null,
+        vias: new Set(),
+        flows: new Set(),
+        flags: new Set(),
+      })),
+      rowsOf: new Map(),
+      kinds: new Map(),
+      hostOfSat: new Map([['st:archive', 'svc:archive']]),
+      isTopic: () => false,
+    },
+  };
+}
+
+it('lays out the chain of calls and messages without using data access as a stage', () => {
+  const { input, aggregate } = placementFixture();
+  const columns = layoutColumns(input, aggregate);
+  expect(columns.used).toEqual([0, 1, 2]);
+  expect(columns.colOfU('svc:caller')).toBe(0);
+  expect(columns.colOfU('svc:supplier')).toBe(1);
+  expect(columns.colOfU('svc:reader')).toBe(2);
+  expect(columns.colOfU('svc:archive')).toBe(0);
+  expect(columns.unitOf('st:archive')).toBe('svc:archive');
+  expect(columns.cols.map((col) => col.toSorted((a, b) => a.localeCompare(b)))).toEqual([
+    ['svc:archive', 'svc:caller'],
+    ['svc:supplier'],
+    ['svc:reader'],
+  ]);
+});
+
+it('places the API provider and event publisher above their users when they share a stage', () => {
+  const { input, aggregate } = placementFixture();
+  const columns = layoutColumns(
+    {
+      ...input,
+      stages: [{ id: 'stage:one', name: 'One', summary: '', entries: [] }],
+      stageOf: { 'svc:caller': 0, 'svc:supplier': 0, 'svc:reader': 0 },
+    },
+    aggregate,
+  );
+  expect(columns.cols).toHaveLength(1);
+  const list = columns.cols[0] ?? [];
+  expect(list).toHaveLength(4);
+  expect(list.indexOf('svc:supplier')).toBeLessThan(list.indexOf('svc:caller'));
+  expect(list.indexOf('svc:supplier')).toBeLessThan(list.indexOf('svc:reader'));
+  expect(columns.colOfU('svc:archive')).toBe(0);
 });

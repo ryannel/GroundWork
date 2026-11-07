@@ -2301,13 +2301,13 @@
     },
     {
       "file": "src/application/model-area.test.ts",
-      "sourceSha256": "a7b4792f0e48ed45e9822a83f29a89e8ce7bc9bb79d8837af837d6572b903c26",
+      "sourceSha256": "a179eb722d76876e9b62b11a49f0f838f61b6f39203c98d7faf93712270fde21",
       "role": "support",
       "reason": "The native area card carries an explicit recorded infrastructure flag without inferring one from historical boundary context. Exact real area frames remain unchanged (zero current true flags); the owning fixture proves explicit true propagation.",
       "evidence": [
         {
           "file": "src/application/model-area.test.ts",
-          "line": 206,
+          "line": 222,
           "text": "it('preserves an explicit infrastructure flag through the native area card and map transport', () => {"
         }
       ],
@@ -2333,7 +2333,7 @@
       "proofs": [
         {
           "file": "src/application/model-area.test.ts",
-          "sha256": "a7b4792f0e48ed45e9822a83f29a89e8ce7bc9bb79d8837af837d6572b903c26"
+          "sha256": "a179eb722d76876e9b62b11a49f0f838f61b6f39203c98d7faf93712270fde21"
         },
         {
           "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
@@ -2490,7 +2490,7 @@
       "proofs": [
         {
           "file": "src/application/model-domain.test.ts",
-          "sha256": "7398424675ea590bbce999583660eb9aa65b032c3bc1c93aa321a8c6e2df9f79"
+          "sha256": "b54f55cd700af2ada595451373e5e5b5b9a0cfd8d91a2c166fba2a294cbd2a9e"
         },
         {
           "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
@@ -2763,7 +2763,7 @@
       "proofs": [
         {
           "file": "src/application/model-landscape.test.ts",
-          "sha256": "7191c0f5d6579758342b40d4d234fea56d6e00dbb9279a7a178a64ef33b43cc1"
+          "sha256": "bbd66b5716a6942f0181822a1ac03ba88212c79917d1ae51f7e381c55c5e3e37"
         },
         {
           "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
@@ -10801,7 +10801,7 @@
         },
         {
           "file": "src/application/model-area.test.ts",
-          "sha256": "a7b4792f0e48ed45e9822a83f29a89e8ce7bc9bb79d8837af837d6572b903c26"
+          "sha256": "a179eb722d76876e9b62b11a49f0f838f61b6f39203c98d7faf93712270fde21"
         },
         {
           "file": "artifacts/rebuild/pr8/mixed-binding-audit.json",

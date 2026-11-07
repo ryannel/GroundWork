@@ -1,0 +1,171 @@
+{
+  "completeBaseline": true,
+  "expectedBatches": 20,
+  "inputs": [
+    {
+      "batch": "mutation-0",
+      "sha256": "b2013fe2065e37c51031adc2e0539e9a2b9c3259ab0100f02aab5dae7f3b13c5",
+      "files": 3
+    },
+    {
+      "batch": "mutation-1",
+      "sha256": "8e8bb0a1ec41a2a8091f6faf5b080bbe8cfe16f5fb29f897f80445f4f65cde92",
+      "files": 3
+    },
+    {
+      "batch": "mutation-10",
+      "sha256": "37264d77a9031e6f0c1f8cddebb15c0df889490782ef061062746e0a8d7cfa6f",
+      "files": 5
+    },
+    {
+      "batch": "mutation-11",
+      "sha256": "bb675e1803d43c081bbcd2a9f3b78038d0adde7e0c7741c4566862fd077c442b",
+      "files": 5
+    },
+    {
+      "batch": "mutation-12",
+      "sha256": "301ccf0bb8ec52389673eaa6beb95e069736f4cbef048f5d8577244391103b18",
+      "files": 5
+    },
+    {
+      "batch": "mutation-13",
+      "sha256": "5477df18e1add9c82e4d193343a2a369328eeb41aa31bc1bb165c910ee13a6f0",
+      "files": 4
+    },
+    {
+      "batch": "mutation-14",
+      "sha256": "a6f117a691bf1e983353fe1b56193e8f9b516334fce0d59e89d5354aa36f48c3",
+      "files": 5
+    },
+    {
+      "batch": "mutation-15",
+      "sha256": "08508a78cdf73002b8d944771c35840f404939cd7a918a3eb71cf5e8ee3fb0a7",
+      "files": 5
+    },
+    {
+      "batch": "mutation-16",
+      "sha256": "6b1a6d79429e556fd3a636ff3895f0e4dc01107f8ba1a8ba59cd7deb43eaf9fc",
+      "files": 5
+    },
+    {
+      "batch": "mutation-17",
+      "sha256": "663863d0d56d5b8a9e4e2f82ec3d56c3ae78ade25cdfe77377c8e7e82d0104db",
+      "files": 5
+    },
+    {
+      "batch": "mutation-18",
+      "sha256": "84571291c8d2b46bc72cbfd5b18ab4cf54ff6953cd7590b8e2685f955fd1e1de",
+      "files": 5
+    },
+    {
+      "batch": "mutation-19",
+      "sha256": "8e5acd282c41ead58125b8f080fc776747956dd8cb8240ef98b9424e9057796b",
+      "files": 5
+    },
+    {
+      "batch": "mutation-2",
+      "sha256": "a9904be65c8536379ad56ca7359da2fbd00a146badb5e25f7b5b0f51b15c1c12",
+      "files": 4
+    },
+    {
+      "batch": "mutation-3",
+      "sha256": "92d65cdd697d45c1b8e57ca5162b4698fc5887cacd5df2906bd80f81614e5495",
+      "files": 4
+    },
+    {
+      "batch": "mutation-4",
+      "sha256": "26ed1e1f46ccab444e83b9e8a2035fc2c32858780619ce8c90c50515b2dd1509",
+      "files": 5
+    },
+    {
+      "batch": "mutation-5",
+      "sha256": "146cbfc03601b7288fc82017d669f96be07da5ea25efb6d151fc2b7b62126d25",
+      "files": 5
+    },
+    {
+      "batch": "mutation-6",
+      "sha256": "f8483b356d7fd0f4b240c94ac6e2b2bf5f992aa549df5935c5087169c7f1bd3f",
+      "files": 5
+    },
+    {
+      "batch": "mutation-7",
+      "sha256": "a257b3e867e98dc2f9645f84ae3f19b9f9f1f86e55ecc8ed793b461ddb23398d",
+      "files": 5
+    },
+    {
+      "batch": "mutation-8",
+      "sha256": "6d53b0012263c8e17d750a443cd2a17155ee85d9a2a71c20f669dec15d9ce2b3",
+      "files": 6
+    },
+    {
+      "batch": "mutation-9",
+      "sha256": "293403c7e6cc6c1f0b33c8d55922639a638bc69916cbc26df42d1ae08c99cf54",
+      "files": 6
+    }
+  ],
+  "baseline": {
+    "detected": 10603,
+    "assessed": 15468,
+    "score": 68.548,
+    "neededFor75": 998
+  },
+  "projections": [
+    {
+      "report": "pr8-mutation-focused-01.json",
+      "sha256": "d2ac63f44c7bbd4979aa2f7bf359e3e3b2ca954f1855751438ce8d5e0c7f5bde",
+      "files": 11,
+      "before": {
+        "detected": 1814,
+        "assessed": 3753,
+        "score": 48.3347,
+        "neededFor75": 1001
+      },
+      "after": {
+        "detected": 2815,
+        "assessed": 3753,
+        "score": 75.0067,
+        "neededFor75": 0
+      }
+    },
+    {
+      "report": "pr8-mutation-focused-02.json",
+      "sha256": "8bc659c2406e1d54a572f1c1a257968ed10f9b7c5053a6b71713d1139c845141",
+      "files": 18,
+      "before": {
+        "detected": 3521,
+        "assessed": 5116,
+        "score": 68.8233,
+        "neededFor75": 316
+      },
+      "after": {
+        "detected": 3826,
+        "assessed": 5116,
+        "score": 74.785,
+        "neededFor75": 11
+      }
+    },
+    {
+      "report": "pr8-mutation-last-batch-local.json",
+      "sha256": "f14cc59df95bc7c134f4d96931e737d5351e89015b867670f27f4c4b6398786b",
+      "files": 21,
+      "before": {
+        "detected": 4887,
+        "assessed": 6287,
+        "score": 77.7318,
+        "neededFor75": 0
+      },
+      "after": {
+        "detected": 4732,
+        "assessed": 6287,
+        "score": 75.2664,
+        "neededFor75": 0
+      }
+    }
+  ],
+  "projectedAggregate": {
+    "detected": 11754,
+    "assessed": 15468,
+    "score": 75.9891,
+    "neededFor75": 0
+  }
+}

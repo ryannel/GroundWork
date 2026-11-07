@@ -199,6 +199,7 @@ describe('authored landscape layout', () => {
       nodes.get('browse')!.x - nodes.get('offers')!.x,
     );
     expect(view.nodes.filter((node) => node.x === nodes.get('fleet')!.x)).toHaveLength(3);
+    expect(view).toMatchSnapshot('joins, directed paths and label placement');
   });
 
   it('pulls a whole short branch towards a join without stretching its internal connections', () => {
@@ -274,4 +275,5 @@ it('draws canonical area identities at the existing route and keeps absent revie
   expect(view.facts).toContain('Review date not recorded');
   expect(view.scope).toBe('Scope not recorded.');
   expect(view.limitation).toBe('Limitations not recorded.');
+  expect(view).toMatchSnapshot('native address and missing review fields');
 });

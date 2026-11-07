@@ -107,6 +107,7 @@ describe('native system-map input', () => {
     const serialised = JSON.stringify(input);
     expect(JSON.parse(serialised)).toEqual(input);
     expect(JSON.stringify(model)).toBe(before);
+    expect(input).toMatchSnapshot('canonical map input and evidence-qualified links');
   });
   it('round-trips the overview and expanded drawing without losing edge occurrences', () => {
     const index = indexOf(fixture());
@@ -166,6 +167,9 @@ describe('native system-map input', () => {
     const folded = drawSystemMap(input, { show: SHOW_OVERVIEW });
     expect(folded?.nodes.find((node) => node.id === 'sys:unknown')?.size).toBe(
       'Implementation not mapped',
+    );
+    expect({ expanded: drawing, folded }).toMatchSnapshot(
+      'native system boundaries, components and connected paths',
     );
   });
   it('uses the same projection for selected before and after indexes without altering current facts', () => {
@@ -254,5 +258,6 @@ describe('native system-map input', () => {
         size: 'Implementation not mapped',
       }),
     );
+    expect(drawing).toMatchSnapshot('boundary-only map');
   });
 });

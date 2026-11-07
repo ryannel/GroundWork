@@ -1,0 +1,1452 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`keeps the ordered page frame, records and catalogue kinds for the authored plan > ordered plan navigation, authored record sections and references 1`] = `
+{
+  "bar": {
+    "stage": {
+      "tone": "neutral",
+      "word": "In review",
+    },
+    "teams": [
+      {
+        "id": "team:a",
+        "name": "A",
+      },
+      {
+        "id": "team:b",
+        "name": "B",
+      },
+    ],
+    "versions": {
+      "historyHref": "/queries/plans/reviewed-plan/versions/history/",
+      "items": [
+        {
+          "date": "2026-11-01",
+          "href": "/queries/plans/reviewed-plan/versions/v2.0/",
+          "state": "proposed",
+          "summary": "Keep [[api:a]] visible",
+          "version": "2.0",
+        },
+        {
+          "date": "2026-10-01",
+          "href": "/queries/plans/reviewed-plan/versions/v1.0/",
+          "state": "approved",
+          "summary": "",
+          "version": "1.0",
+        },
+      ],
+      "label": "v2.0 proposed",
+    },
+  },
+  "screens": [
+    {
+      "address": "/queries/plans/reviewed-plan/",
+      "blocks": [
+        {
+          "records": [
+            {
+              "fields": [
+                "id",
+                "title",
+                "version",
+                "status",
+                "authors",
+                "revisions",
+              ],
+              "id": "plan:reviewed",
+              "title": "Explain the reviewed change",
+            },
+          ],
+          "summary": false,
+          "title": "Plan metadata",
+        },
+        {
+          "records": [
+            {
+              "fields": [
+                "id",
+                "title",
+                "requires",
+                "ops",
+              ],
+              "id": "chg:behaviour",
+              "title": "Qualify the handler",
+            },
+          ],
+          "summary": true,
+          "title": "What this plan changes",
+        },
+        {
+          "records": [
+            {
+              "fields": [
+                "builds_on",
+              ],
+              "id": null,
+              "title": "Dependencies 1",
+            },
+          ],
+          "summary": false,
+          "title": "Dependencies",
+        },
+      ],
+      "catalogue": [],
+      "flowIds": [],
+      "headline": "Cover",
+      "map": false,
+      "recap": [],
+    },
+    {
+      "address": "/queries/plans/reviewed-plan/cover/part/",
+      "blocks": [
+        {
+          "records": [
+            {
+              "fields": [
+                "id",
+                "title",
+                "version",
+                "status",
+                "authors",
+                "revisions",
+              ],
+              "id": "plan:reviewed",
+              "title": "Explain the reviewed change",
+            },
+          ],
+          "summary": false,
+          "title": "Plan metadata",
+        },
+        {
+          "records": [
+            {
+              "fields": [
+                "id",
+                "title",
+                "requires",
+                "ops",
+              ],
+              "id": "chg:behaviour",
+              "title": "Qualify the handler",
+            },
+          ],
+          "summary": true,
+          "title": "What this plan changes",
+        },
+        {
+          "records": [
+            {
+              "fields": [
+                "builds_on",
+              ],
+              "id": null,
+              "title": "Dependencies 1",
+            },
+          ],
+          "summary": false,
+          "title": "Dependencies",
+        },
+      ],
+      "catalogue": [],
+      "flowIds": [],
+      "headline": "Your part",
+      "map": false,
+      "recap": [],
+    },
+    {
+      "address": "/queries/plans/reviewed-plan/why/problem/",
+      "blocks": [
+        {
+          "records": [
+            {
+              "fields": [
+                "summary",
+                "why",
+                "goals",
+                "non_goals",
+                "metrics",
+                "scenarios",
+              ],
+              "id": null,
+              "title": "The problem 1",
+            },
+          ],
+          "summary": false,
+          "title": "The problem",
+        },
+      ],
+      "catalogue": [],
+      "flowIds": [],
+      "headline": "Why this matters",
+      "map": false,
+      "recap": [
+        "The recorded qualification remains.",
+      ],
+    },
+    {
+      "address": "/queries/plans/reviewed-plan/why/promise/",
+      "blocks": [
+        {
+          "records": [
+            {
+              "fields": [
+                "goals",
+                "non_goals",
+                "appetite",
+                "metrics",
+              ],
+              "id": null,
+              "title": "What we promise 1",
+            },
+          ],
+          "summary": false,
+          "title": "What we promise",
+        },
+      ],
+      "catalogue": [],
+      "flowIds": [],
+      "headline": "Why this matters",
+      "map": false,
+      "recap": [
+        "The recorded qualification remains.",
+      ],
+    },
+    {
+      "address": "/queries/plans/reviewed-plan/why/scenarios/",
+      "blocks": [
+        {
+          "records": [
+            {
+              "fields": [
+                "id",
+                "title",
+                "story",
+                "flows",
+              ],
+              "id": "sc:normal",
+              "title": "A normal journey",
+            },
+          ],
+          "summary": false,
+          "title": "Scenarios",
+        },
+      ],
+      "catalogue": [],
+      "flowIds": [],
+      "headline": "Why this matters",
+      "map": false,
+      "recap": [
+        "The recorded qualification remains.",
+      ],
+    },
+    {
+      "address": "/queries/plans/reviewed-plan/today/domain/",
+      "blocks": [
+        {
+          "records": [
+            {
+              "fields": [
+                "id",
+                "name",
+                "purpose",
+              ],
+              "id": "dom:queries",
+              "title": "Queries",
+            },
+          ],
+          "summary": false,
+          "title": "Domains",
+        },
+        {
+          "records": [
+            {
+              "fields": [
+                "id",
+                "name",
+                "means",
+              ],
+              "id": "con:known",
+              "title": "Known concept",
+            },
+          ],
+          "summary": false,
+          "title": "Concepts",
+        },
+      ],
+      "catalogue": [],
+      "flowIds": [],
+      "headline": "The domain",
+      "map": false,
+      "recap": [],
+    },
+    {
+      "address": "/queries/plans/reviewed-plan/today/system/",
+      "blocks": [
+        {
+          "records": [],
+          "summary": false,
+          "title": "The system map",
+        },
+      ],
+      "catalogue": [],
+      "flowIds": [],
+      "headline": "The system map",
+      "map": true,
+      "recap": [],
+    },
+    {
+      "address": "/queries/plans/reviewed-plan/today/graph/",
+      "blocks": [
+        {
+          "records": [],
+          "summary": false,
+          "title": "The graph",
+        },
+      ],
+      "catalogue": [],
+      "flowIds": [],
+      "headline": "The graph",
+      "map": false,
+      "recap": [],
+    },
+    {
+      "address": "/queries/plans/reviewed-plan/today/screens/",
+      "blocks": [
+        {
+          "records": [],
+          "summary": false,
+          "title": "What people see today",
+        },
+      ],
+      "catalogue": [],
+      "flowIds": [],
+      "headline": "What people see today",
+      "map": false,
+      "recap": [],
+    },
+    {
+      "address": "/queries/plans/reviewed-plan/journey/story/",
+      "blocks": [
+        {
+          "records": [
+            {
+              "fields": [
+                "summary",
+                "scope",
+                "concepts",
+                "stages",
+                "chapters",
+              ],
+              "id": null,
+              "title": "The story 1",
+            },
+          ],
+          "summary": false,
+          "title": "The story",
+        },
+        {
+          "records": [],
+          "summary": false,
+          "title": "Execution",
+        },
+      ],
+      "catalogue": [],
+      "flowIds": [],
+      "headline": "How people use it",
+      "map": false,
+      "recap": [
+        "An authored sequence.",
+      ],
+    },
+    {
+      "address": "/queries/plans/reviewed-plan/journey/sc-normal/",
+      "blocks": [
+        {
+          "records": [
+            {
+              "fields": [
+                "id",
+                "title",
+                "story",
+                "flows",
+              ],
+              "id": "sc:normal",
+              "title": "A normal journey",
+            },
+          ],
+          "summary": false,
+          "title": "Planned scenario",
+        },
+      ],
+      "catalogue": [],
+      "flowIds": [
+        "flow:declared",
+      ],
+      "headline": "How people use it",
+      "map": false,
+      "recap": [
+        "An authored sequence.",
+      ],
+    },
+    {
+      "address": "/queries/plans/reviewed-plan/journey/stage-local/",
+      "blocks": [
+        {
+          "records": [
+            {
+              "fields": [
+                "id",
+                "name",
+                "summary",
+                "components",
+                "flows",
+              ],
+              "id": "stage:local",
+              "title": "Local stage",
+            },
+          ],
+          "summary": false,
+          "title": "Plan-local stage",
+        },
+      ],
+      "catalogue": [],
+      "flowIds": [
+        "flow:declared",
+      ],
+      "headline": "How people use it",
+      "map": false,
+      "recap": [
+        "An authored sequence.",
+      ],
+    },
+    {
+      "address": "/queries/plans/reviewed-plan/changes/system/",
+      "blocks": [
+        {
+          "records": [
+            {
+              "fields": [
+                "id",
+                "title",
+                "requires",
+                "ops",
+              ],
+              "id": "chg:behaviour",
+              "title": "Qualify the handler",
+            },
+          ],
+          "summary": true,
+          "title": "Changes",
+        },
+      ],
+      "catalogue": [],
+      "flowIds": [],
+      "headline": "The system with this plan",
+      "map": true,
+      "recap": [],
+    },
+    {
+      "address": "/queries/plans/reviewed-plan/changes/chg-behaviour/",
+      "blocks": [
+        {
+          "records": [
+            {
+              "fields": [
+                "id",
+                "title",
+                "requires",
+                "ops",
+              ],
+              "id": "chg:behaviour",
+              "title": "Qualify the handler",
+            },
+          ],
+          "summary": false,
+          "title": "Changes",
+        },
+      ],
+      "catalogue": [],
+      "flowIds": [],
+      "headline": "Qualify the handler",
+      "map": false,
+      "recap": [],
+    },
+    {
+      "address": "/queries/plans/reviewed-plan/changes/more/",
+      "blocks": [
+        {
+          "records": [
+            {
+              "fields": [
+                "id",
+                "component",
+                "on",
+                "cites",
+                "steps",
+              ],
+              "id": "h:a",
+              "title": "Other affected records 1",
+            },
+          ],
+          "summary": false,
+          "title": "Other affected records",
+        },
+        {
+          "records": [
+            {
+              "fields": [
+                "id",
+                "title",
+                "requires",
+                "ops",
+              ],
+              "id": "chg:behaviour",
+              "title": "Qualify the handler",
+            },
+          ],
+          "summary": true,
+          "title": "Full change records",
+        },
+      ],
+      "catalogue": [],
+      "flowIds": [],
+      "headline": "Also changing",
+      "map": false,
+      "recap": [],
+    },
+    {
+      "address": "/queries/plans/reviewed-plan/changes/ledger/",
+      "blocks": [
+        {
+          "records": [
+            {
+              "fields": [
+                "id",
+                "title",
+                "requires",
+                "ops",
+              ],
+              "id": "chg:behaviour",
+              "title": "Qualify the handler",
+            },
+          ],
+          "summary": true,
+          "title": "Changes",
+        },
+      ],
+      "catalogue": [],
+      "flowIds": [],
+      "headline": "All changes",
+      "map": false,
+      "recap": [],
+    },
+    {
+      "address": "/queries/plans/reviewed-plan/prove/coverage/",
+      "blocks": [
+        {
+          "records": [
+            {
+              "fields": [
+                "id",
+                "name",
+                "level",
+                "proves",
+              ],
+              "id": "tst:condition",
+              "title": "Recorded condition",
+            },
+          ],
+          "summary": false,
+          "title": "Tests",
+        },
+      ],
+      "catalogue": [],
+      "flowIds": [],
+      "headline": "How we prove it",
+      "map": false,
+      "recap": [],
+    },
+    {
+      "address": "/queries/plans/reviewed-plan/build/build-order/",
+      "blocks": [
+        {
+          "records": [
+            {
+              "fields": [
+                "id",
+                "title",
+                "team",
+                "implements",
+              ],
+              "id": "wi:work",
+              "title": "Implement the qualification",
+            },
+          ],
+          "summary": false,
+          "title": "Work items",
+        },
+        {
+          "records": [],
+          "summary": false,
+          "title": "Milestones",
+        },
+      ],
+      "catalogue": [],
+      "flowIds": [],
+      "headline": "Build order",
+      "map": false,
+      "recap": [],
+    },
+    {
+      "address": "/queries/plans/reviewed-plan/build/work-by-team/",
+      "blocks": [
+        {
+          "records": [
+            {
+              "fields": [
+                "id",
+                "title",
+                "team",
+                "implements",
+              ],
+              "id": "wi:work",
+              "title": "Implement the qualification",
+            },
+          ],
+          "summary": false,
+          "title": "Work items",
+        },
+        {
+          "records": [],
+          "summary": false,
+          "title": "Milestones",
+        },
+      ],
+      "catalogue": [],
+      "flowIds": [],
+      "headline": "Work by team",
+      "map": false,
+      "recap": [],
+    },
+    {
+      "address": "/queries/plans/reviewed-plan/build/progress/",
+      "blocks": [
+        {
+          "records": [
+            {
+              "fields": [
+                "id",
+                "title",
+                "team",
+                "implements",
+              ],
+              "id": "wi:work",
+              "title": "Implement the qualification",
+            },
+          ],
+          "summary": false,
+          "title": "Work items",
+        },
+        {
+          "records": [],
+          "summary": false,
+          "title": "Milestones",
+        },
+      ],
+      "catalogue": [],
+      "flowIds": [],
+      "headline": "Delivery progress",
+      "map": false,
+      "recap": [],
+    },
+    {
+      "address": "/queries/plans/reviewed-plan/commit/choices/",
+      "blocks": [
+        {
+          "records": [
+            {
+              "fields": [
+                "id",
+                "title",
+                "status",
+                "decision",
+              ],
+              "id": "dec:choice",
+              "title": "Keep the boundary",
+            },
+          ],
+          "summary": false,
+          "title": "The choices",
+        },
+      ],
+      "catalogue": [],
+      "flowIds": [],
+      "headline": "The choices",
+      "map": false,
+      "recap": [],
+    },
+    {
+      "address": "/queries/plans/reviewed-plan/commit/risks/",
+      "blocks": [
+        {
+          "records": [
+            {
+              "fields": [
+                "id",
+                "statement",
+                "likelihood",
+                "impact",
+              ],
+              "id": "risk:gap",
+              "title": "Risks 1",
+            },
+          ],
+          "summary": false,
+          "title": "Risks",
+        },
+      ],
+      "catalogue": [],
+      "flowIds": [],
+      "headline": "Risks",
+      "map": false,
+      "recap": [],
+    },
+    {
+      "address": "/queries/plans/reviewed-plan/commit/ask/",
+      "blocks": [
+        {
+          "records": [
+            {
+              "fields": [
+                "id",
+                "question",
+                "status",
+              ],
+              "id": "q:open",
+              "title": "Still to settle 1",
+            },
+          ],
+          "summary": false,
+          "title": "Still to settle",
+        },
+      ],
+      "catalogue": [],
+      "flowIds": [],
+      "headline": "Still to settle",
+      "map": false,
+      "recap": [],
+    },
+    {
+      "address": "/queries/plans/reviewed-plan/ref/all/",
+      "blocks": [],
+      "catalogue": [
+        {
+          "id": "queries",
+          "kind": "workspace",
+          "label": "Query fixture",
+        },
+        {
+          "id": "team:a",
+          "kind": "team",
+          "label": "A",
+        },
+        {
+          "id": "team:b",
+          "kind": "team",
+          "label": "B",
+        },
+        {
+          "id": "ext:supplier",
+          "kind": "external",
+          "label": "Supplier",
+        },
+        {
+          "id": "flow:declared",
+          "kind": "flow",
+          "label": "Declared flow",
+        },
+        {
+          "id": "flow:unrelated",
+          "kind": "flow",
+          "label": "Unrelated workspace flow",
+        },
+        {
+          "id": "dom:queries",
+          "kind": "domain",
+          "label": "Queries",
+        },
+        {
+          "id": "con:known",
+          "kind": "concept",
+          "label": "Known concept",
+        },
+        {
+          "id": "sys:a",
+          "kind": "system",
+          "label": "A",
+        },
+        {
+          "id": "svc:a",
+          "kind": "service",
+          "label": "A",
+        },
+        {
+          "id": "if:a",
+          "kind": "interface",
+          "label": "if:a",
+        },
+        {
+          "id": "api:a",
+          "kind": "endpoint",
+          "label": "GET /a",
+        },
+        {
+          "id": "if:supplier",
+          "kind": "interface",
+          "label": "if:supplier",
+        },
+        {
+          "id": "api:supplier",
+          "kind": "endpoint",
+          "label": "api:supplier",
+        },
+        {
+          "id": "h:a",
+          "kind": "handler",
+          "label": "h:a",
+        },
+        {
+          "id": "h:a#read",
+          "kind": "step",
+          "label": "h:a#read",
+        },
+        {
+          "id": "h:a#write",
+          "kind": "step",
+          "label": "h:a#write",
+        },
+        {
+          "id": "h:a#publish",
+          "kind": "step",
+          "label": "h:a#publish",
+        },
+        {
+          "id": "h:a#call",
+          "kind": "step",
+          "label": "h:a#call",
+        },
+        {
+          "id": "rel:consume",
+          "kind": "relationship",
+          "label": "Registers a topic consumer",
+        },
+        {
+          "id": "sys:b",
+          "kind": "system",
+          "label": "B",
+        },
+        {
+          "id": "svc:b",
+          "kind": "service",
+          "label": "B",
+        },
+        {
+          "id": "st:remote",
+          "kind": "store",
+          "label": "Remote",
+        },
+        {
+          "id": "top:remote",
+          "kind": "topic",
+          "label": "Events",
+        },
+        {
+          "id": "msg:remote",
+          "kind": "message",
+          "label": "msg:remote",
+        },
+        {
+          "id": "sub:b",
+          "kind": "subscription",
+          "label": "sub:b",
+        },
+        {
+          "id": "job:b",
+          "kind": "job",
+          "label": "job:b",
+        },
+        {
+          "id": "sch:remote",
+          "kind": "schema",
+          "label": "sch:remote",
+        },
+        {
+          "id": "sch:remote#id",
+          "kind": "field",
+          "label": "id",
+        },
+        {
+          "id": "rel:read",
+          "kind": "relationship",
+          "label": "Configures read access",
+        },
+        {
+          "id": "rel:boundary",
+          "kind": "relationship",
+          "label": "Registers an unmapped client",
+        },
+        {
+          "id": "sys:unmapped",
+          "kind": "system",
+          "label": "Unmapped",
+        },
+        {
+          "id": "plan:reviewed",
+          "kind": "plan",
+          "label": "Explain the reviewed change",
+        },
+        {
+          "id": "chg:behaviour",
+          "kind": "change",
+          "label": "Qualify the handler",
+        },
+        {
+          "id": "tst:condition",
+          "kind": "test",
+          "label": "Recorded condition",
+        },
+        {
+          "id": "wi:work",
+          "kind": "workItem",
+          "label": "Implement the qualification",
+        },
+        {
+          "id": "dec:choice",
+          "kind": "decision",
+          "label": "Keep the boundary",
+        },
+        {
+          "id": "risk:gap",
+          "kind": "risk",
+          "label": "risk:gap",
+        },
+        {
+          "id": "q:open",
+          "kind": "question",
+          "label": "q:open",
+        },
+        {
+          "id": "stage:local",
+          "kind": "stage",
+          "label": "Local stage",
+        },
+        {
+          "id": "sc:normal",
+          "kind": "scenario",
+          "label": "A normal journey",
+        },
+        {
+          "id": "req:retained",
+          "kind": "requirement",
+          "label": "Keep the cited conditions.",
+        },
+      ],
+      "flowIds": [],
+      "headline": "All records",
+      "map": false,
+      "recap": [],
+    },
+    {
+      "address": "/queries/plans/reviewed-plan/ref/services/",
+      "blocks": [],
+      "catalogue": [
+        {
+          "id": "svc:a",
+          "kind": "service",
+          "label": "A",
+        },
+        {
+          "id": "svc:b",
+          "kind": "service",
+          "label": "B",
+        },
+      ],
+      "flowIds": [],
+      "headline": "Components",
+      "map": false,
+      "recap": [],
+    },
+    {
+      "address": "/queries/plans/reviewed-plan/ref/stores/",
+      "blocks": [],
+      "catalogue": [
+        {
+          "id": "st:remote",
+          "kind": "store",
+          "label": "Remote",
+        },
+        {
+          "id": "top:remote",
+          "kind": "topic",
+          "label": "Events",
+        },
+      ],
+      "flowIds": [],
+      "headline": "Stores and topics",
+      "map": false,
+      "recap": [],
+    },
+    {
+      "address": "/queries/plans/reviewed-plan/ref/apis/",
+      "blocks": [],
+      "catalogue": [
+        {
+          "id": "if:a",
+          "kind": "interface",
+          "label": "if:a",
+        },
+        {
+          "id": "api:a",
+          "kind": "endpoint",
+          "label": "GET /a",
+        },
+        {
+          "id": "if:supplier",
+          "kind": "interface",
+          "label": "if:supplier",
+        },
+        {
+          "id": "api:supplier",
+          "kind": "endpoint",
+          "label": "api:supplier",
+        },
+      ],
+      "flowIds": [],
+      "headline": "APIs",
+      "map": false,
+      "recap": [],
+    },
+    {
+      "address": "/queries/plans/reviewed-plan/ref/schemas/",
+      "blocks": [],
+      "catalogue": [
+        {
+          "id": "sch:remote",
+          "kind": "schema",
+          "label": "sch:remote",
+        },
+        {
+          "id": "sch:remote#id",
+          "kind": "field",
+          "label": "id",
+        },
+      ],
+      "flowIds": [],
+      "headline": "Schemas",
+      "map": false,
+      "recap": [],
+    },
+    {
+      "address": "/queries/plans/reviewed-plan/ref/events/",
+      "blocks": [],
+      "catalogue": [
+        {
+          "id": "msg:remote",
+          "kind": "message",
+          "label": "msg:remote",
+        },
+      ],
+      "flowIds": [],
+      "headline": "Events",
+      "map": false,
+      "recap": [],
+    },
+    {
+      "address": "/queries/plans/reviewed-plan/ref/flows/",
+      "blocks": [],
+      "catalogue": [
+        {
+          "id": "flow:declared",
+          "kind": "flow",
+          "label": "Declared flow",
+        },
+        {
+          "id": "flow:unrelated",
+          "kind": "flow",
+          "label": "Unrelated workspace flow",
+        },
+      ],
+      "flowIds": [],
+      "headline": "Flows",
+      "map": false,
+      "recap": [],
+    },
+    {
+      "address": "/queries/plans/reviewed-plan/ref/screens/",
+      "blocks": [],
+      "catalogue": [],
+      "flowIds": [],
+      "headline": "Screens",
+      "map": false,
+      "recap": [],
+    },
+    {
+      "address": "/queries/plans/reviewed-plan/ref/operations/",
+      "blocks": [],
+      "catalogue": [],
+      "flowIds": [],
+      "headline": "Operations",
+      "map": false,
+      "recap": [],
+    },
+    {
+      "address": "/queries/plans/reviewed-plan/ref/ledger/",
+      "blocks": [],
+      "catalogue": [
+        {
+          "id": "chg:behaviour",
+          "kind": "change",
+          "label": "Qualify the handler",
+        },
+      ],
+      "flowIds": [],
+      "headline": "Changes",
+      "map": false,
+      "recap": [],
+    },
+    {
+      "address": "/queries/plans/reviewed-plan/ref/tests/",
+      "blocks": [],
+      "catalogue": [
+        {
+          "id": "tst:condition",
+          "kind": "test",
+          "label": "Recorded condition",
+        },
+      ],
+      "flowIds": [],
+      "headline": "Tests",
+      "map": false,
+      "recap": [],
+    },
+    {
+      "address": "/queries/plans/reviewed-plan/ref/work/",
+      "blocks": [],
+      "catalogue": [
+        {
+          "id": "wi:work",
+          "kind": "workItem",
+          "label": "Implement the qualification",
+        },
+      ],
+      "flowIds": [],
+      "headline": "Work items",
+      "map": false,
+      "recap": [],
+    },
+    {
+      "address": "/queries/plans/reviewed-plan/ref/milestones/",
+      "blocks": [],
+      "catalogue": [],
+      "flowIds": [],
+      "headline": "Milestones",
+      "map": false,
+      "recap": [],
+    },
+    {
+      "address": "/queries/plans/reviewed-plan/ref/risks/",
+      "blocks": [],
+      "catalogue": [
+        {
+          "id": "risk:gap",
+          "kind": "risk",
+          "label": "risk:gap",
+        },
+      ],
+      "flowIds": [],
+      "headline": "Risks",
+      "map": false,
+      "recap": [],
+    },
+    {
+      "address": "/queries/plans/reviewed-plan/ref/teams/",
+      "blocks": [],
+      "catalogue": [
+        {
+          "id": "team:a",
+          "kind": "team",
+          "label": "A",
+        },
+        {
+          "id": "team:b",
+          "kind": "team",
+          "label": "B",
+        },
+      ],
+      "flowIds": [],
+      "headline": "Teams",
+      "map": false,
+      "recap": [],
+    },
+    {
+      "address": "/queries/plans/reviewed-plan/ref/decisions/",
+      "blocks": [],
+      "catalogue": [
+        {
+          "id": "dec:choice",
+          "kind": "decision",
+          "label": "Keep the boundary",
+        },
+      ],
+      "flowIds": [],
+      "headline": "Decisions",
+      "map": false,
+      "recap": [],
+    },
+    {
+      "address": "/queries/plans/reviewed-plan/ref/boundaries/",
+      "blocks": [],
+      "catalogue": [
+        {
+          "id": "ext:supplier",
+          "kind": "external",
+          "label": "Supplier",
+        },
+        {
+          "id": "sys:unmapped",
+          "kind": "system",
+          "label": "Unmapped",
+        },
+      ],
+      "flowIds": [],
+      "headline": "External parties and unmapped systems",
+      "map": false,
+      "recap": [],
+    },
+    {
+      "address": "/queries/plans/reviewed-plan/ref/subscriptions/",
+      "blocks": [],
+      "catalogue": [
+        {
+          "id": "sub:b",
+          "kind": "subscription",
+          "label": "sub:b",
+        },
+        {
+          "id": "job:b",
+          "kind": "job",
+          "label": "job:b",
+        },
+      ],
+      "flowIds": [],
+      "headline": "Subscriptions and jobs",
+      "map": false,
+      "recap": [],
+    },
+    {
+      "address": "/queries/plans/reviewed-plan/ref/concepts/",
+      "blocks": [],
+      "catalogue": [
+        {
+          "id": "con:known",
+          "kind": "concept",
+          "label": "Known concept",
+        },
+      ],
+      "flowIds": [],
+      "headline": "Concepts",
+      "map": false,
+      "recap": [],
+    },
+    {
+      "address": "/queries/plans/reviewed-plan/ref/questions/",
+      "blocks": [],
+      "catalogue": [
+        {
+          "id": "q:open",
+          "kind": "question",
+          "label": "q:open",
+        },
+        {
+          "id": "req:retained",
+          "kind": "requirement",
+          "label": "Keep the cited conditions.",
+        },
+      ],
+      "flowIds": [],
+      "headline": "Questions and requirements",
+      "map": false,
+      "recap": [],
+    },
+    {
+      "address": "/queries/plans/reviewed-plan/versions/history/",
+      "blocks": [
+        {
+          "records": [
+            {
+              "fields": [
+                "version",
+                "status",
+                "date",
+                "summary",
+                "why",
+                "pr",
+                "work",
+              ],
+              "id": null,
+              "title": "Revision ledger 1",
+            },
+            {
+              "fields": [
+                "version",
+                "status",
+                "date",
+                "approved_by",
+                "reason",
+              ],
+              "id": null,
+              "title": "Revision ledger 2",
+            },
+          ],
+          "summary": false,
+          "title": "Revision ledger",
+        },
+      ],
+      "catalogue": [],
+      "flowIds": [],
+      "headline": "Every version",
+      "map": false,
+      "recap": [],
+    },
+    {
+      "address": "/queries/plans/reviewed-plan/versions/v2.0/",
+      "blocks": [
+        {
+          "records": [
+            {
+              "fields": [
+                "version",
+                "status",
+                "date",
+                "summary",
+                "why",
+                "pr",
+                "work",
+              ],
+              "id": null,
+              "title": "Recorded revision 1",
+            },
+          ],
+          "summary": false,
+          "title": "Recorded revision",
+        },
+        {
+          "records": [],
+          "summary": false,
+          "title": "Saved plan snapshot",
+        },
+      ],
+      "catalogue": [],
+      "flowIds": [],
+      "headline": "2.0 · proposed",
+      "map": false,
+      "recap": [],
+    },
+    {
+      "address": "/queries/plans/reviewed-plan/versions/v1.0/",
+      "blocks": [
+        {
+          "records": [
+            {
+              "fields": [
+                "version",
+                "status",
+                "date",
+                "approved_by",
+                "reason",
+              ],
+              "id": null,
+              "title": "Recorded revision 1",
+            },
+          ],
+          "summary": false,
+          "title": "Recorded revision",
+        },
+        {
+          "records": [],
+          "summary": false,
+          "title": "Saved plan snapshot",
+        },
+      ],
+      "catalogue": [],
+      "flowIds": [],
+      "headline": "1.0 · approved",
+      "map": false,
+      "recap": [],
+    },
+  ],
+}
+`;
+
+exports[`uses the latest approved revision and keeps proposed and rejected versions distinct > explicit lifecycle and version addresses 1`] = `
+{
+  "historyHref": "/queries/plans/reviewed-plan/versions/history/",
+  "items": [
+    {
+      "date": "2026-11-01",
+      "href": "/queries/plans/reviewed-plan/versions/v2.0/",
+      "state": "proposed",
+      "summary": "Proposed wording",
+      "version": "2.0",
+    },
+    {
+      "date": "2026-10-11",
+      "href": "/queries/plans/reviewed-plan/versions/v1.1/",
+      "state": "rejected",
+      "summary": "",
+      "version": "1.1",
+    },
+    {
+      "date": "2026-10-01",
+      "href": "/queries/plans/reviewed-plan/versions/v1.0/",
+      "state": "approved",
+      "summary": "",
+      "version": "1.0",
+    },
+    {
+      "date": "2026-09-01",
+      "href": "/queries/plans/reviewed-plan/versions/v0.9/",
+      "state": "superseded",
+      "summary": "",
+      "version": "0.9",
+    },
+  ],
+  "label": "v2.0 proposed",
+}
+`;
+
+exports[`uses the latest approved revision and keeps proposed and rejected versions distinct > recorded revision with no saved snapshot 1`] = `
+[
+  {
+    "records": [
+      {
+        "data": {
+          "date": "2026-10-11",
+          "reason": "Out of scope",
+          "status": "rejected",
+          "version": "1.1",
+        },
+        "id": null,
+        "title": "Recorded revision 1",
+      },
+    ],
+    "summary": false,
+    "title": "Recorded revision",
+  },
+  {
+    "records": [],
+    "summary": false,
+    "title": "Saved plan snapshot",
+  },
+]
+`;
