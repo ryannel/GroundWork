@@ -595,3 +595,21 @@ The three source plans needing reconciliation contain 4,219 original leaves, 104
 The data PR records complete pointer receipts in `reviews/plan-context.md` and its proposal ledger. Typed
 story context preserves those facts without weakening the ban on copied current collections. This
 reversible clarification follows subagent review under the user's delegated authority.
+
+### PR10 clarification: preserve archived explorer interpretations
+
+The arbitrary method browser and its embedded code excerpts may retire after the original
+interpretations and pinned source destinations are preserved. Entry flow and its parity gates
+still apply to supported entries. Old links retain their exact repository and pin, and a method
+without a supported entry has an explicit retirement destination.
+
+A separate Volvo data PR preserves the 561 published Inferred claims with their original
+interpretation sidecars, reviews and examined context. The archive sits alongside canonical
+evidence and has a repository-scoped destination. An exact crosswalk links the archive to 215
+canonical claim candidates with complete observed citations, including 65 recovered from
+same-pin source evidence. The remaining 346 cite only context snapshots and retain their
+original provenance and confidence in the archive. The canonical claim and current-fact
+validators retain their existing citation requirements.
+
+The audit, original denominators and recovery proof are recorded in
+`artifacts/rebuild/pr10/interpretation-amendment.md`.

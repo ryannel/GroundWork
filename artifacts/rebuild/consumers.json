@@ -2365,7 +2365,7 @@
       "evidence": [
         {
           "file": "src/app/[workspace]/things/page.tsx",
-          "line": 27,
+          "line": 40,
           "text": "const native = await readCanonicalModelIndex(id);"
         }
       ],
@@ -2386,11 +2386,15 @@
         {
           "file": "artifacts/rebuild/pr8/release/inspection-focused-check.log",
           "sha256": "09bfe0c6dd8840e4bc670c2de35a3f38c7d22fc58c58388323262277263885b2"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/archive-reader.md",
+          "sha256": "08599d94feabfb08f5a8302a78792588ed74dbf8b5666334aa8aad259af05a82"
         }
       ],
       "reason": "The workspace thing route selects the exact canonical record and uses the native inspector.",
       "role": "consumer",
-      "sourceSha256": "e868fb9500acd78bab74fbb1925edc429775dc8a537429397da4ea158bd2b373",
+      "sourceSha256": "b139d3228e711248ad40820f4cbbc382fbf99cd167958c4411fbfc60d9f42c1b",
       "status": "migrated"
     },
     "factBindings": [
@@ -2420,7 +2424,7 @@
     "reachable": true,
     "reason": "The workspace thing route selects the exact canonical record and uses the native inspector.",
     "role": "consumer",
-    "sourceSha256": "e868fb9500acd78bab74fbb1925edc429775dc8a537429397da4ea158bd2b373",
+    "sourceSha256": "b139d3228e711248ad40820f4cbbc382fbf99cd167958c4411fbfc60d9f42c1b",
     "status": "migrated"
   },
   {
@@ -6473,7 +6477,7 @@
       "evidence": [
         {
           "file": "src/features/plan/today/model-today-thing.tsx",
-          "line": 20,
+          "line": 21,
           "text": "export function ModelTodayThing({"
         }
       ],
@@ -6490,6 +6494,10 @@
         {
           "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
           "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/archive-reader.md",
+          "sha256": "08599d94feabfb08f5a8302a78792588ed74dbf8b5666334aa8aad259af05a82"
         }
       ],
       "reason": "The obsolete render wrapper is absent after its native replacement passed the recorded actual HTTP and focused proof. Its prior whole-source hash is retained in the obsolete-wrapper receipt.",
@@ -6707,7 +6715,7 @@
       "evidence": [
         {
           "file": "src/features/plan/today/model-today-thing.tsx",
-          "line": 20,
+          "line": 21,
           "text": "export function ModelTodayThing({"
         }
       ],
@@ -6724,11 +6732,15 @@
         {
           "file": "artifacts/rebuild/pr8/release/hook-fixes-focused.log",
           "sha256": "76c69e8c5dd6d7d3ef2570d18d75f2dac3964ef533d1043aaa742d628186d642"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/archive-reader.md",
+          "sha256": "08599d94feabfb08f5a8302a78792588ed74dbf8b5666334aa8aad259af05a82"
         }
       ],
       "reason": "Renders the selected current canonical thing from its bounded native record.",
       "role": "consumer",
-      "sourceSha256": "3b7ea9ded462b83b9747ef5ac56b0ebe336655fc36a7bea30f746bf611fb5f26",
+      "sourceSha256": "65b20db1dff9c112987989219ba6e347250e6271ed82f81c643c3b50e755cb84",
       "status": "migrated"
     },
     "factBindings": [
@@ -6744,7 +6756,7 @@
     "reachable": true,
     "reason": "Renders the selected current canonical thing from its bounded native record.",
     "role": "consumer",
-    "sourceSha256": "3b7ea9ded462b83b9747ef5ac56b0ebe336655fc36a7bea30f746bf611fb5f26",
+    "sourceSha256": "65b20db1dff9c112987989219ba6e347250e6271ed82f81c643c3b50e755cb84",
     "status": "migrated"
   },
   {
@@ -6825,7 +6837,7 @@
       "evidence": [
         {
           "file": "src/features/plan/today/model-today-thing.tsx",
-          "line": 20,
+          "line": 21,
           "text": "export function ModelTodayThing({"
         }
       ],
@@ -6842,6 +6854,10 @@
         {
           "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
           "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/archive-reader.md",
+          "sha256": "08599d94feabfb08f5a8302a78792588ed74dbf8b5666334aa8aad259af05a82"
         }
       ],
       "reason": "The obsolete render wrapper is absent after its native replacement passed the recorded actual HTTP and focused proof. Its prior whole-source hash is retained in the obsolete-wrapper receipt.",
@@ -6885,7 +6901,7 @@
       "evidence": [
         {
           "file": "src/features/plan/today/model-today-thing.tsx",
-          "line": 20,
+          "line": 21,
           "text": "export function ModelTodayThing({"
         }
       ],
@@ -6902,6 +6918,10 @@
         {
           "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
           "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/archive-reader.md",
+          "sha256": "08599d94feabfb08f5a8302a78792588ed74dbf8b5666334aa8aad259af05a82"
         }
       ],
       "reason": "The obsolete render wrapper is absent after its native replacement passed the recorded actual HTTP and focused proof. Its prior whole-source hash is retained in the obsolete-wrapper receipt.",
@@ -6945,7 +6965,7 @@
       "evidence": [
         {
           "file": "src/features/plan/today/model-today-thing.tsx",
-          "line": 20,
+          "line": 21,
           "text": "export function ModelTodayThing({"
         }
       ],
@@ -6962,6 +6982,10 @@
         {
           "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
           "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/archive-reader.md",
+          "sha256": "08599d94feabfb08f5a8302a78792588ed74dbf8b5666334aa8aad259af05a82"
         }
       ],
       "reason": "The obsolete render wrapper is absent after its native replacement passed the recorded actual HTTP and focused proof. Its prior whole-source hash is retained in the obsolete-wrapper receipt.",
@@ -7148,7 +7172,7 @@
       "evidence": [
         {
           "file": "src/features/plan/today/model-today-thing.tsx",
-          "line": 20,
+          "line": 21,
           "text": "export function ModelTodayThing({"
         }
       ],
@@ -7165,6 +7189,10 @@
         {
           "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
           "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/archive-reader.md",
+          "sha256": "08599d94feabfb08f5a8302a78792588ed74dbf8b5666334aa8aad259af05a82"
         }
       ],
       "reason": "The obsolete render wrapper is absent after its native replacement passed the recorded actual HTTP and focused proof. Its prior whole-source hash is retained in the obsolete-wrapper receipt.",
