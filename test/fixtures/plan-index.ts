@@ -8,7 +8,8 @@ import type {
   IndexTeam,
   PlanIndexInput,
 } from '@/application/workspace-work/workspace-plan-index';
-import type { Plan, Programme, ProgressEvent } from '@/domain/plan/plan.generated';
+import type { ProgressEvent } from '@/domain/model/plan.generated';
+import type { Plan, Programme } from '@/domain/plan/plan.generated';
 
 export const TEAMS: readonly IndexTeam[] = [
   { id: 'team:orders', name: 'Orders', partner: false, contacts: [] },

@@ -8,7 +8,8 @@ import {
   standingOf,
   type StandingContext,
 } from '@/application/plan/work-standing';
-import type { Plan, ProgressEvent } from '@/domain/plan/plan.generated';
+import type { ProgressEvent } from '@/domain/model/plan.generated';
+import type { Plan } from '@/domain/plan/plan.generated';
 
 const plan: Plan = {
   meta: { id: 'order-change', title: 'Order change' },

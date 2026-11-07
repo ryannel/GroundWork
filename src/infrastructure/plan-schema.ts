@@ -8,8 +8,6 @@ import { fullFormats } from 'ajv-formats/dist/formats.js';
 import { isRecord, prop } from '@/application/plan/ids';
 import { pathIn, readText } from '@/infrastructure/disk';
 
-import { shapeProblems } from './plan-schema-errors';
-
 interface Validators {
   readonly root: <T>() => ValidateFunction<T>;
   readonly def: <T = unknown>(name: string) => ValidateFunction<T> | undefined;
@@ -62,11 +60,4 @@ export async function planDef<T>(name: string): Promise<ValidateFunction<T>> {
   const check = def<T>(name);
   if (check === undefined) throw new Error(`legacy-plan.schema.json has no $defs/${name}`);
   return check;
-}
-
-/** Why a value failed a `planDef` check, one readable line per problem. */
-export function defProblems(check: ValidateFunction): string[] {
-  return shapeProblems(check.errors ?? []).map(
-    ({ prop: key, tail, message }) => `${[key, ...tail].join('.')}: ${message}`,
-  );
 }

@@ -251,3 +251,10 @@ export function shapeProblems(errors: readonly ErrorObject[]): ShapeProblem[] {
   }
   return out;
 }
+
+/** Why a value failed a schema definition check, one readable line per problem. */
+export function defProblems(check: ValidateFunction): string[] {
+  return shapeProblems(check.errors ?? []).map(
+    ({ prop: key, tail, message }) => `${[key, ...tail].join('.')}: ${message}`,
+  );
+}

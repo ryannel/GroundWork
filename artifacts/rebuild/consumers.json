@@ -2519,7 +2519,11 @@
         },
         {
           "file": "artifacts/rebuild/pr10/verification.md",
-          "sha256": "c8ede685a77d504ef5b938a3336e6025fb97afe4665191cc7bc0b1b9b1999704"
+          "sha256": "260fbc2cbd18ee23056a5fc6897cb724221c16580b67f50996351b7aa5c54421"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/progress.md",
+          "sha256": "f04a5bcaf03723849c3b079eac4bc7d0c76117335b4ed1018ed114b3eed65244"
         }
       ],
       "reason": "The home library reads registration and canonical workspace counts, proven with a mixed registered library.",
@@ -2725,7 +2729,11 @@
         },
         {
           "file": "artifacts/rebuild/pr10/verification.md",
-          "sha256": "c8ede685a77d504ef5b938a3336e6025fb97afe4665191cc7bc0b1b9b1999704"
+          "sha256": "260fbc2cbd18ee23056a5fc6897cb724221c16580b67f50996351b7aa5c54421"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/progress.md",
+          "sha256": "f04a5bcaf03723849c3b079eac4bc7d0c76117335b4ed1018ed114b3eed65244"
         }
       ],
       "reason": "Projects canonical entry execution and cited backing to the node view.",
@@ -3463,7 +3471,11 @@
         },
         {
           "file": "artifacts/rebuild/pr10/verification.md",
-          "sha256": "c8ede685a77d504ef5b938a3336e6025fb97afe4665191cc7bc0b1b9b1999704"
+          "sha256": "260fbc2cbd18ee23056a5fc6897cb724221c16580b67f50996351b7aa5c54421"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/progress.md",
+          "sha256": "f04a5bcaf03723849c3b079eac4bc7d0c76117335b4ed1018ed114b3eed65244"
         }
       ],
       "reason": "The active index builds native facts. It reuses the node when placement requires no alias rewrite. All eight Volvo before and after authored and derived hashes and proposed effects match exactly.",
@@ -4282,11 +4294,15 @@
         {
           "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
           "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/progress.md",
+          "sha256": "f04a5bcaf03723849c3b079eac4bc7d0c76117335b4ed1018ed114b3eed65244"
         }
       ],
       "reason": "The active canonical bindings are modelPlanProgressOf, modelProgressRecords. They read, index or present the native records directly.",
       "role": "consumer",
-      "sourceSha256": "70e5669dc4f744005fbe38b8231f1c4da7c6a7d6b077bdd6c025785915d24735",
+      "sourceSha256": "9d5c00b8ceaede0f5eccc647b8aa66732dff53fb10abf9b4e433e9ac6805a3ef",
       "status": "migrated"
     },
     "factBindings": [
@@ -4296,8 +4312,8 @@
     "file": "src/application/model-progress.ts",
     "hits": [
       {
-        "line": 4,
-        "text": "import type { Progress, ProgressEvent } from '@/domain/plan/plan.generated';"
+        "line": 3,
+        "text": "import type { Progress, ProgressEvent } from '@/domain/model/plan.generated';"
       }
     ],
     "legacyDependency": false,
@@ -4308,7 +4324,7 @@
     "reachable": true,
     "reason": "The active canonical bindings are modelPlanProgressOf, modelProgressRecords. They read, index or present the native records directly.",
     "role": "consumer",
-    "sourceSha256": "70e5669dc4f744005fbe38b8231f1c4da7c6a7d6b077bdd6c025785915d24735",
+    "sourceSha256": "9d5c00b8ceaede0f5eccc647b8aa66732dff53fb10abf9b4e433e9ac6805a3ef",
     "status": "migrated"
   },
   {
@@ -4625,11 +4641,15 @@
         {
           "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
           "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/progress.md",
+          "sha256": "f04a5bcaf03723849c3b079eac4bc7d0c76117335b4ed1018ed114b3eed65244"
         }
       ],
       "reason": "The active canonical bindings are modelSystemPlanProgress, modelSystemPlansOf. They read, index or present the native records directly.",
       "role": "consumer",
-      "sourceSha256": "ca239d758c8fa27a31e9fecd54616f7e9fe8086c28bfccc3d8482c1916dd8989",
+      "sourceSha256": "3501f18a78aa5b047f21c3d94a91a24fecebe28903221d3db33b188fc0bd9fca",
       "status": "migrated"
     },
     "factBindings": [
@@ -4640,7 +4660,7 @@
     "hits": [
       {
         "line": 5,
-        "text": "import type { Progress } from '@/domain/plan/plan.generated';"
+        "text": "import type { Progress } from '@/domain/model/plan.generated';"
       },
       {
         "line": 6,
@@ -4655,7 +4675,7 @@
     "reachable": true,
     "reason": "The active canonical bindings are modelSystemPlanProgress, modelSystemPlansOf. They read, index or present the native records directly.",
     "role": "consumer",
-    "sourceSha256": "ca239d758c8fa27a31e9fecd54616f7e9fe8086c28bfccc3d8482c1916dd8989",
+    "sourceSha256": "3501f18a78aa5b047f21c3d94a91a24fecebe28903221d3db33b188fc0bd9fca",
     "status": "migrated"
   },
   {
@@ -8340,7 +8360,11 @@
         },
         {
           "file": "artifacts/rebuild/pr10/verification.md",
-          "sha256": "c8ede685a77d504ef5b938a3336e6025fb97afe4665191cc7bc0b1b9b1999704"
+          "sha256": "260fbc2cbd18ee23056a5fc6897cb724221c16580b67f50996351b7aa5c54421"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/progress.md",
+          "sha256": "f04a5bcaf03723849c3b079eac4bc7d0c76117335b4ed1018ed114b3eed65244"
         }
       ],
       "reason": "Reads registry metadata and canonical workspace counts for the library.",
@@ -8776,11 +8800,15 @@
         {
           "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
           "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/progress.md",
+          "sha256": "f04a5bcaf03723849c3b079eac4bc7d0c76117335b4ed1018ed114b3eed65244"
         }
       ],
       "reason": "The ordinary progress command reports native standing and preserves independent append-only records.",
       "role": "consumer",
-      "sourceSha256": "a60d8d654cef45cb2c2dad1c9a33ea782abf7ca2878ec272dbfc87d8c4a457d8",
+      "sourceSha256": "68ac798d966a9b74a58e4409b2c70e43e687495168339d3e3f827734a467bd38",
       "status": "migrated"
     },
     "factBindings": [],
@@ -8788,11 +8816,11 @@
     "hits": [
       {
         "line": 29,
-        "text": "import type { Progress, ProgressEvent } from '@/domain/plan/plan.generated';"
+        "text": "import type { Progress, ProgressEvent } from '@/domain/model/plan.generated';"
       },
       {
         "line": 33,
-        "text": "import { planDef, defProblems } from '@/infrastructure/plan-schema';"
+        "text": "import { defProblems } from '@/infrastructure/plan-schema-errors';"
       },
       {
         "line": 35,
@@ -8841,7 +8869,7 @@
     "reachable": true,
     "reason": "The ordinary progress command reports native standing and preserves independent append-only records.",
     "role": "consumer",
-    "sourceSha256": "a60d8d654cef45cb2c2dad1c9a33ea782abf7ca2878ec272dbfc87d8c4a457d8",
+    "sourceSha256": "68ac798d966a9b74a58e4409b2c70e43e687495168339d3e3f827734a467bd38",
     "status": "migrated"
   },
   {

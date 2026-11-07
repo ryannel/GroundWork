@@ -36,3 +36,7 @@ original bytes are present in ignored reports. The installed packs contain publi
 The canonical claim schema can carry exact statement, reasoning, confidence, limitations and
 citations. Context locations, alternative explanations, dependency notes and the original reviews
 need a retained companion receipt. Published Inferred material remains interpretation.
+
+A pinned recovery closes the observed citation set for 65 additional claims. The proposed
+preservation has 215 canonical candidates and 346 context-only interpretations. See
+`interpretation-amendment.md` for the exact closure and pending decision.

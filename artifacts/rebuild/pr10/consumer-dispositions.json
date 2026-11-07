@@ -33,7 +33,11 @@
         },
         {
           "file": "artifacts/rebuild/pr10/verification.md",
-          "sha256": "c8ede685a77d504ef5b938a3336e6025fb97afe4665191cc7bc0b1b9b1999704"
+          "sha256": "260fbc2cbd18ee23056a5fc6897cb724221c16580b67f50996351b7aa5c54421"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/progress.md",
+          "sha256": "f04a5bcaf03723849c3b079eac4bc7d0c76117335b4ed1018ed114b3eed65244"
         }
       ],
       "status": "migrated"
@@ -61,7 +65,11 @@
         },
         {
           "file": "artifacts/rebuild/pr10/verification.md",
-          "sha256": "c8ede685a77d504ef5b938a3336e6025fb97afe4665191cc7bc0b1b9b1999704"
+          "sha256": "260fbc2cbd18ee23056a5fc6897cb724221c16580b67f50996351b7aa5c54421"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/progress.md",
+          "sha256": "f04a5bcaf03723849c3b079eac4bc7d0c76117335b4ed1018ed114b3eed65244"
         }
       ]
     },
@@ -88,7 +96,11 @@
         },
         {
           "file": "artifacts/rebuild/pr10/verification.md",
-          "sha256": "c8ede685a77d504ef5b938a3336e6025fb97afe4665191cc7bc0b1b9b1999704"
+          "sha256": "260fbc2cbd18ee23056a5fc6897cb724221c16580b67f50996351b7aa5c54421"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/progress.md",
+          "sha256": "f04a5bcaf03723849c3b079eac4bc7d0c76117335b4ed1018ed114b3eed65244"
         }
       ],
       "status": "migrated"
@@ -126,7 +138,11 @@
         },
         {
           "file": "artifacts/rebuild/pr10/verification.md",
-          "sha256": "c8ede685a77d504ef5b938a3336e6025fb97afe4665191cc7bc0b1b9b1999704"
+          "sha256": "260fbc2cbd18ee23056a5fc6897cb724221c16580b67f50996351b7aa5c54421"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/progress.md",
+          "sha256": "f04a5bcaf03723849c3b079eac4bc7d0c76117335b4ed1018ed114b3eed65244"
         }
       ]
     },
@@ -196,7 +212,11 @@
         },
         {
           "file": "artifacts/rebuild/pr10/verification.md",
-          "sha256": "c8ede685a77d504ef5b938a3336e6025fb97afe4665191cc7bc0b1b9b1999704"
+          "sha256": "260fbc2cbd18ee23056a5fc6897cb724221c16580b67f50996351b7aa5c54421"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/progress.md",
+          "sha256": "f04a5bcaf03723849c3b079eac4bc7d0c76117335b4ed1018ed114b3eed65244"
         }
       ],
       "status": "migrated"
@@ -224,7 +244,11 @@
         },
         {
           "file": "artifacts/rebuild/pr10/verification.md",
-          "sha256": "c8ede685a77d504ef5b938a3336e6025fb97afe4665191cc7bc0b1b9b1999704"
+          "sha256": "260fbc2cbd18ee23056a5fc6897cb724221c16580b67f50996351b7aa5c54421"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/progress.md",
+          "sha256": "f04a5bcaf03723849c3b079eac4bc7d0c76117335b4ed1018ed114b3eed65244"
         }
       ],
       "status": "migrated"
@@ -252,7 +276,11 @@
         },
         {
           "file": "artifacts/rebuild/pr10/verification.md",
-          "sha256": "c8ede685a77d504ef5b938a3336e6025fb97afe4665191cc7bc0b1b9b1999704"
+          "sha256": "260fbc2cbd18ee23056a5fc6897cb724221c16580b67f50996351b7aa5c54421"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/progress.md",
+          "sha256": "f04a5bcaf03723849c3b079eac4bc7d0c76117335b4ed1018ed114b3eed65244"
         }
       ]
     },
@@ -308,7 +336,11 @@
         },
         {
           "file": "artifacts/rebuild/pr10/verification.md",
-          "sha256": "c8ede685a77d504ef5b938a3336e6025fb97afe4665191cc7bc0b1b9b1999704"
+          "sha256": "260fbc2cbd18ee23056a5fc6897cb724221c16580b67f50996351b7aa5c54421"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/progress.md",
+          "sha256": "f04a5bcaf03723849c3b079eac4bc7d0c76117335b4ed1018ed114b3eed65244"
         }
       ]
     },
@@ -343,9 +375,581 @@
         },
         {
           "file": "artifacts/rebuild/pr10/verification.md",
-          "sha256": "c8ede685a77d504ef5b938a3336e6025fb97afe4665191cc7bc0b1b9b1999704"
+          "sha256": "260fbc2cbd18ee23056a5fc6897cb724221c16580b67f50996351b7aa5c54421"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/progress.md",
+          "sha256": "f04a5bcaf03723849c3b079eac4bc7d0c76117335b4ed1018ed114b3eed65244"
         }
       ]
+    },
+    {
+      "file": "src/application/model-progress.ts",
+      "sourceSha256": "9d5c00b8ceaede0f5eccc647b8aa66732dff53fb10abf9b4e433e9ac6805a3ef",
+      "role": "consumer",
+      "reason": "The active canonical bindings are modelPlanProgressOf, modelProgressRecords. They read, index or present the native records directly.",
+      "evidence": [
+        {
+          "file": "src/application/model-progress.ts",
+          "line": 12,
+          "text": "export function modelPlanProgressOf(read: {"
+        },
+        {
+          "file": "src/application/model-progress.ts",
+          "line": 45,
+          "text": "export function modelProgressRecords("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/application/model-progress.test.ts",
+          "sha256": "62f97f9617a00839ac283c17c0673c07d2797a25a0440168edbe55744e5e8e68"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/progress.md",
+          "sha256": "f04a5bcaf03723849c3b079eac4bc7d0c76117335b4ed1018ed114b3eed65244"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/model-system-plans.ts",
+      "sourceSha256": "3501f18a78aa5b047f21c3d94a91a24fecebe28903221d3db33b188fc0bd9fca",
+      "role": "consumer",
+      "reason": "The active canonical bindings are modelSystemPlanProgress, modelSystemPlansOf. They read, index or present the native records directly.",
+      "evidence": [
+        {
+          "file": "src/application/model-system-plans.ts",
+          "line": 60,
+          "text": "export function modelSystemPlanProgress("
+        },
+        {
+          "file": "src/application/model-system-plans.ts",
+          "line": 27,
+          "text": "export function modelSystemPlansOf("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/application/model-system-plans.test.ts",
+          "sha256": "8d787995df7a4ee7a7933fa2cd0e6db1a0ba2a9621477513fffadf78aa2b699e"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
+          "sha256": "26fad31b5dafcbc501b186a1a6cc4b61f8efe614cb685a356c89edea8de6e31b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/progress.md",
+          "sha256": "f04a5bcaf03723849c3b079eac4bc7d0c76117335b4ed1018ed114b3eed65244"
+        }
+      ],
+      "status": "migrated"
+    },
+    {
+      "file": "src/application/plan/graph.ts",
+      "sourceSha256": "ffe0ef0ef71f0195e5f1625f00c88e1bab050162aacfd9b49fc290f7e17d9697",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-standing code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/plan/graph.ts",
+          "line": 22,
+          "text": "export function systemOf(plan: Partial<SystemSource>): SystemSource {"
+        },
+        {
+          "file": "src/infrastructure/plan-standing.ts",
+          "line": 4,
+          "text": "import {"
+        },
+        {
+          "file": "src/application/plan/realisation.ts",
+          "line": 1,
+          "text": "import { systemOf } from '@/application/plan/graph';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/progress.md",
+          "sha256": "f04a5bcaf03723849c3b079eac4bc7d0c76117335b4ed1018ed114b3eed65244"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/progress-draft.ts",
+      "sourceSha256": "25679ddbab4e79656fa1c3a2c7bd3309ac37787c9071c5eaf4c543b15c8ebe9c",
+      "role": "support",
+      "reason": "Formats independently authored progress drafts, commands and source labels.",
+      "evidence": [
+        {
+          "file": "src/application/plan/progress-draft.ts",
+          "line": 152,
+          "text": "export function agentPrompt(workspace: string, plan: string, event: ProgressEvent): string {"
+        },
+        {
+          "file": "src/application/plan/progress-draft.ts",
+          "line": 11,
+          "text": "export const CONFIDENCES: readonly Confidence[] = ['high', 'medium', 'low'];"
+        },
+        {
+          "file": "src/application/plan/progress-draft.ts",
+          "line": 66,
+          "text": "export function draftEvent(draft: ProgressDraft): ProgressEvent {"
+        },
+        {
+          "file": "src/application/plan/progress-draft.ts",
+          "line": 96,
+          "text": "export function eventYaml(event: ProgressEvent): string {"
+        },
+        {
+          "file": "src/application/plan/progress-draft.ts",
+          "line": 131,
+          "text": "export function progressCommand(workspace: string, plan: string, event: ProgressEvent): string {"
+        },
+        {
+          "file": "src/application/plan/progress-draft.ts",
+          "line": 12,
+          "text": "export const SOURCE_KINDS: readonly SourceKind[] = ["
+        },
+        {
+          "file": "src/application/plan/progress-draft.ts",
+          "line": 41,
+          "text": "export function statesFor(kind: DraftKind): readonly string[] {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-cli-handoff.md",
+          "sha256": "7640d6986db1b1744bce717b831891e9c225e3199b9408b55fa38de0527f592b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/progress.md",
+          "sha256": "f04a5bcaf03723849c3b079eac4bc7d0c76117335b4ed1018ed114b3eed65244"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/progress.ts",
+      "sourceSha256": "a82d5879f09158b0b943b6c289057683f1c6d24be364442dccaec38422d0f009",
+      "role": "support",
+      "reason": "Validates and queries the independent append-only progress events.",
+      "evidence": [
+        {
+          "file": "src/application/plan/progress.ts",
+          "line": 108,
+          "text": "export function appendEvent("
+        },
+        {
+          "file": "src/application/plan/progress.ts",
+          "line": 60,
+          "text": "export function checkProgress(plan: ProgressSubjects, progress: Progress): Issue[] {"
+        },
+        {
+          "file": "src/application/plan/progress.ts",
+          "line": 133,
+          "text": "export function issueStatusOf(progress: Progress): IssueStatus {"
+        },
+        {
+          "file": "src/application/plan/progress.ts",
+          "line": 85,
+          "text": "export function latestEvent("
+        },
+        {
+          "file": "src/application/plan/progress.ts",
+          "line": 74,
+          "text": "export const sourceUrl = (event: ProgressEvent): string | undefined => {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-cli-handoff.md",
+          "sha256": "7640d6986db1b1744bce717b831891e9c225e3199b9408b55fa38de0527f592b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/progress.md",
+          "sha256": "f04a5bcaf03723849c3b079eac4bc7d0c76117335b4ed1018ed114b3eed65244"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/realisation.ts",
+      "sourceSha256": "798330cc8c08b8ef39c172133219c115b2d9e77f6dc6f5739de7daf369eee5a6",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-standing code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/plan/realisation.ts",
+          "line": 15,
+          "text": "export type RealisationState = 'missing' | 'partial' | 'matches' | 'differs';"
+        },
+        {
+          "file": "src/infrastructure/plan-standing.ts",
+          "line": 4,
+          "text": "import {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/progress.md",
+          "sha256": "f04a5bcaf03723849c3b079eac4bc7d0c76117335b4ed1018ed114b3eed65244"
+        }
+      ]
+    },
+    {
+      "file": "src/application/plan/work-standing.ts",
+      "sourceSha256": "e9e835362e1f1513d44dea562e9c946e6eaadc89b18860b7d97c29f294cbdd74",
+      "role": "support",
+      "reason": "Computes work commitments, dates and blockers from supplied metadata and recorded events.",
+      "evidence": [
+        {
+          "file": "src/application/plan/work-standing.ts",
+          "line": 259,
+          "text": "export function commitmentsOf("
+        },
+        {
+          "file": "src/application/plan/work-standing.ts",
+          "line": 162,
+          "text": "export function gapDays(promisedFor: string | null, neededBy: string | null): number | null {"
+        },
+        {
+          "file": "src/application/plan/work-standing.ts",
+          "line": 346,
+          "text": "export function standingOf("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-cli-handoff.md",
+          "sha256": "7640d6986db1b1744bce717b831891e9c225e3199b9408b55fa38de0527f592b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/progress.md",
+          "sha256": "f04a5bcaf03723849c3b079eac4bc7d0c76117335b4ed1018ed114b3eed65244"
+        }
+      ]
+    },
+    {
+      "file": "src/application/workspace-work/milestones.ts",
+      "sourceSha256": "775c41f11b6f6e363b88225c25593a476a8b8cf79d6417d0cbb49255a48033c6",
+      "role": "retirement",
+      "reason": "Retains the prior plan, drawing or workspace contract for the old readers and fixture tests. Preserve any independently imported types until the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/application/workspace-work/milestones.ts",
+          "line": 1,
+          "text": "import { gapDays, rollUpCommitment, type CommitmentState } from '@/application/plan/work-standing';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/inventory-active-roots.md",
+          "sha256": "91114ee104569ea33aa3bf1c81a64d303ed91339b755b6e52fcd5881c8c700ad"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
+          "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/progress.md",
+          "sha256": "f04a5bcaf03723849c3b079eac4bc7d0c76117335b4ed1018ed114b3eed65244"
+        }
+      ],
+      "stage": 10
+    },
+    {
+      "file": "src/application/workspace-work/workspace-plan-index.ts",
+      "sourceSha256": "f39a0d6e3493952b4c4b82754b8f7b1c44e658faf2810bb712b5889e7654c9e3",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old workspace-plan-index code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof. Module evaluation is still reachable.",
+      "evidence": [
+        {
+          "file": "src/application/workspace-work/workspace-plan-index.ts",
+          "line": 22,
+          "text": "export interface IndexPlanInput {"
+        },
+        {
+          "file": "src/infrastructure/workspace-plan-index.ts",
+          "line": 2,
+          "text": "import {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/progress.md",
+          "sha256": "f04a5bcaf03723849c3b079eac4bc7d0c76117335b4ed1018ed114b3eed65244"
+        }
+      ]
+    },
+    {
+      "file": "src/domain/model/plan.generated.ts",
+      "sourceSha256": "2315258ac6c13d5f321ce92abde50d113766c9f158577d5d3ca820190f18cdb9",
+      "role": "support",
+      "reason": "Generated type declarations for the canonical plan contract are imported by the generated validation registry.",
+      "evidence": [
+        {
+          "file": "src/domain/model/plan.generated.ts",
+          "line": 1,
+          "text": "/* Generated from schema/plan.schema.json by tools/generate-plan-types.ts. Do not edit: run npm run generate. */"
+        },
+        {
+          "file": "src/domain/model/contracts.generated.ts",
+          "line": 3,
+          "text": "import type { CanonicalPlanTypes } from '@/domain/model/plan.generated';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/infrastructure/model-schema.test.ts",
+          "sha256": "6f16582a87803f6b07158e519f5995cae0aea3241003615c26a38ee9d7538d11"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/progress.md",
+          "sha256": "f04a5bcaf03723849c3b079eac4bc7d0c76117335b4ed1018ed114b3eed65244"
+        }
+      ]
+    },
+    {
+      "file": "src/domain/plan/plan.generated.ts",
+      "sourceSha256": "1ce6ef70c0dea25c5cfccbb9ed9f5a4fc7dab0f1f8245e467995b53371f36a2a",
+      "role": "support",
+      "reason": "The generated declarations still serve retained format-1 readers and fixtures. Progress and its validator now use the exact consolidated definitions.",
+      "evidence": [
+        {
+          "file": "src/domain/plan/plan.generated.ts",
+          "line": 1,
+          "text": "/* Generated from schema/legacy-plan.schema.json by tools/generate-plan-types.ts. Do not edit: run `npm run generate`. */"
+        },
+        {
+          "file": "src/infrastructure/progress-store.ts",
+          "line": 8,
+          "text": "import type { Progress } from '@/domain/model/plan.generated';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr10/progress.md",
+          "sha256": "f04a5bcaf03723849c3b079eac4bc7d0c76117335b4ed1018ed114b3eed65244"
+        },
+        {
+          "file": "src/infrastructure/model-plan-context.test.ts",
+          "sha256": "7c17803752579f4aa7256f6ecd883459fff12976e05b693a0e40c19bb677ec2c"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        }
+      ]
+    },
+    {
+      "file": "src/infrastructure/plan-schema-errors.ts",
+      "sourceSha256": "7d43406a66bebd5e43bcc1d9de78944fa7dfa35f76ee6850cb1952ce1631235b",
+      "role": "support",
+      "reason": "Formats structural schema issues from a supplied validator result.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/plan-schema-errors.ts",
+          "line": 238,
+          "text": "export function shapeProblems(errors: readonly ErrorObject[]): ShapeProblem[] {"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "src/infrastructure/model-schema.test.ts",
+          "sha256": "6f16582a87803f6b07158e519f5995cae0aea3241003615c26a38ee9d7538d11"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/progress.md",
+          "sha256": "f04a5bcaf03723849c3b079eac4bc7d0c76117335b4ed1018ed114b3eed65244"
+        }
+      ]
+    },
+    {
+      "file": "src/infrastructure/plan-standing.ts",
+      "sourceSha256": "f90fc2d6b55b6e15efecff79081975bdbc39afe6587645f5cbc020bb08fe1416",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "The retained legacy fact path ends at src/application/workspace-model.ts#systemModelOf. No application or command entry point requests these legacy bindings. Keep the file for the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/plan-standing.ts",
+          "line": 24,
+          "text": "import { readToday } from './today-model';"
+        },
+        {
+          "file": "src/application/workspace-model.ts",
+          "line": 2,
+          "text": "import { derive, type Model } from '@/application/plan/derive';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/legacy-retention-binding-audit.json",
+          "sha256": "3bf0a24e25902aea18c411a305e22e50685963387c2dd6e6d4dbcfb92b2c89cc"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/progress.md",
+          "sha256": "f04a5bcaf03723849c3b079eac4bc7d0c76117335b4ed1018ed114b3eed65244"
+        }
+      ]
+    },
+    {
+      "file": "src/infrastructure/plan-validator.ts",
+      "sourceSha256": "99bfc583cbd7c1c80878663eef6d78961161c376aae47b0e22225e72e2b0001c",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "Retained by the old plan-base-store code through the recorded import path. The current app and command entry points request no binding from this file. Keep it for the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/plan-validator.ts",
+          "line": 18,
+          "text": "export interface PlanCheck {"
+        },
+        {
+          "file": "src/infrastructure/plan-base-store.ts",
+          "line": 11,
+          "text": "import { checkPlanData } from './plan-validator';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/retained-dependency-audit.json",
+          "sha256": "f0c528105902ae1a8d624e83bbb30571284777816b0ab47672273b9988ee0719"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/progress.md",
+          "sha256": "f04a5bcaf03723849c3b079eac4bc7d0c76117335b4ed1018ed114b3eed65244"
+        }
+      ]
+    },
+    {
+      "file": "src/infrastructure/progress-store.ts",
+      "sourceSha256": "f0fc19d1ce57875abe9216b9699b00cfbadf22f375a5412aa63720203bc5eb7a",
+      "role": "support",
+      "reason": "Reads and validates independent progress events for the selected plan folder.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/progress-store.ts",
+          "line": 44,
+          "text": "export async function readProgress("
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-cli-handoff.md",
+          "sha256": "7640d6986db1b1744bce717b831891e9c225e3199b9408b55fa38de0527f592b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/independent-support-binding-audit.json",
+          "sha256": "910a74e7d39852d8dd74112fd337c0640ad0c2b836669d0f74661a4e6c349529"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/progress.md",
+          "sha256": "f04a5bcaf03723849c3b079eac4bc7d0c76117335b4ed1018ed114b3eed65244"
+        }
+      ]
+    },
+    {
+      "file": "src/infrastructure/workspace-plans.ts",
+      "sourceSha256": "5fc2e5384f8ca99a5b8524fa5892e2a6eaa587d8c06661bb373d1c06e3ee0fc3",
+      "role": "retirement",
+      "stage": 10,
+      "reason": "The retained legacy fact path ends at src/application/workspace-model.ts#systemModelOf. No application or command entry point requests these legacy bindings. Keep the file for the PR 10 removal proof.",
+      "evidence": [
+        {
+          "file": "src/infrastructure/workspace-plans.ts",
+          "line": 13,
+          "text": "import { readStanding } from './plan-standing';"
+        },
+        {
+          "file": "src/application/workspace-model.ts",
+          "line": 2,
+          "text": "import { derive, type Model } from '@/application/plan/derive';"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/legacy-retention-binding-audit.json",
+          "sha256": "3bf0a24e25902aea18c411a305e22e50685963387c2dd6e6d4dbcfb92b2c89cc"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/progress.md",
+          "sha256": "f04a5bcaf03723849c3b079eac4bc7d0c76117335b4ed1018ed114b3eed65244"
+        }
+      ]
+    },
+    {
+      "file": "tools/progress.ts",
+      "sourceSha256": "68ac798d966a9b74a58e4409b2c70e43e687495168339d3e3f827734a467bd38",
+      "role": "consumer",
+      "reason": "The ordinary progress command reports native standing and preserves independent append-only records.",
+      "evidence": [
+        {
+          "file": "tools/progress.ts",
+          "line": 257,
+          "text": "const native = await readModelStanding(workspace, slug);"
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr8/native-cli-handoff.md",
+          "sha256": "7640d6986db1b1744bce717b831891e9c225e3199b9408b55fa38de0527f592b"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
+          "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/progress.md",
+          "sha256": "f04a5bcaf03723849c3b079eac4bc7d0c76117335b4ed1018ed114b3eed65244"
+        }
+      ],
+      "status": "migrated"
     }
   ]
 }

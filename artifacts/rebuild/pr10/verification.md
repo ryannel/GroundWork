@@ -33,8 +33,8 @@ input scope and is insufficient to replace the live index.
 
 ## Retirement order
 
-Only the unused legacy view adapter and its adapter-only tests have been removed. The independent
-progress reader and writer still use the legacy plan schema. Old capture and replay commands still
+Only the unused legacy view adapter and its adapter-only tests have been removed. Progress now uses its unchanged contract from the consolidated plan schema, with exact proofs in
+`progress.md`. Old capture and replay commands still
 validate their knowledge, discovery and interpretation inputs. The native scan reads the retained
 repository pass through `scan.schema.json`. Historical scan marks still record distinct branch
 checks. PR 8 measured 116 marks, 74 checked, and 42 differing pins among 108 repositories with a

@@ -1,8 +1,8 @@
 import type { Issue } from '@/application/plan/check-context';
 import { formatPath } from '@/application/plan/ids';
 import { issueUrlOf } from '@/domain/code-links';
+import type { Progress, ProgressEvent } from '@/domain/model/plan.generated';
 import type { IssueStatus } from '@/domain/plan/plan-status';
-import type { Progress, ProgressEvent } from '@/domain/plan/plan.generated';
 
 // plans/<plan>/progress.yaml: an append-only record of what happened to the plan's work items and milestones,
 // each event with who said it and where. Commitment (what a team promised) and work (what has happened) are

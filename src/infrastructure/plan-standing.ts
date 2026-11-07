@@ -16,8 +16,9 @@ import {
   type StandingTeam,
   standingOf,
 } from '@/application/plan/work-standing';
+import type { Progress } from '@/domain/model/plan.generated';
 import type { Neighbours } from '@/domain/plan/plan-neighbours';
-import type { Plan, Progress } from '@/domain/plan/plan.generated';
+import type { Plan } from '@/domain/plan/plan.generated';
 
 import { readNeighbourIndex, readPlanRaw, readProgress } from './plan-store';
 import { readToday } from './today-model';

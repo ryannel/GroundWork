@@ -6,8 +6,9 @@ import type { Overlap } from '@/application/plan/plan-stack';
 import { checkProgress, issueStatusOf } from '@/application/plan/progress';
 import type { Inherited } from '@/application/plan/stack-base';
 import type { PlanStanding } from '@/application/plan/work-standing';
+import type { ProgressEvent } from '@/domain/model/plan.generated';
 import type { IssueStatus } from '@/domain/plan/plan-status';
-import type { Plan, ProgressEvent } from '@/domain/plan/plan.generated';
+import type { Plan } from '@/domain/plan/plan.generated';
 
 import { readStanding } from './plan-standing';
 import { checkPlan, listPlans, readOverlaps, readPlan, readProgress } from './plan-store';

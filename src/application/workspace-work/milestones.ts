@@ -3,7 +3,7 @@ import { shortDate } from '@/application/plan-viz-state';
 import { thingHref } from '@/application/thing-paths';
 import { issueUrlOf } from '@/domain/code-links';
 import { qualifyId } from '@/domain/ids';
-import type { ProgressEvent } from '@/domain/plan/plan.generated';
+import type { ProgressEvent } from '@/domain/model/plan.generated';
 
 import { gapText, sourceWord, stateWord, type WorkCardVM } from './work-card';
 import type { IndexedWork, WorkspacePlanIndex } from './workspace-plan-index';

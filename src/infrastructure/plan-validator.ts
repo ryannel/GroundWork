@@ -11,7 +11,8 @@ import type { Plan } from '@/domain/plan/plan.generated';
 import { planSchema } from './plan-schema';
 import { rewriteErrors, shapeProblems } from './plan-schema-errors';
 
-export { defProblems, planDef } from './plan-schema';
+export { planDef } from './plan-schema';
+export { defProblems } from './plan-schema-errors';
 
 /** What loading a plan found. `plan` is null when the schema rejected it. */
 export interface PlanCheck {

@@ -25,6 +25,13 @@ would have empty required citations. This accounts for the 346 context-only clai
 claims with absent observed support. The original confidence stays attached. The review has an
 explicit partial-source-discovery state for 215 claims, and 346 carry no explicit acceptance state.
 
+A read-only recovery located all 34 missing originals at the same pins in the live SQLite index
+and checked their exact values against the original cache or evidence. The canonical closure
+adds 357 schema-valid records, including 29 summaries, 186 sources and 142 gaps. All 213 cited
+source spans checked against the recorded Git tree, blob and physical lines. With this closure,
+all 65 affected claims validate with their full observed support. The resulting denominator is
+215 complete canonical candidates and 346 context-only claims.
+
 For example, Account Profile API's `inferred:purpose` at
 `bc3003a9130cd9a8013d74ec4561575d1f1d935b` is in the epoch-003 interpretation sidecar at
 lines 59–111 and its associated review at lines 184–197. The published page
@@ -37,9 +44,14 @@ Permit a durable, checksum-pinned archive of the published Inferred sidecars, re
 contexts alongside canonical evidence. Preserve all 561 interpretations with their original
 metadata and make them available through a repository-scoped evidence destination. Link canonical
 claims back to their archived originals, and promote only the claims with every observed citation
-resolved at its recorded pin. The other 411 stay visibly archived with their specific missing
-canonical support. This leaves current-fact evidence and the canonical claim validator strict.
+resolved at its recorded pin. The 346 context-only claims stay visibly archived with their original context. This leaves current-fact evidence and the canonical claim validator strict.
 
 Prove the archive from the original bytes and installed projections, verify access to both groups,
 and pin a claim-by-claim crosswalk before any explorer removal. Publishing the archive would use a
 separate Volvo data PR after explicit scope approval.
+
+The local per-claim and per-record receipts are `pr10-canonical-claim-audit.json` (SHA-256
+`92b6f462b1d0b4e4cfe0d852d6be87c2b0aef0ee1cb0e0c114385e44cceda473`) and
+`pr10-claim-support-closure.json` (SHA-256
+`e6fd951a81a39ce18e98634047306232b774270da6a96a58f36bd44bb0542043`). The exact Volvo
+records remain in the local proof directory pending the separate data decision.

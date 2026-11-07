@@ -2,7 +2,7 @@
 // what has happened to its work items. Write them with writeWorkspace beside acmeFiles().
 import { pauseOrdersOverlay } from '@/../test/fixtures/acme/plans/pause-orders';
 import type { PlanOverlay } from '@/../test/plan-kit';
-import type { Progress } from '@/domain/plan/plan.generated';
+import type { Progress } from '@/domain/model/plan.generated';
 
 /** An overlay that puts a GraphQL graph in front of the shop, so the product page reads products through it. */
 export function productGraphOverlay(): PlanOverlay {

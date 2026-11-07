@@ -1,5 +1,5 @@
 import type { Confidence, SourceKind } from '@/application/plan/work-standing';
-import type { ProgressEvent } from '@/domain/plan/plan.generated';
+import type { ProgressEvent } from '@/domain/model/plan.generated';
 
 // The "Record update" form drafts one progress.yaml event. The site writes nothing: it shows the event as YAML, the
 // command that appends it (checked, as every event is) and a prompt that asks an agent to run that command.
