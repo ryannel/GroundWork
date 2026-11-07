@@ -48,7 +48,8 @@ export function referenceCollector(
       return;
     }
     if (typeof value !== 'object' || value === null) return;
-    for (const [key, child] of Object.entries(value)) {
+    const entries: readonly [string, unknown][] = Object.entries(value);
+    for (const [key, child] of entries) {
       include(key);
       visit(child);
     }

@@ -119,7 +119,7 @@ async function planProjection(writer: FactWriter, scope: string, context: Indexe
 }
 
 async function writeAreas(writer: FactWriter, index: ModelIndex) {
-  const areas = [];
+  const areas: { readonly id: string; readonly view: FactShard }[] = [];
   for (const area of index.model.landscape?.areas ?? []) {
     const view = modelAreaViewOf(index, area.id);
     if (view === null) throw new Error(`Missing canonical area: ${area.id}`);
@@ -136,7 +136,10 @@ async function writePlan(writer: FactWriter, current: ModelIndex, slug: string, 
   const base = await readModelPlanBaseMarkers(id, root);
   const progress = await readModelPlanProgress(id, slug, root);
   const lock = await readPlanLock(id, slug, root);
-  const revisions = [];
+  const revisions: {
+    readonly version: string;
+    readonly projection: Awaited<ReturnType<typeof planProjection>>;
+  }[] = [];
   for (const { version } of await readModelPlanRevisions(id, slug, root)) {
     const revision = await readSelectedRevisionContext(id, slug, version, root, {
       currentIndex: current,
@@ -168,7 +171,7 @@ export async function writeModelFacts(
   const writer = factWriter(out);
   const projection = await projectionOf(writer, 'current', current);
   const areas = await writeAreas(writer, current);
-  const plans = [];
+  const plans: Awaited<ReturnType<typeof writePlan>>[] = [];
   for (const { slug } of await readModelPlanEntries(current.model.id, root)) {
     plans.push(await writePlan(writer, current, slug, root));
   }

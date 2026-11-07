@@ -371,7 +371,8 @@ export function modelWorkLabelsOf(
       for (const id of ids) labels.set(id, metadata.get(id) ?? index.label(id));
     } else if (Array.isArray(itemValue)) for (const item of itemValue) visit(item);
     else if (itemValue !== null && typeof itemValue === 'object') {
-      for (const item of Object.values(itemValue)) visit(item);
+      const values: readonly unknown[] = Object.values(itemValue);
+      for (const item of values) visit(item);
     }
   };
   visit(value);

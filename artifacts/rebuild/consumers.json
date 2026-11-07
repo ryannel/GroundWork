@@ -4805,7 +4805,7 @@
       "evidence": [
         {
           "file": "src/application/model-transport.ts",
-          "line": 76,
+          "line": 77,
           "text": "export function evidenceTransportOf("
         },
         {
@@ -4827,11 +4827,15 @@
         {
           "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
           "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/release/strict-types.json",
+          "sha256": "167577badbd7895959aff56487ec248ca4cd8d66dafe903ed8acd31cee8143ea"
         }
       ],
       "reason": "The active canonical bindings are evidenceTransportOf, referenceCollector. They read, index or present the native records directly.",
       "role": "consumer",
-      "sourceSha256": "779fdd6096b722dbad90590f36bfdb3407ebd5fb1a660d2c2d08f53fa5f54ce6",
+      "sourceSha256": "9372a88597ef4517a140ad4bfd9ab65fb7f7cdbf910fc92d5b5f500101eaeb65",
       "status": "migrated"
     },
     "factBindings": [
@@ -4853,11 +4857,11 @@
         "text": "readonly scope: (model: WorkspaceModel) => ScopedModel;"
       },
       {
-        "line": 60,
+        "line": 61,
         "text": "models: readonly WorkspaceModel[],"
       },
       {
-        "line": 77,
+        "line": 78,
         "text": "models: readonly WorkspaceModel[],"
       }
     ],
@@ -4869,7 +4873,7 @@
     "reachable": true,
     "reason": "The active canonical bindings are evidenceTransportOf, referenceCollector. They read, index or present the native records directly.",
     "role": "consumer",
-    "sourceSha256": "779fdd6096b722dbad90590f36bfdb3407ebd5fb1a660d2c2d08f53fa5f54ce6",
+    "sourceSha256": "9372a88597ef4517a140ad4bfd9ab65fb7f7cdbf910fc92d5b5f500101eaeb65",
     "status": "migrated"
   },
   {
@@ -4968,11 +4972,15 @@
         {
           "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
           "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/release/strict-types.json",
+          "sha256": "167577badbd7895959aff56487ec248ca4cd8d66dafe903ed8acd31cee8143ea"
         }
       ],
       "reason": "The active canonical bindings are modelPartnerOf, modelPartnerRowsOf, modelProgrammeOf, modelProgrammeRowsOf, modelWorkLabelsOf. They read, index or present the native records directly.",
       "role": "consumer",
-      "sourceSha256": "5db834ebb6491b693406606b1a55ee2dafe8359cf81e8cdeae1259c312953678",
+      "sourceSha256": "207679d56b9b4e5eef90316c586b12bb48ad9959a075647c9080f3fb17c981ed",
       "status": "migrated"
     },
     "factBindings": [
@@ -4997,7 +5005,7 @@
     "reachable": true,
     "reason": "The active canonical bindings are modelPartnerOf, modelPartnerRowsOf, modelProgrammeOf, modelProgrammeRowsOf, modelWorkLabelsOf. They read, index or present the native records directly.",
     "role": "consumer",
-    "sourceSha256": "5db834ebb6491b693406606b1a55ee2dafe8359cf81e8cdeae1259c312953678",
+    "sourceSha256": "207679d56b9b4e5eef90316c586b12bb48ad9959a075647c9080f3fb17c981ed",
     "status": "migrated"
   },
   {
@@ -9379,12 +9387,12 @@
       "evidence": [
         {
           "file": "tools/rebuild/model-facts.ts",
-          "line": 226,
+          "line": 229,
           "text": "export function factChecksums(value: unknown): ReadonlyMap<string, string> {"
         },
         {
           "file": "tools/rebuild/model-facts.ts",
-          "line": 162,
+          "line": 165,
           "text": "export async function writeModelFacts("
         }
       ],
@@ -9405,11 +9413,15 @@
         {
           "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
           "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
+        },
+        {
+          "file": "artifacts/rebuild/pr8/release/strict-types.json",
+          "sha256": "167577badbd7895959aff56487ec248ca4cd8d66dafe903ed8acd31cee8143ea"
         }
       ],
       "reason": "Captures canonical authored and derived facts with checked evidence shards and exact before and after plan records.",
       "role": "consumer",
-      "sourceSha256": "fa6ca407a4fccb4f0a0dcd71cb787b709ed18cda6e51bbce104f2173e9f222dc",
+      "sourceSha256": "8b91eb7daa9453c7317df8ee7308ad8ae6aa169d08444ad0b707238e6e8dbb3f",
       "status": "migrated"
     },
     "factBindings": [
@@ -9435,7 +9447,7 @@
     "reachable": true,
     "reason": "Captures canonical authored and derived facts with checked evidence shards and exact before and after plan records.",
     "role": "consumer",
-    "sourceSha256": "fa6ca407a4fccb4f0a0dcd71cb787b709ed18cda6e51bbce104f2173e9f222dc",
+    "sourceSha256": "8b91eb7daa9453c7317df8ee7308ad8ae6aa169d08444ad0b707238e6e8dbb3f",
     "status": "migrated"
   },
   {

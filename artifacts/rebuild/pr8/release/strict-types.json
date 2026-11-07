@@ -1,0 +1,16 @@
+{
+  "threshold": 100,
+  "covered": 400076,
+  "total": 400076,
+  "typecheck": "passed",
+  "focusedTests": {
+    "files": 3,
+    "passed": 6
+  },
+  "sourceSha256": {
+    "src/application/model-transport.ts": "9372a88597ef4517a140ad4bfd9ab65fb7f7cdbf910fc92d5b5f500101eaeb65",
+    "src/application/model-workspace-work.ts": "207679d56b9b4e5eef90316c586b12bb48ad9959a075647c9080f3fb17c981ed",
+    "tools/rebuild/model-facts.ts": "8b91eb7daa9453c7317df8ee7308ad8ae6aa169d08444ad0b707238e6e8dbb3f"
+  },
+  "scope": "Explicit unknown values and typed snapshot collections preserve exact traversal, writes and transport."
+}
