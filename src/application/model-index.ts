@@ -160,7 +160,11 @@ function componentOf(id: string, lookup: Lookup): string | null {
   }
   if (node.kind === 'endpoint' && node.parent !== null) {
     const provider = lookup.get(node.parent)?.data;
-    return canonicalId(text(provider, 'component') ?? text(provider, 'external'), lookup);
+    const target =
+      ['component', 'external', 'system']
+        .map((key) => text(provider, key))
+        .find((value) => value !== null) ?? null;
+    return canonicalId(target, lookup);
   }
   return node.place.component;
 }
@@ -511,6 +515,34 @@ function retryGaps(node: ModelEntity): readonly ModelGap[] {
       ]
     : [];
 }
+function operationClientGaps(node: ModelEntity): readonly ModelGap[] {
+  return node.kind === 'operation' && modelText(node.data.component) === null
+    ? [
+        {
+          id: node.id,
+          kind: 'no_client',
+          message:
+            'The client component is unknown; the cited document does not establish an invocation.',
+        },
+      ]
+    : [];
+}
+function interfaceProviderGaps(node: ModelEntity, lookup: Lookup): readonly ModelGap[] {
+  if (node.kind !== 'endpoint') return [];
+  const provider = lookup.get(node.parent ?? '');
+  const system = modelText(provider?.data.system);
+  return system === null
+    ? []
+    : [
+        {
+          id: node.id,
+          kind: 'unmapped_target',
+          reference: system,
+          message:
+            'The system providing this interface is unmapped; its implementing component is unknown.',
+        },
+      ];
+}
 function nodeGaps(
   node: ModelEntity,
   lookup: Lookup,
@@ -520,6 +552,8 @@ function nodeGaps(
     ...missingDetail(node, lookup, records),
     ...uncitedEffect(node),
     ...retryGaps(node),
+    ...interfaceProviderGaps(node, lookup),
+    ...operationClientGaps(node),
   ];
   const add = (kind: string, message: string): void => {
     gaps.push({ id: node.id, kind, message });

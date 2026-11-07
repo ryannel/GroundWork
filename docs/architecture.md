@@ -31,6 +31,17 @@ span stays in `problems`. Generated citation metadata follows the same schema de
 JSON and target-shift model-id citations are not rewritten. Duplicate evidence identities fail before any
 reference can select an arbitrary record.
 
+An interface names exactly one provider: an executable component, an external party or a declared unmapped
+system. The system facet records a known API boundary without inventing its implementing component; its
+entry flow keeps that gap visible. The target must have `mapped: false`. Interfaces retain their recorded
+consuming file and code homes, independently of the provider. A system provider never occupies component
+placement or gains a deployable's roles.
+
+A GraphQL operation retains its cited document and graph independently of whether its client is known.
+An omitted client stays a visible gap; a supplied client must resolve to a declared executable component.
+Selections and possible resolver reach remain available without inventing a client-origin execution edge.
+Neither a document's source path nor its containing file establishes the invoking component.
+
 `indexOf` derives placement, execution edges, reverse queries, graph composition, roles, ownership and gaps.
 Placement follows containment; resource ownership needs an explicit cited owner. Graph composition follows
 selected, required and provided fields and reports unresolved or ambiguous composition. Its possible resolver
@@ -41,6 +52,13 @@ attribution is derived from the containing plan, change and op. Current facts re
 validation. The plan projection boundary validates the base strictly, computes its own after model and uses
 the same schema with only its annotated implementation-evidence policy relaxed. Missing implementation
 evidence stays visible as a gap; retained citations describe baseline context, not implemented changes.
+
+Canonical batch plan validation checks the strict current model once, then composes only each plan's
+explicit `builds_on` ancestors. Shared ancestors apply once; missing, cyclic and unordered conflicting
+ancestors fail. Every projected result uses the plan evidence profile and retains ancestor proposal
+attribution. Proposed context cannot enter the strict current-model boundary. Native workspace check
+and precommit use this same batch boundary; native precommit also checks that staged plans match the
+working text just validated. Format-1 lock checks remain in their existing path.
 
 `legacyViewOf` is the named compatibility boundary for workspace/domain page consumers. Its workspace tree
 retains canonical facets on their containing systems, with explicit aliases for legacy identity and narrative

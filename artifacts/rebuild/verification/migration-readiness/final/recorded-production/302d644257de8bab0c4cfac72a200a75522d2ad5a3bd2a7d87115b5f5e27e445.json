@@ -1,0 +1,8 @@
+{
+  "route": "/acme/catalogue/interfaces/",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 40559,
+  "sha256": "6943ec0c5c599c46e823429c5352b0661605b3073148fb2a086075535c75ebfe",
+  "body": "302d644257de8bab0c4cfac72a200a75522d2ad5a3bd2a7d87115b5f5e27e445.body.gz"
+}

@@ -1,0 +1,8 @@
+{
+  "route": "/acme/people/",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 41776,
+  "sha256": "72833a4c79673ce9c4e24452ab42f48a073ecdc062ef008c0c31574d9895e9f8",
+  "body": "011e73c5b9631bc1e578867b257a9f90bdf9084fd96b582cdc9530ae431fb2d6.body.gz"
+}

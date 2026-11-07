@@ -1,0 +1,8 @@
+{
+  "route": "/acme/journeys/flow-cancel-order/",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 39037,
+  "sha256": "64f1fda7f8699263a924a0ad8d3b010264d8a15118300149a666339a2cd37a46",
+  "body": "d51428d6da2e2820a7c174cc5fbfbe22315c0546a201b88de01f70f15c74e0d0.body.gz"
+}

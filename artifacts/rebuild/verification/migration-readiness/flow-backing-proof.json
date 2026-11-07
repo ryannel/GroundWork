@@ -1,0 +1,892 @@
+{
+  "fragments": 445,
+  "changedFragments": 2,
+  "changedCitationLocations": 30,
+  "additions": 67,
+  "distinctAddedCitations": 16,
+  "allOtherValuesExactlyEqual": true,
+  "priorCitationsAndRelativeOrderUnchanged": true,
+  "everyAddedCitationHasPinnedFlowBacking": true,
+  "changes": [
+    {
+      "file": "domains/commercial-backbone/systems/price/narratives.yaml",
+      "at": "/value/stories/0/stages/2/cites",
+      "previousCount": 2,
+      "added": [
+        {
+          "cite": "volvo-cars-gpe-price-data:Importer.FinancingProducts/FinancingProductsListener.cs@dd4ac6f97ed334f0a47318f0f5a33d0d3d72e473#L17-22",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-data-import-financing-products",
+              "file": "flows/gpe-price-data-import-financing-products.yaml",
+              "at": ""
+            }
+          ]
+        },
+        {
+          "cite": "volvo-cars-gpe-price-data:Core/InboundPorts/FinancingProductsUpdateService.cs@dd4ac6f97ed334f0a47318f0f5a33d0d3d72e473#L13-31",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-data-import-financing-products",
+              "file": "flows/gpe-price-data-import-financing-products.yaml",
+              "at": ""
+            }
+          ]
+        },
+        {
+          "cite": "volvo-cars-gpe-price-data:DocumentGenerator/FinancingProductsDocumentService.cs@dd4ac6f97ed334f0a47318f0f5a33d0d3d72e473#L11-29",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-data-import-financing-products",
+              "file": "flows/gpe-price-data-import-financing-products.yaml",
+              "at": ""
+            }
+          ]
+        },
+        {
+          "cite": "volvo-cars-gpe-price-event-dispatcher:EventListener.Kafka/Price/FinancingProductsUpdatedEventConsumer.cs@a51af4a836bb67437459ba4da7c8a149dc73e8aa#L22-37",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-data-import-financing-products",
+              "file": "flows/gpe-price-data-import-financing-products.yaml",
+              "at": ""
+            }
+          ]
+        },
+        {
+          "cite": "volvo-cars-gpe-price-event-dispatcher:Core/Domain/Commands/FinancingProductUpdateHandler.cs@a51af4a836bb67437459ba4da7c8a149dc73e8aa#L11-18",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-data-import-financing-products",
+              "file": "flows/gpe-price-data-import-financing-products.yaml",
+              "at": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "domains/commercial-backbone/systems/price/narratives.yaml",
+      "at": "/value/stories/0/connections/10/cites",
+      "previousCount": 1,
+      "added": [
+        {
+          "cite": "volvo-cars-price-data-management:Core/InboundPorts/FinancingProductService.cs@b244d1e2dcf9545299ebdbf6e35c6c8f0fad3697#L37-62",
+          "sources": [
+            {
+              "backing": "flow:price-core-author-financing-product#create",
+              "file": "flows/price-core-author-financing-product.yaml",
+              "at": "/steps/0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "domains/commercial-backbone/systems/price/narratives.yaml",
+      "at": "/value/stories/0/connections/12/cites",
+      "previousCount": 1,
+      "added": [
+        {
+          "cite": "volvo-cars-gpe-price-data:Importer.FinancingProducts/FinancingProductsListener.cs@dd4ac6f97ed334f0a47318f0f5a33d0d3d72e473#L17-22",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-data-import-financing-products#consume",
+              "file": "flows/gpe-price-data-import-financing-products.yaml",
+              "at": "/steps/0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "domains/commercial-backbone/systems/price/narratives.yaml",
+      "at": "/value/stories/0/connections/13/cites",
+      "previousCount": 1,
+      "added": [
+        {
+          "cite": "volvo-cars-gpe-price-data:DocumentGenerator/FinancingProductsDocumentService.cs@dd4ac6f97ed334f0a47318f0f5a33d0d3d72e473#L11-29",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-data-import-financing-products#read-products",
+              "file": "flows/gpe-price-data-import-financing-products.yaml",
+              "at": "/steps/1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "domains/commercial-backbone/systems/price/narratives.yaml",
+      "at": "/value/stories/0/connections/14/cites",
+      "previousCount": 2,
+      "added": [
+        {
+          "cite": "volvo-cars-gpe-price-data:Core/InboundPorts/FinancingProductsUpdateService.cs@dd4ac6f97ed334f0a47318f0f5a33d0d3d72e473#L13-31",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-data-import-financing-products#save",
+              "file": "flows/gpe-price-data-import-financing-products.yaml",
+              "at": "/steps/2"
+            }
+          ]
+        },
+        {
+          "cite": "volvo-cars-gpe-price-data:Database/FinancingProductsRepository.cs@dd4ac6f97ed334f0a47318f0f5a33d0d3d72e473#L9-13",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-data-import-financing-products#save",
+              "file": "flows/gpe-price-data-import-financing-products.yaml",
+              "at": "/steps/2"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "domains/commercial-backbone/systems/price/narratives.yaml",
+      "at": "/value/stories/0/connections/17/cites",
+      "previousCount": 1,
+      "added": [
+        {
+          "cite": "volvo-cars-gpe-price:Core/Domain/PriceCalculator.cs@f490ddcc3f427445f037c2a8be9ce2207c403f30#L16-56",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-configuration-calculation#load-pretax",
+              "file": "flows/gpe-price-configuration-calculation.yaml",
+              "at": "/steps/1"
+            }
+          ]
+        },
+        {
+          "cite": "volvo-cars-gpe-price:Providers/Pretax/PretaxProvider.cs@f490ddcc3f427445f037c2a8be9ce2207c403f30#L48-95",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-configuration-calculation#load-pretax",
+              "file": "flows/gpe-price-configuration-calculation.yaml",
+              "at": "/steps/1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "domains/commercial-backbone/systems/price/narratives.yaml",
+      "at": "/value/stories/0/connections/19/cites",
+      "previousCount": 3,
+      "added": [
+        {
+          "cite": "volvo-cars-gpe-price:Core/Domain/PriceCalculator.cs@f490ddcc3f427445f037c2a8be9ce2207c403f30#L114-181",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-configuration-calculation#resolve-tax-inputs",
+              "file": "flows/gpe-price-configuration-calculation.yaml",
+              "at": "/steps/2"
+            }
+          ]
+        },
+        {
+          "cite": "volvo-cars-gpe-price:Core/Helpers/PriceUtils.cs@f490ddcc3f427445f037c2a8be9ce2207c403f30#L28-60",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-configuration-calculation#resolve-tax-inputs",
+              "file": "flows/gpe-price-configuration-calculation.yaml",
+              "at": "/steps/2"
+            }
+          ]
+        },
+        {
+          "cite": "volvo-cars-gpe-price:Core/Helpers/SalesModelHelper.cs@f490ddcc3f427445f037c2a8be9ce2207c403f30#L21-32",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-configuration-calculation#resolve-tax-inputs",
+              "file": "flows/gpe-price-configuration-calculation.yaml",
+              "at": "/steps/2"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "domains/commercial-backbone/systems/price/narratives.yaml",
+      "at": "/value/stories/0/connections/20/cites",
+      "previousCount": 1,
+      "added": [
+        {
+          "cite": "volvo-cars-gpe-price:Api/Controllers/V5/PricesController.cs@f490ddcc3f427445f037c2a8be9ce2207c403f30#L13-54",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-configuration-calculation#accept-request",
+              "file": "flows/gpe-price-configuration-calculation.yaml",
+              "at": "/steps/0"
+            }
+          ]
+        },
+        {
+          "cite": "volvo-cars-gpe-price:Providers/FeatureFlag/FeatureFlagService.cs@f490ddcc3f427445f037c2a8be9ce2207c403f30#L7-22",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-configuration-calculation#accept-request",
+              "file": "flows/gpe-price-configuration-calculation.yaml",
+              "at": "/steps/0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "domains/commercial-backbone/systems/price/narratives.yaml",
+      "at": "/value/stories/0/connections/22/cites",
+      "previousCount": 1,
+      "added": [
+        {
+          "cite": "volvo-cars-gpe-price-event-dispatcher:EventListener.Kafka/Price/FinancingProductsUpdatedEventConsumer.cs@a51af4a836bb67437459ba4da7c8a149dc73e8aa#L22-37",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-data-import-financing-products#relay",
+              "file": "flows/gpe-price-data-import-financing-products.yaml",
+              "at": "/steps/4"
+            }
+          ]
+        },
+        {
+          "cite": "volvo-cars-gpe-price-event-dispatcher:Core/Domain/Commands/FinancingProductUpdateHandler.cs@a51af4a836bb67437459ba4da7c8a149dc73e8aa#L11-18",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-data-import-financing-products#relay",
+              "file": "flows/gpe-price-data-import-financing-products.yaml",
+              "at": "/steps/4"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "domains/commercial-backbone/systems/price/narratives.yaml",
+      "at": "/value/stories/1/stages/3/cites",
+      "previousCount": 2,
+      "added": [
+        {
+          "cite": "volvo-cars-gpe-price-data:Importer.FinancingProducts/FinancingProductsListener.cs@dd4ac6f97ed334f0a47318f0f5a33d0d3d72e473#L17-22",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-data-import-financing-products",
+              "file": "flows/gpe-price-data-import-financing-products.yaml",
+              "at": ""
+            }
+          ]
+        },
+        {
+          "cite": "volvo-cars-gpe-price-data:Core/InboundPorts/FinancingProductsUpdateService.cs@dd4ac6f97ed334f0a47318f0f5a33d0d3d72e473#L13-31",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-data-import-financing-products",
+              "file": "flows/gpe-price-data-import-financing-products.yaml",
+              "at": ""
+            }
+          ]
+        },
+        {
+          "cite": "volvo-cars-gpe-price-data:DocumentGenerator/FinancingProductsDocumentService.cs@dd4ac6f97ed334f0a47318f0f5a33d0d3d72e473#L11-29",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-data-import-financing-products",
+              "file": "flows/gpe-price-data-import-financing-products.yaml",
+              "at": ""
+            }
+          ]
+        },
+        {
+          "cite": "volvo-cars-gpe-price-event-dispatcher:EventListener.Kafka/Price/FinancingProductsUpdatedEventConsumer.cs@a51af4a836bb67437459ba4da7c8a149dc73e8aa#L22-37",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-data-import-financing-products",
+              "file": "flows/gpe-price-data-import-financing-products.yaml",
+              "at": ""
+            }
+          ]
+        },
+        {
+          "cite": "volvo-cars-gpe-price-event-dispatcher:Core/Domain/Commands/FinancingProductUpdateHandler.cs@a51af4a836bb67437459ba4da7c8a149dc73e8aa#L11-18",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-data-import-financing-products",
+              "file": "flows/gpe-price-data-import-financing-products.yaml",
+              "at": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "domains/commercial-backbone/systems/price/narratives.yaml",
+      "at": "/value/stories/2/connections/2/cites",
+      "previousCount": 1,
+      "added": [
+        {
+          "cite": "volvo-cars-gpe-price:Core/Domain/PriceCalculator.cs@f490ddcc3f427445f037c2a8be9ce2207c403f30#L16-56",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-configuration-calculation#load-pretax",
+              "file": "flows/gpe-price-configuration-calculation.yaml",
+              "at": "/steps/1"
+            }
+          ]
+        },
+        {
+          "cite": "volvo-cars-gpe-price:Providers/Pretax/PretaxProvider.cs@f490ddcc3f427445f037c2a8be9ce2207c403f30#L48-95",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-configuration-calculation#load-pretax",
+              "file": "flows/gpe-price-configuration-calculation.yaml",
+              "at": "/steps/1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "domains/commercial-backbone/systems/price/narratives.yaml",
+      "at": "/value/stories/2/connections/4/cites",
+      "previousCount": 3,
+      "added": [
+        {
+          "cite": "volvo-cars-gpe-price:Core/Domain/PriceCalculator.cs@f490ddcc3f427445f037c2a8be9ce2207c403f30#L114-181",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-configuration-calculation#resolve-tax-inputs",
+              "file": "flows/gpe-price-configuration-calculation.yaml",
+              "at": "/steps/2"
+            }
+          ]
+        },
+        {
+          "cite": "volvo-cars-gpe-price:Core/Helpers/PriceUtils.cs@f490ddcc3f427445f037c2a8be9ce2207c403f30#L28-60",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-configuration-calculation#resolve-tax-inputs",
+              "file": "flows/gpe-price-configuration-calculation.yaml",
+              "at": "/steps/2"
+            }
+          ]
+        },
+        {
+          "cite": "volvo-cars-gpe-price:Core/Helpers/SalesModelHelper.cs@f490ddcc3f427445f037c2a8be9ce2207c403f30#L21-32",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-configuration-calculation#resolve-tax-inputs",
+              "file": "flows/gpe-price-configuration-calculation.yaml",
+              "at": "/steps/2"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "domains/commercial-backbone/systems/price/narratives.yaml",
+      "at": "/value/stories/2/connections/5/cites",
+      "previousCount": 1,
+      "added": [
+        {
+          "cite": "volvo-cars-gpe-price:Api/Controllers/V5/PricesController.cs@f490ddcc3f427445f037c2a8be9ce2207c403f30#L13-54",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-configuration-calculation#accept-request",
+              "file": "flows/gpe-price-configuration-calculation.yaml",
+              "at": "/steps/0"
+            }
+          ]
+        },
+        {
+          "cite": "volvo-cars-gpe-price:Providers/FeatureFlag/FeatureFlagService.cs@f490ddcc3f427445f037c2a8be9ce2207c403f30#L7-22",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-configuration-calculation#accept-request",
+              "file": "flows/gpe-price-configuration-calculation.yaml",
+              "at": "/steps/0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "domains/commercial-backbone/systems/price/narratives.yaml",
+      "at": "/value/stories/3/stages/0/cites",
+      "previousCount": 2,
+      "added": [
+        {
+          "cite": "volvo-cars-gpe-price-data:Importer.FinancingProducts/FinancingProductsListener.cs@dd4ac6f97ed334f0a47318f0f5a33d0d3d72e473#L17-22",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-data-import-financing-products",
+              "file": "flows/gpe-price-data-import-financing-products.yaml",
+              "at": ""
+            }
+          ]
+        },
+        {
+          "cite": "volvo-cars-gpe-price-data:Core/InboundPorts/FinancingProductsUpdateService.cs@dd4ac6f97ed334f0a47318f0f5a33d0d3d72e473#L13-31",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-data-import-financing-products",
+              "file": "flows/gpe-price-data-import-financing-products.yaml",
+              "at": ""
+            }
+          ]
+        },
+        {
+          "cite": "volvo-cars-gpe-price-data:DocumentGenerator/FinancingProductsDocumentService.cs@dd4ac6f97ed334f0a47318f0f5a33d0d3d72e473#L11-29",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-data-import-financing-products",
+              "file": "flows/gpe-price-data-import-financing-products.yaml",
+              "at": ""
+            }
+          ]
+        },
+        {
+          "cite": "volvo-cars-gpe-price-event-dispatcher:EventListener.Kafka/Price/FinancingProductsUpdatedEventConsumer.cs@a51af4a836bb67437459ba4da7c8a149dc73e8aa#L22-37",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-data-import-financing-products",
+              "file": "flows/gpe-price-data-import-financing-products.yaml",
+              "at": ""
+            }
+          ]
+        },
+        {
+          "cite": "volvo-cars-gpe-price-event-dispatcher:Core/Domain/Commands/FinancingProductUpdateHandler.cs@a51af4a836bb67437459ba4da7c8a149dc73e8aa#L11-18",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-data-import-financing-products",
+              "file": "flows/gpe-price-data-import-financing-products.yaml",
+              "at": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "domains/commercial-backbone/systems/price/narratives.yaml",
+      "at": "/value/stories/3/stages/2/cites",
+      "previousCount": 0,
+      "added": [
+        {
+          "cite": "volvo-cars-gpe-price-event-dispatcher:EventListener.Kafka/Price/FinancingProductsUpdatedEventConsumer.cs@a51af4a836bb67437459ba4da7c8a149dc73e8aa#L22-37",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-data-import-financing-products#relay",
+              "file": "flows/gpe-price-data-import-financing-products.yaml",
+              "at": "/steps/4"
+            }
+          ]
+        },
+        {
+          "cite": "volvo-cars-gpe-price-event-dispatcher:Core/Domain/Commands/FinancingProductUpdateHandler.cs@a51af4a836bb67437459ba4da7c8a149dc73e8aa#L11-18",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-data-import-financing-products#relay",
+              "file": "flows/gpe-price-data-import-financing-products.yaml",
+              "at": "/steps/4"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "domains/commercial-backbone/systems/price/narratives.yaml",
+      "at": "/value/stories/3/connections/1/cites",
+      "previousCount": 1,
+      "added": [
+        {
+          "cite": "volvo-cars-gpe-price-event-dispatcher:EventListener.Kafka/Price/FinancingProductsUpdatedEventConsumer.cs@a51af4a836bb67437459ba4da7c8a149dc73e8aa#L22-37",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-data-import-financing-products#relay",
+              "file": "flows/gpe-price-data-import-financing-products.yaml",
+              "at": "/steps/4"
+            }
+          ]
+        },
+        {
+          "cite": "volvo-cars-gpe-price-event-dispatcher:Core/Domain/Commands/FinancingProductUpdateHandler.cs@a51af4a836bb67437459ba4da7c8a149dc73e8aa#L11-18",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-data-import-financing-products#relay",
+              "file": "flows/gpe-price-data-import-financing-products.yaml",
+              "at": "/steps/4"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "domains/commercial-backbone/systems/price/narratives.yaml",
+      "at": "/value/stories/4/stages/3/cites",
+      "previousCount": 2,
+      "added": [
+        {
+          "cite": "volvo-cars-gpe-price-data:Importer.FinancingProducts/FinancingProductsListener.cs@dd4ac6f97ed334f0a47318f0f5a33d0d3d72e473#L17-22",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-data-import-financing-products",
+              "file": "flows/gpe-price-data-import-financing-products.yaml",
+              "at": ""
+            }
+          ]
+        },
+        {
+          "cite": "volvo-cars-gpe-price-data:Core/InboundPorts/FinancingProductsUpdateService.cs@dd4ac6f97ed334f0a47318f0f5a33d0d3d72e473#L13-31",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-data-import-financing-products",
+              "file": "flows/gpe-price-data-import-financing-products.yaml",
+              "at": ""
+            }
+          ]
+        },
+        {
+          "cite": "volvo-cars-gpe-price-data:DocumentGenerator/FinancingProductsDocumentService.cs@dd4ac6f97ed334f0a47318f0f5a33d0d3d72e473#L11-29",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-data-import-financing-products",
+              "file": "flows/gpe-price-data-import-financing-products.yaml",
+              "at": ""
+            }
+          ]
+        },
+        {
+          "cite": "volvo-cars-gpe-price-event-dispatcher:EventListener.Kafka/Price/FinancingProductsUpdatedEventConsumer.cs@a51af4a836bb67437459ba4da7c8a149dc73e8aa#L22-37",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-data-import-financing-products",
+              "file": "flows/gpe-price-data-import-financing-products.yaml",
+              "at": ""
+            }
+          ]
+        },
+        {
+          "cite": "volvo-cars-gpe-price-event-dispatcher:Core/Domain/Commands/FinancingProductUpdateHandler.cs@a51af4a836bb67437459ba4da7c8a149dc73e8aa#L11-18",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-data-import-financing-products",
+              "file": "flows/gpe-price-data-import-financing-products.yaml",
+              "at": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "domains/commercial-backbone/systems/price/narratives.yaml",
+      "at": "/value/stories/4/connections/0/cites",
+      "previousCount": 1,
+      "added": [
+        {
+          "cite": "volvo-cars-price-data-management:Core/InboundPorts/FinancingProductService.cs@b244d1e2dcf9545299ebdbf6e35c6c8f0fad3697#L37-62",
+          "sources": [
+            {
+              "backing": "flow:price-core-author-financing-product#create",
+              "file": "flows/price-core-author-financing-product.yaml",
+              "at": "/steps/0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "domains/commercial-backbone/systems/price/narratives.yaml",
+      "at": "/value/stories/4/connections/2/cites",
+      "previousCount": 1,
+      "added": [
+        {
+          "cite": "volvo-cars-gpe-price-data:Importer.FinancingProducts/FinancingProductsListener.cs@dd4ac6f97ed334f0a47318f0f5a33d0d3d72e473#L17-22",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-data-import-financing-products#consume",
+              "file": "flows/gpe-price-data-import-financing-products.yaml",
+              "at": "/steps/0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "domains/commercial-backbone/systems/price/narratives.yaml",
+      "at": "/value/stories/4/connections/3/cites",
+      "previousCount": 1,
+      "added": [
+        {
+          "cite": "volvo-cars-gpe-price-data:DocumentGenerator/FinancingProductsDocumentService.cs@dd4ac6f97ed334f0a47318f0f5a33d0d3d72e473#L11-29",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-data-import-financing-products#read-products",
+              "file": "flows/gpe-price-data-import-financing-products.yaml",
+              "at": "/steps/1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "domains/commercial-backbone/systems/price/narratives.yaml",
+      "at": "/value/stories/4/connections/4/cites",
+      "previousCount": 2,
+      "added": [
+        {
+          "cite": "volvo-cars-gpe-price-data:Core/InboundPorts/FinancingProductsUpdateService.cs@dd4ac6f97ed334f0a47318f0f5a33d0d3d72e473#L13-31",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-data-import-financing-products#save",
+              "file": "flows/gpe-price-data-import-financing-products.yaml",
+              "at": "/steps/2"
+            }
+          ]
+        },
+        {
+          "cite": "volvo-cars-gpe-price-data:Database/FinancingProductsRepository.cs@dd4ac6f97ed334f0a47318f0f5a33d0d3d72e473#L9-13",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-data-import-financing-products#save",
+              "file": "flows/gpe-price-data-import-financing-products.yaml",
+              "at": "/steps/2"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "landscape.yaml",
+      "at": "/value/details/0/valueFlow/connections/7/cites",
+      "previousCount": 1,
+      "added": [
+        {
+          "cite": "volvo-cars-gpe-price-data:Importer.FinancingProducts/FinancingProductsListener.cs@dd4ac6f97ed334f0a47318f0f5a33d0d3d72e473#L17-22",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-data-import-financing-products",
+              "file": "flows/gpe-price-data-import-financing-products.yaml",
+              "at": ""
+            }
+          ]
+        },
+        {
+          "cite": "volvo-cars-gpe-price-data:Core/InboundPorts/FinancingProductsUpdateService.cs@dd4ac6f97ed334f0a47318f0f5a33d0d3d72e473#L13-31",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-data-import-financing-products",
+              "file": "flows/gpe-price-data-import-financing-products.yaml",
+              "at": ""
+            }
+          ]
+        },
+        {
+          "cite": "volvo-cars-gpe-price-data:DocumentGenerator/FinancingProductsDocumentService.cs@dd4ac6f97ed334f0a47318f0f5a33d0d3d72e473#L11-29",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-data-import-financing-products",
+              "file": "flows/gpe-price-data-import-financing-products.yaml",
+              "at": ""
+            }
+          ]
+        },
+        {
+          "cite": "volvo-cars-gpe-price-event-dispatcher:EventListener.Kafka/Price/FinancingProductsUpdatedEventConsumer.cs@a51af4a836bb67437459ba4da7c8a149dc73e8aa#L22-37",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-data-import-financing-products",
+              "file": "flows/gpe-price-data-import-financing-products.yaml",
+              "at": ""
+            }
+          ]
+        },
+        {
+          "cite": "volvo-cars-gpe-price-event-dispatcher:Core/Domain/Commands/FinancingProductUpdateHandler.cs@a51af4a836bb67437459ba4da7c8a149dc73e8aa#L11-18",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-data-import-financing-products",
+              "file": "flows/gpe-price-data-import-financing-products.yaml",
+              "at": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "landscape.yaml",
+      "at": "/value/details/0/valueFlow/connections/9/cites",
+      "previousCount": 4,
+      "added": [
+        {
+          "cite": "volvo-cars-gpe-price-data:Importer.FinancingProducts/FinancingProductsListener.cs@dd4ac6f97ed334f0a47318f0f5a33d0d3d72e473#L17-22",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-data-import-financing-products",
+              "file": "flows/gpe-price-data-import-financing-products.yaml",
+              "at": ""
+            }
+          ]
+        },
+        {
+          "cite": "volvo-cars-gpe-price-data:Core/InboundPorts/FinancingProductsUpdateService.cs@dd4ac6f97ed334f0a47318f0f5a33d0d3d72e473#L13-31",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-data-import-financing-products",
+              "file": "flows/gpe-price-data-import-financing-products.yaml",
+              "at": ""
+            }
+          ]
+        },
+        {
+          "cite": "volvo-cars-gpe-price-data:DocumentGenerator/FinancingProductsDocumentService.cs@dd4ac6f97ed334f0a47318f0f5a33d0d3d72e473#L11-29",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-data-import-financing-products",
+              "file": "flows/gpe-price-data-import-financing-products.yaml",
+              "at": ""
+            }
+          ]
+        },
+        {
+          "cite": "volvo-cars-gpe-price-event-dispatcher:EventListener.Kafka/Price/FinancingProductsUpdatedEventConsumer.cs@a51af4a836bb67437459ba4da7c8a149dc73e8aa#L22-37",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-data-import-financing-products",
+              "file": "flows/gpe-price-data-import-financing-products.yaml",
+              "at": ""
+            }
+          ]
+        },
+        {
+          "cite": "volvo-cars-gpe-price-event-dispatcher:Core/Domain/Commands/FinancingProductUpdateHandler.cs@a51af4a836bb67437459ba4da7c8a149dc73e8aa#L11-18",
+          "sources": [
+            {
+              "backing": "flow:gpe-price-data-import-financing-products",
+              "file": "flows/gpe-price-data-import-financing-products.yaml",
+              "at": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "landscape.yaml",
+      "at": "/value/details/0/valueFlow/connections/22/cites",
+      "previousCount": 1,
+      "added": [
+        {
+          "cite": "volvo-cars-offer-management:OfferManagement.ReadApi.Core/Messaging/Offers/OfferNotifyEventConsumer.cs@f0ed500bcf9204b109eed10b31b0cee9e0fdc7e5#L10-60",
+          "sources": [
+            {
+              "backing": "flow:offer-admin-to-read-view",
+              "file": "flows/offer-admin-to-read-view.yaml",
+              "at": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "landscape.yaml",
+      "at": "/value/details/0/valueFlow/connections/27/cites",
+      "previousCount": 1,
+      "added": [
+        {
+          "cite": "volvo-cars-cdls-mono-volvocars:shared/price-breakdown/src/market-settings/market-settings.ts@a67a5b2db52f6b92cba3ac66a3dd4875f127c905#L16-88",
+          "sources": [
+            {
+              "backing": "flow:render-price-breakdown",
+              "file": "flows/render-price-breakdown.yaml",
+              "at": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "landscape.yaml",
+      "at": "/value/details/0/valueFlow/connections/28/cites",
+      "previousCount": 19,
+      "added": [
+        {
+          "cite": "volvo-cars-cdls-mono-volvocars:shared/price-breakdown/src/market-settings/market-settings.ts@a67a5b2db52f6b92cba3ac66a3dd4875f127c905#L16-88",
+          "sources": [
+            {
+              "backing": "flow:render-price-breakdown",
+              "file": "flows/render-price-breakdown.yaml",
+              "at": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "landscape.yaml",
+      "at": "/value/details/0/valueFlow/connections/29/cites",
+      "previousCount": 19,
+      "added": [
+        {
+          "cite": "volvo-cars-cdls-mono-volvocars:shared/price-breakdown/src/market-settings/market-settings.ts@a67a5b2db52f6b92cba3ac66a3dd4875f127c905#L16-88",
+          "sources": [
+            {
+              "backing": "flow:render-price-breakdown",
+              "file": "flows/render-price-breakdown.yaml",
+              "at": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "landscape.yaml",
+      "at": "/value/details/0/valueFlow/connections/116/cites",
+      "previousCount": 19,
+      "added": [
+        {
+          "cite": "volvo-cars-cdls-mono-volvocars:shared/price-breakdown/src/market-settings/market-settings.ts@a67a5b2db52f6b92cba3ac66a3dd4875f127c905#L16-88",
+          "sources": [
+            {
+              "backing": "flow:render-price-breakdown",
+              "file": "flows/render-price-breakdown.yaml",
+              "at": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "landscape.yaml",
+      "at": "/value/details/0/valueFlow/overview/5/cites",
+      "previousCount": 19,
+      "added": [
+        {
+          "cite": "volvo-cars-cdls-mono-volvocars:shared/price-breakdown/src/market-settings/market-settings.ts@a67a5b2db52f6b92cba3ac66a3dd4875f127c905#L16-88",
+          "sources": [
+            {
+              "backing": "flow:render-price-breakdown",
+              "file": "flows/render-price-breakdown.yaml",
+              "at": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "landscape.yaml",
+      "at": "/value/details/0/valueFlow/overview/6/cites",
+      "previousCount": 19,
+      "added": [
+        {
+          "cite": "volvo-cars-cdls-mono-volvocars:shared/price-breakdown/src/market-settings/market-settings.ts@a67a5b2db52f6b92cba3ac66a3dd4875f127c905#L16-88",
+          "sources": [
+            {
+              "backing": "flow:render-price-breakdown",
+              "file": "flows/render-price-breakdown.yaml",
+              "at": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

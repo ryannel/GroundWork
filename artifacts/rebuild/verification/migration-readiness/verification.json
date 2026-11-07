@@ -1,0 +1,75 @@
+{
+  "sourceFrozen": true,
+  "sourceRevision": "6fd10282f7c0c28bc0e1632027504358fb6118f8",
+  "sourceManifest": "source-freeze.json",
+  "focused": {
+    "passed": true,
+    "tests": 257,
+    "files": 43,
+    "log": "quick-schema-lifecycle.log.gz"
+  },
+  "build": {
+    "passed": true,
+    "buildId": "Ua-RPiNXUBkGfm8C_BVEd",
+    "log": "build-final.log.gz"
+  },
+  "budget": {
+    "passed": true,
+    "pages": 606,
+    "maxKB": 1021,
+    "limitKB": 1024,
+    "log": "budget-final.log.gz"
+  },
+  "baselineIntegrity": "baseline-integrity.json",
+  "comparisons": {
+    "personal": {
+      "routes": 24,
+      "differences": 34,
+      "unexplained": 0,
+      "exactCapturedChangesRecomputed": true
+    },
+    "acme": {
+      "routes": 35,
+      "differences": 82,
+      "unexplained": 0,
+      "exactCapturedChangesRecomputed": true
+    },
+    "volvo-cars": {
+      "routes": 129,
+      "differences": 42792,
+      "unexplained": 0,
+      "exactCapturedChangesRecomputed": true
+    }
+  },
+  "fidelity": "fidelity.json",
+  "transport": {
+    "pairs": 23,
+    "proof": "final/transport/proof.json",
+    "exactOldAndNewHashChecks": "transport-optimisation.json"
+  },
+  "native": {
+    "proof": "native-validation.json",
+    "plansReconciled": 8,
+    "reusedUnaffectedPlans": 7,
+    "affectedPlanProblems": 0,
+    "ordinaryShowResolvesCurrentIds": 388838,
+    "unbackedCurrentConnections": 0
+  },
+  "mutation": "mutation-scope-final.json",
+  "fullCheck": {
+    "required": true,
+    "resultSource": "Normal pre-push npm run check hook for the committed head"
+  },
+  "ci": {
+    "required": true,
+    "workflows": [
+      "CI",
+      "CodeQL",
+      "Mutation"
+    ],
+    "resultSource": "All exact-head PR checks before merge"
+  },
+  "originalVolvoAuthoredFilesUnchanged": true,
+  "dataReviewCommit": "99ba7c5",
+  "dataCutoverHeldForCanonicalConsumers": true
+}

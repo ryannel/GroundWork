@@ -1,0 +1,621 @@
+{
+  "inventory": {
+    "rows": 1697,
+    "statuses": [
+      "adapter"
+    ],
+    "categories": {
+      "skill": 28,
+      "consumer": 637,
+      "quality configuration": 7,
+      "documentation": 439,
+      "route": 46,
+      "fixture or test": 384,
+      "tool": 79,
+      "package script": 77
+    },
+    "historicalScanTrialDocs": 432
+  },
+  "remainingDirectRuntimeLegacyImports": {
+    "files": 62,
+    "imports": 96,
+    "app": {
+      "files": 36,
+      "imports": 49
+    },
+    "application": {
+      "files": 6,
+      "imports": 6
+    },
+    "features": {
+      "files": 1,
+      "imports": 1
+    },
+    "infrastructure": {
+      "files": 12,
+      "imports": 21
+    },
+    "tools": {
+      "files": 7,
+      "imports": 19
+    }
+  },
+  "imports": [
+    {
+      "file": "tools/system-narrative.ts",
+      "line": 4,
+      "module": "src/infrastructure/today-model",
+      "text": "import { readToday } from '@/infrastructure/today-model';"
+    },
+    {
+      "file": "tools/progress.ts",
+      "line": 30,
+      "module": "src/infrastructure/plan-store",
+      "text": "import { readPlanRaw, readProgress } from '@/infrastructure/plan-store';"
+    },
+    {
+      "file": "tools/progress.ts",
+      "line": 33,
+      "module": "src/infrastructure/workspace-plans",
+      "text": "import { readPlanState } from '@/infrastructure/workspace-plans';"
+    },
+    {
+      "file": "tools/workspace.ts",
+      "line": 50,
+      "module": "src/application/workspace-model",
+      "text": "import { systemModelOf } from '@/application/workspace-model';"
+    },
+    {
+      "file": "tools/workspace.ts",
+      "line": 57,
+      "module": "src/infrastructure/plan-store",
+      "text": "import { listPlans, readOverlaps, readPlan } from '@/infrastructure/plan-store';"
+    },
+    {
+      "file": "tools/workspace.ts",
+      "line": 67,
+      "module": "src/infrastructure/workspace-model",
+      "text": "import { readWorkspaceModel } from '@/infrastructure/workspace-model';"
+    },
+    {
+      "file": "tools/workspace.ts",
+      "line": 68,
+      "module": "src/infrastructure/workspace-plans",
+      "text": "import { checkPlanState } from '@/infrastructure/workspace-plans';"
+    },
+    {
+      "file": "tools/map.ts",
+      "line": 20,
+      "module": "src/application/workspace-model",
+      "text": "import { systemModelOf } from '@/application/workspace-model';"
+    },
+    {
+      "file": "tools/map.ts",
+      "line": 24,
+      "module": "src/infrastructure/workspace-model",
+      "text": "import { readWorkspaceModel } from '@/infrastructure/workspace-model';"
+    },
+    {
+      "file": "tools/plan-base.ts",
+      "line": 21,
+      "module": "src/infrastructure/plan-base-store",
+      "text": "import { type PlanLock, readPlanBase, readPlanLock } from '@/infrastructure/plan-base-store';"
+    },
+    {
+      "file": "tools/plan-base.ts",
+      "line": 22,
+      "module": "src/infrastructure/plan-store",
+      "text": "import { checkPlan, readNeighbourIndex, readStackedBase, readVersions, type StackedBase, } from '@/infrastructure/plan-store';"
+    },
+    {
+      "file": "tools/rebuild/facts.ts",
+      "line": 2,
+      "module": "src/application/plan/derive",
+      "text": "import { derive, type Model } from '@/application/plan/derive';"
+    },
+    {
+      "file": "tools/rebuild/facts.ts",
+      "line": 9,
+      "module": "src/infrastructure/plan-store",
+      "text": "import { listPlans } from '@/infrastructure/plan-store';"
+    },
+    {
+      "file": "tools/rebuild/facts.ts",
+      "line": 12,
+      "module": "src/infrastructure/today-model",
+      "text": "import { readToday } from '@/infrastructure/today-model';"
+    },
+    {
+      "file": "tools/rebuild/facts.ts",
+      "line": 14,
+      "module": "src/infrastructure/workspace-plans",
+      "text": "import { readPlanState } from '@/infrastructure/workspace-plans';"
+    },
+    {
+      "file": "tools/rebuild/routes.ts",
+      "line": 3,
+      "module": "src/application/plan/derive",
+      "text": "import { type Model, derive } from '@/application/plan/derive';"
+    },
+    {
+      "file": "tools/rebuild/routes.ts",
+      "line": 11,
+      "module": "src/infrastructure/plan-store",
+      "text": "import { listRevisions } from '@/infrastructure/plan-store';"
+    },
+    {
+      "file": "tools/rebuild/routes.ts",
+      "line": 12,
+      "module": "src/infrastructure/today-model",
+      "text": "import { readToday } from '@/infrastructure/today-model';"
+    },
+    {
+      "file": "tools/rebuild/routes.ts",
+      "line": 14,
+      "module": "src/infrastructure/workspace-plans",
+      "text": "import { readLoadedPlans } from '@/infrastructure/workspace-plans';"
+    },
+    {
+      "file": "src/infrastructure/workspace-library.ts",
+      "line": 9,
+      "module": "src/infrastructure/workspace-plans",
+      "text": "import { readLoadedPlans } from './workspace-plans';"
+    },
+    {
+      "file": "src/infrastructure/workspace-plan-index.ts",
+      "line": 8,
+      "module": "src/infrastructure/today-model",
+      "text": "import { readToday } from './today-model';"
+    },
+    {
+      "file": "src/infrastructure/workspace-plan-index.ts",
+      "line": 10,
+      "module": "src/infrastructure/workspace-plans",
+      "text": "import { readLoadedPlans } from './workspace-plans';"
+    },
+    {
+      "file": "src/infrastructure/plan-standing.ts",
+      "line": 22,
+      "module": "src/infrastructure/plan-store",
+      "text": "import { readNeighbourIndex, readPlanRaw, readProgress } from './plan-store';"
+    },
+    {
+      "file": "src/infrastructure/plan-standing.ts",
+      "line": 23,
+      "module": "src/infrastructure/today-model",
+      "text": "import { readToday } from './today-model';"
+    },
+    {
+      "file": "src/infrastructure/workspace-plans.ts",
+      "line": 12,
+      "module": "src/infrastructure/plan-standing",
+      "text": "import { readStanding } from './plan-standing';"
+    },
+    {
+      "file": "src/infrastructure/workspace-plans.ts",
+      "line": 13,
+      "module": "src/infrastructure/plan-store",
+      "text": "import { checkPlan, listPlans, readOverlaps, readPlan, readProgress } from './plan-store';"
+    },
+    {
+      "file": "src/infrastructure/plan-base-store.ts",
+      "line": 14,
+      "module": "src/infrastructure/today-model",
+      "text": "import { readToday } from './today-model';"
+    },
+    {
+      "file": "src/infrastructure/plan-store.ts",
+      "line": 39,
+      "module": "src/infrastructure/plan-base-store",
+      "text": "import { type BaseReading, hasLanded, issueKey, ownIssues, readPlanBase, readPlanLock, } from './plan-base-store';"
+    },
+    {
+      "file": "src/infrastructure/workspace-programmes.ts",
+      "line": 8,
+      "module": "src/infrastructure/plan-store",
+      "text": "import { readNeighbourIndex } from './plan-store';"
+    },
+    {
+      "file": "src/infrastructure/today-model.ts",
+      "line": 4,
+      "module": "src/application/workspace-model",
+      "text": "import { type SystemModel, systemModelOf } from '@/application/workspace-model';"
+    },
+    {
+      "file": "src/infrastructure/today-model.ts",
+      "line": 9,
+      "module": "src/infrastructure/workspace-model",
+      "text": "import { readWorkspaceModel } from './workspace-model';"
+    },
+    {
+      "file": "src/infrastructure/workspace-store.ts",
+      "line": 6,
+      "module": "src/application/legacy-view",
+      "text": "import { legacyViewOf } from '@/application/legacy-view';"
+    },
+    {
+      "file": "src/infrastructure/plan-revision.ts",
+      "line": 9,
+      "module": "src/infrastructure/plan-store",
+      "text": "import { listRevisions, readRevision } from './plan-store';"
+    },
+    {
+      "file": "src/infrastructure/plan-revision.ts",
+      "line": 11,
+      "module": "src/infrastructure/workspace-plans",
+      "text": "import { readLoadedPlan } from './workspace-plans';"
+    },
+    {
+      "file": "src/infrastructure/plan-data.ts",
+      "line": 3,
+      "module": "src/application/plan/derive",
+      "text": "import { derive, type Model } from '@/application/plan/derive';"
+    },
+    {
+      "file": "src/infrastructure/plan-data.ts",
+      "line": 10,
+      "module": "src/infrastructure/today-model",
+      "text": "import { readPlacementData } from './today-model';"
+    },
+    {
+      "file": "src/infrastructure/plan-data.ts",
+      "line": 12,
+      "module": "src/infrastructure/workspace-plan-index",
+      "text": "import { readWorkspacePlanIndex } from './workspace-plan-index';"
+    },
+    {
+      "file": "src/infrastructure/plan-data.ts",
+      "line": 13,
+      "module": "src/infrastructure/workspace-plans",
+      "text": "import { readLoadedPlan, readLoadedPlans, readPlanState, type BrokenPlan } from './workspace-plans';"
+    },
+    {
+      "file": "src/infrastructure/today-data.ts",
+      "line": 6,
+      "module": "src/infrastructure/today-model",
+      "text": "import { readToday, type Today } from './today-model';"
+    },
+    {
+      "file": "src/infrastructure/today-data.ts",
+      "line": 8,
+      "module": "src/infrastructure/workspace-plans",
+      "text": "import { readLoadedPlans } from './workspace-plans';"
+    },
+    {
+      "file": "src/application/workspace-model.ts",
+      "line": 2,
+      "module": "src/application/plan/derive",
+      "text": "import { derive, type Model } from '@/application/plan/derive';"
+    },
+    {
+      "file": "src/features/plan/plan-model.ts",
+      "line": 1,
+      "module": "src/application/plan/derive",
+      "text": "import { derive, type Model } from '@/application/plan/derive';"
+    },
+    {
+      "file": "src/application/plan-index.ts",
+      "line": 1,
+      "module": "src/application/plan/derive",
+      "text": "import { derive, type Model } from '@/application/plan/derive';"
+    },
+    {
+      "file": "src/application/workspace-library-plans.ts",
+      "line": 1,
+      "module": "src/application/plan/derive",
+      "text": "import { derive, type Model } from '@/application/plan/derive';"
+    },
+    {
+      "file": "src/app/[workspace]/partners/page.tsx",
+      "line": 9,
+      "module": "src/infrastructure/today-data",
+      "text": "import { todayData } from '@/infrastructure/today-data';"
+    },
+    {
+      "file": "src/app/[workspace]/partners/page.tsx",
+      "line": 10,
+      "module": "src/infrastructure/workspace-plan-index",
+      "text": "import { readWorkspacePlanIndex } from '@/infrastructure/workspace-plan-index';"
+    },
+    {
+      "file": "src/app/[workspace]/reference/page.tsx",
+      "line": 8,
+      "module": "src/infrastructure/today-data",
+      "text": "import { todayData } from '@/infrastructure/today-data';"
+    },
+    {
+      "file": "src/application/plan-footprint.ts",
+      "line": 1,
+      "module": "src/application/plan/derive",
+      "text": "import { derive, type Model } from '@/application/plan/derive';"
+    },
+    {
+      "file": "src/application/legacy-view.ts",
+      "line": 3,
+      "module": "src/application/plan/derive",
+      "text": "import { derive, type Model } from '@/application/plan/derive';"
+    },
+    {
+      "file": "src/app/[workspace]/reference/[kind]/page.tsx",
+      "line": 10,
+      "module": "src/infrastructure/today-data",
+      "text": "import { todayData } from '@/infrastructure/today-data';"
+    },
+    {
+      "file": "src/app/[workspace]/page.tsx",
+      "line": 11,
+      "module": "src/infrastructure/today-data",
+      "text": "import { todayData } from '@/infrastructure/today-data';"
+    },
+    {
+      "file": "src/application/plan/plan-diff.ts",
+      "line": 4,
+      "module": "src/application/plan/derive",
+      "text": "import { derive } from '@/application/plan/derive';"
+    },
+    {
+      "file": "src/app/[workspace]/partners/[team]/page.tsx",
+      "line": 10,
+      "module": "src/infrastructure/today-data",
+      "text": "import { todayData } from '@/infrastructure/today-data';"
+    },
+    {
+      "file": "src/app/[workspace]/partners/[team]/page.tsx",
+      "line": 11,
+      "module": "src/infrastructure/workspace-plan-index",
+      "text": "import { readWorkspacePlanIndex } from '@/infrastructure/workspace-plan-index';"
+    },
+    {
+      "file": "src/app/[workspace]/language/page.tsx",
+      "line": 9,
+      "module": "src/infrastructure/today-data",
+      "text": "import { todayData } from '@/infrastructure/today-data';"
+    },
+    {
+      "file": "src/app/[workspace]/model.json/route.ts",
+      "line": 2,
+      "module": "src/infrastructure/today-data",
+      "text": "import { todayData } from '@/infrastructure/today-data';"
+    },
+    {
+      "file": "src/app/[workspace]/plans/page.tsx",
+      "line": 10,
+      "module": "src/infrastructure/today-data",
+      "text": "import { todayData } from '@/infrastructure/today-data';"
+    },
+    {
+      "file": "src/app/[workspace]/plans/page.tsx",
+      "line": 11,
+      "module": "src/infrastructure/workspace-plan-index",
+      "text": "import { readWorkspacePlanIndex } from '@/infrastructure/workspace-plan-index';"
+    },
+    {
+      "file": "src/app/[workspace]/plans/page.tsx",
+      "line": 12,
+      "module": "src/infrastructure/workspace-plans",
+      "text": "import { readLoadedPlans } from '@/infrastructure/workspace-plans';"
+    },
+    {
+      "file": "src/app/[workspace]/value-flows/page.tsx",
+      "line": 9,
+      "module": "src/infrastructure/today-data",
+      "text": "import { todayData } from '@/infrastructure/today-data';"
+    },
+    {
+      "file": "src/app/[workspace]/[domain]/[system]/layout.tsx",
+      "line": 17,
+      "module": "src/infrastructure/today-data",
+      "text": "import { todayData } from '@/infrastructure/today-data';"
+    },
+    {
+      "file": "src/app/[workspace]/[domain]/[system]/layout.tsx",
+      "line": 18,
+      "module": "src/infrastructure/workspace-plan-index",
+      "text": "import { readWorkspacePlanIndex } from '@/infrastructure/workspace-plan-index';"
+    },
+    {
+      "file": "src/app/[workspace]/[domain]/[system]/layout.tsx",
+      "line": 19,
+      "module": "src/infrastructure/workspace-plans",
+      "text": "import { readLoadedPlans } from '@/infrastructure/workspace-plans';"
+    },
+    {
+      "file": "src/app/[workspace]/[domain]/[system]/page.tsx",
+      "line": 7,
+      "module": "src/infrastructure/today-data",
+      "text": "import { todayData } from '@/infrastructure/today-data';"
+    },
+    {
+      "file": "src/app/[workspace]/explorer/page.tsx",
+      "line": 10,
+      "module": "src/infrastructure/today-data",
+      "text": "import { todayData } from '@/infrastructure/today-data';"
+    },
+    {
+      "file": "src/app/[workspace]/programmes/page.tsx",
+      "line": 9,
+      "module": "src/infrastructure/today-data",
+      "text": "import { todayData } from '@/infrastructure/today-data';"
+    },
+    {
+      "file": "src/app/[workspace]/programmes/page.tsx",
+      "line": 10,
+      "module": "src/infrastructure/workspace-plan-index",
+      "text": "import { readWorkspacePlanIndex } from '@/infrastructure/workspace-plan-index';"
+    },
+    {
+      "file": "src/app/[workspace]/people/page.tsx",
+      "line": 9,
+      "module": "src/infrastructure/today-data",
+      "text": "import { todayData } from '@/infrastructure/today-data';"
+    },
+    {
+      "file": "src/app/[workspace]/plans/[plan]/page.tsx",
+      "line": 5,
+      "module": "src/infrastructure/plan-data",
+      "text": "import { planData, planFailure, type PlanParams } from '@/infrastructure/plan-data';"
+    },
+    {
+      "file": "src/app/[workspace]/[domain]/(overview)/interfaces/page.tsx",
+      "line": 6,
+      "module": "src/infrastructure/today-data",
+      "text": "import { todayData } from '@/infrastructure/today-data';"
+    },
+    {
+      "file": "src/app/[workspace]/things/page.tsx",
+      "line": 9,
+      "module": "src/infrastructure/today-data",
+      "text": "import { todayData } from '@/infrastructure/today-data';"
+    },
+    {
+      "file": "src/app/[workspace]/journeys/page.tsx",
+      "line": 8,
+      "module": "src/infrastructure/today-data",
+      "text": "import { todayData } from '@/infrastructure/today-data';"
+    },
+    {
+      "file": "src/app/[workspace]/programmes/[programme]/page.tsx",
+      "line": 10,
+      "module": "src/infrastructure/today-data",
+      "text": "import { todayData } from '@/infrastructure/today-data';"
+    },
+    {
+      "file": "src/app/[workspace]/programmes/[programme]/page.tsx",
+      "line": 11,
+      "module": "src/infrastructure/workspace-plan-index",
+      "text": "import { readWorkspacePlanIndex } from '@/infrastructure/workspace-plan-index';"
+    },
+    {
+      "file": "src/app/[workspace]/programmes/[programme]/page.tsx",
+      "line": 12,
+      "module": "src/infrastructure/workspace-plans",
+      "text": "import { readLoadedPlans } from '@/infrastructure/workspace-plans';"
+    },
+    {
+      "file": "src/app/[workspace]/[domain]/(overview)/map/page.tsx",
+      "line": 8,
+      "module": "src/infrastructure/today-data",
+      "text": "import { todayData } from '@/infrastructure/today-data';"
+    },
+    {
+      "file": "src/app/[workspace]/[domain]/[system]/flows/[flow]/page.tsx",
+      "line": 7,
+      "module": "src/infrastructure/today-data",
+      "text": "import { todayData } from '@/infrastructure/today-data';"
+    },
+    {
+      "file": "src/app/[workspace]/[domain]/(overview)/flows/page.tsx",
+      "line": 7,
+      "module": "src/infrastructure/today-data",
+      "text": "import { todayData } from '@/infrastructure/today-data';"
+    },
+    {
+      "file": "src/app/[workspace]/[domain]/(overview)/flows/layout.tsx",
+      "line": 7,
+      "module": "src/infrastructure/today-data",
+      "text": "import { todayData } from '@/infrastructure/today-data';"
+    },
+    {
+      "file": "src/app/[workspace]/journeys/[key]/page.tsx",
+      "line": 10,
+      "module": "src/infrastructure/today-data",
+      "text": "import { todayData } from '@/infrastructure/today-data';"
+    },
+    {
+      "file": "src/app/[workspace]/areas/[area]/map.json/route.ts",
+      "line": 4,
+      "module": "src/infrastructure/today-data",
+      "text": "import { todayData } from '@/infrastructure/today-data';"
+    },
+    {
+      "file": "src/app/[workspace]/areas/[area]/page.tsx",
+      "line": 9,
+      "module": "src/infrastructure/today-data",
+      "text": "import { todayData } from '@/infrastructure/today-data';"
+    },
+    {
+      "file": "src/app/[workspace]/[domain]/(overview)/layout.tsx",
+      "line": 11,
+      "module": "src/infrastructure/today-data",
+      "text": "import { todayData } from '@/infrastructure/today-data';"
+    },
+    {
+      "file": "src/app/[workspace]/[domain]/(overview)/layout.tsx",
+      "line": 12,
+      "module": "src/infrastructure/workspace-plans",
+      "text": "import { readLoadedPlans } from '@/infrastructure/workspace-plans';"
+    },
+    {
+      "file": "src/app/[workspace]/[domain]/(overview)/page.tsx",
+      "line": 8,
+      "module": "src/infrastructure/today-data",
+      "text": "import { todayData } from '@/infrastructure/today-data';"
+    },
+    {
+      "file": "src/app/[workspace]/[domain]/(overview)/language/page.tsx",
+      "line": 8,
+      "module": "src/infrastructure/today-data",
+      "text": "import { todayData } from '@/infrastructure/today-data';"
+    },
+    {
+      "file": "src/app/[workspace]/[domain]/(overview)/flows/[flow]/page.tsx",
+      "line": 7,
+      "module": "src/infrastructure/today-data",
+      "text": "import { todayData } from '@/infrastructure/today-data';"
+    },
+    {
+      "file": "src/app/[workspace]/[domain]/(overview)/target/page.tsx",
+      "line": 10,
+      "module": "src/infrastructure/today-data",
+      "text": "import { todayData } from '@/infrastructure/today-data';"
+    },
+    {
+      "file": "src/app/[workspace]/[domain]/(overview)/plans/page.tsx",
+      "line": 7,
+      "module": "src/infrastructure/today-data",
+      "text": "import { todayData } from '@/infrastructure/today-data';"
+    },
+    {
+      "file": "src/app/[workspace]/[domain]/(overview)/plans/page.tsx",
+      "line": 8,
+      "module": "src/infrastructure/workspace-plans",
+      "text": "import { readLoadedPlans } from '@/infrastructure/workspace-plans';"
+    },
+    {
+      "file": "src/app/[workspace]/plans/[plan]/revisions/[version]/plan.json/route.ts",
+      "line": 2,
+      "module": "src/infrastructure/plan-store",
+      "text": "import { readRevision, readStatus } from '@/infrastructure/plan-store';"
+    },
+    {
+      "file": "src/app/[workspace]/plans/[plan]/things/page.tsx",
+      "line": 5,
+      "module": "src/infrastructure/plan-data",
+      "text": "import { planData, type PlanParams } from '@/infrastructure/plan-data';"
+    },
+    {
+      "file": "src/app/[workspace]/plans/[plan]/plan.json/route.ts",
+      "line": 2,
+      "module": "src/infrastructure/today-model",
+      "text": "import { readPlacementData } from '@/infrastructure/today-model';"
+    },
+    {
+      "file": "src/app/[workspace]/plans/[plan]/plan.json/route.ts",
+      "line": 3,
+      "module": "src/infrastructure/workspace-plans",
+      "text": "import { readPlanState } from '@/infrastructure/workspace-plans';"
+    },
+    {
+      "file": "src/app/[workspace]/plans/[plan]/[chapter]/[screen]/page.tsx",
+      "line": 6,
+      "module": "src/infrastructure/plan-data",
+      "text": "import { planData, type PlanParams } from '@/infrastructure/plan-data';"
+    },
+    {
+      "file": "src/app/[workspace]/plans/[plan]/[chapter]/[screen]/page.tsx",
+      "line": 7,
+      "module": "src/infrastructure/plan-revision",
+      "text": "import { planRevision } from '@/infrastructure/plan-revision';"
+    }
+  ]
+}

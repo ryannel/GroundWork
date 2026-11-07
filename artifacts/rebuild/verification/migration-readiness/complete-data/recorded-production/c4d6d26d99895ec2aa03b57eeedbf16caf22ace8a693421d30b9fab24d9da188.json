@@ -1,0 +1,8 @@
+{
+  "route": "/volvo-cars/plans/immutable-ids/journey/sc-order-after-variant-retired/",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 106155,
+  "sha256": "cc70a0ae06c4da6051f591d7f8db508b7dd796f0d0a2439a10d401648f727f2d",
+  "body": "c4d6d26d99895ec2aa03b57eeedbf16caf22ace8a693421d30b9fab24d9da188.body.gz"
+}

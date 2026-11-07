@@ -1,0 +1,8 @@
+{
+  "route": "/",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 29164,
+  "sha256": "9712d33c235c4c5c9d7fbf9fc537dc0ff54a40147447f46044974f859384206e",
+  "body": "7e9d037692f39d37f9aaef4535a22f0e8a5747c560d320aea087f774f7f0e680.body.gz"
+}

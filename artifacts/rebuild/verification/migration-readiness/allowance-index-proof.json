@@ -1,0 +1,26 @@
+{
+  "allowances": 42935,
+  "results": [
+    {
+      "workspace": "personal",
+      "changes": 33,
+      "unexplained": 0,
+      "indexedMilliseconds": 2.5542500000001382,
+      "exactPriorLinearVerdictPreserved": true
+    },
+    {
+      "workspace": "acme",
+      "changes": 79,
+      "unexplained": 0,
+      "indexedMilliseconds": 1.0817500000000564,
+      "exactPriorLinearVerdictPreserved": true
+    },
+    {
+      "workspace": "volvo-cars",
+      "changes": 42830,
+      "unexplained": 38,
+      "indexedMilliseconds": 76.36887500000012,
+      "exactPriorLinearVerdictPreserved": true
+    }
+  ]
+}

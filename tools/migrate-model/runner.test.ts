@@ -167,3 +167,36 @@ it('keeps assigned identities when authored file order changes', async () => {
       .toSorted((a, b) => a.localeCompare(b));
   expect(allIds(second)).toEqual(allIds(first));
 });
+
+it('holds an unreconciled planned consumer for review before writing any output copy', async () => {
+  const root = await mkdtemp(path.join(tmpdir(), 'groundwork-consumer-review-'));
+  const source = path.join(root, 'original');
+  await fixture(source);
+  await writeMigrationFile(source, 'plans/consumer/plan.yaml', {
+    meta: { id: 'consumer', title: 'Proposed consumer' },
+    problem: { summary: 'The consumer has no recorded handler binding.' },
+    changes: [
+      {
+        id: 'chg:consume',
+        title: 'Consume the event',
+        ops: [{ modify: 'msg:upstream', append: { consumers: ['svc:orders'] } }],
+      },
+    ],
+  });
+  const before = await bytes(source);
+  const out = path.join(root, 'output');
+  const result = await migrateModel({
+    workspace: source,
+    out,
+    report: path.join(root, 'report'),
+  });
+  expect(result).toMatchObject({
+    status: 'needs-review',
+    problems: [],
+    review: {
+      families: { 'plan-consumers': { total: 1, pending: 1 } },
+    },
+  });
+  await expect(readdir(out)).rejects.toMatchObject({ code: 'ENOENT' });
+  await expect(bytes(source)).resolves.toEqual(before);
+});

@@ -3,7 +3,15 @@ import { modelList, modelRecord, modelText } from '@/domain/workspace-model';
 
 import { convertCitations, type MigrationCitations } from './citations';
 import { migrateComponent } from './components';
-import { entryOf, fieldsOf, migrateContracts, migrateScreens, subscriptionOf } from './contracts';
+import {
+  entryOf,
+  errorOf,
+  fieldsOf,
+  migrateContracts,
+  migrateScreens,
+  restShapeOf,
+  subscriptionOf,
+} from './contracts';
 import { fingerprint, type MigrationReview } from './review';
 import { migrateFailures, migrateSteps, type StepContext } from './steps';
 
@@ -113,6 +121,10 @@ function modifyFields(value: Node, target: string, context: PlanContext): Node {
       delete result.fails;
     }
   }
+  if (prefix === 'api') {
+    Object.assign(result, restShapeOf(value.sig));
+    if (value.errors !== undefined) result.errors = modelList(value.errors).map(errorOf);
+  }
   if (value.fields !== undefined) result.fields = fieldsOf(modelList(value.fields));
   if (prefix === 'flow' && value.steps !== undefined) {
     result.steps = modelList(value.steps).map(migrateFlowStep);
@@ -166,6 +178,67 @@ function migrateOp(op: Node, context: PlanContext): readonly Node[] {
     },
   ];
 }
+function subscriptionBindings(ops: readonly Node[]): ReadonlySet<string> {
+  const handlers = ops.filter((op) => op.add === 'handler');
+  return new Set(
+    ops.flatMap((op) => {
+      if (op.add !== 'subscription' || typeof op.into !== 'string') return [];
+      const value = object(op.value);
+      const bound = handlers.some((handler) => {
+        const handlerValue = object(handler.value);
+        return (
+          handler.into === op.into &&
+          handlerValue.on === value.id &&
+          handlerValue.component === value.component
+        );
+      });
+      return bound ? [fingerprint([value.message, value.component])] : [];
+    }),
+  );
+}
+function withoutConsumerAppend(op: Node, append: Node): readonly Node[] {
+  const remaining = Object.fromEntries(
+    Object.entries(append).filter(([key]) => key !== 'consumers'),
+  );
+  if (Object.keys(remaining).length > 0) return [{ ...op, append: remaining }];
+  const kept = Object.fromEntries(Object.entries(op).filter(([key]) => key !== 'append'));
+  return Object.keys(kept).length === 1 ? [] : [kept];
+}
+function messageConsumerAppend(op: Node): Node | null {
+  const append = modelRecord(op.append);
+  return parseId(op.modify)?.prefix === 'msg' && append?.consumers !== undefined ? append : null;
+}
+function consumersCovered(op: Node, append: Node, bindings: ReadonlySet<string>): boolean {
+  return (
+    Array.isArray(append.consumers) &&
+    modelList(append.consumers).every(
+      (component) =>
+        typeof component === 'string' && bindings.has(fingerprint([op.modify, component])),
+    )
+  );
+}
+function reconcileConsumers(ops: readonly Node[], context: PlanContext): readonly Node[] {
+  const bindings = subscriptionBindings(ops);
+  const uncovered = ops.filter((op) => {
+    const append = messageConsumerAppend(op);
+    return append !== null && !consumersCovered(op, append, bindings);
+  });
+  if (uncovered.length > 0) {
+    const accepted = modelRecord(
+      context.review.add('plan-consumers', `${context.path}/consumer-bindings`, ops, {
+        operations: ops,
+        uncovered,
+        reason:
+          'A declared message consumer has no matching placed subscription and handler binding in this change. Review the complete operation list, including companion declarations.',
+      }),
+    );
+    return Array.isArray(accepted?.operations) ? modelList(accepted.operations).map(object) : ops;
+  }
+  return ops.flatMap((op) => {
+    const append = messageConsumerAppend(op);
+    return append === null ? [op] : withoutConsumerAppend(op, append);
+  });
+}
 export function migratePlan(value: unknown, context: PlanContext): Node {
   const original = object(value);
   let node = original;
@@ -204,7 +277,12 @@ export function migratePlan(value: unknown, context: PlanContext): Node {
         ...change,
         ...(change.ops === undefined
           ? {}
-          : { ops: modelList(change.ops).flatMap((op) => migrateOp(object(op), next)) }),
+          : {
+              ops: reconcileConsumers(
+                modelList(change.ops).flatMap((op) => migrateOp(object(op), next)),
+                next,
+              ),
+            }),
       };
     }),
   };

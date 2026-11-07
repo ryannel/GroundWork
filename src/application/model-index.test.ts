@@ -4,7 +4,13 @@ import path from 'node:path';
 
 import { beforeAll, describe, expect, it, vi } from 'vitest';
 
-import { entitiesIn, modelList, type WorkspaceModel } from '@/domain/workspace-model';
+import { systemProviderModel } from '@/../test/fixtures/model-queries';
+import {
+  entitiesIn,
+  modelList,
+  type ModelSystem,
+  type WorkspaceModel,
+} from '@/domain/workspace-model';
 import { readModel } from '@/infrastructure/read-model';
 
 import { indexOf } from './model-index';
@@ -101,6 +107,37 @@ describe('the consolidated model index', () => {
     expect(index.edges('app:shop', { kinds: ['call'] })).toContainEqual(
       expect.objectContaining({ to: 'svc:ordering', via: 'gql:order', source: 'operation' }),
     );
+  });
+  it('retains a source-backed GraphQL document without inventing its client', async () => {
+    const original = await fixture();
+    const known = indexOf(original);
+    const model: WorkspaceModel = {
+      ...original,
+      domains: original.domains.map((domain) => ({
+        ...domain,
+        systems: domain.systems.map((system) => ({
+          ...system,
+          operations: system.operations.map((operation): ModelSystem['operations'][number] => {
+            const document = Object.assign({}, operation);
+            Reflect.deleteProperty(document, 'component');
+            return document;
+          }),
+        })),
+      })),
+    };
+    const index = indexOf(model);
+    expect(index.place('gql:order')?.component).toBeNull();
+    expect(index.get('gql:order')?.data.document).toBe('ev:document');
+    expect(index.get('ev:document')?.data).toEqual(known.get('ev:document')?.data);
+    expect(index.fieldsReached('gql:order')).toEqual(known.fieldsReached('gql:order'));
+    expect(index.gaps('gql:order')).toContainEqual({
+      id: 'gql:order',
+      kind: 'no_client',
+      message:
+        'The client component is unknown; the cited document does not establish an invocation.',
+    });
+    expect(index.edges().filter((record) => record.source === 'operation')).toEqual([]);
+    expect(index.callers('api:order-query')).toEqual([]);
   });
   it('derives entry roles, flow detail, visible gaps and repository freshness', async () => {
     const index = indexOf(await fixture());
@@ -361,4 +398,42 @@ describe('the consolidated model index', () => {
       'duplicates recorded handler or operation detail',
     );
   });
+});
+
+it('keeps a known system-level API boundary separate from an unknown implementing component', () => {
+  const model = systemProviderModel();
+  const index = indexOf(model);
+  expect(index.edges('svc:a', { kinds: ['call'] })).toContainEqual(
+    expect.objectContaining({
+      to: 'sys:unmapped',
+      via: 'api:unmapped-api',
+      site: 'h:a#call-unmapped',
+    }),
+  );
+  expect(index.gaps('if:unmapped-api')).toContainEqual(
+    expect.objectContaining({
+      id: 'api:unmapped-api',
+      kind: 'unmapped_target',
+      reference: 'sys:unmapped',
+    }),
+  );
+  expect(index.get('if:unmapped-api')?.place).toEqual({
+    workspace: 'queries',
+    domain: 'dom:queries',
+    system: 'sys:a',
+    component: null,
+  });
+  expect(index.get('api:unmapped-api')?.place.component).toBeNull();
+  expect(index.roles('sys:unmapped')).toEqual([]);
+  expect(index.entries('sys:unmapped')).toEqual([]);
+  expect(index.callers('api:unmapped-api')).toHaveLength(1);
+  expect(index.edges('sys:unmapped', { direction: 'in', kinds: ['call'] })).toContainEqual(
+    expect.objectContaining({ from: 'svc:a', via: 'api:unmapped-api' }),
+  );
+  expect(index.edges('sys:a', { level: 'system', kinds: ['call'] })).toContainEqual(
+    expect.objectContaining({ to: 'sys:unmapped', via: 'api:unmapped-api' }),
+  );
+  expect(index.cites('api:unmapped-api')).toEqual(
+    model.domains[0]?.systems[0]?.interfaces.at(-1)?.cites,
+  );
 });

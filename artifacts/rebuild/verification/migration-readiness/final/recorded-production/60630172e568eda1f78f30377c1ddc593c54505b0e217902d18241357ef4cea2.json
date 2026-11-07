@@ -1,0 +1,8 @@
+{
+  "route": "/volvo-cars/journeys/",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 93715,
+  "sha256": "6a6825d6d2a0232c000399d7db44ed1fcc0f030ab6faaebf678dcee20aaa8b3b",
+  "body": "60630172e568eda1f78f30377c1ddc593c54505b0e217902d18241357ef4cea2.body.gz"
+}

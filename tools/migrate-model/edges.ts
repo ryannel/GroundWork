@@ -36,7 +36,8 @@ function providersOf(scopes: readonly Scope[]): ReadonlyMap<string, string> {
       const provider =
         modelText(contract.component) ??
         modelText(contract.service) ??
-        modelText(contract.external);
+        modelText(contract.external) ??
+        modelText(contract.system);
       return nodes(contract.endpoints ?? contract.entries).map((entry) => [entry.id, provider]);
     });
     const messages = nodes(scope.contracts.messages).map((message) => [message.id, message.topic]);
@@ -184,11 +185,12 @@ function isCovered(
 function placementOf(scopes: readonly Scope[]): ReadonlyMap<string, string> {
   return new Map(
     scopes.flatMap((scope) =>
-      nodes(scope.source.components).flatMap((component) =>
-        typeof component.id === 'string' && typeof scope.source.id === 'string'
-          ? [[component.id, scope.source.id] as const]
-          : [],
-      ),
+      nodes(scope.source.components).flatMap((component) => {
+        if (typeof component.id !== 'string' || typeof scope.source.id !== 'string') return [];
+        const prefix = parseId(component.id)?.prefix;
+        if (prefix === 'ext') return [];
+        return [[component.id, prefix === 'sys' ? component.id : scope.source.id] as const];
+      }),
     ),
   );
 }

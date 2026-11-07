@@ -1,0 +1,8 @@
+{
+  "route": "/volvo-cars/areas/range/map.json",
+  "status": 200,
+  "type": "application/json",
+  "bytes": 489579,
+  "sha256": "128fce94fd85e888c983e50908fe744425a852a9c0be6f4bf58d527ec225e96b",
+  "body": "12c31c01dae95803f5fea5602ee40f2d5353688b626f534dca3e2884469ef5f2.body.gz"
+}

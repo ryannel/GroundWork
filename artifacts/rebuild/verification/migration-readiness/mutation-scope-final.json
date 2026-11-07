@@ -1,0 +1,14 @@
+{
+  "base": "0641a6686cefd2f8b753c09ab769301065e13056",
+  "wholeFiles": [
+    "src/application/entry-flow.ts",
+    "src/application/legacy-view.ts",
+    "src/application/model-index.ts",
+    "src/application/plan-story.ts",
+    "src/application/plans-index.ts",
+    "src/domain/plan-apply.ts"
+  ],
+  "batches": 6,
+  "threshold": 75,
+  "scope": "Every touched pure-layer file in full; no changed-line restriction or threshold change."
+}

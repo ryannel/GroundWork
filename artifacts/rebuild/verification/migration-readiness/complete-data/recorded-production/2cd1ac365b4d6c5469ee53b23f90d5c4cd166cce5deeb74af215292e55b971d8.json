@@ -1,0 +1,8 @@
+{
+  "route": "/acme/journeys/flow-publish-product/",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 39318,
+  "sha256": "93c025a550db4e6c861b782cc4ccf8b6032e7b0008261df7fce4f18eb7f10735",
+  "body": "2cd1ac365b4d6c5469ee53b23f90d5c4cd166cce5deeb74af215292e55b971d8.body.gz"
+}

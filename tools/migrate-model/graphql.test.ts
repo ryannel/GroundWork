@@ -62,6 +62,27 @@ describe('migration of authored GraphQL documents', () => {
     expect(result.record).toMatchObject({ document: 'not a query', selections: [] });
     expect(review.pending('graphql-documents')).toBe(1);
   });
+  it('retains a complete cited document when its client remains unknown', async () => {
+    const review = migrationReview();
+    const document = 'query Unknown { value }';
+    const source = {
+      repo: 'example/shop',
+      path: 'shared/query.ts',
+      commit: 'b'.repeat(40),
+      lines: [3, 8],
+    };
+    const result = migrateOperation(
+      { id: 'gql:unknown', graph: 'graph:shop', document, sources: [source] },
+      review,
+    );
+    const check = await modelValidator('workspace', 'Operation');
+    expect(check(result.operation), JSON.stringify(check.errors)).toBe(true);
+    expect(result.operation).not.toHaveProperty('component');
+    expect(result.operation.graph).toBe('graph:shop');
+    expect(result.record).toMatchObject({ document, source, selections: [{ path: 'value' }] });
+    expect(review.pending('placements')).toBe(1);
+    expect(review.pending('documents')).toBe(0);
+  });
   it('leaves an absent client in review instead of choosing a component', () => {
     const review = migrationReview();
     const result = migrateOperation(

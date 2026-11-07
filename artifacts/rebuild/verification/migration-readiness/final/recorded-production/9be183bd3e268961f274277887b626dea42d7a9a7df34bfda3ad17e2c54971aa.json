@@ -1,0 +1,8 @@
+{
+  "route": "/volvo-cars/plans/care-se-online/things/?id=svc-assortment-cache-worker",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 117857,
+  "sha256": "d38e8fec0f9688784a30b51d39ac6818419f100fb2f6775cc3a9bb731600cb47",
+  "body": "9be183bd3e268961f274277887b626dea42d7a9a7df34bfda3ad17e2c54971aa.body.gz"
+}

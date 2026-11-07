@@ -1,0 +1,8 @@
+{
+  "route": "/volvo-cars/things/?id=svc-assortment-admin-api",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 212464,
+  "sha256": "7b161af78a7679fc41c519c5800cb8af8bb63bd835cc99f7a4692ca095e893fb",
+  "body": "f1e7febaae4903adcca7c9bf496653a88bb77a4d7aa773927a80ea40cbe146d1.body.gz"
+}

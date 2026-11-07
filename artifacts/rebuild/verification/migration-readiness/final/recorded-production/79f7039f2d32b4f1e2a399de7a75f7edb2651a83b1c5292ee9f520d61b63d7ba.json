@@ -1,0 +1,8 @@
+{
+  "route": "/volvo-cars/commercial-backbone/map/",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 929795,
+  "sha256": "8e3ac69b701ed511cdc3165c55fcfd910d0698658f4208a76e62bc485c977264",
+  "body": "79f7039f2d32b4f1e2a399de7a75f7edb2651a83b1c5292ee9f520d61b63d7ba.body.gz"
+}

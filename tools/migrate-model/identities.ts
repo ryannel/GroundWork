@@ -1,14 +1,25 @@
-import { buildId, childId, hasPrefix, isQualifiedId, localId } from '@/domain/ids';
+import {
+  buildId,
+  childId,
+  hasPrefix,
+  isQualifiedId,
+  localId,
+  parseId,
+  rewriteIdReferences,
+} from '@/domain/ids';
 import { modelList, modelRecord, modelText } from '@/domain/workspace-model';
 
 import { fieldsOf } from './contracts';
 import type { MigrationFile } from './files';
+import { reviewedIdentityMerges, type ReviewedIdentityMerge } from './identity-merges';
 import type { MigrationReview } from './review';
 import { slug } from './steps';
 
 type Node = Readonly<Record<string, unknown>>;
 export interface MigrationIdentities {
   readonly replacements: ReadonlyMap<string, string>;
+  readonly merges: readonly ReviewedIdentityMerge[];
+  readonly descriptions: ReadonlyMap<string, Node>;
   readonly components: ReadonlyMap<string, Node>;
   readonly placements: ReadonlyMap<string, string>;
   readonly ambiguous: ReadonlyMap<string, readonly string[]>;
@@ -27,9 +38,9 @@ function fileIdentity(file: MigrationFile): readonly [string, string] | null {
   if (file.path.startsWith('programmes/')) return [id, 'prog'];
   return null;
 }
-function externalKind(component: Node, review: MigrationReview): 'external' | 'system' {
+function externalDecision(component: Node, review: MigrationReview): Node {
   const id = modelText(component.id) ?? '';
-  if (localId(id).includes('launchdarkly')) return 'external';
+  if (localId(id).includes('launchdarkly')) return { kind: 'external' };
   const accepted = modelRecord(
     review.add('identities', `identity/${id}`, component, {
       id,
@@ -39,14 +50,20 @@ function externalKind(component: Node, review: MigrationReview): 'external' | 's
       reason: 'Legacy external does not distinguish a vendor from an unmapped company system.',
     }),
   );
-  return accepted?.kind === 'system' ? 'system' : 'external';
+  if (accepted !== null && !['external', 'system'].includes(String(accepted.kind))) {
+    throw new Error(`Invalid accepted identity kind: ${id}`);
+  }
+  return accepted ?? { kind: 'external' };
 }
 interface IdentityState extends MigrationIdentities {
   readonly add: (before: string, after: string) => void;
   readonly declare: (id: string, component: Node, system: string) => void;
   readonly external: (id: string, kind: 'external' | 'system') => void;
+  readonly describe: (id: string, decision: Node) => void;
 }
-function identityState(): IdentityState {
+function identityState(merges: readonly ReviewedIdentityMerge[]): IdentityState {
+  const aliases = new Map(merges.flatMap((merge) => [...merge.aliases]));
+  const descriptions = new Map<string, Node>();
   const replacements = new Map<string, string>();
   const components = new Map<string, Node>();
   const placements = new Map<string, string>();
@@ -54,11 +71,14 @@ function identityState(): IdentityState {
   const ambiguous = new Map<string, readonly string[]>();
   return {
     replacements,
+    merges,
+    descriptions,
     components,
     placements,
     externalKinds,
     ambiguous,
-    add: (before, after) => {
+    add: (before, target) => {
+      const after = rewriteIdReferences(target, aliases, true);
       const previous = replacements.get(before);
       if (previous !== undefined && previous !== after && isQualifiedId(before)) {
         throw new Error(`Conflicting identity: ${before}`);
@@ -78,6 +98,9 @@ function identityState(): IdentityState {
     declare: (id, component, system) => {
       components.set(id, component);
       placements.set(id, system);
+    },
+    describe: (id, decision) => {
+      descriptions.set(id, decision);
     },
     external: (id, kind) => {
       externalKinds.set(id, kind);
@@ -119,13 +142,26 @@ function addComponent(
     );
     return;
   }
-  const kind = externalKind(component, review);
+  addExternalIdentity(component, state, review);
+}
+function addExternalIdentity(component: Node, state: IdentityState, review: MigrationReview): void {
+  const id = modelText(component.id) ?? '';
+  const decision = externalDecision(component, review);
+  const kind = decision.kind === 'system' ? 'system' : 'external';
   state.external(id, kind);
   const externalPrefix = kind === 'external' ? 'ext' : 'sys';
   const next = localId(id).includes('launchdarkly')
     ? buildId('ext', 'launchdarkly')
     : mappedId(id, externalPrefix);
-  state.add(id, next);
+  const proposed = modelText(decision.proposed_id) ?? next;
+  const parsed = parseId(proposed);
+  if (parsed?.prefix !== externalPrefix || parsed.path.length > 0) {
+    throw new Error(`Invalid accepted identity target: ${id}`);
+  }
+  state.add(id, proposed);
+  const canonical = state.replacements.get(id) ?? id;
+  state.external(canonical, kind);
+  state.describe(canonical, decision);
 }
 function addAreas(file: MigrationFile | undefined, state: IdentityState): void {
   const landscape = modelRecord(file?.value);
@@ -191,7 +227,11 @@ export function migrationIdentities(
   files: readonly MigrationFile[],
   review: MigrationReview,
 ): MigrationIdentities {
-  const state = identityState();
+  const merges = reviewedIdentityMerges(files, review);
+  const state = identityState(merges);
+  for (const merge of merges) {
+    for (const [before, after] of merge.aliases) state.add(before, after);
+  }
   const implemented = implementedComponents(files);
   for (const file of files) {
     const identity = fileIdentity(file);

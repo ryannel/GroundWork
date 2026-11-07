@@ -4,7 +4,7 @@ import path from 'node:path';
 
 import { beforeAll, describe, expect, it, vi } from 'vitest';
 
-import { emptyQueryModel, queryModel } from '@/../test/fixtures/model-queries';
+import { emptyQueryModel, queryModel, systemProviderModel } from '@/../test/fixtures/model-queries';
 import { entitiesIn, type WorkspaceModel } from '@/domain/workspace-model';
 import { readModel } from '@/infrastructure/read-model';
 
@@ -129,4 +129,26 @@ describe('the named legacy compatibility boundary', () => {
     ).toHaveLength(1);
     expect(legacyLosses(null, null)).toEqual([]);
   });
+});
+
+it('retains the recorded provider of an unmapped-system interface without fabricating a service', () => {
+  const projected = legacyViewOf(systemProviderModel());
+  expect(projected.losses).toEqual([]);
+  expect(projected.model.asIs.interfaces).toContainEqual(
+    expect.objectContaining({
+      id: 'if:unmapped-api',
+      service: 'sys:unmapped',
+      protocol: 'rest',
+      endpoints: [expect.objectContaining({ id: 'api:unmapped-api', sig: 'GET /known' })],
+    }),
+  );
+  expect(projected.model.asIs.services.some((service) => service.id === 'sys:unmapped')).toBe(
+    false,
+  );
+  expect(projected.workspace.domains[0]?.systems[0]?.interfaces).toContainEqual(
+    expect.objectContaining({
+      id: 'if:unmapped-api',
+      system: 'sys:unmapped',
+    }),
+  );
 });

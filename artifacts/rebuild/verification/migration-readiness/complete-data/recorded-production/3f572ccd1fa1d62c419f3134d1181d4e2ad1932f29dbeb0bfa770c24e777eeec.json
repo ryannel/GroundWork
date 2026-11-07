@@ -1,0 +1,8 @@
+{
+  "route": "/volvo-cars/plans/care-se-stock-reservation/things/?id=svc-assortment-cache-worker",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 123125,
+  "sha256": "b845800bb5191ec0ee3615311d8839f8fd862a1011485765686e8d50d5f96143",
+  "body": "3f572ccd1fa1d62c419f3134d1181d4e2ad1932f29dbeb0bfa770c24e777eeec.body.gz"
+}

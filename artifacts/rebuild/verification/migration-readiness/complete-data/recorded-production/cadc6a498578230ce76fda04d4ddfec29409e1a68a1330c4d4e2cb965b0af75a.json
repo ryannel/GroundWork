@@ -1,0 +1,8 @@
+{
+  "route": "/volvo-cars/plans/care-se-order-change/plan.json",
+  "status": 200,
+  "type": "application/json",
+  "bytes": 1431356,
+  "sha256": "a1e7a41406528380bb1a8b3c03d4791a9b385414dcfb9d4a924b7d6a1bed45e8",
+  "body": "cadc6a498578230ce76fda04d4ddfec29409e1a68a1330c4d4e2cb965b0af75a.body.gz"
+}

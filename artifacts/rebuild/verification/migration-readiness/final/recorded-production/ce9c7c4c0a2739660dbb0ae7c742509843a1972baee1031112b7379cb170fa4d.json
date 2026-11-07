@@ -1,0 +1,8 @@
+{
+  "route": "/volvo-cars/plans/care-se-order-change/journey/empty/",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 79901,
+  "sha256": "79cd02ff55536b6af5cd17c5e5142e6a249eae78dc51c308959876cab6c4ccfd",
+  "body": "ce9c7c4c0a2739660dbb0ae7c742509843a1972baee1031112b7379cb170fa4d.body.gz"
+}

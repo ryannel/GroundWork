@@ -1316,6 +1316,13 @@
           },
           "uniqueIds": true
         },
+        "supersedes": {
+          "type": "string",
+          "pattern": "^(?:sch):[^#\\s]+$"
+        },
+        "deprecated": {
+          "type": "boolean"
+        },
         "cites": {
           "$ref": "#/$defs/AuthoredCites"
         }
@@ -1473,6 +1480,9 @@
             "http",
             "https"
           ]
+        },
+        "system": {
+          "$ref": "#/$defs/SystemId"
         }
       },
       "required": [
@@ -1489,6 +1499,11 @@
         {
           "required": [
             "external"
+          ]
+        },
+        {
+          "required": [
+            "system"
           ]
         }
       ]
@@ -1634,6 +1649,9 @@
         },
         "cites": {
           "$ref": "#/$defs/AuthoredCites"
+        },
+        "system": {
+          "$ref": "#/$defs/SystemId"
         }
       },
       "required": [
@@ -1650,6 +1668,11 @@
         {
           "required": [
             "external"
+          ]
+        },
+        {
+          "required": [
+            "system"
           ]
         }
       ]
@@ -1790,6 +1813,9 @@
         },
         "cites": {
           "$ref": "#/$defs/AuthoredCites"
+        },
+        "system": {
+          "$ref": "#/$defs/SystemId"
         }
       },
       "required": [
@@ -1806,6 +1832,11 @@
         {
           "required": [
             "external"
+          ]
+        },
+        {
+          "required": [
+            "system"
           ]
         }
       ]
@@ -1946,6 +1977,9 @@
         },
         "cites": {
           "$ref": "#/$defs/AuthoredCites"
+        },
+        "system": {
+          "$ref": "#/$defs/SystemId"
         }
       },
       "required": [
@@ -1962,6 +1996,11 @@
         {
           "required": [
             "external"
+          ]
+        },
+        {
+          "required": [
+            "system"
           ]
         }
       ]
@@ -2278,7 +2317,6 @@
       },
       "required": [
         "id",
-        "component",
         "graph",
         "document"
       ],
@@ -4616,6 +4654,10 @@
     "ContextComponentId": {
       "type": "string",
       "pattern": "^(?:svc|app|st|top|ext|sys|lib):[^#\\s]+$"
+    },
+    "SystemId": {
+      "type": "string",
+      "pattern": "^(?:sys):[^#\\s]+$"
     }
   },
   "anyOf": [

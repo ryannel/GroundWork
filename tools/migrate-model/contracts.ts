@@ -67,7 +67,7 @@ export function fieldsOf(values: readonly unknown[]): readonly Node[] {
     };
   });
 }
-function errorOf(value: unknown): Node {
+export function errorOf(value: unknown): Node {
   const error = nodeOf(value);
   if (error.code === undefined) return error;
   const { code, ...kept } = error;
@@ -76,12 +76,16 @@ function errorOf(value: unknown): Node {
     when: [modelText(error.when), `Code: ${JSON.stringify(code)}`].filter(Boolean).join(' · '),
   };
 }
+export function restShapeOf(value: unknown): Node {
+  const sig = modelText(value);
+  const rest =
+    sig === null ? null : /^(GET|HEAD|POST|PUT|PATCH|DELETE|OPTIONS)\s+(\/\S*)$/u.exec(sig);
+  return rest === null ? {} : { method: rest[1], path: rest[2] };
+}
 export function entryOf(value: unknown, kind: unknown, review: MigrationReview): Node {
   const entry = nodeOf(value);
   const sig = modelText(entry.sig);
-  const rest =
-    sig === null ? null : /^(GET|HEAD|POST|PUT|PATCH|DELETE|OPTIONS)\s+(\/\S*)$/u.exec(sig);
-  const shape = kind === 'rest' && rest !== null ? { method: rest[1], path: rest[2] } : {};
+  const shape = kind === 'rest' ? restShapeOf(sig) : {};
   if (sig !== null && Object.keys(shape).length === 0) {
     review.add('signatures', `signature/${String(entry.id)}`, entry, {
       id: entry.id,
@@ -95,20 +99,29 @@ export function entryOf(value: unknown, kind: unknown, review: MigrationReview):
     ...(entry.errors === undefined ? {} : { errors: modelList(entry.errors).map(errorOf) }),
   };
 }
+function interfaceProvider(service: unknown, node: Node): Node {
+  const provider =
+    modelText(service) ??
+    modelText(node.component) ??
+    modelText(node.external) ??
+    modelText(node.system);
+  if (provider === null) return {};
+  const fields: Readonly<Record<string, string>> = { ext: 'external', sys: 'system' };
+  const field = fields[parseId(provider)?.prefix ?? ''] ?? 'component';
+  return { [field]: provider };
+}
 export function migrateContracts(input: unknown, context: ContractContext): Node {
   const file = nodeOf(convertCitations(input, context.citations));
   const interfaces = modelList(file.interfaces).map((item) => {
     const node = nodeOf(item);
     const { service, protocol, endpoints, ...kept } = node;
-    const provider = modelText(service) ?? modelText(node.component) ?? modelText(node.external);
-    const external = parseId(provider)?.prefix === 'ext';
     const transport = protocol === 'http' || protocol === 'https' ? protocol : null;
     const kind = transport === null ? (protocol ?? node.kind) : 'rest';
     return {
       ...kept,
       kind,
       ...(transport === null ? {} : { transport }),
-      ...(provider === null ? {} : { [external ? 'external' : 'component']: provider }),
+      ...interfaceProvider(service, kept),
       entries: modelList(endpoints ?? node.entries).map((entry) =>
         entryOf(entry, kind, context.review),
       ),

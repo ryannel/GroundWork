@@ -1,0 +1,8 @@
+{
+  "route": "/acme/reference/apis/",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 61082,
+  "sha256": "0a567c8c4cf181d7a8b4861447fb7f1c45def0cb1f8813d23b93736b734ff74e",
+  "body": "42085d4bb1d4e7058c2e1721a6383c2e1c1d47df9a4201758dbde202aa002665.body.gz"
+}

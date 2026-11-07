@@ -6,6 +6,7 @@ import { fingerprint, type MigrationReview } from './review';
 type Node = Readonly<Record<string, unknown>>;
 export interface StepContext {
   readonly path: string;
+  readonly sourcePath?: string | undefined;
   readonly review: MigrationReview;
   readonly cites: readonly unknown[];
   readonly assigned: ReadonlyMap<Node, string> | null;
@@ -50,6 +51,9 @@ function location(step: Node): string | null {
     String(end).padStart(12, '0'),
   ].join('\0');
 }
+function sourceSelector(step: Node, index: number, context: StepContext): string {
+  return context.selectors?.get(step) ?? `steps/${String(index)}`;
+}
 function collisionId(
   step: Node,
   index: number,
@@ -59,12 +63,14 @@ function collisionId(
 ): string {
   const hash = fingerprint(step);
   const identical = steps.filter((value) => fingerprint(value) === hash).length > 1;
-  const selector = context.selectors?.get(step) ?? `steps/${String(index)}`;
+  const selector = sourceSelector(step, index, context);
   const qualifier = identical ? `${selector}/` : '';
-  const key = `${context.path}/${qualifier}step-identity/${hash}`;
+  const sourcePath = context.sourcePath ?? context.path;
+  const key = `${sourcePath}/${qualifier}step-identity/${hash}`;
   const accepted = modelRecord(
     context.review.add('step-ids', key, step, {
       path: context.path,
+      sourcePath: `${sourcePath}/${selector}`,
       step,
       proposed: proposed === '' ? null : proposed,
       reason: proposed === '' ? 'Missing or equal code location.' : 'Sibling slug collision.',
@@ -131,13 +137,20 @@ function blockChildren(step: Node, context: StepContext): Node {
   const direct = ['steps', 'then', 'else', 'try', 'catch', 'finally', 'do'].flatMap((key) =>
     enumerate(modelList(step[key]), key),
   );
-  const lanes = modelList(step.parallel).flatMap((value, index) =>
-    enumerate(laneSteps(value), `parallel/${String(index)}`),
-  );
+  const lanes = modelList(step.parallel).flatMap((value, index) => {
+    const path = `parallel/${String(index)}`;
+    if (modelRecord(value)?.steps !== undefined) {
+      return enumerate(laneSteps(value), `${path}/steps`);
+    }
+    if (Array.isArray(value)) return enumerate(value, path);
+    const node = modelRecord(value);
+    if (node === null) throw new Error(`${context.path}: a child step must be an object.`);
+    return [{ node, selector: path }];
+  });
   const descriptors = [
     ...direct,
     ...lanes,
-    ...enumerate(modelList(modelRecord(step.retry)?.exhausted), 'exhausted'),
+    ...enumerate(modelList(modelRecord(step.retry)?.exhausted), 'retry/exhausted'),
   ];
   const children = descriptors.map((item) => item.node);
   const selectors = new Map(descriptors.map((item) => [item.node, item.selector]));
@@ -191,7 +204,7 @@ function retryOf(step: Node, context: StepContext): Node {
     },
   };
 }
-function migratedStep(step: Node, id: string, context: StepContext): Node {
+function migratedStep(step: Node, id: string, index: number, context: StepContext): Node {
   const omitted = new Set([
     'id',
     'origin',
@@ -211,7 +224,13 @@ function migratedStep(step: Node, id: string, context: StepContext): Node {
   const cites = context.cite(step, context.cites);
   const nextPath =
     id === '' ? `${context.path}/pending/${fingerprint(step)}` : appendChild(context.path, id);
-  const next = { ...context, path: nextPath, cites, assigned: null };
+  const next = {
+    ...context,
+    path: nextPath,
+    sourcePath: `${context.sourcePath ?? context.path}/${sourceSelector(step, index, context)}`,
+    cites,
+    assigned: null,
+  };
   const value = {
     ...Object.fromEntries(Object.entries(step).filter(([key]) => !omitted.has(key))),
     id,
@@ -222,7 +241,12 @@ function migratedStep(step: Node, id: string, context: StepContext): Node {
   const does = modelText(step.does);
   if (does === null || does.length <= 60) return value;
   const accepted = modelRecord(
-    context.review.add('headlines', next.path, step, { path: next.path, does, say: null }),
+    context.review.add('headlines', next.path, step, {
+      path: next.path,
+      sourcePath: next.sourcePath,
+      does,
+      say: null,
+    }),
   );
   const say = modelText(accepted?.say);
   if (say !== null && (say.length === 0 || say.length > 60)) {
@@ -231,25 +255,29 @@ function migratedStep(step: Node, id: string, context: StepContext): Node {
   return say === null ? value : { ...value, say };
 }
 export function migrateSteps(values: readonly unknown[], context: StepContext): readonly Node[] {
-  const steps = values
-    .map((value) => {
-      const node = modelRecord(value);
-      if (node === null) throw new Error(`${context.path}: a step must be an object.`);
-      return node;
-    })
-    .filter(
-      (step) =>
-        !(
-          (step.do !== undefined || step.steps !== undefined) &&
-          Object.keys(step).every((key) => ['origin', 'sources', 'do', 'steps'].includes(key)) &&
-          modelList(step.do ?? step.steps).length === 0
-        ),
-    );
+  const nodes = values.map((value) => {
+    const node = modelRecord(value);
+    if (node === null) throw new Error(`${context.path}: a step must be an object.`);
+    return node;
+  });
+  const next = {
+    ...context,
+    selectors:
+      context.selectors ?? new Map(nodes.map((step, index) => [step, `steps/${String(index)}`])),
+  };
+  const steps = nodes.filter(
+    (step) =>
+      !(
+        (step.do !== undefined || step.steps !== undefined) &&
+        Object.keys(step).every((key) => ['origin', 'sources', 'do', 'steps'].includes(key)) &&
+        modelList(step.do ?? step.steps).length === 0
+      ),
+  );
   const ids =
     context.assigned === null
-      ? assignedIds(steps, context)
+      ? assignedIds(steps, next)
       : steps.map((step) => context.assigned?.get(step) ?? '');
-  const result = steps.map((step, index) => migratedStep(step, ids[index] ?? '', context));
+  const result = steps.map((step, index) => migratedStep(step, ids[index] ?? '', index, next));
   const assigned = result.map((step) => step.id).filter((id) => id !== '');
   if (new Set(assigned).size !== assigned.length) {
     throw new Error(`${context.path}: accepted sibling ids are not unique.`);

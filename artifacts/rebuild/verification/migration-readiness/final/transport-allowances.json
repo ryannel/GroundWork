@@ -1,0 +1,54 @@
+{
+  "policyBeforeSha256": "c3a17b04132daed1b79bc4e36f7f4bbb76e9503f9278b2c3c8b23d7566a50b75",
+  "addedExactTransportPointers": 3,
+  "receipts": [
+    {
+      "workspace": "acme",
+      "file": "route-2766aed1314ff3a2861b.json.gz",
+      "route": "/acme/explorer/",
+      "baselineBytes": 25473,
+      "priorBytes": 25473,
+      "currentBytes": 25430,
+      "priorApprovedPointers": [],
+      "newPointer": {
+        "after": "752343fc2a8d0b2055905dd8c2dd25ffff83188e1be2ec5cb5406d279448dd89",
+        "before": "f57d665a5080374ab00c2b180a900f59a21f902ba552179784109f3acc8296c6",
+        "file": "route-2766aed1314ff3a2861b.json.gz",
+        "path": "/htmlBytes"
+      },
+      "exactResponseProof": "artifacts/rebuild/verification/migration-readiness/final/transport/proof.json"
+    },
+    {
+      "workspace": "acme",
+      "file": "route-23fa7a87ef6e6edac44b.json.gz",
+      "route": "/acme/reference/",
+      "baselineBytes": 42199,
+      "priorBytes": 42199,
+      "currentBytes": 42156,
+      "priorApprovedPointers": [],
+      "newPointer": {
+        "after": "2419ad8f09cc5cd97b9c9d4d63b27138d6117ff12d7654ec866b8d8d6fbcd158",
+        "before": "c918330ecd365210d114deab3b30e99a925d623934eed2a22101933f42eb6488",
+        "file": "route-23fa7a87ef6e6edac44b.json.gz",
+        "path": "/htmlBytes"
+      },
+      "exactResponseProof": "artifacts/rebuild/verification/migration-readiness/final/transport/proof.json"
+    },
+    {
+      "workspace": "volvo-cars",
+      "file": "route-b588a9aeeb40e49b18be.json.gz",
+      "route": "/volvo-cars/language/",
+      "baselineBytes": 144122,
+      "priorBytes": 144122,
+      "currentBytes": 144079,
+      "priorApprovedPointers": [],
+      "newPointer": {
+        "after": "9bda82fd7902b035cafa6aa0fee8113ad4935071d030df6e8e489cc9b42bda72",
+        "before": "2754c0b335e1f5082f4ce55f9c20e4fb56ea8b46b66c021d793643bcdf24c47b",
+        "file": "route-b588a9aeeb40e49b18be.json.gz",
+        "path": "/htmlBytes"
+      },
+      "exactResponseProof": "artifacts/rebuild/verification/migration-readiness/final/transport/proof.json"
+    }
+  ]
+}

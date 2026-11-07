@@ -1,0 +1,161 @@
+{
+  "personal": {
+    "routes": 24,
+    "allFactsExactlyEqualToPr6": true,
+    "allRouteStatusHeadingsLinksAndPayloadEqualToPr6": true,
+    "transportDifferences": [
+      {
+        "file": "route-d27f1e2788e7e51292e6.json.gz",
+        "route": "/personal/",
+        "previous": 31640,
+        "current": 31597
+      },
+      {
+        "file": "route-ffb0bde0c2ccc55f8dca.json.gz",
+        "route": "/personal/people/",
+        "previous": 29833,
+        "current": 29876
+      },
+      {
+        "file": "route-f221f4d7b4c7bc432779.json.gz",
+        "route": "/personal/plans/",
+        "previous": 29892,
+        "current": 29849
+      },
+      {
+        "file": "route-35c2f4e59f52d4d9fbf1.json.gz",
+        "route": "/personal/programmes/",
+        "previous": 29903,
+        "current": 29946
+      },
+      {
+        "file": "route-1b1fccadc460a4e104c4.json.gz",
+        "route": "/personal/things/?id=svc-allotment-app",
+        "previous": 37377,
+        "current": 37334
+      }
+    ]
+  },
+  "acme": {
+    "routes": 35,
+    "allFactsExactlyEqualToPr6": true,
+    "allRouteStatusHeadingsLinksAndPayloadEqualToPr6": true,
+    "transportDifferences": [
+      {
+        "file": "route-5387805077e15b1937d9.json.gz",
+        "route": "/acme/",
+        "previous": 43232,
+        "current": 43189
+      },
+      {
+        "file": "route-2766aed1314ff3a2861b.json.gz",
+        "route": "/acme/explorer/",
+        "previous": 25473,
+        "current": 25430
+      },
+      {
+        "file": "route-6374487d74074517730d.json.gz",
+        "route": "/acme/people/",
+        "previous": 41733,
+        "current": 41776
+      },
+      {
+        "file": "route-e38cd1fab6b083167cbb.json.gz",
+        "route": "/acme/plans/",
+        "previous": 36914,
+        "current": 36871
+      },
+      {
+        "file": "route-9cfabff74e65383b4393.json.gz",
+        "route": "/acme/programmes/",
+        "previous": 36968,
+        "current": 36925
+      },
+      {
+        "file": "route-23fa7a87ef6e6edac44b.json.gz",
+        "route": "/acme/reference/",
+        "previous": 42199,
+        "current": 42156
+      },
+      {
+        "file": "route-69e145634256e9eea7c9.json.gz",
+        "route": "/acme/things/?id=sch-product",
+        "previous": 51080,
+        "current": 51123
+      },
+      {
+        "file": "route-a1df0b2f33adaa9cda23.json.gz",
+        "route": "/acme/things/?id=st-products-db",
+        "previous": 52093,
+        "current": 52050
+      }
+    ]
+  },
+  "volvo-cars": {
+    "routes": 129,
+    "allFactsExactlyEqualToPr6": true,
+    "allRouteStatusHeadingsLinksAndPayloadEqualToPr6": true,
+    "transportDifferences": [
+      {
+        "file": "route-b2bcc18b9738cdfe3f73.json.gz",
+        "route": "/volvo-cars/",
+        "previous": 85027,
+        "current": 84984
+      },
+      {
+        "file": "route-b588a9aeeb40e49b18be.json.gz",
+        "route": "/volvo-cars/language/",
+        "previous": 144122,
+        "current": 144079
+      },
+      {
+        "file": "route-a6fb6c2427433f7dfd10.json.gz",
+        "route": "/volvo-cars/partners/",
+        "previous": 58734,
+        "current": 58777
+      },
+      {
+        "file": "route-3a9321061c67a0298213.json.gz",
+        "route": "/volvo-cars/plans/",
+        "previous": 75603,
+        "current": 75646
+      },
+      {
+        "file": "route-5e2473ce331617b773bc.json.gz",
+        "route": "/volvo-cars/reference/",
+        "previous": 61930,
+        "current": 61973
+      },
+      {
+        "file": "route-858cdd1340f4e7514855.json.gz",
+        "route": "/volvo-cars/things/?id=api-assortment-admin-classification-create",
+        "previous": 1487027,
+        "current": 1486984
+      },
+      {
+        "file": "route-2852d67c520228a04001.json.gz",
+        "route": "/volvo-cars/things/?id=h-assortment-admin-apply-car-plan",
+        "previous": 1055740,
+        "current": 1055783
+      },
+      {
+        "file": "route-151af0354f9b819dc21a.json.gz",
+        "route": "/volvo-cars/things/?id=msg-assortment-classification-changed",
+        "previous": 190935,
+        "current": 190978
+      },
+      {
+        "file": "route-75a393b5caaa2701c12b.json.gz",
+        "route": "/volvo-cars/things/?id=svc-assortment-admin-api",
+        "previous": 212421,
+        "current": 212464
+      },
+      {
+        "file": "route-30a4a455a43d3edecfa3.json.gz",
+        "route": "/volvo-cars/value-flows/",
+        "previous": 298607,
+        "current": 298650
+      }
+    ]
+  }
+}

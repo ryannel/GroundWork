@@ -1,0 +1,26 @@
+{
+  "sourceFrozen": true,
+  "allowedDiffsSha256": "c3a17b04132daed1b79bc4e36f7f4bbb76e9503f9278b2c3c8b23d7566a50b75",
+  "results": {
+    "personal": {
+      "routes": 24,
+      "differences": 33,
+      "unexplained": 0,
+      "exactCapturedChangesRecomputed": true
+    },
+    "acme": {
+      "routes": 35,
+      "differences": 80,
+      "unexplained": 0,
+      "exactCapturedChangesRecomputed": true
+    },
+    "volvo-cars": {
+      "routes": 129,
+      "differences": 42791,
+      "unexplained": 0,
+      "exactCapturedChangesRecomputed": true
+    }
+  },
+  "differenceEngineUnchanged": true,
+  "exactAllowanceVerdictProof": "allowance-index-proof.json"
+}
