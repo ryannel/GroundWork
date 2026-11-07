@@ -5,23 +5,17 @@ import { platformComponents } from '@/application/area-map/platform';
 import { valueFlowConnections } from '@/application/area-map/value-flow-connections';
 import { valueFlowLayout } from '@/application/area-map/value-flow-layout';
 import { defaultValueFlowConnections } from '@/application/area-map/value-flow-visibility';
-import { areaViewOf } from '@/application/workspace-area';
-import { areaTechnicalRelationships } from '@/application/workspace-area-relationships';
-import { systemModelOf } from '@/application/workspace-model';
-import { readAuthoredLandscape } from '@/infrastructure/workspace-landscape';
-import { readWorkspaceModel } from '@/infrastructure/workspace-model';
-import { readWorkspaces } from '@/infrastructure/workspace-store';
+import { modelAreaViewOf } from '@/application/model-area';
+import { readCanonicalModelIndex } from '@/infrastructure/model-index';
 
 const [workspaceId, ...extra] = process.argv.slice(2);
 if (!workspaceId || extra.length > 0) throw new Error('Usage: audit.mjs <registered-workspace-id>');
-const workspaces = await readWorkspaces();
-const workspace = workspaces.find((entry) => entry.id === workspaceId);
-if (!workspace) throw new Error(`Unknown registered workspace: ${workspaceId}`);
-const records = await readWorkspaceModel(workspace);
-const model = systemModelOf(workspace, records).model;
-const landscape = await readAuthoredLandscape(workspaceId);
+const index = await readCanonicalModelIndex(workspaceId);
+if (!index) throw new Error(`No consolidated model for ${workspaceId}.`);
+const workspace = index.model;
+const landscape = workspace.landscape;
 const systems = workspace.domains.flatMap((domain) => domain.systems);
-const technical = areaTechnicalRelationships(systems, model);
+const technical = index.edges();
 const incident = (id, edges) => edges.filter((edge) => edge.from === id || edge.to === id);
 const compact = (node) => ({
   id: node.id,
@@ -94,20 +88,13 @@ function areaStatus(detail, view) {
   return 'projected';
 }
 
-function componentStatus(component, relationships) {
-  if (component.type === 'library') return 'excluded-library';
+function componentStatus(relationships) {
   return relationships.length > 0 ? 'has-structured-relationships' : 'needs-relationship-review';
 }
 
 const areas = (landscape?.areas ?? []).map((area) => {
-  const detail = landscape.details.find((entry) => entry.area === area.id);
-  const view = areaViewOf({
-    workspace,
-    model,
-    landscape,
-    area: area.id,
-    explorer: null,
-  });
+  const detail = landscape.details?.find((entry) => entry.area === area.id);
+  const view = modelAreaViewOf(index, area.id);
   const status = areaStatus(detail, view);
   return {
     id: area.id,
@@ -139,15 +126,15 @@ const roster = systems.map((system) => ({
     return {
       id: component.id,
       name: component.name,
-      kind: component.type,
+      kind: component.kind,
       purpose: component.does ?? null,
-      status: componentStatus(component, relationships),
+      status: componentStatus(relationships),
       relationships: relationships.map((edge) => ({
         from: edge.from,
         to: edge.to,
         kind: edge.kind,
         via: edge.via,
-        evidence: edge.evidence,
+        evidence: edge.cites,
       })),
     };
   }),
@@ -159,9 +146,7 @@ console.log(
       format: 1,
       workspace: workspaceId,
       generated: new Date().toISOString(),
-      basis: createHash('sha256')
-        .update(JSON.stringify({ workspace, records, landscape }))
-        .digest('hex'),
+      basis: createHash('sha256').update(JSON.stringify({ workspace, landscape })).digest('hex'),
       scope:
         'Current registered production model and saved area value-flow projections; no source or pixel audit.',
       limitations: [

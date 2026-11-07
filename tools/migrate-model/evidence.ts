@@ -47,16 +47,25 @@ async function repositoryFiles(root: string): Promise<readonly string[]> {
     throw error;
   }
 }
+export function migratedEvidenceId(repo: string, id: string): string {
+  return hasPrefix(id, 'ev') ? id : buildId('ev', `${slug(repo)}-${fingerprint(id).slice(0, 24)}`);
+}
+
+export function normaliseEvidence(
+  value: unknown,
+  ids: ReadonlyMap<string, string>,
+  files: ReadonlyMap<string, Node>,
+): unknown {
+  return canonicalEvidence(rewriteDocument(value, ids, false), files);
+}
+
 function identityMap(repo: string, records: readonly unknown[]): ReadonlyMap<string, string> {
   const replacements = new Map<string, string>();
   for (const record of records) {
     const id = modelText(modelRecord(record)?.id);
     if (id === null) continue;
     if (replacements.has(id)) throw new Error(`${repo}: duplicate evidence id ${id}`);
-    const next = hasPrefix(id, 'ev')
-      ? id
-      : buildId('ev', `${slug(repo)}-${fingerprint(id).slice(0, 24)}`);
-    replacements.set(id, next);
+    replacements.set(id, migratedEvidenceId(repo, id));
   }
   return replacements;
 }
@@ -111,7 +120,7 @@ async function convertFamily(
   const records: unknown[] = [];
   const gaps: Node[] = [];
   for (const original of entry.records) {
-    const converted = canonicalEvidence(rewriteDocument(original, replacements, false), files);
+    const converted = normaliseEvidence(original, replacements, files);
     if (check(converted)) {
       records.push(converted);
       continue;

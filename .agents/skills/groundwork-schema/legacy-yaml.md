@@ -1,5 +1,8 @@
 # Legacy production YAML
 
+Historical reference for retained proof. For current workspace authoring, use the consolidated
+[Groundwork schema](../groundwork-schema/SKILL.md) and [native scan](../groundwork-scan/SKILL.md).
+
 Fields and enums: read `schema/plan.schema.json` (`$defs`); the system model and plans share it. Do not guess a
 key; objects are closed. For a complete small plan, read `test/fixtures/mini.yaml`; for a federated graph,
 `test/fixtures/shop.yaml`. Copy-paste ops for every kind of change: [cookbook.md](cookbook.md). Every validator message ends with its
@@ -20,7 +23,7 @@ fix, so read the message. Types for the app are generated from the schema with `
                                          a component may say infrastructure: true
   domains/<d>/systems/<s>/contracts.yaml stores, interfaces, schemas, messages, screens     the scan
   domains/<d>/systems/<s>/handlers.yaml  what runs on each endpoint, message, job, action    the scan
-  scans/<org>/<name>.yaml                each repo's high-water mark                        tools/scan-mark.ts
+  scans/<org>/<name>.yaml                each repo's high-water mark                        the historical scan mark writer
   programmes/<p>/programme.yaml          outcome, shared scenarios, decisions, questions,   people
                                          milestones of the plans that join it
   plans/<plan>/plan.yaml                 changes, context, reasoning, builds_on             people

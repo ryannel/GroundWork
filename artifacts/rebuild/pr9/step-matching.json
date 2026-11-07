@@ -1,0 +1,47 @@
+{
+  "scope": "Real Volvo handlers with at least two independently aligned top-level spans. Draft IDs are deliberately different. Every old step and authored value is retained.",
+  "eligibleHandlersReconciled": 166,
+  "examples": [
+    {
+      "handler": "h:car-configurator-load-explore-interior",
+      "source": "domains/shopping/systems/car-configurator/handlers/app-car-configurator.yaml",
+      "keptSteps": [
+        "call-car-configurator-rpc-get-explore-interior-modal",
+        "call-car-configurator-rpc-get-market-settings"
+      ]
+    },
+    {
+      "handler": "h:car-configurator-load-wheels-learn-more",
+      "source": "domains/shopping/systems/car-configurator/handlers/app-car-configurator.yaml",
+      "keptSteps": [
+        "call-car-configurator-rpc-get-wheels-learn-more",
+        "call-car-configurator-rpc-get-market-settings"
+      ]
+    },
+    {
+      "handler": "h:car-selector-inventory-incentives",
+      "source": "domains/shopping/systems/car-selector/handlers/app-car-selector.yaml",
+      "keptSteps": [
+        "sends-pno12-model-year-postcode-and-retailer-id-calls-post-us-ufc-api-base-url-v1-incentives-vcc-api-key",
+        "return-the-incentives-200-no-incentives-available-when-the-upstream-fails-500-on-invalid-input"
+      ]
+    },
+    {
+      "handler": "h:car-selector-inventory-incentives-v2",
+      "source": "domains/shopping/systems/car-selector/handlers/app-car-selector.yaml",
+      "keptSteps": [
+        "reads-incentives-for-the-car-postcode-and-date-calls-get-us-ufc-api-base-url-v2-incentives-pno12-postalcode-date-vcc-api-key",
+        "return-the-incentives-200-no-incentives-available-when-the-upstream-fails-500-on-invalid-input"
+      ]
+    },
+    {
+      "handler": "h:car-selector-inventory-vehicle-price",
+      "source": "domains/shopping/systems/car-selector/handlers/app-car-selector.yaml",
+      "keptSteps": [
+        "call-identity-azure-ad-token",
+        "common-order-number",
+        "return-the-prices-500-when-any-call-fails"
+      ]
+    }
+  ]
+}

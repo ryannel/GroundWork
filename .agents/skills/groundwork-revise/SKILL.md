@@ -5,6 +5,9 @@ description: Revise a Groundwork plan through git with its revision ledger. Use 
 
 # Revise a plan
 
+Keep the declared IDs in the native plan overlay stable. A revision ledger entry records the
+proposal, approval or rejection independently of the current workspace facts.
+
 First run `npm run --silent workspace -- list --json` in the Groundwork checkout. Resolve the plan's workspace folder
 from the registry, not `workspaces/`; see [workspace discovery](../README.md#find-the-workspace-first).
 

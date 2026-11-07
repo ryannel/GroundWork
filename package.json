@@ -88,7 +88,8 @@
     "rebuild:compare": "node --import ./tools/register.ts --conditions=react-server tools/rebuild/compare.ts",
     "rebuild:acme": "node --import ./tools/register.ts --conditions=react-server tools/rebuild/acme.ts",
     "rebuild:parity": "node --import ./tools/register.ts --conditions=react-server tools/explorer-parity.ts",
-    "migrate:model": "node --import ./tools/register.ts --conditions=react-server tools/migrate-model.ts"
+    "migrate:model": "node --import ./tools/register.ts --conditions=react-server tools/migrate-model.ts",
+    "scan:model": "node --import ./tools/register.ts --conditions=react-server tools/scan-model.ts"
   },
   "dependencies": {
     "ajv": "^8.20.0",

@@ -34,8 +34,8 @@ the person's authorisation.
 | `groundwork-explore/`   | Trace one pinned source scope into evidence, execution/data relationships, gaps and inferred meaning.                                                                                             | Source indexes, framework bindings, bounded queries, cited code                     |
 | `groundwork-ask/`       | Answer from the selected map/capture and cited evidence, preserving freshness and inferred labels.                                                                                                | `npm run map`, catalogues, bounded query pages, `git`                               |
 | `groundwork-plan/`      | Write a plan as an overlay: footprint from the map, fill gaps with a scan, ops on system ids (including `h:` handlers), the reasoning; split a large discovery into a programme of stacked plans. | `npm run map`, `groundwork-scan`, `npm run workspace -- check`, `npm run plan:base` |
-| `groundwork-schema/`    | Select and validate scan, interpretation, execution or legacy model/plan contracts.                                                                                                               | Authoritative schemas, generators and validators                                    |
-| `groundwork-review/`    | Review a plan before the session: overlay purity, drift from its lock and its bases, overlaps, partner commitments, attribution and freshness, the newcomer walk, findings as YAML fixes.         | `npm run workspace -- check`, `tools/sources.ts --check`, `npm run map -- repos`    |
+| `groundwork-schema/`    | Select and validate consolidated workspace, evidence and plan contracts.                                                                                                                          | Authoritative schemas, generators and validators                                    |
+| `groundwork-review/`    | Review a plan before the session: overlay purity, drift from its lock and its bases, overlaps, partner commitments, attribution and freshness, the newcomer walk, findings as YAML fixes.         | `npm run workspace -- check`, `npm run map -- show`, `npm run map -- repos`         |
 | `groundwork-revise/`    | Revise a plan through git: propose a version in the revision ledger, edit ops with stable ids, open the PR; later approve or reject. A human merges.                                              | `git`, `gh`                                                                         |
 | `groundwork-issues/`    | File work items as GitHub issues in dependency order and write the numbers back; partner items are recorded separately.                                                                           | `gh`, `npm run progress`                                                            |
 | `groundwork-update/`    | Weekly update: issue state into `progress.yaml`, what changed in the plan and underneath it, health, a note of 200 words at most for a human to post.                                             | `gh`, `git`, `npm run progress`                                                     |
@@ -44,15 +44,12 @@ the person's authorisation.
 
 ## Facts, attributed
 
-Every extracted fact carries `sources: [{ repo, path, lines, commit, symbol? }]`, the code that proves it at a
-pinned commit; the app turns each into a permalink. A partner's facts are read from its documents
-(`origin: documented`) and cite `{ url, pointer or heading, version }`. Each scanned repo has `<workspace>/scans/<org>/<name>.yaml`
-recording the commit the map is true at, so a reader can tell how stale it is. `node tools/sources.ts
-<workspace> --check` reports what is unattributed and what no longer resolves.
+Current facts use `cites:` with a pinned code reference or persisted `ev:` record. Repository evidence
+records its source commit in `repository.json`. `npm run map -- show <id> --workspace <ws>` returns
+the record, its citations and its gaps. Use the source pin to check the code.
 
 ## Not built yet
 
-Named in the skills where they would be used: `tools/scan-merge.ts` (scan),
 an issue export and a GitHub sync that appends to `progress.yaml` by itself (issues, update; `npm run progress`
 appends one checked event at a time), owner evidence collected by the scan (scan), the revision ledger and semantic
 diff tools (revise, update), and a mockup scaffold (mockup). Until then the skills say how to do each step by hand.

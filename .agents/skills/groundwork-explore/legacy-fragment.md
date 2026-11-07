@@ -1,5 +1,8 @@
 # Legacy repository fragment
 
+Historical reference for retained proof. For current workspace authoring, use the consolidated
+[Groundwork schema](../groundwork-schema/SKILL.md) and [native scan](../groundwork-scan/SKILL.md).
+
 ## Inputs
 
 - the clone path (outside the Groundwork repo, normally `~/.cache/groundwork/clones/<org>/<name>`) and its HEAD;
@@ -7,7 +10,7 @@
 - the workspace, domain and system it belongs to, and the owning team;
 - **the ids table**: every id the workspace already has for this system, with its natural key (below) and the
   files it cites, plus the ids of other systems this repo is likely to call or consume;
-- for a re-scan, the work list from `tools/scan-diff.ts`: facts to re-explore, files to explore, facts that may
+- for a re-scan, the work list from the historical scan diff: facts to re-explore, files to explore, facts that may
   have vanished, paths renamed. Also follow changed helper, policy, configuration, schema, generated-code and
   library inputs into the endpoint analyses that depend on them. Unchanged cited lines do not establish
   unchanged behaviour; when dependency tracking is incomplete, re-explore the containing package or repo.

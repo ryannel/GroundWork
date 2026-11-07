@@ -8,17 +8,17 @@ description: Author or validate Groundwork scan evidence, execution bundles, wor
 For workspace-backed files, first run `npm run --silent workspace -- list --json` in the Groundwork checkout.
 Resolve their workspace folder from the registry, not `workspaces/`; see [workspace discovery](../README.md#find-the-workspace-first).
 
-Choose the contract that the requested artefact actually uses. The formats below are separate; producing
-scan evidence or an execution proof does not migrate the application. Read schema definitions for the
-records being changed rather than copying field names across formats.
+Read the definition for the file you are editing. The consolidated contracts live in
+`schema/workspace.schema.json` for authored workspace files, `schema/evidence.schema.json` for
+repository evidence, and `schema/plan.schema.json` for plan overlays. Run `npm run generate` after
+changing a definition and use `npm run workspace -- check <folder>` to validate a workspace and
+its plan projections. The [model layout](../../../docs/rebuild/design.md#4-committed-layout-per-workspace)
+names each file and its owning contract.
 
-| Artefact                                                                   | Authoritative contract                                                      | Read when needed                                                                 |
-| -------------------------------------------------------------------------- | --------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| Question-led source evidence                                               | `schema/scan.schema.json`; `npm run generate:scan`                          | [Pipeline](../../../docs/scan-pipeline.md)                                       |
-| LLM interpretation of purpose, actors, actions, journeys and relationships | `schema/scan-interpretation.schema.json`; `npm run generate:interpretation` | [Interpretation](interpretation.md)                                              |
-| Existing runtime/execution proof                                           | `schema/knowledge.schema.json`; `npm run generate:knowledge`                | [Canonical records](canonical-execution.md)                                      |
-| Production workspace model or plan overlay                                 | `schema/plan.schema.json`; `npm run generate`                               | [Legacy YAML](legacy-yaml.md), [op cookbook](cookbook.md)                        |
-| Programme, or a plan's progress record                                     | `$defs/programme` and `$defs/progress` in `schema/plan.schema.json`         | [cookbook §21](cookbook.md#21-plans-together-programmes-increments-and-partners) |
+Use `cites:` with an authored code reference or a persisted `ev:` ID. A code home supplies the
+repository, and `repository.json` supplies the pin unless the citation explicitly keeps a historical
+commit. Handler steps and failure IDs are declared in component files under `handlers/`. Plans
+use operations on those same IDs and keep proposed work separate from current facts.
 
 ## Evidence and interpretation
 
@@ -47,6 +47,3 @@ When a real scan exposes an expressiveness or validator gap, use the
 [learning loop](../groundwork-scan/learning.md). Change the owning contract and reusable reader/writer,
 regenerate types and test invalid as well as valid cases. Preserve versioned snapshots and explicit migration
 boundaries. Do not add unchecked fields, weaken a proof requirement or edit curated data to pass validation.
-
-Legacy rules, including handler trees, derived fields and graph rule 15, live in
-[legacy YAML](legacy-yaml.md#ground-rules); they apply to that format rather than to every scan record.

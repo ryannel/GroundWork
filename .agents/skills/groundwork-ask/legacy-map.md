@@ -1,5 +1,8 @@
 # Legacy map lookup
 
+Historical reference for retained proof. For current workspace authoring, use the consolidated
+[Groundwork schema](../groundwork-schema/SKILL.md) and [native scan](../groundwork-scan/SKILL.md).
+
 Groundwork's system model is a map of what runs, with every extracted fact pinned to a file, lines and commit.
 Answer from the map first, then check the cited code, and say how fresh the answer is. Reading the map is fast and
 cheap; searching a dozen repos is not.

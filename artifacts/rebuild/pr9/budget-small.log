@@ -1,0 +1,17 @@
+
+> groundwork@0.0.0 budget
+> node --import ./tools/register.ts --conditions=react-server tools/page-budget.ts
+
+152 pages; the heaviest:
+     277 KB  /model-fixture/plans/confirm/changes/more/
+     135 KB  /acme/orders/ordering/flows/place-order/
+     134 KB  /acme/orders/ordering/
+     124 KB  /acme/storefront/shop/
+     118 KB  /acme/journeys/jny-buy/
+     114 KB  /acme/orders/payments/
+     107 KB  /model-fixture/orders/ordering/
+     107 KB  /model-fixture/plans/confirm/ref/all/
+     104 KB  /model-fixture/plans/confirm/today/domain/
+     103 KB  /acme/catalogue/products/
+
+Every page is within 1,024 KB.

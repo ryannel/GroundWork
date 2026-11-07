@@ -15,6 +15,7 @@ import {
   type Candidate,
 } from './consumer-inventory';
 import { identitySites } from './identity-inventory';
+import { skillProducerUses } from './skill-producers';
 import { writeSnapshot } from './snapshots';
 
 const OLD = [
@@ -149,9 +150,16 @@ for (const [name, command] of Object.entries(scripts)) {
     hits: [{ line: 1, text: String(command) }],
   });
 }
-const manifest = inventoryReview(
+const pr8Review = inventoryReview(
   JSON.parse(await readFile('artifacts/rebuild/pr8/consumer-dispositions.json', 'utf8')),
 );
+const pr9Review = inventoryReview(
+  JSON.parse(await readFile('artifacts/rebuild/pr9/consumer-dispositions.json', 'utf8')),
+);
+const reviewed = new Map(
+  [...pr8Review.dispositions, ...pr9Review.dispositions].map((row) => [row.file, row]),
+);
+const manifest = { original: pr8Review.original, dispositions: [...reviewed.values()] };
 const originalText = await readFile(manifest.original.file, 'utf8');
 const original = candidateRows(JSON.parse(originalText));
 if (
@@ -168,6 +176,8 @@ for (const disposition of manifest.dispositions) {
   }
 }
 const inventory = consumerInventory(original, candidates, manifest.dispositions, sourceFiles);
+const skillUses = skillProducerUses(sourceFiles, scripts);
+await writeSnapshot('artifacts/rebuild', 'skill-producers.json', skillUses);
 await writeSnapshot('artifacts/rebuild', 'consumer-candidates.json', inventory.candidates);
 await writeSnapshot('artifacts/rebuild', 'consumer-pending.json', inventory.pending);
 await writeSnapshot('artifacts/rebuild', 'consumer-issues.json', inventory.issues);
@@ -193,6 +203,7 @@ await writeSnapshot('artifacts/rebuild', 'consumer-summary.json', {
     pr10: inventory.pending.filter((row) => row.stage === 10).length,
   },
   issues: inventory.issues.length,
+  skillsInvokingLegacyProducers: skillUses.length,
 });
 let outstandingCount = 0;
 if (!process.argv.includes('--consumers-only')) {
@@ -215,10 +226,15 @@ console.log(
   `${String(original.length)} original candidates; ${String(inventory.candidates.length - original.length)} fresh discoveries; ${String(inventory.consumers.length)} runtime consumer rows (${String(adapters.length)} adapters); ${String(inventory.pending.length)} pending producer/retirement/skill rows; ${String(outstandingCount)} uncentralised runtime id/URL operations.`,
 );
 for (const issue of inventory.issues) console.error(issue);
-if (
-  outstandingCount > 0 ||
-  (process.argv.includes('--check-consumers') &&
-    (adapters.length > 0 || inventory.issues.length > 0))
-) {
+const checkSkills = process.argv.includes('--check-skills');
+if (checkSkills) {
+  for (const use of skillUses) {
+    console.error(`${use.file}:${String(use.line)} invokes ${use.target}`);
+  }
+}
+const inventoryBlocked =
+  process.argv.includes('--check-consumers') &&
+  (adapters.length > 0 || inventory.issues.length > 0);
+if (outstandingCount > 0 || (checkSkills && skillUses.length > 0) || inventoryBlocked) {
   process.exitCode = 1;
 }

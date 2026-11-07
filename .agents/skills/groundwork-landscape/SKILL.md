@@ -24,7 +24,7 @@ landscape, inspect the available behaviour across the selected workspace before 
 For an update, start with changed evidence and its affected assignments and relationships; revisit the
 whole grouping only when those changes challenge its boundaries.
 
-Use [groundwork-ask](../groundwork-ask/SKILL.md) for the legacy map and cited code. For newer captures, follow
+Use [groundwork-ask](../groundwork-ask/SKILL.md) for the consolidated map and cited code. For newer captures, follow
 their record references, evidence and coverage receipts. Prefer existing scan results; a missing actor or
 transition is a specific evidence gap, not a reason to start another full scan. Report the scan question that
 would resolve it. This skill does not itself restart scans or change scanner contracts.

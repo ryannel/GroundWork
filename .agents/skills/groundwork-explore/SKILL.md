@@ -12,24 +12,16 @@ Explain what the authorised source contains and what runs when an endpoint, mess
 reaches it. Keep technical components separate from team ownership. Entrypoints and runtime declarations
 establish technical boundaries; a library runs in its caller. Source inspection does not prove deployment.
 
-For a partner's system, whose code we cannot read, the source is its documents: cite each fact as
-`origin: documented` with `{ url, pointer | heading, version }`, as [groundwork-scan](../groundwork-scan/SKILL.md#owners-and-partners)
+For a partner's system, whose code we cannot read, the source is its documents: record the document URL, version and exact section, as [groundwork-scan](../groundwork-scan/SKILL.md#owners-and-partners)
 says. Owner evidence (CODEOWNERS, Backstage, GitHub teams) is reported as handles, never turned into a team by
 guesswork.
 
 ## Select the output
 
-Use the user's request or the scan brief. Read only the relevant mode:
-
-- **Question-led `scan/v1`:** use [the pipeline](../../../docs/scan-pipeline.md) and
-  [bounded repository workflow](../../../docs/scan-trials/scan-readiness/README.md). Start from scripted
-  facts and entry catalogues, expanding execution evidence for the selected questions.
-- **Existing `knowledge/v3` execution proofs:** use [canonical scans](canonical-scan.md) and the applicable
-  endpoint requirements in [endpoint-flow.md](endpoint-flow.md).
-- **Production YAML:** use [legacy fragments](legacy-fragment.md), with [handlers](handlers.md) and the
-  endpoint companion when applicable. The companion is not read or validated by the app.
-
-Do not substitute formats, migrate the application or move production marks as part of exploration.
+Use [the native scan](../groundwork-scan/SKILL.md#scan-the-registered-workspace) for a registered
+workspace. Query its declared model with `npm run map` and read the cited code at its full commit.
+For a supplied historical capture, respect its own scope and recorded limitations. Write proposed
+handler, contract and evidence changes in a review file until a person accepts them.
 
 ## Examine what the question needs
 
@@ -71,6 +63,5 @@ to make a gap disappear.
 
 ## Stable ids
 
-Use the selected format's identity rules and preserve existing logical identities. Legacy natural keys are
-in [legacy fragments](legacy-fragment.md#stable-ids); canonical and scan identities belong to their schemas
-and reusable writers. Never use traversal order as semantic identity or infer semantic order from an ID.
+Keep declared IDs. For a handler change, match the code span and control-flow branch. Use `cites:`
+with a persisted `ev:` ID or pinned code citation. Traversal order does not establish identity.

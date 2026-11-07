@@ -18,16 +18,17 @@ this machine has registered in `groundwork.local.yaml`, which is git-ignored, pl
 `workspaces/`. Every `npm run` below runs in the Groundwork checkout.
 
 ```
-<id>-groundwork/                 one workspace, one repo
-  workspace.yaml                 format, id, name, description, private, teams, actors, key_journeys
-  domains/<domain>/domain.yaml   id, name, purpose
-    systems/<system>/system.yaml id, name, team (optional), repos, components; contracts.yaml and handlers.yaml
-                                 from scans, or from documents for a partner's system
-  flows/  journeys/  story.yaml  how the systems work together today
-  scans/<org>/<repo>.yaml        the commit each code repo was last read at
-  programmes/<id>/programme.yaml an outcome several plans serve, and the context they share
-  plans/<plan>/plan.yaml         the plans, each an overlay on today; progress.yaml beside it records what happened
-  AGENTS.md  README.md  .gitignore
+<id>-groundwork/
+  workspace.yaml                               format, id, name, teams and actors
+  domains/<domain>/domain.yaml
+    systems/<system>/system.yaml               identity, keyed homes and components
+      contracts.yaml                           entries and data shapes
+      handlers/<component>.yaml                execution steps and failures
+      screens.yaml                             screens and regions
+  flows/*.yaml  journeys/*.yaml
+  evidence/<org>/<repo>/repository.json         the commit for this repository's evidence
+  programmes/<id>.yaml
+  plans/<plan>/plan.yaml                        overlay with progress.yaml beside it
 ```
 
 ## Practice

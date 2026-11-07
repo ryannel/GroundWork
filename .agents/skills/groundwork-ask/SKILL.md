@@ -13,12 +13,11 @@ more detail. Keep the explanation useful to a newcomer and distinguish what is o
 
 ## Select the evidence
 
-For a workspace question, start with `MAP.md` or `npm run map` to locate the repository and records.
-Read [legacy map lookup](legacy-map.md) for its query commands, file layout and scan marks. For an explicitly
-supplied question-led capture, start with its metadata, entry catalogue and existing bounded query pages;
-these are not yet loaded by the production map. Use the
-[repository query workflow](../../../docs/scan-trials/scan-readiness/README.md) only within the question's
-authorised source scope. A partial capture cannot establish absence.
+For a workspace question, start with `npm run map -- find <words> --workspace <id>`. Use
+`map -- show <id>` for the record and its citations, `map -- callers <id>` and `map -- calls <id>`
+for recorded exchanges, and `map -- repos` for repository pins. Pass the workspace selector to each
+command when several are registered. Read supplied historical captures in their pinned context.
+A partial capture cannot establish absence.
 
 Use record IDs and commit-pinned source ranges to follow relevant calls, contracts and data. Inspect the
 cited code when the selected evidence does not settle the question. Do not treat demo/seed data as source
@@ -31,7 +30,7 @@ and surrounding context already examined. Follow [interpretation](../groundwork-
 lead with a useful **Inferred** answer, concise rationale and confidence, and retain its limitations. Intent
 need not be provable to support a labelled interpretation; that interpretation is not a runtime guarantee.
 
-State the source revision and relevant analysis freshness. A local reference or legacy scan mark cannot
+State the source revision and relevant analysis freshness. A local reference or recorded source pin cannot
 establish current remote or deployed state. If source contradicts the map, explain the discrepancy and the
 scope needing refresh. Lead with the answer, then material source links, freshness and unresolved questions.
 

@@ -12,7 +12,7 @@ Flows tell the system's story; screens tell the person's. The app shows what peo
 screens each flow crosses, the screens a plan changes (today's picture beside the new one, regions outlined by
 status, the Figma link, the mockup) and a screens catalogue in the reference chapter. All of it is derived from
 `screens`, `screen:` on steps, and ops on `scr:` ids. Rules: [groundwork-schema](../groundwork-schema/SKILL.md)
-rule 14 and [cookbook](../groundwork-schema/cookbook.md) §15.
+and the [screen contract](../../../docs/rebuild/design.md#43-screensyaml).
 
 ## Today's screens go in the model
 
@@ -22,7 +22,7 @@ one page; a gallery of screens is not a substitute for the flow.
 
 1. **Which screens.** Walk every flow the feature touches and ask, at each step a person drives: what are they
    looking at? One screen per page, modal, sheet, email, push or print, in the `screens:` of the system whose
-   component serves it (its `contracts.yaml`). Internal tools count. An explorer finds routes and templates
+   app serves it (its `screens.yaml`, with the `app:` ID). Internal tools count. An explorer finds routes and templates
    ([groundwork-explore](../groundwork-explore/SKILL.md)); the picture and the regions come from people.
 2. **Today's picture.** A real screenshot or design export in `<workspace>/assets/` (`png`, `jpg`, `gif`,
    `webp`, `svg` or `html`; no data URIs, no `..`, no URLs), named after the screen: `<screen-slug>.png`. Take it
@@ -34,8 +34,7 @@ one page; a gallery of screens is not a substitute for the flow.
 4. **Steps point at screens.** On the flow step where the person acts or sees the result, set
    `screen: scr:x#region` (or `scr:x`). The screen's component must be the step's `from` or `to`. A step that only
    shows a result is `from: <component>`, `to: <UI component>`, `via: internal`.
-5. **Sources.** The screen cites the page component, route table or template, like any extracted fact, and
-   carries an `origin`.
+5. **Sources.** The screen cites the page component, route table or template, like any extracted fact, with `cites:`.
 
 ## The new look goes in the plan, as ops
 
@@ -74,7 +73,7 @@ starting from an existing `walking.html`:
   → checkout → email → tracking walks as one path.
 - A header link back to the plan, and on each section a link to its own stop in the plan.
 - Realistic copy on the picture itself; the hotspot caption names the action ("Place order →").
-- The branch the plan cares about: the failure path from `fails`, the empty state, the "no answer" default. One
+- The branch the plan cares about: the failure path from `failures`, the empty state, the "no answer" default. One
   extra section per branch, linked from the region that forks.
 - One file, no framework, no build. Images are relative (`../assets/x-tobe.png`). Never real customer data.
 
