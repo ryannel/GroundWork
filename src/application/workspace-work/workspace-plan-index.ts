@@ -9,15 +9,9 @@ import { thingHref } from '@/application/thing-paths';
 import { programmeHref } from '@/application/workspace-paths';
 import { issueUrlOf } from '@/domain/code-links';
 import { inIdScope, withoutIdScope, scopedId, qualifyId, hasPrefix, rootId } from '@/domain/ids';
+import type { ProgressEvent } from '@/domain/model/plan.generated';
 import type { IssueStatus } from '@/domain/plan/plan-status';
-import type {
-  Decision,
-  Milestone,
-  Plan,
-  Programme,
-  ProgressEvent,
-  Question,
-} from '@/domain/plan/plan.generated';
+import type { Decision, Milestone, Plan, Programme, Question } from '@/domain/plan/plan.generated';
 
 import { type TeamVM, workCardVM, type WorkCardVM } from './work-card';
 

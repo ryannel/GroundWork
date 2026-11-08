@@ -87,15 +87,3 @@ export interface ExplorerArtifact {
 export interface ExplorerArtifactIndex extends ExplorerArtifact {
   readonly bucket: string;
 }
-
-export interface ExplorerCatalogue {
-  readonly format: 'service-explorer-catalogue/v1';
-  readonly workspace: string;
-  readonly snapshot: string;
-  readonly publication?: string | undefined;
-  readonly assetBase: string;
-  readonly selections: readonly {
-    readonly service: ExplorerService;
-    readonly manifest: Omit<ExplorerArtifactIndex, 'bucket'>;
-  }[];
-}

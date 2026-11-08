@@ -3,7 +3,7 @@ import type { ExplorerPage, ExplorerService } from '@/domain/service-explorer';
 /** Expand a small published entry catalogue without assigning unexamined schemas or source ranges. */
 export function explorerServiceOverview(
   page: ExplorerPage,
-  service: ExplorerService,
+  service: Pick<ExplorerService, 'entries'>,
 ): ExplorerPage {
   if (page.kind !== 'overview' || service.entries.length > 12) return page;
   const component = page.nodes.find((node) => node.kind === 'component');

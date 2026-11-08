@@ -1,0 +1,1313 @@
+{
+  "currentModelAndDerivedEqual": true,
+  "repositories": [
+    {
+      "repo": "volvo-cars/account-profile-api",
+      "pin": "bc3003a9130cd9a8013d74ec4561575d1f1d935b",
+      "file": "facts-7375621b8d4c89cdfeb3.json.gz",
+      "previousSha256": "2bd7ebd4a79563be35d782aa1202297de61cc65d8b8a7436ee20bf70f91e0d05",
+      "currentSha256": "da54dce32af58c74e6291c23bc78116b6ce3c7d1b322ed7076d67797eb3996a9",
+      "before": 1003,
+      "after": 1008,
+      "added": {
+        "claims": 5
+      },
+      "removed": {},
+      "addedIds": [
+        "ev:volvo-cars-account-profile-api-07f811cbb5ac7f5a41f25317",
+        "ev:volvo-cars-account-profile-api-256c77b43d62122e142d3fca",
+        "ev:volvo-cars-account-profile-api-330a4127b1943fb1882748d3",
+        "ev:volvo-cars-account-profile-api-8bc8743f71ca04918b1933ce",
+        "ev:volvo-cars-account-profile-api-f87657aa416c69f0945fab7f"
+      ],
+      "removedIds": []
+    },
+    {
+      "repo": "volvo-cars/CLE.ReservationApi",
+      "pin": "7c647185135d3cce413bed87afc816c2cf78bc3c",
+      "file": "facts-cc05bd500deca46bbfdc.json.gz",
+      "previousSha256": "43ec61dd88c52cc0ecdfff7c0ac6749cd3c5f24843a0a2235f281680dea605ce",
+      "currentSha256": "156b7fc3f07169d61059f2efd6e8994fb5b714d1ca3bfe75600960d14dde9f4a",
+      "before": 1366,
+      "after": 1385,
+      "added": {
+        "summaries": 1,
+        "gaps": 6,
+        "sources": 7,
+        "claims": 5
+      },
+      "removed": {},
+      "addedIds": [
+        "ev:volvo-cars-cle-reservationapi-efb920b74b9ecdbaf2040eca",
+        "ev:volvo-cars-cle-reservationapi-0023976af5ea8b147159de4f",
+        "ev:volvo-cars-cle-reservationapi-2699c29f3823332ccdfd470b",
+        "ev:volvo-cars-cle-reservationapi-445efdb6495273ae3713e7d9",
+        "ev:volvo-cars-cle-reservationapi-4e5b1e1d0baaaa797665f763",
+        "ev:volvo-cars-cle-reservationapi-eafb4bf3b55cd9f98f502654",
+        "ev:volvo-cars-cle-reservationapi-f7eca500ecf1fbebe5dec769",
+        "ev:volvo-cars-cle-reservationapi-26d56658b3b1979f9eeffb17",
+        "ev:volvo-cars-cle-reservationapi-332313bf3bb69d2c5f3a9e80",
+        "ev:volvo-cars-cle-reservationapi-55db7ed35bd779b3e75825fb",
+        "ev:volvo-cars-cle-reservationapi-71f340f570c66a5ea7745031",
+        "ev:volvo-cars-cle-reservationapi-9342e71ac38a63567078fc04",
+        "ev:volvo-cars-cle-reservationapi-b3b674becd067ff1133fc943",
+        "ev:volvo-cars-cle-reservationapi-cc7bf52d5bd731cd6f15cbce",
+        "ev:volvo-cars-cle-reservationapi-60f06657898684b47f076cd7",
+        "ev:volvo-cars-cle-reservationapi-b82fd1751388c21d06f8ae05",
+        "ev:volvo-cars-cle-reservationapi-cb1f265a3a74f43b30e96ee1",
+        "ev:volvo-cars-cle-reservationapi-fbe5cd0a8b647c178981c163",
+        "ev:volvo-cars-cle-reservationapi-fe6738f8757f84961bfdecc4"
+      ],
+      "removedIds": []
+    },
+    {
+      "repo": "volvo-cars/content-green-light",
+      "pin": "88383197b84653b2b5769d57ba6aac5e3ec007e9",
+      "file": "facts-721db4ff45ebab32d692.json.gz",
+      "previousSha256": "624e98420111e43e509cab33206bbe7a81a59d585096fe01658eb5e8b305d6a5",
+      "currentSha256": "e8b69e76f965f69f390e950f2d571cd5becff95c57d13724c28e768722b2072b",
+      "before": 537,
+      "after": 547,
+      "added": {
+        "summaries": 1,
+        "gaps": 2,
+        "sources": 2,
+        "claims": 5
+      },
+      "removed": {},
+      "addedIds": [
+        "ev:volvo-cars-content-green-light-0434d47dcf250fd9d0507b23",
+        "ev:volvo-cars-content-green-light-4d88b3d65d5b8c6965e949f1",
+        "ev:volvo-cars-content-green-light-b3b9f7b43f67506a61690cf3",
+        "ev:volvo-cars-content-green-light-25fa9ca2cc5a2d3d4a2c4b29",
+        "ev:volvo-cars-content-green-light-3076addbc9ffddd439a91642",
+        "ev:volvo-cars-content-green-light-104708c3f6fc556149cd771d",
+        "ev:volvo-cars-content-green-light-425bbc58ad28a43cc01afe25",
+        "ev:volvo-cars-content-green-light-4bbf7b4ac70f20cb9d039d0f",
+        "ev:volvo-cars-content-green-light-a754bb754f2bf1234b46830a",
+        "ev:volvo-cars-content-green-light-fd5d02ec1693b22ca6f91d8f"
+      ],
+      "removedIds": []
+    },
+    {
+      "repo": "volvo-cars/disco",
+      "pin": "36b480b64f7f618c25954380373eafcf73d31b02",
+      "file": "facts-9a4facc8ed0a75cfec96.json.gz",
+      "previousSha256": "085c1df0b792e06a3956beec2e7bf82044bdf485b7f27a3331e4a339b58f037e",
+      "currentSha256": "e06d8d19b91135a73d6c1e74128855ea7041c68bf36a13e01aa6596a5fddc6e8",
+      "before": 1203,
+      "after": 1254,
+      "added": {
+        "summaries": 3,
+        "gaps": 21,
+        "sources": 22,
+        "claims": 5
+      },
+      "removed": {},
+      "addedIds": [
+        "ev:volvo-cars-disco-4f9688c21a6dea5031ace155",
+        "ev:volvo-cars-disco-865d43f0ee97d2fa671d6db3",
+        "ev:volvo-cars-disco-b52f190df44a46f2dd584c05",
+        "ev:volvo-cars-disco-09779d06916fdb0f7856d640",
+        "ev:volvo-cars-disco-1736593a8fa2b9881172d214",
+        "ev:volvo-cars-disco-17d7eb628941341bb30400b7",
+        "ev:volvo-cars-disco-18c1fa6811cd8b52fec1a1b8",
+        "ev:volvo-cars-disco-3dce511e0241aabb0d903db6",
+        "ev:volvo-cars-disco-3ebc4b9ac7e9ac617196e5c0",
+        "ev:volvo-cars-disco-4040c2105d235237049b496b",
+        "ev:volvo-cars-disco-47a45fe28d7182d7fb2e57b9",
+        "ev:volvo-cars-disco-484989e67f10923c05c37779",
+        "ev:volvo-cars-disco-5f6c2ca690fbf10c0ccddb09",
+        "ev:volvo-cars-disco-6791296dbe14dd621a65cb1f",
+        "ev:volvo-cars-disco-7b80f7675680fc75e38d61fc",
+        "ev:volvo-cars-disco-7fc637129eb8a2b079f26c82",
+        "ev:volvo-cars-disco-8bced950bd68eb1ef6ded059",
+        "ev:volvo-cars-disco-acff27e05e2e29c3d1fcfb69",
+        "ev:volvo-cars-disco-b9001d5fa724a653049f5e46",
+        "ev:volvo-cars-disco-d7d41c03e638a025404a1ac8",
+        "ev:volvo-cars-disco-e4958f2511bd51ec7433f22b",
+        "ev:volvo-cars-disco-f32dda011b148939a264b2f1",
+        "ev:volvo-cars-disco-f4563d1d548601d7f129f08c",
+        "ev:volvo-cars-disco-f640305b3ff81e1afbf2166f",
+        "ev:volvo-cars-disco-0b00ee0221791dc32aec11bb",
+        "ev:volvo-cars-disco-1df001e8fbd72217d752b213",
+        "ev:volvo-cars-disco-2007ba56f6fc409d123de7e3",
+        "ev:volvo-cars-disco-2375bf5db3655537263426ac",
+        "ev:volvo-cars-disco-2ee67219b7088cbbdf4ed424",
+        "ev:volvo-cars-disco-3519cb0fc2ee59a5a0d16efa",
+        "ev:volvo-cars-disco-50ea2ed64585761f7de33da1",
+        "ev:volvo-cars-disco-5984eecb1ed584c7e213e0ef",
+        "ev:volvo-cars-disco-620d5b130a77e1d3558c1c9a",
+        "ev:volvo-cars-disco-7c843aa929c75f6c4194187b",
+        "ev:volvo-cars-disco-825e673c6ce351f8d9bcf47e",
+        "ev:volvo-cars-disco-9644bb96abce516ee83c0033",
+        "ev:volvo-cars-disco-9d2c2cae038056a0c3d51674",
+        "ev:volvo-cars-disco-9fe34998541861bbb3ad083e",
+        "ev:volvo-cars-disco-a53393b7e39b5435564b2e0d",
+        "ev:volvo-cars-disco-b5c333d235cf4ea230157ced",
+        "ev:volvo-cars-disco-ccb5a43a68648608ca4e1ea3",
+        "ev:volvo-cars-disco-e5ca8e22a85e83e8e43cacea",
+        "ev:volvo-cars-disco-e804181c071355128c8acfc7",
+        "ev:volvo-cars-disco-e9f4fde41b0570ebd91601ba",
+        "ev:volvo-cars-disco-f058c09a5384fdaa50dd556c",
+        "ev:volvo-cars-disco-f61457bcf21d5058bea7094a",
+        "ev:volvo-cars-disco-13cea81fec4a484f46e45485",
+        "ev:volvo-cars-disco-2165055ee0c2cec566db96b4",
+        "ev:volvo-cars-disco-8d2f80f449b1b6c19583da26",
+        "ev:volvo-cars-disco-b3d702c431200afbe16a2e26",
+        "ev:volvo-cars-disco-da4ae8133d427165448a3211"
+      ],
+      "removedIds": []
+    },
+    {
+      "repo": "volvo-cars/disco-data",
+      "pin": "53d5990889aa84a10e8eddc39f9af3c9f34abdc3",
+      "file": "facts-6bd89dccd1226cd91317.json.gz",
+      "previousSha256": "f95d3dfaad0d0128a9446bda231cb3f02048b9f502f45319b349e563be337cd1",
+      "currentSha256": "9fbe759e39b3bbef6ec5306157561cbb195e4d0708a596414a4ead144258c73a",
+      "before": 16178,
+      "after": 16227,
+      "added": {
+        "summaries": 3,
+        "gaps": 14,
+        "sources": 27,
+        "claims": 5
+      },
+      "removed": {},
+      "addedIds": [
+        "ev:volvo-cars-disco-data-3e2764041be46fdc2ea28dc4",
+        "ev:volvo-cars-disco-data-a7597c11dd94b8331d1c5efe",
+        "ev:volvo-cars-disco-data-c549ac1cfba44e94f524f50a",
+        "ev:volvo-cars-disco-data-0c3bb5356ea81fc3af853104",
+        "ev:volvo-cars-disco-data-0fa1496d19249bf70e0334fc",
+        "ev:volvo-cars-disco-data-12757c2b2111e3534e83ceae",
+        "ev:volvo-cars-disco-data-263aa3400aea21076840f232",
+        "ev:volvo-cars-disco-data-4f47a12799ec7a23aa2de204",
+        "ev:volvo-cars-disco-data-55324ad459a0dd59b915ce11",
+        "ev:volvo-cars-disco-data-5e9e4800291d71c119ce622b",
+        "ev:volvo-cars-disco-data-8a1bd330c2e18b663c579897",
+        "ev:volvo-cars-disco-data-9f5e398c4c8b28c189f5ccdb",
+        "ev:volvo-cars-disco-data-b33f5826b99ebf3408329342",
+        "ev:volvo-cars-disco-data-b4bb324fbf2502941f7fdba6",
+        "ev:volvo-cars-disco-data-d68463540f1f3ec632db9e09",
+        "ev:volvo-cars-disco-data-f0b79d9006e098e22812b749",
+        "ev:volvo-cars-disco-data-f9085f80d8528a30cbb89ba4",
+        "ev:volvo-cars-disco-data-128dc607c878cfe960f17841",
+        "ev:volvo-cars-disco-data-172433a77c2741de6b75554c",
+        "ev:volvo-cars-disco-data-181aafe6fea6bdcd05ef556a",
+        "ev:volvo-cars-disco-data-1c01ffa07c6bb6ed15d5c5c9",
+        "ev:volvo-cars-disco-data-22fc41b089c9ddc77c39a8a4",
+        "ev:volvo-cars-disco-data-23742616651ce2048d9ba53f",
+        "ev:volvo-cars-disco-data-2627db1f732de55b53d9a0c8",
+        "ev:volvo-cars-disco-data-275b3e3f45ab6d261041ced9",
+        "ev:volvo-cars-disco-data-3d6b71125afd9f6bc906f80d",
+        "ev:volvo-cars-disco-data-3ece95ffdcaceb8de785ab09",
+        "ev:volvo-cars-disco-data-44d4decd5c83021863d17612",
+        "ev:volvo-cars-disco-data-50d553ccc26415521d082866",
+        "ev:volvo-cars-disco-data-63ea7d5a851eb089a9ef027b",
+        "ev:volvo-cars-disco-data-6d46df13c618d92cb3f36bbe",
+        "ev:volvo-cars-disco-data-730d1dc956e85206ac28b688",
+        "ev:volvo-cars-disco-data-868a5c1910b1a518ce986058",
+        "ev:volvo-cars-disco-data-8cca20a992e371e7d5a212ab",
+        "ev:volvo-cars-disco-data-a5f18ac2ac5d351fed5ccd22",
+        "ev:volvo-cars-disco-data-a67fdafe97cf96b9412d994a",
+        "ev:volvo-cars-disco-data-a91c27daefb6621b1e904b16",
+        "ev:volvo-cars-disco-data-b1779d5d7e5a18d3f128c893",
+        "ev:volvo-cars-disco-data-cf449446d305c7a6e5cf2daf",
+        "ev:volvo-cars-disco-data-e61b851fce2e7a2ef23f76a3",
+        "ev:volvo-cars-disco-data-eebda07d5f9eef6ecf7f44d2",
+        "ev:volvo-cars-disco-data-f5c617a1b299be860455f59a",
+        "ev:volvo-cars-disco-data-f6e2ace76e3c3c940daa0fcb",
+        "ev:volvo-cars-disco-data-f9631a226ccb34d475995717",
+        "ev:volvo-cars-disco-data-48a8efea0eb6d9215a613017",
+        "ev:volvo-cars-disco-data-674e0d09499c8cb99d954447",
+        "ev:volvo-cars-disco-data-ba6c0cd3aaed7a80c4ece974",
+        "ev:volvo-cars-disco-data-c7e6673d09e1af2d15cb91f1",
+        "ev:volvo-cars-disco-data-eb52539ff3fa27b5880071bc"
+      ],
+      "removedIds": []
+    },
+    {
+      "repo": "volvo-cars/disco-query",
+      "pin": "241e9f1421785d77e9ce8104ad9ada6e84417bd9",
+      "file": "facts-53d0756f55ddfa7f00b5.json.gz",
+      "previousSha256": "f87d6facb4cdf3bc47b478d8e5494d7d5340b0e5738728ba167c26831165516d",
+      "currentSha256": "4568a3785e9c4feefff25433d4d907933755cf0c5177a896ff847a4b811759f4",
+      "before": 10911,
+      "after": 10953,
+      "added": {
+        "summaries": 3,
+        "gaps": 11,
+        "sources": 23,
+        "claims": 5
+      },
+      "removed": {},
+      "addedIds": [
+        "ev:volvo-cars-disco-query-5843412349e236a7b2e428ac",
+        "ev:volvo-cars-disco-query-be7601d79f4d67256a530a86",
+        "ev:volvo-cars-disco-query-cb6fe696dc31caa1bd09e5c8",
+        "ev:volvo-cars-disco-query-06bc5fe099e6b504516758f5",
+        "ev:volvo-cars-disco-query-0a6d7fc413200cd1cfe6736f",
+        "ev:volvo-cars-disco-query-33bb943449e2151fb553e36d",
+        "ev:volvo-cars-disco-query-5079546e35f11509ac99397e",
+        "ev:volvo-cars-disco-query-649b66436ba9ddbff1b6ed27",
+        "ev:volvo-cars-disco-query-65475f10608514b83dce323d",
+        "ev:volvo-cars-disco-query-83330f7e310f473d69b1d8f2",
+        "ev:volvo-cars-disco-query-953beca088df49fd5b1742a9",
+        "ev:volvo-cars-disco-query-bd0982def4446fa19f117047",
+        "ev:volvo-cars-disco-query-c0286763f7cbb181a62b7d49",
+        "ev:volvo-cars-disco-query-c6bafd6b24d9491456d5acca",
+        "ev:volvo-cars-disco-query-04f10a08a5f472822dc57537",
+        "ev:volvo-cars-disco-query-0518cc8405096523d1237feb",
+        "ev:volvo-cars-disco-query-1319c74c4d9d2af6a15de598",
+        "ev:volvo-cars-disco-query-34a550b505408d11efc1432d",
+        "ev:volvo-cars-disco-query-694ab082577f516add70ad78",
+        "ev:volvo-cars-disco-query-71b7729202231f4be7b8b7d0",
+        "ev:volvo-cars-disco-query-793d40b3c260cd4155010a3f",
+        "ev:volvo-cars-disco-query-7a1ab654950dbec015e899ae",
+        "ev:volvo-cars-disco-query-89e44a36f7b1e2078977fb34",
+        "ev:volvo-cars-disco-query-8a52fd45966927a8992f0aab",
+        "ev:volvo-cars-disco-query-95ec3697b57b46811afd63ff",
+        "ev:volvo-cars-disco-query-99521212577643f382252a9e",
+        "ev:volvo-cars-disco-query-9a41ea2aaa354098e08f2eb9",
+        "ev:volvo-cars-disco-query-9fba5e948fe9efb94a47352c",
+        "ev:volvo-cars-disco-query-a52c412aa60ef500ccbef7ba",
+        "ev:volvo-cars-disco-query-b136935aa91f1d6312c01aaa",
+        "ev:volvo-cars-disco-query-b2eff4769f2d103d28128b42",
+        "ev:volvo-cars-disco-query-ca863778caee543831e5624d",
+        "ev:volvo-cars-disco-query-cd20fd731d9c03beb453c22e",
+        "ev:volvo-cars-disco-query-ce6305d35224aa1a159a6820",
+        "ev:volvo-cars-disco-query-e0edebf0ebe51797c180437e",
+        "ev:volvo-cars-disco-query-e786cf6226b085b45bddee9a",
+        "ev:volvo-cars-disco-query-efed3d0c352133b1bfcda2a2",
+        "ev:volvo-cars-disco-query-09e0964d4a808245e275c5e0",
+        "ev:volvo-cars-disco-query-6a186c5b22034f101f227c4f",
+        "ev:volvo-cars-disco-query-af019cac892cd2d8ed8fbd05",
+        "ev:volvo-cars-disco-query-caf4c0c8f530302de5d53319",
+        "ev:volvo-cars-disco-query-e038e30ce03eac6729a7d886"
+      ],
+      "removedIds": []
+    },
+    {
+      "repo": "volvo-cars/fleet-account",
+      "pin": "f0ba182da531b01749cdc17efaa40b70cdfe8700",
+      "file": "facts-119b0cf5e08c385fab64.json.gz",
+      "previousSha256": "b2f6b88b5ce7464b087c7d0594611a2e6eb0c95335da59e48724d0a44ebef844",
+      "currentSha256": "8fb8f5a3bd083175b44e31b27ae85fafdfb41cb7339b656cd509fb921e5efeb7",
+      "before": 16378,
+      "after": 16383,
+      "added": {
+        "claims": 5
+      },
+      "removed": {},
+      "addedIds": [
+        "ev:volvo-cars-fleet-account-2f45f9c2cdb76429162e21b8",
+        "ev:volvo-cars-fleet-account-43ab29ab26742666d439f8c6",
+        "ev:volvo-cars-fleet-account-74daa31467ec5b91ecf7c8bd",
+        "ev:volvo-cars-fleet-account-aadc056c05f41e17c42947c1",
+        "ev:volvo-cars-fleet-account-d92be9325b68d8862d3a5c25"
+      ],
+      "removedIds": []
+    },
+    {
+      "repo": "volvo-cars/gpe-common",
+      "pin": "be551c0997ca9352f8cf8f1044049a7112e7371d",
+      "file": "facts-0c029950034187586429.json.gz",
+      "previousSha256": "05c40d0170dcc272533f3c9d4493948ffc53990399b2462a9e964d63f03306ea",
+      "currentSha256": "61303f49a8649488064d6eab18d8aa8dea0069775f9e29ad643d9d6cf97a1e1d",
+      "before": 1331,
+      "after": 1364,
+      "added": {
+        "summaries": 3,
+        "gaps": 9,
+        "sources": 16,
+        "claims": 5
+      },
+      "removed": {},
+      "addedIds": [
+        "ev:volvo-cars-gpe-common-932129079d6d66b53fff5343",
+        "ev:volvo-cars-gpe-common-ed94e2b2180ff684ab6bb300",
+        "ev:volvo-cars-gpe-common-f8cddd2b34367fb39ba1cea7",
+        "ev:volvo-cars-gpe-common-2e61fab5acf2ae8123838ed7",
+        "ev:volvo-cars-gpe-common-64ca1f9011777056e5bb8128",
+        "ev:volvo-cars-gpe-common-6e27dd025c862390fa6ff1d3",
+        "ev:volvo-cars-gpe-common-7e4f96337836369896d266b4",
+        "ev:volvo-cars-gpe-common-8dfeed37ce5cfd44a630bdf3",
+        "ev:volvo-cars-gpe-common-d2d97b97038c3bff3a52e09b",
+        "ev:volvo-cars-gpe-common-ee2d472307f40e81562a7119",
+        "ev:volvo-cars-gpe-common-eeeb1576ff728b2f6dd2cb6d",
+        "ev:volvo-cars-gpe-common-f288e4411cb6947c7c00f8b5",
+        "ev:volvo-cars-gpe-common-34dc0a1394b30dd517f75a1f",
+        "ev:volvo-cars-gpe-common-4685f358c16af21da772c80d",
+        "ev:volvo-cars-gpe-common-53ba05b70b74be214e1d9da5",
+        "ev:volvo-cars-gpe-common-63a4ffe0f7ff9cb3285aadb0",
+        "ev:volvo-cars-gpe-common-7867aecaeb3dfb91fdccbc45",
+        "ev:volvo-cars-gpe-common-855dd1e3950b999b8323bcb8",
+        "ev:volvo-cars-gpe-common-a1cc3a53e3bdf504f296215f",
+        "ev:volvo-cars-gpe-common-a3e25e3322dc94206d2f7ad2",
+        "ev:volvo-cars-gpe-common-afc2e2671ef29be0fbaa2fff",
+        "ev:volvo-cars-gpe-common-b9cd01bc3d9faa86abbb2673",
+        "ev:volvo-cars-gpe-common-cc72625bde819a8eabee1b5e",
+        "ev:volvo-cars-gpe-common-d25546c58988e8dfe4c3f5ae",
+        "ev:volvo-cars-gpe-common-e21076a9daba1fd9ef6cf264",
+        "ev:volvo-cars-gpe-common-e6a2846b9d5335e08a0af007",
+        "ev:volvo-cars-gpe-common-fd73519afe3955e0a0bb6df8",
+        "ev:volvo-cars-gpe-common-ff24c490d49790342d6be713",
+        "ev:volvo-cars-gpe-common-32a48a6bc165c9459091f840",
+        "ev:volvo-cars-gpe-common-5810a002aea1735b3b3b96b2",
+        "ev:volvo-cars-gpe-common-b04e496ac3c49227af729517",
+        "ev:volvo-cars-gpe-common-b8ae367385ee1c9ce95160dd",
+        "ev:volvo-cars-gpe-common-d58f7038d7dfaeeb3c5596e1"
+      ],
+      "removedIds": []
+    },
+    {
+      "repo": "volvo-cars/gpe-configuration",
+      "pin": "eb07546b77b5ddbb535fd3068085c6004fb1b8f2",
+      "file": "facts-7d7c915565262238246a.json.gz",
+      "previousSha256": "5792c7826f7592c871fc9e43d3d85d195cc8affaa52f977bde019f448e42c5cc",
+      "currentSha256": "d1321564c0f00e3eebb5e34797d672a2836138705cd3b03c15502babf9339b40",
+      "before": 414,
+      "after": 433,
+      "added": {
+        "summaries": 1,
+        "gaps": 6,
+        "sources": 7,
+        "claims": 5
+      },
+      "removed": {},
+      "addedIds": [
+        "ev:volvo-cars-gpe-configuration-92cecae11a4e3033de227cf9",
+        "ev:volvo-cars-gpe-configuration-3d1c1d61bbbac8c2fab57352",
+        "ev:volvo-cars-gpe-configuration-672d5e711d2bf017755c2e0f",
+        "ev:volvo-cars-gpe-configuration-7cd44d11ec1f2deb001afd22",
+        "ev:volvo-cars-gpe-configuration-7e6ad72e2a4f6d5f5e1dee95",
+        "ev:volvo-cars-gpe-configuration-a355cdb89d424d983804571c",
+        "ev:volvo-cars-gpe-configuration-c1403826662093ea389c8fc2",
+        "ev:volvo-cars-gpe-configuration-44fd292127a0017940d40d38",
+        "ev:volvo-cars-gpe-configuration-5bae29d822219bd50b20d6c1",
+        "ev:volvo-cars-gpe-configuration-71587c0057d935eaef26169c",
+        "ev:volvo-cars-gpe-configuration-a06845215a11d82a36521774",
+        "ev:volvo-cars-gpe-configuration-aa37996e6d4ae46e73223724",
+        "ev:volvo-cars-gpe-configuration-b28ebabbdb6e194205073d2f",
+        "ev:volvo-cars-gpe-configuration-f2a06b0c4fc8a50c6e8612c6",
+        "ev:volvo-cars-gpe-configuration-1d8bb5a1e6dd15d583e3f61e",
+        "ev:volvo-cars-gpe-configuration-729ce1689ca8892aa8de08f4",
+        "ev:volvo-cars-gpe-configuration-a7f88293679822c718c3ae0f",
+        "ev:volvo-cars-gpe-configuration-e01fd3064ced1e209ad309c5",
+        "ev:volvo-cars-gpe-configuration-f063b50d754491a9d5547060"
+      ],
+      "removedIds": []
+    },
+    {
+      "repo": "volvo-cars/gpe-external-price",
+      "pin": "8445e8ca01c1bf279bfa9336ecf9187b9f699fc8",
+      "file": "facts-659c72d01fab073bea69.json.gz",
+      "previousSha256": "6197b0b8dbbd33ef503ba1a50e74965d6751cda96adcf383ae3fcbb7a1dfb7ed",
+      "currentSha256": "3b1f50e12ea5c7a933c302dadfaef7be780e8eba3473e6ee76e51ec2c78c051a",
+      "before": 397,
+      "after": 433,
+      "added": {
+        "summaries": 2,
+        "gaps": 13,
+        "sources": 16,
+        "claims": 5
+      },
+      "removed": {},
+      "addedIds": [
+        "ev:volvo-cars-gpe-external-price-4e4f23adfcdb77f9b4abc7f9",
+        "ev:volvo-cars-gpe-external-price-98e5c4af2b511f8e43fd6792",
+        "ev:volvo-cars-gpe-external-price-113dc6ffebe70da54f8291a9",
+        "ev:volvo-cars-gpe-external-price-1f891797a0845781c217bc7f",
+        "ev:volvo-cars-gpe-external-price-2d754796749d7b42bfbe8f62",
+        "ev:volvo-cars-gpe-external-price-644911e4c852c9641ccbb610",
+        "ev:volvo-cars-gpe-external-price-8dc6ca2928ec19dc0fa6f76b",
+        "ev:volvo-cars-gpe-external-price-9521a640b6e5a011dfac3d6b",
+        "ev:volvo-cars-gpe-external-price-a308627e44162d59adabc66c",
+        "ev:volvo-cars-gpe-external-price-c0d052722e14579215c6b666",
+        "ev:volvo-cars-gpe-external-price-c2a4b3137f8715376db41953",
+        "ev:volvo-cars-gpe-external-price-c3667360bf6fb473c5b14698",
+        "ev:volvo-cars-gpe-external-price-e209632a1985b9e9771e792f",
+        "ev:volvo-cars-gpe-external-price-e216a77f6d5abe13f13767e9",
+        "ev:volvo-cars-gpe-external-price-fc682f7ac6362f8cc5e83bba",
+        "ev:volvo-cars-gpe-external-price-0766fd5fb0f128b2d8f79c7c",
+        "ev:volvo-cars-gpe-external-price-2c5945b50d6a05aee52fccf3",
+        "ev:volvo-cars-gpe-external-price-35a47137c27dc7b5c461e03a",
+        "ev:volvo-cars-gpe-external-price-36113251d027d347a3fbdd7c",
+        "ev:volvo-cars-gpe-external-price-39029e5f65a236a8febfaf83",
+        "ev:volvo-cars-gpe-external-price-3ae8567d80ecefbfc94cd017",
+        "ev:volvo-cars-gpe-external-price-43b3ce977c0b7bc3500acc1c",
+        "ev:volvo-cars-gpe-external-price-614981df2882bf50bd6a2ebc",
+        "ev:volvo-cars-gpe-external-price-6da4938448b87e9aa06d74d2",
+        "ev:volvo-cars-gpe-external-price-7dda679c6b6af13f6cfae3b3",
+        "ev:volvo-cars-gpe-external-price-915e1d5c5cd4454463195868",
+        "ev:volvo-cars-gpe-external-price-9537cda06098d16f01142eb2",
+        "ev:volvo-cars-gpe-external-price-9ca3271c8ea00c5dd7c7b0b4",
+        "ev:volvo-cars-gpe-external-price-b1a552e44766f829d0888b13",
+        "ev:volvo-cars-gpe-external-price-ea5dfac0fd03a8eca3a67ac9",
+        "ev:volvo-cars-gpe-external-price-ead99e71713db45a0166a116",
+        "ev:volvo-cars-gpe-external-price-1a30514b6ed6724157b6a06d",
+        "ev:volvo-cars-gpe-external-price-1c625dcf751722f922e67bcc",
+        "ev:volvo-cars-gpe-external-price-5a0df72539bccc1a2e351a42",
+        "ev:volvo-cars-gpe-external-price-797d15313c3424636a9970c9",
+        "ev:volvo-cars-gpe-external-price-8ba8d524df09a4c36b78087f"
+      ],
+      "removedIds": []
+    },
+    {
+      "repo": "volvo-cars/gpe-financial-calculator",
+      "pin": "c8924a906b4f709c0ff50c98d52903905cec7264",
+      "file": "facts-c529cbac58a25d926e7e.json.gz",
+      "previousSha256": "f2b4b52532bbb7aa689e9ef45b4379c1da76ea38c14d3ad7b09572cd994c844a",
+      "currentSha256": "56fa517150b081244b9844a036e021a6aeefb337078257cc5d734a136322f193",
+      "before": 2875,
+      "after": 2880,
+      "added": {
+        "claims": 5
+      },
+      "removed": {},
+      "addedIds": [
+        "ev:volvo-cars-gpe-financial-calculator-50aa94685458452698f86113",
+        "ev:volvo-cars-gpe-financial-calculator-5a40c5221800a0ab22d8b9d4",
+        "ev:volvo-cars-gpe-financial-calculator-858b25e5494dfe9c5808be9c",
+        "ev:volvo-cars-gpe-financial-calculator-8c93b62e5bbb91053e893751",
+        "ev:volvo-cars-gpe-financial-calculator-eeb593eb9079de5d7c33e01f"
+      ],
+      "removedIds": []
+    },
+    {
+      "repo": "volvo-cars/gpe-green-light",
+      "pin": "06ff7f2fee0e15a50a523ef8853df278c117476c",
+      "file": "facts-397b343700d9283f9b3a.json.gz",
+      "previousSha256": "679b276bbea7607875f32a4357d2225800f0a2ec4900253940da56a955512639",
+      "currentSha256": "288ded9823d0acff18d20cb8a66135f23dca0591822bd0ef3aa8a09c37bda50d",
+      "before": 459,
+      "after": 464,
+      "added": {
+        "claims": 5
+      },
+      "removed": {},
+      "addedIds": [
+        "ev:volvo-cars-gpe-green-light-16b60819023804ede0f451e6",
+        "ev:volvo-cars-gpe-green-light-5da8cb4dcdbd2f1b31bf5d58",
+        "ev:volvo-cars-gpe-green-light-cd0e2805c92bee64052b9237",
+        "ev:volvo-cars-gpe-green-light-e1b331eafb47b05f58673701",
+        "ev:volvo-cars-gpe-green-light-f1c7b2c06d01c6348afe99be"
+      ],
+      "removedIds": []
+    },
+    {
+      "repo": "volvo-cars/gpe-pretax",
+      "pin": "9ac2fd76c450a64d6f5c4bd49e1942ef8eb42c56",
+      "file": "facts-276a575f78cd04d5c1df.json.gz",
+      "previousSha256": "734df1a172dafbed28649ec28f8bd038cca2de9315ef80b431d9d9b0d8b3d2d9",
+      "currentSha256": "e1d31a60b95cf2b9cbbf93446c8c2e08205d4a31fb90587f5f98146518c3c99c",
+      "before": 2957,
+      "after": 2962,
+      "added": {
+        "claims": 5
+      },
+      "removed": {},
+      "addedIds": [
+        "ev:volvo-cars-gpe-pretax-38dde2056bffa8e7953711db",
+        "ev:volvo-cars-gpe-pretax-58199b98ad5ef4436456de39",
+        "ev:volvo-cars-gpe-pretax-61b8f9ed42b8e18229979750",
+        "ev:volvo-cars-gpe-pretax-e7c5e0b2aff5f4cfa369df4c",
+        "ev:volvo-cars-gpe-pretax-f0abdbd8c3c4753c7be3ee80"
+      ],
+      "removedIds": []
+    },
+    {
+      "repo": "volvo-cars/gpe-price",
+      "pin": "045660f3bfc3476eab6f4a1e8506bbbc9f8d28be",
+      "file": "facts-e6bb2efab5bab1a45b54.json.gz",
+      "previousSha256": "d45932588d0cea8915d175891957692eea21ff2fb8713f455a39265e97aafe83",
+      "currentSha256": "77c8bd51e504b92672a4e397766c94c846c3f02d6b041b946f34024f6c58dbe6",
+      "before": 8022,
+      "after": 8027,
+      "added": {
+        "claims": 5
+      },
+      "removed": {},
+      "addedIds": [
+        "ev:volvo-cars-gpe-price-2e73c4353ca668d17aac52eb",
+        "ev:volvo-cars-gpe-price-8f0ba81c2e99041196421aa3",
+        "ev:volvo-cars-gpe-price-9bef2ca54bd5ffae5cee1fb8",
+        "ev:volvo-cars-gpe-price-da4f636ba08432afd38cada6",
+        "ev:volvo-cars-gpe-price-f57b9b31feaaa00182da5f48"
+      ],
+      "removedIds": []
+    },
+    {
+      "repo": "volvo-cars/gpe-price-data",
+      "pin": "3531ac3b8d8a8553c992d41331658adc2736ba99",
+      "file": "facts-67343a650160205f0aae.json.gz",
+      "previousSha256": "abab10fab597fef66d0fed0214f65504aef6448a8801c89810906f7e20c4b4ff",
+      "currentSha256": "1d9affd89de44f7b32284a5b38369c1e13c44de9d80fe20db90afff0a409db40",
+      "before": 1713,
+      "after": 1718,
+      "added": {
+        "claims": 5
+      },
+      "removed": {},
+      "addedIds": [
+        "ev:volvo-cars-gpe-price-data-266ec74b0a6e88581342dc9b",
+        "ev:volvo-cars-gpe-price-data-397b6bbf37929678ee8f5470",
+        "ev:volvo-cars-gpe-price-data-4e0a13cbbf62d9206259c06d",
+        "ev:volvo-cars-gpe-price-data-5cefb1ed98ba902d4362fbb2",
+        "ev:volvo-cars-gpe-price-data-679923b30d0a89228afa5fd7"
+      ],
+      "removedIds": []
+    },
+    {
+      "repo": "volvo-cars/gpe-price-event-dispatcher",
+      "pin": "a51af4a836bb67437459ba4da7c8a149dc73e8aa",
+      "file": "facts-1eb8ef4af89fbc1a4e24.json.gz",
+      "previousSha256": "7d05bd8b2c74c974e09becb5cc27983f3c7a6cd44f4c260d64646f26a81275d6",
+      "currentSha256": "c5ad8e7aa8c4c26863e9a303aac0d6119b2c8a342d8b39e07434aef2b669e7b6",
+      "before": 827,
+      "after": 858,
+      "added": {
+        "summaries": 2,
+        "gaps": 12,
+        "sources": 12,
+        "claims": 5
+      },
+      "removed": {},
+      "addedIds": [
+        "ev:volvo-cars-gpe-price-event-dispatcher-a46230ff8fa0259b8290aec4",
+        "ev:volvo-cars-gpe-price-event-dispatcher-d1b5f175668dabf2ae0fa28a",
+        "ev:volvo-cars-gpe-price-event-dispatcher-0bb4c5a877adb7392987b112",
+        "ev:volvo-cars-gpe-price-event-dispatcher-2928b4ba576e7b8b0b9be183",
+        "ev:volvo-cars-gpe-price-event-dispatcher-4a7f1cf2586a027eb9b88c2d",
+        "ev:volvo-cars-gpe-price-event-dispatcher-552d63e437a8dee8e17a5db2",
+        "ev:volvo-cars-gpe-price-event-dispatcher-587ad205f127e346f5ee6fac",
+        "ev:volvo-cars-gpe-price-event-dispatcher-7b764122a925ef8b7ab667f6",
+        "ev:volvo-cars-gpe-price-event-dispatcher-7c7e8eac92953ebf3a27f97c",
+        "ev:volvo-cars-gpe-price-event-dispatcher-8a7180b749039e9671ca0a6a",
+        "ev:volvo-cars-gpe-price-event-dispatcher-96eb2ac0553e09c4521f4de7",
+        "ev:volvo-cars-gpe-price-event-dispatcher-a125c0731d3598411f1d59c1",
+        "ev:volvo-cars-gpe-price-event-dispatcher-a7d8e0b3ac4ac6d6a887f0ee",
+        "ev:volvo-cars-gpe-price-event-dispatcher-af79c9297b4e27509dc5b13a",
+        "ev:volvo-cars-gpe-price-event-dispatcher-19ca068decc5a5426891c947",
+        "ev:volvo-cars-gpe-price-event-dispatcher-1da820a33a747d954012c381",
+        "ev:volvo-cars-gpe-price-event-dispatcher-21880c1c2414ce2d51104a40",
+        "ev:volvo-cars-gpe-price-event-dispatcher-3f7f04f71c37257edd00f30d",
+        "ev:volvo-cars-gpe-price-event-dispatcher-5cf9e138e41ed82440726140",
+        "ev:volvo-cars-gpe-price-event-dispatcher-73b685e34d6466959c9fb499",
+        "ev:volvo-cars-gpe-price-event-dispatcher-87a17f9a71aca45643e44b53",
+        "ev:volvo-cars-gpe-price-event-dispatcher-8d6906c8d88246ac0871fc60",
+        "ev:volvo-cars-gpe-price-event-dispatcher-a096a564a9fa2eb5aacac962",
+        "ev:volvo-cars-gpe-price-event-dispatcher-a7ecbc8eadda2fa3d32dcbc1",
+        "ev:volvo-cars-gpe-price-event-dispatcher-eaab8dca2b103d4b27bbd7ad",
+        "ev:volvo-cars-gpe-price-event-dispatcher-edf0cbc33ad3fba0a3329a77",
+        "ev:volvo-cars-gpe-price-event-dispatcher-18a94334fcb8d0a50becdf9d",
+        "ev:volvo-cars-gpe-price-event-dispatcher-62cb13e454cf87f69270a6f0",
+        "ev:volvo-cars-gpe-price-event-dispatcher-8d0ffe4ade6702e71beb381e",
+        "ev:volvo-cars-gpe-price-event-dispatcher-a60c0c609caae66a6645a0e1",
+        "ev:volvo-cars-gpe-price-event-dispatcher-dd8dcb3dd39c5f63fd2485cb"
+      ],
+      "removedIds": []
+    },
+    {
+      "repo": "volvo-cars/lcs",
+      "pin": "00b802f47321232d82c92b9738843eb115f46130",
+      "file": "facts-c0a1ce601fed4d73b95a.json.gz",
+      "previousSha256": "4791b42508b77c7c92353e07a8d6cba1f6980101dc2dd59ef786eeb272d89c23",
+      "currentSha256": "9a5b30b3471046f3ba530ad502879b3cdd02d982cd7cb978af1d4512e727c0ed",
+      "before": 2231,
+      "after": 2236,
+      "added": {
+        "claims": 5
+      },
+      "removed": {},
+      "addedIds": [
+        "ev:volvo-cars-lcs-16f3c093b8705d68442cae35",
+        "ev:volvo-cars-lcs-626aaf217f4a2c549ae7ba34",
+        "ev:volvo-cars-lcs-a6e5b757a6316692309544b3",
+        "ev:volvo-cars-lcs-e15b841e33b8619685406cd9",
+        "ev:volvo-cars-lcs-f7bb9fc0c1c588a05835ba6f"
+      ],
+      "removedIds": []
+    },
+    {
+      "repo": "volvo-cars/marketing-feeds-api",
+      "pin": "7cb6fd2338d099f274ebe29dde0c27f8439202cb",
+      "file": "facts-3028264c6008bfb43b47.json.gz",
+      "previousSha256": "00cc4767d2f51c56d206be53a57096ad4b89ea0b946fd2d0516aada727f59905",
+      "currentSha256": "fb7a415ad57e0b6a5d05492b85b90cce83052305b747f30ae319ba55c14a1761",
+      "before": 3810,
+      "after": 3815,
+      "added": {
+        "claims": 5
+      },
+      "removed": {},
+      "addedIds": [
+        "ev:volvo-cars-marketing-feeds-api-1c01884b98a994cc9fdc0abd",
+        "ev:volvo-cars-marketing-feeds-api-39d6a28f8af0c01f8614b708",
+        "ev:volvo-cars-marketing-feeds-api-6328a14e9fe5bf0805c2aa65",
+        "ev:volvo-cars-marketing-feeds-api-7d679e00cf20c49fef98640f",
+        "ev:volvo-cars-marketing-feeds-api-e0cd980c44f994d2869d2d8c"
+      ],
+      "removedIds": []
+    },
+    {
+      "repo": "volvo-cars/offer-management",
+      "pin": "f0ed500bcf9204b109eed10b31b0cee9e0fdc7e5",
+      "file": "facts-565ffef927500dc242fa.json.gz",
+      "previousSha256": "38f71276b7414f6ab8196efacff941951b1bebbbe86d6b34372ea14979591433",
+      "currentSha256": "a9a9af37b189ad88546620cac24b6f6a32a09c6cd73e566088644feb267ccc30",
+      "before": 7962,
+      "after": 7967,
+      "added": {
+        "claims": 5
+      },
+      "removed": {},
+      "addedIds": [
+        "ev:volvo-cars-offer-management-0ef4902df29fa28b62c59c8b",
+        "ev:volvo-cars-offer-management-1b67e5fd20514c81cf8279b4",
+        "ev:volvo-cars-offer-management-6de7816ebad6c5ed0104c074",
+        "ev:volvo-cars-offer-management-73e34261a98400ce1c1b396c",
+        "ev:volvo-cars-offer-management-ab211657bd452bd17cc5906a"
+      ],
+      "removedIds": []
+    },
+    {
+      "repo": "volvo-cars/pop-assortment-libraries",
+      "pin": "932ec05bc0dfaceff6e8e4bca5b11bec6aee6a3c",
+      "file": "facts-5f455750da531244bd6c.json.gz",
+      "previousSha256": "6803e1c79478bb0e66dbd0d38e7e16ef270e1fc91a5a070dcadfe51089e93078",
+      "currentSha256": "7130d2275c3af674b74a4a9488d0fa045f931b1bc44feacae1ff1868978e1295",
+      "before": 1747,
+      "after": 1754,
+      "added": {
+        "summaries": 1,
+        "gaps": 1,
+        "claims": 5
+      },
+      "removed": {},
+      "addedIds": [
+        "ev:volvo-cars-pop-assortment-libraries-b3fac281395a9061dd5bff63",
+        "ev:volvo-cars-pop-assortment-libraries-4664416e19875741fb3e3d32",
+        "ev:volvo-cars-pop-assortment-libraries-4e756d22a8736d194d445a7d",
+        "ev:volvo-cars-pop-assortment-libraries-7d15414808ac6ac1e3cd20ec",
+        "ev:volvo-cars-pop-assortment-libraries-b524d4aff33010b97eee227b",
+        "ev:volvo-cars-pop-assortment-libraries-c9be97325031562e7e4ad2db",
+        "ev:volvo-cars-pop-assortment-libraries-ded4c9be23db9bfffb7d6616"
+      ],
+      "removedIds": []
+    },
+    {
+      "repo": "volvo-cars/pop-authz",
+      "pin": "9e5a7ea23ab32253a3a7368ba766aef28ed8d5ba",
+      "file": "facts-fdc4d5c83ba2f0bc09b6.json.gz",
+      "previousSha256": "bf52d7214536cd445ee7fed84af008a37ffe49bf5281a6df94e16a7a83b1e55f",
+      "currentSha256": "747ccfd37bac372f8496387a22ac1eae27b0aa450d49ed9b8f4be89af6540310",
+      "before": 273,
+      "after": 278,
+      "added": {
+        "claims": 5
+      },
+      "removed": {},
+      "addedIds": [
+        "ev:volvo-cars-pop-authz-0040f72b359370f83fe19622",
+        "ev:volvo-cars-pop-authz-2681aa30a6ffc7769c8fcfef",
+        "ev:volvo-cars-pop-authz-5380845d820081a81edf5af0",
+        "ev:volvo-cars-pop-authz-71aff21901794e14b428db03",
+        "ev:volvo-cars-pop-authz-c4e9fbdf2912f5a93b07708b"
+      ],
+      "removedIds": []
+    },
+    {
+      "repo": "volvo-cars/popcat-assortment-admin-api",
+      "pin": "076f89145102f79c25e560e8feac231ab588a026",
+      "file": "facts-88d1d3b1ac7c5398dff6.json.gz",
+      "previousSha256": "7ea62afe23eb05de4b617decc73ec0a9a1fa51c41865b863398a7ca8b012a86b",
+      "currentSha256": "8797778a2d72b2b430981bf89007cabe7579d3463ca69572d2392e8005036aa9",
+      "before": 6502,
+      "after": 6507,
+      "added": {
+        "claims": 5
+      },
+      "removed": {},
+      "addedIds": [
+        "ev:volvo-cars-popcat-assortment-admin-api-1ef97fcbdf80c17f543c7ecf",
+        "ev:volvo-cars-popcat-assortment-admin-api-42ccf3e414f83c103bd7ac26",
+        "ev:volvo-cars-popcat-assortment-admin-api-84be9e202bdef32014619a13",
+        "ev:volvo-cars-popcat-assortment-admin-api-993c7ed91a0e9d403badccf7",
+        "ev:volvo-cars-popcat-assortment-admin-api-d2dcfa0d24ed389430da62af"
+      ],
+      "removedIds": []
+    },
+    {
+      "repo": "volvo-cars/popcat-assortment-api",
+      "pin": "3f23946dd29082f46ade7c1d8ab2309b7643a301",
+      "file": "facts-6f03ddbd1c48bbf3796a.json.gz",
+      "previousSha256": "a958e536813218711b205579ea55c620573bb5873af6c3ce19a31a53e5f2aa51",
+      "currentSha256": "528364f5b45fb72339c607d867978a29d04d60e9ae178b8827e5686cb32389c5",
+      "before": 5657,
+      "after": 5662,
+      "added": {
+        "claims": 5
+      },
+      "removed": {},
+      "addedIds": [
+        "ev:volvo-cars-popcat-assortment-api-3f39517924de2510a60b1b09",
+        "ev:volvo-cars-popcat-assortment-api-4d200426d1d06281035ba647",
+        "ev:volvo-cars-popcat-assortment-api-547a080b274083a2565af048",
+        "ev:volvo-cars-popcat-assortment-api-54f2ceeb08dd3fd3bf5ed116",
+        "ev:volvo-cars-popcat-assortment-api-c49110dbd7ecdbfa62790312"
+      ],
+      "removedIds": []
+    },
+    {
+      "repo": "volvo-cars/popcat-carfeatures",
+      "pin": "72f9154e4dacc6113a78c34656c9c9098ce8103e",
+      "file": "facts-5efdfad574b4d5d0c5ff.json.gz",
+      "previousSha256": "a4a6d05e0694b0a9db30d29abafa95628c28f0b5d4dd1d274cf5335279b8b9b8",
+      "currentSha256": "a287ec353aa6d3f229244f5c3a0f079585e19b48675df2d7fa2bd94ef57a19c1",
+      "before": 1707,
+      "after": 1712,
+      "added": {
+        "claims": 5
+      },
+      "removed": {},
+      "addedIds": [
+        "ev:volvo-cars-popcat-carfeatures-29e0987804e395a0c246486a",
+        "ev:volvo-cars-popcat-carfeatures-3e7836e13472616822b3e120",
+        "ev:volvo-cars-popcat-carfeatures-97424927d479a2d3f300a3d1",
+        "ev:volvo-cars-popcat-carfeatures-d03a2c325256f1f82fe901cf",
+        "ev:volvo-cars-popcat-carfeatures-ff02a09e87dcfa4ca0e1f1ab"
+      ],
+      "removedIds": []
+    },
+    {
+      "repo": "volvo-cars/popcat-eligibility-api",
+      "pin": "94a699e5a0c69570f4df586ac341864450a75443",
+      "file": "facts-40c1bce1ee4133264264.json.gz",
+      "previousSha256": "102ae27cb76e57440f7d9a7aec1ea9feb90c9d8ad18b404fb4a433c05fba8a53",
+      "currentSha256": "268bf1a1efc22ad00828c307a3d11befef3d90980f414ac4a2d07060406883b2",
+      "before": 1347,
+      "after": 1352,
+      "added": {
+        "claims": 5
+      },
+      "removed": {},
+      "addedIds": [
+        "ev:volvo-cars-popcat-eligibility-api-341fc2f18e4198a83095d9da",
+        "ev:volvo-cars-popcat-eligibility-api-4e2c8e75842df3b6fd6eb99d",
+        "ev:volvo-cars-popcat-eligibility-api-54da6e613886daa826081c51",
+        "ev:volvo-cars-popcat-eligibility-api-a0b1c1e03fb58f3dfaf849c7",
+        "ev:volvo-cars-popcat-eligibility-api-b59df235413a0a81d12b3163"
+      ],
+      "removedIds": []
+    },
+    {
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "pin": "c46003be3820ab1a7437ca931c51b3dde24770d5",
+      "file": "facts-cbad725b686f8f53b7a3.json.gz",
+      "previousSha256": "65d5421ea9785beae2d0ab6d8b08f561c31bc5bb22329a2965f2c6d45cd0d8ed",
+      "currentSha256": "7b91a63d4ba981357e845c27eea74638001278381ef5467c5d298d2913d5c499",
+      "before": 6144,
+      "after": 6149,
+      "added": {
+        "claims": 5
+      },
+      "removed": {},
+      "addedIds": [
+        "ev:volvo-cars-popcat-manage-and-segment-1d2656e36555aa62881b0d3d",
+        "ev:volvo-cars-popcat-manage-and-segment-2e1642fb8c141d51b8b4ceaf",
+        "ev:volvo-cars-popcat-manage-and-segment-8369e6b71237176d640304f8",
+        "ev:volvo-cars-popcat-manage-and-segment-a183fa244bf81d3e97b925f5",
+        "ev:volvo-cars-popcat-manage-and-segment-e16dcaa3797c135a3f9724f6"
+      ],
+      "removedIds": []
+    },
+    {
+      "repo": "volvo-cars/popcat-prins-ingestion",
+      "pin": "da3d869b094fa5f51b6e1d771d3bfb0b37833775",
+      "file": "facts-5df61642892bc22f0f7e.json.gz",
+      "previousSha256": "006cbc6ec9ce3b233d343405061558ca4f63a0e99d6a24b47de7c928e07033b6",
+      "currentSha256": "94926fffb3e48443e98333256f3109092644fddaf5aca66eb019b27c5de8f76e",
+      "before": 4329,
+      "after": 4365,
+      "added": {
+        "summaries": 3,
+        "gaps": 13,
+        "sources": 15,
+        "claims": 5
+      },
+      "removed": {},
+      "addedIds": [
+        "ev:volvo-cars-popcat-prins-ingestion-6017112e4cf6a3460548d8b6",
+        "ev:volvo-cars-popcat-prins-ingestion-8170e6a6316f4490d1175694",
+        "ev:volvo-cars-popcat-prins-ingestion-f5c424d731cd7cf4a4a39cd2",
+        "ev:volvo-cars-popcat-prins-ingestion-225cd88297a8802df620a7a1",
+        "ev:volvo-cars-popcat-prins-ingestion-31951649a2687d14c3fbc5c1",
+        "ev:volvo-cars-popcat-prins-ingestion-47b0e2f840a3a04469a10f16",
+        "ev:volvo-cars-popcat-prins-ingestion-6c82717c50610806da0b4c8a",
+        "ev:volvo-cars-popcat-prins-ingestion-87d42c5fa81b9a097d03490e",
+        "ev:volvo-cars-popcat-prins-ingestion-94159a3600a74518a415ca8e",
+        "ev:volvo-cars-popcat-prins-ingestion-94d3ba57056cff4d82086383",
+        "ev:volvo-cars-popcat-prins-ingestion-9961cdce683c08d73593ca68",
+        "ev:volvo-cars-popcat-prins-ingestion-99b1e9230968329f0a3de7ef",
+        "ev:volvo-cars-popcat-prins-ingestion-b7c1e83608680870f4ce6d45",
+        "ev:volvo-cars-popcat-prins-ingestion-ec2d793093373f908257af17",
+        "ev:volvo-cars-popcat-prins-ingestion-f2942dc58a6cfe1a3056deff",
+        "ev:volvo-cars-popcat-prins-ingestion-fd3d13bd4f197ccfc151e38c",
+        "ev:volvo-cars-popcat-prins-ingestion-082f729950d3df59f8feb1dd",
+        "ev:volvo-cars-popcat-prins-ingestion-2694d638a59f4d57fadf4e10",
+        "ev:volvo-cars-popcat-prins-ingestion-2ef0777342cb20ab086ccf02",
+        "ev:volvo-cars-popcat-prins-ingestion-34fad533a51e861877ae2715",
+        "ev:volvo-cars-popcat-prins-ingestion-36b74111d40a71215cd3a73c",
+        "ev:volvo-cars-popcat-prins-ingestion-3ca9449926b03fe1f0e67266",
+        "ev:volvo-cars-popcat-prins-ingestion-3e6a8476ecb13ea52bf9e46f",
+        "ev:volvo-cars-popcat-prins-ingestion-45492c043853f133bed98e14",
+        "ev:volvo-cars-popcat-prins-ingestion-69eafa790198c235520d4070",
+        "ev:volvo-cars-popcat-prins-ingestion-72a8000a6b28e4adb29f6266",
+        "ev:volvo-cars-popcat-prins-ingestion-886d3935319b843d96f346af",
+        "ev:volvo-cars-popcat-prins-ingestion-8b4a2d1d2fc82c5ff79deb1c",
+        "ev:volvo-cars-popcat-prins-ingestion-b80d64f863f4f1ae87d70a70",
+        "ev:volvo-cars-popcat-prins-ingestion-dc2a6061cc02a30a2e019c26",
+        "ev:volvo-cars-popcat-prins-ingestion-e8a4563f36cc36759af6327c",
+        "ev:volvo-cars-popcat-prins-ingestion-96768a185d02af982ba8a327",
+        "ev:volvo-cars-popcat-prins-ingestion-c92b6ddb34f843d8c6763e9b",
+        "ev:volvo-cars-popcat-prins-ingestion-d38c6a5cc6403bddd2ae0c52",
+        "ev:volvo-cars-popcat-prins-ingestion-e23e601df7e0eab4b399c0a8",
+        "ev:volvo-cars-popcat-prins-ingestion-e492c6657c9e38e4ff5af26c"
+      ],
+      "removedIds": []
+    },
+    {
+      "repo": "volvo-cars/popcat-product-details-service",
+      "pin": "357b46e505b1ffc8e2bc7239c4331e6192258957",
+      "file": "facts-0bcbf9d77829ed2b8c22.json.gz",
+      "previousSha256": "a26a36a8bb177527107d4f655fe9d9477ae1ef5c244cf1f991ea476af11fb27e",
+      "currentSha256": "5534ccd1ee6ed15c5076cf17477c94406ae487afe18a37c4a564217c67b993dc",
+      "before": 4844,
+      "after": 4849,
+      "added": {
+        "claims": 5
+      },
+      "removed": {},
+      "addedIds": [
+        "ev:volvo-cars-popcat-product-details-service-05eb1e8da2af7ad5e6654c53",
+        "ev:volvo-cars-popcat-product-details-service-5feab26c1fd2c3599a09bc7a",
+        "ev:volvo-cars-popcat-product-details-service-7c03e8ef6c25bdc075c30885",
+        "ev:volvo-cars-popcat-product-details-service-9a9e64c074cc9932cda31706",
+        "ev:volvo-cars-popcat-product-details-service-c95e339ad946b842e958e60d"
+      ],
+      "removedIds": []
+    },
+    {
+      "repo": "volvo-cars/popcat-product-mapper",
+      "pin": "5a5a7d91b8dd2961a7a89eb7350ee30705f83c31",
+      "file": "facts-c2dc3290e2b0c97f52c2.json.gz",
+      "previousSha256": "0709eb52dd5d029e5617ecc653029f3d4ba1ae6d8d1ddeb6c16f0252ec27ad6c",
+      "currentSha256": "9510cabb54c798ac32384039af2bf067b9cfc75a3d86ac9f1ffafdad4385e1ee",
+      "before": 3707,
+      "after": 3773,
+      "added": {
+        "summaries": 3,
+        "gaps": 25,
+        "sources": 33,
+        "claims": 5
+      },
+      "removed": {},
+      "addedIds": [
+        "ev:volvo-cars-popcat-product-mapper-3a31c7e9c4e0cad30a931733",
+        "ev:volvo-cars-popcat-product-mapper-92d8ace060640a653a9137eb",
+        "ev:volvo-cars-popcat-product-mapper-bc989e2e80930408b11bbbc3",
+        "ev:volvo-cars-popcat-product-mapper-05a568637d760474aadc97e2",
+        "ev:volvo-cars-popcat-product-mapper-09a0d74d8e2f265d66f13b72",
+        "ev:volvo-cars-popcat-product-mapper-0eb01ac24e6fbcc9704f9f5e",
+        "ev:volvo-cars-popcat-product-mapper-1c255544b2d29bc721b621eb",
+        "ev:volvo-cars-popcat-product-mapper-250c756990c821332db05fd0",
+        "ev:volvo-cars-popcat-product-mapper-25289d8dbe38406341b730c7",
+        "ev:volvo-cars-popcat-product-mapper-2cf2fd806a55162e60238842",
+        "ev:volvo-cars-popcat-product-mapper-56bbea664a2b9f9c36715fd3",
+        "ev:volvo-cars-popcat-product-mapper-6fbab40f70f0cb1c56f49be8",
+        "ev:volvo-cars-popcat-product-mapper-73a9c36bfd40e0cd0e518a35",
+        "ev:volvo-cars-popcat-product-mapper-78bc3c8b57ea90efb4e4c961",
+        "ev:volvo-cars-popcat-product-mapper-7af71e300cd4fa1ad59eb000",
+        "ev:volvo-cars-popcat-product-mapper-96ffc52acde691cab4a5b4ac",
+        "ev:volvo-cars-popcat-product-mapper-9a1e0f445871744b6d0c8dba",
+        "ev:volvo-cars-popcat-product-mapper-9f3a658af013f2e68a1b5e60",
+        "ev:volvo-cars-popcat-product-mapper-a6512756103e175c6ce251c2",
+        "ev:volvo-cars-popcat-product-mapper-a951fca96482f73b7f8c57eb",
+        "ev:volvo-cars-popcat-product-mapper-afb532f81bbe43992cbdcd12",
+        "ev:volvo-cars-popcat-product-mapper-be4bf8efc7f83dbca5e14f94",
+        "ev:volvo-cars-popcat-product-mapper-c600ba822013eacc118b5b8f",
+        "ev:volvo-cars-popcat-product-mapper-cb325f2246a2da89519fba04",
+        "ev:volvo-cars-popcat-product-mapper-d799f0cbaf21ba4bc5b84a88",
+        "ev:volvo-cars-popcat-product-mapper-dd93f695ad531896aa43600c",
+        "ev:volvo-cars-popcat-product-mapper-df3d3ee9020deac4c75f5064",
+        "ev:volvo-cars-popcat-product-mapper-ff7f36201fa71a2b0be898d1",
+        "ev:volvo-cars-popcat-product-mapper-0a7b2f438327640bbaed0f44",
+        "ev:volvo-cars-popcat-product-mapper-0f7516eeccd257d62b581693",
+        "ev:volvo-cars-popcat-product-mapper-149db00b489c9a15bb9ea088",
+        "ev:volvo-cars-popcat-product-mapper-1cf64d46916515a0289e8d58",
+        "ev:volvo-cars-popcat-product-mapper-1d5f2e2d303cece7b7674803",
+        "ev:volvo-cars-popcat-product-mapper-2147dcdfcad1afeb08dd4cb7",
+        "ev:volvo-cars-popcat-product-mapper-2223edd450263015f9a7b2b7",
+        "ev:volvo-cars-popcat-product-mapper-255871db116007ba2b74326d",
+        "ev:volvo-cars-popcat-product-mapper-3fec73226b0ed5eb77699c80",
+        "ev:volvo-cars-popcat-product-mapper-41f57992dc94188749e40485",
+        "ev:volvo-cars-popcat-product-mapper-4481e198da7c82fc85c6cd69",
+        "ev:volvo-cars-popcat-product-mapper-4d44c47de2bc62385e2a7f64",
+        "ev:volvo-cars-popcat-product-mapper-5073667798faa9e69fca4069",
+        "ev:volvo-cars-popcat-product-mapper-5779f2a7476c616a5197f417",
+        "ev:volvo-cars-popcat-product-mapper-5a3b3a19a831f834a1f125c7",
+        "ev:volvo-cars-popcat-product-mapper-6319b4020ed8257c5f7e9081",
+        "ev:volvo-cars-popcat-product-mapper-7bc7ea7b3cdb157d59a10f0d",
+        "ev:volvo-cars-popcat-product-mapper-867fe0226ee5efc0ab8b74bd",
+        "ev:volvo-cars-popcat-product-mapper-899a37a5a3e9d13fa2b5797a",
+        "ev:volvo-cars-popcat-product-mapper-921e36ac6ede7a3b89b04427",
+        "ev:volvo-cars-popcat-product-mapper-9d982c7cc2f78456218aeb9c",
+        "ev:volvo-cars-popcat-product-mapper-acb79367f393f6a29e30562f",
+        "ev:volvo-cars-popcat-product-mapper-b060918db72ba35220093c48",
+        "ev:volvo-cars-popcat-product-mapper-c26476bbd305dfb137a8fd4d",
+        "ev:volvo-cars-popcat-product-mapper-c530067bf0497c115d6cc21f",
+        "ev:volvo-cars-popcat-product-mapper-dcea26df341db868376596d3",
+        "ev:volvo-cars-popcat-product-mapper-e1897017bb9c54828b26c594",
+        "ev:volvo-cars-popcat-product-mapper-e21ca97313634f0382e91ff5",
+        "ev:volvo-cars-popcat-product-mapper-f59845e71c6519d8e0051ac3",
+        "ev:volvo-cars-popcat-product-mapper-fb1d2970e5bb388704445690",
+        "ev:volvo-cars-popcat-product-mapper-fbf4db85374df162deb9c8d5",
+        "ev:volvo-cars-popcat-product-mapper-fd198d34ce9f4b8175bd26f2",
+        "ev:volvo-cars-popcat-product-mapper-ff34e1a023fce193f2158542",
+        "ev:volvo-cars-popcat-product-mapper-48b10d1f65363469c8cc3e7c",
+        "ev:volvo-cars-popcat-product-mapper-7e11dd685ae60711f22c4799",
+        "ev:volvo-cars-popcat-product-mapper-8fcca1624b7931ae55d5f99b",
+        "ev:volvo-cars-popcat-product-mapper-b5db6220574980793be676ae",
+        "ev:volvo-cars-popcat-product-mapper-e19b54073b88229d15dba205"
+      ],
+      "removedIds": []
+    },
+    {
+      "repo": "volvo-cars/price-data-management",
+      "pin": "64911e4a6e54d44c491b349f5b62a62e36b8c4b1",
+      "file": "facts-d392cf27cedcc2c46984.json.gz",
+      "previousSha256": "575eab282eea0d0b9c4d92da2916e77ea14963ee5774589069004692d3d66b75",
+      "currentSha256": "a2af2402a4cddca96e6aa2f5c4a7d1d56c92a4f53a4429ae1a6c1cf357612197",
+      "before": 36367,
+      "after": 36372,
+      "added": {
+        "claims": 5
+      },
+      "removed": {},
+      "addedIds": [
+        "ev:volvo-cars-price-data-management-153e882610f68737bc930835",
+        "ev:volvo-cars-price-data-management-58d577786affc2d0668d5687",
+        "ev:volvo-cars-price-data-management-5de7fd16697858a579c86777",
+        "ev:volvo-cars-price-data-management-968463b7dd681441bb7369f0",
+        "ev:volvo-cars-price-data-management-f281b74ed1f8b6682214f401"
+      ],
+      "removedIds": []
+    },
+    {
+      "repo": "volvo-cars/pricing-catalog-api",
+      "pin": "abacb06ac2f6a2403d244cad6de1839b12887f9c",
+      "file": "facts-0b956a061ab5fca1ebfc.json.gz",
+      "previousSha256": "e5542fb393c148a55c6c24872a5b79557f9630b8d96b3c0c388bda6a9c85af60",
+      "currentSha256": "0dfa37ce59bb44170268655165058271c45ae7bf1bd3c41538acb1995a4ba2e2",
+      "before": 2724,
+      "after": 2729,
+      "added": {
+        "claims": 5
+      },
+      "removed": {},
+      "addedIds": [
+        "ev:volvo-cars-pricing-catalog-api-1b575bf6aec0aa665c2c03c0",
+        "ev:volvo-cars-pricing-catalog-api-3caf2c6c1deea907f0a91f76",
+        "ev:volvo-cars-pricing-catalog-api-da03a274608518b7f26ec4a5",
+        "ev:volvo-cars-pricing-catalog-api-e1b57933410ccd436ee95e10",
+        "ev:volvo-cars-pricing-catalog-api-f81cece3148a35d1e76fbd10"
+      ],
+      "removedIds": []
+    },
+    {
+      "repo": "volvo-cars/prism",
+      "pin": "bf2b65c6074f6fa6e340420b8ea747b4c5cd499d",
+      "file": "facts-af6071db129954a5175b.json.gz",
+      "previousSha256": "bf9f364518a889c9e49296f5c840d9997e0f9aa3a4ed682a1f742694418c4adf",
+      "currentSha256": "369abd3c0c7dbffc405fcaaaa904b02e6112072d78cff522cdbe8be2e9037764",
+      "before": 23468,
+      "after": 23473,
+      "added": {
+        "claims": 5
+      },
+      "removed": {},
+      "addedIds": [
+        "ev:volvo-cars-prism-25ea4041d826536936f6b226",
+        "ev:volvo-cars-prism-34def952e0256a5575edf1e2",
+        "ev:volvo-cars-prism-66e986cff7af95975c9fbddd",
+        "ev:volvo-cars-prism-bddff70031cde032b159fbaa",
+        "ev:volvo-cars-prism-c1f64ab63bb77eb312fa8de1"
+      ],
+      "removedIds": []
+    },
+    {
+      "repo": "volvo-cars/prismedia",
+      "pin": "464738155c90f8217667a94963be5bf2de7170c5",
+      "file": "facts-a3d236781ccb59853c02.json.gz",
+      "previousSha256": "a2e9cda1729e5e1db1df6ff21c56c12e991a7f185f5f57c8943875157fcb0de1",
+      "currentSha256": "4da5a12728fcd69f652a6dc67ea19333eeeb92a44b16bb20376ec4e02895b4e1",
+      "before": 2013,
+      "after": 2018,
+      "added": {
+        "claims": 5
+      },
+      "removed": {},
+      "addedIds": [
+        "ev:volvo-cars-prismedia-75154e4640a9ba39dca7d89c",
+        "ev:volvo-cars-prismedia-76fed5c9ef5d15ca2e7148ad",
+        "ev:volvo-cars-prismedia-7ea3f6fc823e8bbdec35adcf",
+        "ev:volvo-cars-prismedia-c333b6ae453905b52cad20cd",
+        "ev:volvo-cars-prismedia-ef5b323acc86137feda7e193"
+      ],
+      "removedIds": []
+    },
+    {
+      "repo": "volvo-cars/product-catalog-api",
+      "pin": "6b3f73dae37e46fbc76002b86b510880dbc7a993",
+      "file": "facts-72d4df51fb2d0e89f4ba.json.gz",
+      "previousSha256": "03257c3f9527afc51fbd7d12d1589bd8dd7bd75265e958e282e9facdc53cf2f3",
+      "currentSha256": "c63bf54657e49bc063aa5bbdf5f37cc6236e57d56bb611d08d629e28e5221457",
+      "before": 18641,
+      "after": 18646,
+      "added": {
+        "claims": 5
+      },
+      "removed": {},
+      "addedIds": [
+        "ev:volvo-cars-product-catalog-api-50e24fdc23160c99f64195ba",
+        "ev:volvo-cars-product-catalog-api-5e2715e834123c0ebb83bbf3",
+        "ev:volvo-cars-product-catalog-api-8e852c1d97b7d64cf6c97238",
+        "ev:volvo-cars-product-catalog-api-a6e8842a971e75a87264c815",
+        "ev:volvo-cars-product-catalog-api-b6cce1c71fc4bdca62361fbb"
+      ],
+      "removedIds": []
+    },
+    {
+      "repo": "volvo-cars/product-configuration-facade",
+      "pin": "90df2fdfb305e21a1f0bbfcfad2bb61625f1cee0",
+      "file": "facts-810518be32c5cb46dc43.json.gz",
+      "previousSha256": "92be6a1b27477e59f0ea69d4284721dd0bd4409e16025a830c8758283e2a511f",
+      "currentSha256": "48ee312b79fc067b24253991bf0f78faa7f0807d850e35e8af3f180bae8fc945",
+      "before": 9071,
+      "after": 9076,
+      "added": {
+        "claims": 5
+      },
+      "removed": {},
+      "addedIds": [
+        "ev:volvo-cars-product-configuration-facade-7927e4225edd02ab48b7d549",
+        "ev:volvo-cars-product-configuration-facade-94b1765aaebc1b2c0817469b",
+        "ev:volvo-cars-product-configuration-facade-db1f42706df4fe4f02d5678c",
+        "ev:volvo-cars-product-configuration-facade-e6073a1d8f95a76973b5a6f7",
+        "ev:volvo-cars-product-configuration-facade-f705c8999282a3fba82828c4"
+      ],
+      "removedIds": []
+    },
+    {
+      "repo": "volvo-cars/product-offer-search",
+      "pin": "89e3848de3f5c3175abe382ce7ea924dfa96b4e6",
+      "file": "facts-c3aa6353c5f4a4721e4a.json.gz",
+      "previousSha256": "9e5c1154f5baefab8bdbe4aa8dfbfb0b2e16af1828ccf0f3f4127141a9d350a1",
+      "currentSha256": "492dfbd364acdbdff1036d5d34eafb9a3790e00553f205c2aeb0fb355a3acba8",
+      "before": 2993,
+      "after": 2998,
+      "added": {
+        "claims": 5
+      },
+      "removed": {},
+      "addedIds": [
+        "ev:volvo-cars-product-offer-search-1f922fc8572fdfaeff4b5942",
+        "ev:volvo-cars-product-offer-search-4c27adc392f8a26bf7bf4577",
+        "ev:volvo-cars-product-offer-search-83868ddb08ffe82af8e8405c",
+        "ev:volvo-cars-product-offer-search-9756c409be55b4b39980a126",
+        "ev:volvo-cars-product-offer-search-ae4d2d79b891e11f4053e851"
+      ],
+      "removedIds": []
+    },
+    {
+      "repo": "volvo-cars/product-service",
+      "pin": "ad0e90a90ed01c07c89f2d0da9ec1669a8428a2e",
+      "file": "facts-5c586b27c8fd5889583a.json.gz",
+      "previousSha256": "92089efe7bea0162949ae466ec710c33df6daae5c51a3fafd7f212dd35c7dc45",
+      "currentSha256": "14dc6fac0add170429b9c39c48aa935c6f52b5f41449411be5cb655f530089e3",
+      "before": 4126,
+      "after": 4131,
+      "added": {
+        "claims": 5
+      },
+      "removed": {},
+      "addedIds": [
+        "ev:volvo-cars-product-service-0febeebb66020160ae5785b1",
+        "ev:volvo-cars-product-service-1e13247c5ff6d6e818b4f7c9",
+        "ev:volvo-cars-product-service-337a7f47c5b190ebe4889fef",
+        "ev:volvo-cars-product-service-8dcd4480b7fc2ddd61ec2900",
+        "ev:volvo-cars-product-service-b21bfb4bda32fff5200cda61"
+      ],
+      "removedIds": []
+    },
+    {
+      "repo": "volvo-cars/rdm-commercial-partner-graphql-api",
+      "pin": "a326ff0d6aca382c16067bbe8dd601ebeac2d456",
+      "file": "facts-7f0d108e30a5f408c022.json.gz",
+      "previousSha256": "2d5f1b37c7e66f677609f062f9eed204dc6cb465f446eeee0467c33c721ac224",
+      "currentSha256": "c5fed5a5b7c19a67ab5d4bd344bee80d6f048984cca82efcb04e5dc9dc18dbb4",
+      "before": 2258,
+      "after": 2281,
+      "added": {
+        "summaries": 3,
+        "gaps": 9,
+        "sources": 6,
+        "claims": 5
+      },
+      "removed": {},
+      "addedIds": [
+        "ev:volvo-cars-rdm-commercial-partner-graphql-api-087974e0a3a05da838ba12cc",
+        "ev:volvo-cars-rdm-commercial-partner-graphql-api-2778599885ca30894efe010f",
+        "ev:volvo-cars-rdm-commercial-partner-graphql-api-61d51e813dc0e92b75f15121",
+        "ev:volvo-cars-rdm-commercial-partner-graphql-api-0ef85b716c249176fc519240",
+        "ev:volvo-cars-rdm-commercial-partner-graphql-api-2a742c72ff36ed4d47a12960",
+        "ev:volvo-cars-rdm-commercial-partner-graphql-api-374bf06cf77213c16203e610",
+        "ev:volvo-cars-rdm-commercial-partner-graphql-api-48c83e9044af3e419e054e7d",
+        "ev:volvo-cars-rdm-commercial-partner-graphql-api-5811b646abf47af8324ad952",
+        "ev:volvo-cars-rdm-commercial-partner-graphql-api-737749f0d47fce7d2446d0f5",
+        "ev:volvo-cars-rdm-commercial-partner-graphql-api-915aecb4fefd9ca93dc1a3f1",
+        "ev:volvo-cars-rdm-commercial-partner-graphql-api-a6a07acd0a29fc68280debf5",
+        "ev:volvo-cars-rdm-commercial-partner-graphql-api-e7a2de97622587c84876be61",
+        "ev:volvo-cars-rdm-commercial-partner-graphql-api-4250f934a998396e85376fb3",
+        "ev:volvo-cars-rdm-commercial-partner-graphql-api-54dbff6833a4a643f40e3a77",
+        "ev:volvo-cars-rdm-commercial-partner-graphql-api-6e261117cfd0c166a26d7247",
+        "ev:volvo-cars-rdm-commercial-partner-graphql-api-7cc57748d2a6d5cf227ef8d0",
+        "ev:volvo-cars-rdm-commercial-partner-graphql-api-d0f879ee88fdbc3db1a68be4",
+        "ev:volvo-cars-rdm-commercial-partner-graphql-api-e29d863ada432d61f61a3454",
+        "ev:volvo-cars-rdm-commercial-partner-graphql-api-27f75f88b754229a0e158439",
+        "ev:volvo-cars-rdm-commercial-partner-graphql-api-6a4da5ac912ae736ba98dc7d",
+        "ev:volvo-cars-rdm-commercial-partner-graphql-api-816c2c5c4a7b3a50bc9483c3",
+        "ev:volvo-cars-rdm-commercial-partner-graphql-api-c922476e3125d54b4c4b7328",
+        "ev:volvo-cars-rdm-commercial-partner-graphql-api-eb4bae1cd733cb1fb7130b1a"
+      ],
+      "removedIds": []
+    },
+    {
+      "repo": "volvo-cars/stock-catalog-api",
+      "pin": "89e42dfd369ab97ce671f82d51da254e475252c6",
+      "file": "facts-17804dffec2046e56e6b.json.gz",
+      "previousSha256": "15b28bdeb521e568e87ebe4f259748cd09594ddea1e9e4737d67f50bc17bdd6d",
+      "currentSha256": "1a14dd8ababf23493235784970707d789823ac1dd7107664352c4821e18987dd",
+      "before": 1177,
+      "after": 1182,
+      "added": {
+        "claims": 5
+      },
+      "removed": {},
+      "addedIds": [
+        "ev:volvo-cars-stock-catalog-api-29a51551103410112bf6a23e",
+        "ev:volvo-cars-stock-catalog-api-2f3704d1c19ef23fb8ec3867",
+        "ev:volvo-cars-stock-catalog-api-5bd8cec4ef2390c80ebb1fc1",
+        "ev:volvo-cars-stock-catalog-api-9cd1b4010c797ae835190b98",
+        "ev:volvo-cars-stock-catalog-api-b9144d64ca119676acc1a255"
+      ],
+      "removedIds": []
+    },
+    {
+      "repo": "volvo-cars/tax-calculator",
+      "pin": "5a9b302b8dd3f9160e42735920cc5ecf71585d85",
+      "file": "facts-8b63745b6122b7cfa3e1.json.gz",
+      "previousSha256": "87a292eb2c11637b59c747587a1dfcc1f229340881e91c87a850745d0effaf25",
+      "currentSha256": "92927323a99c4cd13e6942603661784713ea1589736374bba3691407ab66993f",
+      "before": 9108,
+      "after": 9113,
+      "added": {
+        "claims": 5
+      },
+      "removed": {},
+      "addedIds": [
+        "ev:volvo-cars-tax-calculator-5b840374e46fc132a7f04323",
+        "ev:volvo-cars-tax-calculator-78a44c2911c6126dc84d3685",
+        "ev:volvo-cars-tax-calculator-d09a1ecf5b4d785c17728f18",
+        "ev:volvo-cars-tax-calculator-e1f2c4217162e995e032e60b",
+        "ev:volvo-cars-tax-calculator-f2525fd394fd37dbb762a023"
+      ],
+      "removedIds": []
+    },
+    {
+      "repo": "volvo-cars/techno",
+      "pin": "b5b13682950236059f46f1864826803145435217",
+      "file": "facts-fedd0e7b7db72b4449d2.json.gz",
+      "previousSha256": "3944b2ec6704b7b3a116f90b7df6d1fbb5aeda2e29b8d9f23aec0103caf84487",
+      "currentSha256": "f81a3901015d970b03c9b2f59ca0598d1ac29e3b44d85878d59e8dbe4c0270ca",
+      "before": 10671,
+      "after": 10676,
+      "added": {
+        "claims": 5
+      },
+      "removed": {},
+      "addedIds": [
+        "ev:volvo-cars-techno-3680c280ed1c53c98afc0a9b",
+        "ev:volvo-cars-techno-55bb7c49dc35e4a326093d21",
+        "ev:volvo-cars-techno-7606a6b7ca88df759296ba35",
+        "ev:volvo-cars-techno-c08ad8d18f9d90d93a9734bb",
+        "ev:volvo-cars-techno-f3145ff709671d437fcf9910"
+      ],
+      "removedIds": []
+    },
+    {
+      "repo": "volvo-cars/urax",
+      "pin": "65d95a7073308e607ca253680cf3cf75a78b25d1",
+      "file": "facts-6c8170759f03479779f1.json.gz",
+      "previousSha256": "d8291b0f2edb22a3cc1cef4a8397766234cf302e724e7f32bed6bf11b51c6b2b",
+      "currentSha256": "aca7f6feedc5c7a349287036b33ca6b6e40a26836760552da2a64542efe6a94e",
+      "before": 9340,
+      "after": 9345,
+      "added": {
+        "claims": 5
+      },
+      "removed": {},
+      "addedIds": [
+        "ev:volvo-cars-urax-2f7cd37b8bf19bbb7b7fc861",
+        "ev:volvo-cars-urax-869973e88636d4b9d0059c70",
+        "ev:volvo-cars-urax-a531ffe10b06979da1a6d8ca",
+        "ev:volvo-cars-urax-be551c6b3df27d71265e720d",
+        "ev:volvo-cars-urax-f7f3189edf8715c91dc0dd60"
+      ],
+      "removedIds": []
+    },
+    {
+      "repo": "volvo-cars/visibility-service",
+      "pin": "092c795f3015f4bcd526dad72f255e719380e77d",
+      "file": "facts-877b6c5782b6cbf0ed48.json.gz",
+      "previousSha256": "966ca349d2799f12d116e66d448530cd883f21b20b650bef868d10743b2e66a6",
+      "currentSha256": "93630266fe8695443b43eff8053b3bb8ecbc32a307abbe5cfed87c63f4935fea",
+      "before": 617,
+      "after": 622,
+      "added": {
+        "claims": 5
+      },
+      "removed": {},
+      "addedIds": [
+        "ev:volvo-cars-visibility-service-03ad12097071d14abe8999a4",
+        "ev:volvo-cars-visibility-service-5de920d332f3c9fe69053314",
+        "ev:volvo-cars-visibility-service-8fdb077df6129e8c3ed6a9ca",
+        "ev:volvo-cars-visibility-service-dd97855f59d8581c94daab15",
+        "ev:volvo-cars-visibility-service-f8ab31df7b36e409c94262cf"
+      ],
+      "removedIds": []
+    }
+  ],
+  "unchangedPlansExceptEvidenceRefs": [
+    "care-se-financing-status",
+    "care-se-online",
+    "care-se-order-change",
+    "care-se-sales-tool",
+    "care-se-stock-reservation",
+    "immutable-ids",
+    "sourced-financing-terms",
+    "unify-price-breakdown"
+  ]
+}

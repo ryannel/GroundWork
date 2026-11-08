@@ -1,7 +1,7 @@
 import type { Issue } from '@/application/plan/check-context';
 import { issueStatusOf, sourceUrl } from '@/application/plan/progress';
+import type { Progress, ProgressEvent } from '@/domain/model/plan.generated';
 import type { IssueStatus } from '@/domain/plan/plan-status';
-import type { Progress, ProgressEvent } from '@/domain/plan/plan.generated';
 
 /** Progress keeps its independent append-only contract; it never supplies current implementation facts. */
 export interface ModelPlanProgress {

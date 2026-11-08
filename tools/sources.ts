@@ -1,316 +1,24 @@
-// Is every fact in a workspace's system model attributed to the code that proves it?
-//   node tools/sources.ts workspaces/<ws> [--missing] [--check]   report; exits 1 on errors (or unreachable sources)
-//   node tools/sources.ts workspaces/<ws> --index [--repo org/name] JSON: each fact with its sources, for scan tools
-// Consolidated workspaces use the model index. The format-1 scan-mark workflow still reads authored YAML.
-// A source is { repo, path, lines, commit, symbol? }, as schema/plan.schema.json defines it; a bare `url` is the
-// older form, still read and reported as a warning. A fact with `origin: documented` cites documents instead:
-// { url, pointer? or heading?, version? }, read where they live, so it is attributed without code.
-// --check asks GitHub (gh api) for each file at its commit and checks the lines are inside it. Documents are not
-// fetched: many sit where this machine cannot reach (an internal network, Notion), so they are counted and skipped.
+// Read current source attribution and gaps from the consolidated workspace model.
 import { spawnSync } from 'node:child_process';
-import { glob, readFile } from 'node:fs/promises';
+import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 
 import { parse } from 'yaml';
 
-import { normaliseRepository, parseGitHostUrl } from '#domain/code-links';
-import { hasPrefix } from '#domain/ids';
-
-type Json = Record<string, unknown>;
-
-export interface Located {
-  readonly repo: string;
-  readonly path: string;
-  readonly commit: string;
-  readonly lines?: readonly [number, number];
-}
-
-/** A document a fact was read from, where it lives. */
-export interface Document {
-  readonly url: string;
-  readonly pointer?: string;
-  readonly heading?: string;
-  readonly version?: string;
-}
-
-export interface Fact {
-  readonly id: string;
-  readonly file: string;
-  readonly origin: string;
-  readonly sources: readonly Located[];
-  readonly documents: readonly Document[];
-  readonly problems: readonly string[];
-  readonly stepsWithoutSources: number;
-  readonly notes: readonly string[];
-}
-
-const COMMIT = /^[0-9a-f]{40}$/u;
-const GENERATED = new Set(['contracts.yaml', 'handlers.yaml']);
-const SIGNIFICANT = ['call', 'publish', 'read', 'write', 'if', 'each', 'parallel', 'retry', 'try'];
-const PATTERNS = [
-  'domains/*/systems/*/{system,contracts,handlers}.yaml',
-  'flows/*.yaml',
-  'journeys/*.yaml',
-];
-
-function isObject(value: unknown): value is Json {
-  return typeof value === 'object' && value !== null && !Array.isArray(value);
-}
-
-/** Why a source cannot be read. */
-export interface Problem {
-  readonly problem: string;
-}
-
-const isProblem = (found: object): found is Problem => 'problem' in found;
-
-function linesOf(value: unknown): readonly [number, number] | Problem {
-  const pair = Array.isArray(value) && value.length === 2 ? value.map(Number) : [];
-  const [from = 0, to = 0] = pair;
-  if (Number.isInteger(from) && Number.isInteger(to) && from >= 1 && from <= to) return [from, to];
-  return { problem: 'lines must be [from, to], counted from 1' };
-}
-
-// the older form: a GitHub blob url
-function fromUrl(url: string): Located | Problem {
-  if (!URL.canParse(url)) return { problem: `${url} is not a url` };
-  const link = parseGitHostUrl(url);
-  if (link?.host !== 'github.com' || link.kind !== 'blob') {
-    return { problem: `${url} is not a GitHub file link` };
-  }
-  const commit = link.commit ?? '';
-  if (!COMMIT.test(commit)) return { problem: `${url} names a branch, not a commit` };
-  return {
-    repo: link.repo,
-    path: link.path,
-    commit,
-    ...(link.lines === undefined ? {} : { lines: link.lines }),
-  };
-}
-
-// a source as written, or the reason it cannot be read
-export function locate(source: unknown): Located | Problem {
-  if (!isObject(source)) return { problem: 'a source must be { repo, path, lines, commit }' };
-  const { repo, path: file, commit, url } = source;
-  if (typeof repo !== 'string' || typeof file !== 'string' || typeof commit !== 'string') {
-    if (typeof url === 'string') return fromUrl(url);
-    return { problem: 'a source needs repo, path and commit' };
-  }
-  if (!COMMIT.test(commit)) {
-    return { problem: `${repo} ${file}: commit must be a full 40-character sha` };
-  }
-  const located = { repo: normaliseRepository(repo), path: file, commit };
-  if (source.lines === undefined) return located;
-  const lines = linesOf(source.lines);
-  return isProblem(lines) ? lines : { ...located, lines };
-}
-
-function noteOf(source: unknown, found: Located | Problem): readonly string[] {
-  if (isObject(source) && !('repo' in source)) {
-    return ['a source is a bare url; rewrite it as { repo, path, lines, commit }'];
-  }
-  if (!isProblem(found) && found.lines === undefined) {
-    return [`${found.path}: cite the lines you read, or [1, <length>] for a whole file`];
-  }
-  return [];
-}
-
-const DOCUMENT_KEYS = ['pointer', 'heading', 'version'] as const;
-
-// a link that names where in a document it points, or any link a documented fact gives, unless it is a code permalink
-function documentOf(source: unknown, origin: string): Document | null {
-  if (!isObject(source) || typeof source.url !== 'string' || !URL.canParse(source.url)) return null;
-  const marked = DOCUMENT_KEYS.some((key) => typeof source[key] === 'string');
-  if (!marked && origin !== 'documented') return null;
-  if (!isProblem(fromUrl(source.url))) return null;
-  const { url, pointer, heading, version } = source;
-  return {
-    url,
-    ...(typeof pointer === 'string' ? { pointer } : {}),
-    ...(typeof heading === 'string' ? { heading } : {}),
-    ...(typeof version === 'string' ? { version } : {}),
-  };
-}
-
-function withSources(fact: Fact, value: unknown): Fact {
-  if (!Array.isArray(value)) return fact;
-  const documents = value.flatMap((source: unknown) => documentOf(source, fact.origin) ?? []);
-  const read = value
-    .filter((source: unknown) => documentOf(source, fact.origin) === null)
-    .map((source: unknown) => ({ source, found: locate(source) }));
-  return {
-    ...fact,
-    documents: [...fact.documents, ...documents],
-    sources: [...fact.sources, ...read.flatMap(({ found }) => (isProblem(found) ? [] : [found]))],
-    problems: [
-      ...fact.problems,
-      ...read.flatMap(({ found }) => (isProblem(found) ? [found.problem] : [])),
-    ],
-    notes: [...fact.notes, ...read.flatMap(({ source, found }) => noteOf(source, found))],
-  };
-}
-
-function isUnanchoredStep(node: Json): boolean {
-  const anchored = Array.isArray(node.sources) && node.sources.length > 0;
-  return !anchored && SIGNIFICANT.some((key) => key in node);
-}
-
-function factOf(node: Json, file: string, owner: Fact | undefined): Fact | undefined {
-  if (typeof node.id !== 'string') return owner;
-  const fallback = GENERATED.has(path.basename(file)) ? 'extracted' : 'curated';
-  const origin = typeof node.origin === 'string' ? node.origin : (owner?.origin ?? fallback);
-  return {
-    id: node.id,
-    file,
-    origin,
-    sources: [],
-    documents: [],
-    problems: [],
-    stepsWithoutSources: 0,
-    notes: [],
-  };
-}
-
-const unanchored = (fact: Fact): Fact => ({
-  ...fact,
-  stepsWithoutSources: fact.stepsWithoutSources + 1,
-});
-
-export function factsIn(doc: unknown, file: string): Fact[] {
-  const facts: Fact[] = [];
-  const update = (at: number | undefined, change: (fact: Fact) => Fact): void => {
-    const fact = at === undefined ? undefined : facts[at];
-    if (at !== undefined && fact !== undefined) facts[at] = change(fact);
-  };
-  // where the fact that holds this node sits in facts: a new fact, or the owner
-  const holderAt = (node: Json, owner: number | undefined): number | undefined => {
-    const held = owner === undefined ? undefined : facts[owner];
-    const holder = factOf(node, file, held);
-    if (holder !== undefined && holder !== held) return facts.push(holder) - 1;
-    if (hasPrefix(holder?.id, 'h') && isUnanchoredStep(node)) update(owner, unanchored);
-    return owner;
-  };
-  const visit = (node: unknown, owner?: number): void => {
-    if (Array.isArray(node)) {
-      for (const item of node) visit(item, owner);
-      return;
-    }
-    if (!isObject(node)) return;
-    const at = holderAt(node, owner);
-    update(at, (fact) => withSources(fact, node.sources));
-    for (const [key, value] of Object.entries(node)) if (key !== 'sources') visit(value, at);
-  };
-  visit(doc);
-  return facts;
-}
-
-export async function workspaceFacts(workspace: string): Promise<Fact[]> {
-  const facts: Fact[] = [];
-  const files: string[] = [];
-  for await (const file of glob(PATTERNS, { cwd: workspace })) files.push(file);
-  for (const file of files.toSorted((a, b) => a.localeCompare(b))) {
-    const doc: unknown = parse(await readFile(path.join(workspace, file), 'utf8'));
-    facts.push(...factsIn(doc, file));
-  }
-  return facts;
-}
-
-export function findings(fact: Fact): {
-  readonly errors: readonly string[];
-  readonly warnings: readonly string[];
-} {
-  const errors: string[] = fact.problems.map((problem) => `${fact.id}: ${problem}`);
-  const warnings: string[] = [];
-  if (fact.origin === 'extracted' && fact.sources.length === 0 && fact.problems.length === 0) {
-    errors.push(`${fact.id}: extracted but cites no code; add sources with tools/permalink.ts`);
-  }
-  if (fact.origin === 'documented' && fact.documents.length === 0 && fact.sources.length === 0) {
-    errors.push(
-      `${fact.id}: documented but cites no document; add { url, pointer or heading, version }`,
-    );
-  }
-  if (fact.origin === 'extracted') {
-    warnings.push(...fact.notes.map((note) => `${fact.id}: ${note}`));
-  }
-  if (fact.stepsWithoutSources > 0) {
-    warnings.push(
-      `${fact.id}: ${String(fact.stepsWithoutSources)} call, publish, store or branch step(s) cite no code`,
-    );
-  }
-  return { errors, warnings };
-}
-
-function fileLength(source: Located): number | undefined {
-  const run = spawnSync(
-    'gh',
-    [
-      'api',
-      '-H',
-      'Accept: application/vnd.github.raw',
-      `repos/${source.repo}/contents/${source.path}?ref=${source.commit}`,
-    ],
-    { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 },
-  );
-  return run.status === 0 ? run.stdout.split('\n').length : undefined;
-}
-
-export function unreachable(facts: readonly Pick<Fact, 'id' | 'sources'>[]): string[] {
-  const lengths = new Map<string, number | undefined>();
-  const out: string[] = [];
-  for (const fact of facts) {
-    for (const source of fact.sources) {
-      const key = `${source.repo}@${source.commit}:${source.path}`;
-      if (!lengths.has(key)) lengths.set(key, fileLength(source));
-      const length = lengths.get(key);
-      if (length === undefined) out.push(`${fact.id}: ${key} cannot be read`);
-      else if (source.lines !== undefined && source.lines[1] > length) {
-        out.push(`${fact.id}: ${key} has ${String(length)} lines, not ${String(source.lines[1])}`);
-      }
-    }
-  }
-  return out;
-}
-
-/** Whether a fact cites what proves it: code, or for a documented fact, a document. */
-export const isAttributed = (fact: Fact): boolean =>
-  fact.sources.length > 0 || (fact.origin === 'documented' && fact.documents.length > 0);
-
-function report(facts: readonly Fact[], check: boolean): number {
-  const attributed = facts.filter((fact) => fact.sources.length > 0).length;
-  const documented = facts.filter((fact) => fact.documents.length > 0).length;
-  const seeded = facts.filter(
-    (fact) => fact.origin === 'seeded' && fact.sources.length === 0,
-  ).length;
-  console.log(
-    `  ${String(attributed)} of ${String(facts.length)} facts cite code, ${String(documented)} a document; ${String(seeded)} seeded without sources`,
-  );
-  let errors = 0;
-  for (const fact of facts) {
-    const found = findings(fact);
-    errors += found.errors.length;
-    for (const line of found.errors) console.log(`  error   ${fact.file}  ${line}`);
-    for (const line of found.warnings) console.log(`  warning ${fact.file}  ${line}`);
-  }
-  if (check) {
-    const missing = unreachable(facts);
-    errors += missing.length;
-    for (const line of missing) console.log(`  missing ${line}`);
-    const documents = facts.reduce((sum, fact) => sum + fact.documents.length, 0);
-    if (documents > 0) {
-      console.log(`  skipped ${String(documents)} document source(s): documents are not fetched`);
-    }
-  }
-  console.log(
-    errors === 0 ? '  ✓ every extracted fact cites code' : `  ✗ ${String(errors)} error(s)`,
-  );
-  return errors;
-}
-
 async function nativeId(folder: string): Promise<string | null> {
   try {
     const header: unknown = parse(await readFile(path.join(folder, 'workspace.yaml'), 'utf8'));
-    if (!isObject(header) || header.format !== 2) return null;
-    if (typeof header.id !== 'string') throw new Error(`${folder}: workspace id is missing`);
+    if (
+      header === null ||
+      typeof header !== 'object' ||
+      !('format' in header) ||
+      header.format !== 2
+    ) {
+      return null;
+    }
+    if (!('id' in header) || typeof header.id !== 'string') {
+      throw new Error(`${folder}: workspace id is missing`);
+    }
     return header.id;
   } catch (error) {
     if (error instanceof Error && 'code' in error && error.code === 'ENOENT') return null;
@@ -348,34 +56,16 @@ async function main(argv: readonly string[]): Promise<void> {
   }
   const folder = path.resolve(workspace);
   const id = await nativeId(folder);
-  if (id !== null) {
-    runNative(
-      folder,
-      id,
-      argv.filter((_, at) => at !== workspaceAt),
+  if (id === null) {
+    throw new Error(
+      `${folder}: expected a format-2 workspace. See artifacts/rebuild/pr10/scan-history.md for historical replay.`,
     );
-    return;
   }
-  const facts = await workspaceFacts(folder);
-  if (argv.includes('--index')) {
-    const repo = argv[argv.indexOf('--repo') + 1];
-    const picked = argv.includes('--repo')
-      ? facts.filter((fact) => fact.sources.some((s) => s.repo === repo))
-      : facts;
-    console.log(JSON.stringify(picked, null, 2));
-    return;
-  }
-  if (argv.includes('--missing')) {
-    const owed = facts.filter(
-      (f) => (f.origin === 'extracted' || f.origin === 'documented') && !isAttributed(f),
-    );
-    for (const fact of owed) {
-      console.log(`${fact.file}\t${fact.id}`);
-    }
-    return;
-  }
-  console.log(workspace);
-  if (report(facts, argv.includes('--check')) > 0) process.exit(1);
+  runNative(
+    folder,
+    id,
+    argv.filter((_, at) => at !== workspaceAt),
+  );
 }
 
-if (process.argv[1] === import.meta.filename) await main(process.argv.slice(2));
+await main(process.argv.slice(2));

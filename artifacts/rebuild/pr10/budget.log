@@ -1,0 +1,32 @@
+
+> groundwork@0.0.0 budget
+> node --import ./tools/register.ts --conditions=react-server tools/page-budget.ts
+
+Budget is waiting on /volvo-cars/commercial-backbone/, /volvo-cars/fleet/, /volvo-cars/shopping/, /volvo-cars/plans/immutable-ids/, /volvo-cars/plans/care-se-stock-reservation/, /volvo-cars/plans/care-se-online/, /volvo-cars/plans/care-se-financing-status/, /volvo-cars/plans/care-se-order-change/.
+Budget is waiting on /volvo-cars/commercial-backbone/, /volvo-cars/fleet/, /volvo-cars/shopping/, /volvo-cars/plans/immutable-ids/, /volvo-cars/plans/care-se-stock-reservation/, /volvo-cars/plans/care-se-online/, /volvo-cars/plans/care-se-financing-status/, /volvo-cars/plans/care-se-order-change/.
+Budget is waiting on /volvo-cars/commercial-backbone/, /volvo-cars/fleet/, /volvo-cars/shopping/, /volvo-cars/plans/immutable-ids/, /volvo-cars/plans/care-se-stock-reservation/, /volvo-cars/plans/care-se-online/, /volvo-cars/plans/care-se-financing-status/, /volvo-cars/plans/care-se-order-change/.
+Budget measured 15 pages; 148 queued.
+Budget is waiting on /volvo-cars/plans/care-se-sales-tool/, /volvo-cars/plans/, /personal/, /personal/side-projects/, /model-fixture/entries/, /model-fixture/things/, /model-fixture/plans/confirm/things/, /acme/value-flows/.
+Budget measured 23 pages; 538 queued.
+Budget measured 159 pages; 518 queued.
+Budget measured 175 pages; 537 queued.
+Budget measured 207 pages; 549 queued.
+Budget measured 247 pages; 511 queued.
+Budget measured 327 pages; 432 queued.
+Budget measured 495 pages; 267 queued.
+Budget is waiting on /volvo-cars/plans/unify-price-breakdown/, /volvo-cars/plans/sourced-financing-terms/, /personal/value-flows/, /personal/language/, /personal/people/, /personal/plans/, /personal/journeys/, /personal/entries/.
+Budget measured 615 pages; 149 queued.
+Budget measured 831 pages; 67 queued.
+907 pages; the heaviest:
+     926 KB  /volvo-cars/commercial-backbone/map/
+     875 KB  /volvo-cars/commercial-backbone/assortment/flows/pds-product-service-sync/
+     874 KB  /volvo-cars/commercial-backbone/assortment/
+     863 KB  /volvo-cars/commercial-backbone/assortment/flows/ps-import-pcf-carconfig/
+     855 KB  /volvo-cars/commercial-backbone/assortment/flows/mas-commercial-item-update/
+     853 KB  /volvo-cars/commercial-backbone/assortment/flows/prism-import-product-service-identities/
+     851 KB  /volvo-cars/commercial-backbone/assortment/flows/pds-admin-enrichment-update/
+     849 KB  /volvo-cars/commercial-backbone/assortment/flows/assortment-cache-pds-upsert/
+     845 KB  /volvo-cars/commercial-backbone/assortment/flows/mapper-project-product-events/
+     844 KB  /volvo-cars/commercial-backbone/assortment/flows/pricing-dgs-maps-price-response-codes/
+
+Every page is within 1,024 KB.

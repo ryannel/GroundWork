@@ -1,7 +1,7 @@
 import { latestEvent, sourceUrl } from '@/application/plan/progress';
 import type { ChangeRealisation } from '@/application/plan/realisation';
 import { qualifiedOf, kindOf } from '@/domain/ids';
-import type { ProgressEvent } from '@/domain/plan/plan.generated';
+import type { ProgressEvent } from '@/domain/model/plan.generated';
 import type { ModelPlan } from '@/domain/workspace-model';
 
 export interface StandingProgress {

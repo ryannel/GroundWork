@@ -6,7 +6,8 @@ import {
   issueStatusOf,
   latestEvent,
 } from '@/application/plan/progress';
-import type { Plan, ProgressEvent } from '@/domain/plan/plan.generated';
+import type { ProgressEvent } from '@/domain/model/plan.generated';
+import type { Plan } from '@/domain/plan/plan.generated';
 
 vi.mock(import('server-only'), () => ({}));
 

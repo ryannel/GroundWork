@@ -6,7 +6,6 @@ import { queryModel } from '@/../test/fixtures/model-queries';
 import { indexOf } from '@/application/model-index';
 import { readCanonicalModelIndex } from '@/infrastructure/model-index';
 import { readModelPlans } from '@/infrastructure/model-plans';
-import { todayData } from '@/infrastructure/today-data';
 
 import ThingRoute from './page';
 
@@ -23,7 +22,6 @@ vi.mock(import('@/infrastructure/model-index'), () => ({
 vi.mock(import('@/infrastructure/model-plans'), () => ({
   readModelPlans: vi.fn<typeof readModelPlans>(),
 }));
-vi.mock(import('@/infrastructure/today-data'), () => ({ todayData: vi.fn<typeof todayData>() }));
 vi.mock(import('@/features/plan'), async (load) => ({
   ...(await load()),
   ModelTodayOverlays: () => <span hidden />,
@@ -36,7 +34,7 @@ afterEach(() => {
 it('renders current native identity, ownership, sources and detail without reconstructing the old model', async () => {
   vi.mocked(readCanonicalModelIndex).mockResolvedValue(indexOf(queryModel()));
   vi.mocked(readModelPlans).mockResolvedValue([]);
-  vi.mocked(todayData).mockRejectedValue(new Error('Legacy reader must not run'));
+
   render(
     await ThingRoute({
       params: Promise.resolve({ workspace: 'queries' }),
@@ -46,7 +44,7 @@ it('renders current native identity, ownership, sources and detail without recon
   expect(screen.getByRole('heading', { level: 1, name: 'A' })).toBeTruthy();
   expect(screen.getByText('Owned by')).toBeTruthy();
   expect(screen.getByText('Recorded detail')).toBeTruthy();
-  expect(todayData).not.toHaveBeenCalled();
+
   cleanup();
   render(
     await ThingRoute({
@@ -55,7 +53,6 @@ it('renders current native identity, ownership, sources and detail without recon
     }),
   );
   expect(screen.getByText('Nothing here goes by that name.')).toBeTruthy();
-  expect(todayData).not.toHaveBeenCalled();
 });
 
 it('opens the external reached from its canonical link', async () => {

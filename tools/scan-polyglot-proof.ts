@@ -3,13 +3,13 @@ import path from 'node:path';
 
 import { scanRecords, type ScanRecord } from '@/domain/scan/scan-records';
 import type { ScanDocument } from '@/domain/scan/scan.generated';
+import { modelRecord } from '@/domain/workspace-model';
 import { scanValidator } from '@/infrastructure/scan/scan-format';
 import { readScanScope } from '@/infrastructure/scan/scan-scope';
 import { scopedProvenance } from '@/infrastructure/scan/scoped-source-provenance';
 import { sourceDigest } from '@/infrastructure/scan/source-index';
 
 import { bindingReviewPages } from './scan-bindings-pages';
-import { readinessObject } from './scan-readiness-value';
 import { auditScanSources } from './scan-source-audit';
 
 interface Probe {
@@ -111,9 +111,10 @@ function queryRecords(document: ScanDocument): readonly ScanRecord[] {
 async function verifyBaseline(file: string): Promise<Readonly<Record<string, unknown>>> {
   const directory = path.dirname(file);
   const scope = await readScanScope(path.join(directory, 'scope.json'));
-  const baseline = readinessObject(
+  const baseline = modelRecord(
     JSON.parse(await readFile(path.join(directory, 'baseline.json'), 'utf8')),
   );
+  if (baseline === null) throw new Error('Readiness evidence needs a JSON object.');
   const current = scopedProvenance(scope, { authority: scope.workspace });
   if (Object.entries(current).some(([key, value]) => baseline[key] !== value)) {
     throw new Error('Polyglot source proof has stale parser or analysis fingerprints');

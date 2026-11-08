@@ -8,8 +8,6 @@ import { indexOf } from '@/application/model-index';
 import { readCanonicalModelIndex } from '@/infrastructure/model-index';
 import { readModelWorkspaceNav } from '@/infrastructure/model-workspace-nav';
 import { readModelWorkspaceWork } from '@/infrastructure/model-workspace-work';
-import { todayData } from '@/infrastructure/today-data';
-import { readWorkspacePlanIndex } from '@/infrastructure/workspace-plan-index';
 
 import DomainLanguageRoute from './[domain]/(overview)/language/page';
 import LanguageRoute from './language/page';
@@ -52,10 +50,6 @@ vi.mock(import('@/infrastructure/model-workspace-nav'), () => ({
 }));
 vi.mock(import('@/infrastructure/model-workspace-work'), () => ({
   readModelWorkspaceWork: vi.fn<typeof readModelWorkspaceWork>(),
-}));
-vi.mock(import('@/infrastructure/today-data'), () => ({ todayData: vi.fn<typeof todayData>() }));
-vi.mock(import('@/infrastructure/workspace-plan-index'), () => ({
-  readWorkspacePlanIndex: vi.fn<typeof readWorkspacePlanIndex>(),
 }));
 vi.mock(import('@/features/plan'), async (original) => ({
   ...(await original()),
@@ -116,17 +110,12 @@ beforeEach(() => {
   ]);
 });
 afterEach(cleanup);
-function expectNative() {
-  expect(todayData).not.toHaveBeenCalled();
-  expect(readWorkspacePlanIndex).not.toHaveBeenCalled();
-}
 async function params() {
   return await Promise.resolve({ workspace: 'queries' });
 }
 it('renders the canonical people page and honest actor empty state', async () => {
   render(await PeopleRoute({ params: params() }));
   expect(screen.getByText('Nobody yet')).toBeDefined();
-  expectNative();
 });
 it('renders native workspace and domain language through the existing directory', async () => {
   const { unmount } = render(await LanguageRoute({ params: params() }));
@@ -139,7 +128,6 @@ it('renders native workspace and domain language through the existing directory'
   );
   expect(screen.getByText('Domain words')).toBeDefined();
   expect(screen.getByText('Order')).toBeDefined();
-  expectNative();
 });
 it('renders native reference groups and searchable canonical catalogue rows', async () => {
   const { unmount } = render(await ReferenceRoute({ params: params() }));
@@ -158,7 +146,6 @@ it('renders native reference groups and searchable canonical catalogue rows', as
       params: Promise.resolve({ workspace: 'queries', kind: 'components' }),
     }),
   ).resolves.toEqual({ title: 'Components' });
-  expectNative();
 });
 it('counts repeated operation gaps once while keeping the unknown client visible', async () => {
   const base = queryModel();
@@ -229,7 +216,6 @@ it('renders native partners, exact contacts and reversible Record update action'
   await expect(
     partnerMetadata({ params: Promise.resolve({ workspace: 'queries', team: 'b' }) }),
   ).resolves.toEqual({ title: 'Partner B' });
-  expectNative();
 });
 it('renders actual programme slug, full programme and assigned plan without invented status', async () => {
   const { unmount } = render(await ProgrammesRoute({ params: params() }));
@@ -256,7 +242,6 @@ it('renders actual programme slug, full programme and assigned plan without inve
       params: Promise.resolve({ workspace: 'queries', programme: 'delivery' }),
     }),
   ).resolves.toEqual({ title: 'Delivery programme' });
-  expectNative();
 });
 it('rejects unknown native catalogue kinds and partners rather than consulting legacy facts', async () => {
   await expect(
@@ -268,7 +253,6 @@ it('rejects unknown native catalogue kinds and partners rather than consulting l
   await expect(
     PartnerRoute({ params: Promise.resolve({ workspace: 'queries', team: 'unknown' }) }),
   ).rejects.toThrow('Not found');
-  expectNative();
 });
 
 it('returns absence for a noncanonical workspace without trying legacy catalogue or work readers', async () => {
@@ -277,7 +261,6 @@ it('returns absence for a noncanonical workspace without trying legacy catalogue
   await expect(PartnersRoute({ params: params() })).rejects.toThrow('Not found');
   await expect(ProgrammesRoute({ params: params() })).rejects.toThrow('Not found');
   expect(readModelWorkspaceWork).not.toHaveBeenCalled();
-  expectNative();
 });
 
 it('shows one programme plan at a time with exact links to the other work and its selection', async () => {

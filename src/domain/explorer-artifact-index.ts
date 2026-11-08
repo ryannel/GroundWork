@@ -1,6 +1,6 @@
 import type { ExplorerArtifactIndex, ExplorerManifest } from './service-explorer';
 
-export function explorerBucket(file: string): string | null {
+function explorerBucket(file: string): string | null {
   return /^page-[a-f\d]{24}\.json$/u.test(file) ? file.slice(5, 7) : null;
 }
 

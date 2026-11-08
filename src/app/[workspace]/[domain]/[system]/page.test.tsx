@@ -9,10 +9,6 @@ import type { ModelPlan } from '@/domain/workspace-model';
 import { readCanonicalModelIndex } from '@/infrastructure/model-index';
 import { readModelPlanProgress } from '@/infrastructure/model-plan-context';
 import { readModelPlanEntries } from '@/infrastructure/model-plans';
-import { readExplorerNavigation } from '@/infrastructure/service-explorer-navigation';
-import { todayData } from '@/infrastructure/today-data';
-import { readWorkspacePlanIndex } from '@/infrastructure/workspace-plan-index';
-import { readLoadedPlans } from '@/infrastructure/workspace-plans';
 
 import SystemFlowRoute, { generateMetadata as flowMetadata } from './flows/[flow]/page';
 import SystemLayout, { generateMetadata } from './layout';
@@ -34,16 +30,6 @@ vi.mock(import('@/infrastructure/model-plan-context'), () => ({
 vi.mock(import('@/infrastructure/model-plans'), () => ({
   readModelPlanEntries: vi.fn<typeof readModelPlanEntries>(),
 }));
-vi.mock(import('@/infrastructure/today-data'), () => ({ todayData: vi.fn<typeof todayData>() }));
-vi.mock(import('@/infrastructure/service-explorer-navigation'), () => ({
-  readExplorerNavigation: vi.fn<typeof readExplorerNavigation>(),
-}));
-vi.mock(import('@/infrastructure/workspace-plan-index'), () => ({
-  readWorkspacePlanIndex: vi.fn<typeof readWorkspacePlanIndex>(),
-}));
-vi.mock(import('@/infrastructure/workspace-plans'), () => ({
-  readLoadedPlans: vi.fn<typeof readLoadedPlans>(),
-}));
 vi.mock(import('@/features/plan'), async (original) => ({
   ...(await original()),
   ModelTodayOverlays: () => <span hidden />,
@@ -55,9 +41,6 @@ beforeEach(() => {
   vi.mocked(readCanonicalModelIndex).mockResolvedValue(indexOf(queryModel()));
   vi.mocked(readModelPlanEntries).mockResolvedValue([]);
   vi.mocked(readModelPlanProgress).mockResolvedValue({ progress: { events: [] }, errors: [] });
-  vi.mocked(readExplorerNavigation).mockResolvedValue({ components: {}, repositories: [] });
-  vi.mocked(readLoadedPlans).mockResolvedValue([]);
-  vi.mocked(readWorkspacePlanIndex).mockResolvedValue(null);
 });
 afterEach(cleanup);
 const params = Promise.resolve({ workspace: 'queries', domain: 'queries', system: 'a' });
@@ -81,9 +64,6 @@ describe('native system routes', () => {
     expect(screen.getByText('No authored flow recorded')).toBeTruthy();
     expect(screen.getByText('Recorded entries')).toBeTruthy();
     expect(screen.getAllByRole('link', { name: 'GET /a' }).length).toBeGreaterThan(0);
-    expect(todayData).not.toHaveBeenCalled();
-    expect(readExplorerNavigation).not.toHaveBeenCalled();
-    expect(readWorkspacePlanIndex).not.toHaveBeenCalled();
   });
 
   it('selects only an actual authored flow and keeps its exact wording', async () => {
@@ -172,9 +152,5 @@ describe('native system routes', () => {
       }),
     ).rejects.toThrow('Not found');
     await expect(generateMetadata({ params: absent })).resolves.toEqual({});
-    expect(todayData).not.toHaveBeenCalled();
-    expect(readExplorerNavigation).not.toHaveBeenCalled();
-    expect(readLoadedPlans).not.toHaveBeenCalled();
-    expect(readWorkspacePlanIndex).not.toHaveBeenCalled();
   });
 });

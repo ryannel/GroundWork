@@ -50,13 +50,17 @@ const readJson = async (file: string): Promise<unknown> => JSON.parse(await read
 
 async function sourceLines(files: readonly FamilyFile[]): Promise<ReturnType<typeof citedLines>> {
   const sources: EvidenceRecord[] = [];
+  const paths = new Map<string, string>();
   await inTurn(
-    files.filter(([family]) => family === 'sources'),
-    async ([, file]) => {
-      for await (const record of readRecords(file)) sources.push(record);
+    files.filter(([family]) => family === 'sources' || family === 'files'),
+    async ([family, file]) => {
+      for await (const record of readRecords(file)) {
+        if (family === 'sources') sources.push(record);
+        else if (typeof record.path === 'string') paths.set(record.id, record.path);
+      }
     },
   );
-  return citedLines(sources);
+  return citedLines(sources, paths);
 }
 
 // Records are streamed twice, rows then links, so a large repository is never held whole.

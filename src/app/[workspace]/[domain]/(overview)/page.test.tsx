@@ -6,7 +6,6 @@ import { queryModel } from '@/../test/fixtures/model-queries';
 import { indexOf } from '@/application/model-index';
 import { readCanonicalModelIndex } from '@/infrastructure/model-index';
 import { readModelPlans } from '@/infrastructure/model-plans';
-import { todayData } from '@/infrastructure/today-data';
 
 import DomainInterfacesRoute from './interfaces/page';
 import DomainLayout, { generateMetadata } from './layout';
@@ -25,7 +24,6 @@ vi.mock(import('@/infrastructure/model-index'), () => ({
 vi.mock(import('@/infrastructure/model-plans'), () => ({
   readModelPlans: vi.fn<typeof readModelPlans>(),
 }));
-vi.mock(import('@/infrastructure/today-data'), () => ({ todayData: vi.fn<typeof todayData>() }));
 vi.mock(import('@/features/plan'), async (original) => {
   const planExports = await original();
   return {
@@ -58,7 +56,6 @@ describe('native domain routes', () => {
     expect(screen.getByRole('link', { name: 'A' }).getAttribute('href')).toMatch(
       /^\/queries\/queries\/a\/?$/u,
     );
-    expect(todayData).not.toHaveBeenCalled();
   });
 
   it('renders the native overview with the visible implementation gap', async () => {
@@ -66,7 +63,6 @@ describe('native domain routes', () => {
     expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Queries');
     expect(screen.getByText('Implementation not mapped.')).toBeTruthy();
     expect(screen.getByText('What remains unknown')).toBeTruthy();
-    expect(todayData).not.toHaveBeenCalled();
   });
 
   it.each(['sys:b', 'b'])('selects native interface rows for system=%s', async (system) => {
@@ -74,14 +70,13 @@ describe('native domain routes', () => {
     expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Interfaces');
     expect(screen.getByText('Kept by A')).toBeTruthy();
     expect(screen.queryByText('From A')).toBeNull();
-    expect(todayData).not.toHaveBeenCalled();
   });
 
   it('draws the native scoped map and rejects a domain that is not declared', async () => {
     render(await DomainMapRoute({ params }));
     expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Map');
     expect(screen.getAllByText('Implementation not mapped').length).toBeGreaterThan(0);
-    expect(todayData).not.toHaveBeenCalled();
+
     await expect(
       DomainRoute({ params: Promise.resolve({ workspace: 'queries', domain: 'missing' }) }),
     ).rejects.toThrow('Not found');

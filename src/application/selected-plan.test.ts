@@ -225,11 +225,11 @@ it('drills into an after-only entry without losing the selected plan or comparis
     version: 'after',
   });
   const handler = after?.flow?.handlers.find((candidate) => candidate.id === 'h:a');
-  const href = handler?.nodes.find((node) => node.id === 'h:a#call')?.drill?.href;
+  const href = handler?.nodes.find((node) => node.id === 'h:a#call')?.drills[0]?.href;
   expect(href).toBe('/queries/entries/?id=api-proposed&plan=plan-drill&version=after');
   const nested = handler?.nodes.find((node) => node.id === 'h:a#proposed-branch')?.branches[0]
     ?.nodes[0];
-  expect(nested?.drill?.href).toBe(href);
+  expect(nested?.drills[0]?.href).toBe(href);
   if (href === undefined) throw new Error('Missing proposed drill address');
   const address = new URL(href, 'https://fixture.example');
   const target = entryFlowPageOf(current, [proposed], Object.fromEntries(address.searchParams));
@@ -253,7 +253,7 @@ it('drills into an after-only entry without losing the selected plan or comparis
     plan: proposed.meta.id,
     version: 'before',
   });
-  expect(before?.flow?.handlers[0]?.nodes.find((node) => node.id === 'h:a#call')?.drill?.href).toBe(
-    '/queries/entries/?id=api-supplier&plan=plan-drill&version=before',
-  );
+  expect(
+    before?.flow?.handlers[0]?.nodes.find((node) => node.id === 'h:a#call')?.drills[0]?.href,
+  ).toBe('/queries/entries/?id=api-supplier&plan=plan-drill&version=before');
 });

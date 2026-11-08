@@ -279,6 +279,8 @@ export interface CanonicalPlanTypes {
   id_sc: string;
   storyComponent: StoryComponent;
   storyStage: StoryStage;
+  progressEvent: ProgressEvent;
+  progress: Progress;
   document: CanonicalPlanDocument;
 }
 export interface WorkspaceDomainFile {
@@ -1540,6 +1542,64 @@ export interface WorkItem {
    * which issue template (.github/ISSUE_TEMPLATE/<type>.yml) the exported issue uses; default task
    */
   issue_type?: 'task' | 'story' | 'feature' | 'bug';
+}
+/**
+ * one thing that happened to a work item or milestone, with who said it and where
+ */
+export interface ProgressEvent {
+  /**
+   * when it happened (YYYY-MM-DD, or a date-time)
+   */
+  at: string;
+  /**
+   * a work item or milestone of this plan
+   */
+  subject: string;
+  /**
+   * commitment: what a team promised; work: what has happened; note: anything else worth keeping
+   */
+  kind: 'commitment' | 'work' | 'note';
+  /**
+   * commitment: proposed, accepted, declined or withdrawn; work: not_started, in_progress, blocked or done; a note has none
+   */
+  state?:
+    | 'proposed'
+    | 'accepted'
+    | 'declined'
+    | 'withdrawn'
+    | 'not_started'
+    | 'in_progress'
+    | 'blocked'
+    | 'done';
+  /**
+   * commitment: the date the team promised
+   */
+  promised_for?: string | null;
+  /**
+   * commitment: how sure the team said it was
+   */
+  confidence?: ('high' | 'medium' | 'low') | null;
+  /**
+   * who said it
+   */
+  said_by?: string;
+  source?: {
+    kind: 'meeting' | 'partner-update' | 'github' | 'test' | 'scan' | 'document' | 'note';
+    url?: string;
+    repo?: string;
+    issue?: number;
+    note?: string;
+  };
+  /**
+   * markdown
+   */
+  note?: string;
+}
+/**
+ * plans/<plan>/progress.yaml: an append-only record of what happened, oldest first
+ */
+export interface Progress {
+  events: ProgressEvent[];
 }
 /**
  * An overlay over the canonical workspace model. System facts are referenced by immutable id and changed by ops; they are never copied into base collections.

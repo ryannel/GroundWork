@@ -21,9 +21,9 @@ During the model rebuild, `schema/workspace.schema.json`, `schema/plan.schema.js
 `schema/evidence.schema.json` own the canonical contracts. `npm run generate` produces their TypeScript
 registries and immutable type facade under `src/domain/model/`. `src/infrastructure/model-schema.ts` uses
 Ajv for both direct checks and file loading; its errors retain JSON instance paths. The handwritten model
-fixture under `test/fixtures/model/` exercises these contracts. Existing readers continue to use the
-unchanged `schema/legacy-plan.schema.json` and legacy workspace validators until they move to the new
-model. New fields are declared in JSON Schema and regenerated, rather than copied into handwritten types.
+fixture under `test/fixtures/model/` exercises these contracts. The format-1 schema under
+`test/fixtures/` validates historical fixtures. Its frozen type comparison runs in tests.
+Current fields are declared in the consolidated JSON Schema and regenerated.
 
 Native plan landing retains a versioned `base.yaml` marker and the canonical model input files under the
 sibling `base/` folder. The marker is generated from `PlanBaseMarker` in the workspace schema; the retained
@@ -88,12 +88,12 @@ attribution. Proposed context cannot enter the strict current-model boundary. Na
 and precommit use this same batch boundary; native precommit also checks that staged plans match the
 working text just validated. Format-1 lock checks remain in their existing path.
 
-`legacyViewOf` is the named compatibility boundary for workspace/domain page consumers. Its workspace tree
-retains canonical facets on their containing systems, with explicit aliases for legacy identity and narrative
-fields. A recursive loss report compares every source field with that carrier. The page projection uses legacy
-representations only where they are supported; it does not guess a transport, store form or service owner.
-Other legacy consumers continue on the existing reader until their migration. Transitional `Model.place`
-queries accept containment explicitly and never derive it from resource ownership.
+Workspace and domain pages derive their views directly from the consolidated model. Their native
+projections preserve declared placement, resource ownership and narrative evidence. The rebuild
+handoff records the compared pages, facts and original carrier receipts. Format-1 readers remain
+for retained migration and verification inputs. Shared view types stay independent of these readers.
+The current index derives placement from containment and ownership from declared evidence.
+Keep those concerns separate when projecting a view.
 
 ## The model
 
@@ -417,33 +417,20 @@ stages, `workspace-target-flow.ts` sizes and draws them). Owners that live elsew
 entirely outside the company are dashed. The stages are then listed in reading order, then the shifts. Today's
 calls are left out.
 
-- `src/domain/workspace-model.ts` has the types: `WorkspaceModel`, `Attribution` (origin and code sources by id,
-  nested ids included) and `Scan` (a repo's high-water mark: `head` from `tools/scan-mark.ts`, and `checked`, the tip and commits
-  behind that `tools/scan-status.ts --record` last saw).
-- `src/infrastructure/workspace-model.ts` reads the files (each one optional), takes `origin` off, keeps the
-  sources as attribution, turns them into permalinks and checks each entry against its plan `$def`. An id
-  defined twice is an error.
-- `src/application/workspace-model.ts` `systemModelOf(workspace, model)` assembles one plan-shaped document with
-  no changes (teams and colours from `workspace.yaml`, `sys:<system>` per system, components as services or
-  stores) and derives it, so every plan view can draw today. A test proves the Acme test fixture's document has
-  no validation errors, draws every component and resolves every flow step.
+The format-1 file layout above is a historical reference. The current workspace uses
+`schema/workspace.schema.json`, read by `src/infrastructure/read-model.ts`. Historical workspace
+and plan loaders are available at Groundwork revision `329dc9f2`.
 
-### Service explorer
+### Entry flow and historical explorer
 
-The optional service explorer reads a disposable projection under `<workspace>/explorer/`; its typed
-contracts are in `src/domain/service-explorer.ts`. A workspace has one explorer page, with selected immutable
-JSON artefacts loaded on demand. Infrastructure validates manifest membership, byte bounds, content hashes,
-references and snapshot identity before publication and again in the browser. The current selected proof
-covers Customer Service and Pre-tax as a compatible fallback. Completed corpus publications use a small
-catalogue selecting repository manifests and hash-bound page-index buckets. Logical pages and indexes travel
-in bounded content-addressed packs; the browser verifies both physical and logical hashes. A publication ID
-separate from the evidence snapshot selects the complete immutable generation. The browser fetches only the
-selected evidence, from `/explorer-data/<workspace>/<generation>/<file>`, which reads the installed generation
-in place under `<workspace>/explorer/corpus/` (`src/infrastructure/scan-explorer/corpus-assets.ts` installs it;
-`src/infrastructure/explorer-assets.ts` reads it back) and lets the
-browser keep it; nothing is copied into `public/`, and there is no HTML/data route per source method. A repository scope
-remains distinct from a source-proven runtime component. The source inventory, published navigation references
-and reviewed Inferred context are separately navigable. Publication does not migrate production YAML.
+Current entry flows read canonical endpoints, subscriptions, jobs and interactions. The view
+shows recorded steps, effects and citations, using explicit call, publication and causal links.
+
+The historical route at `/[workspace]/explorer/` reads `evidence-archive/entries/`.
+The server checks the archive's scope, byte bounds and digests before displaying a snapshot.
+Old method-only addresses resolve to pinned sources. Historical data keeps its original pin,
+independent of the repository selected for browsing. Reviewed historical interpretations use
+the separate evidence archive. These records do not establish current behaviour.
 
 ### Evidence
 
@@ -458,14 +445,12 @@ only: git holds its history, so nothing keeps an older scan beside the newer one
                                       claims, and the sources they cite
 <workspace>/.groundwork/              git-ignored, rebuilt by a rescan or from the above
   analysis/<repo>/                    call-level analysis: bindings, summaries, gaps and the sources they cite
-  syntax/<repo>/                      the syntax graph (nodes, edges, regions)
   evidence.sqlite                     the index every reader queries
 ```
 
 A rescan replaces a repository's folder whole. Records drop the repo and commit (`repository.json` says them
-once) and carry no source text: code is read from a clone at the commit. Call-level analysis (a record per
-call site) and the syntax graph follow mechanically from the code at the commit and run to gigabytes, so they are
-caches, not evidence; only the spans a fact cites stay in `sources.jsonl`. For Volvo's 117 repositories the
+once) and carry no source text: code is read from a clone at the commit. Call-level analysis follows mechanically from the code at the commit. The compressed historical
+cache stays local. Only cited spans are promoted into canonical evidence. For Volvo's 117 repositories the
 evidence is about 110 MB, the analysis 3.5 GB. The types are in `src/domain/evidence/evidence.ts`, the
 shaping in `src/application/evidence/`, and the writer in `src/infrastructure/scan-explorer/evidence-files.ts`.
 
@@ -475,22 +460,14 @@ the live file and renames into place, so readers never see half an index. The si
 all read through one synchronous port, `EvidenceQuery` (`src/application/evidence/evidence-query.ts`), which
 `src/infrastructure/evidence/evidence-index.ts` implements over `node:sqlite`, read-only, reopening when the
 file is replaced. `npm run evidence -- <workspace> search <text>` queries it from the command line.
-`npm run evidence:migrate` converts the earlier capture and discovery catalogues once; scans should write this
-format directly.
+The historical evidence migration can be replayed at Groundwork commit `329dc9f2` on a scratch
+copy of its original inputs. The current scan writes the consolidated evidence directly.
 
-This corpus publisher is a compatibility bridge, not the authoritative company query model. References
-reconstructed from bounded visual frames are partial navigation aids; they cannot establish exhaustive
-callers or endpoint correspondence. The production direction is an evidence-derived relationship index
-and shared bounded queries for the UI, CLI and MCP. Presentation must not define semantic relationships.
+### Historical execution proof
 
-`src/application/scan-explorer` builds bounded, source-backed component, entry, data and reverse-caller
-queries over current scan records and retained canonical selections. The exporter produces component-first
-views and separate method/schema frames. `src/application/explorer-focus.ts` can collapse nested expression
-operations for reading; the complete delivered source view remains available. Source containment, branches
-and asynchronous boundaries remain distinct from observed runtime execution. Inferred purpose is labelled.
-See the [service explorer contract](scan-trials/service-explorer/README.md).
-
-### Canonical execution proof
+Replay this section and the historical question-led workflow at Groundwork revision
+`329dc9f2`. The current scanner writes the consolidated model and evidence with
+`npm run scan:model`.
 
 The endpoint execution redesign is implemented separately from the production plan-shaped YAML reader.
 The current [runtime component and interface contracts](scan-trials/runtime-components.md) bind code,
@@ -686,8 +663,7 @@ components belong to the domain and system pages, and teams are not shown.
 | `/[workspace]/value-flows/`                         | searchable work across areas              |
 | `/[workspace]/areas/[area]/`                        | one authored entrance into its systems    |
 | `/[workspace]/areas/[area]/map.json`                | an area's map, for the browser            |
-| `/[workspace]/explorer/`                            | the service explorer                      |
-| `/[workspace]/explorer/data/[file]`                 | the service explorer's data               |
+| `/[workspace]/explorer/`                            | historical entries and pinned sources     |
 | `/[workspace]/language/`                            | key terms and the words in the code       |
 | `/[workspace]/people/`                              | the people who use the systems            |
 | `/[workspace]/plans/`                               | every plan, to search and filter          |
@@ -719,7 +695,6 @@ components belong to the domain and system pages, and teams are not shown.
 | `/[workspace]/plans/[plan]/revisions/[v]/plan.json` | an earlier version, for the browser       |
 | `/[workspace]/plans/[plan]/assets/[...file]`        | a plan's diagrams and images              |
 | `/[workspace]/plans/[plan]/mockups/[...file]`       | a plan's mockup pages                     |
-| `/explorer-data/[workspace]/[generation]/[file]`    | the service explorer's evidence           |
 
 A domain page and a system page are each a layout, and each flow through them is a page under it, so a domain
 can run hundreds of flows: the page carries only the flow being read, and choosing another fetches just that

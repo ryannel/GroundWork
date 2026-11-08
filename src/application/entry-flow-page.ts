@@ -70,15 +70,29 @@ function workspaceOf(
     description: model.description ?? null,
   };
 }
+interface FlowPlanSelection {
+  readonly projection: IndexedPlan;
+  readonly slug: string;
+}
+function flowContext(
+  selected: ModelPlan | undefined,
+  version: 'before' | 'after',
+  selection: FlowPlanSelection | undefined,
+): EntryFlowContext {
+  if (selected === undefined) return {};
+  const plan = selected.meta.id;
+  return selection === undefined ? { plan, version } : { plan, version, planSlug: selection.slug };
+}
 function selectedIndex(
   current: ModelIndex,
   plan: ModelPlan | undefined,
   plans: readonly ModelPlan[],
   version: string,
-  selectedContext?: IndexedPlan,
+  selection?: FlowPlanSelection,
 ): ModelIndex {
   if (plan === undefined) return current;
-  const overlay = selectedContext ?? selectedPlanProjection(plan, plans, current.model, current);
+  const overlay =
+    selection?.projection ?? selectedPlanProjection(plan, plans, current.model, current);
   return version === 'after' ? overlay.afterIndex : overlay.beforeIndex;
 }
 const ENTRIES_PER_PAGE = 30;
@@ -150,15 +164,14 @@ export function entryFlowPageOf(
   plans: readonly ModelPlan[],
   query: SearchParams,
   current: ModelIndex = indexOf(model),
-  selectedContext?: IndexedPlan,
+  selection?: FlowPlanSelection,
 ): EntryFlowPage | null {
   const selected = plans.find((plan) => plan.meta.id === entryFlowPlanId(query));
   if (firstParam(query.plan) !== '' && selected === undefined) return null;
   const version = firstParam(query.version) === 'after' ? 'after' : 'before';
-  const index = selectedIndex(current, selected, plans, version, selectedContext);
+  const index = selectedIndex(current, selected, plans, version, selection);
   const entry = addressId(firstParam(query.id));
-  const context: EntryFlowContext =
-    selected === undefined ? {} : { plan: selected.meta.id, version };
+  const context = flowContext(selected, version, selection);
   const flow = entry === null ? null : entryFlowOf(index, entry, context);
   if (firstParam(query.id) !== '' && flow === null) return null;
   const scope = entryScope(index, query);

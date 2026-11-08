@@ -553,6 +553,7 @@ function proofProblem(
 }
 function reviewedStatus(disposition: Disposition): ConsumerRow['status'] {
   if (disposition.role === 'consumer') return disposition.status ?? 'adapter';
+  if (disposition.role === 'retirement' && disposition.status === 'deleted') return 'deleted';
   return disposition.role === 'support' ? 'reference' : 'pending';
 }
 interface ReviewContext extends Dependencies {

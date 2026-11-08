@@ -4,12 +4,9 @@
   "entry": [
     "src/app/**/{page,layout,not-found,error}.tsx",
     "**/*.test.{ts,tsx}",
-    "tools/scan-explorer-proof.ts",
-    "tools/scan-service-explorer-export.ts",
     "tools/scan-rescan-preflight.ts",
     "tools/scan-polyglot-proof.ts",
     "tools/scan-bindings-pages.ts",
-    "tools/scan-python-rust-setup.ts",
     "tools/scan-dotnet-setup.ts",
     "tools/scan-csharp-program.ts",
     "tools/scan-rescan-objects.ts"
@@ -24,7 +21,9 @@
     "tools/scan-repository-generated-ncc.ts",
     "tools/scan-protobuf-contracts-io.ts",
     "tools/scan-repository-fixtures.ts",
-    "tools/{publish,refine,repair,pack,install}-*.ts"
+    "tools/scan-repository-pass-*.ts",
+    "tools/scan-entry-artifacts.ts",
+    "tools/scan-model/*.ts"
   ],
   "ignoreExportsUsedInFile": {
     "interface": true,

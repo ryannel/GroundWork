@@ -1,0 +1,115 @@
+{
+  "base": "/rebuild-proof",
+  "checked": [
+    {
+      "url": "/volvo-cars/explorer/?service=graphql-federation-mono",
+      "bytes": 38471
+    },
+    {
+      "url": "/volvo-cars/explorer/?service=marketing-feeds-api",
+      "bytes": 49333
+    },
+    {
+      "url": "/volvo-cars/explorer/?service=pop-assortment-gitops",
+      "bytes": 38418
+    },
+    {
+      "url": "/volvo-cars/explorer/?service=pop-assortment-libraries",
+      "bytes": 47369
+    },
+    {
+      "url": "/volvo-cars/explorer/?service=pop-authz",
+      "bytes": 60090
+    },
+    {
+      "url": "/volvo-cars/explorer/?service=popcat-assortment-admin-api",
+      "bytes": 51209
+    },
+    {
+      "url": "/volvo-cars/explorer/?service=popcat-assortment-api",
+      "bytes": 53400
+    },
+    {
+      "url": "/volvo-cars/explorer/?service=popcat-carfeatures",
+      "bytes": 46630
+    },
+    {
+      "url": "/volvo-cars/explorer/?service=popcat-eligibility-api",
+      "bytes": 54829
+    },
+    {
+      "url": "/volvo-cars/explorer/?service=popcat-manage-and-segment",
+      "bytes": 89921
+    },
+    {
+      "url": "/volvo-cars/explorer/?service=popcat-prins-ingestion",
+      "bytes": 38462
+    },
+    {
+      "url": "/volvo-cars/explorer/?service=popcat-product-details-service",
+      "bytes": 56280
+    },
+    {
+      "url": "/volvo-cars/explorer/?service=popcat-product-mapper",
+      "bytes": 38439
+    },
+    {
+      "url": "/volvo-cars/explorer/?service=product-catalog-api",
+      "bytes": 53315
+    },
+    {
+      "url": "/volvo-cars/explorer/?service=product-catalog-ui",
+      "bytes": 38464
+    },
+    {
+      "url": "/volvo-cars/explorer/?service=product-configuration-facade",
+      "bytes": 61448
+    },
+    {
+      "url": "/volvo-cars/explorer/?service=product-service",
+      "bytes": 68494
+    },
+    {
+      "url": "/volvo-cars/explorer/?service=stock-catalog-api",
+      "bytes": 51867
+    },
+    {
+      "url": "/volvo-cars/explorer/",
+      "bytes": 88280
+    },
+    {
+      "url": "/acme/explorer/",
+      "bytes": 22785
+    },
+    {
+      "url": "/personal/explorer/",
+      "bytes": 22866
+    },
+    {
+      "url": "/volvo-cars/explorer/?service=account-profile-api&page=page-bb400e58747c89635c21192d.json",
+      "bytes": 32740
+    },
+    {
+      "url": "/volvo-cars/explorer/?service=account-profile-api&page=page-bbc42b3649adb1406adb36bf.json",
+      "bytes": 34963
+    },
+    {
+      "url": "/volvo-cars/explorer/?service=account-profile-api&page=page-bbca6d12bf3257f97c9aa71a.json",
+      "bytes": 30752
+    },
+    {
+      "url": "/volvo-cars/explorer/?service=gpe-pretax&page=page-ed3cc3e2dd5f17099cab3996.json",
+      "bytes": 44957
+    },
+    {
+      "url": "/volvo-cars/explorer/?service=gpe-pretax&page=page-1b726be57a8728627b6cf585.json",
+      "bytes": 87230
+    },
+    {
+      "url": "/model-fixture/entries/?id=api-confirm&step=h%3Aconfirm%23tx%2Fsave",
+      "bytes": 72518
+    }
+  ],
+  "maxBytes": 89921,
+  "removedAssetEndpoints": 2
+}

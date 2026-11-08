@@ -13,6 +13,7 @@ import { Callout } from '@/ui/callout';
 import { Markdown } from '@/ui/markdown';
 import { Mention } from '@/ui/mention';
 import { Stack } from '@/ui/stack';
+import { TextLink } from '@/ui/text';
 
 import { TodayThingFrame } from './today-thing';
 
@@ -20,9 +21,11 @@ import { TodayThingFrame } from './today-thing';
 export function ModelTodayThing({
   index,
   id,
+  archiveHref,
 }: {
   readonly index: ModelIndex;
   readonly id: string;
+  readonly archiveHref: string | null;
 }) {
   const context = { plan: null, profile: null, beforeIndex: index, afterIndex: index };
   const inspection = modelInspectionOf(context, id);
@@ -49,6 +52,9 @@ export function ModelTodayThing({
     >
       <Stack gap={3}>
         <EntityHead view={inspection.view} heading="h1" today />
+        {archiveHref === null ? null : (
+          <TextLink href={archiveHref}>Archived interpretation</TextLink>
+        )}
         {inspection.gaps.length === 0 ? null : (
           <Callout title="Gaps">
             <ul>

@@ -73,11 +73,14 @@ const pair = (value: unknown): readonly [number, number] | null =>
     : null;
 
 /** The file and lines each source record cites, by source id. */
-export function citedLines(sources: readonly EvidenceRecord[]): ReadonlyMap<string, CitedLines> {
+export function citedLines(
+  sources: readonly EvidenceRecord[],
+  files: ReadonlyMap<string, string>,
+): ReadonlyMap<string, CitedLines> {
   return new Map(
     sources.flatMap((source) => {
-      const file = word(source.path);
-      return file === null ? [] : [[source.id, { path: file, lines: pair(source.lines) }] as const];
+      const path = word(source.path) ?? files.get(word(source.file) ?? '');
+      return path === undefined ? [] : [[source.id, { path, lines: pair(source.lines) }] as const];
     }),
   );
 }
@@ -88,8 +91,8 @@ function cited(
 ): CitedLines | null {
   const own = word(record.path);
   if (own !== null) return { path: own, lines: pair(record.lines) };
-  const source = typeof record.source === 'string' ? sources.get(record.source) : undefined;
-  return source ?? null;
+  const source = typeof record.source === 'string' ? record.source : record.id;
+  return sources.get(source) ?? null;
 }
 
 export function indexedRecord(

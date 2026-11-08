@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto';
 import { writeFile } from 'node:fs/promises';
 import path from 'node:path';
+import { gzipSync } from 'node:zlib';
 
 import { expect, it, vi } from 'vitest';
 
@@ -45,7 +46,7 @@ it('promotes only cited analysis and verifies its source and the cache receipt',
     const file = { kind: 'file' as const, id: 'ev:order-file', path: filePath, blob };
     const sourceLines = `${JSON.stringify(source)}\n`;
     const gapLines = `${JSON.stringify(gap)}\n${JSON.stringify({ ...gap, id: 'gap:unrelated' })}\n`;
-    await writeFile(path.join(fixture.root, 'sources.jsonl'), sourceLines);
+    await writeFile(path.join(fixture.root, 'sources.jsonl.gz'), gzipSync(sourceLines));
     await writeFile(path.join(fixture.root, 'gaps.jsonl'), gapLines);
     const receipt = path.join(fixture.root, 'receipt.json');
     await writeFile(

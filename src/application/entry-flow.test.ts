@@ -53,9 +53,12 @@ it('retains every handler identity and authored order, with no runtime index in 
   expect(JSON.stringify(flow)).not.toContain('beforeIndex');
   expect(JSON.stringify(flow)).not.toContain('repository.json');
   expect(flow?.callers).toEqual([{ label: 'Shop', site: 'h:click#submit' }]);
+  expect(flow?.contract).toContainEqual({ label: 'Error 404', value: 'The order does not exist' });
   expect(flow?.effects).toContainEqual({
     label: 'write · Orders database',
     site: 'h:confirm#tx/save',
+    target: 'st:orders',
+    targetLabel: 'Orders database',
   });
 });
 it('renders guard, alternative, transaction, loop, named lanes, retry exhaustion and failures distinctly', () => {
@@ -87,17 +90,69 @@ it('links code to its pinned lines, keeps evidence references and drills only th
   expect(nodes.find((node) => node.id === 'h:confirm#tx/save')?.citations[0]?.href).toBe(
     `https://github.com/example/orders/blob/${'a'.repeat(40)}/apps/ordering/src/Confirm.ts#L12-L16`,
   );
-  expect(nodes.find((node) => node.id === 'h:confirm#tx/save')?.contract).toContain('status');
-  expect(nodes.find((node) => node.id === 'h:confirm#deliver/send')?.drill).toEqual({
-    label: 'sub:on-confirmed',
-    href: '/model-fixture/entries/?id=sub-on-confirmed',
-  });
-  expect(nodes.find((node) => node.id === 'h:confirm#lines/reserve')?.drill?.href).toBe(
+  expect(nodes.find((node) => node.id === 'h:confirm#tx/save')?.contract?.detail).toContain(
+    'status',
+  );
+  expect(nodes.find((node) => node.id === 'h:confirm#deliver/send')?.drills).toEqual([
+    { label: 'sub:on-confirmed', href: '/model-fixture/entries/?id=sub-on-confirmed' },
+  ]);
+  expect(nodes.find((node) => node.id === 'h:confirm#lines/reserve')?.drills[0]?.href).toBe(
     '/model-fixture/entries/?id=api-charge',
   );
-  expect(nodes.find((node) => node.id === 'h:confirm#tx/queue')?.drill).toBeNull();
+  expect(nodes.find((node) => node.id === 'h:confirm#tx/queue')?.drills).toEqual([]);
   const relay = entryFlowOf(indexOf(model), 'job:relay');
+  expect(relay?.starts).toContainEqual({ label: 'Every', value: '30s' });
   expect(relay?.handlers[0]?.nodes[0]?.citations).toEqual([{ label: 'ev:source', href: null }]);
+});
+it('opens referenced schemas in the exact workspace or selected plan view', () => {
+  const current = entryFlowOf(indexOf(model), 'api:confirm');
+  expect(current?.schemas.map((schema) => schema.href)).toEqual([
+    '/model-fixture/things/?id=sch%3Aconfirm',
+    '/model-fixture/things/?id=sch%3Aorder',
+  ]);
+  const before = entryFlowOf(indexOf(model), 'api:confirm', {
+    plan: 'plan:confirm',
+    version: 'before',
+    planSlug: 'actual-plan-folder',
+  });
+  const nodes = before?.handlers.flatMap((handler) => flatten(handler.nodes)) ?? [];
+  expect(nodes.find((node) => node.id === 'h:confirm#tx/save')?.contract?.schema?.href).toBe(
+    '/model-fixture/plans/actual-plan-folder/things/?id=sch-order&view=before',
+  );
+});
+it('follows every exact subscription for a publish without a causes link', () => {
+  const variant: WorkspaceModel = {
+    ...model,
+    domains: model.domains.map((domain) => ({
+      ...domain,
+      systems: domain.systems.map((system) => ({
+        ...system,
+        subscriptions: system.subscriptions.flatMap((subscription) => [
+          subscription,
+          { ...subscription, id: 'sub:on-confirmed-audit', group: 'audit' },
+          { ...subscription, id: 'sub:other', message: 'msg:other' },
+        ]),
+        handlers: system.handlers.map((handler) =>
+          handler.id === 'h:confirm'
+            ? {
+                ...handler,
+                steps: [...handler.steps, { id: 'publish-alone', publish: 'msg:confirmed' }],
+              }
+            : handler,
+        ),
+      })),
+    })),
+  };
+  const flow = entryFlowOf(indexOf(variant), 'api:confirm', {
+    plan: 'plan:confirm',
+    version: 'after',
+  });
+  const nodes = flow?.handlers.flatMap((handler) => flatten(handler.nodes)) ?? [];
+  const drills = nodes.find((node) => node.id === 'h:confirm#publish-alone')?.drills;
+  expect(drills?.map(({ href }) => href)).toEqual([
+    '/model-fixture/entries/?id=sub-on-confirmed&plan=plan-confirm&version=after',
+    '/model-fixture/entries/?id=sub-on-confirmed-audit&plan=plan-confirm&version=after',
+  ]);
 });
 it('shows absent callers, handlers and timing as gaps rather than inventing them', () => {
   const flow = entryFlowOf(indexOf(model), 'job:unknown');

@@ -149,6 +149,15 @@ describe('the reviewed model consumer inventory', () => {
     };
     const data = files(replacement, source);
     expect(consumerInventory(rows, [], [disposition], data).consumers[0]?.status).toBe('deleted');
+    const retirement = consumerInventory(
+      rows,
+      [],
+      [{ ...disposition, role: 'retirement', stage: 10 }],
+      data,
+    );
+    expect(retirement.candidates[0]?.status).toBe('deleted');
+    expect(retirement.pending).toEqual([]);
+    expect(retirement.issues).toEqual([]);
     data.set(file, 'The old source still exists.');
     expect(consumerInventory(rows, [], [disposition], data).consumers[0]?.status).toBe('adapter');
   });

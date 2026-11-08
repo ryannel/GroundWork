@@ -37,8 +37,18 @@ describe('whole-file mutation scope', () => {
         'src/ui/no.ts',
         'src/domain/missing.ts',
         'src/domain/foo.generated.ts',
+        'src/domain/service-explorer.ts',
       ]),
     ).toEqual([file]);
+  });
+  it('retains runtime files while omitting declarations with no emitted code', () => {
+    expect(
+      mutationTargets([
+        'src/domain/service-explorer.ts',
+        'src/application/entry-history.ts',
+        'src/application/interpretation-archive.ts',
+      ]),
+    ).toEqual(['src/application/entry-history.ts', 'src/application/interpretation-archive.ts']);
   });
   it('partitions each whole file exactly once and balances deterministically', () => {
     const files = [file, other, 'src/application/plan/ids.ts'];

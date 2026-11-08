@@ -8,8 +8,6 @@ import { fullFormats } from 'ajv-formats/dist/formats.js';
 import { isRecord, prop } from '@/application/plan/ids';
 import { pathIn, readText } from '@/infrastructure/disk';
 
-import { shapeProblems } from './plan-schema-errors';
-
 interface Validators {
   readonly root: <T>() => ValidateFunction<T>;
   readonly def: <T = unknown>(name: string) => ValidateFunction<T> | undefined;
@@ -34,7 +32,7 @@ function isUri(text: string): boolean {
 
 async function compile(): Promise<Validators> {
   const schema: unknown = JSON.parse(
-    await readText(pathIn(process.cwd(), 'schema', 'legacy-plan.schema.json')),
+    await readText(pathIn(process.cwd(), 'test', 'fixtures', 'legacy-plan.schema.json')),
   );
   const id = prop(schema, '$id');
   if (!isRecord(schema) || typeof id !== 'string') {
@@ -55,18 +53,3 @@ async function compile(): Promise<Validators> {
 }
 
 export const planSchema = async (): Promise<Validators> => (compiled ??= compile());
-
-/** The schema check for one `$defs` entry (`interface`, `flow`, …), for plan-shaped data kept outside a plan. */
-export async function planDef<T>(name: string): Promise<ValidateFunction<T>> {
-  const { def } = await planSchema();
-  const check = def<T>(name);
-  if (check === undefined) throw new Error(`legacy-plan.schema.json has no $defs/${name}`);
-  return check;
-}
-
-/** Why a value failed a `planDef` check, one readable line per problem. */
-export function defProblems(check: ValidateFunction): string[] {
-  return shapeProblems(check.errors ?? []).map(
-    ({ prop: key, tail, message }) => `${[key, ...tail].join('.')}: ${message}`,
-  );
-}

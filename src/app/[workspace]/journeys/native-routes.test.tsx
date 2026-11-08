@@ -6,7 +6,6 @@ import { flowFixture } from '@/../test/fixtures/model-current-flow';
 import { indexOf } from '@/application/model-index';
 import { readCanonicalModelIndex } from '@/infrastructure/model-index';
 import { readModelPlans } from '@/infrastructure/model-plans';
-import { todayData } from '@/infrastructure/today-data';
 
 import JourneyRoute, { generateMetadata } from './[key]/page';
 import JourneysRoute from './page';
@@ -24,7 +23,6 @@ vi.mock(import('@/infrastructure/model-index'), () => ({
 vi.mock(import('@/infrastructure/model-plans'), () => ({
   readModelPlans: vi.fn<typeof readModelPlans>(),
 }));
-vi.mock(import('@/infrastructure/today-data'), () => ({ todayData: vi.fn<typeof todayData>() }));
 vi.mock(import('@/features/plan'), async (load) => ({
   ...(await load()),
   ModelTodayOverlays: () => <span hidden />,
@@ -44,7 +42,6 @@ beforeEach(() => {
     }),
   );
   vi.mocked(readModelPlans).mockResolvedValue([]);
-  vi.mocked(todayData).mockRejectedValue(new Error('Legacy reader must not run'));
 });
 afterEach(() => {
   cleanup();
@@ -56,7 +53,6 @@ it('lists every native journey and flow through the existing finder without a le
     '/queries/journeys/jny-unplaced',
   );
   expect(screen.getByRole('link', { name: /An authored narrative/u })).toBeTruthy();
-  expect(todayData).not.toHaveBeenCalled();
 });
 it('keeps an unplaced journey readable and renders an actual authored flow with its metadata', async () => {
   const params = Promise.resolve({ workspace: 'queries', key: 'jny-unplaced' });
@@ -70,11 +66,9 @@ it('keeps an unplaced journey readable and renders an actual authored flow with 
   );
   expect(screen.getByText('A precise trigger')).toBeTruthy();
   expect(screen.getByText(/Authored narrative/u)).toBeTruthy();
-  expect(todayData).not.toHaveBeenCalled();
 });
 it('keeps an unknown native journey absent rather than trying the legacy reader', async () => {
   await expect(
     JourneyRoute({ params: Promise.resolve({ workspace: 'queries', key: 'missing' }) }),
   ).rejects.toThrow('Not found');
-  expect(todayData).not.toHaveBeenCalled();
 });

@@ -63,6 +63,7 @@ export interface ModelIndex {
   readonly roles: (component: string) => readonly ('api' | 'worker' | 'job')[];
   readonly producers: (message: string) => readonly string[];
   readonly consumers: (message: string) => readonly string[];
+  readonly subscriptions: (message: string) => readonly string[];
   readonly storeAccess: (store: string) => readonly ModelEdge[];
   readonly fieldsReached: (operation: string) => readonly GraphqlReach[];
   readonly freshness: (id: string) => readonly ModelRepository['repository'][];
@@ -727,6 +728,17 @@ export function indexOf(model: WorkspaceModel): ModelIndex {
           .map((record) => record.to),
       ),
     ],
+    subscriptions: (message) => {
+      const target = lookup.get(message);
+      if (target?.kind !== 'message') return [];
+      return model.domains.flatMap((domain) =>
+        domain.systems.flatMap((system) =>
+          system.subscriptions
+            .filter((subscription) => canonicalId(subscription.message, lookup) === target.id)
+            .map((subscription) => subscription.id),
+        ),
+      );
+    },
     storeAccess: (store) =>
       records.filter(
         (record) =>

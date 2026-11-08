@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useSyncExternalStore } from 'react';
 
 import type { EntryFlowView, FlowNode } from '@/application/entry-flow';
 import { Button } from '@/ui/button';
@@ -11,11 +11,36 @@ import {
   EntryFork,
   EntryGlance,
   EntryGroup,
+  EntryLater,
   EntryNode,
   EntrySequence,
-} from '@/ui/entry-canvas';
+} from '@/ui/entry-canvas.client';
 import { Stack } from '@/ui/stack';
 import { Text, TextLink } from '@/ui/text';
+
+const SELECTION_CHANGED = 'groundwork:entry-selection';
+
+function subscribeSelection(change: () => void): () => void {
+  globalThis.addEventListener('popstate', change);
+  globalThis.addEventListener(SELECTION_CHANGED, change);
+  return () => {
+    globalThis.removeEventListener('popstate', change);
+    globalThis.removeEventListener(SELECTION_CHANGED, change);
+  };
+}
+
+function selectedInAddress(): string | null {
+  return new URLSearchParams(globalThis.location.search).get('step');
+}
+
+function selectInAddress(id: string | null): void {
+  if (selectedInAddress() === id) return;
+  const address = new URL(globalThis.location.href);
+  if (id === null) address.searchParams.delete('step');
+  else address.searchParams.set('step', id);
+  globalThis.history.pushState(null, '', address);
+  globalThis.dispatchEvent(new Event(SELECTION_CHANGED));
+}
 
 function allNodes(nodes: readonly FlowNode[]): readonly FlowNode[] {
   return nodes.flatMap((node) => [
@@ -42,6 +67,7 @@ function Nodes({ nodes, selected, select }: SequenceProps) {
             selected={selected === node.id}
             title={node.title}
           />
+          {node.later === null ? null : <EntryLater {...node.later} />}
           {node.branches.length === 0 ? null : (
             <EntryGroup
               title={`${node.title} · ${String(node.branches.length)} ${node.branches.length === 1 ? 'branch' : 'branches'}`}
@@ -80,9 +106,11 @@ function NodeInspector({ node }: { readonly node: FlowNode | undefined }) {
       <Text mono size="sm">
         {node.id}
       </Text>
-      {node.drill === null ? null : (
-        <TextLink href={node.drill.href}>Follow {node.drill.label} →</TextLink>
-      )}
+      {node.drills.map((drill) => (
+        <TextLink href={drill.href} key={drill.href}>
+          Follow {drill.label} →
+        </TextLink>
+      ))}
       <Text as="h3" weight="strong">
         Citations
       </Text>
@@ -105,13 +133,45 @@ function NodeInspector({ node }: { readonly node: FlowNode | undefined }) {
       )}
       <CodeBlock label="Recorded step">{node.detail}</CodeBlock>
       {node.contract === null ? null : (
-        <CodeBlock label="Referenced contract">{node.contract}</CodeBlock>
+        <>
+          {node.contract.schema === null ? null : (
+            <TextLink href={node.contract.schema.href}>{node.contract.schema.label}</TextLink>
+          )}
+          <CodeBlock label="Referenced contract">{node.contract.detail}</CodeBlock>
+        </>
       )}
     </Stack>
   );
 }
+function Effects({ effects }: { readonly effects: EntryFlowView['effects'] }) {
+  if (effects.length === 0) return <Text tone="muted">No effect recorded</Text>;
+  const grouped = Map.groupBy(effects, (effect) => effect.target);
+  return (
+    <Stack gap={2}>
+      {[...grouped].map(([target, group]) => (
+        <Stack gap={1} key={target}>
+          <Text size="sm" weight="strong">
+            {group[0]?.targetLabel}
+          </Text>
+          {group.map((effect, occurrence) => (
+            <Button
+              key={`${effect.site}-${String(occurrence)}`}
+              onClick={() => {
+                selectInAddress(effect.site);
+              }}
+              variant="quiet"
+            >
+              {effect.label}
+            </Button>
+          ))}
+        </Stack>
+      ))}
+    </Stack>
+  );
+}
+
 export function EntryFlow({ flow }: { readonly flow: EntryFlowView }) {
-  const [selected, setSelected] = useState<string | null>(null);
+  const selected = useSyncExternalStore(subscribeSelection, selectedInAddress, () => null);
   const nodes = flow.handlers.flatMap((handler) => [
     ...allNodes(handler.nodes),
     ...handler.failures,
@@ -121,36 +181,37 @@ export function EntryFlow({ flow }: { readonly flow: EntryFlowView }) {
     <>
       <EntryGlance
         callers={
-          flow.callers.length === 0 ? (
-            <Text tone="muted">No caller recorded</Text>
-          ) : (
-            <Stack gap={2}>
-              {flow.callers.map((caller) => (
-                <Text key={caller.site}>{caller.label}</Text>
-              ))}
-            </Stack>
-          )
+          <Stack gap={2}>
+            {flow.callers.length === 0 && flow.starts.length === 0 ? (
+              <Text tone="muted">No caller recorded</Text>
+            ) : null}
+            {flow.starts.map((fact) => (
+              <Text key={fact.label}>
+                {fact.label} · {fact.value}
+              </Text>
+            ))}
+            {flow.callers.map((caller, occurrence) => (
+              <Text key={`${caller.site}-${String(occurrence)}`}>{caller.label}</Text>
+            ))}
+          </Stack>
         }
-        component={<Text weight="strong">{flow.component}</Text>}
-        effects={
-          flow.effects.length === 0 ? (
-            <Text tone="muted">No effect recorded</Text>
-          ) : (
-            <Stack gap={2}>
-              {flow.effects.map((effect) => (
-                <Button
-                  key={`${effect.site}-${effect.label}`}
-                  onClick={() => {
-                    setSelected(effect.site);
-                  }}
-                  variant="quiet"
-                >
-                  {effect.label}
-                </Button>
-              ))}
-            </Stack>
-          )
+
+        component={
+          <Stack gap={2}>
+            <Text weight="strong">{flow.component}</Text>
+            {flow.contract.map((fact, occurrence) => (
+              <Text key={`${fact.label}-${String(occurrence)}`}>
+                {fact.label} · {fact.value}
+              </Text>
+            ))}
+            {flow.schemas.map((schema) => (
+              <TextLink key={schema.label} href={schema.href}>
+                {schema.label}
+              </TextLink>
+            ))}
+          </Stack>
         }
+        effects={<Effects effects={flow.effects} />}
       />
       <EntryCanvas
         active={node !== undefined}
@@ -158,7 +219,7 @@ export function EntryFlow({ flow }: { readonly flow: EntryFlowView }) {
           <Stack>
             <Button
               onClick={() => {
-                setSelected(null);
+                selectInAddress(null);
               }}
               variant="quiet"
             >
@@ -174,10 +235,10 @@ export function EntryFlow({ flow }: { readonly flow: EntryFlowView }) {
           <Stack gap={6}>
             {flow.handlers.map((handler) => (
               <EntryGroup key={handler.id} title={handler.summary ?? handler.id}>
-                <Nodes nodes={handler.nodes} select={setSelected} selected={selected} />
+                <Nodes nodes={handler.nodes} select={selectInAddress} selected={selected} />
                 {handler.failures.length === 0 ? null : (
                   <EntryGroup title="Recorded failures">
-                    <Nodes nodes={handler.failures} select={setSelected} selected={selected} />
+                    <Nodes nodes={handler.failures} select={selectInAddress} selected={selected} />
                   </EntryGroup>
                 )}
               </EntryGroup>

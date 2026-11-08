@@ -5,7 +5,9 @@ import { createReadStream, createWriteStream, type WriteStream } from 'node:fs';
 import { mkdir, readdir, rename, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { createInterface } from 'node:readline';
+import type { Readable } from 'node:stream';
 import { finished } from 'node:stream/promises';
+import { createGunzip } from 'node:zlib';
 
 import type { DiscoverySummary } from '@/application/evidence/evidence-discovery';
 import {
@@ -99,34 +101,6 @@ export async function writeRepositoryEvidence(
   });
 }
 
-/** Writes a repository's syntax cache a batch at a time; nothing replaces the old cache until it is closed. */
-export interface SyntaxCacheWriter {
-  readonly write: (family: string, records: readonly EvidenceRecord[]) => Promise<void>;
-  readonly close: () => Promise<void>;
-}
-
-export async function openSyntaxCache(workspace: string, name: string): Promise<SyntaxCacheWriter> {
-  const folder = path.join(syntaxFolder(workspace), name);
-  const staging = `${folder}.writing`;
-  await rm(staging, { recursive: true, force: true });
-  await mkdir(staging, { recursive: true });
-  const streams = new Map<string, WriteStream>();
-  const streamFor = (family: string): WriteStream => {
-    const open =
-      streams.get(family) ?? createWriteStream(path.join(staging, `${family}.jsonl`), 'utf8');
-    streams.set(family, open);
-    return open;
-  };
-  return {
-    write: async (family, records) => writeTo(streamFor(family), records),
-    close: async () => {
-      await Promise.all([...streams.values()].map(async (stream) => endStream(stream)));
-      await rm(folder, { recursive: true, force: true });
-      await rename(staging, folder);
-    },
-  };
-}
-
 /** Removes evidence for repositories the current scan set no longer holds. */
 export async function pruneEvidence(
   workspace: string,
@@ -164,15 +138,32 @@ export async function evidenceRepositories(
 /** The record files in a repository's folder, by family. */
 export async function recordFiles(folder: string): Promise<ReadonlyMap<string, string>> {
   const names = await readdir(folder).catch(() => []);
-  return new Map(
-    names
-      .filter((name) => name.endsWith('.jsonl'))
-      .map((name) => [name.slice(0, -'.jsonl'.length), path.join(folder, name)]),
-  );
+  const files = new Map<string, string>();
+  for (const name of names) {
+    const family = /^(.*)\.jsonl(?:\.gz)?$/u.exec(name)?.[1];
+    if (family === undefined) continue;
+    if (files.has(family)) throw new Error(`${folder}: repeated evidence family ${family}.`);
+    files.set(family, path.join(folder, name));
+  }
+  return files;
+}
+
+/** Plain and compressed records have the same logical bytes. */
+export function recordBytes(file: string): Readable {
+  const input = createReadStream(file);
+  if (!file.endsWith('.gz')) return input;
+  const decoded = createGunzip();
+  input.on('error', (error) => {
+    decoded.destroy(error);
+  });
+  decoded.once('close', () => {
+    input.destroy();
+  });
+  return input.pipe(decoded);
 }
 
 export async function* readRecords(file: string): AsyncGenerator<EvidenceRecord> {
-  const lines = createInterface({ input: createReadStream(file, 'utf8'), crlfDelay: Infinity });
+  const lines = createInterface({ input: recordBytes(file), crlfDelay: Infinity });
   for await (const line of lines) {
     if (line.length === 0) continue;
     const record: unknown = JSON.parse(line);

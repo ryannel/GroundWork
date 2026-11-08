@@ -26,12 +26,12 @@ import type {
   StandingDates,
   WorkProgress,
 } from '@/application/plan/work-standing';
-import type { Progress, ProgressEvent } from '@/domain/plan/plan.generated';
+import type { Progress, ProgressEvent } from '@/domain/model/plan.generated';
 import { readCanonicalModelIndex } from '@/infrastructure/model-index';
 import { readModelPlanEntry } from '@/infrastructure/model-plans';
 import { readModelStanding } from '@/infrastructure/model-standing';
-import { planDef, defProblems } from '@/infrastructure/plan-schema';
-import { readProgress } from '@/infrastructure/progress-store';
+import { defProblems } from '@/infrastructure/plan-schema-errors';
+import { progressValidator, readProgress } from '@/infrastructure/progress-store';
 import { selectedWorkspace, workspaceFolder } from '@/infrastructure/workspace-folders';
 
 const { positionals, values } = parseArgs({
@@ -117,7 +117,7 @@ async function readIfAny(file: string): Promise<string | null> {
 
 /** The event, checked against the schema in the place it will take. */
 async function checkedEvent(progress: Progress): Promise<ProgressEvent> {
-  const check = await planDef<Progress>('progress');
+  const check = await progressValidator();
   const candidate = { events: [...progress.events, eventFromOptions()] };
   if (!check(candidate)) {
     for (const problem of defProblems(check)) console.error(problem);

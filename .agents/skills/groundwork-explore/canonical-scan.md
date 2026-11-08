@@ -1,5 +1,8 @@
 # Canonical repository scans
 
+Replay the historical workflow at Groundwork revision `329dc9f2`. Use the native scan skill
+for current model updates.
+
 Historical reference for retained proof. For current workspace authoring, use the consolidated
 [Groundwork schema](../groundwork-schema/SKILL.md) and [native scan](../groundwork-scan/SKILL.md).
 

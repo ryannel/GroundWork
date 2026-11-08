@@ -25,14 +25,32 @@ beforeAll(async () => {
   if (projected === null) throw new Error('Missing entry');
   flow = projected;
 });
-afterEach(cleanup);
+afterEach(() => {
+  cleanup();
+  globalThis.history.replaceState(null, '', '/');
+});
 afterAll(async () => rm(root, { recursive: true, force: true }));
+it('zooms the current entry canvas and exposes fit without changing selection', () => {
+  render(<EntryFlow flow={flow} />);
+  fireEvent.click(screen.getByRole('button', { name: 'Zoom in' }));
+  expect(screen.getByText('120%')).toBeTruthy();
+  expect(screen.getByRole('region', { name: 'Entry flow canvas' })).toBeTruthy();
+  expect(screen.getByRole('button', { name: 'Fit map' })).toBeTruthy();
+  fireEvent.click(screen.getByRole('button', { name: 'Zoom out' }));
+  expect(screen.getByText('100%')).toBeTruthy();
+});
+
 it('selects the backed store-write node from the top strip and reveals its exact source and field', () => {
   render(<EntryFlow flow={flow} />);
   fireEvent.click(screen.getByRole('button', { name: 'write · Orders database' }));
   const inspector = within(screen.getByRole('complementary', { name: 'Flow inspector' }));
   expect(inspector.getByText('h:confirm#tx/save')).toBeTruthy();
-  expect(inspector.getByRole('link').getAttribute('href')).toContain('#L12-L16');
+  expect(inspector.getByRole('link', { name: /Confirm.ts/u }).getAttribute('href')).toContain(
+    '#L12-L16',
+  );
+  expect(inspector.getByRole('link', { name: /Open schema/u }).getAttribute('href')).toContain(
+    'sch%3Aorder',
+  );
   expect(inspector.getByText(/"name": "status"/u)).toBeTruthy();
   expect(
     screen.getByRole('button', { name: 'write write · status' }).getAttribute('aria-pressed'),
@@ -51,6 +69,25 @@ it('follows an explicit causes link to the receiving entry rather than inferring
   expect(screen.getByText('Payment facts')).toBeTruthy();
   expect(screen.getByText('Recorded failures')).toBeTruthy();
 });
+it('reopens an exact step address and restores it on Back without changing plan context', async () => {
+  const entryAddress = '/model-fixture/entries/?id=api%3Aconfirm&plan=plan-confirm&version=after';
+  globalThis.history.replaceState(null, '', `${entryAddress}&step=h%3Aconfirm%23tx%2Fsave`);
+  render(<EntryFlow flow={flow} />);
+  const inspector = within(screen.getByRole('complementary', { name: 'Flow inspector' }));
+  expect(inspector.getByText('h:confirm#tx/save')).toBeTruthy();
+  fireEvent.click(
+    screen.getByRole('button', { name: 'return return 503 The database is unavailable' }),
+  );
+  expect(inspector.getByText('h:confirm#!db-down')).toBeTruthy();
+  expect(globalThis.location.pathname + globalThis.location.search).toBe(
+    `${entryAddress}&step=h%3Aconfirm%23%21db-down`,
+  );
+  globalThis.history.back();
+  await expect(inspector.findByText('h:confirm#tx/save')).resolves.toBeTruthy();
+  fireEvent.click(inspector.getByRole('button', { name: 'Close details' }));
+  expect(globalThis.location.pathname + globalThis.location.search).toBe(entryAddress);
+});
+
 it('keeps missing detail and gaps visible in a flow without a handler', () => {
   render(
     <EntryFlow

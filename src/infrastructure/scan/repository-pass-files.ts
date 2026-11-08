@@ -82,7 +82,7 @@ export async function passArtifactDigest(directory: string, relative: string): P
   return sourceDigest(await readFile(filename, 'utf8'));
 }
 
-export async function verifyRepositoryPassTask(
+async function verifyRepositoryPassTask(
   directory: string,
   task: RepositoryPassTask,
 ): Promise<void> {

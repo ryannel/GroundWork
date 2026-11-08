@@ -211,7 +211,7 @@
         },
         {
           "file": "src/app/[workspace]/[domain]/(overview)/page.test.tsx",
-          "sha256": "eb3bf525076a1a41b06233784dfa4e5fa14c1be7d2ae3417a34c3ad6b81ec1f0"
+          "sha256": "1b12f537bb38f48b38de450b1448d19c88098cab3a523294987f6d21cf135c95"
         }
       ],
       "reason": "The route selects the domain and scoped system through the canonical index. Both bare and canonical system selectors choose the same actual system.",
@@ -644,7 +644,7 @@
         },
         {
           "file": "src/app/[workspace]/[domain]/[system]/flows/[flow]/page.tsx",
-          "line": 29,
+          "line": 21,
           "text": "const native = await readCanonicalModelIndex(at.workspace);"
         }
       ],
@@ -913,7 +913,7 @@
         },
         {
           "file": "src/app/[workspace]/areas/[area]/page.tsx",
-          "line": 38,
+          "line": 24,
           "text": "const index = await readCanonicalModelIndex(id);"
         }
       ],
@@ -990,7 +990,7 @@
       "proofs": [
         {
           "file": "src/infrastructure/entry-flow-page.ts",
-          "sha256": "e6526c2774d381cc93ba49c0c72ee0de442eb736345354718106cb01bf0e3694"
+          "sha256": "8a5fcfbb03655c505a05b734aadeb1b048bab686d434a9b7777f1211d2156916"
         },
         {
           "file": "artifacts/rebuild/pr8/native-current-views.md",
@@ -999,6 +999,10 @@
         {
           "file": "artifacts/rebuild/pr8/route-binding-audit.json",
           "sha256": "1f8796dd0780c4424e1e786442c63664b3e879efbc06d2d822587acd2ecc4900"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/entry-schemas.md",
+          "sha256": "7dbeb1ac4ed0d3e4faebd3be32a1f35cb657ca1c64fd08929c65f9db316d219f"
         }
       ],
       "reason": "The entry flow route reads the selected native entry and sends the existing serialisable flow view.",
@@ -1085,8 +1089,8 @@
       "evidence": [
         {
           "file": "src/app/[workspace]/explorer/page.tsx",
-          "line": 18,
-          "text": "const native = await readCanonicalModelIndex(id);"
+          "line": 20,
+          "text": "const history = await readEntryHistory(workspace, {"
         }
       ],
       "file": "src/app/[workspace]/explorer/page.tsx",
@@ -1106,11 +1110,19 @@
         {
           "file": "artifacts/rebuild/pr8/release/hook-fixes-focused.log",
           "sha256": "76c69e8c5dd6d7d3ef2570d18d75f2dac3964ef533d1043aaa742d628186d642"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/historical-release.md",
+          "sha256": "23ba38b43e312aecd15060dfc28bd577b9294a6e4d1d08383b49b0eae7095c0f"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/complete-history.md",
+          "sha256": "5129398de0173f3b508ce60d568c07d03658604ccf133aed855b2d725b1d8829"
         }
       ],
-      "reason": "The retained explorer route selects its workspace navigation from the canonical model. Its separate publication remains covered by the PR 10 proof.",
+      "reason": "The compatibility route serves verified historical snapshots and pinned retirement destinations.",
       "role": "consumer",
-      "sourceSha256": "f7543e84980e77a4e7b1619026d42b7df2a541e29f40d242c0e380c0b36cb241",
+      "sourceSha256": "68804da113a71139ddc4cdc02a18e8216c3d68239acc772a184822119e49181a",
       "status": "migrated"
     },
     "factBindings": [
@@ -1119,12 +1131,8 @@
     "file": "src/app/[workspace]/explorer/page.tsx",
     "hits": [
       {
-        "line": 8,
-        "text": "import { readExplorerCatalogue } from '@/infrastructure/service-explorer-catalogue';"
-      },
-      {
-        "line": 9,
-        "text": "import { readExplorerManifest } from '@/infrastructure/service-explorer-files';"
+        "line": 6,
+        "text": "import { workspaceFolder } from '@/infrastructure/workspace-folders';"
       }
     ],
     "legacyDependency": false,
@@ -1155,9 +1163,9 @@
     },
     "present": true,
     "reachable": true,
-    "reason": "The retained explorer route selects its workspace navigation from the canonical model. Its separate publication remains covered by the PR 10 proof.",
+    "reason": "The compatibility route serves verified historical snapshots and pinned retirement destinations.",
     "role": "consumer",
-    "sourceSha256": "f7543e84980e77a4e7b1619026d42b7df2a541e29f40d242c0e380c0b36cb241",
+    "sourceSha256": "68804da113a71139ddc4cdc02a18e8216c3d68239acc772a184822119e49181a",
     "status": "migrated"
   },
   {
@@ -1172,7 +1180,7 @@
         },
         {
           "file": "src/app/[workspace]/journeys/[key]/page.tsx",
-          "line": 31,
+          "line": 23,
           "text": "const native = await readCanonicalModelIndex(id);"
         }
       ],
@@ -1772,7 +1780,7 @@
         },
         {
           "file": "src/app/[workspace]/plans/[plan]/page.tsx",
-          "line": 26,
+          "line": 14,
           "text": "const data = await modelPlanData({ workspace: at.workspace, slug: at.plan });"
         }
       ],
@@ -1842,19 +1850,14 @@
       ],
       "reason": "The JSON route projects the actual selected plan or revision with native before and after data and independent progress.",
       "role": "consumer",
-      "sourceSha256": "317831a71e4e290d270296ce8ac68b5c24e42e91063f408ebafa96b084a380b9",
+      "sourceSha256": "bfc298df780c6ee139aea3ebbee05470810be71f1ee742a87e1a299354d209e8",
       "status": "migrated"
     },
     "factBindings": [
       "*"
     ],
     "file": "src/app/[workspace]/plans/[plan]/plan.json/route.ts",
-    "hits": [
-      {
-        "line": 7,
-        "text": "import type { PlanParams } from '@/infrastructure/plan-data';"
-      }
-    ],
+    "hits": [],
     "legacyDependency": false,
     "legacyPath": [],
     "legacyUses": [],
@@ -1881,7 +1884,7 @@
     "reachable": true,
     "reason": "The JSON route projects the actual selected plan or revision with native before and after data and independent progress.",
     "role": "consumer",
-    "sourceSha256": "317831a71e4e290d270296ce8ac68b5c24e42e91063f408ebafa96b084a380b9",
+    "sourceSha256": "bfc298df780c6ee139aea3ebbee05470810be71f1ee742a87e1a299354d209e8",
     "status": "migrated"
   },
   {
@@ -1908,19 +1911,14 @@
       ],
       "reason": "The JSON route projects the actual selected plan or revision with native before and after data and independent progress.",
       "role": "consumer",
-      "sourceSha256": "7a73b0e1c9de369f1ee671bdc5b4390a680ec9a89a28fbe8a8c5900a4302b31f",
+      "sourceSha256": "ccfa39e062398775a48a1971c6310b5b3be8e878889da9a3364369fad94f303c",
       "status": "migrated"
     },
     "factBindings": [
       "*"
     ],
     "file": "src/app/[workspace]/plans/[plan]/revisions/[version]/plan.json/route.ts",
-    "hits": [
-      {
-        "line": 7,
-        "text": "import type { PlanParams } from '@/infrastructure/plan-data';"
-      }
-    ],
+    "hits": [],
     "legacyDependency": false,
     "legacyPath": [],
     "legacyUses": [],
@@ -1943,7 +1941,7 @@
     "reachable": true,
     "reason": "The JSON route projects the actual selected plan or revision with native before and after data and independent progress.",
     "role": "consumer",
-    "sourceSha256": "7a73b0e1c9de369f1ee671bdc5b4390a680ec9a89a28fbe8a8c5900a4302b31f",
+    "sourceSha256": "ccfa39e062398775a48a1971c6310b5b3be8e878889da9a3364369fad94f303c",
     "status": "migrated"
   },
   {
@@ -1958,7 +1956,7 @@
         },
         {
           "file": "src/app/[workspace]/plans/[plan]/things/page.tsx",
-          "line": 26,
+          "line": 14,
           "text": "const data = await modelPlanData({ workspace: at.workspace, slug: at.plan });"
         }
       ],
@@ -2231,7 +2229,7 @@
         },
         {
           "file": "src/app/[workspace]/reference/[kind]/page.tsx",
-          "line": 39,
+          "line": 24,
           "text": "const native = await readCanonicalModelIndex(id);"
         }
       ],
@@ -2365,7 +2363,7 @@
       "evidence": [
         {
           "file": "src/app/[workspace]/things/page.tsx",
-          "line": 27,
+          "line": 40,
           "text": "const native = await readCanonicalModelIndex(id);"
         }
       ],
@@ -2386,11 +2384,15 @@
         {
           "file": "artifacts/rebuild/pr8/release/inspection-focused-check.log",
           "sha256": "09bfe0c6dd8840e4bc670c2de35a3f38c7d22fc58c58388323262277263885b2"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/archive-reader.md",
+          "sha256": "08599d94feabfb08f5a8302a78792588ed74dbf8b5666334aa8aad259af05a82"
         }
       ],
       "reason": "The workspace thing route selects the exact canonical record and uses the native inspector.",
       "role": "consumer",
-      "sourceSha256": "e868fb9500acd78bab74fbb1925edc429775dc8a537429397da4ea158bd2b373",
+      "sourceSha256": "b139d3228e711248ad40820f4cbbc382fbf99cd167958c4411fbfc60d9f42c1b",
       "status": "migrated"
     },
     "factBindings": [
@@ -2420,7 +2422,7 @@
     "reachable": true,
     "reason": "The workspace thing route selects the exact canonical record and uses the native inspector.",
     "role": "consumer",
-    "sourceSha256": "e868fb9500acd78bab74fbb1925edc429775dc8a537429397da4ea158bd2b373",
+    "sourceSha256": "b139d3228e711248ad40820f4cbbc382fbf99cd167958c4411fbfc60d9f42c1b",
     "status": "migrated"
   },
   {
@@ -2507,7 +2509,7 @@
       "proofs": [
         {
           "file": "src/infrastructure/workspace-library.test.ts",
-          "sha256": "4d010d3641573954a6ec9f71ddbfaf6971dd91c47590e84447837f808836aabd"
+          "sha256": "5fb06b9c852542ace7468cb7493cfbec62331ea175ae9260c896d5c30ef3dbe2"
         },
         {
           "file": "artifacts/rebuild/pr8/reader/current-cutover-tests.log",
@@ -2516,6 +2518,14 @@
         {
           "file": "artifacts/rebuild/pr8/route-binding-audit.json",
           "sha256": "1f8796dd0780c4424e1e786442c63664b3e879efbc06d2d822587acd2ecc4900"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/verification.md",
+          "sha256": "260fbc2cbd18ee23056a5fc6897cb724221c16580b67f50996351b7aa5c54421"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/progress.md",
+          "sha256": "f04a5bcaf03723849c3b079eac4bc7d0c76117335b4ed1018ed114b3eed65244"
         }
       ],
       "reason": "The home library reads registration and canonical workspace counts, proven with a mixed registered library.",
@@ -2630,7 +2640,7 @@
       "evidence": [
         {
           "file": "src/application/entry-flow-page.ts",
-          "line": 143,
+          "line": 157,
           "text": "export function entryFlowPlanId(query: SearchParams): string | null {"
         }
       ],
@@ -2643,11 +2653,15 @@
         {
           "file": "artifacts/rebuild/pr8/system-overview-budget.md",
           "sha256": "9fbcf02f8535f3c48e555e35998e4805de88163a6ea10c6c72a5f7d5a03ddf0f"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/entry-schemas.md",
+          "sha256": "7dbeb1ac4ed0d3e4faebd3be32a1f35cb657ca1c64fd08929c65f9db316d219f"
         }
       ],
       "reason": "The native system overview keeps complete canonical records and exact counted gaps, with bounded lists and canonical scope links; the receipt pins these exact sources and focused proofs.",
       "role": "consumer",
-      "sourceSha256": "e13813e2bb558e4d9a9cd34356d43010408957efd1849fb0e4a5f6a87867ab06",
+      "sourceSha256": "b8ac1f5b47aa9d5766b0b72bcad1610b91ffd4cea1244de23cef26fe1c9addba",
       "status": "migrated"
     },
     "factBindings": [
@@ -2665,7 +2679,7 @@
         "text": "model: Pick<WorkspaceModel, 'id' | 'name' | 'description'>,"
       },
       {
-        "line": 149,
+        "line": 163,
         "text": "model: WorkspaceModel,"
       }
     ],
@@ -2695,7 +2709,7 @@
     "reachable": true,
     "reason": "The native system overview keeps complete canonical records and exact counted gaps, with bounded lists and canonical scope links; the receipt pins these exact sources and focused proofs.",
     "role": "consumer",
-    "sourceSha256": "e13813e2bb558e4d9a9cd34356d43010408957efd1849fb0e4a5f6a87867ab06",
+    "sourceSha256": "b8ac1f5b47aa9d5766b0b72bcad1610b91ffd4cea1244de23cef26fe1c9addba",
     "status": "migrated"
   },
   {
@@ -2705,7 +2719,7 @@
       "evidence": [
         {
           "file": "src/application/entry-flow.ts",
-          "line": 200,
+          "line": 298,
           "text": "export function entryFlowOf("
         }
       ],
@@ -2718,11 +2732,27 @@
         {
           "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
           "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/verification.md",
+          "sha256": "260fbc2cbd18ee23056a5fc6897cb724221c16580b67f50996351b7aa5c54421"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/progress.md",
+          "sha256": "f04a5bcaf03723849c3b079eac4bc7d0c76117335b4ed1018ed114b3eed65244"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/entry-schemas.md",
+          "sha256": "7dbeb1ac4ed0d3e4faebd3be32a1f35cb657ca1c64fd08929c65f9db316d219f"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/complete-history.md",
+          "sha256": "5129398de0173f3b508ce60d568c07d03658604ccf133aed855b2d725b1d8829"
         }
       ],
-      "reason": "Projects canonical entry execution and cited backing to the node view.",
+      "reason": "Projects canonical triggers, contracts, failures, grouped effects and cited call, publication and cause links.",
       "role": "consumer",
-      "sourceSha256": "ed570407cee3537f55492520febfa7883524512a7f050977ac3986e19bbf9ed5",
+      "sourceSha256": "9930e220a15afb7f5b118bb3887a6e6f81d049707a13ff1555983cdf307c7a2e",
       "status": "migrated"
     },
     "factBindings": [
@@ -2751,9 +2781,9 @@
     },
     "present": true,
     "reachable": true,
-    "reason": "Projects canonical entry execution and cited backing to the node view.",
+    "reason": "Projects canonical triggers, contracts, failures, grouped effects and cited call, publication and cause links.",
     "role": "consumer",
-    "sourceSha256": "ed570407cee3537f55492520febfa7883524512a7f050977ac3986e19bbf9ed5",
+    "sourceSha256": "9930e220a15afb7f5b118bb3887a6e6f81d049707a13ff1555983cdf307c7a2e",
     "status": "migrated"
   },
   {
@@ -3425,17 +3455,17 @@
       "evidence": [
         {
           "file": "src/application/model-index.ts",
-          "line": 666,
+          "line": 667,
           "text": "export function indexOf(model: WorkspaceModel): ModelIndex {"
         },
         {
           "file": "src/application/model-index.ts",
-          "line": 118,
+          "line": 119,
           "text": "const component = resolveAlias(node.place.component, aliases).id;"
         },
         {
           "file": "src/application/model-index.ts",
-          "line": 119,
+          "line": 120,
           "text": "return component === node.place.component"
         }
       ],
@@ -3452,11 +3482,19 @@
         {
           "file": "artifacts/rebuild/pr8/reader/projection-focused.log",
           "sha256": "8f079127230b83b1686291a4979104e1e392d4cab5d0834215f019806bc7f138"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/verification.md",
+          "sha256": "260fbc2cbd18ee23056a5fc6897cb724221c16580b67f50996351b7aa5c54421"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/progress.md",
+          "sha256": "f04a5bcaf03723849c3b079eac4bc7d0c76117335b4ed1018ed114b3eed65244"
         }
       ],
       "reason": "The active index builds native facts. It reuses the node when placement requires no alias rewrite. All eight Volvo before and after authored and derived hashes and proposed effects match exactly.",
       "role": "consumer",
-      "sourceSha256": "d0d4c937ebb8a71e5e23032bffdf3d8e20ff37c266e79073cb642b90aa39c976",
+      "sourceSha256": "41c8d7eca041d7b3dd4443ec11c6ec2ac32a7c3d51bc0d1a41c0658c30bb3da6",
       "status": "migrated"
     },
     "factBindings": [
@@ -3477,19 +3515,19 @@
         "text": "readonly model: WorkspaceModel;"
       },
       {
-        "line": 73,
+        "line": 74,
         "text": "readonly model: WorkspaceModel;"
       },
       {
-        "line": 110,
+        "line": 111,
         "text": "function createLookup(model: WorkspaceModel): Lookup {"
       },
       {
-        "line": 170,
+        "line": 171,
         "text": "function handlersIn(model: WorkspaceModel): readonly ModelHandler[] {"
       },
       {
-        "line": 666,
+        "line": 667,
         "text": "export function indexOf(model: WorkspaceModel): ModelIndex {"
       }
     ],
@@ -3535,7 +3573,7 @@
     "reachable": true,
     "reason": "The active index builds native facts. It reuses the node when placement requires no alias rewrite. All eight Volvo before and after authored and derived hashes and proposed effects match exactly.",
     "role": "consumer",
-    "sourceSha256": "d0d4c937ebb8a71e5e23032bffdf3d8e20ff37c266e79073cb642b90aa39c976",
+    "sourceSha256": "41c8d7eca041d7b3dd4443ec11c6ec2ac32a7c3d51bc0d1a41c0658c30bb3da6",
     "status": "migrated"
   },
   {
@@ -4270,11 +4308,15 @@
         {
           "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
           "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/progress.md",
+          "sha256": "f04a5bcaf03723849c3b079eac4bc7d0c76117335b4ed1018ed114b3eed65244"
         }
       ],
       "reason": "The active canonical bindings are modelPlanProgressOf, modelProgressRecords. They read, index or present the native records directly.",
       "role": "consumer",
-      "sourceSha256": "70e5669dc4f744005fbe38b8231f1c4da7c6a7d6b077bdd6c025785915d24735",
+      "sourceSha256": "9d5c00b8ceaede0f5eccc647b8aa66732dff53fb10abf9b4e433e9ac6805a3ef",
       "status": "migrated"
     },
     "factBindings": [
@@ -4284,8 +4326,8 @@
     "file": "src/application/model-progress.ts",
     "hits": [
       {
-        "line": 4,
-        "text": "import type { Progress, ProgressEvent } from '@/domain/plan/plan.generated';"
+        "line": 3,
+        "text": "import type { Progress, ProgressEvent } from '@/domain/model/plan.generated';"
       }
     ],
     "legacyDependency": false,
@@ -4296,7 +4338,7 @@
     "reachable": true,
     "reason": "The active canonical bindings are modelPlanProgressOf, modelProgressRecords. They read, index or present the native records directly.",
     "role": "consumer",
-    "sourceSha256": "70e5669dc4f744005fbe38b8231f1c4da7c6a7d6b077bdd6c025785915d24735",
+    "sourceSha256": "9d5c00b8ceaede0f5eccc647b8aa66732dff53fb10abf9b4e433e9ac6805a3ef",
     "status": "migrated"
   },
   {
@@ -4613,11 +4655,15 @@
         {
           "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
           "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/progress.md",
+          "sha256": "f04a5bcaf03723849c3b079eac4bc7d0c76117335b4ed1018ed114b3eed65244"
         }
       ],
       "reason": "The active canonical bindings are modelSystemPlanProgress, modelSystemPlansOf. They read, index or present the native records directly.",
       "role": "consumer",
-      "sourceSha256": "ca239d758c8fa27a31e9fecd54616f7e9fe8086c28bfccc3d8482c1916dd8989",
+      "sourceSha256": "3501f18a78aa5b047f21c3d94a91a24fecebe28903221d3db33b188fc0bd9fca",
       "status": "migrated"
     },
     "factBindings": [
@@ -4628,7 +4674,7 @@
     "hits": [
       {
         "line": 5,
-        "text": "import type { Progress } from '@/domain/plan/plan.generated';"
+        "text": "import type { Progress } from '@/domain/model/plan.generated';"
       },
       {
         "line": 6,
@@ -4643,7 +4689,7 @@
     "reachable": true,
     "reason": "The active canonical bindings are modelSystemPlanProgress, modelSystemPlansOf. They read, index or present the native records directly.",
     "role": "consumer",
-    "sourceSha256": "ca239d758c8fa27a31e9fecd54616f7e9fe8086c28bfccc3d8482c1916dd8989",
+    "sourceSha256": "3501f18a78aa5b047f21c3d94a91a24fecebe28903221d3db33b188fc0bd9fca",
     "status": "migrated"
   },
   {
@@ -6200,382 +6246,6 @@
     "disposition": {
       "evidence": [
         {
-          "file": "src/features/plan/model-plan-page.tsx",
-          "line": 62,
-          "text": "export interface ModelPlanPageProps {"
-        }
-      ],
-      "file": "src/features/plan/plan-pages.tsx",
-      "proofs": [
-        {
-          "file": "artifacts/rebuild/pr8/replaced-legacy-views.log",
-          "sha256": "5bde3557dda9a3d4b9ff470567881cbefd240d59680cd39ae84d8828eb6869ac"
-        },
-        {
-          "file": "artifacts/rebuild/pr8/obsolete-render-wrappers.json",
-          "sha256": "ec337d22e7f3efdf1e27d64155f4ab875a0213e32db6751ccd6a69af2684ebd9"
-        },
-        {
-          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
-          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
-        }
-      ],
-      "reason": "The obsolete render wrapper is absent after its native replacement passed the recorded actual HTTP and focused proof. Its prior whole-source hash is retained in the obsolete-wrapper receipt.",
-      "role": "consumer",
-      "sourceSha256": null,
-      "status": "deleted"
-    },
-    "factBindings": [],
-    "file": "src/features/plan/plan-pages.tsx",
-    "hits": [
-      {
-        "line": 1,
-        "text": "import type { Model } from '@/application/plan/derive';"
-      }
-    ],
-    "legacyDependency": false,
-    "legacyPath": [],
-    "legacyUses": [],
-    "original": {
-      "category": "consumer",
-      "file": "src/features/plan/plan-pages.tsx",
-      "hits": [
-        {
-          "line": 1,
-          "text": "import type { Model } from '@/application/plan/derive';"
-        }
-      ],
-      "status": "adapter"
-    },
-    "present": false,
-    "reachable": false,
-    "reason": "The obsolete render wrapper is absent after its native replacement passed the recorded actual HTTP and focused proof. Its prior whole-source hash is retained in the obsolete-wrapper receipt.",
-    "role": "consumer",
-    "sourceSha256": null,
-    "status": "deleted"
-  },
-  {
-    "activeLegacyPath": [],
-    "category": "consumer",
-    "disposition": {
-      "evidence": [
-        {
-          "file": "src/features/plan/plan-frame.tsx",
-          "line": 28,
-          "text": "export function PlanFrame({"
-        }
-      ],
-      "file": "src/features/plan/plan-shell.tsx",
-      "proofs": [
-        {
-          "file": "artifacts/rebuild/pr8/replaced-legacy-views.log",
-          "sha256": "5bde3557dda9a3d4b9ff470567881cbefd240d59680cd39ae84d8828eb6869ac"
-        },
-        {
-          "file": "artifacts/rebuild/pr8/obsolete-render-wrappers.json",
-          "sha256": "ec337d22e7f3efdf1e27d64155f4ab875a0213e32db6751ccd6a69af2684ebd9"
-        },
-        {
-          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
-          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
-        }
-      ],
-      "reason": "The obsolete render wrapper is absent after its native replacement passed the recorded actual HTTP and focused proof. Its prior whole-source hash is retained in the obsolete-wrapper receipt.",
-      "role": "consumer",
-      "sourceSha256": null,
-      "status": "deleted"
-    },
-    "factBindings": [],
-    "file": "src/features/plan/plan-shell.tsx",
-    "hits": [
-      {
-        "line": 3,
-        "text": "import type { Model } from '@/application/plan/derive';"
-      }
-    ],
-    "legacyDependency": false,
-    "legacyPath": [],
-    "legacyUses": [],
-    "original": {
-      "category": "consumer",
-      "file": "src/features/plan/plan-shell.tsx",
-      "hits": [
-        {
-          "line": 3,
-          "text": "import type { Model } from '@/application/plan/derive';"
-        }
-      ],
-      "status": "adapter"
-    },
-    "present": false,
-    "reachable": false,
-    "reason": "The obsolete render wrapper is absent after its native replacement passed the recorded actual HTTP and focused proof. Its prior whole-source hash is retained in the obsolete-wrapper receipt.",
-    "role": "consumer",
-    "sourceSha256": null,
-    "status": "deleted"
-  },
-  {
-    "activeLegacyPath": [],
-    "category": "consumer",
-    "disposition": {
-      "evidence": [
-        {
-          "file": "src/features/plan/model-plan-page.tsx",
-          "line": 62,
-          "text": "export interface ModelPlanPageProps {"
-        }
-      ],
-      "file": "src/features/plan/remember/remember.tsx",
-      "proofs": [
-        {
-          "file": "artifacts/rebuild/pr8/replaced-legacy-views.log",
-          "sha256": "5bde3557dda9a3d4b9ff470567881cbefd240d59680cd39ae84d8828eb6869ac"
-        },
-        {
-          "file": "artifacts/rebuild/pr8/obsolete-render-wrappers.json",
-          "sha256": "ec337d22e7f3efdf1e27d64155f4ab875a0213e32db6751ccd6a69af2684ebd9"
-        },
-        {
-          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
-          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
-        }
-      ],
-      "reason": "The obsolete render wrapper is absent after its native replacement passed the recorded actual HTTP and focused proof. Its prior whole-source hash is retained in the obsolete-wrapper receipt.",
-      "role": "consumer",
-      "sourceSha256": null,
-      "status": "deleted"
-    },
-    "factBindings": [],
-    "file": "src/features/plan/remember/remember.tsx",
-    "hits": [
-      {
-        "line": 1,
-        "text": "import type { Model } from '@/application/plan/derive';"
-      }
-    ],
-    "legacyDependency": false,
-    "legacyPath": [],
-    "legacyUses": [],
-    "original": {
-      "category": "consumer",
-      "file": "src/features/plan/remember/remember.tsx",
-      "hits": [
-        {
-          "line": 1,
-          "text": "import type { Model } from '@/application/plan/derive';"
-        }
-      ],
-      "status": "adapter"
-    },
-    "present": false,
-    "reachable": false,
-    "reason": "The obsolete render wrapper is absent after its native replacement passed the recorded actual HTTP and focused proof. Its prior whole-source hash is retained in the obsolete-wrapper receipt.",
-    "role": "consumer",
-    "sourceSha256": null,
-    "status": "deleted"
-  },
-  {
-    "activeLegacyPath": [],
-    "category": "consumer",
-    "disposition": {
-      "evidence": [
-        {
-          "file": "src/features/plan/model-plan-page.tsx",
-          "line": 62,
-          "text": "export interface ModelPlanPageProps {"
-        }
-      ],
-      "file": "src/features/plan/thing-page/thing-page.tsx",
-      "proofs": [
-        {
-          "file": "artifacts/rebuild/pr8/replaced-legacy-views.log",
-          "sha256": "5bde3557dda9a3d4b9ff470567881cbefd240d59680cd39ae84d8828eb6869ac"
-        },
-        {
-          "file": "artifacts/rebuild/pr8/obsolete-render-wrappers.json",
-          "sha256": "ec337d22e7f3efdf1e27d64155f4ab875a0213e32db6751ccd6a69af2684ebd9"
-        },
-        {
-          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
-          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
-        }
-      ],
-      "reason": "The obsolete render wrapper is absent after its native replacement passed the recorded actual HTTP and focused proof. Its prior whole-source hash is retained in the obsolete-wrapper receipt.",
-      "role": "consumer",
-      "sourceSha256": null,
-      "status": "deleted"
-    },
-    "factBindings": [],
-    "file": "src/features/plan/thing-page/thing-page.tsx",
-    "hits": [
-      {
-        "line": 1,
-        "text": "import type { Model } from '@/application/plan/derive';"
-      }
-    ],
-    "legacyDependency": false,
-    "legacyPath": [],
-    "legacyUses": [],
-    "original": {
-      "category": "consumer",
-      "file": "src/features/plan/thing-page/thing-page.tsx",
-      "hits": [
-        {
-          "line": 1,
-          "text": "import type { Model } from '@/application/plan/derive';"
-        }
-      ],
-      "status": "adapter"
-    },
-    "present": false,
-    "reachable": false,
-    "reason": "The obsolete render wrapper is absent after its native replacement passed the recorded actual HTTP and focused proof. Its prior whole-source hash is retained in the obsolete-wrapper receipt.",
-    "role": "consumer",
-    "sourceSha256": null,
-    "status": "deleted"
-  },
-  {
-    "activeLegacyPath": [],
-    "category": "consumer",
-    "disposition": {
-      "evidence": [
-        {
-          "file": "src/features/plan/today/model-today-thing.tsx",
-          "line": 20,
-          "text": "export function ModelTodayThing({"
-        }
-      ],
-      "file": "src/features/plan/today/handler-story.tsx",
-      "proofs": [
-        {
-          "file": "artifacts/rebuild/pr8/replaced-legacy-views.log",
-          "sha256": "5bde3557dda9a3d4b9ff470567881cbefd240d59680cd39ae84d8828eb6869ac"
-        },
-        {
-          "file": "artifacts/rebuild/pr8/obsolete-render-wrappers.json",
-          "sha256": "ec337d22e7f3efdf1e27d64155f4ab875a0213e32db6751ccd6a69af2684ebd9"
-        },
-        {
-          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
-          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
-        }
-      ],
-      "reason": "The obsolete render wrapper is absent after its native replacement passed the recorded actual HTTP and focused proof. Its prior whole-source hash is retained in the obsolete-wrapper receipt.",
-      "role": "consumer",
-      "sourceSha256": null,
-      "status": "deleted"
-    },
-    "factBindings": [],
-    "file": "src/features/plan/today/handler-story.tsx",
-    "hits": [
-      {
-        "line": 1,
-        "text": "import type { Model } from '@/application/plan/derive';"
-      },
-      {
-        "line": 153,
-        "text": "api: 'What happens when it is called',"
-      },
-      {
-        "line": 154,
-        "text": "msg: 'What happens when it arrives',"
-      }
-    ],
-    "legacyDependency": false,
-    "legacyPath": [],
-    "legacyUses": [],
-    "original": {
-      "category": "consumer",
-      "file": "src/features/plan/today/handler-story.tsx",
-      "hits": [
-        {
-          "line": 1,
-          "text": "import type { Model } from '@/application/plan/derive';"
-        },
-        {
-          "line": 153,
-          "text": "api: 'What happens when it is called',"
-        },
-        {
-          "line": 154,
-          "text": "msg: 'What happens when it arrives',"
-        }
-      ],
-      "status": "adapter"
-    },
-    "present": false,
-    "reachable": false,
-    "reason": "The obsolete render wrapper is absent after its native replacement passed the recorded actual HTTP and focused proof. Its prior whole-source hash is retained in the obsolete-wrapper receipt.",
-    "role": "consumer",
-    "sourceSha256": null,
-    "status": "deleted"
-  },
-  {
-    "activeLegacyPath": [],
-    "category": "consumer",
-    "disposition": {
-      "evidence": [
-        {
-          "file": "src/features/plan/today/model-journey.tsx",
-          "line": 11,
-          "text": "export function ModelJourney({"
-        }
-      ],
-      "file": "src/features/plan/today/journey-walk.tsx",
-      "proofs": [
-        {
-          "file": "artifacts/rebuild/pr8/replaced-legacy-views.log",
-          "sha256": "5bde3557dda9a3d4b9ff470567881cbefd240d59680cd39ae84d8828eb6869ac"
-        },
-        {
-          "file": "artifacts/rebuild/pr8/obsolete-render-wrappers.json",
-          "sha256": "ec337d22e7f3efdf1e27d64155f4ab875a0213e32db6751ccd6a69af2684ebd9"
-        },
-        {
-          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
-          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
-        }
-      ],
-      "reason": "The obsolete render wrapper is absent after its native replacement passed the recorded actual HTTP and focused proof. Its prior whole-source hash is retained in the obsolete-wrapper receipt.",
-      "role": "consumer",
-      "sourceSha256": null,
-      "status": "deleted"
-    },
-    "factBindings": [],
-    "file": "src/features/plan/today/journey-walk.tsx",
-    "hits": [
-      {
-        "line": 1,
-        "text": "import type { Model } from '@/application/plan/derive';"
-      }
-    ],
-    "legacyDependency": false,
-    "legacyPath": [],
-    "legacyUses": [],
-    "original": {
-      "category": "consumer",
-      "file": "src/features/plan/today/journey-walk.tsx",
-      "hits": [
-        {
-          "line": 1,
-          "text": "import type { Model } from '@/application/plan/derive';"
-        }
-      ],
-      "status": "adapter"
-    },
-    "present": false,
-    "reachable": false,
-    "reason": "The obsolete render wrapper is absent after its native replacement passed the recorded actual HTTP and focused proof. Its prior whole-source hash is retained in the obsolete-wrapper receipt.",
-    "role": "consumer",
-    "sourceSha256": null,
-    "status": "deleted"
-  },
-  {
-    "activeLegacyPath": [],
-    "category": "consumer",
-    "disposition": {
-      "evidence": [
-        {
           "file": "src/features/plan/today/model-journey.tsx",
           "line": 11,
           "text": "export function ModelJourney({"
@@ -6675,7 +6345,7 @@
       "evidence": [
         {
           "file": "src/features/plan/today/model-today-thing.tsx",
-          "line": 20,
+          "line": 21,
           "text": "export function ModelTodayThing({"
         }
       ],
@@ -6692,11 +6362,15 @@
         {
           "file": "artifacts/rebuild/pr8/release/hook-fixes-focused.log",
           "sha256": "76c69e8c5dd6d7d3ef2570d18d75f2dac3964ef533d1043aaa742d628186d642"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/archive-reader.md",
+          "sha256": "08599d94feabfb08f5a8302a78792588ed74dbf8b5666334aa8aad259af05a82"
         }
       ],
       "reason": "Renders the selected current canonical thing from its bounded native record.",
       "role": "consumer",
-      "sourceSha256": "3b7ea9ded462b83b9747ef5ac56b0ebe336655fc36a7bea30f746bf611fb5f26",
+      "sourceSha256": "65b20db1dff9c112987989219ba6e347250e6271ed82f81c643c3b50e755cb84",
       "status": "migrated"
     },
     "factBindings": [
@@ -6712,7 +6386,7 @@
     "reachable": true,
     "reason": "Renders the selected current canonical thing from its bounded native record.",
     "role": "consumer",
-    "sourceSha256": "3b7ea9ded462b83b9747ef5ac56b0ebe336655fc36a7bea30f746bf611fb5f26",
+    "sourceSha256": "65b20db1dff9c112987989219ba6e347250e6271ed82f81c643c3b50e755cb84",
     "status": "migrated"
   },
   {
@@ -6792,262 +6466,6 @@
     "disposition": {
       "evidence": [
         {
-          "file": "src/features/plan/today/model-today-thing.tsx",
-          "line": 20,
-          "text": "export function ModelTodayThing({"
-        }
-      ],
-      "file": "src/features/plan/today/store-contents.tsx",
-      "proofs": [
-        {
-          "file": "artifacts/rebuild/pr8/replaced-legacy-views.log",
-          "sha256": "5bde3557dda9a3d4b9ff470567881cbefd240d59680cd39ae84d8828eb6869ac"
-        },
-        {
-          "file": "artifacts/rebuild/pr8/obsolete-render-wrappers.json",
-          "sha256": "ec337d22e7f3efdf1e27d64155f4ab875a0213e32db6751ccd6a69af2684ebd9"
-        },
-        {
-          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
-          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
-        }
-      ],
-      "reason": "The obsolete render wrapper is absent after its native replacement passed the recorded actual HTTP and focused proof. Its prior whole-source hash is retained in the obsolete-wrapper receipt.",
-      "role": "consumer",
-      "sourceSha256": null,
-      "status": "deleted"
-    },
-    "factBindings": [],
-    "file": "src/features/plan/today/store-contents.tsx",
-    "hits": [
-      {
-        "line": 3,
-        "text": "import type { Model } from '@/application/plan/derive';"
-      }
-    ],
-    "legacyDependency": false,
-    "legacyPath": [],
-    "legacyUses": [],
-    "original": {
-      "category": "consumer",
-      "file": "src/features/plan/today/store-contents.tsx",
-      "hits": [
-        {
-          "line": 3,
-          "text": "import type { Model } from '@/application/plan/derive';"
-        }
-      ],
-      "status": "adapter"
-    },
-    "present": false,
-    "reachable": false,
-    "reason": "The obsolete render wrapper is absent after its native replacement passed the recorded actual HTTP and focused proof. Its prior whole-source hash is retained in the obsolete-wrapper receipt.",
-    "role": "consumer",
-    "sourceSha256": null,
-    "status": "deleted"
-  },
-  {
-    "activeLegacyPath": [],
-    "category": "consumer",
-    "disposition": {
-      "evidence": [
-        {
-          "file": "src/features/plan/today/model-today-thing.tsx",
-          "line": 20,
-          "text": "export function ModelTodayThing({"
-        }
-      ],
-      "file": "src/features/plan/today/thing-inside.tsx",
-      "proofs": [
-        {
-          "file": "artifacts/rebuild/pr8/replaced-legacy-views.log",
-          "sha256": "5bde3557dda9a3d4b9ff470567881cbefd240d59680cd39ae84d8828eb6869ac"
-        },
-        {
-          "file": "artifacts/rebuild/pr8/obsolete-render-wrappers.json",
-          "sha256": "ec337d22e7f3efdf1e27d64155f4ab875a0213e32db6751ccd6a69af2684ebd9"
-        },
-        {
-          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
-          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
-        }
-      ],
-      "reason": "The obsolete render wrapper is absent after its native replacement passed the recorded actual HTTP and focused proof. Its prior whole-source hash is retained in the obsolete-wrapper receipt.",
-      "role": "consumer",
-      "sourceSha256": null,
-      "status": "deleted"
-    },
-    "factBindings": [],
-    "file": "src/features/plan/today/thing-inside.tsx",
-    "hits": [
-      {
-        "line": 1,
-        "text": "import type { Model } from '@/application/plan/derive';"
-      }
-    ],
-    "legacyDependency": false,
-    "legacyPath": [],
-    "legacyUses": [],
-    "original": {
-      "category": "consumer",
-      "file": "src/features/plan/today/thing-inside.tsx",
-      "hits": [
-        {
-          "line": 1,
-          "text": "import type { Model } from '@/application/plan/derive';"
-        }
-      ],
-      "status": "adapter"
-    },
-    "present": false,
-    "reachable": false,
-    "reason": "The obsolete render wrapper is absent after its native replacement passed the recorded actual HTTP and focused proof. Its prior whole-source hash is retained in the obsolete-wrapper receipt.",
-    "role": "consumer",
-    "sourceSha256": null,
-    "status": "deleted"
-  },
-  {
-    "activeLegacyPath": [],
-    "category": "consumer",
-    "disposition": {
-      "evidence": [
-        {
-          "file": "src/features/plan/today/model-today-thing.tsx",
-          "line": 20,
-          "text": "export function ModelTodayThing({"
-        }
-      ],
-      "file": "src/features/plan/today/today-evidence.tsx",
-      "proofs": [
-        {
-          "file": "artifacts/rebuild/pr8/replaced-legacy-views.log",
-          "sha256": "5bde3557dda9a3d4b9ff470567881cbefd240d59680cd39ae84d8828eb6869ac"
-        },
-        {
-          "file": "artifacts/rebuild/pr8/obsolete-render-wrappers.json",
-          "sha256": "ec337d22e7f3efdf1e27d64155f4ab875a0213e32db6751ccd6a69af2684ebd9"
-        },
-        {
-          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
-          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
-        }
-      ],
-      "reason": "The obsolete render wrapper is absent after its native replacement passed the recorded actual HTTP and focused proof. Its prior whole-source hash is retained in the obsolete-wrapper receipt.",
-      "role": "consumer",
-      "sourceSha256": null,
-      "status": "deleted"
-    },
-    "factBindings": [],
-    "file": "src/features/plan/today/today-evidence.tsx",
-    "hits": [
-      {
-        "line": 1,
-        "text": "import type { Model } from '@/application/plan/derive';"
-      }
-    ],
-    "legacyDependency": false,
-    "legacyPath": [],
-    "legacyUses": [],
-    "original": {
-      "category": "consumer",
-      "file": "src/features/plan/today/today-evidence.tsx",
-      "hits": [
-        {
-          "line": 1,
-          "text": "import type { Model } from '@/application/plan/derive';"
-        }
-      ],
-      "status": "adapter"
-    },
-    "present": false,
-    "reachable": false,
-    "reason": "The obsolete render wrapper is absent after its native replacement passed the recorded actual HTTP and focused proof. Its prior whole-source hash is retained in the obsolete-wrapper receipt.",
-    "role": "consumer",
-    "sourceSha256": null,
-    "status": "deleted"
-  },
-  {
-    "activeLegacyPath": [],
-    "category": "consumer",
-    "disposition": {
-      "evidence": [
-        {
-          "file": "src/features/plan/viz/system-map/system-map.client.tsx",
-          "line": 80,
-          "text": "export function SystemMapView({ input, packed, outside }: SystemMapViewProps) {"
-        }
-      ],
-      "file": "src/features/plan/today/today-map.tsx",
-      "proofs": [
-        {
-          "file": "artifacts/rebuild/pr8/replaced-legacy-views.log",
-          "sha256": "5bde3557dda9a3d4b9ff470567881cbefd240d59680cd39ae84d8828eb6869ac"
-        },
-        {
-          "file": "artifacts/rebuild/pr8/obsolete-render-wrappers.json",
-          "sha256": "ec337d22e7f3efdf1e27d64155f4ab875a0213e32db6751ccd6a69af2684ebd9"
-        },
-        {
-          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
-          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
-        }
-      ],
-      "reason": "The obsolete render wrapper is absent after its native replacement passed the recorded actual HTTP and focused proof. Its prior whole-source hash is retained in the obsolete-wrapper receipt.",
-      "role": "consumer",
-      "sourceSha256": null,
-      "status": "deleted"
-    },
-    "factBindings": [],
-    "file": "src/features/plan/today/today-map.tsx",
-    "hits": [
-      {
-        "line": 2,
-        "text": "import type { Model } from '@/application/plan/derive';"
-      },
-      {
-        "line": 8,
-        "text": "import type { Workspace } from '@/domain/workspace';"
-      },
-      {
-        "line": 16,
-        "text": "readonly workspace: Workspace;"
-      }
-    ],
-    "legacyDependency": false,
-    "legacyPath": [],
-    "legacyUses": [],
-    "original": {
-      "category": "consumer",
-      "file": "src/features/plan/today/today-map.tsx",
-      "hits": [
-        {
-          "line": 2,
-          "text": "import type { Model } from '@/application/plan/derive';"
-        },
-        {
-          "line": 8,
-          "text": "import type { Workspace } from '@/domain/workspace';"
-        },
-        {
-          "line": 16,
-          "text": "readonly workspace: Workspace;"
-        }
-      ],
-      "status": "adapter"
-    },
-    "present": false,
-    "reachable": false,
-    "reason": "The obsolete render wrapper is absent after its native replacement passed the recorded actual HTTP and focused proof. Its prior whole-source hash is retained in the obsolete-wrapper receipt.",
-    "role": "consumer",
-    "sourceSha256": null,
-    "status": "deleted"
-  },
-  {
-    "activeLegacyPath": [],
-    "category": "consumer",
-    "disposition": {
-      "evidence": [
-        {
           "file": "src/features/plan/today/today-overlays.tsx",
           "line": 53,
           "text": "export function ModelTodayOverlays({"
@@ -7108,74 +6526,6 @@
     "role": "consumer",
     "sourceSha256": "56a84a122edd4085922c6b3c0bf499c319c4fd7ee05f0937f168a56025de154e",
     "status": "migrated"
-  },
-  {
-    "activeLegacyPath": [],
-    "category": "consumer",
-    "disposition": {
-      "evidence": [
-        {
-          "file": "src/features/plan/today/model-today-thing.tsx",
-          "line": 20,
-          "text": "export function ModelTodayThing({"
-        }
-      ],
-      "file": "src/features/plan/today/today-wayfinding.tsx",
-      "proofs": [
-        {
-          "file": "artifacts/rebuild/pr8/replaced-legacy-views.log",
-          "sha256": "5bde3557dda9a3d4b9ff470567881cbefd240d59680cd39ae84d8828eb6869ac"
-        },
-        {
-          "file": "artifacts/rebuild/pr8/obsolete-render-wrappers.json",
-          "sha256": "ec337d22e7f3efdf1e27d64155f4ab875a0213e32db6751ccd6a69af2684ebd9"
-        },
-        {
-          "file": "artifacts/rebuild/pr8/inventory-final-binding-audit.json",
-          "sha256": "0501cd04e252bb24cffdde02443a6bfc0507982467c91f9c91c69404ccdd5841"
-        }
-      ],
-      "reason": "The obsolete render wrapper is absent after its native replacement passed the recorded actual HTTP and focused proof. Its prior whole-source hash is retained in the obsolete-wrapper receipt.",
-      "role": "consumer",
-      "sourceSha256": null,
-      "status": "deleted"
-    },
-    "factBindings": [],
-    "file": "src/features/plan/today/today-wayfinding.tsx",
-    "hits": [
-      {
-        "line": 6,
-        "text": "import type { Workspace } from '@/domain/workspace';"
-      },
-      {
-        "line": 35,
-        "text": "readonly workspaceId: Workspace['id'];"
-      }
-    ],
-    "legacyDependency": false,
-    "legacyPath": [],
-    "legacyUses": [],
-    "original": {
-      "category": "consumer",
-      "file": "src/features/plan/today/today-wayfinding.tsx",
-      "hits": [
-        {
-          "line": 6,
-          "text": "import type { Workspace } from '@/domain/workspace';"
-        },
-        {
-          "line": 35,
-          "text": "readonly workspaceId: Workspace['id'];"
-        }
-      ],
-      "status": "adapter"
-    },
-    "present": false,
-    "reachable": false,
-    "reason": "The obsolete render wrapper is absent after its native replacement passed the recorded actual HTTP and focused proof. Its prior whole-source hash is retained in the obsolete-wrapper receipt.",
-    "role": "consumer",
-    "sourceSha256": null,
-    "status": "deleted"
   },
   {
     "activeLegacyPath": [],
@@ -8320,11 +7670,19 @@
       "proofs": [
         {
           "file": "src/infrastructure/workspace-library.test.ts",
-          "sha256": "4d010d3641573954a6ec9f71ddbfaf6971dd91c47590e84447837f808836aabd"
+          "sha256": "5fb06b9c852542ace7468cb7493cfbec62331ea175ae9260c896d5c30ef3dbe2"
         },
         {
           "file": "artifacts/rebuild/pr8/inventory-supplement-binding-audit.json",
           "sha256": "15666d9616313d70b2bf439a2a41d2411cf34d5e497881a7be20936296ad95ff"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/verification.md",
+          "sha256": "260fbc2cbd18ee23056a5fc6897cb724221c16580b67f50996351b7aa5c54421"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/progress.md",
+          "sha256": "f04a5bcaf03723849c3b079eac4bc7d0c76117335b4ed1018ed114b3eed65244"
         }
       ],
       "reason": "Reads registry metadata and canonical workspace counts for the library.",
@@ -8760,11 +8118,15 @@
         {
           "file": "artifacts/rebuild/pr8/native-reader-binding-audit.json",
           "sha256": "3e3daea571e37eb90e1d3b6d892504f9e9fd199f9bfa33cd71c15f0e1774b524"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/progress.md",
+          "sha256": "f04a5bcaf03723849c3b079eac4bc7d0c76117335b4ed1018ed114b3eed65244"
         }
       ],
       "reason": "The ordinary progress command reports native standing and preserves independent append-only records.",
       "role": "consumer",
-      "sourceSha256": "a60d8d654cef45cb2c2dad1c9a33ea782abf7ca2878ec272dbfc87d8c4a457d8",
+      "sourceSha256": "68ac798d966a9b74a58e4409b2c70e43e687495168339d3e3f827734a467bd38",
       "status": "migrated"
     },
     "factBindings": [],
@@ -8772,11 +8134,11 @@
     "hits": [
       {
         "line": 29,
-        "text": "import type { Progress, ProgressEvent } from '@/domain/plan/plan.generated';"
+        "text": "import type { Progress, ProgressEvent } from '@/domain/model/plan.generated';"
       },
       {
         "line": 33,
-        "text": "import { planDef, defProblems } from '@/infrastructure/plan-schema';"
+        "text": "import { defProblems } from '@/infrastructure/plan-schema-errors';"
       },
       {
         "line": 35,
@@ -8825,7 +8187,7 @@
     "reachable": true,
     "reason": "The ordinary progress command reports native standing and preserves independent append-only records.",
     "role": "consumer",
-    "sourceSha256": "a60d8d654cef45cb2c2dad1c9a33ea782abf7ca2878ec272dbfc87d8c4a457d8",
+    "sourceSha256": "68ac798d966a9b74a58e4409b2c70e43e687495168339d3e3f827734a467bd38",
     "status": "migrated"
   },
   {
@@ -9289,8 +8651,8 @@
       "evidence": [
         {
           "file": "tools/rebuild/facts.ts",
-          "line": 8,
-          "text": "export async function captureFacts(workspaceId: string, out: string): Promise<readonly string[]> {"
+          "line": 12,
+          "text": "return writeModelFacts(out, index, undefined, { historicalScopes: scopes });"
         }
       ],
       "file": "tools/rebuild/facts.ts",
@@ -9298,27 +8660,22 @@
         {
           "file": "artifacts/rebuild/pr8/capture-native-reader-proof.json",
           "sha256": "618ad5fba079bed34480d637b59dd0a616047d63818d2dbecf95fdf00c0f6e57"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/complete-history.md",
+          "sha256": "5129398de0173f3b508ce60d568c07d03658604ccf133aed855b2d725b1d8829"
         }
       ],
-      "reason": "The ordinary command reaches canonical current and selected native plan readers; completed native captures and focused captured-budget checks pin execution. Final comparison and budget outcomes remain separate mandatory gates.",
+      "reason": "Captures canonical facts through the same reader and records historical scopes separately.",
       "role": "consumer",
-      "sourceSha256": "4b5a46c800a57bedf84eaa14802215035ed040e6cf2c4b488519f0520fb78c85",
+      "sourceSha256": "27da82ab727ed2d8a89fc05c359dfc4585355ead018d80ab53ac7d9e4b7bff83",
       "status": "migrated"
     },
     "factBindings": [
       "captureFacts"
     ],
     "file": "tools/rebuild/facts.ts",
-    "hits": [
-      {
-        "line": 3,
-        "text": "import { readExplorerCatalogue } from '@/infrastructure/service-explorer-catalogue';"
-      },
-      {
-        "line": 4,
-        "text": "import { readExplorerManifest } from '@/infrastructure/service-explorer-files';"
-      }
-    ],
+    "hits": [],
     "legacyDependency": false,
     "legacyPath": [],
     "legacyUses": [],
@@ -9375,9 +8732,9 @@
     },
     "present": true,
     "reachable": true,
-    "reason": "The ordinary command reaches canonical current and selected native plan readers; completed native captures and focused captured-budget checks pin execution. Final comparison and budget outcomes remain separate mandatory gates.",
+    "reason": "Captures canonical facts through the same reader and records historical scopes separately.",
     "role": "consumer",
-    "sourceSha256": "4b5a46c800a57bedf84eaa14802215035ed040e6cf2c4b488519f0520fb78c85",
+    "sourceSha256": "27da82ab727ed2d8a89fc05c359dfc4585355ead018d80ab53ac7d9e4b7bff83",
     "status": "migrated"
   },
   {
@@ -9465,7 +8822,7 @@
       "proofs": [
         {
           "file": "tools/rebuild/model-routes.test.ts",
-          "sha256": "921496af1370be7e7467ea96a44c5d954312005bde6547084847da9d79c62759"
+          "sha256": "9db584f8dbb395a4211aa849851c8db787da4bca94d9acf434387a4c6caa5352"
         },
         {
           "file": "artifacts/rebuild/pr8/native-plan-routes-volvo.json",
@@ -9602,18 +8959,8 @@
       "evidence": [
         {
           "file": "tools/sources-model.ts",
-          "line": 56,
+          "line": 88,
           "text": "const index = indexOf(await readModelFolder(folder, id));"
-        },
-        {
-          "file": "tools/sources-model.ts",
-          "line": 28,
-          "text": "const cites = index.cites(id);"
-        },
-        {
-          "file": "tools/native-cli.test.ts",
-          "line": 78,
-          "text": "it('filters by repository while preserving evidence ids and qualified step spans', () => {"
         }
       ],
       "file": "tools/sources-model.ts",
@@ -9621,18 +8968,22 @@
         {
           "file": "artifacts/rebuild/pr8/sources-cli.md",
           "sha256": "ba7ac281e6e74ae50f23fb450e12cb740c550c8f5b6a22b17f9644ca5d1a999b"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/scan-history.md",
+          "sha256": "9b1d83cbf9f36ac7c227b802c7642990938d1e73391628b041bfec5671df288d"
         }
       ],
-      "reason": "Reads consolidated source evidence through the canonical index and code citation resolver.",
+      "reason": "The unchanged source index and source-gap outputs use the consolidated model. Pinned remote verification remains available.",
       "role": "consumer",
-      "sourceSha256": "f8137cbadde5334626448c1b111fbdf52a41f1a41ad8a7c7d850791a4c9b9c2a",
+      "sourceSha256": "47744524fa028f0efed0f5cfb9ab304818ab9bcecfa0261a0014954bfa4f31f2",
       "status": "migrated"
     },
     "factBindings": [],
     "file": "tools/sources-model.ts",
     "hits": [
       {
-        "line": 4,
+        "line": 7,
         "text": "import type { ModelCite, ModelGap } from '@/domain/workspace-model';"
       }
     ],
@@ -9642,9 +8993,9 @@
     "original": null,
     "present": true,
     "reachable": true,
-    "reason": "Reads consolidated source evidence through the canonical index and code citation resolver.",
+    "reason": "The unchanged source index and source-gap outputs use the consolidated model. Pinned remote verification remains available.",
     "role": "consumer",
-    "sourceSha256": "f8137cbadde5334626448c1b111fbdf52a41f1a41ad8a7c7d850791a4c9b9c2a",
+    "sourceSha256": "47744524fa028f0efed0f5cfb9ab304818ab9bcecfa0261a0014954bfa4f31f2",
     "status": "migrated"
   },
   {
@@ -9654,28 +9005,8 @@
       "evidence": [
         {
           "file": "tools/sources.ts",
-          "line": 350,
+          "line": 58,
           "text": "const id = await nativeId(folder);"
-        },
-        {
-          "file": "tools/sources.ts",
-          "line": 329,
-          "text": "path.join(tools, 'sources-model.ts'),"
-        },
-        {
-          "file": "tools/scan-diff.ts",
-          "line": 220,
-          "text": "[path.join(import.meta.dirname, 'sources.ts'), workspace, '--index', '--repo', repo],"
-        },
-        {
-          "file": "tools/scan-mark.ts",
-          "line": 88,
-          "text": "[path.join(import.meta.dirname, 'sources.ts'), workspace, '--index', '--repo', repo],"
-        },
-        {
-          "file": ".agents/skills/groundwork-review/SKILL.md",
-          "line": 23,
-          "text": "npm run map -- show <id> --workspace <ws>     # the model record, its cited code and evidence gaps"
         }
       ],
       "file": "tools/sources.ts",
@@ -9683,20 +9014,26 @@
         {
           "file": "artifacts/rebuild/pr8/sources-cli.md",
           "sha256": "ba7ac281e6e74ae50f23fb450e12cb740c550c8f5b6a22b17f9644ca5d1a999b"
+        },
+        {
+          "file": "artifacts/rebuild/pr10/scan-history.md",
+          "sha256": "9b1d83cbf9f36ac7c227b802c7642990938d1e73391628b041bfec5671df288d"
         }
       ],
-      "reason": "The direct source checker selects the canonical reader for format 2. The format-1 verification branch remains for the PR 9 scan-mark workflow.",
+      "reason": "The public source command keeps the verified native output and directs format-1 inputs to historical replay.",
       "role": "consumer",
-      "sourceSha256": "a86c99cda2f63740d7fb2f16db9323f6f75063b1c81f1352df2f21e0a8f9ae4d",
+      "sourceSha256": "088c4ecd3fad21cbfa8d11ccf03c5310722aee2d7ca13f8319261224e81af99b",
       "status": "migrated"
     },
-    "factBindings": [
-      "unreachable"
-    ],
+    "factBindings": [],
     "file": "tools/sources.ts",
     "hits": [
       {
-        "line": 48,
+        "line": 4,
+        "text": "// A fact is any object with an `id` in a system's system.yaml, contracts.yaml or handlers.yaml, or in flows/ and"
+      },
+      {
+        "line": 49,
         "text": "const GENERATED = new Set(['contracts.yaml', 'handlers.yaml']);"
       }
     ],
@@ -9720,9 +9057,9 @@
     },
     "present": true,
     "reachable": true,
-    "reason": "The direct source checker selects the canonical reader for format 2. The format-1 verification branch remains for the PR 9 scan-mark workflow.",
+    "reason": "The public source command keeps the verified native output and directs format-1 inputs to historical replay.",
     "role": "consumer",
-    "sourceSha256": "a86c99cda2f63740d7fb2f16db9323f6f75063b1c81f1352df2f21e0a8f9ae4d",
+    "sourceSha256": "088c4ecd3fad21cbfa8d11ccf03c5310722aee2d7ca13f8319261224e81af99b",
     "status": "migrated"
   },
   {

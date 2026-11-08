@@ -2,7 +2,7 @@ import type { ModelIndex } from '@/application/model-index';
 import { modelPlanFootprintOf } from '@/application/model-plan-footprint';
 import { latestEvent } from '@/application/plan/progress';
 import { planHref } from '@/application/plan-navigation';
-import type { Progress } from '@/domain/plan/plan.generated';
+import type { Progress } from '@/domain/model/plan.generated';
 import type { ModelGap, ModelPlan } from '@/domain/workspace-model';
 import { plural } from '@/shared/text';
 

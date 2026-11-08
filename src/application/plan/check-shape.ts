@@ -41,7 +41,7 @@ export function checkShapes(ctx: CheckContext, rep: Report, shape: ShapeCheck): 
       const change = rec?.props.find((p) => p.prop === problem.prop)?.change;
       if (rec === undefined || change === undefined || problem.prop === undefined) continue;
       const message = problem.unknownProp
-        ? `${problem.prop} is not a property of a ${node.$type}; use one of its real props (see the ${node.$type} entry in schema/legacy-plan.schema.json)`
+        ? `${problem.prop} is not a property of a ${node.$type}; use one of its real props (see the ${node.$type} entry in test/fixtures/legacy-plan.schema.json)`
         : problem.message;
       rep.error([...rec.path, change, problem.prop, ...problem.tail], message);
     }

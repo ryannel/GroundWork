@@ -212,8 +212,10 @@ export const isQualifiedId = (id: string): boolean => id.includes(':');
 export const hasChildPath = (id: unknown): id is `${string}#${string}` =>
   typeof id === 'string' && id.includes('#');
 
+/** Page slugs reserved beside the workspace routes. */
+export const RESERVED_WORKSPACES: readonly string[] = ['design'];
+
 export const workspaceIdPattern = /^[a-z0-9][a-z0-9:-]*$/u;
-export const keyTermIdPattern = /^term:[a-z0-9-]+$/u;
 export const isAuthoredReference = (id: string): boolean => /^[a-z]+:[\w.#-]+$/u.test(id);
 export const isDisplayId = (id: string): boolean => /^[a-z]+:[a-z0-9-]+(?:#[a-z0-9-]+)?$/u.test(id);
 export const startsWithId = (id: string): boolean => /^[a-z]+:[a-z0-9]/u.test(id);

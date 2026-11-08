@@ -1,9 +1,12 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
+import { archiveHref } from '@/application/interpretation-archive';
+import type { ModelIndex } from '@/application/model-index';
 import { tokenToId } from '@/domain/ids';
 import { ModelTodayThing, ModelTodayOverlays, TodaySearch } from '@/features/plan';
 import { WorkspaceShell } from '@/features/workspace';
+import { readArchive } from '@/infrastructure/interpretation-archive';
 import { readCanonicalModelIndex } from '@/infrastructure/model-index';
 import { readModelWorkspaceNav } from '@/infrastructure/model-workspace-nav';
 import { firstParam, type SearchParams } from '@/shared/search-params';
@@ -11,6 +14,16 @@ import { Text } from '@/ui/text';
 
 interface Params {
   readonly workspace: string;
+}
+
+async function archivedOriginal(index: ModelIndex, id: string): Promise<string | null> {
+  const evidence = index.model.evidence.find((repository) =>
+    repository.records.some((record) => record.family === 'claims' && record.data.id === id),
+  );
+  if (evidence === undefined) return null;
+  const archive = await readArchive(index.model.id, evidence.repository);
+  const claim = archive?.claims.find((record) => record.canonicalId === id);
+  return claim === undefined ? null : archiveHref(index.model.id, evidence.repository, claim.id);
 }
 
 // A thing is looked up like the reference, so the rail opens there rather than on the map.
@@ -29,6 +42,10 @@ export default async function TodayThingRoute({
   const query = await searchParams;
   const key = firstParam(query.id);
   const thing = native.get(tokenToId(key) ?? key);
+  const original =
+    thing?.kind === 'evidence' && thing.data.label === 'Inferred'
+      ? await archivedOriginal(native, thing.id)
+      : null;
   return (
     <WorkspaceShell
       workspace={native.model}
@@ -42,7 +59,7 @@ export default async function TodayThingRoute({
           Nothing here goes by that name.
         </Text>
       ) : (
-        <ModelTodayThing index={native} id={thing.id} />
+        <ModelTodayThing index={native} id={thing.id} archiveHref={original} />
       )}
     </WorkspaceShell>
   );

@@ -7,11 +7,6 @@ import { afterEach, expect, it, vi } from 'vitest';
 import { readWorkspaceLibrary } from './workspace-library';
 
 vi.mock(import('server-only'), () => ({}));
-vi.mock(import('@/application/legacy-view'), () => ({
-  legacyViewOf: () => {
-    throw new Error('The library must not project a native workspace through legacyViewOf.');
-  },
-}));
 afterEach(() => vi.unstubAllEnvs());
 
 it('keeps a legacy registration visible while reading native workspaces and plan addresses directly', async () => {
