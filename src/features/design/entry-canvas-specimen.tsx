@@ -6,7 +6,7 @@ import {
   EntryGroup,
   EntryNode,
   EntrySequence,
-} from '@/ui/entry-canvas';
+} from '@/ui/entry-canvas.client';
 import { Text } from '@/ui/text';
 
 import { Specimen } from './specimen';

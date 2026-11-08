@@ -11,9 +11,6 @@ import type { Plan } from '@/domain/plan/plan.generated';
 import { planSchema } from './plan-schema';
 import { rewriteErrors, shapeProblems } from './plan-schema-errors';
 
-export { planDef } from './plan-schema';
-export { defProblems } from './plan-schema-errors';
-
 /** What loading a plan found. `plan` is null when the schema rejected it. */
 export interface PlanCheck {
   readonly plan: Plan | null;
@@ -25,7 +22,7 @@ export interface PlanCheck {
  * Plan data against the schema alone, without the cross-references: how a plan that was checked when it was
  * written is read, so its pages can rely on its shape.
  */
-export async function shapePlanData(data: unknown): Promise<PlanCheck> {
+async function shapePlanData(data: unknown): Promise<PlanCheck> {
   if (!isRecord(data)) {
     return {
       plan: null,

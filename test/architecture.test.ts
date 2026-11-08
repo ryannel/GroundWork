@@ -155,7 +155,7 @@ const CASES: readonly Case[] = [
   {
     name: 'application may not use infrastructure',
     file: 'src/application/bad-infra.ts',
-    code: "import { readWorkspaces } from '@/infrastructure/workspace-store';\n\nexport const x = readWorkspaces;\n",
+    code: "import { workspaceRegistrations } from '@/infrastructure/workspace-folders';\n\nexport const x = workspaceRegistrations;\n",
     rule: 'boundaries/dependencies',
   },
   {
@@ -167,7 +167,7 @@ const CASES: readonly Case[] = [
   {
     name: 'a feature may not use infrastructure',
     file: 'src/features/workspaces/bad-infra.ts',
-    code: "import { readWorkspaces } from '@/infrastructure/workspace-store';\n\nexport const x = readWorkspaces;\n",
+    code: "import { workspaceRegistrations } from '@/infrastructure/workspace-folders';\n\nexport const x = workspaceRegistrations;\n",
     rule: 'boundaries/dependencies',
   },
   {

@@ -7,8 +7,32 @@
     overflow: clip;
   }
 
+  .navigation {
+    min-width: 0;
+  }
+
+  .viewport {
+    overflow: auto;
+    max-height: 72vh;
+    cursor: grab;
+    touch-action: pan-x pan-y;
+  }
+
+  .viewport[data-panning] {
+    cursor: grabbing;
+  }
+
+  .frame {
+    overflow: clip;
+    width: var(--entry-frame-width, auto);
+    height: var(--entry-frame-height, auto);
+  }
+
   .board {
     min-width: 0;
+    width: var(--entry-board-width, auto);
+    transform: scale(var(--entry-zoom, 1));
+    transform-origin: top left;
     padding: var(--s-8);
     background-color: var(--bg-1);
     background-image: radial-gradient(var(--dot-grid) 1px, transparent 1px);
@@ -129,6 +153,13 @@
     color: var(--fg-2);
   }
 
+  .later {
+    width: fit-content;
+    margin: var(--s-2) auto 0;
+    padding: var(--s-2) var(--s-3);
+    border-block-start: 1px dashed var(--line-2);
+  }
+
   .fork {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr));
@@ -192,6 +223,25 @@
   @media (width < 620px) {
     .glance {
       grid-template-columns: 1fr;
+    }
+
+    .navigation {
+      min-width: 0;
+    }
+
+    .viewport {
+      overflow: auto;
+      max-height: 72vh;
+      cursor: grab;
+      touch-action: pan-x pan-y;
+    }
+
+    .viewport[data-panning] {
+      cursor: grabbing;
+    }
+
+    .frame {
+      overflow: clip;
     }
 
     .board {

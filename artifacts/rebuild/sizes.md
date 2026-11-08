@@ -11,6 +11,7 @@
 | Evidence folder | 115,924 KiB | 119,212 KiB | Original format-1 and merged format-2 checkouts. |
 | Volvo interpretation archive | — | 21,612 KiB | Added in Volvo PR 2. |
 | Volvo historical entry archive | — | 38,358,195 bytes | Added in Volvo PR 3. |
+| Volvo additional historical archive | — | 108,788,101 bytes | Added in Volvo PR 4. |
 | Domains folder | 16,580 KiB | 25,496 KiB | Original format-1 and merged format-2 checkouts. |
 
 Folder sizes measure allocated space from `du -sk` on the same filesystem. The tracked

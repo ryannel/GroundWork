@@ -4,12 +4,12 @@ import {
   readModelPlanProgress,
   readSelectedPlanContext,
 } from '@/infrastructure/model-plan-context';
-import type { PlanParams } from '@/infrastructure/plan-data';
+import type { ModelPlanParams } from '@/infrastructure/model-plan-data';
 
 // Native browsers receive the server's explicit before/after projection.
 export async function GET(
   _request: Request,
-  { params }: { readonly params: Promise<PlanParams> },
+  { params }: { readonly params: Promise<ModelPlanParams> },
 ): Promise<Response> {
   const { workspace, plan } = await params;
   const selected = await readSelectedPlanContext(workspace, plan);

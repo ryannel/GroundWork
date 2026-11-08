@@ -53,9 +53,12 @@ it('retains every handler identity and authored order, with no runtime index in 
   expect(JSON.stringify(flow)).not.toContain('beforeIndex');
   expect(JSON.stringify(flow)).not.toContain('repository.json');
   expect(flow?.callers).toEqual([{ label: 'Shop', site: 'h:click#submit' }]);
+  expect(flow?.contract).toContainEqual({ label: 'Error 404', value: 'The order does not exist' });
   expect(flow?.effects).toContainEqual({
     label: 'write · Orders database',
     site: 'h:confirm#tx/save',
+    target: 'st:orders',
+    targetLabel: 'Orders database',
   });
 });
 it('renders guard, alternative, transaction, loop, named lanes, retry exhaustion and failures distinctly', () => {
@@ -98,6 +101,7 @@ it('links code to its pinned lines, keeps evidence references and drills only th
   );
   expect(nodes.find((node) => node.id === 'h:confirm#tx/queue')?.drills).toEqual([]);
   const relay = entryFlowOf(indexOf(model), 'job:relay');
+  expect(relay?.starts).toContainEqual({ label: 'Every', value: '30s' });
   expect(relay?.handlers[0]?.nodes[0]?.citations).toEqual([{ label: 'ev:source', href: null }]);
 });
 it('opens referenced schemas in the exact workspace or selected plan view', () => {

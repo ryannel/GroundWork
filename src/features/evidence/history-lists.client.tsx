@@ -68,3 +68,34 @@ export function HistoricalEntries({
     </Stack>
   );
 }
+
+export function HistoricalIndex({
+  items,
+}: {
+  readonly items: readonly {
+    readonly id: string;
+    readonly label: string;
+    readonly href: string | null;
+    readonly detail?: string | undefined;
+  }[];
+}) {
+  const [query, setQuery] = useState('');
+  const search = query.trim().toLowerCase();
+  const found = items.filter((item) => item.label.toLowerCase().includes(search));
+  return (
+    <Stack>
+      <SearchField label="Find in this index" value={query} onChange={setQuery} />
+      {found.map((item) => (
+        <Stack key={item.id} gap={1}>
+          {item.href === null ? (
+            <Text>{item.label}</Text>
+          ) : (
+            <TextLink href={item.href}>{item.label}</TextLink>
+          )}
+          {item.detail === undefined ? null : <Text tone="muted">{item.detail}</Text>}
+        </Stack>
+      ))}
+      {found.length === 0 ? <Text>No matching items in this index.</Text> : null}
+    </Stack>
+  );
+}

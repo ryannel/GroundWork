@@ -625,3 +625,15 @@ The Volvo data change preserves the exact published flow and linked data bytes. 
 compatibility proof covers the live and fallback publications independently, including the older
 Customer Service pin. The entry crosswalk and source verification are recorded in
 `artifacts/rebuild/pr10/legacy-entry-crosswalk.md`.
+
+### PR10 clarification: archive the remaining historical addresses
+
+The historical archive also preserves the original data and overview pages outside the entry
+snapshots, with their recorded references and source pins. The live corpus and tracked fallback
+are checked independently. Method-only pages keep their pinned source destinations under the
+approved retirement. The current entry view continues to read the canonical model and its
+evidence. The archive does not establish current facts.
+
+The coverage and bounded read proof are recorded in
+`artifacts/rebuild/pr10/complete-history.md`. The compressed analysis cache stays local under
+§10.2. Only cited records are promoted into canonical evidence.

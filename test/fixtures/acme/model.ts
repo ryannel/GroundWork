@@ -21,7 +21,7 @@ import type {
 } from '@/domain/workspace-model';
 
 /** Where the cited facts live in Acme's repos. */
-export const ACME_SOURCES = {
+const ACME_SOURCES = {
   products: {
     repo: 'acme/products',
     path: 'cmd/products/main.go',

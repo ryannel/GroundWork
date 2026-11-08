@@ -2,8 +2,10 @@
   "dispositions": [
     {
       "capability": "All source operations disclosure",
-      "status": "open",
-      "reason": "Some method-only direct addresses remain on the old reader."
+      "status": "approved-retirement",
+      "reason": "All arbitrary operation addresses retain exact pinned destinations or historical snapshots. Current entries keep cited operations.",
+      "proof": "artifacts/rebuild/pr10/complete-history.md",
+      "sha256": "5129398de0173f3b508ce60d568c07d03658604ccf133aed855b2d725b1d8829"
     },
     {
       "capability": "Repository and service overview",
@@ -14,8 +16,10 @@
     },
     {
       "capability": "Repository selection and search",
-      "status": "open",
-      "reason": "The repository search exists and still needs a production interaction proof."
+      "status": "proved",
+      "reason": "The historic directory filters by repository, name and pin and preserves the selected scope.",
+      "proof": "artifacts/rebuild/pr10/complete-history.md",
+      "sha256": "5129398de0173f3b508ce60d568c07d03658604ccf133aed855b2d725b1d8829"
     },
     {
       "capability": "Endpoint, consumer and job entry links",
@@ -26,18 +30,24 @@
     },
     {
       "capability": "Direct entry and selected-node URLs; history",
-      "status": "open",
-      "reason": "The remaining directly addressable pages need exact dispositions."
+      "status": "proved",
+      "reason": "Both publications have complete page addresses. Historical node links preserve scope and selection, and native step history restores the exact authored identity.",
+      "proof": "artifacts/rebuild/pr10/complete-history.md",
+      "sha256": "5129398de0173f3b508ce60d568c07d03658604ccf133aed855b2d725b1d8829"
     },
     {
       "capability": "Caller lists and published references",
-      "status": "open",
-      "reason": "The archived caller roots and all their reference paths need an independent comparison."
+      "status": "proved",
+      "reason": "The recorded caller roots and their reference targets survive in both publications. Exact outgoing sources remain visible.",
+      "proof": "artifacts/rebuild/pr10/complete-history.md",
+      "sha256": "5129398de0173f3b508ce60d568c07d03658604ccf133aed855b2d725b1d8829"
     },
     {
       "capability": "References in the selected view",
-      "status": "open",
-      "reason": "The archived selected-view reference closure needs verification."
+      "status": "proved",
+      "reason": "Both publications have zero unavailable recorded targets. The selected view links its incoming references and node targets.",
+      "proof": "artifacts/rebuild/pr10/complete-history.md",
+      "sha256": "5129398de0173f3b508ce60d568c07d03658604ccf133aed855b2d725b1d8829"
     },
     {
       "capability": "Data shapes, required and nullable fields",
@@ -48,23 +58,31 @@
     },
     {
       "capability": "Nested schema drill",
-      "status": "open",
-      "reason": "The nested data links need an exhaustive target comparison."
+      "status": "proved",
+      "reason": "Nested historical data targets resolve at recorded pins. Native entry inspectors link their schema in the selected plan view.",
+      "proof": "artifacts/rebuild/pr10/complete-history.md",
+      "sha256": "5129398de0173f3b508ce60d568c07d03658604ccf133aed855b2d725b1d8829"
     },
     {
       "capability": "Source file index and method links",
-      "status": "open",
-      "reason": "Some source index addresses remain on the old reader."
+      "status": "proved",
+      "reason": "The archived source indexes keep their exact targets, including pinned retirement destinations for method addresses.",
+      "proof": "artifacts/rebuild/pr10/complete-history.md",
+      "sha256": "5129398de0173f3b508ce60d568c07d03658604ccf133aed855b2d725b1d8829"
     },
     {
       "capability": "Source text and long source detail",
-      "status": "open",
-      "reason": "Retirement is approved after the remaining pinned source destinations are proved."
+      "status": "approved-retirement",
+      "reason": "Embedded excerpts retire after exact pinned source destinations and original reviewed interpretations are preserved.",
+      "proof": "artifacts/rebuild/pr10/complete-history.md",
+      "sha256": "5129398de0173f3b508ce60d568c07d03658604ccf133aed855b2d725b1d8829"
     },
     {
       "capability": "Method-level flows and implementation drill",
-      "status": "open",
-      "reason": "Known method destinations are archived and the full direct-address inventory is pending."
+      "status": "approved-retirement",
+      "reason": "All method-only addresses have verified pinned source destinations, including the 639 original fallback methods.",
+      "proof": "artifacts/rebuild/pr10/complete-history.md",
+      "sha256": "5129398de0173f3b508ce60d568c07d03658604ccf133aed855b2d725b1d8829"
     },
     {
       "capability": "Branches, calls, failures, asynchronous and data links",
@@ -82,18 +100,24 @@
     },
     {
       "capability": "Search within indexes",
-      "status": "open",
-      "reason": "Entry search is implemented and the remaining index search needs an exact disposition."
+      "status": "proved",
+      "reason": "Focused interaction covers filtering repository, entry and reference indexes while preserving exact destinations.",
+      "proof": "artifacts/rebuild/pr10/complete-history.md",
+      "sha256": "5129398de0173f3b508ce60d568c07d03658604ccf133aed855b2d725b1d8829"
     },
     {
       "capability": "Inspector selection and connection lists",
-      "status": "open",
-      "reason": "The historical canvas has the original links. Selected connection navigation needs a focused proof."
+      "status": "proved",
+      "reason": "A selected historical node links both connection directions and its nested data target. Native selection exposes exact source and linked fields.",
+      "proof": "artifacts/rebuild/pr10/complete-history.md",
+      "sha256": "5129398de0173f3b508ce60d568c07d03658604ccf133aed855b2d725b1d8829"
     },
     {
       "capability": "Pan, zoom, fit and full screen",
-      "status": "open",
-      "reason": "The historical canvas reuses the controls. Current entry canvas parity remains open."
+      "status": "proved",
+      "reason": "Both canvases share the observed pan, zoom and fit controls. The old explorer supplied no fullscreen control.",
+      "proof": "artifacts/rebuild/pr10/complete-history.md",
+      "sha256": "5129398de0173f3b508ce60d568c07d03658604ccf133aed855b2d725b1d8829"
     },
     {
       "capability": "Gaps and partial selection notices",
@@ -104,13 +128,17 @@
     },
     {
       "capability": "Loading errors, retry and bounded asset verification",
-      "status": "open",
-      "reason": "Checksum and bounds are verified. Production loading and retry still need a focused comparison."
+      "status": "proved",
+      "reason": "All exact packs fit the existing limits. Corrupt reads fail before display and retry reloads the same address.",
+      "proof": "artifacts/rebuild/pr10/complete-history.md",
+      "sha256": "5129398de0173f3b508ce60d568c07d03658604ccf133aed855b2d725b1d8829"
     },
     {
       "capability": "Legacy manifest fallback and corpus publication",
-      "status": "open",
-      "reason": "Both old publications remain accessible for unproved direct destinations."
+      "status": "proved",
+      "reason": "The two publications reconcile independently and the preview resolves the history roots and all 18 frozen selectors with the old asset routes removed.",
+      "proof": "artifacts/rebuild/pr10/complete-history.md",
+      "sha256": "5129398de0173f3b508ce60d568c07d03658604ccf133aed855b2d725b1d8829"
     }
   ]
 }

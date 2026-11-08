@@ -4,9 +4,9 @@ import {
   readModelPlanProgress,
   readSelectedRevisionContext,
 } from '@/infrastructure/model-plan-context';
-import type { PlanParams } from '@/infrastructure/plan-data';
+import type { ModelPlanParams } from '@/infrastructure/model-plan-data';
 
-interface Params extends PlanParams {
+interface Params extends ModelPlanParams {
   readonly version: string;
 }
 

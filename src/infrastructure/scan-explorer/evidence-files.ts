@@ -101,34 +101,6 @@ export async function writeRepositoryEvidence(
   });
 }
 
-/** Writes a repository's syntax cache a batch at a time; nothing replaces the old cache until it is closed. */
-export interface SyntaxCacheWriter {
-  readonly write: (family: string, records: readonly EvidenceRecord[]) => Promise<void>;
-  readonly close: () => Promise<void>;
-}
-
-export async function openSyntaxCache(workspace: string, name: string): Promise<SyntaxCacheWriter> {
-  const folder = path.join(syntaxFolder(workspace), name);
-  const staging = `${folder}.writing`;
-  await rm(staging, { recursive: true, force: true });
-  await mkdir(staging, { recursive: true });
-  const streams = new Map<string, WriteStream>();
-  const streamFor = (family: string): WriteStream => {
-    const open =
-      streams.get(family) ?? createWriteStream(path.join(staging, `${family}.jsonl`), 'utf8');
-    streams.set(family, open);
-    return open;
-  };
-  return {
-    write: async (family, records) => writeTo(streamFor(family), records),
-    close: async () => {
-      await Promise.all([...streams.values()].map(async (stream) => endStream(stream)));
-      await rm(folder, { recursive: true, force: true });
-      await rename(staging, folder);
-    },
-  };
-}
-
 /** Removes evidence for repositories the current scan set no longer holds. */
 export async function pruneEvidence(
   workspace: string,

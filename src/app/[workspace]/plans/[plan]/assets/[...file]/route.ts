@@ -1,9 +1,9 @@
-import type { PlanParams } from '@/infrastructure/plan-data';
+import type { ModelPlanParams } from '@/infrastructure/model-plan-data';
 import { contentTypeOf, readPlanFile } from '@/infrastructure/plan-files';
 
 // A plan's assets, served from workspaces/<workspace>/plans/<plan>/assets/ at the same path, so the walking mockups
 // find ../assets/ where they expect it.
-interface Params extends PlanParams {
+interface Params extends ModelPlanParams {
   readonly file: readonly string[];
 }
 

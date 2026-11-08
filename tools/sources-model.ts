@@ -1,15 +1,16 @@
 // This process loads the canonical reader with the same conditions as the other model commands.
+import { spawnSync } from 'node:child_process';
+
 import { indexOf, type ModelIndex } from '@/application/model-index';
+import type { CodeLocation } from '@/domain/code-links';
 import { codeCitationResolver } from '@/domain/model-cite-resolution';
 import type { ModelCite, ModelGap } from '@/domain/workspace-model';
 import { readModelFolder } from '@/infrastructure/read-model';
 
-import { unreachable, type Located } from './sources';
-
 interface SourceFact {
   readonly id: string;
   readonly cites: readonly ModelCite[];
-  readonly sources: readonly Located[];
+  readonly sources: readonly CodeLocation[];
   readonly gaps: readonly ModelGap[];
 }
 
@@ -40,6 +41,37 @@ function sourceFacts(index: ModelIndex): readonly SourceFact[] {
       }
       return { id, cites, sources, gaps };
     });
+}
+
+function fileLength(source: CodeLocation): number | undefined {
+  const run = spawnSync(
+    'gh',
+    [
+      'api',
+      '-H',
+      'Accept: application/vnd.github.raw',
+      `repos/${source.repo}/contents/${source.path}?ref=${source.commit}`,
+    ],
+    { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 },
+  );
+  return run.status === 0 ? run.stdout.split('\n').length : undefined;
+}
+
+function unreachable(facts: readonly SourceFact[]): string[] {
+  const lengths = new Map<string, number | undefined>();
+  const out: string[] = [];
+  for (const fact of facts) {
+    for (const source of fact.sources) {
+      const key = `${source.repo}@${source.commit}:${source.path}`;
+      if (!lengths.has(key)) lengths.set(key, fileLength(source));
+      const length = lengths.get(key);
+      if (length === undefined) out.push(`${fact.id}: ${key} cannot be read`);
+      else if (source.lines !== undefined && source.lines[1] > length) {
+        out.push(`${fact.id}: ${key} has ${String(length)} lines, not ${String(source.lines[1])}`);
+      }
+    }
+  }
+  return out;
 }
 
 function printGaps(gaps: readonly ModelGap[]): void {

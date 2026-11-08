@@ -1,5 +1,10 @@
 import { entryFlowHref } from '@/application/entry-flow-paths';
-import { historicalEntryHref, type EntryHistory } from '@/application/entry-history';
+import {
+  historicalDataPin,
+  historicalEntryHref,
+  type EntryHistory,
+  type HistoricalAddress,
+} from '@/application/entry-history';
 import { explorerDrawing } from '@/application/explorer-drawing';
 import { archiveHref } from '@/application/interpretation-archive';
 import { workspaceHref } from '@/application/workspace-paths';
@@ -13,7 +18,7 @@ import { Cluster, Stack } from '@/ui/stack';
 import { Text, TextLink } from '@/ui/text';
 
 import { HistoricalCanvas } from './historical-canvas.client';
-import { HistoricalEntries, HistoricalRepositories } from './history-lists.client';
+import { HistoricalEntries, HistoricalIndex, HistoricalRepositories } from './history-lists.client';
 
 type Snapshot = Extract<EntryHistory, { readonly kind: 'snapshot' }>;
 
@@ -24,7 +29,7 @@ function ScopeLinks({
   readonly workspace: string;
   readonly history: Exclude<EntryHistory, { readonly kind: 'directory' }>;
 }) {
-  const { scope, overview, callers } = history;
+  const { scope, overview, callers, sourceIndex } = history;
   return (
     <Cluster>
       <TextLink href={historicalEntryHref(workspace)}>All repository snapshots</TextLink>
@@ -43,10 +48,104 @@ function ScopeLinks({
       >
         Archived interpretations
       </TextLink>
+      {sourceIndex === undefined ? null : (
+        <TextLink href={historicalEntryHref(workspace, { scope: scope.key, page: sourceIndex })}>
+          Source files
+        </TextLink>
+      )}
       <TextLink href={repositoryTreeUrl(scope.repo, scope.commit)}>
         Repository at this revision
       </TextLink>
     </Cluster>
+  );
+}
+
+function snapshotAddress(scope: Snapshot['scope'], page: string): HistoricalAddress {
+  return scope.publication === 'fallback'
+    ? { service: scope.service, page }
+    : { scope: scope.key, page };
+}
+
+function SnapshotInspector({
+  available,
+  history,
+  href,
+  node,
+}: {
+  readonly available: (target: string) => boolean;
+  readonly history: Snapshot;
+  readonly href: (target: string, selection?: string) => string;
+  readonly node: Snapshot['page']['nodes'][number];
+}) {
+  const { file, page } = history;
+  const byId = new Map(page.nodes.map((item) => [item.id, item]));
+  return (
+    <Panel title={node.label}>
+      <Stack>
+        {node.target !== null && available(node.target) ? (
+          <TextLink href={href(node.target)}>Open linked detail</TextLink>
+        ) : null}
+        {page.links
+          .filter((link) => link.from === node.id || link.to === node.id)
+          .map((link) => {
+            const outgoing = link.from === node.id;
+            const adjacent = byId.get(outgoing ? link.to : link.from);
+            return (
+              <Cluster key={link.id}>
+                <Text>
+                  {outgoing ? 'To' : 'From'} · {link.kind} · {link.label}
+                </Text>
+                {adjacent === undefined ? null : (
+                  <TextLink href={href(file, adjacent.id)}>{adjacent.label}</TextLink>
+                )}
+              </Cluster>
+            );
+          })}
+        <TextLink href={href(file)}>Clear selection</TextLink>
+      </Stack>
+    </Panel>
+  );
+}
+
+function hasHistoricalDiagram(page: Snapshot['page']): boolean {
+  return (
+    page.kind !== 'data' &&
+    (page.kind === 'flow' ||
+      page.links.length > 0 ||
+      page.nodes.some((item) => item.kind === 'component'))
+  );
+}
+
+function SnapshotIndex({
+  available,
+  history,
+  href,
+}: {
+  readonly available: (target: string) => boolean;
+  readonly history: Snapshot;
+  readonly href: (target: string) => string;
+}) {
+  const { file, page } = history;
+  const indexDetail = page.kind === 'callers' || file === history.interpretationIndex;
+  return page.kind === 'flow' ? (
+    page.nodes.flatMap((item) =>
+      item.target !== null && available(item.target)
+        ? [
+            <TextLink href={href(item.target)} key={item.id}>
+              {item.label}
+            </TextLink>,
+          ]
+        : [],
+    )
+  ) : (
+    <HistoricalIndex
+      items={page.nodes.map((item) => ({
+        id: item.id,
+        label: item.label,
+        detail: indexDetail ? item.detail : undefined,
+        href: item.target !== null && available(item.target) ? href(item.target) : null,
+      }))}
+    />
   );
 }
 
@@ -58,15 +157,22 @@ function SnapshotDetail({
   readonly history: Snapshot;
 }) {
   const { page, scope, file, selected } = history;
-  const available = new Set(history.links);
+  const known = new Set(history.links);
+  const available = (target: string): boolean => history.complete || known.has(target);
   const node = page.nodes.find((item) => item.id === selected);
-  const href = (target: string): string =>
-    historicalEntryHref(workspace, { scope: scope.key, page: target });
+  const href = (target: string, selection?: string): string =>
+    historicalEntryHref(workspace, { ...snapshotAddress(scope, target), node: selection });
+  const pagePin = scope.publication === 'fallback' ? historicalDataPin(page) : null;
   const sourceIds = node === undefined ? null : new Set(node.sourceIds);
   const sources = page.sources.filter((source) => sourceIds === null || sourceIds.has(source.id));
   return (
     <Stack gap={4}>
       <Text as="p">{page.description}</Text>
+      {pagePin === null ? null : (
+        <TextLink href={repositoryTreeUrl(pagePin.repo, pagePin.commit)}>
+          Data source · {pagePin.repo} · {pagePin.commit}
+        </TextLink>
+      )}
       {history.entries
         .filter((entry) => entry.file === file)
         .map((entry) =>
@@ -81,7 +187,7 @@ function SnapshotDetail({
         {page.completeSelection ? 'Selected source evidence' : 'Partial source evidence'} · runtime
         and deployment unverified
       </Text>
-      {page.kind === 'flow' ? (
+      {hasHistoricalDiagram(page) ? (
         <HistoricalCanvas
           file={file}
           drawing={explorerDrawing(page)}
@@ -92,21 +198,7 @@ function SnapshotDetail({
         />
       ) : null}
       {node === undefined ? null : (
-        <Panel title={node.label}>
-          <Stack>
-            {node.target !== null && available.has(node.target) ? (
-              <TextLink href={href(node.target)}>Open linked detail</TextLink>
-            ) : null}
-            {page.links
-              .filter((link) => link.from === node.id || link.to === node.id)
-              .map((link) => (
-                <Text key={link.id}>
-                  {link.kind} · {link.label}
-                </Text>
-              ))}
-            <TextLink href={href(file)}>Clear selection</TextLink>
-          </Stack>
-        </Panel>
+        <SnapshotInspector available={available} history={history} href={href} node={node} />
       )}
       {page.fields.map((field, position) => (
         <Panel key={`${field.name}-${String(position)}`} title={field.name}>
@@ -115,16 +207,8 @@ function SnapshotDetail({
           </Text>
         </Panel>
       ))}
-      {page.nodes
-        .filter((item) => item.target !== null && available.has(item.target))
-        .map((item) =>
-          item.target === null ? null : (
-            <TextLink href={href(item.target)} key={item.id}>
-              {item.label}
-            </TextLink>
-          ),
-        )}
-      {page.incoming !== undefined && available.has(page.incoming) ? (
+      <SnapshotIndex available={available} history={history} href={href} />
+      {page.incoming !== undefined && available(page.incoming) ? (
         <TextLink href={href(page.incoming)}>References in this view</TextLink>
       ) : null}
       {sources.map((source) => (
@@ -159,7 +243,9 @@ export function EntryHistoryPage({
       <PageHeader
         title={title}
         meta={
-          history.kind === 'directory' ? null : `${history.scope.repo} · ${history.scope.commit}`
+          history.kind === 'directory'
+            ? null
+            : `Browsing ${history.scope.repo} · ${history.scope.commit}`
         }
       />
       {history.kind === 'directory' ? (

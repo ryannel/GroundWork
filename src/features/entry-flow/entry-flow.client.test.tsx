@@ -30,6 +30,16 @@ afterEach(() => {
   globalThis.history.replaceState(null, '', '/');
 });
 afterAll(async () => rm(root, { recursive: true, force: true }));
+it('zooms the current entry canvas and exposes fit without changing selection', () => {
+  render(<EntryFlow flow={flow} />);
+  fireEvent.click(screen.getByRole('button', { name: 'Zoom in' }));
+  expect(screen.getByText('120%')).toBeTruthy();
+  expect(screen.getByRole('region', { name: 'Entry flow canvas' })).toBeTruthy();
+  expect(screen.getByRole('button', { name: 'Fit map' })).toBeTruthy();
+  fireEvent.click(screen.getByRole('button', { name: 'Zoom out' }));
+  expect(screen.getByText('100%')).toBeTruthy();
+});
+
 it('selects the backed store-write node from the top strip and reveals its exact source and field', () => {
   render(<EntryFlow flow={flow} />);
   fireEvent.click(screen.getByRole('button', { name: 'write · Orders database' }));

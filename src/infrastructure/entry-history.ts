@@ -34,7 +34,8 @@ const selection = checksum.extend({
   ...identity.shape,
   key: z.string().regex(/^[a-f0-9]{32}$/u),
 });
-const bucket = checksum.extend({ bucket: z.string().regex(/^[a-f0-9]{1,2}$/u) });
+const bucket = checksum.extend({ bucket: z.string().regex(/^[a-f0-9]{1,6}$/u) });
+const storedPage = checksum.extend({ file, kind: z.enum(['overview', 'flow', 'data', 'callers']) });
 const index = z.strictObject({
   format: z.literal(FORMAT),
   scopes: z.array(selection).max(400),
@@ -61,8 +62,10 @@ const scope = identity.extend({
       }),
     )
     .max(500),
-  pages: z.array(checksum.extend({ file, kind: z.enum(['overview', 'flow', 'data', 'callers']) })),
-  retired: z.array(bucket).max(16),
+  pages: z.array(storedPage),
+  retired: z.array(bucket).max(1024),
+  direct: z.array(bucket).max(1024).optional(),
+  complete: z.boolean().optional(),
 });
 const retiredPages = z.array(
   z.strictObject({
@@ -74,6 +77,8 @@ const retiredPages = z.array(
   }),
 );
 const packedPages = z.record(z.string(), z.string());
+const directPages = z.array(storedPage.extend({ raw: z.string() }));
+type DirectPage = z.infer<typeof directPages>[number];
 type Bucket = z.infer<typeof bucket>;
 type Selection = z.infer<typeof selection>;
 type Scope = z.infer<typeof scope>;
@@ -105,8 +110,21 @@ async function checkedPack(
   const raw = await verified(folder, parts, expected);
   return JSON.parse(gunzipSync(raw, { maxOutputLength: 4 * 1024 * 1024 }).toString('utf8'));
 }
+function bucketFor(groups: readonly Bucket[], page: string): Bucket | undefined {
+  return groups.find((row) => page.startsWith(row.bucket, 5));
+}
+async function directPage(folder: string, selected: Selection, data: Scope, page: string) {
+  const group = bucketFor(data.direct ?? [], page);
+  if (group === undefined) return null;
+  const contents = await checkedPack(
+    folder,
+    ['direct', selected.key, `${group.bucket}.json.gz`],
+    group,
+  );
+  return directPages.parse(contents).find((row) => row.file === page) ?? null;
+}
 async function retiredPage(folder: string, selected: Selection, data: Scope, page: string) {
-  const group = data.retired.find((row) => row.bucket === page.slice(5, 6));
+  const group = bucketFor(data.retired, page);
   if (group === undefined) return null;
   const contents = await checkedPack(
     folder,
@@ -142,7 +160,12 @@ function selectionsFor(scopes: readonly Selection[], address: HistoricalAddress)
       row.service !== address.service &&
       stripPrefix(row.service, 'svc') === stripPrefix(address.service, 'svc'),
   );
-  return [...exact, ...compatible];
+  const matched = [...exact, ...compatible];
+  if (address.page === undefined || matched.length === 0) return matched;
+  return [
+    ...matched,
+    ...scopes.filter((row) => row.publication === 'fallback' && !matched.includes(row)),
+  ];
 }
 async function selectScope(
   folder: string,
@@ -152,18 +175,54 @@ async function selectScope(
   const scopes = await Promise.all(
     candidates.map(async (candidate) => {
       const data = await readScope(folder, candidate);
+      const stored = page === undefined || data.pages.some((item) => item.file === page);
+      const direct = stored ? null : await directPage(folder, candidate, data, page);
       const matched =
-        page === undefined ||
-        data.pages.some((item) => item.file === page) ||
-        (await retiredPage(folder, candidate, data, page)) !== null;
-      return { selection: candidate, scope: data, matched };
+        stored || direct !== null || (await retiredPage(folder, candidate, data, page)) !== null;
+      return { selection: candidate, scope: data, matched, direct };
     }),
   );
-  return scopes.find((row) => row.matched) ?? scopes[0] ?? null;
+  const matches = scopes.filter((row) => row.matched);
+  const matchingOwner =
+    matches.find((row) => row.selection.publication === 'live') ??
+    matches.find((row) => row.direct === null);
+  return matchingOwner ?? matches[0] ?? scopes[0] ?? null;
 }
+async function storedPageBytes(folder: string, packs: readonly Bucket[], sha256: string) {
+  const pack = packs.find((row) => row.bucket === sha256.slice(0, 2));
+  if (pack === undefined) throw new Error('Missing historical entry object pack.');
+  const values = packedPages.parse(
+    await checkedPack(folder, ['objects', `${pack.bucket}.json.gz`], pack),
+  );
+  return values[sha256];
+}
+
+async function checkedHistoricalPage(
+  folder: string,
+  packs: readonly Bucket[],
+  stored: z.infer<typeof storedPage>,
+  direct: string | undefined,
+) {
+  const raw = direct ?? (await storedPageBytes(folder, packs, stored.sha256));
+  if (
+    raw === undefined ||
+    Buffer.byteLength(raw) !== stored.bytes ||
+    createHash('sha256').update(raw).digest('hex') !== stored.sha256
+  ) {
+    throw new Error('Historical entry page checksum changed.');
+  }
+  const original = explorerPage(JSON.parse(raw));
+  if (original.kind !== stored.kind) throw new Error('Historical page kind changed.');
+  return original;
+}
+
 async function selectedHistory(
   folder: string,
-  selected: { readonly selection: Selection; readonly scope: Scope },
+  selected: {
+    readonly selection: Selection;
+    readonly scope: Scope;
+    readonly direct: DirectPage | null;
+  },
   address: HistoricalAddress,
   packs: readonly Bucket[],
 ): Promise<EntryHistory> {
@@ -174,30 +233,19 @@ async function selectedHistory(
     overview: data.overview,
     callers: data.callers,
     links: data.pages.map((row) => row.file),
+    complete: data.complete === true,
+    sourceIndex: data.sourceIndex,
+    interpretationIndex: data.interpretationIndex,
   };
   const requested = address.page ?? data.overview;
-  const stored = data.pages.find((row) => row.file === requested);
+  const stored = selected.direct ?? data.pages.find((row) => row.file === requested);
   if (stored === undefined) {
     const retired = await retiredPage(folder, archivedScope, data, requested);
     return retired === null
       ? { ...context, kind: 'unavailable', title: 'Historical page unavailable', sources: [] }
       : { ...context, kind: 'retired', title: retired.title, sources: retired.sources };
   }
-  const pack = packs.find((row) => row.bucket === stored.sha256.slice(0, 2));
-  if (pack === undefined) throw new Error('Missing historical entry object pack.');
-  const values = packedPages.parse(
-    await checkedPack(folder, ['objects', `${pack.bucket}.json.gz`], pack),
-  );
-  const raw = values[stored.sha256];
-  if (
-    raw === undefined ||
-    Buffer.byteLength(raw) !== stored.bytes ||
-    createHash('sha256').update(raw).digest('hex') !== stored.sha256
-  ) {
-    throw new Error('Historical entry page checksum changed.');
-  }
-  const original = explorerPage(JSON.parse(raw));
-  if (original.kind !== stored.kind) throw new Error('Historical page kind changed.');
+  const original = await checkedHistoricalPage(folder, packs, stored, selected.direct?.raw);
   const page = stored.file === data.overview ? explorerServiceOverview(original, data) : original;
   const selectedNode = page.nodes.find(
     (node) => address.page !== undefined && node.id === address.node,

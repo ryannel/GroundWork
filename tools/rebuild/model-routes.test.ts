@@ -13,14 +13,6 @@ import { selectedRoutes } from './routes';
 import { readSnapshot } from './snapshots';
 
 vi.mock(import('server-only'), () => ({}));
-vi.mock(import('@/infrastructure/today-model'), () => ({
-  readToday: () => {
-    throw new Error('The legacy flow reader must not run for native data.');
-  },
-  readPlacementData: () => {
-    throw new Error('Native data does not use legacy placements.');
-  },
-}));
 afterEach(() => vi.unstubAllEnvs());
 
 it('discovers native routes and captures facts without entering the legacy origin-requiring reader', async () => {

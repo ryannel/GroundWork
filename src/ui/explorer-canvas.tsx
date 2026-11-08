@@ -119,6 +119,50 @@ function Drawing({
   );
 }
 
+export function ExplorerNavigation({
+  zoom,
+  changeZoom,
+  handleFit,
+}: {
+  readonly zoom: number;
+  readonly changeZoom: (factor: number) => void;
+  readonly handleFit: () => void;
+}) {
+  return (
+    <Cluster label="Diagram navigation" spread>
+      <Cluster gap={1}>
+        <Button
+          label="Zoom out"
+          onClick={() => {
+            changeZoom(1 / 1.2);
+          }}
+          size="sm"
+        >
+          −
+        </Button>
+        <Text size="sm" mono>
+          {Math.round(zoom * 100)}%
+        </Text>
+        <Button
+          label="Zoom in"
+          onClick={() => {
+            changeZoom(1.2);
+          }}
+          size="sm"
+        >
+          +
+        </Button>
+        <Button onClick={handleFit} size="sm">
+          Fit map
+        </Button>
+      </Cluster>
+      <Text size="sm" tone="faint">
+        Drag or scroll to explore · opened detail stays visible
+      </Text>
+    </Cluster>
+  );
+}
+
 /** A readable, keyboard-selectable graph. Geometry and source semantics are supplied by the caller. */
 export function ExplorerCanvas({
   drawing,
@@ -144,37 +188,7 @@ export function ExplorerCanvas({
   } = useExplorerViewport(drawing.width, drawing.height, fit);
   return (
     <Stack gap={2}>
-      <Cluster label="Diagram navigation" spread>
-        <Cluster gap={1}>
-          <Button
-            label="Zoom out"
-            onClick={() => {
-              changeZoom(1 / 1.2);
-            }}
-            size="sm"
-          >
-            −
-          </Button>
-          <Text size="sm" mono>
-            {Math.round(zoom * 100)}%
-          </Text>
-          <Button
-            label="Zoom in"
-            onClick={() => {
-              changeZoom(1.2);
-            }}
-            size="sm"
-          >
-            +
-          </Button>
-          <Button onClick={handleFit} size="sm">
-            Fit map
-          </Button>
-        </Cluster>
-        <Text size="sm" tone="faint">
-          Drag or scroll to explore · opened detail stays visible
-        </Text>
-      </Cluster>
+      <ExplorerNavigation changeZoom={changeZoom} handleFit={handleFit} zoom={zoom} />
       <div
         aria-label={`${label} canvas`}
         className={styles.viewport}

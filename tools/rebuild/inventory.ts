@@ -2,7 +2,6 @@
 import { execFileSync } from 'node:child_process';
 import { readFile, writeFile } from 'node:fs/promises';
 
-import { writeExplorerParity } from '@/../tools/explorer-parity';
 import { modelRecord } from '@/domain/workspace-model';
 
 import {
@@ -225,7 +224,6 @@ if (!process.argv.includes('--consumers-only')) {
     'artifacts/rebuild/ids-and-urls.md',
     `# Uncentralised id and Git-host URL operations\n\n${String(outstanding.length)} runtime operations remain outside src/domain/ids.ts and src/domain/code-links.ts. The enforced architecture inventory checks construction, prefix stripping, child-path parsing and Git-host paths. Literal fixtures, examples, comments and shared-helper references remain in ids-and-urls-candidates.json for inspection; the PR 1 commit preserves the original inventory.\n\n| File and line | Finding |\n|---|---|\n${identityBody}`,
   );
-  await writeExplorerParity();
 }
 const adapters = inventory.consumers.filter((row) => row.status === 'adapter');
 console.log(

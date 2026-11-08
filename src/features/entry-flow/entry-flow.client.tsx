@@ -11,9 +11,10 @@ import {
   EntryFork,
   EntryGlance,
   EntryGroup,
+  EntryLater,
   EntryNode,
   EntrySequence,
-} from '@/ui/entry-canvas';
+} from '@/ui/entry-canvas.client';
 import { Stack } from '@/ui/stack';
 import { Text, TextLink } from '@/ui/text';
 
@@ -66,6 +67,7 @@ function Nodes({ nodes, selected, select }: SequenceProps) {
             selected={selected === node.id}
             title={node.title}
           />
+          {node.later === null ? null : <EntryLater {...node.later} />}
           {node.branches.length === 0 ? null : (
             <EntryGroup
               title={`${node.title} · ${String(node.branches.length)} ${node.branches.length === 1 ? 'branch' : 'branches'}`}
@@ -141,6 +143,33 @@ function NodeInspector({ node }: { readonly node: FlowNode | undefined }) {
     </Stack>
   );
 }
+function Effects({ effects }: { readonly effects: EntryFlowView['effects'] }) {
+  if (effects.length === 0) return <Text tone="muted">No effect recorded</Text>;
+  const grouped = Map.groupBy(effects, (effect) => effect.target);
+  return (
+    <Stack gap={2}>
+      {[...grouped].map(([target, group]) => (
+        <Stack gap={1} key={target}>
+          <Text size="sm" weight="strong">
+            {group[0]?.targetLabel}
+          </Text>
+          {group.map((effect, occurrence) => (
+            <Button
+              key={`${effect.site}-${String(occurrence)}`}
+              onClick={() => {
+                selectInAddress(effect.site);
+              }}
+              variant="quiet"
+            >
+              {effect.label}
+            </Button>
+          ))}
+        </Stack>
+      ))}
+    </Stack>
+  );
+}
+
 export function EntryFlow({ flow }: { readonly flow: EntryFlowView }) {
   const selected = useSyncExternalStore(subscribeSelection, selectedInAddress, () => null);
   const nodes = flow.handlers.flatMap((handler) => [
@@ -152,19 +181,29 @@ export function EntryFlow({ flow }: { readonly flow: EntryFlowView }) {
     <>
       <EntryGlance
         callers={
-          flow.callers.length === 0 ? (
-            <Text tone="muted">No caller recorded</Text>
-          ) : (
-            <Stack gap={2}>
-              {flow.callers.map((caller) => (
-                <Text key={caller.site}>{caller.label}</Text>
-              ))}
-            </Stack>
-          )
+          <Stack gap={2}>
+            {flow.callers.length === 0 && flow.starts.length === 0 ? (
+              <Text tone="muted">No caller recorded</Text>
+            ) : null}
+            {flow.starts.map((fact) => (
+              <Text key={fact.label}>
+                {fact.label} · {fact.value}
+              </Text>
+            ))}
+            {flow.callers.map((caller, occurrence) => (
+              <Text key={`${caller.site}-${String(occurrence)}`}>{caller.label}</Text>
+            ))}
+          </Stack>
         }
+
         component={
           <Stack gap={2}>
             <Text weight="strong">{flow.component}</Text>
+            {flow.contract.map((fact, occurrence) => (
+              <Text key={`${fact.label}-${String(occurrence)}`}>
+                {fact.label} · {fact.value}
+              </Text>
+            ))}
             {flow.schemas.map((schema) => (
               <TextLink key={schema.label} href={schema.href}>
                 {schema.label}
@@ -172,25 +211,7 @@ export function EntryFlow({ flow }: { readonly flow: EntryFlowView }) {
             ))}
           </Stack>
         }
-        effects={
-          flow.effects.length === 0 ? (
-            <Text tone="muted">No effect recorded</Text>
-          ) : (
-            <Stack gap={2}>
-              {flow.effects.map((effect) => (
-                <Button
-                  key={`${effect.site}-${effect.label}`}
-                  onClick={() => {
-                    selectInAddress(effect.site);
-                  }}
-                  variant="quiet"
-                >
-                  {effect.label}
-                </Button>
-              ))}
-            </Stack>
-          )
-        }
+        effects={<Effects effects={flow.effects} />}
       />
       <EntryCanvas
         active={node !== undefined}

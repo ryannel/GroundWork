@@ -3,12 +3,9 @@ import { cleanup, render, screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { queryModel } from '@/../test/fixtures/model-queries';
-import { acme } from '@/../test/workspace-kit';
 import { indexOf } from '@/application/model-index';
 import { readCanonicalModelIndex } from '@/infrastructure/model-index';
 import { readModelPlans } from '@/infrastructure/model-plans';
-import { todayData } from '@/infrastructure/today-data';
-import { readAuthoredLandscape } from '@/infrastructure/workspace-landscape';
 
 import WorkspaceRoute from './page';
 
@@ -24,10 +21,6 @@ vi.mock(import('@/infrastructure/model-index'), () => ({
 vi.mock(import('@/infrastructure/model-plans'), () => ({
   readModelPlans: vi.fn<typeof readModelPlans>(),
 }));
-vi.mock(import('@/infrastructure/today-data'), () => ({ todayData: vi.fn<typeof todayData>() }));
-vi.mock(import('@/infrastructure/workspace-landscape'), () => ({
-  readAuthoredLandscape: vi.fn<typeof readAuthoredLandscape>(),
-}));
 vi.mock(import('@/features/plan'), () => ({
   TodayOverlays: () => <span hidden />,
   ModelTodayOverlays: () => <span hidden />,
@@ -38,8 +31,6 @@ beforeEach(() => {
   vi.resetAllMocks();
   vi.mocked(readModelPlans).mockResolvedValue([]);
   vi.mocked(readCanonicalModelIndex).mockResolvedValue(null);
-  vi.mocked(readAuthoredLandscape).mockResolvedValue(null);
-  vi.mocked(todayData).mockResolvedValue(null);
 });
 afterEach(cleanup);
 const params = Promise.resolve({ workspace: 'queries' });
@@ -54,8 +45,6 @@ describe('workspace overview route', () => {
       '/queries/entries',
     );
     expect(readCanonicalModelIndex).toHaveBeenCalledTimes(1);
-    expect(todayData).not.toHaveBeenCalled();
-    expect(readAuthoredLandscape).not.toHaveBeenCalled();
   });
 
   it('renders the native authored areas directly with existing bare area paths', async () => {
@@ -75,22 +64,12 @@ describe('workspace overview route', () => {
       '/queries/areas/work',
     );
     expect(screen.getByText('Fixture interpretation')).toBeTruthy();
-    expect(todayData).not.toHaveBeenCalled();
-    expect(readAuthoredLandscape).not.toHaveBeenCalled();
   });
 
   it('does not reconstruct a format-1 workspace on the native route', async () => {
-    const legacy = acme();
-    vi.mocked(todayData).mockResolvedValue({
-      workspace: legacy.workspace,
-      today: legacy.today,
-      plans: [],
-      programmes: [],
-    });
     await expect(WorkspaceRoute({ params })).rejects.toThrow('Not found');
-    expect(todayData).not.toHaveBeenCalled();
+
     expect(readModelPlans).not.toHaveBeenCalled();
-    expect(readAuthoredLandscape).not.toHaveBeenCalled();
   });
 
   it('keeps a missing workspace as not found', async () => {

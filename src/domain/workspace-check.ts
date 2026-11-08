@@ -1,3 +1,4 @@
+import { RESERVED_WORKSPACES } from './ids';
 import { componentsOf, homeLabel, systemsOf, type Workspace } from './workspace';
 
 export interface WorkspaceProblems {
@@ -54,7 +55,7 @@ export function checkWorkspace(workspace: Workspace): WorkspaceProblems {
 }
 
 /** Page names beside the domains at /<workspace>/<name>/, so no domain may take one. */
-export const RESERVED_PAGES: readonly string[] = [
+const RESERVED_PAGES = new Set([
   'plans',
   'journeys',
   'reference',
@@ -66,13 +67,10 @@ export const RESERVED_PAGES: readonly string[] = [
   'programmes',
   'partners',
   'impact',
-];
-
-/** Page names at the top of the app, beside the workspaces at /<workspace>/, so no workspace may take one. */
-export const RESERVED_WORKSPACES: readonly string[] = ['design'];
+]);
 
 /** Page names beside the systems at /<workspace>/<domain>/<name>/, so no system may take one. */
-export const RESERVED_SYSTEM_PAGES: readonly string[] = ['flows', 'map', 'language', 'interfaces'];
+const RESERVED_SYSTEM_PAGES = new Set(['flows', 'map', 'language', 'interfaces']);
 
 function reservedDomains(workspace: Workspace): readonly string[] {
   return [
@@ -80,10 +78,10 @@ function reservedDomains(workspace: Workspace): readonly string[] {
       ? [`workspace ${workspace.id}: the id is reserved for the ${workspace.id} page`]
       : []),
     ...workspace.domains
-      .filter((domain) => RESERVED_PAGES.includes(domain.id))
+      .filter((domain) => RESERVED_PAGES.has(domain.id))
       .map((domain) => `domain ${domain.id}: the id is reserved for the ${domain.id} pages`),
     ...systemsOf(workspace)
-      .filter((system) => RESERVED_SYSTEM_PAGES.includes(system.id))
+      .filter((system) => RESERVED_SYSTEM_PAGES.has(system.id))
       .map(
         (system) => `system ${system.id}: the id is reserved for the domain's ${system.id} pages`,
       ),

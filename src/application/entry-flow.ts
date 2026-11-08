@@ -42,10 +42,19 @@ export interface FlowNode {
     readonly schema: FlowLink | null;
   } | null;
   readonly drills: readonly FlowLink[];
+  readonly later: FlowLink | null;
 }
 export interface FlowSummary {
   readonly label: string;
   readonly site: string;
+}
+interface FlowEffect extends FlowSummary {
+  readonly target: string;
+  readonly targetLabel: string;
+}
+interface FlowFact {
+  readonly label: string;
+  readonly value: string;
 }
 export interface EntryFlowView {
   readonly id: string;
@@ -55,7 +64,9 @@ export interface EntryFlowView {
   readonly summary: string | null;
   readonly schemas: readonly FlowLink[];
   readonly callers: readonly FlowSummary[];
-  readonly effects: readonly FlowSummary[];
+  readonly starts: readonly FlowFact[];
+  readonly contract: readonly FlowFact[];
+  readonly effects: readonly FlowEffect[];
   readonly handlers: readonly {
     readonly id: string;
     readonly summary: string | null;
@@ -155,21 +166,28 @@ function contractOf(
     schema: schemaLink(entity.id, index, context, 'Open schema'),
   };
 }
-function drillsOf(
+function linkToEntry(entry: string, index: ModelIndex, context: EntryFlowContext): FlowLink {
+  return { label: index.label(entry), href: entryFlowHref(index.model.id, { ...context, entry }) };
+}
+function recordedEntry(value: unknown, index: ModelIndex): string | null {
+  const id = modelText(value);
+  return id === null ? null : (index.flowOf(id)?.entry.id ?? null);
+}
+function linksFrom(
   data: Readonly<Record<string, unknown>>,
   index: ModelIndex,
   context: EntryFlowContext,
-): FlowNode['drills'] {
+): Pick<FlowNode, 'drills' | 'later'> {
   const cause = index.get(modelText(data.causes) ?? '');
-  const direct = modelText(cause?.data.on) ?? modelText(data.call);
-  const entry = direct === null ? null : (index.flowOf(direct)?.entry.id ?? null);
+  const later = recordedEntry(cause?.data.on, index);
+  const call = recordedEntry(data.call, index);
   const message = modelText(data.publish);
   const subscriptions = message === null ? [] : index.subscriptions(message);
-  const targets = entry === null ? subscriptions : [entry, ...subscriptions];
-  return [...new Set(targets)].map((target) => ({
-    label: index.label(target),
-    href: entryFlowHref(index.model.id, { ...context, entry: target }),
-  }));
+  const targets = [later, call, ...subscriptions].filter((target) => target !== null);
+  return {
+    drills: [...new Set(targets)].map((target) => linkToEntry(target, index, context)),
+    later: later === null ? null : linkToEntry(later, index, context),
+  };
 }
 function branchOf(
   label: string,
@@ -231,9 +249,51 @@ function nodeOf(
     branches: branchesOf(data, id, index, context),
     citations: index.cites(id).map(citationOf),
     contract: contractOf(data, index, context),
-    drills: drillsOf(data, index, context),
+    ...linksFrom(data, index, context),
   };
 }
+function factsOf(
+  data: Readonly<Record<string, unknown>>,
+  fields: readonly (readonly [string, string])[],
+): FlowFact[] {
+  return fields.flatMap(([key, label]) => {
+    const value = modelText(data[key]);
+    return value === null ? [] : [{ label, value }];
+  });
+}
+function startsOf(entry: ModelEntity, index: ModelIndex): readonly FlowFact[] {
+  const facts = factsOf(entry.data, [
+    ['cron', 'Schedule'],
+    ['every', 'Every'],
+    ['trigger', 'Trigger'],
+  ]);
+  const screen = entry.kind === 'interaction' ? modelText(entry.data.on) : null;
+  return screen === null ? facts : [...facts, { label: 'Screen', value: index.label(screen) }];
+}
+function contractFacts(entry: ModelEntity): readonly FlowFact[] {
+  const facts = factsOf(entry.data, [
+    ['sig', 'Signature'],
+    ['method', 'Method'],
+    ['path', 'Path'],
+    ['rpc', 'RPC'],
+    ['action', 'Action'],
+  ]);
+  return [
+    ...facts,
+    ...modelList(entry.data.errors).flatMap((item) => {
+      const error = modelRecord(item);
+      const status = error?.status;
+      if (typeof status !== 'string' && typeof status !== 'number') return [];
+      return [
+        {
+          label: `Error ${String(status)}`,
+          value: modelText(error?.when) ?? 'No condition recorded',
+        },
+      ];
+    }),
+  ];
+}
+
 /** Project flowOf once on the server. Only the selected flow's plain values cross into the browser. */
 export function entryFlowOf(
   index: ModelIndex,
@@ -258,10 +318,14 @@ export function entryFlowOf(
       const link = reference === null ? null : schemaLink(reference, index, context, label);
       return link === null ? [] : [link];
     }),
+    starts: startsOf(flow.entry, index),
+    contract: contractFacts(flow.entry),
     callers: flow.callers.map((edge) => ({ label: index.label(edge.from), site: edge.site })),
     effects: flow.reaches.map((edge) => ({
       label: `${edge.kind} · ${index.label(edge.to)}`,
       site: edge.site,
+      target: edge.to,
+      targetLabel: index.label(edge.to),
     })),
     handlers: flow.handlers.map((handler) => ({
       id: handler.id,

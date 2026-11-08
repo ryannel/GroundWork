@@ -5,9 +5,8 @@ import path from 'node:path';
 import { parse } from 'yaml';
 import { z } from 'zod';
 
+import { RESERVED_WORKSPACES, workspaceIdPattern } from '@/domain/ids';
 import { pathIn, resolvedFrom, listFolder, readTextIfAny } from '@/infrastructure/disk';
-
-import { workspaceFile } from './workspace-schema';
 
 // Where each workspace's folder is. A workspace is its own repo, kept anywhere on disk; Groundwork reads:
 //   GROUNDWORK_WORKSPACES   when set, only these workspace folders (path.delimiter between them): for CI and
@@ -59,8 +58,11 @@ export function folderOf(entry: LocalEntry): string {
 }
 
 const identity = z.looseObject({
-  id: workspaceFile.shape.id,
-  name: workspaceFile.shape.name,
+  id: z
+    .string()
+    .regex(workspaceIdPattern, 'ids are lower-case, with - and :')
+    .refine((value) => !RESERVED_WORKSPACES.includes(value), 'the id is reserved for a page'),
+  name: z.string(),
 });
 
 interface Listed {

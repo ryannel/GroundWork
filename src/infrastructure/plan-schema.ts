@@ -53,11 +53,3 @@ async function compile(): Promise<Validators> {
 }
 
 export const planSchema = async (): Promise<Validators> => (compiled ??= compile());
-
-/** The schema check for one `$defs` entry (`interface`, `flow`, …), for plan-shaped data kept outside a plan. */
-export async function planDef<T>(name: string): Promise<ValidateFunction<T>> {
-  const { def } = await planSchema();
-  const check = def<T>(name);
-  if (check === undefined) throw new Error(`legacy-plan.schema.json has no $defs/${name}`);
-  return check;
-}
