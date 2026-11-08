@@ -33,7 +33,7 @@ describe('schema checks of modified legacy entities', () => {
       {
         path: 'changes[0].ops[0].set.typo[0].name',
         message:
-          'typo is not a property of a service; use one of its real props (see the service entry in schema/legacy-plan.schema.json)',
+          'typo is not a property of a service; use one of its real props (see the service entry in test/fixtures/legacy-plan.schema.json)',
       },
     ]);
   });

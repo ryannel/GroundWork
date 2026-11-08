@@ -1,0 +1,932 @@
+{
+  "personal": {
+    "nativeFactsEqualExceptArchive": true,
+    "routes": {
+      "/personal/": {
+        "file": "route-d27f1e2788e7e51292e6.json.gz",
+        "previousSha256": "ba89596ae80e2a45618236735741c9687381e2e5d9ae967ec537a1913e084f74",
+        "currentSha256": "ef430858e17b5421a0b21220c8d81f98f0fd60f0a90e2c03e384c2b0015309ba",
+        "bytes": [
+          32552,
+          32174
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/personal/explorer/": {
+        "file": "route-f8190763b839ce741b87.json.gz",
+        "previousSha256": "082434317e46987bafaaae082dddf05b45ce8dbc4e41f9f05f8a3338edddc769",
+        "currentSha256": "03b29402b18eb1f1606ee9f32b399f6a09297ec8f122291af596c54fdd50d323",
+        "bytes": [
+          25979,
+          14713
+        ],
+        "changedKeys": [
+          "headings",
+          "htmlBytes",
+          "links",
+          "payload"
+        ],
+        "reason": "history",
+        "linksAdded": [],
+        "linksRemoved": [
+          "/personal/explorer/",
+          "/personal/journeys/",
+          "/personal/language/",
+          "/personal/people/",
+          "/personal/plans/",
+          "/personal/reference/",
+          "/personal/reference/components/",
+          "/personal/reference/stores/",
+          "/personal/side-projects/",
+          "/personal/value-flows/"
+        ],
+        "headingsBefore": [],
+        "headingsAfter": [
+          "Historical entries"
+        ]
+      },
+      "/personal/journeys/": {
+        "file": "route-d1914e9ed927de457d05.json.gz",
+        "previousSha256": "b8a7e1cd7855161b22a422e55451f2dc2603c12af359f57cf076930a95e2f1c3",
+        "currentSha256": "15f1b802757357a541dc7a80f16a2e786dccb4f2a166dac121d53c6af551940e",
+        "bytes": [
+          30400,
+          30030
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/personal/language/": {
+        "file": "route-df140c251356a59f2261.json.gz",
+        "previousSha256": "a9a6c2be10143ff789fb1967c5237f8ca31e904b6d202fd4b4d7ef787b7622f4",
+        "currentSha256": "5ee4beabda9a0b9ce5aa1e3ba435a3d4637795147a5928b5e404b96a13a96062",
+        "bytes": [
+          32064,
+          31686
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/personal/partners/": {
+        "file": "route-aa3f6236d49586518744.json.gz",
+        "previousSha256": "75bfa59d319a1c6b483885a484edf37ae414ad1dff5010e4d6b2ae74d8faa3df",
+        "currentSha256": "bd415fa5a5e2db17034573778d1b1dc46b442f81df6e133e641e69fce6b8ae32",
+        "bytes": [
+          30670,
+          30300
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/personal/people/": {
+        "file": "route-ffb0bde0c2ccc55f8dca.json.gz",
+        "previousSha256": "6b21ae4457c37c31f09b16432d29bc88ecc543b34b6d824fcfe5d384015e96d3",
+        "currentSha256": "163284483eca3c71336f6016f3bdefb6604b52e6a79317036106375aa866953e",
+        "bytes": [
+          30719,
+          30349
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/personal/plans/": {
+        "file": "route-f221f4d7b4c7bc432779.json.gz",
+        "previousSha256": "c98d2b26bf7473e913d2e3d3ef5748dc6afd4de88f4ce3961aa0933803cba506",
+        "currentSha256": "9e71b99a50864a78dc4bdbeec71e18fda4fa3ee3fa6c9795186d0fe419acca01",
+        "bytes": [
+          30742,
+          30372
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/personal/programmes/": {
+        "file": "route-35c2f4e59f52d4d9fbf1.json.gz",
+        "previousSha256": "0292063f13b9b8fe6e3e5006c2162fa766b202979d9001d47a4481ae6e4dfe96",
+        "currentSha256": "d4b6ff895564074310b71ddda67ce8b5733b438364abbef1465ef8728795525e",
+        "bytes": [
+          30789,
+          30419
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/personal/reference/": {
+        "file": "route-6a67cd7303ef5056d642.json.gz",
+        "previousSha256": "27e89b82d854afa6f57a8caa055725a585999aa6334ae04615f9b87ae8201094",
+        "currentSha256": "8aa7f3dff65952fba8659a371bfca470e0fec5806632ac110fcdf0ebb76f0881",
+        "bytes": [
+          31793,
+          31423
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/personal/reference/components/": {
+        "file": "route-6cdb12e1fae640b10ec6.json.gz",
+        "previousSha256": "1d6e0bc3f9f9160f7cabb642ef29812b8ab63c47bb2cf08803a72b9cf6f6f33c",
+        "currentSha256": "88d6de677d38751f05c7a13698d8b794bc50bacde1eac350783fc8f8f546a616",
+        "bytes": [
+          40591,
+          40213
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/personal/reference/stores/": {
+        "file": "route-e0923e560173c5aea74a.json.gz",
+        "previousSha256": "7438a65a967d46eeba4a6cc378960062725896b97052c6bb1fe6ac7a612755da",
+        "currentSha256": "9ebe5b262c4239dcdbc5e5b3ce92b75d23c986268b8235dee28ad4d417ab18ef",
+        "bytes": [
+          34704,
+          34326
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/personal/side-projects/": {
+        "file": "route-0021c27a2e73d2045b7c.json.gz",
+        "previousSha256": "9aa88e98ab53ae507dc6ba61610ec79a1191301c3999580c6eafa66d569e6d28",
+        "currentSha256": "94aad3248a24ca0ff7bb86377c23fd726df7f8313a3d2ac3ffb8ef29fe303bf3",
+        "bytes": [
+          29732,
+          29375
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/personal/side-projects/allotment-log/": {
+        "file": "route-cb002733d9297e597a4d.json.gz",
+        "previousSha256": "78b808258583401a4c9bc3f1161da7ea93b10697891b10a955849a78c34c6a68",
+        "currentSha256": "0e7f0b7e0987ecc83aa3ffe4d626da13786dec8298682ff2ce996cf674bad254",
+        "bytes": [
+          54602,
+          54237
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/personal/side-projects/flows/": {
+        "file": "route-8aa717d138d5a1fc7e0b.json.gz",
+        "previousSha256": "af946dfa10b8edfa66f081711bffed9b92584afadb50aff74ad5838232ecf035",
+        "currentSha256": "2710d703ba8918a7c920f035913699ff966d10538954c0a91171743499ccf2e2",
+        "bytes": [
+          25905,
+          25540
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/personal/side-projects/interfaces/": {
+        "file": "route-e818402d13566d98cc4a.json.gz",
+        "previousSha256": "ebdc69cfe021b456213263eb669b2b7607b60ef40205134fed7f3ca331467199",
+        "currentSha256": "83735b73ffba986b0ef1614cb996acb29605b04d46a03fd8afc9399f0b8eb6e4",
+        "bytes": [
+          29646,
+          29281
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/personal/side-projects/language/": {
+        "file": "route-1d8745920b26fa96f628.json.gz",
+        "previousSha256": "6d980d8a640f3bbe32e4d6d66de7f70c365889e8e2e84e24dfaf15cd1d53dcf4",
+        "currentSha256": "fc345cdc2f02b5d528dc8c94a13c27d1786df3ca8a89f7e8a81d12a5da9d707d",
+        "bytes": [
+          25741,
+          25384
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/personal/side-projects/map/": {
+        "file": "route-0e121729c0edc86e3d01.json.gz",
+        "previousSha256": "81f2e80d324a2fa91b0eb461639e14e05ea438c7e9e4e43171a64cc825a14377",
+        "currentSha256": "8f317a6316254d896fee06f5401a04cf7f3dd19afe6fdbdbcd5122ed12fdf1a2",
+        "bytes": [
+          32818,
+          32453
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/personal/side-projects/plans/": {
+        "file": "route-b14cfbd61e133d1460d1.json.gz",
+        "previousSha256": "5e158c3ed0632dabd2edddda82d243a67b7eddb00081932af804e23b63656f72",
+        "currentSha256": "70559b4aef2d34afcedb17d36d477b1047c35203002263c31d6aa88c64a7b7ad",
+        "bytes": [
+          25979,
+          25622
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/personal/side-projects/target/": {
+        "file": "route-9ef2dd71e26f9ae21443.json.gz",
+        "previousSha256": "1eef473577fe5b6247bc5cd4583e3137ae66c713418fb1623249eb5c0924f20b",
+        "currentSha256": "798634574e800500aa3443c3be813a4deaa68a7e1b90b530b801b1482888e8a4",
+        "bytes": [
+          26637,
+          26280
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/personal/things/?id=st-allotment-db": {
+        "file": "route-4c363f7b30e4b25b5dc2.json.gz",
+        "previousSha256": "92ad9de4be9b8aeb6a1cdc005bdd63befa5237ad42160ee1979a1731cca7429a",
+        "currentSha256": "090d1b52e0ace1cb35c13e0037457f25e3225f0848432330086a3bdea3d4debb",
+        "bytes": [
+          45142,
+          44777
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/personal/things/?id=svc-allotment-app": {
+        "file": "route-1b1fccadc460a4e104c4.json.gz",
+        "previousSha256": "3cbf8bb904c1a0320411310058c2b310a8b183cc547aa4165c1f84b55beddf3b",
+        "currentSha256": "6f7522fa74547d24aba95524062ee2b2f65c991ff15d88cb86cbe1cd59e8c549",
+        "bytes": [
+          46017,
+          45652
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/personal/value-flows/": {
+        "file": "route-a18ed633047fc5afd284.json.gz",
+        "previousSha256": "ddb466f66049286743d9b713afa26d78d0dde8cae53f3031e7df7f73850ed3c6",
+        "currentSha256": "b42129fe480ffa19f0ed870857575b094a45901d102ede8d948088dcbc722e42",
+        "bytes": [
+          30026,
+          29648
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/personal/entries/": {
+        "file": "route-fcd0e5b5a7460b23f7ab.json.gz",
+        "previousSha256": "0e4181b7fb58f56d12480bb156f701806c3905e4b18672468601a824f9534248",
+        "currentSha256": "37f81d4652b9ec0e9f97c2ccea593201abc4e228a79ed65996cebc54f8ef273d",
+        "bytes": [
+          14560,
+          14542
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/personal/things/?id=lib-geometry": {
+        "file": "route-14d6b7830ccbf7f38f54.json.gz",
+        "previousSha256": "f581d62d04fbd788ec35bb80c8fc997ecb40974856714d2b7b84d60a18475d86",
+        "currentSha256": "50b5d713a8c9047e568fcb42c15bdfdc202e073e989b7c8e3e3bc8aa79d2a4a6",
+        "bytes": [
+          38712,
+          38347
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      }
+    },
+    "allowed": 36
+  },
+  "acme": {
+    "nativeFactsEqualExceptArchive": true,
+    "routes": {
+      "/acme/": {
+        "file": "route-5387805077e15b1937d9.json.gz",
+        "previousSha256": "632f9fa16ea46352dfc05c27c5db07dfcab8dd2d954d91512470bfd0091e16c1",
+        "currentSha256": "a2d70729655e1fc91dff9e349c0904d0a5db162da32d51abd2c760f0aef1a0e3",
+        "bytes": [
+          42704,
+          42326
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/acme/catalogue/": {
+        "file": "route-ef89c688670f88909aad.json.gz",
+        "previousSha256": "5854a71ae96c87ad6c74c8022d7b54eb61f33f511e882f1cf4fc94cc2f4a9f68",
+        "currentSha256": "34aa6d34e5cca9c42d7222ed2f1d41140ea31ca1e838a5aa6c4e53c5d4912714",
+        "bytes": [
+          35790,
+          35433
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/acme/catalogue/flows/": {
+        "file": "route-8d8347d739b5b69b3666.json.gz",
+        "previousSha256": "9ba3af408f8c4addc406f87bac6a6e0d5c3d5bd4bb7ea98f06843db8e4a720ad",
+        "currentSha256": "9d036df2164182994a282a66f45487b760d93b969b9f2a480a40d46e38c72cf0",
+        "bytes": [
+          59427,
+          59054
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/acme/catalogue/interfaces/": {
+        "file": "route-d02ef6d42e51312da620.json.gz",
+        "previousSha256": "d2df5aa3d14308209f962df179dc4d062dab75482509b8fbb1269476b5ce13b0",
+        "currentSha256": "2f0e8320ca214c365fdc4d2d6ec89be7901d18b18ef9a5feefa84e263f7532ce",
+        "bytes": [
+          39599,
+          39234
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/acme/catalogue/language/": {
+        "file": "route-8695f71d28aee9634f2f.json.gz",
+        "previousSha256": "b49a0ade2945dcdb39db185f5f1bc590eded7c6bf34902ed8aa8925728d7020e",
+        "currentSha256": "c025087b5aa75362c8127f04903a3f8c4f861010a95b32817d8b2cf91f115359",
+        "bytes": [
+          32676,
+          32311
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/acme/catalogue/map/": {
+        "file": "route-10d143d9e6e81d289335.json.gz",
+        "previousSha256": "99cddcfdb125ff006fc4b33c154ab0f1bbe8ab5b8319b2ff8536d065d7e6c1b1",
+        "currentSha256": "babf587f5119ea20287e6f91c3c3c7ebf663083fd1702d07efbd796904263cf6",
+        "bytes": [
+          34940,
+          34575
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/acme/catalogue/plans/": {
+        "file": "route-70370555f544e09df429.json.gz",
+        "previousSha256": "8bef00379bfed84da62a6dc786c9ca6c0296464de97ef7c81ba633082613cb79",
+        "currentSha256": "a6345a00362bf9ba442de72eabb22f1ca59b2ce8b860ddc08db329b6b227eb4d",
+        "bytes": [
+          27459,
+          27102
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/acme/catalogue/products/": {
+        "file": "route-4c02be800d98953c2acc.json.gz",
+        "previousSha256": "974043cfffdf87f2dc7384ce18e7ef2a17bdc92c1e055117a9dcbee3e2ac1cfb",
+        "currentSha256": "e0c1f95a2bd4386d789193867967a84146c5b6950e07b624f3cc1d56a89ce487",
+        "bytes": [
+          105185,
+          104804
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/acme/catalogue/target/": {
+        "file": "route-35ed255c17f3a1ddb01f.json.gz",
+        "previousSha256": "e0ae48e95949305874cb708ee829d1b07001ac6d2f506f9b4adc3333cfdaa8fe",
+        "currentSha256": "96d40e17f944426a27afbb404d49c7d89ccbdc586bdb168811c9ca8ba9401980",
+        "bytes": [
+          28117,
+          27760
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/acme/explorer/": {
+        "file": "route-2766aed1314ff3a2861b.json.gz",
+        "previousSha256": "4750a0dfcdcc26f42479b18cc958fb031253867216f4996497761c845d7958f3",
+        "currentSha256": "1de6406c758d9e9ab053d31fbbdd384b1a9b1315410c5c069e54b340672c6227",
+        "bytes": [
+          31071,
+          14635
+        ],
+        "changedKeys": [
+          "headings",
+          "htmlBytes",
+          "links",
+          "payload"
+        ],
+        "reason": "history",
+        "linksAdded": [],
+        "linksRemoved": [
+          "/acme/catalogue/",
+          "/acme/explorer/",
+          "/acme/journeys/",
+          "/acme/language/",
+          "/acme/orders/",
+          "/acme/people/",
+          "/acme/plans/",
+          "/acme/reference/",
+          "/acme/reference/apis/",
+          "/acme/reference/components/",
+          "/acme/reference/events/",
+          "/acme/reference/flows/",
+          "/acme/reference/schemas/",
+          "/acme/reference/screens/",
+          "/acme/reference/stores/",
+          "/acme/storefront/",
+          "/acme/value-flows/"
+        ],
+        "headingsBefore": [],
+        "headingsAfter": [
+          "Historical entries"
+        ]
+      },
+      "/acme/journeys/": {
+        "file": "route-639fe7d6c385e2a73fc9.json.gz",
+        "previousSha256": "46e49aa8bd31ed6f0bd141b4ac690d953e45750e5640c714433a67f55ff9abeb",
+        "currentSha256": "b4d78b78e2c42ce5da85d2f09590a246f12d8a34d6b63ddd4c81ca34548e10fa",
+        "bytes": [
+          40426,
+          40048
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/acme/journeys/flow-cancel-order/": {
+        "file": "route-a422d3a7ef9092a03ee3.json.gz",
+        "previousSha256": "e69faef340158723abe66162e3c54903e1b7ad170700414836a821a5eae43686",
+        "currentSha256": "013cc3a68572340019da81c72c0cf2b8834477899f0b6bb1ebfbcdecdac10969",
+        "bytes": [
+          52935,
+          52557
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/acme/journeys/flow-publish-product/": {
+        "file": "route-a019b02e11f562b22e7e.json.gz",
+        "previousSha256": "48efc3ccc3e39e559e0f78df6ed7361137a4a595b8b6725d081beea257d4fa31",
+        "currentSha256": "f49152c224c486a0dc059dcf210ec3a13fa44ffb744b1fe5ba894c4bb20057dc",
+        "bytes": [
+          69792,
+          69414
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/acme/journeys/uj-buy/": {
+        "file": "route-29ec9e83e42953c59e5d.json.gz",
+        "previousSha256": "b4295c92f3168e7e5b4d3f918d3047a1b5ae23474b7cf08390832825f8cb81c8",
+        "currentSha256": "166d46ae35f795f9cc1ea78ac9ff1e0923a5aae936f834a705bcab7722f63b37",
+        "bytes": [
+          120386,
+          120008
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/acme/language/": {
+        "file": "route-a5d555b60865ca6553f6.json.gz",
+        "previousSha256": "d77bf35c5495c93e3a2d49da9b6480bd075d7beb24d21210ad767aa6d6ff723c",
+        "currentSha256": "130d8f0dac07e3330918ea8fc27acd4cdb8eea637f8aca12aaa5a960a76b4e5b",
+        "bytes": [
+          46612,
+          46234
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/acme/partners/": {
+        "file": "route-4478e3dd494569e83fbe.json.gz",
+        "previousSha256": "97e8784e92ff377746e6e5d571fd68ca276f971509900c5d1ec308c7dd119595",
+        "currentSha256": "8280e9ff6901bcced7a773386a2ec2ca0e6ffe0a33af492e0513af7b0f1d508b",
+        "bytes": [
+          36955,
+          36585
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/acme/people/": {
+        "file": "route-6374487d74074517730d.json.gz",
+        "previousSha256": "9bb81fcda00d3a8be021c3a4abdf307d888eebbbc74d6c4e7df85deb1e22cb84",
+        "currentSha256": "a4bf960ffe7f0df27f7868ab0be72f400b78599b257fa0d086a276b4d9047dd8",
+        "bytes": [
+          41569,
+          41191
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/acme/plans/": {
+        "file": "route-e38cd1fab6b083167cbb.json.gz",
+        "previousSha256": "4b790007358378226a22189ee6cfc9df98641d693063fdb7bd0bceeb0a38a17c",
+        "currentSha256": "322a5a68d42cd73f95b8218132285e6d4f4de8d6e5d62b331d4caf348224899e",
+        "bytes": [
+          37027,
+          36657
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/acme/programmes/": {
+        "file": "route-9cfabff74e65383b4393.json.gz",
+        "previousSha256": "f7fe8334005ea54988727a64dca6462b560185b40b1af0589045a3c8dd8d59e7",
+        "currentSha256": "784b9a7bf02a3d56cf2413fe96099fe1921ef96eb66c6082e4a9f0cbe9d1caf7",
+        "bytes": [
+          37074,
+          36704
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/acme/reference/": {
+        "file": "route-23fa7a87ef6e6edac44b.json.gz",
+        "previousSha256": "014c103b25d5c486e492b71c07c94b9f83aefe4894e79c6987d24ab7f17ac6b1",
+        "currentSha256": "4746d4e77e094e33e7d929f0b4a7822f5c2ac3154ad390eec8b294c23954bcc5",
+        "bytes": [
+          41824,
+          41454
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/acme/reference/apis/": {
+        "file": "route-7a3c54369841112468b1.json.gz",
+        "previousSha256": "ec436293c03d5b3d463d5f680093c52dc9d9683c8996d51748e531d1bb14014e",
+        "currentSha256": "46789fda00769db5399c19b7b7f205293b83bb47e8313a53c60aae9c16c9178c",
+        "bytes": [
+          56528,
+          56150
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/acme/reference/components/": {
+        "file": "route-29985be361dd9138b14f.json.gz",
+        "previousSha256": "e80ce96d309b2148e362799f8a8cd341fd73a389cbfb16d68d5a591153b31bcb",
+        "currentSha256": "0eb2ead887bb79cbff72cf8c3d0c9b24ea413c93d346e45880602a71057fcf53",
+        "bytes": [
+          64526,
+          64148
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/acme/reference/events/": {
+        "file": "route-96b54d105274694098ef.json.gz",
+        "previousSha256": "9338412141c7e6e16c59e271bf9eebbdca5770fce0f9c718d51cf2866b539320",
+        "currentSha256": "c766cdf49091f0b0382d4207068b1e9604c34f2f37b759bb3ee3cce22e238f36",
+        "bytes": [
+          42300,
+          41922
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/acme/reference/flows/": {
+        "file": "route-7a715183f54742ed3a0f.json.gz",
+        "previousSha256": "cb2abeb58ae8a289485f82b84f4b24036f1b6033ebb9306b6759537f1a7c65d2",
+        "currentSha256": "d3f9fa27b2a11d1d9e09909c029bddd6107f09d1854a2c544dc81f384c11d909",
+        "bytes": [
+          43495,
+          43117
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/acme/reference/schemas/": {
+        "file": "route-34c17a0121f013aef6e3.json.gz",
+        "previousSha256": "56e855cbddfdfa2b93ce267ac73a6cf3f0e5f414b712c265d2c8084046d2533d",
+        "currentSha256": "0170539f8e8e3dff075e9bf05b62e932401d6503ef94b2d8867476c09b07f134",
+        "bytes": [
+          46080,
+          45702
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/acme/reference/screens/": {
+        "file": "route-ca9f63f9e8b7fc21761e.json.gz",
+        "previousSha256": "d1e384b0777cf71e8757a8bebaf9fe554a09c9264d1f8f99b836114fbc75ecea",
+        "currentSha256": "d42a8c3dc4b2f85bebc728a0e8f66530b14f2e35bf304cb7c3fc16ed7ada6a79",
+        "bytes": [
+          43877,
+          43499
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/acme/reference/stores/": {
+        "file": "route-56aa4ad6f05325ae9b96.json.gz",
+        "previousSha256": "2541c46d0a520501c093d4b97e702656a9449ed0fd94f370cece7fa863d1b986",
+        "currentSha256": "1ca7819507694d9a89b5f4c18589a519982abecc8a17f1d16277ad634d525362",
+        "bytes": [
+          51998,
+          51620
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/acme/things/?id=api-products-get": {
+        "file": "route-4f5901ed06540b959e16.json.gz",
+        "previousSha256": "3e67f91676ce5807c0f74cab8e54fd9871772477d68adb3180cafc4cf1fbeff4",
+        "currentSha256": "ac89922391470faabc6d8ae31c74f7304dda086dc278732d2ce021a7e730c60b",
+        "bytes": [
+          56875,
+          56510
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/acme/things/?id=msg-product-changed": {
+        "file": "route-b74e9d9ab1170f2c9f39.json.gz",
+        "previousSha256": "a0d712e25ef2b1ad6805c977eeba98df078be843f77c0f4c657c12ba43195ae4",
+        "currentSha256": "7e571dad05f748322e01f818c4c25f894c8c900587e401b20dabb79b73e2ca01",
+        "bytes": [
+          58557,
+          58192
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/acme/things/?id=sch-product": {
+        "file": "route-69e145634256e9eea7c9.json.gz",
+        "previousSha256": "77b114ae7e65f3f0c17e2a5d594a103ed39dc927355126a01a392a59d3849474",
+        "currentSha256": "f616d81a4ca537bbcc76ab92c606d53bef921569807d2f1b9194e9c4238794de",
+        "bytes": [
+          73348,
+          72983
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/acme/things/?id=st-products-db": {
+        "file": "route-a1df0b2f33adaa9cda23.json.gz",
+        "previousSha256": "09be01cbd922885a27f5c47a7b1afc4a2c632335af854dc26f2dd195b2d918a7",
+        "currentSha256": "db013614b0a8b68bd3e35e1308613ee66dd82a03ed846463e9c9d5e6d870bbb2",
+        "bytes": [
+          52420,
+          52055
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/acme/things/?id=svc-products": {
+        "file": "route-7d4150c8474fdb6f87ae.json.gz",
+        "previousSha256": "39879294c639e28baaa6fe9903eab1dfb553f2d10b6cfdd8900f30b93c4bfcf6",
+        "currentSha256": "bb00354b07ea490f43e9d2c051d83ae68477b3414a2216c8050e747f33738030",
+        "bytes": [
+          63868,
+          63503
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/acme/value-flows/": {
+        "file": "route-03c69d1ba9240dde189b.json.gz",
+        "previousSha256": "ff87f2449bd5b81bdc16bf7ee5a3c78ba73877517587d9988e1ed637cb212482",
+        "currentSha256": "36babda9aeed272e217df78b60011ea13c7c7eff72e51b67a5ca476515233043",
+        "bytes": [
+          36311,
+          35933
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/acme/entries/": {
+        "file": "route-4eb0014976e8ebe173ba.json.gz",
+        "previousSha256": "c5d23076a66abc24933271843d95acaa791af78ab64f544af3682a4c5ab71981",
+        "currentSha256": "5eb7abb3ab47b6c0d472c5cc05580f6ef85fa6612d982c040d947f6926fe7471",
+        "bytes": [
+          24075,
+          24057
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/acme/entries/?id=api-products-get": {
+        "file": "route-b16947bcc4245683401c.json.gz",
+        "previousSha256": "b9cab329e42da8ec277d23bcf54d6bb507b823432308b4edc2db3bcd541891da",
+        "currentSha256": "112349128438c98da73d10fe8d150b91fcb2c5b7d9ccd3692721a85fcaddc3f4",
+        "bytes": [
+          16464,
+          18218
+        ],
+        "changedKeys": [
+          "headings",
+          "htmlBytes",
+          "links",
+          "payload"
+        ],
+        "reason": "entry-api",
+        "linksAdded": [
+          "/acme/things/?id=sch%3Aproduct"
+        ],
+        "linksRemoved": [],
+        "headingsBefore": [
+          "GET /products/{sku}",
+          "Called by",
+          "Handled in",
+          "Effects",
+          "Recorded gaps"
+        ],
+        "headingsAfter": [
+          "GET /products/{sku}",
+          "What starts it",
+          "Handled in",
+          "Effects",
+          "Recorded gaps"
+        ]
+      },
+      "/acme/entries/?id=ui-add-to-basket": {
+        "file": "route-e67625401cf7638cb96f.json.gz",
+        "previousSha256": "6e8cfe137f73f50ffeaf3e559973fcbf62c1b5e0ee2dd0110ab7f8314a6c6fff",
+        "currentSha256": "1bc23df6c013c1a66abf6fb7264bdd81b31325767bd0b342fb937fcd9ae13039",
+        "bytes": [
+          16271,
+          17536
+        ],
+        "changedKeys": [
+          "headings",
+          "htmlBytes",
+          "payload"
+        ],
+        "reason": "entry-ui",
+        "linksAdded": [],
+        "linksRemoved": [],
+        "headingsBefore": [
+          "Add to basket",
+          "Called by",
+          "Handled in",
+          "Effects",
+          "Recorded gaps"
+        ],
+        "headingsAfter": [
+          "Add to basket",
+          "What starts it",
+          "Handled in",
+          "Effects",
+          "Recorded gaps"
+        ]
+      },
+      "/acme/journeys/jny-buy/": {
+        "file": "route-cd66322b6ea922cc1c2f.json.gz",
+        "previousSha256": "0e73a2482e3383e9a4177d9109e637ffba81c4869747d50ecdc553dfba2b981c",
+        "currentSha256": "82033652bfe550b2b8867bf3d2c905b0033019881b9439b68bc292044403f9a1",
+        "bytes": [
+          120388,
+          120010
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/acme/things/?id=ext-card-provider": {
+        "file": "route-df9ab3eb98216d267269.json.gz",
+        "previousSha256": "ef162444c8d37622550f4ec1a73cca3c36fe9350c6b8edd99d69b5f4313dad4d",
+        "currentSha256": "79deafdf821dd8b7e21aff89070289948f2e7beee6b299551a81c2ba0658ebd0",
+        "bytes": [
+          48515,
+          48150
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/acme/things/?id=flow-cancel-order": {
+        "file": "route-4801f586052a3cfff9a1.json.gz",
+        "previousSha256": "638857fd3dfa63d85e27a4aadbf44aceafca315413b856fba22f9ff70d06fa8b",
+        "currentSha256": "89acba504e248b2b1c35c26ed18d6339d4b38ca3619977e8706d3be9fb74193a",
+        "bytes": [
+          76427,
+          76046
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      },
+      "/acme/things/?id=scr-product-page": {
+        "file": "route-ee1f29cdf25971236ce8.json.gz",
+        "previousSha256": "6236e13f6fa8d6e055e2279b938c62f9f4386bb559de05aaff9cddd045628746",
+        "currentSha256": "295a290c2d6a092c333c4e2e30c6994a70c1c2cc1f0adc5dd2fcb4aa6a89c659",
+        "bytes": [
+          63443,
+          63062
+        ],
+        "changedKeys": [
+          "htmlBytes"
+        ],
+        "reason": "bytes"
+      }
+    },
+    "allowed": 56
+  }
+}

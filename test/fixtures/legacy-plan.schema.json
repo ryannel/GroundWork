@@ -5,12 +5,7 @@
   "description": "Base arrays describe the system as it is today; every delta is an op inside changes[]. See SPEC.md §1.",
   "type": "object",
   "additionalProperties": false,
-  "required": [
-    "meta",
-    "problem",
-    "teams",
-    "services"
-  ],
+  "required": ["meta", "problem", "teams", "services"],
   "properties": {
     "meta": {
       "$ref": "#/$defs/meta"
@@ -180,10 +175,7 @@
     "execution": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "summary",
-        "paths"
-      ],
+      "required": ["summary", "paths"],
       "description": "Plain-language account of how the plan plays out; chapter 4 opens on it (How it plays out).",
       "properties": {
         "summary": {
@@ -196,10 +188,7 @@
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": [
-              "name",
-              "steps"
-            ],
+            "required": ["name", "steps"],
             "properties": {
               "name": {
                 "type": "string"
@@ -214,10 +203,7 @@
                 "items": {
                   "type": "object",
                   "additionalProperties": false,
-                  "required": [
-                    "label",
-                    "detail"
-                  ],
+                  "required": ["label", "detail"],
                   "properties": {
                     "label": {
                       "type": "string"
@@ -380,19 +366,12 @@
       "format": "date"
     },
     "level3": {
-      "enum": [
-        "low",
-        "med",
-        "high"
-      ]
+      "enum": ["low", "med", "high"]
     },
     "meta": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "id",
-        "title"
-      ],
+      "required": ["id", "title"],
       "properties": {
         "id": {
           "type": "string",
@@ -412,12 +391,7 @@
           "description": "when delivery starts (YYYY-MM-DD); milestone due dates count from here"
         },
         "status": {
-          "enum": [
-            "draft",
-            "review",
-            "approved",
-            "committed"
-          ],
+          "enum": ["draft", "review", "approved", "committed"],
           "description": "the plan's lifecycle: draft, review, approved (the teams agreed). 'committed' is the old name for approved and still reads as it, with a warning"
         },
         "revisions": {
@@ -426,11 +400,7 @@
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": [
-              "version",
-              "status",
-              "date"
-            ],
+            "required": ["version", "status", "date"],
             "properties": {
               "version": {
                 "type": "string",
@@ -438,11 +408,7 @@
                 "description": "major.minor, e.g. 1.1; a scope change (goals, non-goals, milestones) is a new major"
               },
               "status": {
-                "enum": [
-                  "proposed",
-                  "approved",
-                  "rejected"
-                ]
+                "enum": ["proposed", "approved", "rejected"]
               },
               "date": {
                 "$ref": "#/$defs/date",
@@ -462,10 +428,7 @@
                 "items": {
                   "type": "object",
                   "additionalProperties": false,
-                  "required": [
-                    "item",
-                    "action"
-                  ],
+                  "required": ["item", "action"],
                   "properties": {
                     "item": {
                       "type": "string",
@@ -473,12 +436,7 @@
                       "description": "the work item"
                     },
                     "action": {
-                      "enum": [
-                        "rework",
-                        "keep",
-                        "drop",
-                        "new"
-                      ],
+                      "enum": ["rework", "keep", "drop", "new"],
                       "description": "rework: it changes (reopened when done); keep: it stands as it is; drop: it goes; new: it is added"
                     },
                     "note": {
@@ -554,9 +512,7 @@
     "metric": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "name"
-      ],
+      "required": ["name"],
       "properties": {
         "name": {
           "type": "string"
@@ -572,10 +528,7 @@
     "scenario": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "id",
-        "title"
-      ],
+      "required": ["id", "title"],
       "properties": {
         "id": {
           "$ref": "#/$defs/id_sc"
@@ -598,10 +551,7 @@
     "glossaryEntry": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "term",
-        "means"
-      ],
+      "required": ["term", "means"],
       "properties": {
         "term": {
           "type": "string"
@@ -615,9 +565,7 @@
     "problem": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "summary"
-      ],
+      "required": ["summary"],
       "properties": {
         "summary": {
           "type": "string",
@@ -662,10 +610,7 @@
     "team": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "id",
-        "name"
-      ],
+      "required": ["id", "name"],
       "properties": {
         "id": {
           "$ref": "#/$defs/id_team"
@@ -687,10 +632,7 @@
     "system": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "id",
-        "name"
-      ],
+      "required": ["id", "name"],
       "properties": {
         "id": {
           "$ref": "#/$defs/id_sys"
@@ -727,11 +669,7 @@
     "service": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "id",
-        "name",
-        "kind"
-      ],
+      "required": ["id", "name", "kind"],
       "properties": {
         "id": {
           "$ref": "#/$defs/id_svc"
@@ -747,12 +685,7 @@
           "description": "the system this deployable is part of; same team, same stage. The system map draws it as a row inside the system's card"
         },
         "kind": {
-          "enum": [
-            "ui",
-            "service",
-            "job",
-            "external"
-          ]
+          "enum": ["ui", "service", "job", "external"]
         },
         "tech": {
           "type": "string"
@@ -781,31 +714,20 @@
     "storeAccess": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "svc",
-        "mode"
-      ],
+      "required": ["svc", "mode"],
       "properties": {
         "svc": {
           "$ref": "#/$defs/id_svc"
         },
         "mode": {
-          "enum": [
-            "read",
-            "write",
-            "readwrite"
-          ]
+          "enum": ["read", "write", "readwrite"]
         }
       }
     },
     "store": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "id",
-        "name",
-        "kind"
-      ],
+      "required": ["id", "name", "kind"],
       "properties": {
         "id": {
           "$ref": "#/$defs/id_st"
@@ -814,14 +736,7 @@
           "type": "string"
         },
         "kind": {
-          "enum": [
-            "database",
-            "cache",
-            "topic",
-            "queue",
-            "warehouse",
-            "bucket"
-          ]
+          "enum": ["database", "cache", "topic", "queue", "warehouse", "bucket"]
         },
         "tech": {
           "type": "string"
@@ -841,18 +756,11 @@
           }
         },
         "layer": {
-          "enum": [
-            "edge",
-            "gateway",
-            "subgraph"
-          ],
+          "enum": ["edge", "gateway", "subgraph"],
           "description": "kind: cache: where the layer sits on the cache path (outermost first)"
         },
         "granularity": {
-          "enum": [
-            "response",
-            "entity"
-          ],
+          "enum": ["response", "entity"],
           "description": "kind: cache: whole responses, or per entity per subgraph fetch (Apollo Router entity caching)"
         },
         "keyed_by": {
@@ -925,10 +833,7 @@
     "field": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "name",
-        "type"
-      ],
+      "required": ["name", "type"],
       "properties": {
         "name": {
           "$ref": "#/$defs/fieldName"
@@ -948,11 +853,7 @@
           "description": "a reference to another record: sch:* (its key) or sch:*#field"
         },
         "default": {
-          "type": [
-            "string",
-            "number",
-            "boolean"
-          ],
+          "type": ["string", "number", "boolean"],
           "description": "the value used when the field is left out"
         },
         "unique": {
@@ -989,14 +890,9 @@
           "description": "@requires: fields the gateway must fetch first and send along"
         },
         "override": {
-          "type": [
-            "object",
-            "null"
-          ],
+          "type": ["object", "null"],
           "additionalProperties": false,
-          "required": [
-            "from"
-          ],
+          "required": ["from"],
           "description": "@override: this field moves from another subgraph; percent = progressive override (null once the move is contracted)",
           "properties": {
             "from": {
@@ -1050,10 +946,7 @@
               }
             },
             "per_day": {
-              "type": [
-                "string",
-                "number"
-              ]
+              "type": ["string", "number"]
             },
             "last_seen": {
               "type": "string"
@@ -1080,11 +973,7 @@
     "schema": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "id",
-        "name",
-        "kind"
-      ],
+      "required": ["id", "name", "kind"],
       "properties": {
         "id": {
           "$ref": "#/$defs/id_sch"
@@ -1093,12 +982,7 @@
           "type": "string"
         },
         "kind": {
-          "enum": [
-            "record",
-            "dto",
-            "payload",
-            "graph-type"
-          ]
+          "enum": ["record", "dto", "payload", "graph-type"]
         },
         "store": {
           "$ref": "#/$defs/id_st"
@@ -1108,10 +992,7 @@
           "description": "kind: graph-type only: the graph the type belongs to"
         },
         "root": {
-          "enum": [
-            "query",
-            "mutation"
-          ],
+          "enum": ["query", "mutation"],
           "description": "kind: graph-type only: Query or Mutation"
         },
         "keys": {
@@ -1120,10 +1001,7 @@
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": [
-              "fields",
-              "in"
-            ],
+            "required": ["fields", "in"],
             "properties": {
               "fields": {
                 "type": "array",
@@ -1163,9 +1041,7 @@
       "allOf": [
         {
           "if": {
-            "required": [
-              "kind"
-            ],
+            "required": ["kind"],
             "properties": {
               "kind": {
                 "const": "graph-type"
@@ -1173,9 +1049,7 @@
             }
           },
           "then": {
-            "required": [
-              "graph"
-            ]
+            "required": ["graph"]
           },
           "else": {
             "properties": {
@@ -1210,9 +1084,7 @@
     "endpointError": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "status"
-      ],
+      "required": ["status"],
       "properties": {
         "status": {
           "type": "integer",
@@ -1230,10 +1102,7 @@
     "endpoint": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "id",
-        "sig"
-      ],
+      "required": ["id", "sig"],
       "properties": {
         "id": {
           "$ref": "#/$defs/id_api"
@@ -1278,11 +1147,7 @@
     "interface": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "id",
-        "service",
-        "protocol"
-      ],
+      "required": ["id", "service", "protocol"],
       "properties": {
         "id": {
           "$ref": "#/$defs/id_if"
@@ -1291,12 +1156,7 @@
           "$ref": "#/$defs/id_svc"
         },
         "protocol": {
-          "enum": [
-            "rest",
-            "grpc",
-            "graphql",
-            "https"
-          ]
+          "enum": ["rest", "grpc", "graphql", "https"]
         },
         "version": {
           "type": "string"
@@ -1326,11 +1186,7 @@
     "message": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "id",
-        "name",
-        "topic"
-      ],
+      "required": ["id", "name", "topic"],
       "properties": {
         "id": {
           "$ref": "#/$defs/id_msg"
@@ -1383,13 +1239,7 @@
     "step": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "id",
-        "from",
-        "to",
-        "via",
-        "action"
-      ],
+      "required": ["id", "from", "to", "via", "action"],
       "properties": {
         "id": {
           "$ref": "#/$defs/id_step"
@@ -1441,11 +1291,7 @@
           "description": "the screen (or region) the person is on when this step happens; makes the flow a UI journey"
         },
         "case": {
-          "enum": [
-            "hit",
-            "miss",
-            "cold"
-          ],
+          "enum": ["hit", "miss", "cold"],
           "description": "via gql: only: which cache case the flow narrates (hit = the outermost layer answers; miss = it misses and the next answers; cold = every layer misses)"
         },
         "purges": {
@@ -1460,11 +1306,7 @@
     "flow": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "id",
-        "name",
-        "steps"
-      ],
+      "required": ["id", "name", "steps"],
       "properties": {
         "id": {
           "$ref": "#/$defs/id_flow"
@@ -1500,9 +1342,7 @@
     },
     "op_add": {
       "type": "object",
-      "required": [
-        "add"
-      ],
+      "required": ["add"],
       "discriminator": {
         "propertyName": "add"
       },
@@ -1510,10 +1350,7 @@
         {
           "type": "object",
           "additionalProperties": false,
-          "required": [
-            "add",
-            "value"
-          ],
+          "required": ["add", "value"],
           "properties": {
             "add": {
               "const": "service"
@@ -1526,10 +1363,7 @@
         {
           "type": "object",
           "additionalProperties": false,
-          "required": [
-            "add",
-            "value"
-          ],
+          "required": ["add", "value"],
           "properties": {
             "add": {
               "const": "system"
@@ -1542,10 +1376,7 @@
         {
           "type": "object",
           "additionalProperties": false,
-          "required": [
-            "add",
-            "value"
-          ],
+          "required": ["add", "value"],
           "properties": {
             "add": {
               "const": "store"
@@ -1558,10 +1389,7 @@
         {
           "type": "object",
           "additionalProperties": false,
-          "required": [
-            "add",
-            "value"
-          ],
+          "required": ["add", "value"],
           "properties": {
             "add": {
               "const": "schema"
@@ -1574,11 +1402,7 @@
         {
           "type": "object",
           "additionalProperties": false,
-          "required": [
-            "add",
-            "value",
-            "into"
-          ],
+          "required": ["add", "value", "into"],
           "properties": {
             "add": {
               "const": "field"
@@ -1594,10 +1418,7 @@
         {
           "type": "object",
           "additionalProperties": false,
-          "required": [
-            "add",
-            "value"
-          ],
+          "required": ["add", "value"],
           "properties": {
             "add": {
               "const": "interface"
@@ -1610,11 +1431,7 @@
         {
           "type": "object",
           "additionalProperties": false,
-          "required": [
-            "add",
-            "value",
-            "into"
-          ],
+          "required": ["add", "value", "into"],
           "properties": {
             "add": {
               "const": "endpoint"
@@ -1630,10 +1447,7 @@
         {
           "type": "object",
           "additionalProperties": false,
-          "required": [
-            "add",
-            "value"
-          ],
+          "required": ["add", "value"],
           "properties": {
             "add": {
               "const": "message"
@@ -1646,10 +1460,7 @@
         {
           "type": "object",
           "additionalProperties": false,
-          "required": [
-            "add",
-            "value"
-          ],
+          "required": ["add", "value"],
           "properties": {
             "add": {
               "const": "flow"
@@ -1662,11 +1473,7 @@
         {
           "type": "object",
           "additionalProperties": false,
-          "required": [
-            "add",
-            "value",
-            "into"
-          ],
+          "required": ["add", "value", "into"],
           "properties": {
             "add": {
               "const": "step"
@@ -1685,10 +1492,7 @@
         {
           "type": "object",
           "additionalProperties": false,
-          "required": [
-            "add",
-            "value"
-          ],
+          "required": ["add", "value"],
           "properties": {
             "add": {
               "const": "screen"
@@ -1701,11 +1505,7 @@
         {
           "type": "object",
           "additionalProperties": false,
-          "required": [
-            "add",
-            "value",
-            "into"
-          ],
+          "required": ["add", "value", "into"],
           "properties": {
             "add": {
               "const": "region"
@@ -1721,10 +1521,7 @@
         {
           "type": "object",
           "additionalProperties": false,
-          "required": [
-            "add",
-            "value"
-          ],
+          "required": ["add", "value"],
           "properties": {
             "add": {
               "const": "graph"
@@ -1737,10 +1534,7 @@
         {
           "type": "object",
           "additionalProperties": false,
-          "required": [
-            "add",
-            "value"
-          ],
+          "required": ["add", "value"],
           "properties": {
             "add": {
               "const": "subgraph"
@@ -1753,10 +1547,7 @@
         {
           "type": "object",
           "additionalProperties": false,
-          "required": [
-            "add",
-            "value"
-          ],
+          "required": ["add", "value"],
           "properties": {
             "add": {
               "const": "interaction"
@@ -1769,10 +1560,7 @@
         {
           "type": "object",
           "additionalProperties": false,
-          "required": [
-            "add",
-            "value"
-          ],
+          "required": ["add", "value"],
           "properties": {
             "add": {
               "const": "userJourney"
@@ -1785,10 +1573,7 @@
         {
           "type": "object",
           "additionalProperties": false,
-          "required": [
-            "add",
-            "value"
-          ],
+          "required": ["add", "value"],
           "properties": {
             "add": {
               "const": "operation"
@@ -1801,10 +1586,7 @@
         {
           "type": "object",
           "additionalProperties": false,
-          "required": [
-            "add",
-            "value"
-          ],
+          "required": ["add", "value"],
           "properties": {
             "add": {
               "const": "handler"
@@ -1819,9 +1601,7 @@
     "op_modify": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "modify"
-      ],
+      "required": ["modify"],
       "properties": {
         "modify": {
           "$ref": "#/$defs/id_any"
@@ -1852,28 +1632,20 @@
       },
       "anyOf": [
         {
-          "required": [
-            "set"
-          ]
+          "required": ["set"]
         },
         {
-          "required": [
-            "append"
-          ]
+          "required": ["append"]
         },
         {
-          "required": [
-            "drop"
-          ]
+          "required": ["drop"]
         }
       ]
     },
     "op_deprecate": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "deprecate"
-      ],
+      "required": ["deprecate"],
       "properties": {
         "deprecate": {
           "$ref": "#/$defs/id_any"
@@ -1886,9 +1658,7 @@
     "op_remove": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "remove"
-      ],
+      "required": ["remove"],
       "properties": {
         "remove": {
           "$ref": "#/$defs/id_any"
@@ -1914,10 +1684,7 @@
     "change": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "id",
-        "title"
-      ],
+      "required": ["id", "title"],
       "properties": {
         "id": {
           "$ref": "#/$defs/id_chg"
@@ -1971,24 +1738,13 @@
     "test": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "id",
-        "level",
-        "name",
-        "proves"
-      ],
+      "required": ["id", "level", "name", "proves"],
       "properties": {
         "id": {
           "$ref": "#/$defs/id_tst"
         },
         "level": {
-          "enum": [
-            "unit",
-            "service",
-            "contract",
-            "integration",
-            "e2e"
-          ]
+          "enum": ["unit", "service", "contract", "integration", "e2e"]
         },
         "name": {
           "type": "string"
@@ -2021,22 +1777,14 @@
           "$ref": "#/$defs/id_team"
         },
         "env": {
-          "enum": [
-            "local",
-            "ci",
-            "staging",
-            "prod"
-          ]
+          "enum": ["local", "ci", "staging", "prod"]
         }
       }
     },
     "milestone": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "id",
-        "name"
-      ],
+      "required": ["id", "name"],
       "properties": {
         "id": {
           "$ref": "#/$defs/id_ms"
@@ -2067,11 +1815,7 @@
     "workItem": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "id",
-        "title",
-        "team"
-      ],
+      "required": ["id", "title", "team"],
       "properties": {
         "id": {
           "$ref": "#/$defs/id_wi"
@@ -2083,13 +1827,7 @@
           "$ref": "#/$defs/id_team"
         },
         "size": {
-          "enum": [
-            "XS",
-            "S",
-            "M",
-            "L",
-            "XL"
-          ]
+          "enum": ["XS", "S", "M", "L", "XL"]
         },
         "milestone": {
           "$ref": "#/$defs/id_ms"
@@ -2137,12 +1875,7 @@
           "description": "GitHub issue number in `repo`; written back by tools/export-issues.mjs, never authored by hand"
         },
         "issue_type": {
-          "enum": [
-            "task",
-            "story",
-            "feature",
-            "bug"
-          ],
+          "enum": ["task", "story", "feature", "bug"],
           "description": "which issue template (.github/ISSUE_TEMPLATE/<type>.yml) the exported issue uses; default task"
         }
       }
@@ -2150,9 +1883,7 @@
     "option": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "name"
-      ],
+      "required": ["name"],
       "properties": {
         "name": {
           "type": "string"
@@ -2166,11 +1897,7 @@
     "decision": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "id",
-        "title",
-        "status"
-      ],
+      "required": ["id", "title", "status"],
       "properties": {
         "id": {
           "$ref": "#/$defs/id_dec"
@@ -2179,13 +1906,7 @@
           "type": "string"
         },
         "status": {
-          "enum": [
-            "proposed",
-            "accepted",
-            "deferred",
-            "rejected",
-            "superseded"
-          ],
+          "enum": ["proposed", "accepted", "deferred", "rejected", "superseded"],
           "description": "deferred: deliberately left until after this plan; set decide_by as the date to revisit it"
         },
         "decider": {
@@ -2201,10 +1922,7 @@
           "description": "when it was accepted or rejected"
         },
         "reversibility": {
-          "enum": [
-            "one-way",
-            "two-way"
-          ],
+          "enum": ["one-way", "two-way"],
           "description": "one-way: costly or impossible to undo once shipped; two-way: can be changed later at low cost"
         },
         "supersedes": {
@@ -2244,10 +1962,7 @@
     "risk": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "id",
-        "statement"
-      ],
+      "required": ["id", "statement"],
       "properties": {
         "id": {
           "$ref": "#/$defs/id_risk"
@@ -2263,12 +1978,7 @@
           "$ref": "#/$defs/level3"
         },
         "roam": {
-          "enum": [
-            "resolved",
-            "owned",
-            "accepted",
-            "mitigated"
-          ]
+          "enum": ["resolved", "owned", "accepted", "mitigated"]
         },
         "owner": {
           "$ref": "#/$defs/id_team"
@@ -2299,11 +2009,7 @@
     "question": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "id",
-        "question",
-        "status"
-      ],
+      "required": ["id", "question", "status"],
       "properties": {
         "id": {
           "$ref": "#/$defs/id_q"
@@ -2319,10 +2025,7 @@
           "$ref": "#/$defs/date"
         },
         "status": {
-          "enum": [
-            "open",
-            "resolved"
-          ]
+          "enum": ["open", "resolved"]
         },
         "answer": {
           "type": "string",
@@ -2404,9 +2107,7 @@
     "source": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "url"
-      ],
+      "required": ["url"],
       "description": "Where this fact lives: a GitHub permalink (blob/<sha>/path#L10-L20), a document (with pointer or heading, and version), a dashboard",
       "properties": {
         "url": {
@@ -2438,10 +2139,7 @@
         }
       },
       "not": {
-        "required": [
-          "pointer",
-          "heading"
-        ]
+        "required": ["pointer", "heading"]
       }
     },
     "id_con": {
@@ -2481,11 +2179,7 @@
     "concept": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "id",
-        "name",
-        "means"
-      ],
+      "required": ["id", "name", "means"],
       "properties": {
         "id": {
           "$ref": "#/$defs/id_con"
@@ -2517,10 +2211,7 @@
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": [
-              "to",
-              "as"
-            ],
+            "required": ["to", "as"],
             "properties": {
               "to": {
                 "$ref": "#/$defs/id_con"
@@ -2538,10 +2229,7 @@
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": [
-              "in",
-              "as"
-            ],
+            "required": ["in", "as"],
             "properties": {
               "in": {
                 "$ref": "#/$defs/id_svc"
@@ -2579,10 +2267,7 @@
     "stage": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "id",
-        "name"
-      ],
+      "required": ["id", "name"],
       "properties": {
         "id": {
           "$ref": "#/$defs/id_stage"
@@ -2600,9 +2285,7 @@
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": [
-              "svc"
-            ],
+            "required": ["svc"],
             "properties": {
               "svc": {
                 "$ref": "#/$defs/id_svc"
@@ -2639,14 +2322,7 @@
     "interaction": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "id",
-        "name",
-        "from",
-        "to",
-        "trigger",
-        "effect"
-      ],
+      "required": ["id", "name", "from", "to", "trigger", "effect"],
       "properties": {
         "id": {
           "$ref": "#/$defs/id_ui"
@@ -2668,19 +2344,10 @@
           "$ref": "#/$defs/id_screenOrRegion"
         },
         "trigger": {
-          "enum": [
-            "click",
-            "submit",
-            "scroll",
-            "system"
-          ]
+          "enum": ["click", "submit", "scroll", "system"]
         },
         "effect": {
-          "enum": [
-            "navigate",
-            "update",
-            "output"
-          ]
+          "enum": ["navigate", "update", "output"]
         },
         "condition": {
           "type": "string",
@@ -2706,10 +2373,7 @@
         "evidence": {
           "type": "object",
           "additionalProperties": false,
-          "required": [
-            "file",
-            "note"
-          ],
+          "required": ["file", "note"],
           "properties": {
             "file": {
               "$ref": "#/$defs/assetPath"
@@ -2726,11 +2390,7 @@
     "userJourney": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "id",
-        "name",
-        "interactions"
-      ],
+      "required": ["id", "name", "interactions"],
       "properties": {
         "id": {
           "$ref": "#/$defs/id_uj"
@@ -2782,12 +2442,7 @@
     "regionBox": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "x",
-        "y",
-        "w",
-        "h"
-      ],
+      "required": ["x", "y", "w", "h"],
       "properties": {
         "x": {
           "type": "number",
@@ -2815,10 +2470,7 @@
     "region": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "id",
-        "name"
-      ],
+      "required": ["id", "name"],
       "description": "A named part of a screen: a block the reader can point at (the price, the delivery line, the Pay button). Regions are what ops change and what steps point at",
       "properties": {
         "id": {
@@ -2853,11 +2505,7 @@
     "screen": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "id",
-        "name",
-        "service"
-      ],
+      "required": ["id", "name", "service"],
       "description": "A screen a person sees: a page, a modal, an email, a push notification, a printed document. `image` is what it looks like (a screenshot today; a wireframe or export of the design in the to-be, set by a modify op). Steps point at the screen (or one of its regions) they happen on, which is how a flow becomes a UI journey",
       "properties": {
         "id": {
@@ -2871,14 +2519,7 @@
           "description": "the kind: ui service that serves it (or the service that sends it, for an email or push)"
         },
         "kind": {
-          "enum": [
-            "page",
-            "modal",
-            "sheet",
-            "email",
-            "push",
-            "print"
-          ],
+          "enum": ["page", "modal", "sheet", "email", "push", "print"],
           "default": "page"
         },
         "route": {
@@ -2886,12 +2527,7 @@
           "description": "the path or deep link, e.g. /p/{sku}, app://orders/{id}"
         },
         "device": {
-          "enum": [
-            "desktop",
-            "mobile",
-            "handheld",
-            "any"
-          ],
+          "enum": ["desktop", "mobile", "handheld", "any"],
           "description": "what the image was taken on"
         },
         "summary": {
@@ -2944,9 +2580,7 @@
     "cacheUse": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "at"
-      ],
+      "required": ["at"],
       "description": "a cache layer attached to what it caches: on an operation, an edge/gateway override; on a graph field, a data cache the resolver reads first",
       "properties": {
         "at": {
@@ -2968,10 +2602,7 @@
               "additionalProperties": false,
               "properties": {
                 "operation": {
-                  "enum": [
-                    "id",
-                    "hash"
-                  ]
+                  "enum": ["id", "hash"]
                 },
                 "variables": {
                   "oneOf": [
@@ -3005,9 +2636,7 @@
     "cacheControl": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "max_age"
-      ],
+      "required": ["max_age"],
       "description": "the cache hint the subgraph returns for the field (@cacheControl)",
       "properties": {
         "max_age": {
@@ -3016,21 +2645,14 @@
           "description": "seconds"
         },
         "scope": {
-          "enum": [
-            "public",
-            "private"
-          ]
+          "enum": ["public", "private"]
         }
       }
     },
     "graph": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "id",
-        "name",
-        "gateway"
-      ],
+      "required": ["id", "name", "gateway"],
       "description": "A federated GraphQL graph. The gateway is an ordinary service; its team owns the graph",
       "properties": {
         "id": {
@@ -3063,12 +2685,7 @@
     "subgraph": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "id",
-        "name",
-        "graph",
-        "service"
-      ],
+      "required": ["id", "name", "graph", "service"],
       "description": "A subgraph: the unit of ownership in federation, served by one service",
       "properties": {
         "id": {
@@ -3088,10 +2705,7 @@
           "description": "markdown; may cite [[id]]"
         },
         "batching": {
-          "enum": [
-            "dataloader",
-            "none"
-          ],
+          "enum": ["dataloader", "none"],
           "description": "request-scoped batching of entity lookups; none makes a list fetch an N+1"
         },
         "observed": {
@@ -3130,13 +2744,7 @@
     "operation": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "id",
-        "name",
-        "kind",
-        "graph",
-        "document"
-      ],
+      "required": ["id", "name", "kind", "graph", "document"],
       "description": "A GraphQL document the front end sends; paths, variables and the query plan are derived from it",
       "properties": {
         "id": {
@@ -3146,11 +2754,7 @@
           "type": "string"
         },
         "kind": {
-          "enum": [
-            "query",
-            "mutation",
-            "subscription"
-          ]
+          "enum": ["query", "mutation", "subscription"]
         },
         "graph": {
           "$ref": "#/$defs/id_graph"
@@ -3167,18 +2771,11 @@
           "description": "the caller (default: the screens' service)"
         },
         "method": {
-          "enum": [
-            "GET",
-            "POST"
-          ],
+          "enum": ["GET", "POST"],
           "description": "the edge cannot cache POST"
         },
         "persisted": {
-          "enum": [
-            "apq",
-            "safelist",
-            "none"
-          ]
+          "enum": ["apq", "safelist", "none"]
         },
         "document": {
           "type": "string",
@@ -3229,13 +2826,7 @@
           "description": "evidence links; every as-is entity should have one"
         },
         "trigger": {
-          "enum": [
-            "load",
-            "click",
-            "scroll",
-            "submit",
-            "interval"
-          ],
+          "enum": ["load", "click", "scroll", "submit", "interval"],
           "description": "when the front end sends it (fired when the page loads, when the button is pressed, …)"
         }
       }
@@ -3251,23 +2842,13 @@
       "description": "what starts the handler: an endpoint (api:), a consumed message (msg:), a schedule (job:<cron or name>) or an interaction on a screen (ui:)"
     },
     "origin": {
-      "enum": [
-        "extracted",
-        "seeded",
-        "curated",
-        "documented"
-      ],
+      "enum": ["extracted", "seeded", "curated", "documented"],
       "description": "how the fact was made: read from code by a scan, seeded by hand for a demo, written by a person, or read from a document (a partner's, whose code we cannot read)"
     },
     "codeSource": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "repo",
-        "path",
-        "lines",
-        "commit"
-      ],
+      "required": ["repo", "path", "lines", "commit"],
       "description": "a place in code; the permalink is derived from it",
       "properties": {
         "repo": {
@@ -3315,10 +2896,7 @@
     "handlerFail": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "when",
-        "result"
-      ],
+      "required": ["when", "result"],
       "properties": {
         "when": {
           "type": "string",
@@ -3340,12 +2918,7 @@
     "handler": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "id",
-        "on",
-        "component",
-        "steps"
-      ],
+      "required": ["id", "on", "component", "steps"],
       "description": "what runs when something arrives at a component, as a short tree of steps",
       "properties": {
         "id": {
@@ -3431,9 +3004,7 @@
     "handlerDoes": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "does"
-      ],
+      "required": ["does"],
       "description": "work done in place",
       "properties": {
         "does": {
@@ -3465,9 +3036,7 @@
     "handlerCall": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "call"
-      ],
+      "required": ["call"],
       "description": "calls an endpoint and waits for it",
       "properties": {
         "call": {
@@ -3502,9 +3071,7 @@
     "handlerPublish": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "publish"
-      ],
+      "required": ["publish"],
       "description": "publishes a message",
       "properties": {
         "publish": {
@@ -3539,10 +3106,7 @@
     "handlerRead": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "read",
-        "from"
-      ],
+      "required": ["read", "from"],
       "description": "reads a schema from a store",
       "properties": {
         "read": {
@@ -3580,10 +3144,7 @@
     "handlerWrite": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "write",
-        "to"
-      ],
+      "required": ["write", "to"],
       "description": "writes a schema to a store",
       "properties": {
         "write": {
@@ -3621,10 +3182,7 @@
     "handlerIf": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "if",
-        "then"
-      ],
+      "required": ["if", "then"],
       "description": "a fork",
       "properties": {
         "if": {
@@ -3666,10 +3224,7 @@
     "handlerEach": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "each",
-        "do"
-      ],
+      "required": ["each", "do"],
       "description": "a loop",
       "properties": {
         "each": {
@@ -3708,9 +3263,7 @@
     "handlerParallel": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "parallel"
-      ],
+      "required": ["parallel"],
       "description": "branches at once",
       "properties": {
         "parallel": {
@@ -3750,10 +3303,7 @@
     "handlerRetry": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "retry",
-        "do"
-      ],
+      "required": ["retry", "do"],
       "description": "tries the steps again when they fail",
       "properties": {
         "retry": {
@@ -3797,10 +3347,7 @@
     "handlerTry": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "try",
-        "catch"
-      ],
+      "required": ["try", "catch"],
       "description": "steps with a fallback when they fail",
       "properties": {
         "try": {
@@ -3838,9 +3385,7 @@
     "handlerReturn": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "return"
-      ],
+      "required": ["return"],
       "description": "what the handler answers",
       "properties": {
         "return": {
@@ -3877,9 +3422,7 @@
     "handlerWait": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "wait"
-      ],
+      "required": ["wait"],
       "description": "a pause",
       "properties": {
         "wait": {
@@ -3951,10 +3494,7 @@
     "requirement": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "id",
-        "text"
-      ],
+      "required": ["id", "text"],
       "description": "what the change must make true, said before (or without) the ops that make it",
       "properties": {
         "id": {
@@ -3976,11 +3516,7 @@
     "programme": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "id",
-        "title",
-        "outcome"
-      ],
+      "required": ["id", "title", "outcome"],
       "description": "programmes/<id>/programme.yaml: plans that serve one outcome, and the context they share. Not an overlay; plans join with meta.programme and cite its items as <programme>/<id>",
       "properties": {
         "id": {

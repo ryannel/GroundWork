@@ -32,7 +32,7 @@ function isUri(text: string): boolean {
 
 async function compile(): Promise<Validators> {
   const schema: unknown = JSON.parse(
-    await readText(pathIn(process.cwd(), 'schema', 'legacy-plan.schema.json')),
+    await readText(pathIn(process.cwd(), 'test', 'fixtures', 'legacy-plan.schema.json')),
   );
   const id = prop(schema, '$id');
   if (!isRecord(schema) || typeof id !== 'string') {

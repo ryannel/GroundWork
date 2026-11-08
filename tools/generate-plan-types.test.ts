@@ -3,9 +3,11 @@ import path from 'node:path';
 
 import { expect, it } from 'vitest';
 
-import { generateModelTypes, generatePlanTypes } from './generate-plan-types';
+import { generatePlanTypes } from '@/../test/legacy-plan-types';
 
-it('the committed plan types are what the schema generates (run `npm run generate`)', async () => {
+import { generateModelTypes } from './generate-plan-types';
+
+it('the frozen format-1 fixture types still match their historical schema', async () => {
   const committed = await readFile(
     path.resolve(import.meta.dirname, '../src/domain/plan/plan.generated.ts'),
     'utf8',

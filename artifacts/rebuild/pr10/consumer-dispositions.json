@@ -5678,6 +5678,25 @@
           "sha256": "83303a1fb7aa0e5d3c87d4e3ade0be41f7c7e68aefdb7c3d2721c05aa4638108"
         }
       ]
+    },
+    {
+      "file": "tools/generate-plan-types.ts",
+      "sourceSha256": "0374985ecf56036c228ac84d0ff42f9937db53a12a469e18c47825b1960e49b0",
+      "role": "support",
+      "reason": "The current command regenerates only canonical contracts. Historical fixture generation stays in the existing test.",
+      "evidence": [
+        {
+          "file": "tools/generate-plan-types.ts",
+          "line": 1,
+          "text": "// Writes the consolidated workspace, plan and evidence contracts."
+        }
+      ],
+      "proofs": [
+        {
+          "file": "artifacts/rebuild/pr10/fixture-boundary.md",
+          "sha256": "1efa0d8f8f5f2e0699e93cc2ef80e8b3a246f14bf9b41490c7ae6aab2f727d5c"
+        }
+      ]
     }
   ]
 }

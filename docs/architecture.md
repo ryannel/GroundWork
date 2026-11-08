@@ -21,9 +21,9 @@ During the model rebuild, `schema/workspace.schema.json`, `schema/plan.schema.js
 `schema/evidence.schema.json` own the canonical contracts. `npm run generate` produces their TypeScript
 registries and immutable type facade under `src/domain/model/`. `src/infrastructure/model-schema.ts` uses
 Ajv for both direct checks and file loading; its errors retain JSON instance paths. The handwritten model
-fixture under `test/fixtures/model/` exercises these contracts. Existing readers continue to use the
-unchanged `schema/legacy-plan.schema.json` and legacy workspace validators until they move to the new
-model. New fields are declared in JSON Schema and regenerated, rather than copied into handwritten types.
+fixture under `test/fixtures/model/` exercises these contracts. The format-1 schema under
+`test/fixtures/` validates historical fixtures. Its frozen type comparison runs in tests.
+Current fields are declared in the consolidated JSON Schema and regenerated.
 
 Native plan landing retains a versioned `base.yaml` marker and the canonical model input files under the
 sibling `base/` folder. The marker is generated from `PlanBaseMarker` in the workspace schema; the retained
