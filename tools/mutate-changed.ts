@@ -1,6 +1,7 @@
 // Whole-file mutation coverage, locally or in balanced CI batches with one weighted score.
 import { spawnSync } from 'node:child_process';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
+import { stripTypeScriptTypes } from 'node:module';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
@@ -40,13 +41,25 @@ function git(args: readonly string[]): readonly string[] {
   }
   return result.stdout.split('\n').filter((line) => line !== '');
 }
+function hasRuntime(file: string): boolean {
+  const source = readFileSync(file, 'utf8');
+  try {
+    const emitted = stripTypeScriptTypes(source);
+    return emitted.replaceAll(/\/\*[\s\S]*?\*\/|\/\/[^\n]*/gu, '').trim() !== '';
+  } catch {
+    // Keep files using syntax that the Node stripper cannot interpret.
+    return true;
+  }
+}
 export function mutationTargets(files: readonly string[]): readonly string[] {
   const sources = files.map((file) =>
     file.endsWith('.test.ts') ? `${file.slice(0, -'.test.ts'.length)}.ts` : file,
   );
-  return [...new Set(sources.filter((file) => MUTATED.test(file) && existsSync(file)))].toSorted(
-    (left, right) => left.localeCompare(right, 'en'),
-  );
+  return [
+    ...new Set(
+      sources.filter((file) => MUTATED.test(file) && existsSync(file) && hasRuntime(file)),
+    ),
+  ].toSorted((left, right) => left.localeCompare(right, 'en'));
 }
 function changedFiles(base: string | undefined): readonly string[] {
   if (base !== undefined) return git(['diff', '--name-only', '--diff-filter=d', `${base}...HEAD`]);
