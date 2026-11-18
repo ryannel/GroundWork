@@ -51,16 +51,26 @@ function endpointOf(index: ModelIndex, node: ModelEntity): AreaEndpointView {
     explorer: entryFlowHref(index.model.id, { entry: node.id }),
   };
 }
+const endpointsByOwner = new WeakMap<ModelIndex, ReadonlyMap<string, readonly ModelEntity[]>>();
+function ownedEndpoints(index: ModelIndex): ReadonlyMap<string, readonly ModelEntity[]> {
+  const known = endpointsByOwner.get(index);
+  if (known !== undefined) return known;
+  const owners = new Map<string, ModelEntity[]>();
+  for (const node of index.entries()) {
+    if (node.kind !== 'endpoint') continue;
+    const provider = index.get(node.parent ?? '');
+    const keys = new Set(
+      [node.place.component, provider?.data.external, provider?.data.system].filter(
+        (key): key is string => typeof key === 'string',
+      ),
+    );
+    for (const key of keys) owners.set(key, [...(owners.get(key) ?? []), node]);
+  }
+  endpointsByOwner.set(index, owners);
+  return owners;
+}
 function endpointsOf(index: ModelIndex, id: string): readonly AreaEndpointView[] {
-  return index
-    .entries()
-    .filter((node) => {
-      if (node.kind !== 'endpoint') return false;
-      if (node.place.component === id) return true;
-      const provider = index.get(node.parent ?? '');
-      return provider?.data.external === id || provider?.data.system === id;
-    })
-    .map((node) => endpointOf(index, node));
+  return (ownedEndpoints(index).get(id) ?? []).map((node) => endpointOf(index, node));
 }
 function resourcesOf(index: ModelIndex, id: string): readonly AreaResourceView[] {
   const edges = index.edges(id);

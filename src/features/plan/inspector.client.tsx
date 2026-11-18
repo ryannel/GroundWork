@@ -3,7 +3,9 @@
 import { Suspense, useEffect, useSyncExternalStore } from 'react';
 
 import type { Reader } from '@/application/today-reader';
+import { kindOf } from '@/domain/ids';
 
+import { EndpointExplorer } from './inspector/endpoint-explorer.client';
 import { HoverCard } from './inspector/hover-card.client';
 import { NativeThingLoader } from './inspector/native-thing.client';
 import { usePicked } from './inspector/use-picked';
@@ -70,7 +72,11 @@ export function Inspector({ reader }: InspectorProps) {
       >
         {id === null ? null : (
           <Suspense fallback={<p className={styles.note}>{loading(reader)}</p>}>
-            <NativeThingLoader id={id} key={id} reader={reader} />
+            {reader.mode === 'today' && kindOf(id) === 'endpoint' ? (
+              <EndpointExplorer id={id} key={id} reader={reader} />
+            ) : (
+              <NativeThingLoader id={id} key={id} reader={reader} />
+            )}
           </Suspense>
         )}
       </aside>

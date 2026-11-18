@@ -136,20 +136,36 @@ export interface ConnectionScope {
   readonly area: string;
   readonly system?: string;
   readonly component?: string;
+  /** Narrows a component to some of its endpoints: those it serves, or whose handlers make the call. */
+  readonly endpoints?: readonly string[];
 }
 
 export function scopeContains(scope: ConnectionScope, endpoint: ConnectionScope): boolean {
   if (scope.area !== endpoint.area) return false;
   if (scope.system !== undefined && scope.system !== endpoint.system) return false;
-  return scope.component === undefined || scope.component === endpoint.component;
+  if (scope.component !== undefined && scope.component !== endpoint.component) return false;
+  return (
+    scope.endpoints === undefined ||
+    scope.endpoints.some((id) => endpoint.endpoints?.includes(id) === true)
+  );
 }
 
 function callerOf(record: AreaIntegration): ConnectionScope {
-  return { area: record.callerArea, system: record.callerSystem, component: record.caller };
+  return {
+    area: record.callerArea,
+    system: record.callerSystem,
+    component: record.caller,
+    endpoints: record.callerEndpoint === undefined ? [] : [record.callerEndpoint],
+  };
 }
 
 function providerOf(record: AreaIntegration): ConnectionScope {
-  return { area: record.providerArea, system: record.providerSystem, component: record.provider };
+  return {
+    area: record.providerArea,
+    system: record.providerSystem,
+    component: record.provider,
+    endpoints: record.kind === 'call' ? [record.endpoint] : [],
+  };
 }
 
 export function landscapeConnectionsInScope(

@@ -111,6 +111,14 @@ function nativeOverview(
   });
 }
 
+/** Exploration needs contracts and sites; raw model records and gaps stay on the server. */
+export function packAreaMapDetails({ gaps: _gaps, ...view }: AreaView): AreaMapTransport {
+  return packAreaMapView({
+    ...view,
+    technicalRelationships: view.technicalRelationships.map(overviewRelationship),
+  });
+}
+
 /** The collapsed view retains every identity and exchange; component contracts load on exploration. */
 export function packAreaMapOverview(view: AreaView): AreaMapTransport {
   if (view.valueFlow === undefined) return packAreaMapView(view);

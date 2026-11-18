@@ -211,6 +211,7 @@ export function ComponentCardApiRow({
   versions,
   operations,
   inspect,
+  ports,
   active,
   onSelect,
 }: {
@@ -219,6 +220,8 @@ export function ComponentCardApiRow({
   readonly versions: string;
   readonly operations: number;
   readonly inspect?: string | undefined;
+  /** The endpoint ids behind this row, so resting on it can light just their lines. */
+  readonly ports?: readonly string[];
   readonly active: boolean;
   readonly onSelect: () => void;
 }) {
@@ -233,6 +236,7 @@ export function ComponentCardApiRow({
       aria-pressed={active}
       className={styles.apiRow}
       data-inspect={inspect}
+      data-port={ports === undefined || ports.length === 0 ? undefined : ports.join(' ')}
       onClick={onSelect}
       title={label}
       type="button"

@@ -6,11 +6,28 @@ const UNFOCUS_MS = 300;
 /** A line stays raised briefly after the pointer leaves it, so crossing its edge does not flicker. */
 const LINE_GRACE_MS = 150;
 
+/** Separates a card's hover id from the row (port) under the pointer, for cards that opt in with data-ports. */
+const PORT = '\n';
+
+/** A hover id names a card, and on cards with ports, the row under the pointer as well. */
+export function portOfHover(id: string): {
+  readonly card: string;
+  readonly ports: readonly string[];
+} {
+  const [card = id, ports = ''] = id.split(PORT);
+  return { card, ports: ports === '' ? [] : ports.split(' ') };
+}
+
 function componentOf(target: EventTarget | null): string | null | undefined {
   if (!(target instanceof Element)) return null;
   // Lines float above cards: passing over one says nothing about which card is meant.
   if (target.closest('[data-edge]') !== null) return undefined;
-  return target.closest<SVGElement>('[data-component]')?.dataset.component ?? null;
+  const host = target.closest<SVGElement>('[data-component]');
+  const card = host?.dataset.component;
+  if (host === null || card === undefined) return null;
+  if (host.dataset.ports === undefined) return card;
+  const port = target.closest<HTMLElement>('[data-port]')?.dataset.port;
+  return port === undefined ? card : `${card}${PORT}${port}`;
 }
 
 function useTimer(): {

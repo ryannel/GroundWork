@@ -47,6 +47,7 @@ export function ValueNode({
   active,
   muted,
   hoverId,
+  ports,
   highlighted,
   onSelect,
   onExpand,
@@ -67,6 +68,8 @@ export function ValueNode({
   readonly active: boolean;
   readonly muted: boolean;
   readonly hoverId?: string;
+  /** Report the endpoint row under the pointer with the hover id, for maps that light single endpoints. */
+  readonly ports?: '' | undefined;
   readonly highlighted: boolean;
   readonly onSelect: () => void;
   readonly onExpand?: () => void;
@@ -117,6 +120,7 @@ export function ValueNode({
   return (
     <foreignObject
       data-component={hoverId ?? node.id}
+      data-ports={ports}
       data-flow={highlighted ? '' : undefined}
       x={node.x}
       y={node.y}

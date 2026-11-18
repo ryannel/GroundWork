@@ -3,7 +3,7 @@
 import { type ReactNode, useId } from 'react';
 
 import { CanvasCaption } from './canvas/canvas-edge';
-import { useSteadyHover } from './canvas/use-steady-hover';
+import { portOfHover, useSteadyHover } from './canvas/use-steady-hover';
 import { CanvasSystemScope } from './connected-canvas-parts';
 import { CanvasNavigation } from './connected-canvas-toolbar';
 import type { ConnectedCanvasFocus } from './connected-canvas-types';
@@ -162,7 +162,7 @@ export function NetworkMap<Node extends NetworkNode>({
     handlePointerUp,
   } = useExplorerViewport(view.width, view.height, { fit: true, minimumFit: 0.65 });
   useCanvasFocus(focus, viewportRef, { zoom, changeZoom });
-  const lit = connected(view, focused);
+  const lit = connected(view, focused === null ? null : portOfHover(focused).card);
   const highlighted = focused === null ? null : hoverEdges(focused);
   return (
     <figure className={styles.figure} data-fullscreen={fullscreen ? '' : undefined}>

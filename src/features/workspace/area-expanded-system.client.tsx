@@ -128,6 +128,7 @@ function CardRowView({
           surface.endpoints.some((port) => port.id === handlers.endpoint)
         }
         inspect={localDetails ? undefined : surface.endpoints[0]?.id}
+        ports={surface.endpoints.map((port) => port.id)}
         onSelect={() => {
           handlers.onSelectEndpoint(surface.id);
         }}
@@ -143,6 +144,7 @@ function CardRowView({
       <ComponentCardApiRow
         active={row.endpoint.id === handlers.endpoint}
         inspect={localDetails ? undefined : row.endpoint.id}
+        ports={[row.endpoint.id]}
         onSelect={() => {
           handlers.onSelectEndpoint(row.endpoint.id);
         }}

@@ -35,6 +35,7 @@ import {
   Markers,
 } from '@/ui/canvas/canvas-edge';
 import { SystemBoundaryHeader, SystemCard } from '@/ui/canvas/system-card';
+import { portOfHover } from '@/ui/canvas/use-steady-hover';
 import { CanvasBoundary } from '@/ui/connected-canvas-parts';
 import { NetworkMap } from '@/ui/network-map.client';
 import { Stack } from '@/ui/stack';
@@ -180,6 +181,15 @@ function integrationGroupLabel(
 }
 
 function hoverScopes(
+  hover: string,
+  drawings: ReadonlyMap<string, ReturnType<typeof drawingOf> | null>,
+): readonly ConnectionScope[] {
+  const { card, ports } = portOfHover(hover);
+  const scopes = cardScopes(card, drawings);
+  return ports.length === 0 ? scopes : scopes.map((scope) => ({ ...scope, endpoints: ports }));
+}
+
+function cardScopes(
   id: string,
   drawings: ReadonlyMap<string, ReturnType<typeof drawingOf> | null>,
 ): readonly ConnectionScope[] {

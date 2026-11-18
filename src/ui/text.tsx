@@ -16,6 +16,8 @@ interface TextProps {
   readonly caps?: boolean;
   /** Stop after this many lines, with an ellipsis. */
   readonly clamp?: 1 | 2 | 3;
+  /** The full words on hover, for clamped text. */
+  readonly title?: string;
 }
 
 /** Words in one of the type styles: how bright, how big, how heavy. Features set none of these themselves. */
@@ -28,10 +30,12 @@ export function Text({
   mono = false,
   caps = false,
   clamp,
+  title,
 }: TextProps) {
   return (
     <Tag
       className={styles.text}
+      title={title}
       data-caps={caps ? '' : undefined}
       data-clamp={clamp}
       data-mono={mono ? '' : undefined}

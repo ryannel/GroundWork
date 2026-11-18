@@ -155,7 +155,7 @@ export function LandscapeAreaDrawing({
             <Text as="h3" size="lg" weight="strong">
               {heading.title}
             </Text>
-            <Text size="sm" tone="muted">
+            <Text size="sm" tone="muted" clamp={2} title={heading.summary}>
               {heading.summary}
             </Text>
           </Stack>
@@ -166,6 +166,7 @@ export function LandscapeAreaDrawing({
           <ValueNode
             node={node}
             hoverId={landscapeHoverId(area.id, node.systemId, node.collapsed ? undefined : node.id)}
+            ports=""
             systems={view.systems}
             expanded={state.expanded}
             purpose={systems.get(node.systemId)?.system.purpose}

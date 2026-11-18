@@ -452,10 +452,8 @@ function teamOf(id: string, lookup: Lookup): string | null {
   const system = lookup.get(lookup.get(id)?.place.system ?? '');
   return canonicalId(text(system?.data, 'team'), lookup);
 }
-function rolesOf(component: string, lookup: Lookup): ReturnType<ModelIndex['roles']> {
-  const kinds = new Set(
-    lookup.nodes.filter((node) => node.place.component === component).map((node) => node.kind),
-  );
+function rolesOf(members: readonly ModelEntity[]): ReturnType<ModelIndex['roles']> {
+  const kinds = new Set(members.map((node) => node.kind));
   const roles: ('api' | 'worker' | 'job')[] = [];
   if (kinds.has('endpoint')) roles.push('api');
   if (kinds.has('subscription')) roles.push('worker');
@@ -682,6 +680,17 @@ export function indexOf(model: WorkspaceModel): ModelIndex {
     ...compositionGaps(lookup),
   );
   const projected = systemEdges(records, lookup);
+  const members = new Map<string, ModelEntity[]>();
+  for (const node of lookup.nodes) {
+    const component = node.place.component;
+    if (component === null) continue;
+    const list = members.get(component);
+    if (list === undefined) members.set(component, [node]);
+    else list.push(node);
+  }
+  const membersOf = (component: string): readonly ModelEntity[] =>
+    members.get(lookup.get(component)?.id ?? component) ?? [];
+  const entries = lookup.nodes.filter((node) => ENTRIES.has(node.kind));
   return {
     model,
     entities: lookup.nodes,
@@ -701,13 +710,10 @@ export function indexOf(model: WorkspaceModel): ModelIndex {
       ),
     callers: (entry) => callersOf(entry, lookup, records),
     entries: (component) =>
-      lookup.nodes.filter(
-        (node) =>
-          ENTRIES.has(node.kind) &&
-          (component === undefined ||
-            node.place.component === (lookup.get(component)?.id ?? component)),
-      ),
-    roles: (component) => rolesOf(lookup.get(component)?.id ?? component, lookup),
+      component === undefined
+        ? entries
+        : membersOf(component).filter((node) => ENTRIES.has(node.kind)),
+    roles: (component) => rolesOf(membersOf(component)),
     producers: (message) => [
       ...new Set(
         records

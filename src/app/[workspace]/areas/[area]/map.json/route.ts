@@ -1,4 +1,4 @@
-import { packAreaMapView } from '@/application/area-map/transport';
+import { packAreaMapDetails } from '@/application/area-map/transport';
 import { modelAreaViewOf } from '@/application/model-area';
 import { readCanonicalModelIndex } from '@/infrastructure/model-index';
 
@@ -18,5 +18,5 @@ export async function GET(
   const view = modelAreaViewOf(index, area);
   return view === null
     ? new Response('No such area', { status: 404 })
-    : Response.json(packAreaMapView(view));
+    : Response.json(packAreaMapDetails(view));
 }
