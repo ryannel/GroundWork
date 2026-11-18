@@ -73,8 +73,8 @@ function Nodes({ nodes, selected, select }: SequenceProps) {
               title={`${node.title} · ${String(node.branches.length)} ${node.branches.length === 1 ? 'branch' : 'branches'}`}
             >
               <EntryFork>
-                {node.branches.map((branch) => (
-                  <EntryBranch key={branch.label} label={branch.label}>
+                {node.branches.map((branch, position) => (
+                  <EntryBranch key={`${branch.label}-${String(position)}`} label={branch.label}>
                     {branch.nodes.length === 0 ? (
                       <Text tone="muted">Carries on below</Text>
                     ) : (
