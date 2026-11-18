@@ -46,6 +46,30 @@
     outline-offset: -2px;
   }
 
+  .headerActions {
+    display: flex;
+    align-items: center;
+    padding-right: var(--s-3);
+  }
+
+  .headerActions .header {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .headerDetails {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--accent-fg);
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .headerDetails:hover {
+    text-decoration: underline;
+  }
+
   .heading {
     display: flex;
     flex-direction: column;
@@ -74,6 +98,13 @@
     font-size: var(--fs-16);
     font-weight: 600;
     line-height: 1.3;
+  }
+
+  .name[data-wrap] {
+    display: -webkit-box;
+    white-space: normal;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
   }
 
   .summary {

@@ -79,48 +79,34 @@
     opacity: 0.12;
   }
 
-  .node {
-    color: inherit;
-    outline: none;
-    transition: opacity 160ms ease;
+  .edge[role='button'] {
+    cursor: pointer;
   }
 
-  .node > rect {
-    fill: var(--node-bg);
-    stroke: var(--line-3);
-    stroke-width: 1.5;
-    transition:
-      fill 160ms ease,
-      stroke 160ms ease;
+  .edge[role='button'] > .hit {
+    stroke: transparent;
+    stroke-width: 16;
   }
 
-  .node > text {
-    fill: var(--fg-1);
-    font-size: var(--fs-16);
-    font-weight: 650;
-  }
-
-  .node:hover > rect,
-  .node:focus-visible > rect {
-    fill: var(--accent-soft);
+  .edge[data-lit] > path:not(.hit),
+  .edge[role='button']:hover > path:not(.hit),
+  .edge[role='button']:focus-visible > path:not(.hit) {
     stroke: var(--accent);
-    stroke-width: 2.5;
   }
 
-  .node[data-muted] {
-    opacity: 0.24;
+  .edge[data-lit] > text,
+  .edge[role='button']:hover > text,
+  .edge[role='button']:focus-visible > text {
+    fill: var(--accent);
   }
 
-  .node > .open {
-    fill: var(--fg-3);
-    font-size: var(--fs-11);
-    font-weight: 450;
+  .edge[data-label-hidden]:not([data-lit], :hover, :focus-visible) > text {
+    display: none;
   }
 
-  .node > .purpose {
-    fill: var(--fg-3);
-    font-size: var(--fs-12);
-    font-weight: 400;
+  .node {
+    box-sizing: border-box;
+    height: 100%;
   }
 
   .caption {

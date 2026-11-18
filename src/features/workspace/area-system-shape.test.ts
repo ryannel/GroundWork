@@ -16,7 +16,6 @@ describe('expanded system space', () => {
       name: `Component ${String(index)}`,
       kind: 'service',
       summary: 'A component with a two-line description.',
-      explorer: null,
       repository: null,
       endpoints: [],
       resources: [],
@@ -35,41 +34,6 @@ describe('expanded system space', () => {
             ],
     })),
   };
-
-  it('shows the entire overview without changing technical direction', () => {
-    const story = {
-      id: 'story',
-      name: 'Prepare',
-      summary: 'Prepare inputs.',
-      confidence: 'medium' as const,
-      reasoning: 'Evidence.',
-      limitations: [],
-      stages: [3, 0].map((index) => ({
-        component: `svc:${String(index)}`,
-        title: 'Prepare',
-        summary: 'Prepare.',
-        supporting: index === 3 ? ['svc:4'] : [],
-        evidence: ['flow:prepare'],
-      })),
-    };
-    const shape = systemShape(system, new Set(), story);
-    expect(shape.components.slice(0, 3).map((component) => component.id)).toEqual([
-      'svc:3',
-      'svc:4',
-      'svc:0',
-    ]);
-    expect(shape.relationships).toContainEqual(
-      expect.objectContaining({ from: 'svc:3', to: 'svc:4' }),
-    );
-    const supported = shape;
-    expect(supported.components).toHaveLength(system.components.length);
-    expect(supported.components.slice(0, 3).every((component) => component.overview === true)).toBe(
-      true,
-    );
-    expect(supported.components.find((component) => component.id === 'svc:4')!.y).toBeGreaterThan(
-      shape.components[0]!.y,
-    );
-  });
 
   it('reads left to right and wraps a long chain into bands rather than stretching it', () => {
     const shape = systemShape(system);

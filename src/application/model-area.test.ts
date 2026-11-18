@@ -135,7 +135,7 @@ it('keeps system and external boundary anchors outside actual component placemen
   expect(modelAreaViewOf(index, 'area:orders')).toEqual(view);
   expect(modelAreaViewOf(index, 'missing')).toBeNull();
 });
-it('retains authored bands, connections, captions and resolved citations through both map transports', () => {
+it('retains authored bands, recorded connections and resolved citations through both map transports', () => {
   const view = modelAreaViewOf(index, 'orders');
   if (view?.valueFlow === undefined) throw new Error('Missing native flow');
   const source = model.landscape?.details?.[0]?.valueFlow;
@@ -165,15 +165,9 @@ it('retains authored bands, connections, captions and resolved citations through
   for (const id of ['svc:ordering', 'sys:unmapped', 'ext:payments']) {
     expect(drawing.nodes.some((node) => node.members.includes(id))).toBe(true);
   }
-  const connections = valueFlowConnections(
-    view.valueFlow,
-    drawing.nodes,
-    view.technicalRelationships,
-  );
-  expect(connections.some((connection) => connection.label === 'Known system boundary')).toBe(true);
-  expect(connections.some((connection) => connection.label === 'Known external boundary')).toBe(
-    true,
-  );
+  const connections = valueFlowConnections(drawing.nodes, view.technicalRelationships);
+  // The map draws only recorded model relationships; authored captions stay out of it.
+  expect(connections.map((connection) => connection.label)).not.toContain('Known system boundary');
   expect({ drawing, connections }).toMatchSnapshot('band anchors and exact connection routing');
 });
 it('uses actual entries, SDK protocol, known API callers and recorded technical evidence', () => {

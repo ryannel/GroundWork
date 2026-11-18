@@ -31,7 +31,6 @@ function node(
       dependencies: [],
       resources: [],
       repository: null,
-      explorer: null,
     },
   };
 }
@@ -59,7 +58,7 @@ describe('default value-flow connections', () => {
   it('does not connect collapsed business systems through a shared platform dependency', () => {
     const nodes = [node('ui'), node('price'), node('marketing')];
     const edges = [edge('ui', 'price', false), { ...edge('marketing', 'price'), platform: true }];
-    expect([...defaultValueFlowConnections(edges, nodes, [])]).toEqual(['ui:price']);
+    expect([...defaultValueFlowConnections(edges, nodes)]).toEqual(['ui:price']);
     expect(edges).toHaveLength(2);
   });
 
@@ -74,25 +73,14 @@ describe('default value-flow connections', () => {
       edge('catalogue', 'price'),
       edge('catalogue', 'ui'),
     ];
-    const summaries = [
-      {
-        from: 'catalogue',
-        to: 'price',
-        kind: 'api' as const,
-        label: 'Calculate catalogue prices',
-        evidence: ['operation'],
-      },
-    ];
-    const selected = defaultValueFlowConnections(edges, nodes, summaries);
+    const selected = defaultValueFlowConnections(edges, nodes);
     expect([...selected].toSorted((a, b) => a.localeCompare(b))).toEqual([
       'catalogue:price',
       'external-prices:insurance',
       'price:external-prices',
       'ui:price',
     ]);
-    expect(defaultValueFlowConnections(edges.toReversed(), nodes.toReversed(), summaries)).toEqual(
-      selected,
-    );
+    expect(defaultValueFlowConnections(edges.toReversed(), nodes.toReversed())).toEqual(selected);
     expect(
       edges.filter((item) => selected.has(item.id)).map(({ from, to }) => [from, to]),
     ).toContainEqual(['external-prices', 'insurance']);
@@ -106,7 +94,7 @@ describe('default value-flow connections', () => {
       edge('offers', 'flags'),
       edge('offers', 'price'),
     ];
-    const selected = defaultValueFlowConnections(edges, nodes, []);
+    const selected = defaultValueFlowConnections(edges, nodes);
     expect(selected.has('offers:price')).toBe(true);
     expect([...selected].filter((id) => id.endsWith(':flags'))).toHaveLength(1);
   });
@@ -114,7 +102,7 @@ describe('default value-flow connections', () => {
   it('keeps disconnected recorded groups together without inventing a connection to the core', () => {
     const nodes = ['ui', 'price', 'a', 'b', 'c', 'unmapped'].map((id) => node(id));
     const edges = [edge('ui', 'price', false), edge('a', 'b'), edge('b', 'c'), edge('c', 'a')];
-    const selected = defaultValueFlowConnections(edges, nodes, []);
+    const selected = defaultValueFlowConnections(edges, nodes);
     expect(selected.size).toBe(3);
     const endpoints = edges
       .filter((item) => selected.has(item.id))
@@ -129,63 +117,6 @@ describe('default value-flow connections', () => {
       edge('producer', 'topic', true, 'message'),
       edge('topic', 'consumer', true, 'message'),
     ];
-    expect(defaultValueFlowConnections(edges, nodes, []).size).toBe(3);
+    expect(defaultValueFlowConnections(edges, nodes).size).toBe(3);
   });
-});
-
-it('keeps an authored overview backbone while retaining secondary core exchanges for exploration', () => {
-  const nodes = ['price', 'tax', 'graph', 'site'].map((id) => node(id, 'service', id));
-  const edges = [
-    edge('price', 'tax', false),
-    edge('graph', 'price', false),
-    edge('site', 'graph', false),
-    edge('tax', 'graph', false),
-  ];
-  const overview = edges.slice(0, 3).map((item) => ({
-    from: item.from,
-    to: item.to,
-    kind: 'api' as const,
-    label: item.label,
-    evidence: ['captured-call'],
-  }));
-  expect(
-    [...defaultValueFlowConnections(edges, nodes, [], overview)].toSorted((a, b) =>
-      a.localeCompare(b),
-    ),
-  ).toEqual(
-    overview.map((item) => `${item.from}:${item.to}`).toSorted((a, b) => a.localeCompare(b)),
-  );
-  expect(edges).toHaveLength(4);
-  expect(defaultValueFlowConnections(edges, nodes, [])).toHaveLength(4);
-});
-
-it('keeps independent work separate when an authored overview excludes its cross-system dependencies', () => {
-  const nodes = [
-    node('price', 'service', 'price'),
-    node('graph', 'service', 'graph'),
-    node('operations', 'service', 'operations'),
-    node('worker', 'service', 'operations'),
-    node('identity', 'external', 'platform'),
-  ];
-  const edges = [
-    edge('graph', 'price', false),
-    edge('operations', 'price', false),
-    edge('operations', 'worker'),
-    { ...edge('operations', 'identity'), platform: true },
-  ];
-  const overview = [
-    {
-      from: 'graph',
-      to: 'price',
-      kind: 'api' as const,
-      label: 'Request prices',
-      evidence: ['captured-call'],
-    },
-  ];
-  const selected = defaultValueFlowConnections(edges, nodes, [], overview);
-  expect([...selected].toSorted((a, b) => a.localeCompare(b))).toEqual([
-    'graph:price',
-    'operations:worker',
-  ]);
-  expect(edges).toHaveLength(4);
 });

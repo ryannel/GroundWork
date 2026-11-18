@@ -39,6 +39,7 @@ function CanvasDiagram({
   direction,
   platform,
   onSelect,
+  hoverMembers,
   children,
 }: {
   readonly marker: string;
@@ -51,9 +52,10 @@ function CanvasDiagram({
   readonly direction: ConnectionDirection;
   readonly platform: boolean;
   readonly onSelect?: ((id: string) => void) | undefined;
+  readonly hoverMembers?: ReadonlyMap<string, readonly string[]> | undefined;
   readonly children: ReactNode;
 }) {
-  const [described, setDescribed] = useState<string | null>(null);
+  const [focusedEdge, setFocusedEdge] = useState<string | null>(null);
   const {
     component,
     edge: pointed,
@@ -67,13 +69,14 @@ function CanvasDiagram({
     endpoint: component === null ? endpoint : undefined,
     direction,
   };
+  const participants = component === null ? undefined : hoverMembers?.get(component);
+  const matches = (edge: ConnectedCanvasEdge): boolean =>
+    matchesConnection(edge, focus) ||
+    participants?.some((id) => matchesConnection(edge, { selected: id, direction })) === true;
   const shown = edges.filter(
-    (edge) =>
-      edge.platform !== true ||
-      platform ||
-      (focus.selected !== undefined && matchesConnection(edge, focus)),
+    (edge) => edge.platform !== true || platform || (focus.selected !== undefined && matches(edge)),
   );
-  const raised = shown.find((edge) => edge.id === (described ?? pointed));
+  const raised = shown.find((edge) => edge.id === (focusedEdge ?? pointed));
   return (
     <svg
       className={styles.canvas}
@@ -81,13 +84,16 @@ function CanvasDiagram({
       viewBox={`0 0 ${String(width)} ${String(height)}`}
       width={width * zoom}
       onFocusCapture={(event) => {
-        setDescribed(event.target.closest<SVGElement>('[data-edge]')?.dataset.edge ?? null);
+        setFocusedEdge(event.target.closest<SVGElement>('[data-edge]')?.dataset.edge ?? null);
       }}
       onBlurCapture={() => {
-        setDescribed(null);
+        setFocusedEdge(null);
       }}
       onKeyDownCapture={(event) => {
-        if (event.key === 'Escape') setDescribed(null);
+        if (event.key === 'Escape') {
+          setFocusedEdge(null);
+          handlePointerLeave();
+        }
       }}
       onPointerOver={(event) => {
         settle(event.target);
@@ -100,9 +106,9 @@ function CanvasDiagram({
         <CanvasEdge
           edge={edge}
           key={edge.id}
-          lit={focus.selected !== undefined && matchesConnection(edge, focus)}
+          lit={focus.selected !== undefined && matches(edge)}
           marker={marker}
-          muted={!matchesConnection(edge, focus)}
+          muted={!matches(edge)}
           onEnter={() => {
             enterEdge(edge.id);
           }}
@@ -114,17 +120,11 @@ function CanvasDiagram({
         <CanvasEdgeLabel
           edge={edge}
           key={edge.id}
-          lit={focus.selected !== undefined && matchesConnection(edge, focus)}
-          muted={!matchesConnection(edge, focus)}
+          lit={focus.selected !== undefined && matches(edge)}
+          muted={!matches(edge)}
         />
       ))}
-      {raised === undefined ? null : (
-        <RaisedEdge
-          edge={raised}
-          marker={marker}
-          described={described !== null || raised.labelHidden === true}
-        />
-      )}
+      {raised === undefined ? null : <RaisedEdge edge={raised} marker={marker} />}
     </svg>
   );
 }
@@ -220,6 +220,7 @@ export function ConnectedCanvas({
   onReset,
   selected,
   endpoint,
+  hoverMembers,
   children,
 }: {
   readonly width: number;
@@ -238,6 +239,7 @@ export function ConnectedCanvas({
   readonly onReset?: () => void;
   readonly selected?: string | undefined;
   readonly endpoint?: string | undefined;
+  readonly hoverMembers?: ReadonlyMap<string, readonly string[]>;
   readonly children: ReactNode;
 }) {
   const marker = useId().replaceAll(':', '');
@@ -308,7 +310,7 @@ export function ConnectedCanvas({
               {context}
               {edges.some((edge) => edge.labelHidden === true) ? (
                 <Text size="sm" tone="muted">
-                  Crowded connections keep their full captions on hover or keyboard focus.
+                  Point at a line, or move focus to it, to show a caption left off a crowded map.
                 </Text>
               ) : null}
             </Stack>
@@ -334,6 +336,7 @@ export function ConnectedCanvas({
               endpoint={endpoint}
               height={height}
               marker={marker}
+              hoverMembers={hoverMembers}
               onSelect={onEdgeSelect}
               platform={platform.shown}
               selected={selected}

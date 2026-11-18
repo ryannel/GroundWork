@@ -122,7 +122,7 @@ describe('area map transport', () => {
       })),
     );
     const compact = (source: AreaView, nodes: typeof original.nodes) =>
-      valueFlowConnections(source.valueFlow!, nodes, source.technicalRelationships).map(
+      valueFlowConnections(nodes, source.technicalRelationships).map(
         ({ from, to, label, detail }) => ({ from, to, label, detail }),
       );
     expect(compact(overview, deferred.nodes)).toEqual(compact(view, original.nodes));

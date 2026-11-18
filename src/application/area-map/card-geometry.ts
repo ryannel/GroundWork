@@ -1,4 +1,8 @@
-import type { AreaComponentView, AreaResourceView } from '@/application/workspace-area';
+import type {
+  AreaComponentView,
+  AreaEndpointView,
+  AreaResourceView,
+} from '@/application/workspace-area';
 
 import { type ApiSurface, apiSurface } from './api-surface';
 import { linkedResources } from './component-summary';
@@ -19,10 +23,11 @@ export const CARD = {
   footer: 56,
 } as const;
 
-export type CardSectionKind = 'api' | 'stores' | 'publishes' | 'shared';
+export type CardSectionKind = 'services' | 'api' | 'stores' | 'publishes' | 'shared';
 
 export type CardRow =
   | { readonly kind: 'api'; readonly surface: ApiSurface; readonly centre: number }
+  | { readonly kind: 'endpoint'; readonly endpoint: AreaEndpointView; readonly centre: number }
   | { readonly kind: 'resource'; readonly resource: AreaComponentView; readonly centre: number }
   | { readonly kind: 'shared'; readonly resource: AreaResourceView; readonly centre: number };
 
@@ -48,12 +53,14 @@ export interface CardLayout {
 }
 
 type Pending =
+  | { readonly kind: 'endpoint'; readonly endpoint: AreaEndpointView }
   | { readonly kind: 'api'; readonly surface: ApiSurface }
   | { readonly kind: 'resource'; readonly resource: AreaComponentView }
   | { readonly kind: 'shared'; readonly resource: AreaResourceView };
 
 const HEIGHTS: Readonly<Record<Pending['kind'], number>> = {
   api: CARD.apiRow,
+  endpoint: CARD.apiRow,
   resource: CARD.resourceRow,
   shared: CARD.sharedRow,
 };
@@ -64,13 +71,19 @@ function pendingSections(
   const owned = component.attachments ?? [];
   return [
     {
+      kind: 'services' as const,
+      rows: owned
+        .filter((resource) => resource.kind === 'service')
+        .map((resource) => ({ kind: 'resource' as const, resource })),
+    },
+    {
       kind: 'api' as const,
       rows: apiSurface(component.endpoints).map((surface) => ({ kind: 'api' as const, surface })),
     },
     {
       kind: 'stores' as const,
       rows: owned
-        .filter((resource) => resource.kind !== 'queue')
+        .filter((resource) => resource.kind === 'database')
         .map((resource) => ({ kind: 'resource' as const, resource })),
     },
     {
@@ -96,7 +109,15 @@ export function cardLayout(component: AreaComponentView, open: boolean): CardLay
   let top = CARD.header + (contents.length === 0 ? 0 : CARD.contents);
   const sections = (open ? pending : []).map((section) => {
     top += CARD.heading;
-    const rows = section.rows.map((row): CardRow => {
+    const entries = section.rows.flatMap((row): readonly Pending[] =>
+      row.kind === 'api'
+        ? [
+            row,
+            ...row.surface.endpoints.map((endpoint) => ({ kind: 'endpoint' as const, endpoint })),
+          ]
+        : [row],
+    );
+    const rows = entries.map((row): CardRow => {
       const centre = top + HEIGHTS[row.kind] / 2;
       top += HEIGHTS[row.kind];
       return { ...row, centre };

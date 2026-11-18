@@ -48,6 +48,28 @@ function focusZoom(
   return zoom;
 }
 
+function previousPosition(
+  focus: ConnectedCanvasFocus,
+  prior: Focused | null,
+  lastAnchor: ConnectedCanvasFocus['previousPosition'],
+): NonNullable<ConnectedCanvasFocus['previousPosition']> | null {
+  if (prior?.id === focus.id) return prior;
+  if (focus.previousPosition === undefined) return null;
+  return focus.previousPosition === lastAnchor ? focus : focus.previousPosition;
+}
+
+function followPosition(
+  viewport: RefObject<HTMLDivElement | null>,
+  current: Focused,
+  previous: NonNullable<ConnectedCanvasFocus['previousPosition']>,
+  zoom: number,
+): void {
+  const element = viewport.current;
+  if (element === null) return;
+  element.scrollLeft += (current.x - previous.x) * zoom;
+  element.scrollTop += (current.y - previous.y) * zoom;
+}
+
 /**
  * Centre a newly selected component; panning and fitting otherwise retain their own camera. When the
  * layout moves the same component, the view shifts with it so the reader's place stays put.
@@ -60,6 +82,7 @@ export function useCanvasFocus(
   const { zoom, changeZoom } = camera;
   const focusedRef = useRef<Focused | null>(null);
   const initialFocusRef = useRef(true);
+  const lastAnchorRef = useRef<ConnectedCanvasFocus['previousPosition']>(undefined);
   const reveal = useCallback(() => {
     const element = viewportRef.current;
     if (focus === undefined || focus === null || element?.scrollTo === undefined) return;
@@ -83,12 +106,10 @@ export function useCanvasFocus(
       return;
     }
     const focused = focusedRef.current;
-    if (focused?.id === focus.id) {
-      const element = viewportRef.current;
-      if (element !== null) {
-        element.scrollLeft += (focus.x - focused.x) * zoom;
-        element.scrollTop += (focus.y - focused.y) * zoom;
-      }
+    const previous = previousPosition(focus, focused, lastAnchorRef.current);
+    if (previous !== null) {
+      followPosition(viewportRef, focus, previous, zoom);
+      lastAnchorRef.current = focus.previousPosition ?? lastAnchorRef.current;
       focusedRef.current = { id: focus.id, x: focus.x, y: focus.y };
       return;
     }

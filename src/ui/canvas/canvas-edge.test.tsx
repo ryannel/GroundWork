@@ -1,5 +1,5 @@
 // @vitest-environment happy-dom
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import type { ConnectedCanvasEdge } from '@/ui/connected-canvas-types';
@@ -10,7 +10,7 @@ import { CanvasEdge, RaisedEdge } from './canvas-edge';
 afterEach(cleanup);
 
 describe('canvas arrow semantics', () => {
-  it('keeps a crowded relationship and its full explanation accessible without a detached caption', () => {
+  it('keeps a crowded relationship accessible and raises its caption, without a tooltip, on focus', () => {
     const edge: ConnectedCanvasEdge = {
       id: 'crowded',
       from: 'a',
@@ -31,7 +31,8 @@ describe('canvas arrow semantics', () => {
     expect(container.querySelectorAll('[data-edge]')).toHaveLength(1);
     expect(container.querySelector('[data-edge-label] text')).toBeNull();
     fireEvent.focus(screen.getByRole('img', { name: edge.detail }));
-    expect(container.querySelector('[role="tooltip"]')?.textContent).toBe(edge.detail);
+    expect(container.querySelector('[data-raised-edge] text')?.textContent).toBe(edge.label);
+    expect(container.querySelector('[role="tooltip"]')).toBeNull();
     expect(container.querySelector('[data-edge] path')?.getAttribute('marker-end')).not.toBeNull();
   });
   it('highlights a chosen flow without needing hover and yields to component focus', () => {
@@ -62,6 +63,43 @@ describe('canvas arrow semantics', () => {
     expect(container.querySelector('[data-edge][data-lit]')).toBeNull();
     expect(container.querySelector('[data-edge][data-muted]')).not.toBeNull();
   });
+  it('highlights a system’s member connections and narrows to the component under the pointer', async () => {
+    const route: ConnectedCanvasEdge = {
+      id: 'read',
+      from: 'reader',
+      to: 'data',
+      kind: 'api',
+      label: 'Read data',
+      detail: 'Read data',
+      path: 'M 10,10 L 200,10',
+      x: 100,
+      y: 10,
+    };
+    const { container } = render(
+      <ConnectedCanvas
+        width={500}
+        height={400}
+        label="System connections"
+        edges={[route, { ...route, id: 'write', from: 'writer' }]}
+        hoverMembers={new Map([['system', ['reader', 'writer']]])}
+      >
+        <g data-component="system">
+          <text>System card</text>
+          <text data-component="reader">Reader card</text>
+        </g>
+      </ConnectedCanvas>,
+    );
+    fireEvent.pointerOver(screen.getByText('System card'));
+    await waitFor(() => {
+      expect(container.querySelectorAll('[data-edge][data-lit]')).toHaveLength(2);
+    });
+    fireEvent.pointerOver(screen.getByText('Reader card'));
+    await waitFor(() => {
+      expect(container.querySelector('[data-edge="read"][data-lit]')).not.toBeNull();
+      expect(container.querySelector('[data-edge="write"][data-muted]')).not.toBeNull();
+    });
+  });
+
   it('paints all labels after crossing base routes while retaining focus and visibility states', () => {
     const edges: ConnectedCanvasEdge[] = [
       {
@@ -121,10 +159,12 @@ describe('canvas arrow semantics', () => {
     expect(labels[1]?.hasAttribute('data-muted')).toBe(true);
     expect(screen.getAllByRole('img')).toHaveLength(2);
     fireEvent.focus(routes[0]!);
-    expect(container.querySelector('[role="tooltip"]')?.textContent).toBe('First request');
+    expect(container.querySelector('[data-raised-edge] text')?.textContent).toBe(
+      'Read retailer details',
+    );
   });
 
-  it('exposes a descriptive edge to keyboard focus, shows its caveat and dismisses it with Escape or blur', () => {
+  it('raises a focused edge with its caption and lowers it again with Escape or blur', async () => {
     const edge: ConnectedCanvasEdge = {
       id: 'member',
       from: 'a',
@@ -143,18 +183,22 @@ describe('canvas arrow semantics', () => {
       </ConnectedCanvas>,
     );
     const connection = screen.getByRole('img', { name: edge.detail });
+    const raised = () => container.querySelector('[data-raised-edge]');
     expect(connection.getAttribute('tabindex')).toBe('0');
-    expect(container.querySelector('[role="tooltip"]')).toBeNull();
+    expect(raised()).toBeNull();
     fireEvent.focus(connection);
-    expect(container.querySelector('[role="tooltip"]')?.textContent).toBe(edge.detail);
+    expect(raised()?.querySelector('text')?.textContent).toBe(edge.label);
+    expect(container.querySelector('[role="tooltip"]')).toBeNull();
     expect(container.querySelector('path[marker-end]')).toBeNull();
     fireEvent.keyDown(connection, { key: 'Escape' });
-    expect(container.querySelector('[role="tooltip"]')).toBeNull();
+    expect(raised()).toBeNull();
     fireEvent.blur(connection);
     fireEvent.focus(connection);
-    expect(container.querySelector('[role="tooltip"]')).not.toBeNull();
+    expect(raised()).not.toBeNull();
     fireEvent.blur(connection);
-    expect(container.querySelector('[role="tooltip"]')).toBeNull();
+    await waitFor(() => {
+      expect(raised()).toBeNull();
+    });
   });
   it.each(['api', 'message', 'data', 'membership'] as const)(
     'retains %s semantics when raised',

@@ -1,6 +1,9 @@
+import { orthogonalRouteCost } from '@/application/area-routing/route';
 import type { AreaView } from '@/application/workspace-area';
 import type { LandscapeValueFlow } from '@/domain/landscape';
 
+import { layoutCompactCards, layoutExpandedCards } from './compact-layout';
+import { platformComponents } from './platform';
 import { valueFlowConnections } from './value-flow-connections';
 import { routeValueFlows, type ValueFlowRoute } from './value-flow-routing';
 import {
@@ -219,13 +222,16 @@ function overviewLayout(view: AreaView, narrative: LandscapeValueFlow): ValueFlo
         .filter((peer) => peer.column === node.column)
         .reduce((sum, peer) => sum + cardHeight(peer) + 40, 0),
     );
-    headings.push({
-      ...band,
-      x: 80 + Math.min(...placed.map((node) => node.column)) * 460,
-      y: top,
-      width: 280,
-      height: 100,
-    });
+    // Captions tell bands apart; a lone band, such as the stand-in for an unauthored area, needs none.
+    if (narrative.bands.length > 1) {
+      headings.push({
+        ...band,
+        x: 80 + Math.min(...placed.map((node) => node.column)) * 460,
+        y: top,
+        width: 280,
+        height: 100,
+      });
+    }
     y += 136 + Math.max(180, ...columnsHeight);
     return placed.map((node, index) => ({
       ...node,
@@ -291,8 +297,82 @@ function overviewLayout(view: AreaView, narrative: LandscapeValueFlow): ValueFlo
   );
 }
 
-function drawingSize(opened: ReadonlyMap<string, ValueFlowDrawing>, node: ValueFlowNode) {
-  return opened.get(node.systemId) ?? node;
+const SYSTEM_SPACING = { margin: 80, horizontal: 180, vertical: 160 };
+
+function withSystemHeaderSpace(cards: readonly ValueFlowNode[]): ValueFlowNode[] {
+  return cards.map((node) => ({ ...node, y: node.y + 66 }));
+}
+
+function compactOverview(view: AreaView, overview: ValueFlowDrawing): ValueFlowDrawing {
+  const platform = platformComponents(view);
+  const connections = valueFlowConnections(
+    overview.nodes,
+    view.technicalRelationships,
+    platform,
+  ).filter((edge) => edge.platform !== true);
+  const weights = new Map<string, number>();
+  const weighted = connections.map((edge) => {
+    const key = JSON.stringify([edge.from, edge.to].toSorted((a, b) => a.localeCompare(b)));
+    const weight = (weights.get(key) ?? 0) + 1;
+    weights.set(key, weight);
+    return { from: edge.from, to: edge.to, weight: 1 + Math.min(2, Math.log2(weight)) };
+  });
+  const nodes = withSystemHeaderSpace(
+    layoutCompactCards(overview.nodes, weighted, SYSTEM_SPACING, (cards) => {
+      const positioned = withSystemHeaderSpace(cards);
+      return orthogonalRouteCost(
+        routeValueFlows(
+          connections,
+          positioned,
+          overviewHeadings(positioned, overview.headings),
+          [],
+        ),
+      );
+    }),
+  );
+  return {
+    nodes,
+    headings: overviewHeadings(nodes, overview.headings),
+    width: Math.max(0, ...nodes.map((node) => node.x + node.width + 80)),
+    height: Math.max(500, ...nodes.map((node) => node.y + node.height + 80)),
+  };
+}
+
+function expandedPositions(
+  nodes: readonly ValueFlowNode[],
+  opened: ReadonlyMap<string, ValueFlowDrawing>,
+  compact: boolean,
+  relationships: AreaView['relationships'],
+) {
+  const sized = nodes.map((node) => {
+    const size = opened.get(node.systemId) ?? node;
+    return { ...node, width: size.width, height: size.height };
+  });
+  if (compact) {
+    const bySystem = new Map(nodes.map((node) => [node.systemId, node.id]));
+    const connections = relationships.flatMap(({ from, to }) => {
+      const source = bySystem.get(from);
+      const target = bySystem.get(to);
+      return source === undefined || target === undefined
+        ? []
+        : [{ from: source, to: target, weight: 1 }];
+    });
+    const aligned = sized.map((node) => ({ ...node, y: node.y - 66 }));
+    return withSystemHeaderSpace(layoutExpandedCards(aligned, connections, SYSTEM_SPACING));
+  }
+  const columns = [...new Set(nodes.map((node) => node.x))].toSorted((a, b) => a - b);
+  let x = 80;
+  return columns.flatMap((column) => {
+    const cards = sized.filter((node) => node.x === column);
+    let y = 146;
+    const placed = cards.map((node) => {
+      const box = { ...node, x, y };
+      y += node.height + 176;
+      return box;
+    });
+    x += Math.max(280, ...cards.map((node) => node.width)) + 180;
+    return placed;
+  });
 }
 
 /** Opening replaces one overview card with a bounded system; neighbours make room around it. */
@@ -301,8 +381,10 @@ export function valueFlowLayout(
   narrative: LandscapeValueFlow,
   expanded: ReadonlySet<string> = new Set(),
   open: ReadonlySet<string> = new Set(),
+  compact = false,
 ): ValueFlowDrawing & { readonly groups: readonly ValueFlowGroup[] } {
-  const overview = overviewLayout(view, narrative);
+  const base = overviewLayout(view, narrative);
+  const overview = compact ? compactOverview(view, base) : base;
   if (expanded.size === 0) return { ...overview, groups: [] };
   const opened = new Map(
     view.systems
@@ -315,33 +397,12 @@ export function valueFlowLayout(
           ] as const,
       ),
   );
-  const columns = [...new Set(overview.nodes.map((node) => node.x))].toSorted((a, b) => a - b);
-  const xs = new Map<number, number>();
-  const ys = new Map<string, number>();
-  let x = 80;
-  let height = 0;
-  for (const column of columns) {
-    let top = 146;
-    for (const node of overview.nodes.filter((item) => item.x === column)) {
-      ys.set(node.id, top);
-      top += drawingSize(opened, node).height + 176;
-    }
-    height = Math.max(height, top);
-    xs.set(column, x);
-    x +=
-      Math.max(
-        280,
-        ...overview.nodes
-          .filter((node) => node.x === column)
-          .map((node) => drawingSize(opened, node).width),
-      ) + 180;
-  }
+  const placed = expandedPositions(overview.nodes, opened, compact, view.relationships);
   const groups: ValueFlowGroup[] = [];
   const headings: ValueFlowHeading[] = [];
   const nodes: ValueFlowNode[] = [];
-  for (const node of overview.nodes) {
-    const left = xs.get(node.x) ?? node.x;
-    const top = ys.get(node.id) ?? node.y;
+  for (const node of placed) {
+    const { x: left, y: top } = node;
     const local = opened.get(node.systemId);
     if (local === undefined) {
       nodes.push({ ...node, x: left, y: top });
@@ -363,22 +424,25 @@ export function valueFlowLayout(
     );
   }
   headings.push(...overviewHeadings(nodes, overview.headings));
-  return { nodes, groups, headings, width: Math.max(1200, x), height };
+  return {
+    nodes,
+    groups,
+    headings,
+    width: Math.max(
+      compact ? 0 : 1200,
+      ...placed.map((node) => node.x + node.width + (compact ? 80 : 180)),
+    ),
+    height: Math.max(0, ...placed.map((node) => node.y + node.height + (compact ? 80 : 176))),
+  };
 }
 
 /** Project resources and rows before routing; a recorded exchange is never discarded by visual grouping. */
 export function valueFlowEdges(
-  narrative: LandscapeValueFlow,
   nodes: readonly ValueFlowNode[],
   headings: readonly ValueFlowHeading[] = [],
   technical: AreaView['technicalRelationships'] = [],
   groups: readonly ValueFlowGroup[] = [],
   platform: ReadonlySet<string> = new Set(),
 ): readonly ValueFlowRoute[] {
-  return routeValueFlows(
-    valueFlowConnections(narrative, nodes, technical, platform),
-    nodes,
-    headings,
-    groups,
-  );
+  return routeValueFlows(valueFlowConnections(nodes, technical, platform), nodes, headings, groups);
 }

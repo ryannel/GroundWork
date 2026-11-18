@@ -20,9 +20,9 @@ export default async function WorkspaceRoute({ params }: { readonly params: Prom
   const { workspace: id } = await params;
   const index = await readCanonicalModelIndex(id);
   if (index === null) notFound();
-  const model = index.model;
   const nav = modelWorkspaceNavOf(index, await readModelPlans(id));
-  return model.landscape === null ? (
+  const areas = areaLandscapeOf(index);
+  return areas === null ? (
     <LandscapePage
       landscape={modelLandscapeOf(index)}
       nav={nav}
@@ -31,7 +31,7 @@ export default async function WorkspaceRoute({ params }: { readonly params: Prom
     />
   ) : (
     <AreaLandscapePage
-      landscape={areaLandscapeOf(model, model.landscape)}
+      landscape={areas}
       nav={nav}
       actions={<TodaySearch />}
       overlays={<ModelTodayOverlays index={index} depth={0} />}

@@ -11,7 +11,6 @@ const endpoint = (signature: string, index: number): AreaEndpointView => ({
   request: null,
   response: null,
   callers: [],
-  explorer: null,
 });
 
 describe('API surface overview', () => {

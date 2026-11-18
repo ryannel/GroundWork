@@ -45,10 +45,11 @@ describe('component card geometry', () => {
     expect(layout.sections.map((section) => section.kind)).toEqual(['api', 'stores', 'publishes']);
     const [api, stores, publishes] = layout.sections.map((section) => section.rows[0]?.centre);
     expect(api).toBe(top + CARD.heading + CARD.apiRow / 2);
-    expect(stores).toBe(top + CARD.heading * 2 + CARD.apiRow + CARD.resourceRow / 2);
-    expect(publishes).toBe(top + CARD.heading * 3 + CARD.apiRow + CARD.resourceRow * 1.5);
+    expect(layout.sections[0]?.rows[1]?.centre).toBe(top + CARD.heading + CARD.apiRow * 1.5);
+    expect(stores).toBe(top + CARD.heading * 2 + CARD.apiRow * 2 + CARD.resourceRow / 2);
+    expect(publishes).toBe(top + CARD.heading * 3 + CARD.apiRow * 2 + CARD.resourceRow * 1.5);
     expect(layout.height).toBe(
-      top + CARD.heading * 3 + CARD.apiRow + CARD.resourceRow * 2 + CARD.end,
+      top + CARD.heading * 3 + CARD.apiRow * 2 + CARD.resourceRow * 2 + CARD.end,
     );
     expect(layout.footer).toBe(false);
 

@@ -1,12 +1,17 @@
 import { diagramCaption } from '@/shared/diagram-caption';
 import type { ConnectedCanvasEdge } from '@/ui/connected-canvas-types';
-import { Panel } from '@/ui/panel';
-import { Text } from '@/ui/text';
 
 import styles from './canvas-edge.module.css';
 
-function Caption({ edge }: { readonly edge: ConnectedCanvasEdge }) {
-  if (edge.labelHidden === true) return null;
+export function CanvasCaption({
+  edge,
+  always = false,
+}: {
+  readonly edge: Pick<ConnectedCanvasEdge, 'label' | 'x' | 'y' | 'labelHidden'>;
+  /** A raised line shows its caption even when there was no room to leave it on the map. */
+  readonly always?: boolean;
+}) {
+  if (edge.labelHidden === true && !always) return null;
   const caption = diagramCaption(edge.label);
   return (
     <text textAnchor="middle" x={edge.x} y={edge.y}>
@@ -31,7 +36,7 @@ export function Markers({ marker }: { readonly marker: string }) {
           markerHeight="10"
           markerUnits="userSpaceOnUse"
           markerWidth="10"
-          orient="auto"
+          orient="auto-start-reverse"
           refX="8"
           refY="5"
         >
@@ -42,10 +47,30 @@ export function Markers({ marker }: { readonly marker: string }) {
   );
 }
 
+function EdgeLine({
+  edge,
+  arrow,
+  bidirectional,
+}: {
+  readonly edge: ConnectedCanvasEdge;
+  readonly arrow: string;
+  readonly bidirectional: boolean | undefined;
+}) {
+  return (
+    <path
+      className={styles.line}
+      d={edge.path}
+      markerStart={bidirectional === true ? arrow : undefined}
+      markerEnd={edge.directed === false ? undefined : arrow}
+    />
+  );
+}
+
 /** One line. Only its wide, undashed hit path takes the pointer, so dotted lines are as easy to point at. */
 export function CanvasEdge({
   edge,
   marker,
+  bidirectional,
   lit,
   muted,
   onEnter,
@@ -54,6 +79,7 @@ export function CanvasEdge({
 }: {
   readonly edge: ConnectedCanvasEdge;
   readonly marker: string;
+  readonly bidirectional?: boolean;
   readonly lit: boolean;
   readonly muted: boolean;
   readonly onEnter: () => void;
@@ -87,12 +113,7 @@ export function CanvasEdge({
       role={onSelect === undefined ? 'img' : 'button'}
       tabIndex={0}
     >
-      <title>{edge.detail}</title>
-      <path
-        className={styles.line}
-        d={edge.path}
-        markerEnd={edge.directed === false ? undefined : arrow}
-      />
+      <EdgeLine edge={edge} arrow={arrow} bidirectional={bidirectional} />
       <path
         className={styles.edgeHit}
         d={edge.path}
@@ -125,20 +146,53 @@ export function CanvasEdgeLabel({
       data-context={edge.context === true ? '' : undefined}
       data-supporting={edge.supporting === true ? '' : undefined}
     >
-      <Caption edge={edge} />
+      <CanvasCaption edge={edge} />
     </g>
   );
 }
 
-/** The line under the pointer, drawn again above every other line with its label. */
+/** A technical count opens the same group as its path. */
+export function CanvasEdgeCaptionControl({
+  edge,
+  lit = false,
+  muted = false,
+  onSelect,
+}: {
+  readonly edge: ConnectedCanvasEdge;
+  readonly onSelect: (id: string) => void;
+  readonly lit?: boolean;
+  readonly muted?: boolean;
+}) {
+  if (edge.labelHidden === true) return null;
+  const select = (): void => {
+    onSelect(edge.id);
+  };
+  return (
+    <g
+      aria-label={edge.detail}
+      className={styles.captionControl}
+      role="button"
+      tabIndex={0}
+      onClick={select}
+      onKeyDown={(event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          select();
+        }
+      }}
+    >
+      <CanvasEdgeLabel edge={edge} lit={lit} muted={muted} />
+    </g>
+  );
+}
+
+/** The line under the pointer or keyboard focus, drawn again above every other line with its caption. */
 export function RaisedEdge({
   edge,
   marker,
-  described = false,
 }: {
   readonly edge: ConnectedCanvasEdge;
   readonly marker: string;
-  readonly described?: boolean;
 }) {
   return (
     <g
@@ -149,24 +203,7 @@ export function RaisedEdge({
       data-pattern={edge.pattern}
     >
       <path d={edge.path} markerEnd={edge.directed === false ? undefined : `url(#${marker}-lit)`} />
-      <Caption edge={edge} />
-      {described ? (
-        <foreignObject
-          className={styles.description}
-          x={Math.max(12, edge.x - 180)}
-          y={edge.y + 16}
-          width={360}
-          height={1}
-        >
-          <div role="tooltip">
-            <Panel>
-              <Text as="p" size="sm">
-                {edge.detail}
-              </Text>
-            </Panel>
-          </div>
-        </foreignObject>
-      ) : null}
+      <CanvasCaption edge={edge} always />
     </g>
   );
 }

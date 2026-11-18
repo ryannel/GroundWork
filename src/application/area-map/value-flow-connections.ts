@@ -1,12 +1,8 @@
 import type { AreaView } from '@/application/workspace-area';
-import type { LandscapeValueFlow } from '@/domain/landscape';
+import { landscapeCountCaption } from '@/application/workspace-landscape-areas';
 
 import { cardLayout } from './card-geometry';
-import {
-  connectionSummary,
-  combinedConnectionSummary,
-  connectionDetails,
-} from './connection-summary';
+import { combinedConnectionSummary, connectionDetails } from './connection-summary';
 import type { ValueFlowNode } from './value-flow-system';
 
 interface Connection {
@@ -45,11 +41,11 @@ function rowOf(node: ValueFlowNode, id: string | undefined) {
     cardLayout(node.component, true)
       .sections.flatMap((section) => section.rows)
       .flatMap((row) => {
+        if (row.kind === 'endpoint') {
+          return row.endpoint.id === id ? [{ id, y: node.y + row.centre }] : [];
+        }
         if (row.kind === 'api') {
-          return row.surface.id === id ||
-            row.surface.endpoints.some((endpoint) => endpoint.id === id)
-            ? [{ id: row.surface.id, y: node.y + row.centre }]
-            : [];
+          return row.surface.id === id ? [{ id: row.surface.id, y: node.y + row.centre }] : [];
         }
         return row.resource.id === id ? [{ id, y: node.y + row.centre }] : [];
       })[0] ?? null
@@ -64,10 +60,17 @@ function connectionRows(connection: Connection, from: ValueFlowNode, to: ValueFl
     connection.topicId ??
     from.component.attachments?.find((item) => item.id === connection.from && item.kind === 'queue')
       ?.id;
+  const sourceResource = connection.kind === 'data' ? connection.to : connection.from;
   return {
     endpoint,
-    source: rowOf(from, topic ?? (connection.kind === 'data' ? connection.to : connection.from)),
-    target: rowOf(to, endpoint ?? topic ?? connection.to),
+    source: rowOf(
+      from,
+      from.component.category === 'group' ? connection.from : (topic ?? sourceResource),
+    ),
+    target: rowOf(
+      to,
+      to.component.category === 'group' ? connection.to : (endpoint ?? topic ?? connection.to),
+    ),
   };
 }
 
@@ -109,85 +112,37 @@ function project(
   };
 }
 
-/** Saved overview exchanges keep their own direction even before the recorded sites load. */
-function authoredOverviewConnections(
-  narrative: LandscapeValueFlow,
-  nodes: readonly ValueFlowNode[],
-  corePairs: ReadonlySet<string>,
-): readonly ValueFlowConnection[] {
-  const collapsed = nodes.filter((node) => node.collapsed);
-  return (narrative.overview ?? []).flatMap((connection) => {
-    const edge = project({ ...connection, detail: connection.label, supporting: false }, collapsed);
-    if (edge === undefined || corePairs.has(`${edge.from}|${edge.to}|${edge.kind}`)) return [];
-    return [edge];
-  });
-}
-
-/** Keep exact direction and row identities when folding resources into their service cards. */
+/** One line per pair between whole-system cards, counted; record names once a card is opened. */
 export function valueFlowConnections(
-  narrative: LandscapeValueFlow,
   nodes: readonly ValueFlowNode[],
   technical: AreaView['technicalRelationships'],
   platform: ReadonlySet<string> = new Set(),
-  showAuthoredOverview = false,
 ): readonly ValueFlowConnection[] {
-  const components = nodes.flatMap((node) => [
-    node.component,
-    ...(node.component.attachments ?? []),
-  ]);
-  const main = narrative.connections.flatMap((connection) => {
-    const recorded = technical.find(
-      (edge) =>
-        edge.from === connection.from && edge.to === connection.to && edge.kind === connection.kind,
-    );
-    // A consumer uses its publisher/topic, while the arrow still follows event delivery.
-    // Publication into an explicit topic keeps its recorded dependency direction.
-    const usage =
-      recorded ??
-      (connection.kind === 'message' &&
-      components.find((component) => component.id === connection.to)?.kind !== 'queue'
-        ? { usageFrom: connection.to, usageTo: connection.from }
-        : {});
-    const edge = project(
-      {
-        ...connection,
-        ...usageOf(usage),
-        supporting: false,
-        detail: `${connection.label}. Evidence: ${connection.evidence.join(', ')}.`,
-      },
-      nodes,
-    );
-    return edge === undefined ? [] : [edge];
-  });
-  const pairs = new Set(main.map((edge) => `${edge.from}|${edge.to}|${edge.kind}`));
-  const overview = showAuthoredOverview ? authoredOverviewConnections(narrative, nodes, pairs) : [];
-  const exact = technical.flatMap((connection) => {
+  const collapsed = new Set(nodes.flatMap((node) => (node.collapsed ? [node.id] : [])));
+  const grouped = new Map<string, ValueFlowConnection[]>();
+  for (const connection of technical) {
     const edge = project(
       { ...connection, evidence: [], supporting: true, platform: platform.has(connection.to) },
       nodes,
     );
-    if (edge === undefined) return [];
-    const summaries = edge.targetY === undefined ? narrative.summaries : [];
-    return [
-      {
-        ...edge,
-        label: connectionSummary(connection, components, summaries),
-        supporting: !pairs.has(`${edge.from}|${edge.to}|${edge.kind}`),
-      },
-    ];
-  });
-  const grouped = new Map<string, ValueFlowConnection[]>();
-  for (const edge of [...main, ...overview, ...exact]) {
-    grouped.set(edge.id, [...(grouped.get(edge.id) ?? []), edge]);
+    if (edge === undefined) continue;
+    const key =
+      collapsed.has(edge.from) && collapsed.has(edge.to)
+        ? `${[edge.from, edge.to].toSorted((a, b) => a.localeCompare(b)).join('|')}|${edge.kind}`
+        : edge.id;
+    grouped.set(key, [...(grouped.get(key) ?? []), edge]);
   }
   return [...grouped]
     .map(([id, edges]) => {
       const first = edges[0];
       if (first === undefined) throw new Error('A connection group must contain an edge.');
-      const primary = edges.find((edge) => !edge.supporting) ?? first;
-      const label = primary.supporting ? combinedConnectionSummary(edges) : primary.label;
+      const counted = collapsed.has(first.from) && collapsed.has(first.to);
+      const out = edges.filter((edge) => edge.from === first.from).length;
+      const label = counted
+        ? landscapeCountCaption(out, edges.length)
+        : combinedConnectionSummary(edges);
       return {
-        ...primary,
+        ...first,
         id: `value:${id}`,
         label,
         detail: connectionDetails(label, edges),
@@ -195,9 +150,5 @@ export function valueFlowConnections(
         platform: edges.every((edge) => edge.platform === true),
       };
     })
-    .toSorted((a, b) =>
-      Number(a.supporting) - Number(b.supporting) === 0
-        ? a.id.localeCompare(b.id)
-        : Number(a.supporting) - Number(b.supporting),
-    );
+    .toSorted((a, b) => a.id.localeCompare(b.id));
 }

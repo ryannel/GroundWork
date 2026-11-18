@@ -1,5 +1,5 @@
 // @vitest-environment happy-dom
-import { cleanup, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { queryModel } from '@/../test/fixtures/model-queries';
@@ -60,10 +60,11 @@ describe('workspace overview route', () => {
     vi.mocked(readCanonicalModelIndex).mockResolvedValue(indexOf(model));
     render(await WorkspaceRoute({ params }));
     expect(screen.getByRole('heading', { name: 'How the company works' })).toBeTruthy();
-    expect(screen.getByRole('link', { name: /Doing work/u }).getAttribute('href')).toBe(
+    fireEvent.click(screen.getByRole('button', { name: 'Doing work' }));
+    expect(screen.getByRole('link', { name: 'Drill down' }).getAttribute('href')).toBe(
       '/queries/areas/work',
     );
-    expect(screen.getByText('Fixture interpretation')).toBeTruthy();
+    expect(screen.queryByText('Fixture interpretation')).toBeNull();
   });
 
   it('does not reconstruct a format-1 workspace on the native route', async () => {

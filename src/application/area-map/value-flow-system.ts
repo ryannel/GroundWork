@@ -3,6 +3,7 @@ import type { AreaComponentView, AreaSystemView, AreaView } from '@/application/
 import type { LandscapeValueFlow } from '@/domain/landscape';
 
 import { cardLayout, CARD } from './card-geometry';
+import { layoutCompactCards, layoutExpandedCards } from './compact-layout';
 import { diagramSpacing } from './diagram-spacing';
 import { componentBands, componentOwners, valueFlowComponents } from './value-flow-components';
 
@@ -115,6 +116,23 @@ function componentNode(
   };
 }
 
+function supportingColumns(
+  positions: ReadonlyMap<number, number>,
+  count: number,
+  gap: number,
+): ReadonlyMap<number, number> {
+  const columns = new Map(positions);
+  const desired = Math.min(4, Math.ceil(Math.sqrt(count)));
+  let rank = Math.max(0, ...positions.keys());
+  let x = Math.max(48, ...positions.values());
+  while (columns.size < desired) {
+    rank += 1;
+    x += CARD.width + gap;
+    columns.set(rank, x);
+  }
+  return columns;
+}
+
 /** Keep secondary work close to its recorded core neighbour, balancing the space beneath the band. */
 function supportingNodes(
   components: readonly AreaComponentView[],
@@ -156,6 +174,52 @@ function supportingNodes(
     });
 }
 
+function compactSystem(
+  system: AreaSystemView,
+  relationships: AreaView['technicalRelationships'],
+  open: ReadonlySet<string>,
+): ValueFlowDrawing {
+  const owners = componentOwners(system.components);
+  const connections = relationships.flatMap(({ from, to }) => {
+    const source = owners.get(from);
+    const target = owners.get(to);
+    return source === undefined || target === undefined
+      ? []
+      : [{ from: source, to: target, weight: 1 }];
+  });
+  const spacing = { margin: 48, horizontal: 160, vertical: 96 };
+  const cards = system.components.map((component) =>
+    componentNode(
+      component,
+      system,
+      {
+        band: system.id,
+        rank: 0,
+        x: 0,
+        y: 0,
+        supporting: false,
+      },
+      new Set(),
+    ),
+  );
+  const placed = layoutCompactCards(cards, connections, spacing);
+  const resized = placed.map((node) => ({
+    ...node,
+    open: open.has(node.id),
+    height: cardLayout(node.component, open.has(node.id)).height,
+  }));
+  const packed = resized.some((node) => node.open)
+    ? layoutExpandedCards(resized, connections, spacing)
+    : resized;
+  const nodes = packed.map((node) => ({ ...node, y: node.y + 48 }));
+  return {
+    nodes,
+    headings: [],
+    width: Math.max(640, ...nodes.map((node) => node.x + node.width + 64)),
+    height: Math.max(240, ...nodes.map((node) => node.y + node.height + 64)),
+  };
+}
+
 /** Each opened system owns one local drawing, including all its supporting components. */
 export function valueFlowSystem(
   source: AreaSystemView,
@@ -163,7 +227,13 @@ export function valueFlowSystem(
   relationships: AreaView['technicalRelationships'],
   open: ReadonlySet<string> = new Set(),
 ): ValueFlowDrawing {
-  const system = { ...source, components: valueFlowComponents(source) };
+  const system = {
+    ...source,
+    components: valueFlowComponents(source, source.componentGroups ?? narrative.cards),
+  };
+  if (narrative.connections.length === 0 && narrative.bands.every(({ id }) => id === 'systems')) {
+    return compactSystem(system, relationships, open);
+  }
   const bands = componentBands(system.components, narrative);
   const core = new Set(bands.flatMap((band) => band.nodes.map((node) => node.component)));
   const anchors = supportAnchors(system, core, relationships);
@@ -204,7 +274,7 @@ export function valueFlowSystem(
       system,
       band,
       anchors,
-      positions,
+      supportingColumns(positions, support.length, spacing.horizontal),
       {
         top: Math.max(...placed.map((node) => node.y + node.height)) + spacing.vertical,
         gap: spacing.vertical,

@@ -149,7 +149,7 @@ Cycles retain their arrows as return paths. Canvas bounds grow with the drawing,
 Area details may also save an inferred `valueFlow`: evidence-referenced connections and named bands ordered
 from information creation to use. The area opens on these value flows with each system collapsed once.
 Expanding a system replaces its card with one bounded group; other systems stay collapsed and make room.
-Collapsed anchors prefer the selected overview's cross-system relevance, then authored activity order. Other distinct activities remain
+Collapsed anchors follow authored activity order. Other distinct activities remain
 named on the same system card, so collapsing a multi-purpose system does not erase its secondary work.
 `area-map/value-flow-system.ts` lays out the system's local value-flow bands. Core columns have fixed
 spacing. Supporting components pack beneath the relevant band, gravitating towards their recorded core
@@ -160,14 +160,16 @@ stay above contiguous cards on one row and repeat for dispersed contributions, r
 band identity for filtering. They are placed again after expansion makes room. Full boundaries are excluded from route settling, which
 uses component and heading obstacles instead. Spatial order explains business value; arrows
 retain initiating request, store-access and event-delivery direction. The system-structure view remains
-available for exact technical connections. The default value-flow canvas shows the key authored connections plus a small, labelled supporting forest
-that connects reachable visible cards without adding hypothetical exchanges. Visible topics retain both
-publishing and delivery sides where recorded. All connections, component selection and card expansion
-reveal the remaining exchanges; filtering never changes card placement. Saved
-`valueFlow.summaries` explain existing directed exchanges without adding edges or promoting them into the core.
-An optional `valueFlow.overview` selects a concise, authored cross-system backbone from exact existing core
-connections. It cannot introduce a new relationship. Other internal core work stays visible on expansion,
-and component selection, resource expansion and All connections reveal secondary exchanges. Only currently
+available for exact technical connections. Every connection on every map comes from the workspace model's
+calls, messages and data access; narrative connections, summaries and overviews never draw, label or hide a line.
+The area page and the workspace map show only what the workspace model records: area name, purpose and
+activities, systems, components and their connections. They show no confidence, review date, boundary,
+collaborations or limitation callout, and the value-flow selector appears only when an area has several bands.
+Between two closed system cards the records merge into one line per pair and kind, captioned
+"N out · M in". Once a card opens, each line carries its records' own names. The default canvas shows a small
+supporting forest that connects reachable visible cards without adding hypothetical exchanges. Visible topics
+retain both publishing and delivery sides where recorded. All connections, component selection and card
+expansion reveal the remaining exchanges; filtering never changes card placement. Only currently
 visible connections reserve routing corridors and label positions; disclosure does not move the cards.
 Connection captions share one text and size policy in `shared/diagram-caption.ts`: compact typography,
 word-aware shortening and at most two lines, with the full source label and qualifications retained in detail.
@@ -175,12 +177,12 @@ Routing reserves that displayed rectangle, including supporting exchanges, rathe
 text from the renderer. `area-routing/route.ts` places captions immediately beside a real horizontal or vertical
 segment inside the drawing's bounds. It never moves a caption to an unrelated free boundary. A bounded
 alternative route is attempted when the first path has no caption slot. If the frame is exhausted, the edge
-and direction remain intact and its full caption is available on hover or keyboard focus, with a notice in
+and direction remain intact; hover or keyboard focus raises the line and its caption in the accent colour,
+and selecting it shows the description in the side panel. A notice appears in
 the controls. Caption reservations must not make a physical relationship disappear or block its ports.
 System gutters and supporting-row gaps use the stable caption dimensions of the full authored system,
 independently of the current flow or connection filter. Default supporting labels are
-quiet until focused; All connections reveals them. Collapsed exchanges keep their authored concise labels
-in both modes, with the full purpose and operations retained in detail.
+quiet until focused; All connections reveals them.
 Cards inside SVG `foreignObject` elements use colours, not HTML opacity layers, to mute supporting work.
 WebKit can paint an opacity-composited HTML card away from its SVG coordinates even though its reported
 bounding rectangle is correct, leaving correctly routed arrows apparently detached. Inspect the painted
@@ -190,7 +192,7 @@ resource expands its system, opens its containing service where needed and focus
 clearing flow-only filters that would hide it. Unplaced resources remain listed with an explicit
 notice and no navigation action; a resource reference alone does not invent an arrow or ownership.
 The component inspector puts its repository link beside a GitHub mark in the header. Repository identity
-comes from the component's own code attribution, with the legacy explorer catalogue as a fallback.
+comes only from the component's own code attribution; the map does not read the explorer catalogue.
 Multiple source repositories are not reduced to an arbitrary first match.
 
 Connection captions use one text and size policy in `shared/diagram-caption.ts`: compact typography,
@@ -199,13 +201,11 @@ Routing reserves the displayed rectangle, rather than measuring different text f
 `area-routing/route.ts` keeps captions immediately beside a real segment, inside the owning bounds, and
 protects the corridor between text and its arrow from neighbouring requests. It never moves a caption to
 an unrelated free boundary. A bounded alternative route is attempted when no legal slot exists. If that
-frame is exhausted, the relationship and direction remain intact, with the full caption on hover or keyboard
+frame is exhausted, the relationship and direction remain intact, with the caption raised on hover or keyboard
 focus and an explicit notice. Caption reservations must not block a physical relationship's ports.
 System gutters and supporting-row gaps use stable caption dimensions from the full authored system,
 independently of the current flow or connection filter.
 
-With an explicit overview, the default supporting forest stays within systems rather than adding secondary
-cross-system bridges. An empty overview represents independent work without an in-area backbone.
 Optional `valueFlow.columns` assigns area-wide reading columns to unique member systems, separately from
 component columns within a local activity. Sources can remain before consumers even when their internal
 preparation sequences use different stages. Omitted system placements retain the existing fallback.
@@ -251,18 +251,16 @@ Opening a system reveals its boundary at a readable scale, with an automatic min
 systems require panning; Fit map is the explicit action for a complete canvas overview. Opening from a
 previous distant overview restores reading size. Subsequent manual panning and zooming stay under the
 reader's control. Cross-system context is faint with quiet labels until selected or All connections is shown.
-Collapsed systems show authored high-level exchanges. Expanded systems show connections with known component
-targets, landing on those components or their API resource groups, never on a system's dotted boundary.
-Untargeted authored exchanges remain in the collapsed overview; no component target is invented for them.
+Collapsed systems show one counted line per pair and kind from the model's records. Expanded systems show
+connections with known component targets, landing on those components or their API resource groups, never on a
+system's dotted boundary. No component target is invented for a record without one.
 API resource groups retain protocol, versions and every underlying operation identity. Individual operations
 and their contracts live in the inspector, not on the canvas. Selection does not resize component cards.
 Systems may have an optional `narratives.yaml`, a saved Inferred interpretation with ordered stages,
-component IDs, supporting components, evidence references, reasoning and limitations. The first story defines
-the whole overview: primary components form one row, with supporting components beneath their related stage.
-Later stories highlight subsets, with optional filtering. Both preserve the overview positions.
-Technical arrows keep their original direction. The reader checks the fingerprint of the system's structure,
-contracts, handlers and workspace flows; stale or unresolved stories show a review notice and use the
-technical layout. `tools/system-narrative.ts` exports the LLM context packet and checks a saved narrative;
+component IDs, supporting components, evidence references, reasoning and limitations. Narratives are not part
+of the workspace model, so no map shows them: expanded systems always use the technical layout.
+`tools/system-narrative.ts` exports the LLM context packet and checks a saved narrative against the
+fingerprint of the system's structure, contracts, handlers and workspace flows;
 `docs/system-narratives.md` defines the post-scan authoring workflow. No LLM runs on a page request.
 Expanded component flows read left to right: callers on the left, what they rely on to the right, because
 cards are lists of rows whose ports sit on their sides. Each column is ordered by the mean position of the

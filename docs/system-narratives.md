@@ -1,8 +1,9 @@
 # System narratives
 
 A narrative explains a system through an ordered spine of responsibilities. It is an **Inferred**
-interpretation of existing evidence. The saved order guides card placement; it never changes an API,
-event or data-access arrow, or asserts that independent activities form one request.
+interpretation of existing evidence. It is not part of the workspace model, so the maps do not show it:
+expanded systems always use the technical layout. It never changes an API, event or data-access arrow, or
+asserts that independent activities form one request.
 
 Use [groundwork-diagram](../.agents/skills/groundwork-diagram/SKILL.md) to author or review these views:
 it covers value-flow explanation, apparent orphans, ownership, visual review and dataset-wide runs.
@@ -27,10 +28,9 @@ Write `narratives.yaml` beside that system's `system.yaml`. The closed schema is
 The first story defines the whole overview, including all components needed to explain the system.
 Its two to eight stages define columns in one row; supporting components sit beneath the related stage.
 Arrange preparation and request handling logically without implying they form a single execution.
-Later stories define optional flow highlights; include each participating component as a stage or supporting
-component. Highlighting and filtering preserve the overview positions. Components outside the authored order remain visible below it, rather than disappearing.
-Optional `connections` name existing directed edges with an action and evidence IDs; `relatedSystems`
-keeps named neighbouring systems close when this technical view opens.
+Later stories describe further flows; include each participating component as a stage or supporting
+component. Optional `connections` name existing directed edges with an action and evidence IDs;
+`relatedSystems` names neighbouring systems the story relies on.
 
 ```yaml
 format: 1
@@ -72,7 +72,7 @@ reasoning and limitations even when a human agrees with it.
 
 On refresh, generate a new packet, compare the changed evidence with the saved stories, preserve useful
 reviewed choices, and revise only affected meaning. Do not merely replace `basis` to clear a warning.
-Changed inputs disable narrative layout and show a review notice until re-authored. The fingerprint is
+Changed inputs make the check report the narrative as stale until it is re-authored. The fingerprint is
 conservative: any workspace flow change requires review. It establishes local model currency, not
 remote or deployed currency. The separate scan interpretation sidecar remains authoritative for scan
 interpretations; this file is a production workspace view and does not replace that contract.

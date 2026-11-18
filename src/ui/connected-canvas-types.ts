@@ -42,6 +42,7 @@ export interface ConnectedCanvasFocus {
   readonly y: number;
   readonly width: number;
   readonly height: number;
+  readonly previousPosition?: { readonly x: number; readonly y: number } | undefined;
   /** Reveal the complete boundary, zooming out only when needed. */
   readonly fit?: boolean;
   readonly readable?: boolean;

@@ -1,5 +1,7 @@
 'use client';
 
+import type { ReactElement } from 'react';
+
 import {
   type CardRow,
   type CardSectionKind,
@@ -11,15 +13,20 @@ import {
   resourceLocation,
   resourceSummary,
 } from '@/application/area-map/component-summary';
-import type { AreaResourceView, AreaSystemView } from '@/application/workspace-area';
-import type { SystemNarrative } from '@/domain/system-narrative';
-import { Button } from '@/ui/button';
+import type {
+  AreaComponentView,
+  AreaResourceView,
+  AreaSystemView,
+} from '@/application/workspace-area';
 import {
   type CardTone,
+  type CardSelection,
   ComponentCard,
   ComponentCardApiRow,
   ComponentCardContents,
+  ComponentCardDetails,
   ComponentCardHeader,
+  ComponentCardHeaderActions,
   ComponentCardResourceRow,
   ComponentCardSection,
   ComponentCardSharedRow,
@@ -27,13 +34,10 @@ import {
 import { SystemBoundaryHeader } from '@/ui/canvas/system-card';
 import { CanvasBoundary } from '@/ui/connected-canvas.client';
 import type { IconName } from '@/ui/icon';
-import { Select } from '@/ui/select';
-import { Cluster } from '@/ui/stack';
 
 import type { AreaComponentBox } from './area-system-shape';
 
 interface ExpandedSystem extends AreaSystemView {
-  readonly story?: SystemNarrative;
   readonly x: number;
   readonly y: number;
   readonly width: number;
@@ -62,12 +66,14 @@ const SECTION: Readonly<
   >
 > = {
   api: { label: 'API', noun: 'API groups', icon: 'endpoint', tone: 'api' },
+  services: { label: 'Services', noun: 'services', icon: 'service', tone: 'api' },
   stores: { label: 'Owns data', noun: 'stores', icon: 'database', tone: 'data' },
   publishes: { label: 'Publishes to', noun: 'topics', icon: 'topic', tone: 'events' },
   shared: { label: 'Uses shared', noun: 'shared resources', icon: 'external', tone: 'neutral' },
 };
 
 function resourceIcon(resource: { readonly kind: string; readonly category?: string }): IconName {
+  if (resource.kind === 'service') return 'service';
   if (resource.category === 'cache') return 'cache';
   return resource.kind === 'queue' || resource.kind === 'topic' ? 'topic' : 'database';
 }
@@ -86,7 +92,33 @@ interface RowHandlers {
   readonly onSelectResource: (id: string) => void;
 }
 
-function CardRowView({ row, handlers }: { readonly row: CardRow; readonly handlers: RowHandlers }) {
+function resourceRowDetail(resource: AreaComponentView, card: AreaComponentView): string {
+  if (resource.kind !== 'service') {
+    return `${resourceSummary(resource)}${resource.category === 'cache' ? ' cache' : ''}`;
+  }
+  const stores = new Set(
+    card.attachments?.filter(({ kind }) => kind === 'database').map(({ id }) => id),
+  );
+  const uses = new Set(resource.resources.filter(({ id }) => stores.has(id)).map(({ use }) => use));
+  return [...uses].join(' · ');
+}
+
+function cardRowKey(row: CardRow): string {
+  if (row.kind === 'endpoint') return row.endpoint.id;
+  return row.kind === 'api' ? row.surface.id : row.resource.id;
+}
+
+function CardRowView({
+  row,
+  handlers,
+  card,
+  localDetails,
+}: {
+  readonly row: CardRow;
+  readonly handlers: RowHandlers;
+  readonly card: AreaComponentView;
+  readonly localDetails: boolean;
+}) {
   if (row.kind === 'api') {
     const { surface } = row;
     return (
@@ -95,6 +127,7 @@ function CardRowView({ row, handlers }: { readonly row: CardRow; readonly handle
           surface.id === handlers.endpoint ||
           surface.endpoints.some((port) => port.id === handlers.endpoint)
         }
+        inspect={localDetails ? undefined : surface.endpoints[0]?.id}
         onSelect={() => {
           handlers.onSelectEndpoint(surface.id);
         }}
@@ -105,12 +138,27 @@ function CardRowView({ row, handlers }: { readonly row: CardRow; readonly handle
       />
     );
   }
+  if (row.kind === 'endpoint') {
+    return (
+      <ComponentCardApiRow
+        active={row.endpoint.id === handlers.endpoint}
+        inspect={localDetails ? undefined : row.endpoint.id}
+        onSelect={() => {
+          handlers.onSelectEndpoint(row.endpoint.id);
+        }}
+        operations={0}
+        path={row.endpoint.signature}
+        protocol=""
+        versions=""
+      />
+    );
+  }
   if (row.kind === 'resource') {
     const { resource } = row;
     return (
       <ComponentCardResourceRow
         active={resource.id === handlers.endpoint}
-        detail={`${resourceSummary(resource)}${resource.category === 'cache' ? ' cache' : ''}`}
+        detail={resourceRowDetail(resource, card)}
         icon={resourceIcon(resource)}
         name={resource.name}
         onSelect={() => {
@@ -159,12 +207,34 @@ function SharedResourceRow({
   );
 }
 
+function componentHeaderActions(
+  identity: ReactElement,
+  name: string,
+  inspect: string | undefined,
+  selected: boolean,
+  onDetails: (() => void) | undefined,
+): ReactElement {
+  if (!selected || (inspect === undefined && onDetails === undefined)) return identity;
+  return (
+    <ComponentCardHeaderActions>
+      {identity}
+      <ComponentCardDetails name={name} inspect={inspect} onOpen={onDetails} />
+    </ComponentCardHeaderActions>
+  );
+}
+
+function serviceInspector(component: AreaComponentView): string | undefined {
+  return component.kind === 'service' && component.category !== 'group' ? component.id : undefined;
+}
+
 export function ComponentCluster({
   component,
   muted,
   active,
   highlighted = false,
   handlers,
+  selection,
+  localDetails = false,
   onOpen,
   onToggle,
 }: {
@@ -173,47 +243,41 @@ export function ComponentCluster({
   readonly active: boolean;
   readonly highlighted?: boolean;
   readonly handlers: RowHandlers;
+  readonly selection?: CardSelection | undefined;
+  readonly localDetails?: boolean | undefined;
   readonly onOpen: () => void;
   readonly onToggle: () => void;
 }) {
   const layout = cardLayout(component, component.open);
   const kind = KIND[component.kind] ?? { icon: 'service', tone: 'neutral' };
-  if (component.overview === true) {
-    return (
-      <ComponentCard
-        muted={muted}
-        active={active}
-        highlighted={highlighted}
-        header={
-          <ComponentCardHeader
-            compact
-            icon={kind.icon}
-            kind={componentKind(component)}
-            name={component.name}
-            summary={component.summary}
-            tone={kind.tone}
-            onOpen={onOpen}
-          />
-        }
-      />
-    );
-  }
+  const inspect = serviceInspector(component);
+  const identity = (
+    <ComponentCardHeader
+      icon={kind.icon}
+      inspect={selection === undefined ? inspect : undefined}
+      kind={componentKind(component)}
+      name={component.name}
+      summary={component.summary}
+      tone={kind.tone}
+      onOpen={onOpen}
+      selection={selection}
+    />
+  );
+  const header = componentHeaderActions(
+    identity,
+    component.name,
+    localDetails ? undefined : inspect,
+    selection !== undefined,
+    localDetails && component.category !== 'group' ? onOpen : undefined,
+  );
   return (
     <ComponentCard
       muted={muted}
       active={active}
       highlighted={highlighted}
+      selection={selection}
       footer={layout.footer ? resourceSummary(component) : undefined}
-      header={
-        <ComponentCardHeader
-          icon={kind.icon}
-          kind={componentKind(component)}
-          name={component.name}
-          onOpen={onOpen}
-          summary={component.summary}
-          tone={kind.tone}
-        />
-      }
+      header={header}
     >
       {layout.contents.length === 0 ? null : (
         <ComponentCardContents
@@ -239,8 +303,10 @@ export function ComponentCluster({
         >
           {section.rows.map((row) => (
             <CardRowView
+              card={component}
+              localDetails={localDetails}
               handlers={handlers}
-              key={row.kind === 'api' ? row.surface.id : row.resource.id}
+              key={cardRowKey(row)}
               row={row}
             />
           ))}
@@ -253,32 +319,26 @@ export function ComponentCluster({
 /** An expanded system is a collapsible boundary around independently placed component clusters. */
 export function AreaExpandedSystem({
   system,
+  selection,
+  componentSelection,
   systems,
   expanded,
   active,
   endpoint,
   onCollapse,
-  flow,
-  onFlowChange,
-  onlyFlow,
-  onOnlyFlow,
-  highlighted,
   onToggleComponent,
   onToggleOpen,
   onSelectEndpoint,
   onSelectResource,
 }: {
   readonly system: ExpandedSystem;
+  readonly selection: CardSelection;
+  readonly componentSelection: (id: string) => CardSelection;
   readonly systems: readonly AreaSystemView[];
   readonly expanded: ReadonlySet<string>;
   readonly active: string | undefined;
   readonly endpoint: string | undefined;
   readonly onCollapse: () => void;
-  readonly flow: string;
-  readonly onFlowChange: (id: string) => void;
-  readonly onlyFlow: boolean;
-  readonly onOnlyFlow: () => void;
-  readonly highlighted: ReadonlySet<string> | undefined;
   readonly onToggleComponent: (id: string) => void;
   readonly onToggleOpen: (id: string) => void;
   readonly onSelectEndpoint: (id: string) => void;
@@ -288,34 +348,13 @@ export function AreaExpandedSystem({
     <>
       <CanvasBoundary
         height={system.height}
+        hoverId={system.id}
         header={
           <SystemBoundaryHeader
             name={system.name}
-            purpose={`${system.story === undefined ? '' : 'Inferred · '}${system.narratives?.notice ?? system.story?.summary ?? system.purpose}`}
+            selection={selection}
+            purpose={system.purpose}
             onCollapse={onCollapse}
-            actions={
-              <Cluster>
-                {(system.narratives?.stories.length ?? 0) > 1 ? (
-                  <Select
-                    label={`Highlight in ${system.name}`}
-                    value={flow}
-                    options={[
-                      { value: '', label: 'System overview' },
-                      ...(system.narratives?.stories.slice(1) ?? []).map((story) => ({
-                        value: story.id,
-                        label: story.name,
-                      })),
-                    ]}
-                    onChange={onFlowChange}
-                  />
-                ) : null}
-                {flow === '' ? null : (
-                  <Button size="sm" variant="quiet" pressed={onlyFlow} onClick={onOnlyFlow}>
-                    Only this flow
-                  </Button>
-                )}
-              </Cluster>
-            }
           />
         }
         width={system.width}
@@ -332,12 +371,14 @@ export function AreaExpandedSystem({
           y={system.y + component.y}
         >
           <ComponentCluster
-            muted={highlighted !== undefined && !highlighted.has(component.id)}
+            muted={false}
             active={
               active === component.id ||
               component.attachments?.some((resource) => resource.id === active) === true
             }
             component={component}
+            selection={componentSelection(component.id)}
+            localDetails
             handlers={{
               systems,
               expanded,

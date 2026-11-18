@@ -5,12 +5,10 @@ import type { AreaView } from '@/application/workspace-area';
 import type { NavGroup } from '@/application/workspace-nav';
 import { stripPrefix } from '@/domain/ids';
 import { Callout } from '@/ui/callout';
-import { Facts } from '@/ui/facts';
 import { List, ListItem } from '@/ui/list';
 import { PageHeader } from '@/ui/page-header';
 import { SectionHeading } from '@/ui/section-heading';
 
-import { AreaCollaborations } from './area-collaborations';
 import { AreaMap } from './area-map.client';
 import styles from './area-page.module.css';
 import { WorkspaceShell } from './workspace-shell';
@@ -24,6 +22,7 @@ interface Props {
 }
 
 function Activities({ view }: { readonly view: AreaView }) {
+  if (view.area.activities.length === 0) return null;
   return (
     <section className={styles.activities}>
       <SectionHeading title="What happens here">
@@ -38,13 +37,27 @@ function Activities({ view }: { readonly view: AreaView }) {
   );
 }
 
-function evidenceCountLabel(view: AreaView): string {
-  if (view.area.evidenceCount === undefined) return 'Supporting claim count not recorded';
-  const label = view.boundaries === undefined ? 'supporting claims' : 'recorded supporting claims';
-  return `${String(view.area.evidenceCount)} ${label}`;
+function SharedInfrastructure({ view }: { readonly view: AreaView }) {
+  const components = view.systems.flatMap((system) =>
+    system.components.filter((component) => component.infrastructure === true),
+  );
+  if (components.length === 0) return null;
+  return (
+    <section className={styles.section}>
+      <SectionHeading title="Shared infrastructure" />
+      <List>
+        {components.map(({ id, name, summary }) => (
+          <ListItem key={id}>
+            {name}
+            {summary === '' ? '' : ` · ${summary}`}
+          </ListItem>
+        ))}
+      </List>
+    </section>
+  );
 }
 
-/** One purpose-led area, then its collaborations and the systems that support them. */
+/** One area from the workspace model: its purpose, its systems and how they connect. */
 export function AreaPage({ view, nav, overlays, actions, initialFlow = '' }: Props) {
   return (
     <WorkspaceShell
@@ -58,40 +71,15 @@ export function AreaPage({ view, nav, overlays, actions, initialFlow = '' }: Pro
         { label: view.workspace.name, href: view.workspace.href },
       ]}
     >
-      <PageHeader
-        description={view.area.purpose}
-        meta={
-          <Facts
-            items={[
-              view.area.confidence === undefined
-                ? 'Confidence not recorded'
-                : `${view.area.confidence} confidence`,
-              `Reviewed ${view.reviewed}`,
-              evidenceCountLabel(view),
-            ]}
-          />
-        }
-        title={view.area.name}
-      >
-        <p>{view.area.boundary}</p>
-      </PageHeader>
+      <PageHeader description={view.area.purpose} title={view.area.name} />
       {view.systems.length === 0 ? (
-        <Callout title="Technical map not authored yet">
-          The activity boundary is useful, but the current evidence has not yet been reconciled into
-          a trustworthy cross-system view for this area.
+        <Callout title="No systems here yet">
+          No system in the workspace model names this area as its home.
         </Callout>
       ) : (
         <section className={styles.section} id="value-flow-map">
-          <SectionHeading
-            title={
-              view.valueFlow === undefined ? 'Systems and information flow' : 'How the work flows'
-            }
-          >
-            <p>
-              {view.valueFlow === undefined
-                ? 'Open a system to explore its components and recorded connections.'
-                : 'Follow how information is created, published and used. Expand a system to see its core work and the components that support it.'}
-            </p>
+          <SectionHeading title="Systems and information flow">
+            <p>Open a system to explore its components and recorded connections.</p>
           </SectionHeading>
           <AreaMap
             key={`${view.workspace.id}:${view.area.id}:${initialFlow}`}
@@ -106,19 +94,8 @@ export function AreaPage({ view, nav, overlays, actions, initialFlow = '' }: Pro
           {String(view.gaps?.length)} gaps remain visible in the entry flows and boundary details.
         </Callout>
       )}
+      <SharedInfrastructure view={view} />
       <Activities view={view} />
-      {view.collaborations.length === 0 ? null : (
-        <section className={styles.section}>
-          <SectionHeading title="How it works">
-            <p>
-              Cross-system collaborations reveal useful slices without flattening the area into one
-              journey.
-            </p>
-          </SectionHeading>
-          <AreaCollaborations view={view} />
-        </section>
-      )}
-      <Callout title="Evidence boundary">{view.limitation}</Callout>
     </WorkspaceShell>
   );
 }

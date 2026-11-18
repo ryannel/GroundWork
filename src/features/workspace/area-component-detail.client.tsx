@@ -92,10 +92,8 @@ function EndpointDetail({ endpoint }: { readonly endpoint: AreaEndpointView }) {
         <Contract label="Request" schema={endpoint.request} />
         <Contract label="Response" schema={endpoint.response} />
       </CanvasContractGrid>
-      {endpoint.explorer === null ? null : (
-        <TextLink href={endpoint.explorer} tone="quiet">
-          Follow implementation →
-        </TextLink>
+      {endpoint.explorer === undefined || endpoint.explorer === null ? null : (
+        <TextLink href={endpoint.explorer}>Open API logic →</TextLink>
       )}
     </CanvasInspectorSection>
   );
@@ -249,15 +247,6 @@ function cardKind(component: AreaComponentView, boundary: AreaBoundaryView | und
   if (boundary === undefined) return componentKind(component);
   return boundary.boundaryKind === 'system' ? 'System boundary' : 'External boundary';
 }
-function detailsLabel(
-  component: AreaComponentView,
-  boundary: AreaBoundaryView | undefined,
-): string {
-  if (boundary !== undefined) return 'Open boundary details →';
-  return component.modelKind === undefined
-    ? 'Open complete component scan →'
-    : 'Open source details →';
-}
 function NativeFacts({
   component,
   boundary,
@@ -315,13 +304,6 @@ export function AreaComponentDetail({
   const endpoint = component.endpoints.find((candidate) => candidate.id === endpointId);
   return (
     <CanvasComponentDetail
-      footer={
-        component.explorer === null ? null : (
-          <TextLink href={component.explorer} tone="quiet">
-            {detailsLabel(component, boundary)}
-          </TextLink>
-        )
-      }
       header={
         <Cluster spread>
           <Stack gap={1}>

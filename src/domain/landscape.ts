@@ -63,6 +63,13 @@ export interface LandscapeFlowConnection extends Partial<
 export interface LandscapeValueFlow {
   readonly title: string;
   readonly summary: string;
+  readonly cards?:
+    | readonly {
+        readonly id: string;
+        readonly title: string;
+        readonly members: readonly string[];
+      }[]
+    | undefined;
   readonly confidence: 'low' | 'medium' | 'high';
   readonly reasoning: string;
   readonly limitations: readonly string[];

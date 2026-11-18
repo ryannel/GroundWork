@@ -4,6 +4,11 @@ import { Icon, type IconName } from '@/ui/icon';
 
 import styles from './component-card.module.css';
 
+export interface CardSelection {
+  readonly pressed: boolean;
+  readonly toggle: () => void;
+}
+
 export type CardTone = 'api' | 'data' | 'events' | 'shared' | 'app' | 'job' | 'neutral';
 
 /**
@@ -14,6 +19,7 @@ export function ComponentCard({
   active,
   muted = false,
   highlighted = false,
+  selection,
   header,
   children,
   footer,
@@ -22,6 +28,7 @@ export function ComponentCard({
   readonly active: boolean;
   readonly muted?: boolean;
   readonly highlighted?: boolean;
+  readonly selection?: CardSelection | undefined;
   readonly header: ReactNode;
   readonly children?: ReactNode;
   readonly footer?: ReactNode;
@@ -32,7 +39,7 @@ export function ComponentCard({
       className={styles.card}
       data-muted={muted ? '' : undefined}
       data-active={active ? '' : undefined}
-      data-flow={highlighted ? '' : undefined}
+      data-flow={highlighted || selection?.pressed === true ? '' : undefined}
     >
       {header}
       {children}
@@ -56,6 +63,8 @@ export function ComponentCardHeader({
   onOpen,
   inspect,
   expanded,
+  selection,
+  wrapName = false,
 }: {
   readonly compact?: boolean;
   readonly density?: 'normal' | 'dense';
@@ -65,8 +74,10 @@ export function ComponentCardHeader({
   readonly name: string;
   readonly summary: string;
   readonly onOpen?: () => void;
-  readonly inspect?: string;
+  readonly inspect?: string | undefined;
   readonly expanded?: boolean;
+  readonly selection?: CardSelection | undefined;
+  readonly wrapName?: boolean;
 }) {
   return (
     <button
@@ -75,9 +86,10 @@ export function ComponentCardHeader({
       data-inspect={inspect}
       data-tone={tone}
       aria-label={name}
-      aria-expanded={expanded}
+      aria-expanded={selection === undefined ? expanded : undefined}
+      aria-pressed={selection?.pressed}
       className={styles.header}
-      onClick={onOpen}
+      onClick={selection?.toggle ?? onOpen}
       title={summary === '' ? name : `${name} — ${summary}`}
       type="button"
     >
@@ -86,11 +98,41 @@ export function ComponentCardHeader({
       </span>
       <span className={styles.heading}>
         <span className={styles.kind}>{kind}</span>
-        <span className={styles.name}>{name}</span>
+        <span className={styles.name} data-wrap={wrapName ? '' : undefined}>
+          {name}
+        </span>
         <span className={styles.summary}>{summary}</span>
       </span>
     </button>
   );
+}
+
+export function ComponentCardDetails({
+  name,
+  inspect,
+  onOpen,
+  className = styles.headerDetails,
+}: {
+  readonly name: string;
+  readonly inspect?: string | undefined;
+  readonly onOpen?: (() => void) | undefined;
+  readonly className?: string | undefined;
+}) {
+  return (
+    <button
+      aria-label={`Details of ${name}`}
+      className={className}
+      data-inspect={inspect}
+      onClick={onOpen}
+      type="button"
+    >
+      Details
+    </button>
+  );
+}
+
+export function ComponentCardHeaderActions({ children }: { readonly children: ReactNode }) {
+  return <div className={styles.headerActions}>{children}</div>;
 }
 
 /**
@@ -168,6 +210,7 @@ export function ComponentCardApiRow({
   path,
   versions,
   operations,
+  inspect,
   active,
   onSelect,
 }: {
@@ -175,26 +218,31 @@ export function ComponentCardApiRow({
   readonly path: string;
   readonly versions: string;
   readonly operations: number;
+  readonly inspect?: string | undefined;
   readonly active: boolean;
   readonly onSelect: () => void;
 }) {
-  const count = `${String(operations)} ${operations === 1 ? 'operation' : 'operations'}`;
+  const unit = operations === 1 ? 'operation' : 'operations';
+  const shortUnit = operations === 1 ? 'op' : 'ops';
+  const count = operations === 0 ? '' : `${String(operations)} ${unit}`;
+  const shortCount = operations === 0 ? '' : `${String(operations)} ${shortUnit}`;
   const label = [protocol, path, versions, count].filter((part) => part !== '').join(' · ');
   return (
     <button
       aria-label={label}
       aria-pressed={active}
       className={styles.apiRow}
+      data-inspect={inspect}
       onClick={onSelect}
       title={label}
       type="button"
     >
-      <span className={styles.badge}>{protocol}</span>
+      <span className={styles.badge} hidden={protocol === ''}>
+        {protocol}
+      </span>
       <span className={styles.path}>{path}</span>
       <span className={styles.meta}>
-        {[versions, `${String(operations)} ${operations === 1 ? 'op' : 'ops'}`]
-          .filter((part) => part !== '')
-          .join(' · ')}
+        {[versions, shortCount].filter((part) => part !== '').join(' · ')}
       </span>
     </button>
   );
@@ -220,7 +268,7 @@ export function ComponentCardResourceRow({
 }) {
   return (
     <button
-      aria-label={`${name} ${detail}`}
+      aria-label={detail === '' ? name : `${name} ${detail}`}
       aria-pressed={active}
       className={styles.resourceRow}
       data-component={resource}

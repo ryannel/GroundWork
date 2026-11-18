@@ -240,6 +240,7 @@
     color: var(--accent-fg);
     text-decoration: none;
     text-underline-offset: 3px;
+    cursor: pointer;
 
     &:hover {
       text-decoration: underline;

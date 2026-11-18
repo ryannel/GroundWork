@@ -4,14 +4,14 @@ import { useMemo, useRef, useState } from 'react';
 
 import { type AreaMapTransport, unpackAreaMapView } from '@/application/area-map/transport';
 import { isRecord } from '@/application/plan/ids';
-import type { AreaView } from '@/application/workspace-area';
+import { areaWithoutInfrastructure, type AreaView } from '@/application/workspace-area';
 import { Stack } from '@/ui/stack';
 import { Text } from '@/ui/text';
 
 import { AreaSystemMap } from './area-system-map.client';
 import { AreaValueMap } from './area-value-map.client';
 
-function isPayload(value: unknown, area: string): value is AreaMapTransport {
+export function isAreaMapPayload(value: unknown, area: string): value is AreaMapTransport {
   if (!isRecord(value)) return false;
   if (!Array.isArray(value.systems) || !Array.isArray(value.technicalRelationships)) return false;
   return isRecord(value.area) && value.area.id === area;
@@ -64,7 +64,7 @@ function AreaMapSession({
       request.current ??= fetch(detailsHref, { cache: 'no-store' }).then(async (response) => {
         if (!response.ok) throw new Error('System details unavailable');
         const body: unknown = await response.json();
-        if (!isPayload(body, payload.area.id)) throw new Error('Unexpected area details');
+        if (!isAreaMapPayload(body, payload.area.id)) throw new Error('Unexpected area details');
         return unpackAreaMapView(body);
       });
       setDetail(await request.current);
@@ -77,8 +77,9 @@ function AreaMapSession({
       setLoading(false);
     }
   };
-  return view.valueFlow === undefined ? (
-    <AreaSystemMap view={view} />
+  const canvas = useMemo(() => areaWithoutInfrastructure(view), [view]);
+  return canvas.valueFlow === undefined ? (
+    <AreaSystemMap view={canvas} />
   ) : (
     <Stack gap={2}>
       {loading || failed ? (
@@ -86,14 +87,15 @@ function AreaMapSession({
           <Text size="sm" tone="muted">
             {loading
               ? 'Loading system details…'
-              : 'Could not load system details. Select the system to try again.'}
+              : 'Could not load system details. Expand the system to try again.'}
           </Text>
         </div>
       ) : null}
       <AreaValueMap
-        view={view}
-        narrative={view.valueFlow}
+        view={canvas}
+        narrative={canvas.valueFlow}
         prepare={prepare}
+        detailReady={detail !== undefined}
         initialFlow={initialFlow}
       />
     </Stack>

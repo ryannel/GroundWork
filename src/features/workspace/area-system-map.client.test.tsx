@@ -29,9 +29,10 @@ const view: AreaView = {
     confidence: 'medium',
     evidenceCount: 3,
   },
-  reviewed: '2026-10-26',
   scope: 'Scanned systems.',
-  limitation: 'Partial.',
+  reviewed: '',
+  limitation: '',
+  collaborations: [],
   systems: [
     {
       id: 'offers',
@@ -45,7 +46,6 @@ const view: AreaView = {
           name: 'Offer service',
           kind: 'service',
           summary: 'Keeps offers.',
-          explorer: null,
           repository: null,
           endpoints: [],
           resources: [],
@@ -65,7 +65,6 @@ const view: AreaView = {
           name: 'Pre-tax prices',
           kind: 'service',
           summary: 'Returns prices before tax.',
-          explorer: '/cars/explorer/?service=pretax',
           repository: {
             name: 'volvo-cars/gpe-pretax',
             href: 'https://github.com/volvo-cars/gpe-pretax',
@@ -75,6 +74,7 @@ const view: AreaView = {
               id: 'api:calculate-cart',
               signature: 'POST /api/v6/CalculateCart',
               summary: 'Prices every line in a cart.',
+              explorer: '/cars/entries?id=api-calculate-cart',
               request: 'sch:cart-request',
               response: 'sch:cart-response',
               callers: [
@@ -85,7 +85,6 @@ const view: AreaView = {
                   systemName: 'Offers',
                 },
               ],
-              explorer: '/cars/explorer/?service=pretax&page=calculate-cart.json',
             },
           ],
           resources: [{ id: 'st:prices', name: 'Price cache', kind: 'store', use: 'Reads' }],
@@ -127,14 +126,13 @@ const view: AreaView = {
       evidenced: true,
     },
   ],
-  collaborations: [],
 };
 
 describe('AreaSystemMap', () => {
   it('puts the recorded repository link in the service inspector header', () => {
     const { container } = render(<AreaSystemMap view={view} />);
     fireEvent.click(screen.getByRole('button', { name: 'Expand Price' }));
-    fireEvent.click(screen.getByRole('button', { name: 'Pre-tax prices' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Details of Pre-tax prices' }));
     const link = screen.getByRole('link', { name: 'volvo-cars/gpe-pretax' });
     expect(link.getAttribute('href')).toBe('https://github.com/volvo-cars/gpe-pretax');
     expect(link.closest('section')?.firstElementChild?.contains(link)).toBe(true);
@@ -142,7 +140,7 @@ describe('AreaSystemMap', () => {
     expect(screen.getAllByRole('link', { name: 'volvo-cars/gpe-pretax' })).toHaveLength(1);
     fireEvent.click(screen.getByRole('button', { name: 'Close Pre-tax prices' }));
     fireEvent.click(screen.getByRole('button', { name: 'Expand Offers' }));
-    fireEvent.click(screen.getByRole('button', { name: 'Offer service' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Details of Offer service' }));
     expect(container.querySelector('svg[data-filled]')).toBeNull();
   });
 
@@ -193,69 +191,6 @@ describe('AreaSystemMap', () => {
     expect(screen.getByRole('heading', { name: 'Price cache' })).toBeTruthy();
     expect(container.querySelector('foreignObject[data-component="st:prices"]')).toBeNull();
     expect(screen.getByText('Price · Show on map')).toBeTruthy();
-  });
-
-  it('shows the whole overview first and highlights or filters without moving cards', () => {
-    const system = view.systems[0]!;
-    const base = system.components[0]!;
-    const cache = { ...base, id: 'st:cache', name: 'Input cache', kind: 'database' as const };
-    const supporter = { ...base, id: 'svc:support', name: 'Supporting service' };
-    const story = {
-      id: 'prepare',
-      name: 'Prepare inputs',
-      summary: 'Inputs become available.',
-      confidence: 'medium' as const,
-      reasoning: 'Evidence.',
-      limitations: ['Separate requests.'],
-      stages: [base, cache].map((component) => ({
-        component: component.id,
-        title: component.name,
-        summary: component.summary,
-        supporting: [],
-        evidence: [component.id],
-      })),
-    };
-    render(
-      <AreaSystemMap
-        view={{
-          ...view,
-          systems: [
-            {
-              ...system,
-              components: [base, cache, supporter],
-              narratives: {
-                stories: [
-                  {
-                    ...story,
-                    id: 'overview',
-                    stages: [...story.stages, { ...story.stages[0]!, component: supporter.id }],
-                  },
-                  story,
-                ],
-                notice: null,
-              },
-            },
-          ],
-        }}
-      />,
-    );
-    fireEvent.click(screen.getByRole('button', { name: 'Expand Offers' }));
-    const selector = screen.getByRole('combobox', { name: 'Highlight in Offers' });
-    expect(selector).toHaveProperty('value', '');
-    const supporterButton = screen.getByRole('button', { name: 'Supporting service' });
-    const card = supporterButton.closest('foreignObject')!;
-    const position = [card.getAttribute('x'), card.getAttribute('y')];
-    expect(screen.queryByRole('button', { name: 'Only this flow' })).toBeNull();
-    fireEvent.change(selector, { target: { value: 'prepare' } });
-    expect(screen.getByRole('button', { name: 'Supporting service' })).toBeTruthy();
-    expect([card.getAttribute('x'), card.getAttribute('y')]).toEqual(position);
-    fireEvent.click(screen.getByRole('button', { name: 'Only this flow' }));
-    expect(screen.queryByRole('button', { name: 'Supporting service' })).toBeNull();
-    fireEvent.change(selector, { target: { value: '' } });
-    const restored = screen
-      .getByRole('button', { name: 'Supporting service' })
-      .closest('foreignObject')!;
-    expect([restored.getAttribute('x'), restored.getAttribute('y')]).toEqual(position);
   });
 
   it('selects an embedded store without creating another card or moving the service', () => {
@@ -337,7 +272,7 @@ describe('AreaSystemMap', () => {
     expect(screen.queryByText('Faint: context')).toBeNull();
     fireEvent.click(screen.getByRole('button', { name: 'Expand Price' }));
     expect(screen.getByText('Faint: context')).toBeTruthy();
-    fireEvent.click(screen.getByRole('button', { name: 'Pre-tax prices' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Details of Pre-tax prices' }));
     const incoming = 'Offer service calls Pre-tax prices.';
     expect(screen.getByRole('button', { name: incoming })).toBeTruthy();
     fireEvent.click(screen.getByRole('button', { name: 'Depends on' }));
@@ -358,20 +293,19 @@ describe('AreaSystemMap', () => {
     expect(screen.getByRole('button', { name: 'Collapse Price' })).toBeTruthy();
     expect(screen.getByRole('button', { name: 'Offer service' })).toBeTruthy();
     expect(screen.getByRole('button', { name: 'Pre-tax prices' })).toBeTruthy();
-    fireEvent.click(screen.getByRole('button', { name: 'Pre-tax prices' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Details of Pre-tax prices' }));
 
     expect(screen.queryByRole('button', { name: /POST \/api\/v6\/CalculateCart/u })).toBeNull();
     fireEvent.click(
       screen.getByRole('button', { name: /REST \/CalculateCart · v6.*1 operations/u }),
     );
-    fireEvent.click(screen.getByRole('button', { name: /POST \/api\/v6\/CalculateCart/u }));
+    const operation = screen.getByRole('button', { name: /POST \/api\/v6\/CalculateCart/u });
+    expect(operation.dataset.inspect).toBeUndefined();
+    fireEvent.click(operation);
+    expect(screen.getByRole('link', { name: /Open API logic/u }).getAttribute('href')).toBe(
+      '/cars/entries?id=api-calculate-cart',
+    );
     expect(screen.getByRole('button', { name: 'Offers · Checkout' })).toBeTruthy();
     expect(screen.getByRole('button', { name: 'Price cache' })).toBeTruthy();
-    expect(screen.getByRole('link', { name: 'Follow implementation →' }).getAttribute('href')).toBe(
-      '/cars/explorer?service=pretax&page=calculate-cart.json',
-    );
-    expect(
-      screen.getByRole('link', { name: 'Open complete component scan →' }).getAttribute('href'),
-    ).toBe('/cars/explorer?service=pretax');
   });
 });

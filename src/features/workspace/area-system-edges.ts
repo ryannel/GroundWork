@@ -1,25 +1,21 @@
-import { apiSurface, surfaceAnchor, surfaceLabel } from '@/application/area-map/api-surface';
-import { areaBoundaryOf } from '@/application/area-map/boundaries';
+import { apiSurface, endpointAnchor } from '@/application/area-map/api-surface';
 import { type CardRow, cardLayout } from '@/application/area-map/card-geometry';
 import {
   combinedConnectionSummary,
-  connectionSummary,
   connectionDetails,
 } from '@/application/area-map/connection-summary';
 import { isPlatformLine, platformComponents } from '@/application/area-map/platform';
 import { settleRoutes } from '@/application/area-routing/settle';
 import { areaEdgeGeometry, type AreaSystemBox } from '@/application/area-system-layout';
 import type { AreaTechnicalRelationship, AreaView } from '@/application/workspace-area';
+import { landscapeCountCaption } from '@/application/workspace-landscape-areas';
 import type { LandscapeSystemRelationship } from '@/domain/landscape';
-import type { SystemNarrative } from '@/domain/system-narrative';
 import type { ConnectedCanvasEdge } from '@/ui/connected-canvas.client';
 
 import type { AreaComponentBox } from './area-system-shape';
 
 interface CanvasSystem extends AreaSystemBox {
-  readonly story?: SystemNarrative;
   readonly componentBoxes: readonly AreaComponentBox[];
-  readonly componentRelationships: readonly LandscapeSystemRelationship[];
 }
 
 /** The original relations remain available even when several lines share one visible anchor. */
@@ -30,7 +26,6 @@ export interface AreaCanvasEdge extends ConnectedCanvasEdge {
 interface AreaRouted extends AreaCanvasEdge {
   readonly points: readonly { readonly x: number; readonly y: number }[];
   readonly drawn: readonly [string, string];
-  readonly narrative?: boolean;
 }
 
 interface ProjectedRelationship extends LandscapeSystemRelationship {
@@ -38,7 +33,6 @@ interface ProjectedRelationship extends LandscapeSystemRelationship {
   readonly supporting?: boolean;
   readonly relations?: readonly AreaTechnicalRelationship[];
   readonly surfaceId?: string;
-  readonly narrative?: boolean;
 }
 
 interface ProjectionOptions {
@@ -50,7 +44,6 @@ interface ProjectionOptions {
 }
 
 function cardRows(component: AreaComponentBox): readonly CardRow[] {
-  if (component.overview === true) return [];
   return cardLayout(component, component.open).sections.flatMap((section) => section.rows);
 }
 
@@ -81,27 +74,6 @@ function componentBoxes(system: CanvasSystem): readonly AreaSystemBox[] {
   ]);
 }
 
-function insideCard(
-  relation: LandscapeSystemRelationship,
-  systems: readonly CanvasSystem[],
-): boolean {
-  return systems.some((system) =>
-    system.componentBoxes.some((component) =>
-      (component.attachments ?? []).some(
-        (resource) =>
-          (relation.from === component.id && relation.to === resource.id) ||
-          (relation.to === component.id && relation.from === resource.id),
-      ),
-    ),
-  );
-}
-
-/** Keep authored purpose and API row identities; never replace meaning with a count. */
-function groupLabel(group: readonly ProjectedRelationship[], first: ProjectedRelationship): string {
-  if (first.narrative === true) return first.label;
-  return combinedConnectionSummary(group);
-}
-
 function groupedRelationships(
   relationships: readonly ProjectedRelationship[],
   detail: 'grouped' | 'all',
@@ -119,9 +91,11 @@ function groupedRelationships(
       {
         ...first,
         id: `group:${key}`,
-        label: groupLabel(group, first),
+        label: combinedConnectionSummary(group),
         detail:
-          group.length === 1 ? first.detail : connectionDetails(groupLabel(group, first), group),
+          group.length === 1
+            ? first.detail
+            : connectionDetails(combinedConnectionSummary(group), group),
         relations: group.flatMap((relationship) => relationship.relations ?? []),
       },
     ];
@@ -177,14 +151,16 @@ function internalEdges(
     const canonical = options.view.technicalRelationships.filter(
       (relation) => relation.fromSystem === system.id && relation.toSystem === system.id,
     );
-    const source =
-      canonical.length === 0
-        ? system.componentRelationships
-        : canonical.map((relation) => projectRelation(relation, options, ids));
+    const source = canonical.map((relation) => projectRelation(relation, options, ids));
+    const cardMembers = system.componentBoxes.map(
+      (component) => new Set([component.id, ...(component.attachments ?? []).map(({ id }) => id)]),
+    );
+    const insideCard = (relation: ProjectedRelationship): boolean =>
+      (relation.relations ?? [relation]).every(({ from, to }) =>
+        cardMembers.some((members) => members.has(from) && members.has(to)),
+      );
     const relationships = groupedRelationships(
-      source.filter(
-        (relation) => relation.from !== relation.to && !insideCard(relation, options.systems),
-      ),
+      source.filter((relation) => relation.from !== relation.to && !insideCard(relation)),
       options.detail,
     );
     return routedEdges(relationships, boxes, previous);
@@ -201,10 +177,10 @@ function endpointBoxes(options: ProjectionOptions): readonly AreaSystemBox[] {
     if (!options.expanded.has(system.id)) return [];
     return system.componentBoxes.flatMap((component) =>
       cardRows(component).flatMap((row) =>
-        row.kind === 'api'
+        row.kind === 'endpoint'
           ? [
               {
-                id: surfaceAnchor(component.id, row.surface),
+                id: endpointAnchor(component.id, row.endpoint.id),
                 x: system.x + component.x,
                 y: system.y + component.y + row.centre,
                 width: component.width,
@@ -227,22 +203,6 @@ function visibleEnd(id: string, options: ProjectionOptions, ids: ReadonlySet<str
   return owner !== undefined && ids.has(owner.id) ? owner.id : undefined;
 }
 
-/** Interpretations name recorded connections; they never create or reverse an edge. */
-function connectionLabel(
-  relation: AreaTechnicalRelationship,
-  options: ProjectionOptions,
-): { readonly label?: string; readonly narrative?: boolean } {
-  const connection = options.systems
-    .flatMap((system) => system.story?.connections ?? [])
-    .find(
-      (candidate) =>
-        candidate.from === relation.from &&
-        candidate.to === relation.to &&
-        candidate.kind === relation.kind,
-    );
-  return connection === undefined ? {} : { label: connection.label, narrative: true };
-}
-
 function projectRelation(
   relation: AreaTechnicalRelationship,
   options: ProjectionOptions,
@@ -255,27 +215,17 @@ function projectRelation(
   const surface = apiSurface(component?.endpoints ?? []).find((group) =>
     group.endpoints.some((port) => port.id === endpoint),
   );
-  const endpointAnchor = surface === undefined ? '' : surfaceAnchor(relation.to, surface);
+  const port = endpointAnchor(relation.to, endpoint ?? '');
   const end = (id: string, system: string): string =>
     (options.expanded.has(system) ? visibleEnd(id, options, ids) : undefined) ?? system;
   const from = end(relation.from, relation.fromSystem);
-  const to = ids.has(endpointAnchor) ? endpointAnchor : end(relation.to, relation.toSystem);
-  const onRow = surface !== undefined && to === endpointAnchor;
+  const to = ids.has(port) ? port : end(relation.to, relation.toSystem);
+  const onRow = surface !== undefined && to === port;
   return {
     ...relation,
     from,
     to,
     ...(onRow ? { surfaceId: surface.id } : {}),
-    ...connectionLabel(relation, options),
-    label:
-      connectionLabel(relation, options).label ??
-      (onRow
-        ? surfaceLabel(surface)
-        : connectionSummary(
-            relation,
-            options.view.systems.flatMap((system) => system.components),
-            options.view.valueFlow?.summaries,
-          )),
     relations: [relation],
   };
 }
@@ -291,6 +241,34 @@ function visibleComponentEnd(id: string, system: string, options: ProjectionOpti
   );
 }
 
+/** Closed systems share one counted line per pair and kind; the first record sets the arrow. */
+function countedRelationships(
+  relations: readonly AreaTechnicalRelationship[],
+): readonly ProjectedRelationship[] {
+  const pairs = new Map<string, AreaTechnicalRelationship[]>();
+  for (const relation of relations) {
+    const key = pairKey(relation.fromSystem, relation.toSystem, relation.kind);
+    pairs.set(key, [...(pairs.get(key) ?? []), relation]);
+  }
+  return [...pairs].flatMap(([key, group]): readonly ProjectedRelationship[] => {
+    const first = group[0];
+    if (first === undefined) return [];
+    const out = group.filter((relation) => relation.fromSystem === first.fromSystem).length;
+    const label = landscapeCountCaption(out, group.length);
+    return [
+      {
+        id: `count:${key}`,
+        from: first.fromSystem,
+        to: first.toSystem,
+        kind: first.kind,
+        label,
+        detail: connectionDetails(label, group),
+        relations: group,
+      },
+    ];
+  });
+}
+
 function crossSystemEdges(options: ProjectionOptions): readonly AreaRouted[] {
   const { view, systems, expanded, detail } = options;
   const boxes = [
@@ -302,24 +280,18 @@ function crossSystemEdges(options: ProjectionOptions): readonly AreaRouted[] {
     ...endpointBoxes(options),
   ];
   const ids = new Set(boxes.map((box) => box.id));
-  const visible = view.technicalRelationships.filter((relation) => {
-    const hasVisibleBoundaryOrSystem =
-      expanded.has(relation.fromSystem) ||
-      expanded.has(relation.toSystem) ||
-      areaBoundaryOf(view, relation.fromSystem) !== undefined ||
-      areaBoundaryOf(view, relation.toSystem) !== undefined;
-    return relation.fromSystem !== relation.toSystem && hasVisibleBoundaryOrSystem;
-  });
-  const replacedPairs = new Set(
-    visible.map((relation) => pairKey(relation.fromSystem, relation.toSystem, relation.kind)),
-  );
-  // Authored API exchanges can describe responses. Never reuse their direction or label for a call.
-  // A known API relation cannot replace an unrelated authored message or data relationship.
-  const authored = view.relationships.filter(
+  const visible = view.technicalRelationships.filter(
     (relation) =>
-      !expanded.has(relation.from) &&
-      !expanded.has(relation.to) &&
-      !replacedPairs.has(pairKey(relation.from, relation.to, relation.kind)),
+      relation.fromSystem !== relation.toSystem &&
+      (expanded.has(relation.fromSystem) || expanded.has(relation.toSystem)),
+  );
+  const counted = countedRelationships(
+    view.technicalRelationships.filter(
+      (relation) =>
+        relation.fromSystem !== relation.toSystem &&
+        !expanded.has(relation.fromSystem) &&
+        !expanded.has(relation.toSystem),
+    ),
   );
   const technical = visible
     .filter(
@@ -328,7 +300,7 @@ function crossSystemEdges(options: ProjectionOptions): readonly AreaRouted[] {
         visibleComponentEnd(relation.to, relation.toSystem, options),
     )
     .map((relation) => projectRelation(relation, options, ids));
-  const relationships = [...authored, ...groupedRelationships(technical, detail)];
+  const relationships = [...counted, ...groupedRelationships(technical, detail)];
   return routedEdges(relationships, boxes);
 }
 
@@ -356,10 +328,8 @@ export function areaCanvasEdges(options: ProjectionOptions): readonly AreaCanvas
     const onCard = !drawn.every((end) => systems.has(end));
     return {
       ...edge,
-      ...(onCard && edge.narrative !== true ? { quiet: true } : {}),
-      ...(options.expanded.size > 0 && crossing.has(edge.id) && edge.narrative !== true
-        ? { context: true }
-        : {}),
+      ...(onCard ? { quiet: true } : {}),
+      ...(options.expanded.size > 0 && crossing.has(edge.id) ? { context: true } : {}),
       ...(isPlatformLine(edge.relations, platform) ? { platform: true } : {}),
     };
   });

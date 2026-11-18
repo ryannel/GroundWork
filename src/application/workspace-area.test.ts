@@ -5,7 +5,6 @@ import { acme } from '@/../test/workspace-kit';
 import type { AuthoredLandscape } from '@/domain/landscape';
 
 import { areaViewOf } from './workspace-area';
-import { areaLandscapeOf } from './workspace-landscape-areas';
 
 const landscape: AuthoredLandscape = {
   label: 'Inferred',
@@ -95,16 +94,6 @@ describe('area landscape', () => {
         ?.systems.flatMap((system) => system.components)
         .find((item) => item.id === selected.id)?.repository,
     ).toBeNull();
-  });
-
-  it('keeps areas as links into the workspace and draws their major relationship', () => {
-    const { workspace } = acme();
-    const view = areaLandscapeOf(workspace, landscape);
-    expect(view.nodes.map((node) => node.href)).toEqual([
-      '/acme/areas/sell/',
-      '/acme/areas/fulfil/',
-    ]);
-    expect(view.edges[0]).toMatchObject({ from: 'sell', to: 'fulfil', label: 'Accepted order' });
   });
 
   it('joins a selected area to independently modelled systems and components', () => {

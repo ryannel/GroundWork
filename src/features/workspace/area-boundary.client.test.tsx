@@ -97,9 +97,8 @@ it('inspects an unmapped system and external party without inventing expandable 
   fireEvent.click(screen.getByRole('button', { name: 'Supplier' }));
   expect(screen.getByRole('heading', { name: 'Supplier' })).toBeTruthy();
   expect(screen.getAllByText('External boundary').length).toBeGreaterThan(0);
-  expect(
-    screen.getByRole('link', { name: 'Open boundary details →' }).getAttribute('href'),
-  ).toContain('ext%3Asupplier');
+  // The map shows model data only; catalogue pages are not linked from the inspector.
+  expect(screen.queryByRole('link', { name: /boundary details/u })).toBeNull();
 });
 it('retains the same boundary identities in the system-structure view', () => {
   render(<AreaSystemMap view={view} />);
@@ -115,7 +114,10 @@ it('retains the same boundary identities in the system-structure view', () => {
 it('defers the full native map until the reader asks for all connections', async () => {
   const payload = packAreaMapOverview(view);
   expect(payload.valueFlow).toEqual(narrative);
-  expect(payload.technicalRelationships).toEqual([]);
+  // Recorded connections stay in the overview so collapsed boxes can be joined and counted.
+  expect(payload.technicalRelationships.map(({ id }) => id)).toEqual(
+    view.technicalRelationships.map(({ id }) => id),
+  );
   expect(view.technicalRelationships.length).toBeGreaterThan(0);
   const load = vi.fn<typeof fetch>().mockResolvedValue(Response.json(packAreaMapView(view)));
   vi.stubGlobal('fetch', load);

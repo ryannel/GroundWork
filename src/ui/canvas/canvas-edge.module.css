@@ -34,10 +34,6 @@
     pointer-events: none;
   }
 
-  .description {
-    overflow: visible;
-  }
-
   .raised > path {
     fill: none;
     stroke: var(--accent);
@@ -45,12 +41,17 @@
   }
 
   .raised > text {
-    fill: var(--fg-1);
+    fill: var(--accent);
+    font-weight: 600;
     font-size: var(--fs-13);
     paint-order: stroke;
     stroke: var(--bg-0);
     stroke-width: 7px;
     stroke-linejoin: round;
+  }
+
+  .captionControl .edgeLabel > text {
+    pointer-events: all;
   }
 
   .edge[data-kind='message'] > .line,
@@ -86,6 +87,10 @@
   .edge[data-lit] > .line {
     stroke: var(--accent);
     stroke-width: 3;
+  }
+
+  .edge[data-lit] > text {
+    fill: var(--accent);
   }
 
   .edge[data-context]:not([data-lit], [data-muted]) {

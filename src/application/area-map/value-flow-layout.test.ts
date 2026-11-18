@@ -18,12 +18,12 @@ const view: AreaView = {
     confidence: 'medium',
     evidenceCount: 0,
   },
-  reviewed: '2026-10-29',
   scope: '',
+  reviewed: '',
   limitation: '',
+  collaborations: [],
   relationships: [],
   technicalRelationships: [],
-  collaborations: [],
   systems: [
     {
       id: 'source',
@@ -56,7 +56,6 @@ const view: AreaView = {
       dependencies: [],
       resources: [],
       repository: null,
-      explorer: null,
     })),
   })),
 };
@@ -91,6 +90,32 @@ const narrative: LandscapeValueFlow = {
     { from: 'topic', to: 'reader', label: 'Supply inputs', kind: 'message', evidence: ['topic'] },
   ],
 };
+const records: AreaView['technicalRelationships'] = [
+  {
+    id: 'publish',
+    from: 'editor',
+    to: 'topic',
+    fromSystem: 'source',
+    toSystem: 'source',
+    kind: 'message',
+    label: 'Publish',
+    detail: 'Editor publishes updates.',
+    via: null,
+    evidenced: true,
+  },
+  {
+    id: 'supply',
+    from: 'topic',
+    to: 'reader',
+    fromSystem: 'source',
+    toSystem: 'consumer',
+    kind: 'message',
+    label: 'Supply inputs',
+    detail: 'Topic delivers inputs to Reader.',
+    via: null,
+    evidenced: true,
+  },
+];
 
 describe('value flow exploration', () => {
   it('keeps recorded membership as an arrowless supporting connection after routing', () => {
@@ -115,7 +140,7 @@ describe('value flow exploration', () => {
       narrative,
       new Set(['source']),
     );
-    const edges = valueFlowEdges(narrative, layout.nodes, [], [relation]);
+    const edges = valueFlowEdges(layout.nodes, [], [relation]);
     expect(edges.find((edge) => edge.kind === 'membership')).toMatchObject({
       directed: false,
       supporting: true,
@@ -151,6 +176,24 @@ describe('value flow exploration', () => {
     });
     expect(drawing.headings.map((heading) => heading.title)).toEqual(['Prepare developer access']);
     expect(drawing.nodes.filter((node) => node.systemId === 'source')).toHaveLength(1);
+  });
+  it('leaves a lone band uncaptioned because there is no other band to tell it apart from', () => {
+    const detail = {
+      ...narrative,
+      connections: [],
+      bands: [
+        {
+          id: 'systems',
+          title: 'Systems',
+          summary: '',
+          nodes: [
+            { component: 'cache', column: 0 },
+            { component: 'editor', column: 1 },
+          ],
+        },
+      ],
+    };
+    expect(valueFlowLayout(view, detail).headings).toEqual([]);
   });
 
   it('anchors a system on its selected overview responsibility rather than secondary call volume', () => {
@@ -201,7 +244,16 @@ describe('value flow exploration', () => {
     expect(
       layout.nodes.flatMap((node) => node.members).toSorted((a, b) => a.localeCompare(b)),
     ).toEqual(['cache', 'editor', 'peer', 'reader', 'support', 'topic']);
-    expect(valueFlowEdges(narrative, layout.nodes)).toHaveLength(1);
+    expect(valueFlowEdges(layout.nodes)).toEqual([]);
+    const reply = { ...records[1]!, id: 'reply', from: 'reader', to: 'editor', label: 'Reply' };
+    const extra = { ...records[1]!, id: 'extra', label: 'Supply more inputs' };
+    const edges = valueFlowEdges(layout.nodes, [], [...records, reply, extra]);
+    expect(edges).toHaveLength(1);
+    expect(edges[0]).toMatchObject({
+      from: 'publish:source',
+      to: 'use:consumer',
+      label: '2 out · 1 in',
+    });
   });
   it('opens only the requested system, preserving the topic and quieter support', () => {
     const layout = valueFlowLayout(view, narrative, new Set(['source']));
@@ -214,10 +266,13 @@ describe('value flow exploration', () => {
       supporting: true,
     });
     expect(layout.nodes.find((node) => node.systemId === 'consumer')?.collapsed).toBe(true);
-    const edges = valueFlowEdges(narrative, layout.nodes);
+    const edges = valueFlowEdges(layout.nodes, [], records);
     expect(edges).toHaveLength(2);
     expect(edges).toContainEqual(
       expect.objectContaining({ from: 'editor', to: 'topic', label: 'Publish' }),
+    );
+    expect(edges).toContainEqual(
+      expect.objectContaining({ from: 'topic', to: 'use:consumer', label: 'Supply inputs' }),
     );
     const ids = new Set(layout.nodes.map((node) => node.id));
     expect(edges.every((edge) => ids.has(edge.from) && ids.has(edge.to))).toBe(true);
@@ -250,7 +305,7 @@ describe('value flow exploration', () => {
     const layout = valueFlowLayout(view, acrossColumns, new Set(['consumer']));
     const source = layout.nodes.find((node) => node.members.includes('topic'))!;
     const reader = layout.nodes.find((node) => node.id === 'reader')!;
-    const edge = valueFlowEdges(narrative, layout.nodes, layout.headings).find(
+    const edge = valueFlowEdges(layout.nodes, layout.headings, records).find(
       (item) => item.label === 'Supply inputs',
     )!;
     const xs = edge.path
@@ -273,6 +328,22 @@ describe('value flow exploration', () => {
     expect(peer.y).toBeGreaterThan(reader.y + reader.height);
     expect(valueFlowLayout(view, narrative, new Set())).toEqual(before);
   });
+  it('packs landscape systems across rows and keeps peers clear of an expanded system', () => {
+    const closed = valueFlowLayout(view, narrative, new Set(), new Set(), true);
+    const open = valueFlowLayout(view, narrative, new Set(['consumer']), new Set(), true);
+    expect(new Set(closed.nodes.map(({ y }) => y)).size).toBeGreaterThan(1);
+    const boundary = open.groups.find(({ id }) => id === 'consumer')!;
+    for (const node of open.nodes.filter(({ collapsed }) => collapsed)) {
+      expect(closed.nodes.some(({ id }) => id === node.id)).toBe(true);
+      expect(
+        node.x + node.width <= boundary.x ||
+          boundary.x + boundary.width <= node.x ||
+          node.y + node.height <= boundary.y ||
+          boundary.y + boundary.height <= node.y,
+      ).toBe(true);
+    }
+  });
+
   it('encloses every component once and keeps neighbouring systems outside expanded boundaries', () => {
     const layout = valueFlowLayout(view, narrative, new Set(['source', 'consumer']));
     expect(layout.groups).toHaveLength(2);
@@ -332,13 +403,7 @@ describe('value flow exploration', () => {
     expect(cache.band).toBe(editor.band);
     expect(cache.x).toBe(editor.x);
     expect(cache.y).toBeGreaterThan(editor.y + editor.height);
-    const edges = valueFlowEdges(
-      narrative,
-      layout.nodes,
-      layout.headings,
-      technical,
-      layout.groups,
-    );
+    const edges = valueFlowEdges(layout.nodes, layout.headings, technical, layout.groups);
     expect(edges.filter((edge) => edge.from === 'editor' && edge.to === 'topic')).toHaveLength(1);
     expect(edges).toContainEqual(
       expect.objectContaining({
@@ -378,7 +443,6 @@ function privateResources(): AreaView {
                 request: null,
                 response: null,
                 callers: [],
-                explorer: null,
               },
             ],
           };
@@ -430,7 +494,7 @@ describe('service detail in value flows', () => {
         new Set(['source', 'consumer']),
         new Set(['editor', 'reader']),
       );
-      const edges = valueFlowEdges(detail, layout.nodes, layout.headings, technical, layout.groups);
+      const edges = valueFlowEdges(layout.nodes, layout.headings, technical, layout.groups);
       expect(edges.length).toBeGreaterThan(0);
       for (const edge of edges) {
         expect(edge).toMatchObject({ from: 'editor', to: 'reader', kind: 'message' });
@@ -458,13 +522,13 @@ describe('service detail in value flows', () => {
   it('folds private resources but keeps every identity and the publisher-to-consumer exchange', () => {
     const fixture = privateResources();
     const layout = valueFlowLayout(fixture, narrative, new Set(['source', 'consumer']));
+    const edges = valueFlowEdges(layout.nodes, layout.headings, records, layout.groups);
     expect(layout.nodes.some((node) => node.id === 'topic' || node.id === 'cache')).toBe(false);
     expect(layout.nodes.find((node) => node.id === 'editor')?.members).toEqual([
       'editor',
       'topic',
       'cache',
     ]);
-    const edges = valueFlowEdges(narrative, layout.nodes, layout.headings, [], layout.groups);
     expect(edges).toHaveLength(1);
     expect(edges[0]).toMatchObject({ from: 'editor', to: 'reader', kind: 'message' });
     expect(edges[0]?.relations).toContainEqual(
@@ -479,7 +543,7 @@ describe('service detail in value flows', () => {
       new Set(['source', 'consumer']),
       new Set(['editor', 'reader']),
     );
-    const edge = valueFlowEdges(narrative, layout.nodes, layout.headings, [], layout.groups)[0]!;
+    const edge = valueFlowEdges(layout.nodes, layout.headings, records, layout.groups)[0]!;
     const source = layout.nodes.find((node) => node.id === 'editor')!;
     const target = layout.nodes.find((node) => node.id === 'reader')!;
     expect(source.height).toBeGreaterThan(200);
@@ -517,7 +581,7 @@ describe('service detail in value flows', () => {
       new Set(['source', 'consumer']),
       new Set(['reader', 'editor']),
     );
-    const edges = valueFlowEdges(story, layout.nodes, layout.headings, technical, layout.groups);
+    const edges = valueFlowEdges(layout.nodes, layout.headings, technical, layout.groups);
     expect(edges).toHaveLength(1);
     const reader = layout.nodes.find((node) => node.id === 'reader')!;
     const editor = layout.nodes.find((node) => node.id === 'editor')!;
@@ -528,7 +592,7 @@ describe('service detail in value flows', () => {
   });
 });
 
-it('summarises recorded supporting calls without creating a new edge or promoting it into the key flow', () => {
+it('labels a recorded call with its own name and ignores narrative summaries', () => {
   const summary = {
     from: 'cache',
     to: 'reader',
@@ -553,12 +617,16 @@ it('summarises recorded supporting calls without creating a new edge or promotin
       detail: 'Cache calls Reader at GET /inputs.',
     },
   ];
-  const without = valueFlowEdges(story, layout.nodes, layout.headings, [], layout.groups);
-  expect(without.some((edge) => edge.label === summary.label)).toBe(false);
-  const withCall = valueFlowEdges(story, layout.nodes, layout.headings, technical, layout.groups);
-  const explained = withCall.find((edge) => edge.label === summary.label);
-  expect(explained).toMatchObject({ from: 'cache', to: 'reader', supporting: true });
-  expect(explained?.relations.some((relation) => relation.endpointId === 'api:read')).toBe(true);
+  expect(valueFlowEdges(layout.nodes, layout.headings, [], layout.groups)).toEqual([]);
+  const withCall = valueFlowEdges(layout.nodes, layout.headings, technical, layout.groups);
+  expect(withCall).toHaveLength(1);
+  expect(withCall[0]).toMatchObject({
+    from: 'cache',
+    to: 'reader',
+    supporting: true,
+    label: 'GET /inputs',
+  });
+  expect(withCall[0]?.relations.some((relation) => relation.endpointId === 'api:read')).toBe(true);
 });
 
 it('packs parallel contributions across the canvas instead of one long left-hand list', () => {
@@ -609,7 +677,7 @@ it('uses area-wide system columns independently of local component stages', () =
   const expanded = valueFlowLayout(view, flow, new Set(['source']));
   expect(expanded.nodes.find((node) => node.id === 'editor')?.rank).toBe(0);
   expect(expanded.nodes.find((node) => node.id === 'topic')?.rank).toBe(1);
-  const edges = valueFlowEdges(flow, expanded.nodes);
+  const edges = valueFlowEdges(expanded.nodes, [], records);
   expect(edges.some((edge) => edge.from === 'editor' && edge.to === 'topic')).toBe(true);
 });
 

@@ -377,3 +377,45 @@ export function areaRoute(options: AreaRouteOptions): {
     height: options.labelHeight ?? 18,
   });
 }
+
+interface RouteSegment {
+  readonly route: number;
+  readonly start: Point;
+  readonly end: Point;
+}
+
+function crosses(horizontal: RouteSegment, vertical: RouteSegment): boolean {
+  if (horizontal.route === vertical.route) return false;
+  const x = vertical.start.x;
+  const y = horizontal.start.y;
+  return (
+    x > Math.min(horizontal.start.x, horizontal.end.x) &&
+    x < Math.max(horizontal.start.x, horizontal.end.x) &&
+    y > Math.min(vertical.start.y, vertical.end.y) &&
+    y < Math.max(vertical.start.y, vertical.end.y)
+  );
+}
+
+/** Score crossings and mean length using the same path geometry as the renderer. */
+export function orthogonalRouteCost(
+  edges: readonly { readonly points: readonly RoutePoint[] }[],
+  lengthWeight = 0.5,
+): number {
+  const segments = edges.flatMap(({ points }, routeIndex) =>
+    points.slice(1).flatMap((end, index) => {
+      const start = points[index];
+      return start === undefined ? [] : [{ route: routeIndex, start, end }];
+    }),
+  );
+  const horizontal = segments.filter(({ start, end }) => start.y === end.y);
+  const vertical = segments.filter(({ start, end }) => start.x === end.x);
+  const crossings = horizontal.reduce(
+    (count, segment) => count + vertical.filter((other) => crosses(segment, other)).length,
+    0,
+  );
+  const length = segments.reduce(
+    (sum, { start, end }) => sum + Math.abs(start.x - end.x) + Math.abs(start.y - end.y),
+    0,
+  );
+  return crossings * 16 + (length / Math.max(1, edges.length)) * lengthWeight;
+}

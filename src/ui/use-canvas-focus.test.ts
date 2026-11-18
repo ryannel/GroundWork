@@ -81,6 +81,26 @@ describe('canvas focus', () => {
     expect(ref.current.scrollLeft).toBe(470);
   });
 
+  it('keeps an expanded system at its previous screen position and scale', () => {
+    const ref = viewport();
+    ref.current.scrollLeft = 100;
+    ref.current.scrollTop = 200;
+    const changeZoom = vi.fn<(factor: number) => void>();
+    const expanded = { ...focus, previousPosition: { x: 250, y: 250 } };
+    const { rerender } = renderHook(
+      ({ visible }) => useCanvasFocus(visible ? expanded : null, ref, { zoom: 0.8, changeZoom }),
+      { initialProps: { visible: true } },
+    );
+    expect(ref.current.scrollLeft).toBe(220);
+    expect(ref.current.scrollTop).toBe(240);
+    expect(ref.scrollTo).not.toHaveBeenCalled();
+    expect(changeZoom).not.toHaveBeenCalled();
+    rerender({ visible: false });
+    rerender({ visible: true });
+    expect(ref.current.scrollLeft).toBe(220);
+    expect(ref.current.scrollTop).toBe(240);
+  });
+
   it('allows the reader to focus the selection again without changing zoom', () => {
     const ref = viewport();
     const changeZoom = vi.fn<(factor: number) => void>();

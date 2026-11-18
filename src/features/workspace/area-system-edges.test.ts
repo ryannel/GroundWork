@@ -14,7 +14,6 @@ const component = (id: string): AreaComponentView => ({
   name: id,
   kind: 'service',
   summary: 'Scanned component',
-  explorer: null,
   repository: null,
   resources: [],
   dependencies: [],
@@ -25,7 +24,6 @@ const component = (id: string): AreaComponentView => ({
     request: null,
     response: null,
     callers: [],
-    explorer: null,
   })),
 });
 
@@ -81,11 +79,11 @@ function fixture() {
       confidence: 'high',
       evidenceCount: 1,
     },
-    reviewed: '2026-10-26',
     scope: 'Partial',
-    limitation: 'Partial',
-    systems,
+    reviewed: '',
+    limitation: '',
     collaborations: [],
+    systems,
     relationships: [
       {
         id: 'response',
@@ -163,7 +161,7 @@ describe('area canvas relation projection', () => {
     });
 
     expect(edges[0]?.to).toBe(resource.id);
-    expect(edges[0]?.path).toMatch(/L 740,296$/u);
+    expect(edges[0]?.path).toMatch(/L 740,548$/u);
   });
 
   it('keeps a shared business provider visible unless infrastructure is explicitly recorded', () => {
@@ -252,8 +250,8 @@ describe('area canvas relation projection', () => {
       view: { ...view, relationships: [], technicalRelationships: [relation] },
     });
     expect(edges).toHaveLength(1);
-    expect(edges[0]?.path).toContain('L 414,576');
-    expect(edges[0]?.path).toMatch(/L 400,756$/u);
+    expect(edges[0]?.path).toContain('L 414,');
+    expect(edges[0]?.path).toMatch(/L 400,784$/u);
   });
 
   it('does not draw a redundant line inside a private resource card', () => {
@@ -285,10 +283,33 @@ describe('area canvas relation projection', () => {
     });
     expect(edges).toEqual([]);
   });
-  it('retains authored overview but projects initiating calls when either system opens', () => {
-    const { view, systems } = fixture();
-    const collapsed = areaCanvasEdges({ view, systems, expanded: new Set(), detail: 'all' });
-    expect(collapsed.map((edge) => edge.id)).toEqual(['response']);
+  it('draws one counted line between closed systems and names the record once either opens', () => {
+    const { view, systems, relation } = fixture();
+    const reverse = {
+      ...relation,
+      id: 'reverse',
+      from: relation.to,
+      to: relation.from,
+      fromSystem: 'price',
+      toSystem: 'offers',
+    };
+    const collapsed = areaCanvasEdges({
+      view: {
+        ...view,
+        technicalRelationships: [relation, reverse, { ...relation, id: 'second' }],
+      },
+      systems,
+      expanded: new Set(),
+      detail: 'all',
+    });
+    expect(collapsed).toHaveLength(1);
+    expect(collapsed[0]).toMatchObject({
+      id: 'count:offers|price|api',
+      from: 'offers',
+      to: 'price',
+      label: '2 out · 1 in',
+    });
+    expect(collapsed[0]?.relations).toHaveLength(3);
     const expanded = areaCanvasEdges({
       view,
       systems,
@@ -305,7 +326,7 @@ describe('area canvas relation projection', () => {
     expect(expanded[0]?.relations?.[0]?.fromSystem).toBe('offers');
   });
 
-  it('draws one line to a closed card and fans out to API groups once it opens', () => {
+  it('draws one line to a closed card and fans out to API operations once it opens', () => {
     const { view, systems, relation } = fixture();
     const price = systems[1]!;
     const target = price.componentBoxes[0]!;
@@ -330,17 +351,21 @@ describe('area canvas relation projection', () => {
     };
     const closed = areaCanvasEdges({ ...options, systems: withCard(false) });
     expect(closed).toHaveLength(1);
-    expect(closed[0]).toMatchObject({ label: 'Reads an item', to: 'svc:price' });
+    expect(closed[0]).toMatchObject({
+      label: 'REST /items; REST /prices',
+      to: 'svc:price',
+    });
     expect(closed[0]?.relations).toHaveLength(3);
     const open = areaCanvasEdges({ ...options, systems: withCard(true) });
     expect(open.map((edge) => edge.label).toSorted((a, b) => a.localeCompare(b))).toEqual([
       'REST /items',
+      'REST /items',
       'REST /prices',
     ]);
-    expect(new Set(open.map((edge) => edge.path.split(' ').at(-1))).size).toBe(2);
+    expect(new Set(open.map((edge) => edge.path.split(' ').at(-1))).size).toBe(3);
   });
 
-  it('routes every operation to its API group without changing anchors on selection', () => {
+  it('routes every operation to its own row without changing anchors on selection', () => {
     const { view, systems, relation } = fixture();
     const options = {
       view,
@@ -351,7 +376,7 @@ describe('area canvas relation projection', () => {
     const compact = areaCanvasEdges(options);
     const open = areaCanvasEdges({ ...options, selected: new Map([['price', 'svc:price']]) });
     expect(open[0]?.path).toBe(compact[0]?.path);
-    expect(open[0]?.path).toMatch(/L 740,236$/u);
+    expect(open[0]?.path).toMatch(/L 740,264$/u);
     const beyond = {
       ...view,
       technicalRelationships: [{ ...relation, via: 'api:8', endpointId: 'api:8' }],
@@ -359,9 +384,14 @@ describe('area canvas relation projection', () => {
     const hidden = areaCanvasEdges({
       ...options,
       view: beyond,
+      systems: systems.map((system) => ({
+        ...system,
+        height: 600,
+        componentBoxes: system.componentBoxes.map((box) => ({ ...box, height: 450 })),
+      })),
       selected: new Map([['price', 'svc:price']]),
     });
-    expect(hidden[0]?.path).toBe(compact[0]?.path);
+    expect(hidden[0]?.path).not.toBe(compact[0]?.path);
     expect(hidden[0]?.endpointId).toBe('api:8');
     const unknown = areaCanvasEdges({
       ...options,
@@ -374,7 +404,7 @@ describe('area canvas relation projection', () => {
     expect(unknown[0]?.path).toMatch(/L 740,252$/u);
   });
 
-  it('keeps opposite calls but reserves untargeted authored exchanges for collapsed systems', () => {
+  it('keeps opposite calls apart once open and ignores authored exchanges', () => {
     const { view, systems, relation } = fixture();
     const revised = {
       ...view,
@@ -415,7 +445,8 @@ describe('area canvas relation projection', () => {
       expanded: new Set(),
       detail: 'grouped',
     });
-    expect(overview.map((edge) => edge.id)).toContain('event');
+    expect(overview.map((edge) => edge.id)).toEqual(['count:offers|price|api']);
+    expect(overview[0]?.label).toBe('1 out · 1 in');
     expect(edges.flatMap((edge) => edge.relations ?? []).map((edge) => edge.id)).toEqual([
       'call-price',
       'reverse',
@@ -438,12 +469,11 @@ describe('area canvas relation projection', () => {
       detail: 'grouped',
     });
 
-    expect(edges).toHaveLength(1);
-    expect(edges[0]?.relations?.map((edge) => edge.endpointId)).toEqual(['api:0', 'api:1']);
-    expect(edges[0]?.endpointId).toBeNull();
+    expect(edges.map(({ endpointId }) => endpointId)).toEqual(['api:0', 'api:1']);
+    expect(new Set(edges.map(({ path }) => path.split(' ').at(-1))).size).toBe(2);
   });
 
-  it('lands grouped external calls on components and API groups, never expanded boundaries', () => {
+  it('lands grouped external calls on components and API operations, never expanded boundaries', () => {
     const { view, systems } = fixture();
     const options = {
       view,
@@ -453,7 +483,7 @@ describe('area canvas relation projection', () => {
     };
     const grouped = areaCanvasEdges(options);
     expect(grouped[0]?.path).toMatch(/^M 400,252/u);
-    expect(grouped[0]?.path).toMatch(/L 740,236$/u);
+    expect(grouped[0]?.path).toMatch(/L 740,264$/u);
     expect(grouped[0]?.relations).toEqual(view.technicalRelationships);
     const selected = areaCanvasEdges({ ...options, selected: new Map([['price', 'svc:price']]) });
     expect(selected[0]?.path).toBe(grouped[0]?.path);
@@ -544,7 +574,7 @@ describe('area canvas relation projection', () => {
   });
 });
 
-describe('hidden narrative components', () => {
+describe('hidden components', () => {
   it('does not redirect hidden component calls to an expanded system outline', () => {
     const { systems, view } = fixture();
     const hidden = systems.map((system) =>

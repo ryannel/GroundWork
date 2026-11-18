@@ -301,78 +301,11 @@ exports[`places external and unmapped boundaries below the systems without creat
 ]
 `;
 
-exports[`retains authored bands, connections, captions and resolved citations through both map transports > band anchors and exact connection routing 1`] = `
+exports[`retains authored bands, recorded connections and resolved citations through both map transports > band anchors and exact connection routing 1`] = `
 {
   "connections": [
     {
-      "backs": [
-        "h:confirm#tx/save",
-      ],
-      "cites": [
-        {
-          "id": "ev:source",
-          "kind": "evidence",
-        },
-      ],
-      "detail": "Known system boundary
-
-Known system boundary. Evidence: h:confirm#tx/save.",
-      "evidence": [
-        "h:confirm#tx/save",
-      ],
-      "from": "confirm:sys:ordering",
-      "id": "value:confirm:sys:ordering|confirm:sys:unmapped|api||",
-      "kind": "api",
-      "label": "Known system boundary",
-      "platform": false,
-      "relations": [
-        {
-          "endpointId": null,
-          "from": "svc:ordering",
-          "to": "sys:unmapped",
-        },
-        {
-          "endpointId": null,
-          "from": "confirm:sys:ordering",
-          "to": "confirm:sys:unmapped",
-        },
-      ],
-      "supporting": false,
-      "to": "confirm:sys:unmapped",
-    },
-    {
-      "cites": [
-        {
-          "id": "ev:source",
-          "kind": "evidence",
-        },
-      ],
-      "detail": "Known external boundary
-
-Known external boundary. Evidence: .",
-      "evidence": [],
-      "from": "confirm:sys:unmapped",
-      "id": "value:confirm:sys:unmapped|confirm:ext:payments|api||",
-      "kind": "api",
-      "label": "Known external boundary",
-      "platform": false,
-      "relations": [
-        {
-          "endpointId": null,
-          "from": "sys:unmapped",
-          "to": "ext:payments",
-        },
-        {
-          "endpointId": null,
-          "from": "confirm:sys:unmapped",
-          "to": "confirm:ext:payments",
-        },
-      ],
-      "supporting": false,
-      "to": "confirm:ext:payments",
-    },
-    {
-      "detail": "Purpose not recorded
+      "detail": "2 out · 0 in
 
 Ordering API → Payments.  Recorded declaration and retained source context; deployment and delivery are not established.",
       "endpointId": "api:charge",
@@ -383,9 +316,9 @@ Ordering API → Payments.  Recorded declaration and retained source context; de
       "evidenced": true,
       "from": "confirm:sys:ordering",
       "fromSystem": "sys:ordering",
-      "id": "value:confirm:sys:ordering|confirm:ext:payments|api||",
+      "id": "value:confirm:ext:payments|confirm:sys:ordering|api",
       "kind": "api",
-      "label": "Purpose not recorded",
+      "label": "2 out · 0 in",
       "native": {
         "cites": [
           {
@@ -457,31 +390,7 @@ Ordering API → Payments.  Recorded declaration and retained source context; de
   ],
   "drawing": {
     "groups": [],
-    "headings": [
-      {
-        "height": 100,
-        "id": "confirm",
-        "nodes": [
-          {
-            "column": 0,
-            "component": "svc:ordering",
-          },
-          {
-            "column": 1,
-            "component": "sys:unmapped",
-          },
-          {
-            "column": 2,
-            "component": "ext:payments",
-          },
-        ],
-        "summary": "Recorded work",
-        "title": "Confirm",
-        "width": 1100,
-        "x": 80,
-        "y": 32,
-      },
-    ],
+    "headings": [],
     "height": 500,
     "nodes": [
       {

@@ -1,6 +1,18 @@
 @layer components {
+  .body {
+    --head: 82px;
+  }
+
+  .body[data-kind='Area'] {
+    --head: 96px;
+  }
+
+  .body[data-density='dense'] {
+    --head: 104px;
+  }
+
   .header {
-    height: 82px;
+    height: var(--head);
     flex: none;
   }
 
@@ -8,8 +20,53 @@
     height: 100%;
   }
 
-  .header[data-density='dense'] {
-    height: 104px;
+  .activities {
+    flex: none;
+    padding-bottom: var(--s-1);
+    padding-inline: var(--s-3);
+  }
+
+  /*
+   * The header button stretches under the activities so the whole body selects the card. Grid overlap, not
+   * absolute positioning: WebKit paints positioned HTML in a scaled SVG foreignObject away from its card.
+   */
+  .body[data-selectable] {
+    display: grid;
+    flex: 1;
+    grid-template-rows: var(--head) 1fr;
+  }
+
+  .body[data-selectable] > .header {
+    grid-row: 1 / -1;
+    grid-column: 1;
+    height: auto;
+  }
+
+  .body[data-selectable] .header > button {
+    grid-template-rows: calc(var(--head) - 2 * var(--s-2));
+    align-content: start;
+  }
+
+  .body[data-selectable] > .activities {
+    grid-row: 2;
+    grid-column: 1;
+    align-self: start;
+    pointer-events: none;
+  }
+
+  .areaSelection {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .areaSelection:hover,
+  .areaSelection[aria-pressed='true'] {
+    color: var(--accent-fg);
   }
 
   .footer {
@@ -72,12 +129,6 @@
   .action:focus-visible {
     outline: 2px solid var(--focus);
     outline-offset: 2px;
-  }
-
-  .activities {
-    flex: none;
-    padding-bottom: var(--s-1);
-    padding-inline: var(--s-3);
   }
 
   .boundaryHeader {

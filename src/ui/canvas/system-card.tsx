@@ -2,21 +2,13 @@ import type { ReactNode } from 'react';
 
 import { Icon } from '@/ui/icon';
 
-import { ComponentCard, ComponentCardHeader } from './component-card';
+import {
+  type CardSelection,
+  ComponentCard,
+  ComponentCardDetails,
+  ComponentCardHeader,
+} from './component-card';
 import styles from './system-card.module.css';
-
-function SystemDetails({ name, inspect }: { readonly name: string; readonly inspect: string }) {
-  return (
-    <button
-      aria-label={`Details of ${name}`}
-      className={styles.action}
-      data-inspect={inspect}
-      type="button"
-    >
-      Details
-    </button>
-  );
-}
 
 /** A collapsed system has one expansion action and an optional separate way to read its details. */
 export function SystemCard({
@@ -25,9 +17,11 @@ export function SystemCard({
   meta,
   owner,
   density = 'normal',
+  kind = 'System',
   muted = false,
   highlighted = false,
   onExpand,
+  selection,
   inspect,
   details,
   children,
@@ -37,9 +31,11 @@ export function SystemCard({
   readonly meta: string;
   readonly owner?: string;
   readonly density?: 'normal' | 'dense';
+  readonly kind?: 'System' | 'Area';
   readonly muted?: boolean;
   readonly highlighted?: boolean;
   readonly onExpand: () => void;
+  readonly selection?: CardSelection | undefined;
   readonly inspect?: string;
   readonly details?: ReactNode;
   readonly children?: ReactNode;
@@ -49,19 +45,32 @@ export function SystemCard({
       active={false}
       muted={muted}
       highlighted={highlighted}
+      selection={selection}
       footerSize="content"
       header={
-        <div className={styles.header} data-density={density}>
-          <ComponentCardHeader
-            density={density}
-            expanded={false}
-            icon="system"
-            kind="System"
-            name={name}
-            onOpen={onExpand}
-            summary={purpose}
-            tone="neutral"
-          />
+        <div
+          className={styles.body}
+          data-density={density}
+          data-kind={kind}
+          data-selectable={selection === undefined ? undefined : ''}
+        >
+          <div className={styles.header}>
+            <ComponentCardHeader
+              density={density}
+              expanded={false}
+              selection={selection}
+              icon={kind === 'Area' ? 'concept' : 'system'}
+              kind={kind}
+              name={name}
+              onOpen={onExpand}
+              summary={purpose}
+              tone="neutral"
+              wrapName={kind === 'Area'}
+            />
+          </div>
+          {children === undefined || children === null ? null : (
+            <div className={styles.activities}>{children}</div>
+          )}
         </div>
       }
       footer={
@@ -84,15 +93,15 @@ export function SystemCard({
             >
               <span aria-hidden="true">+</span> Expand
             </button>
-            {inspect === undefined ? details : <SystemDetails inspect={inspect} name={name} />}
+            {inspect === undefined ? (
+              details
+            ) : (
+              <ComponentCardDetails className={styles.action} inspect={inspect} name={name} />
+            )}
           </div>
         </div>
       }
-    >
-      {children === undefined || children === null ? null : (
-        <div className={styles.activities}>{children}</div>
-      )}
-    </ComponentCard>
+    />
   );
 }
 
@@ -101,29 +110,52 @@ export function SystemBoundaryHeader({
   name,
   purpose,
   dense = false,
+  kind = 'System',
   onCollapse,
+  selection,
   actions,
   inspect,
 }: {
   readonly name: string;
   readonly purpose: string;
   readonly dense?: boolean;
+  readonly kind?: 'System' | 'Area';
   readonly onCollapse: () => void;
+  readonly selection?: CardSelection | undefined;
   readonly actions?: ReactNode;
   readonly inspect?: string;
 }) {
   return (
     <div className={styles.boundaryHeader} data-dense={dense ? '' : undefined}>
       <div className={styles.identity}>
-        <Icon name="system" />
-        <h3 className={styles.name}>System · {name}</h3>
+        <Icon name={kind === 'Area' ? 'concept' : 'system'} />
+        <h3 className={styles.name}>
+          {selection === undefined ? (
+            <>
+              {kind} · {name}
+            </>
+          ) : (
+            <button
+              aria-pressed={selection.pressed}
+              className={styles.areaSelection}
+              onClick={() => {
+                selection.toggle();
+              }}
+              type="button"
+            >
+              {kind} · {name}
+            </button>
+          )}
+        </h3>
       </div>
       <span className={styles.purpose} title={purpose}>
         {purpose}
       </span>
       <div className={styles.actions}>
         {actions}
-        {inspect === undefined ? null : <SystemDetails inspect={inspect} name={name} />}
+        {inspect === undefined ? null : (
+          <ComponentCardDetails className={styles.action} inspect={inspect} name={name} />
+        )}
         <button
           aria-expanded
           aria-label={`Collapse ${name}`}

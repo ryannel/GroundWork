@@ -10,7 +10,7 @@ import {
   layoutAreaSystems,
 } from '@/application/area-system-layout';
 import type { AreaSystemView, AreaView } from '@/application/workspace-area';
-import type { SystemNarrative } from '@/domain/system-narrative';
+import type { CardSelection } from '@/ui/canvas/component-card';
 import { SystemCard } from '@/ui/canvas/system-card';
 import { ConnectedCanvas } from '@/ui/connected-canvas.client';
 import { TextLink } from '@/ui/text';
@@ -19,10 +19,10 @@ import { AreaBoundaryCard } from './area-boundary-card';
 import { AreaComponentDetail } from './area-component-detail.client';
 import { AreaExpandedSystem } from './area-expanded-system.client';
 import { areaCanvasEdges } from './area-system-edges';
+import { useAreaSystemSelection } from './area-system-selection';
 import { type AreaComponentBox, systemShape } from './area-system-shape';
 
 interface PlacedSystem extends AreaSystemView, AreaSystemBox {
-  readonly story?: SystemNarrative;
   readonly componentBoxes: readonly AreaComponentBox[];
   readonly componentRelationships: AreaView['relationships'];
 }
@@ -38,7 +38,7 @@ function shapesOf(systems: readonly AreaSystemView[], state: MapState) {
     systems.map((system) => [
       system.id,
       state.expanded.has(system.id)
-        ? systemShape(system, state.open, system.narratives?.stories[0])
+        ? systemShape(system, state.open)
         : { width: 220, height: 150, components: [], relationships: [] },
     ]),
   );
@@ -50,64 +50,23 @@ function placed(
   state: MapState,
 ): readonly PlacedSystem[] {
   const shapes = shapesOf(systems, state);
-  const context = new Map(
-    systems.flatMap((system) =>
-      state.expanded.has(system.id)
-        ? (system.narratives?.stories[0]?.relatedSystems ?? [])
-            .filter((id) => !state.expanded.has(id) && systems.some((item) => item.id === id))
-            .map((id) => [id, system.id] as const)
-        : [],
-    ),
-  );
   const boxes = new Map(
     layoutAreaSystems(
-      systems
-        .filter((system) => !context.has(system.id))
-        .map((system) => {
-          const shape = shapes.get(system.id);
-          const hasContext = [...context.values()].includes(system.id);
-          return {
-            id: system.id,
-            width: shape?.width ?? 220,
-            height: (shape?.height ?? 150) + (hasContext ? 240 : 0),
-          };
-        }),
-      relationships
-        .map((relation) => ({
-          ...relation,
-          from: context.get(relation.from) ?? relation.from,
-          to: context.get(relation.to) ?? relation.to,
-        }))
-        .filter((relation) => relation.from !== relation.to),
+      systems.map((system) => {
+        const shape = shapes.get(system.id);
+        return { id: system.id, width: shape?.width ?? 220, height: shape?.height ?? 150 };
+      }),
+      relationships,
     ).map((box) => [box.id, box]),
   );
-  for (const [id, owner] of context) {
-    const parent = boxes.get(owner);
-    if (parent === undefined) continue;
-    const peers = [...context].filter(([, value]) => value === owner).map(([key]) => key);
-    const index = peers.indexOf(id);
-    boxes.set(id, {
-      id,
-      x: parent.x + 24 + index * 340,
-      y: parent.y + 24,
-      width: 300,
-      height: 150,
-      rank: parent.rank,
-    });
-  }
   return systems.flatMap((system): readonly PlacedSystem[] => {
     const box = boxes.get(system.id);
     const shape = shapes.get(system.id);
-    const story = system.narratives?.stories[0];
     if (box === undefined || shape === undefined) return [];
     return [
       {
         ...system,
-        ...(story === undefined ? {} : { story }),
         ...box,
-        ...([...context.values()].includes(system.id)
-          ? { y: box.y + 240, height: shape.height }
-          : {}),
         componentBoxes: shape.components,
         componentRelationships: shape.relationships,
       },
@@ -118,17 +77,26 @@ function placed(
 function CollapsedSystem({
   system,
   onExpand,
+  selection,
 }: {
   readonly system: PlacedSystem;
   readonly onExpand: () => void;
+  readonly selection: CardSelection;
 }) {
   return (
-    <foreignObject height={system.height} width={system.width} x={system.x} y={system.y}>
+    <foreignObject
+      data-component={system.id}
+      height={system.height}
+      width={system.width}
+      x={system.x}
+      y={system.y}
+    >
       <SystemCard
         name={system.name}
         purpose={system.purpose}
         meta={`${String(system.components.length)} components`}
         onExpand={onExpand}
+        selection={selection}
         details={
           <TextLink href={system.href} tone="quiet">
             System page →
@@ -203,59 +171,46 @@ function ownerOf(view: AreaView, id: string): string {
 
 /** Systems collapse to one node and expand into bounded component graphs without leaving the canvas. */
 export function AreaSystemMap({ view }: { readonly view: AreaView }) {
-  const [flows, setFlows] = useState<ReadonlyMap<string, string>>(() => new Map());
-  const [onlyFlows, setOnlyFlows, toggleOnlyFlow] = useToggleSet();
+  const systemSelection = useAreaSystemSelection(view.area.id);
   const [expanded, setExpanded] = useState<ReadonlySet<string>>(() => new Set());
   const [selected, setSelected] = useState<ReadonlyMap<string, string>>(() => new Map());
   const [detail, setDetail] = useState<'grouped' | 'all'>('grouped');
   const [endpoint, setEndpoint] = useState<string>();
-  const [opened, setOpened] = useState<string>();
+  const [opened, setOpened] = useState<{
+    readonly id: string;
+    readonly x: number;
+    readonly y: number;
+  }>();
   const [open, setOpen, toggleOpen] = useToggleSet();
   const systems = placed(
     view.systems.filter((system) => areaBoundaryOf(view, system.id) === undefined),
     view.relationships,
-    {
-      expanded,
-      selected,
-      open,
-    },
+    { expanded, selected, open },
   );
-  const highlights = new Map(
-    view.systems.map((system) => {
-      const flow = system.narratives?.stories.find((story) => story.id === flows.get(system.id));
-      return [
-        system.id,
-        flow === undefined
-          ? undefined
-          : new Set(flow.stages.flatMap((stage) => [stage.component, ...stage.supporting])),
-      ];
-    }),
-  );
-  const drawn = systems.map((system) => ({
-    ...system,
-    componentBoxes:
-      onlyFlows.has(system.id) && highlights.get(system.id) !== undefined
-        ? system.componentBoxes.filter((box) => highlights.get(system.id)?.has(box.id) === true)
-        : system.componentBoxes,
-  }));
   const boundaries = areaBoundaryBoxes(view, systems);
-  const canvas = [...drawn, ...boundaries];
-  const edges = areaCanvasEdges({ view, systems: canvas, expanded, detail, selected }).map(
-    (edge) => {
-      const focused = [...highlights.values()].filter((ids) => ids !== undefined);
-      return focused.length === 0 ||
-        focused.some((ids) => ids.has(edge.from ?? '') && ids.has(edge.to ?? ''))
-        ? edge
-        : { ...edge, context: true };
-    },
-  );
+  const systemByEnd = new Map([
+    ...systems.flatMap((system) => [
+      [system.id, system.id] as const,
+      ...system.components.map(({ id }) => [id, system.id] as const),
+    ]),
+    ...boundaries.map(({ id }) => [id, id] as const),
+  ]);
+  const edges = areaCanvasEdges({
+    view,
+    systems: [...systems, ...boundaries],
+    expanded,
+    detail,
+    selected,
+  });
   const bounds = areaSystemBounds([...systems, ...boundaries]);
   const size = {
     width: Math.max(bounds.width, ...edges.map((edge) => edge.x + 100)),
     height: Math.max(bounds.height, ...edges.map((edge) => edge.y + 48)),
   };
   const toggleSystem = (id: string): void => {
-    setOpened(expanded.has(id) ? undefined : id);
+    if (expanded.has(id)) systemSelection.collapse(id);
+    const system = systems.find((item) => item.id === id);
+    if (system !== undefined) setOpened({ id, x: system.x, y: system.y });
     setSelected(new Map());
     setOpen((current) => withoutSystem(current, view, id));
     setExpanded((current) => {
@@ -280,15 +235,13 @@ export function AreaSystemMap({ view }: { readonly view: AreaView }) {
     const destination = resourceLocation(view.systems, id);
     if (destination === null) return;
     setExpanded((current) => new Set([...current, destination.system.id]));
-    setOnlyFlows(new Set());
     setOpen((current) => new Set([...current, destination.component.id]));
     setSelected(new Map([[destination.system.id, id]]));
     setEndpoint(id);
   };
   const boundary = view.boundaries?.find((node) => selected.get(node.id) === node.id);
   const inspected = boundary ?? selectedComponent(systems, selected);
-  const openedSystem = systems.find((system) => system.id === opened && expanded.has(system.id));
-  const contextHeight = (openedSystem?.story?.relatedSystems?.length ?? 0) > 0 ? 240 : 0;
+  const openedSystem = systems.find((system) => system.id === opened?.id);
   const selectEdge = (id: string): void => {
     const relation = edges.find((edge) => edge.id === id)?.relations?.[0];
     if (relation === undefined) return;
@@ -307,19 +260,38 @@ export function AreaSystemMap({ view }: { readonly view: AreaView }) {
     <ConnectedCanvas
       detail={detail}
       endpoint={endpoint}
-      edges={edges}
+      edges={edges.filter((edge) =>
+        (edge.relations?.length ?? 0) > 0
+          ? edge.relations?.some(({ fromSystem, toSystem, from, to }) =>
+              systemSelection.includes(
+                fromSystem,
+                toSystem,
+                ownerOf(view, from),
+                ownerOf(view, to),
+              ),
+            ) === true
+          : systemSelection.includes(
+              systemByEnd.get(edge.from ?? ''),
+              systemByEnd.get(edge.to ?? ''),
+              edge.from,
+              edge.to,
+            ),
+      )}
       focus={
         activeFocus(systems, selected) ??
         (openedSystem === undefined
           ? null
           : {
               ...openedSystem,
-              y: openedSystem.y - contextHeight,
-              height: openedSystem.height + contextHeight,
-              fit: true,
+              id: JSON.stringify([openedSystem.id, expanded.has(openedSystem.id)]),
+              height: 70,
+              previousPosition: opened,
             })
       }
       height={size.height}
+      hoverMembers={
+        new Map(systems.map((system) => [system.id, system.components.map(({ id }) => id)]))
+      }
       inspector={
         inspected === undefined ? undefined : (
           <AreaComponentDetail
@@ -347,9 +319,8 @@ export function AreaSystemMap({ view }: { readonly view: AreaView }) {
       onDetailChange={setDetail}
       onEdgeSelect={selectEdge}
       onReset={() => {
-        setFlows(new Map());
-        setOnlyFlows(new Set());
         setExpanded(new Set());
+        systemSelection.clear();
         setOpen(new Set());
         setSelected(new Map());
         setEndpoint(undefined);
@@ -378,7 +349,7 @@ export function AreaSystemMap({ view }: { readonly view: AreaView }) {
           />
         </foreignObject>
       ))}
-      {drawn.map((system) =>
+      {systems.map((system) =>
         expanded.has(system.id) ? (
           <AreaExpandedSystem
             systems={view.systems}
@@ -392,21 +363,12 @@ export function AreaSystemMap({ view }: { readonly view: AreaView }) {
             onToggleComponent={(component) => {
               toggleComponent(system.id, component);
             }}
-            flow={flows.get(system.id) ?? ''}
-            highlighted={highlights.get(system.id)}
-            onlyFlow={onlyFlows.has(system.id)}
-            onOnlyFlow={() => {
-              toggleOnlyFlow(system.id);
-              setSelected(new Map());
-            }}
-            onFlowChange={(id) => {
-              setFlows((current) => new Map([...current, [system.id, id]]));
-              setSelected(new Map());
-            }}
             onSelectEndpoint={setEndpoint}
             onSelectResource={revealResource}
             onToggleOpen={toggleOpen}
             system={system}
+            selection={systemSelection.card(system.id)}
+            componentSelection={(id) => systemSelection.card(system.id, id)}
           />
         ) : (
           <CollapsedSystem
@@ -415,6 +377,7 @@ export function AreaSystemMap({ view }: { readonly view: AreaView }) {
               toggleSystem(system.id);
             }}
             system={system}
+            selection={systemSelection.card(system.id)}
           />
         ),
       )}

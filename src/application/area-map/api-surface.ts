@@ -1,11 +1,13 @@
 import type { AreaEndpointView } from '@/application/workspace-area';
 
-export interface ApiSurface {
+type SurfaceEndpoint = Pick<AreaEndpointView, 'id' | 'signature' | 'protocol' | 'version'>;
+
+export interface ApiSurface<Endpoint extends SurfaceEndpoint = AreaEndpointView> {
   readonly id: string;
   readonly label: string;
   readonly protocol: 'REST' | 'GraphQL' | 'gRPC' | 'HTTP' | 'API' | 'SDK';
   readonly versions: readonly string[];
-  readonly endpoints: readonly AreaEndpointView[];
+  readonly endpoints: readonly Endpoint[];
 }
 
 function inferredRoute(signature: string) {
@@ -33,7 +35,7 @@ function inferredRoute(signature: string) {
   };
 }
 
-function routeOf(endpoint: AreaEndpointView) {
+function routeOf(endpoint: SurfaceEndpoint) {
   if (endpoint.protocol === 'sdk') return { protocol: 'SDK' as const, label: 'SDK', version: '' };
   if (endpoint.protocol === 'graphql') {
     return { protocol: 'GraphQL' as const, label: 'GraphQL', version: '' };
@@ -46,8 +48,10 @@ function routeOf(endpoint: AreaEndpointView) {
 }
 
 /** Resource groups retain every operation identity; generic API/version prefixes are not resources. */
-export function apiSurface(endpoints: readonly AreaEndpointView[]): readonly ApiSurface[] {
-  const groups = new Map<string, ApiSurface>();
+export function apiSurface<Endpoint extends SurfaceEndpoint>(
+  endpoints: readonly Endpoint[],
+): readonly ApiSurface<Endpoint>[] {
+  const groups = new Map<string, ApiSurface<Endpoint>>();
   for (const endpoint of endpoints) {
     const route = routeOf(endpoint);
     const id = `surface:${route.protocol}:${route.label}`;
@@ -69,7 +73,7 @@ export function apiSurface(endpoints: readonly AreaEndpointView[]): readonly Api
   return [...groups.values()];
 }
 
-export function surfaceLabel(surface: ApiSurface): string {
+export function surfaceLabel(surface: Pick<ApiSurface, 'label' | 'protocol' | 'versions'>): string {
   const versions = surface.versions.length === 0 ? '' : ` · ${surface.versions.join(', ')}`;
   const name =
     surface.protocol === surface.label
@@ -78,6 +82,6 @@ export function surfaceLabel(surface: ApiSurface): string {
   return `${name}${versions}`;
 }
 
-export function surfaceAnchor(component: string, surface: ApiSurface): string {
-  return `${component}:${surface.id}`;
+export function endpointAnchor(component: string, endpoint: string): string {
+  return `${component}:port:${endpoint}`;
 }

@@ -47,6 +47,7 @@ export function componentKind(component: AreaComponentView): string {
     library: 'Library',
     external: 'External',
   };
+  if (component.category === 'group') return 'Components';
   if (component.category === 'cache') return 'Cache';
   if (component.category === 'queue') return 'Queue';
   return names[component.kind];

@@ -1,12 +1,9 @@
 import { CARD, cardLayout } from '@/application/area-map/card-geometry';
-import { layoutNarrative } from '@/application/area-map/narrative-layout';
 import { type AreaSystemBox, layoutAreaSystems } from '@/application/area-system-layout';
 import type { AreaComponentView, AreaSystemView } from '@/application/workspace-area';
 import type { LandscapeSystemRelationship } from '@/domain/landscape';
-import type { SystemNarrative } from '@/domain/system-narrative';
 
 export interface AreaComponentBox extends AreaComponentView {
-  readonly overview?: boolean;
   readonly x: number;
   readonly y: number;
   readonly width: number;
@@ -158,13 +155,9 @@ function looseBoxes(
 export function systemShape(
   system: AreaSystemView,
   open: ReadonlySet<string> = new Set(),
-  story?: SystemNarrative,
 ): AreaSystemShape {
-  const primary = new Set(story?.stages.flatMap((stage) => [stage.component, ...stage.supporting]));
   const visible = system.components.filter(
     (component) =>
-      story !== undefined ||
-      primary.has(component.id) ||
       !system.components.some(
         (parent) => parent.kind === 'service' && parent.id === component.parentComponent,
       ),
@@ -172,10 +165,8 @@ export function systemShape(
   const grouped = visible.map((component) => ({
     ...component,
     attachments:
-      component.kind === 'service' && story === undefined
-        ? system.components.filter(
-            (resource) => resource.parentComponent === component.id && !primary.has(resource.id),
-          )
+      component.kind === 'service'
+        ? system.components.filter((resource) => resource.parentComponent === component.id)
         : [],
   }));
   const shown = { ...system, components: grouped };
@@ -186,46 +177,14 @@ export function systemShape(
   const connected = connectedIds(relationships);
   const flowComponents = grouped.filter((component) => connected.has(component.id));
   const unconnected = grouped.filter((component) => !connected.has(component.id));
-  const flow =
-    story === undefined
-      ? readingFlow(flowComponents, relationships, open)
-      : layoutNarrative(
-          grouped
-            .filter((component) => primary.has(component.id))
-            .map((component) => ({
-              id: component.id,
-              ...(open.has(component.id)
-                ? componentSize(component, open)
-                : { width: 220, height: 120 }),
-            })),
-          story,
-        ).flatMap((box): readonly AreaComponentBox[] => {
-          const component = grouped.find((candidate) => candidate.id === box.id);
-          return component === undefined
-            ? []
-            : [
-                {
-                  ...component,
-                  ...box,
-                  overview: !open.has(component.id),
-                  compact: false,
-                  open: cardLayout(component, open.has(component.id)).open,
-                },
-              ];
-        });
+  const flow = readingFlow(flowComponents, relationships, open);
   const flowBottom = Math.max(HEADER, ...flow.map((box) => box.y + box.height));
   const loose = looseBoxes(
-    story === undefined
-      ? unconnected
-      : grouped.filter((component) => !flow.some((box) => box.id === component.id)),
+    unconnected,
     flowBottom + (unconnected.length === 0 ? 0 : ROW_GAP),
     open,
   );
-  const headerSpace = (system.narratives?.notice ?? null) === null ? 0 : 50;
-  const components = [...flow, ...loose].map((box) => ({
-    ...box,
-    y: box.y + headerSpace,
-  }));
+  const components = [...flow, ...loose];
   return {
     width: Math.max(720, ...components.map((box) => box.x + box.width + MARGIN)),
     height: Math.max(240, ...components.map((box) => box.y + box.height + MARGIN)),

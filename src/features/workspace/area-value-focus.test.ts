@@ -27,7 +27,6 @@ function node(id: string, x: number, y: number, systemId = id): ValueFlowNode {
       dependencies: [],
       resources: [],
       repository: null,
-      explorer: null,
     },
   };
 }

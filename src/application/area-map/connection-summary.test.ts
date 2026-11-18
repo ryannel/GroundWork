@@ -1,44 +1,8 @@
 import { describe, expect, it } from 'vitest';
 
-import type { AreaTechnicalRelationship } from '@/application/workspace-area';
-
-import {
-  combinedConnectionSummary,
-  connectionDetails,
-  connectionSummary,
-} from './connection-summary';
-
-const call: AreaTechnicalRelationship = {
-  id: 'call',
-  from: 'discounts',
-  to: 'offers',
-  fromSystem: 'discounts',
-  toSystem: 'offers',
-  endpointId: 'api:cars',
-  via: 'api:cars',
-  kind: 'api',
-  evidenced: true,
-  label: 'GET /markets/{market}/cars-for-sale',
-  detail: 'Discounts calls Offers.',
-};
-const authored = {
-  from: 'discounts',
-  to: 'offers',
-  kind: 'api' as const,
-  label: 'Find cars for sale',
-  evidence: ['api:cars'],
-};
+import { combinedConnectionSummary, connectionDetails } from './connection-summary';
 
 describe('connection explanations', () => {
-  it('uses evidence-backed purpose for the directed operations it covers', () => {
-    expect(connectionSummary(call, [], [authored])).toBe('Find cars for sale');
-    expect(connectionSummary({ ...call, endpointId: 'api:publish' }, [], [authored])).toBe(
-      call.label,
-    );
-    expect(connectionSummary({ ...call, from: 'offers', to: 'discounts' }, [], [authored])).toBe(
-      call.label,
-    );
-  });
   it('deduplicates the same purpose without losing distinct work', () => {
     expect(
       combinedConnectionSummary([{ label: 'Find cars for sale' }, { label: 'Find cars for sale' }]),

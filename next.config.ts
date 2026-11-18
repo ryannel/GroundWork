@@ -9,6 +9,7 @@ const config: NextConfig = {
   reactStrictMode: true,
   typedRoutes: true,
   images: { unoptimized: true },
+  experimental: { agentUpgrade: 'security' },
   ...(basePath === undefined || basePath === '' ? {} : { basePath }),
 };
 

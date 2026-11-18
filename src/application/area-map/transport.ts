@@ -8,8 +8,6 @@ import {
   resourceRelationshipDetail,
 } from '@/application/workspace-area-relationships';
 
-import { connectionSummary } from './connection-summary';
-
 type TransportRelationship = Omit<AreaTechnicalRelationship, 'detail' | 'id'> & {
   readonly id?: string;
   readonly detail?: string;
@@ -77,6 +75,15 @@ function nativeCollapsedCard<T extends AreaComponentView>(component: T): T {
   return { ...collapsedCard(component), entries: [], citations: [] };
 }
 
+/** Closed cards count their connections; recorded sources and sites load on exploration. */
+function overviewRelationship({
+  native: _native,
+  nativeSource: _source,
+  ...relation
+}: AreaTechnicalRelationship): AreaTechnicalRelationship {
+  return relation;
+}
+
 /** Authored work and boundary identities open immediately; code sites load on exploration. */
 function nativeOverview(
   view: AreaView,
@@ -93,9 +100,9 @@ function nativeOverview(
     valueFlow: view.valueFlow,
     boundaries: boundaries.map((boundary) => ({
       ...nativeCollapsedCard(boundary),
-      explorer: boundary.explorer,
+      ...(boundary.explorer === undefined ? {} : { explorer: boundary.explorer }),
     })),
-    technicalRelationships: [],
+    technicalRelationships: view.technicalRelationships.map(overviewRelationship),
     systems: view.systems.map(({ narratives: _narratives, ...system }) => ({
       ...system,
       resources: [],
@@ -108,13 +115,9 @@ function nativeOverview(
 export function packAreaMapOverview(view: AreaView): AreaMapTransport {
   if (view.valueFlow === undefined) return packAreaMapView(view);
   if (view.boundaries !== undefined) return nativeOverview(view, view.boundaries);
-  const components = view.systems.flatMap((system) => system.components);
   return packAreaMapView({
     ...view,
-    technicalRelationships: view.technicalRelationships.map((relation) => ({
-      ...relation,
-      summary: connectionSummary(relation, components, view.valueFlow?.summaries),
-    })),
+    technicalRelationships: view.technicalRelationships.map(overviewRelationship),
     systems: view.systems.map((system) => ({
       ...system,
       resources: [],

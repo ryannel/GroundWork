@@ -50,7 +50,7 @@ export interface AreaComponentView {
   readonly summary: string;
   readonly technology?: string | null;
   readonly category?: string;
-  readonly explorer: string | null;
+  readonly explorer?: string | null;
   readonly repository: { readonly name: string; readonly href: string } | null;
   readonly endpoints: readonly AreaEndpointView[];
   readonly resources: readonly AreaResourceView[];
@@ -80,7 +80,7 @@ export interface AreaEndpointView {
   readonly request: string | null;
   readonly response: string | null;
   readonly callers: readonly AreaCallerView[];
-  readonly explorer: string | null;
+  readonly explorer?: string | null;
 }
 
 export interface AreaResourceView {
@@ -101,7 +101,15 @@ export interface AreaDependencyView {
   readonly endpoint: string | null;
 }
 
+/** Named members of one system that read best as a single card. */
+export interface AreaComponentGroup {
+  readonly id: string;
+  readonly title: string;
+  readonly members: readonly string[];
+}
+
 export interface AreaSystemView {
+  readonly componentGroups?: readonly AreaComponentGroup[];
   readonly narratives?: AreaNarratives;
   readonly id: string;
   readonly name: string;
@@ -424,4 +432,49 @@ function checkedValueFlow(
     new Set(columns.map((entry) => entry.system)).size !== columns.length;
   if (misplaced) return undefined;
   return invalid || broken || invented === true ? undefined : value;
+}
+
+/** Retain the authored work that still has both ends in the drawing. */
+function withoutComponents(
+  value: LandscapeValueFlow | undefined,
+  removed: ReadonlySet<string>,
+): LandscapeValueFlow | undefined {
+  if (value === undefined) return undefined;
+  const keep = ({ from, to }: { readonly from: string; readonly to: string }): boolean =>
+    !removed.has(from) && !removed.has(to);
+  const bands = value.bands
+    .map((band) => ({
+      ...band,
+      nodes: band.nodes.filter(({ component }) => !removed.has(component)),
+    }))
+    .filter(({ nodes }) => nodes.length > 0);
+  if (bands.length === 0) return undefined;
+  return {
+    ...value,
+    bands,
+    connections: value.connections.filter(keep),
+    overview: value.overview?.filter(keep),
+    summaries: value.summaries?.filter(keep),
+  };
+}
+
+/** Keep shared infrastructure out of business canvases while preserving the source view. */
+export function areaWithoutInfrastructure(view: AreaView): AreaView {
+  const infrastructure = new Set(
+    view.systems.flatMap(({ components }) =>
+      components.filter((component) => component.infrastructure === true).map(({ id }) => id),
+    ),
+  );
+  if (infrastructure.size === 0) return view;
+  return {
+    ...view,
+    systems: view.systems.map((system) => ({
+      ...system,
+      components: system.components.filter(({ id }) => !infrastructure.has(id)),
+    })),
+    technicalRelationships: view.technicalRelationships.filter(
+      ({ from, to }) => !infrastructure.has(from) && !infrastructure.has(to),
+    ),
+    valueFlow: withoutComponents(view.valueFlow, infrastructure),
+  };
 }

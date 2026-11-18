@@ -35,14 +35,22 @@ export function CanvasInspectorSection({ children }: { readonly children: ReactN
 export function CanvasEndpointChoice({
   active,
   children,
+  inspect,
   onClick,
 }: {
   readonly active: boolean;
+  readonly inspect?: string | undefined;
   readonly children: ReactNode;
   readonly onClick: () => void;
 }) {
   return (
-    <button aria-pressed={active} className={styles.endpointChoice} onClick={onClick} type="button">
+    <button
+      aria-pressed={active}
+      className={styles.endpointChoice}
+      data-inspect={inspect}
+      onClick={onClick}
+      type="button"
+    >
       {children}
     </button>
   );
@@ -83,6 +91,7 @@ export function CanvasBoundary({
   height,
   header,
   headerHeight = 70,
+  hoverId,
 }: {
   readonly x: number;
   readonly y: number;
@@ -90,6 +99,7 @@ export function CanvasBoundary({
   readonly height: number;
   readonly header: ReactNode;
   readonly headerHeight?: number;
+  readonly hoverId?: string;
 }) {
   return (
     <>
@@ -102,6 +112,7 @@ export function CanvasBoundary({
         vectorEffect="non-scaling-stroke"
       />
       <foreignObject
+        data-component={hoverId}
         height={headerHeight}
         pointerEvents="auto"
         width={width - 2}
