@@ -296,11 +296,13 @@ describe('AreaSystemMap', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Details of Pre-tax prices' }));
 
     expect(screen.queryByRole('button', { name: /POST \/api\/v6\/CalculateCart/u })).toBeNull();
-    fireEvent.click(
-      screen.getByRole('button', { name: /REST \/CalculateCart · v6.*1 operations/u }),
-    );
+    const apiGroup = screen.getByRole('button', {
+      name: /REST \/CalculateCart · v6.*1 operations/u,
+    });
+    expect(apiGroup.dataset.inspect).toBe('api:calculate-cart');
+    fireEvent.click(apiGroup);
     const operation = screen.getByRole('button', { name: /POST \/api\/v6\/CalculateCart/u });
-    expect(operation.dataset.inspect).toBeUndefined();
+    expect(operation.dataset.inspect).toBe('api:calculate-cart');
     fireEvent.click(operation);
     expect(screen.getByRole('link', { name: /Open API logic/u }).getAttribute('href')).toBe(
       '/cars/entries?id=api-calculate-cart',

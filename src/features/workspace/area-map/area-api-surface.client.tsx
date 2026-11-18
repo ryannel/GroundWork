@@ -19,6 +19,7 @@ function SurfaceList({ component, onSelect }: SurfaceProps) {
         <CanvasEndpointChoice
           active={false}
           key={surface.id}
+          inspect={surface.endpoints[0]?.id}
           onClick={() => {
             onSelect(surface.id);
           }}
@@ -59,6 +60,7 @@ export function AreaApiSurface({ component, selected, onSelect }: SurfaceProps) 
         <CanvasEndpointChoice
           active={endpoint.id === selected}
           key={endpoint.id}
+          inspect={endpoint.id}
           onClick={() => {
             onSelect(endpoint.id);
           }}

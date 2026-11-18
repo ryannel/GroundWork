@@ -119,12 +119,10 @@ function CardRowView({
   row,
   handlers,
   card,
-  localDetails,
 }: {
   readonly row: DrawnRow;
   readonly handlers: RowHandlers;
   readonly card: AreaComponentView;
-  readonly localDetails: boolean;
 }) {
   if (row.kind === 'api') {
     const { surface } = row;
@@ -134,7 +132,7 @@ function CardRowView({
           surface.id === handlers.endpoint ||
           surface.endpoints.some((port) => port.id === handlers.endpoint)
         }
-        inspect={localDetails ? undefined : surface.endpoints[0]?.id}
+        inspect={surface.endpoints[0]?.id}
         ports={surface.endpoints.map((port) => port.id)}
         onSelect={() => {
           handlers.onSelectEndpoint(surface.id);
@@ -294,13 +292,7 @@ export function ComponentCluster({
           tone={SECTION[section.kind].tone}
         >
           {section.rows.filter(drawn).map((row) => (
-            <CardRowView
-              card={component}
-              localDetails={localDetails}
-              handlers={handlers}
-              key={cardRowKey(row)}
-              row={row}
-            />
+            <CardRowView card={component} handlers={handlers} key={cardRowKey(row)} row={row} />
           ))}
         </ComponentCardSection>
       ))}
