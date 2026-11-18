@@ -60,8 +60,7 @@ function systemOf(index: ModelIndex, id: string): AreaSystemView | null {
       : {
           narratives: {
             basis: declared.narratives.basis,
-            notice:
-              'Saved interpretation; freshness has not been checked against the native model.',
+            notice: null,
             stories: declared.narratives.stories.map((story) => {
               const { connections, stages, ...metadata } = story;
               return {
@@ -96,14 +95,10 @@ function evidenceOf(
     consume: 'Consumes',
     causes: 'Starts later work',
   };
-  const qualification =
-    edge.source === 'operation'
-      ? 'Possible GraphQL reach from the cited document and composition; not an observed runtime query plan.'
-      : 'Recorded declaration and retained source context; deployment and delivery are not established.';
   return {
     label: modelText(source?.says) ?? `${words[edge.kind]} ${index.label(edge.via)}`,
     detail:
-      `${index.label(edge.from)} → ${index.label(edge.to)}. ${modelText(source?.reason) ?? ''} ${qualification}`.trim(),
+      `${index.label(edge.from)} → ${index.label(edge.to)}. ${modelText(source?.reason) ?? ''}`.trim(),
     evidenceIds: [edge.site],
     evidenced: edge.cites.length > 0,
     native: edge,

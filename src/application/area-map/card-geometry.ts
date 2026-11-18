@@ -60,7 +60,8 @@ type Pending =
 
 const HEIGHTS: Readonly<Record<Pending['kind'], number>> = {
   api: CARD.apiRow,
-  endpoint: CARD.apiRow,
+  // Endpoints are not drawn: they anchor lines on their API group's row.
+  endpoint: 0,
   resource: CARD.resourceRow,
   shared: CARD.sharedRow,
 };
@@ -117,9 +118,12 @@ export function cardLayout(component: AreaComponentView, open: boolean): CardLay
           ]
         : [row],
     );
+    let group = top;
     const rows = entries.map((row): CardRow => {
+      if (row.kind === 'endpoint') return { ...row, centre: group };
       const centre = top + HEIGHTS[row.kind] / 2;
       top += HEIGHTS[row.kind];
+      group = centre;
       return { ...row, centre };
     });
     return { kind: section.kind, rows };

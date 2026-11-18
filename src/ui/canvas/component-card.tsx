@@ -204,11 +204,10 @@ export function ComponentCardSection({
   );
 }
 
-/** One group of API operations: the protocol as a badge, the resource path, and its versions. */
+/** One group of API operations: the protocol as a badge, the resource path, and how many operations it holds. */
 export function ComponentCardApiRow({
   protocol,
   path,
-  versions,
   operations,
   inspect,
   ports,
@@ -217,7 +216,6 @@ export function ComponentCardApiRow({
 }: {
   readonly protocol: string;
   readonly path: string;
-  readonly versions: string;
   readonly operations: number;
   readonly inspect?: string | undefined;
   /** The endpoint ids behind this row, so resting on it can light just their lines. */
@@ -229,7 +227,7 @@ export function ComponentCardApiRow({
   const shortUnit = operations === 1 ? 'op' : 'ops';
   const count = operations === 0 ? '' : `${String(operations)} ${unit}`;
   const shortCount = operations === 0 ? '' : `${String(operations)} ${shortUnit}`;
-  const label = [protocol, path, versions, count].filter((part) => part !== '').join(' · ');
+  const label = [protocol, path, count].filter((part) => part !== '').join(' · ');
   return (
     <button
       aria-label={label}
@@ -245,9 +243,7 @@ export function ComponentCardApiRow({
         {protocol}
       </span>
       <span className={styles.path}>{path}</span>
-      <span className={styles.meta}>
-        {[versions, shortCount].filter((part) => part !== '').join(' · ')}
-      </span>
+      <span className={styles.meta}>{shortCount}</span>
     </button>
   );
 }

@@ -40,7 +40,20 @@ export function landscapeHoverId(area: string, system: string, node?: string): s
   return JSON.stringify([area, system, node]);
 }
 
-export function drawingOf(view: AreaView, state: AreaDrawingState) {
+const drawings = new WeakMap<AreaView, WeakMap<AreaDrawingState, Drawing>>();
+
+/** Laying out an area routes every line; an unchanged area and state keep their drawing. */
+export function drawingOf(view: AreaView, state: AreaDrawingState): Drawing {
+  const known = drawings.get(view) ?? new WeakMap<AreaDrawingState, Drawing>();
+  drawings.set(view, known);
+  const cached = known.get(state);
+  if (cached !== undefined) return cached;
+  const drawing = drawAreaOf(view, state);
+  known.set(state, drawing);
+  return drawing;
+}
+
+function drawAreaOf(view: AreaView, state: AreaDrawingState) {
   const cards = new Set(state.cards);
   for (const system of view.systems) {
     for (const group of system.componentGroups ?? []) {
@@ -61,7 +74,7 @@ export function drawingOf(view: AreaView, state: AreaDrawingState) {
   };
 }
 
-type Drawing = ReturnType<typeof drawingOf>;
+type Drawing = ReturnType<typeof drawAreaOf>;
 
 export function systemFrame(area: AreaMapNode, drawing: Drawing | null | undefined, id: string) {
   const box =

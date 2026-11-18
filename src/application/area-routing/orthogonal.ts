@@ -33,6 +33,26 @@ function crossesBox(a: RoutePoint, b: RoutePoint, box: RouteBox): boolean {
   return a.x > box.x && a.x < box.x + box.width && crosses(a.y, b.y, box.y, box.y + box.height);
 }
 
+const lanesOf = new WeakMap<readonly RouteBox[], Map<string, readonly RouteBox[]>>();
+
+/** Only a box whose interior spans a segment's row (or column) can block it; routes reuse few lines. */
+function spanning(
+  boxes: readonly RouteBox[],
+  horizontal: boolean,
+  at: number,
+): readonly RouteBox[] {
+  const lanes = lanesOf.get(boxes) ?? new Map<string, readonly RouteBox[]>();
+  lanesOf.set(boxes, lanes);
+  const key = `${horizontal ? 'row' : 'column'}${String(at)}`;
+  const known = lanes.get(key);
+  if (known !== undefined) return known;
+  const found = boxes.filter((box) =>
+    horizontal ? at > box.y && at < box.y + box.height : at > box.x && at < box.x + box.width,
+  );
+  lanes.set(key, found);
+  return found;
+}
+
 /** Card interiors and header text are obstacles, including the two endpoint cards. */
 export function clearRouteSegment(
   a: RoutePoint,
@@ -40,7 +60,8 @@ export function clearRouteSegment(
   boxes: readonly RouteBox[],
 ): boolean {
   if (a.x !== b.x && a.y !== b.y) return false;
-  return !boxes.some((box) => crossesBox(a, b, box));
+  const horizontal = a.y === b.y;
+  return !spanning(boxes, horizontal, horizontal ? a.y : a.x).some((box) => crossesBox(a, b, box));
 }
 
 function between(before: RoutePoint, middle: RoutePoint, after: RoutePoint): boolean {
@@ -126,6 +147,9 @@ function cost(points: readonly RoutePoint[], penalty: SearchSpace['penalty']): n
     Math.max(0, points.length - 2) * 36,
   );
 }
+
+/** Traffic penalties are never negative, so this bounds `cost` from below. */
+const leastCost = (points: readonly RoutePoint[]): number => cost(points, () => 0);
 
 interface RoutingSpace {
   readonly boxes: readonly RouteBox[];
@@ -355,27 +379,33 @@ interface PortPair {
   readonly distance: number;
 }
 
-function directRoutes(pair: PortPair, space: SearchSpace): readonly (readonly RoutePoint[])[] {
-  return candidates(pair.start.exit, pair.end.exit, space)
-    .map((middle) => attached(pair.start, pair.end, middle))
-    .filter((points) => valid(points, space));
+interface Lane {
+  readonly points: readonly RoutePoint[];
+  readonly score: number;
+}
+
+/** The cheapest acceptable lane for one port pair that beats `limit`, if any. */
+function bestLane(pair: PortPair, space: SearchSpace, limit: number): Lane | null {
+  let best: Lane | null = null;
+  for (const middle of candidates(pair.start.exit, pair.end.exit, space)) {
+    const points = attached(pair.start, pair.end, middle);
+    const bound: number = best?.score ?? limit;
+    // A lane that cannot beat the best so far needs no obstacle or caption checks.
+    const viable =
+      leastCost(points) < bound && valid(points, space) && space.accept?.(points) !== false;
+    const score = viable ? cost(points, space.penalty) : Infinity;
+    if (score < bound) best = { points, score };
+  }
+  return best;
 }
 
 function directRoute(pairs: readonly PortPair[], space: SearchSpace): readonly RoutePoint[] {
-  let best: readonly RoutePoint[] = [];
-  let bestCost = Infinity;
+  let best: Lane = { points: [], score: Infinity };
   for (const pair of pairs) {
-    if (pair.distance > bestCost) continue;
-    for (const points of directRoutes(pair, space)) {
-      if (space.accept?.(points) === false) continue;
-      const score = cost(points, space.penalty);
-      if (score < bestCost) {
-        best = points;
-        bestCost = score;
-      }
-    }
+    if (pair.distance > best.score) continue;
+    best = bestLane(pair, space, best.score) ?? best;
   }
-  return best;
+  return best.points;
 }
 
 /** Choose ports and route together. No global return lane, and no path shifting after collision checks. */

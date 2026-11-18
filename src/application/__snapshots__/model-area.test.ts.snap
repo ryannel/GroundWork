@@ -307,7 +307,7 @@ exports[`retains authored bands, recorded connections and resolved citations thr
     {
       "detail": "2 out · 0 in
 
-Ordering API → Payments.  Recorded declaration and retained source context; deployment and delivery are not established.",
+Ordering API → Payments.",
       "endpointId": "api:charge",
       "evidence": [],
       "evidenceIds": [
@@ -1137,7 +1137,7 @@ exports[`uses actual entries, SDK protocol, known API callers and recorded techn
       "name": "Ordering",
       "narratives": {
         "basis": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-        "notice": "Saved interpretation; freshness has not been checked against the native model.",
+        "notice": null,
         "stories": [
           {
             "confidence": "low",
@@ -1217,7 +1217,7 @@ exports[`uses actual entries, SDK protocol, known API callers and recorded techn
   ],
   "technicalRelationships": [
     {
-      "detail": "Ordering API → Orders database.  Recorded declaration and retained source context; deployment and delivery are not established.",
+      "detail": "Ordering API → Orders database.",
       "endpointId": null,
       "evidence": "handler",
       "evidenceIds": [
@@ -1273,7 +1273,7 @@ exports[`uses actual entries, SDK protocol, known API callers and recorded techn
       "via": "sch:order",
     },
     {
-      "detail": "Ordering API → Orders database.  Recorded declaration and retained source context; deployment and delivery are not established.",
+      "detail": "Ordering API → Orders database.",
       "endpointId": null,
       "evidence": "handler",
       "evidenceIds": [
@@ -1329,7 +1329,7 @@ exports[`uses actual entries, SDK protocol, known API callers and recorded techn
       "via": "sch:order#status",
     },
     {
-      "detail": "Ordering API → Payments.  Recorded declaration and retained source context; deployment and delivery are not established.",
+      "detail": "Ordering API → Payments.",
       "endpointId": "api:charge",
       "evidence": "handler",
       "evidenceIds": [
@@ -1386,7 +1386,7 @@ exports[`uses actual entries, SDK protocol, known API callers and recorded techn
       "via": "api:charge",
     },
     {
-      "detail": "Ordering API → Orders database.  Recorded declaration and retained source context; deployment and delivery are not established.",
+      "detail": "Ordering API → Orders database.",
       "endpointId": null,
       "evidence": "handler",
       "evidenceIds": [
@@ -1442,7 +1442,7 @@ exports[`uses actual entries, SDK protocol, known API callers and recorded techn
       "via": "sch:order",
     },
     {
-      "detail": "Ordering API → Payments.  Recorded declaration and retained source context; deployment and delivery are not established.",
+      "detail": "Ordering API → Payments.",
       "endpointId": "api:charge",
       "evidence": "handler",
       "evidenceIds": [
@@ -1497,7 +1497,7 @@ exports[`uses actual entries, SDK protocol, known API callers and recorded techn
       "via": "api:charge",
     },
     {
-      "detail": "Ordering API → Order confirmations.  Recorded declaration and retained source context; deployment and delivery are not established.",
+      "detail": "Ordering API → Order confirmations.",
       "endpointId": null,
       "evidence": "handler",
       "evidenceIds": [
@@ -1555,7 +1555,7 @@ exports[`uses actual entries, SDK protocol, known API callers and recorded techn
       "via": "msg:confirmed",
     },
     {
-      "detail": "Shop → Ordering API.  Recorded declaration and retained source context; deployment and delivery are not established.",
+      "detail": "Shop → Ordering API.",
       "endpointId": "api:confirm",
       "evidence": "handler",
       "evidenceIds": [
@@ -1598,7 +1598,7 @@ exports[`uses actual entries, SDK protocol, known API callers and recorded techn
       "via": "api:confirm",
     },
     {
-      "detail": "Order confirmations → Ordering API.  Recorded declaration and retained source context; deployment and delivery are not established.",
+      "detail": "Order confirmations → Ordering API.",
       "endpointId": null,
       "evidence": "declared",
       "evidenceIds": [
@@ -1639,7 +1639,7 @@ exports[`uses actual entries, SDK protocol, known API callers and recorded techn
       "via": "msg:confirmed",
     },
     {
-      "detail": "Shop → Ordering API.  Possible GraphQL reach from the cited document and composition; not an observed runtime query plan.",
+      "detail": "Shop → Ordering API.",
       "endpointId": null,
       "evidence": "declared",
       "evidenceIds": [

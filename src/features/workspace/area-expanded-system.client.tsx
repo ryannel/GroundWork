@@ -108,13 +108,20 @@ function cardRowKey(row: CardRow): string {
   return row.kind === 'api' ? row.surface.id : row.resource.id;
 }
 
+type DrawnRow = Exclude<CardRow, { readonly kind: 'endpoint' }>;
+
+/** Endpoint rows only anchor lines on their API group's row; the card lists groups. */
+function drawn(row: CardRow): row is DrawnRow {
+  return row.kind !== 'endpoint';
+}
+
 function CardRowView({
   row,
   handlers,
   card,
   localDetails,
 }: {
-  readonly row: CardRow;
+  readonly row: DrawnRow;
   readonly handlers: RowHandlers;
   readonly card: AreaComponentView;
   readonly localDetails: boolean;
@@ -135,23 +142,6 @@ function CardRowView({
         operations={surface.endpoints.length}
         path={surface.label === surface.protocol ? 'API' : surface.label}
         protocol={surface.protocol}
-        versions={surface.versions.join(', ')}
-      />
-    );
-  }
-  if (row.kind === 'endpoint') {
-    return (
-      <ComponentCardApiRow
-        active={row.endpoint.id === handlers.endpoint}
-        inspect={localDetails ? undefined : row.endpoint.id}
-        ports={[row.endpoint.id]}
-        onSelect={() => {
-          handlers.onSelectEndpoint(row.endpoint.id);
-        }}
-        operations={0}
-        path={row.endpoint.signature}
-        protocol=""
-        versions=""
       />
     );
   }
@@ -297,13 +287,13 @@ export function ComponentCluster({
       )}
       {layout.sections.map((section) => (
         <ComponentCardSection
-          count={section.rows.length}
+          count={section.rows.filter(drawn).length}
           icon={SECTION[section.kind].icon}
           key={section.kind}
           label={SECTION[section.kind].label}
           tone={SECTION[section.kind].tone}
         >
-          {section.rows.map((row) => (
+          {section.rows.filter(drawn).map((row) => (
             <CardRowView
               card={component}
               localDetails={localDetails}

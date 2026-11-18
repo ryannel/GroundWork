@@ -60,21 +60,42 @@ function anchorName(node: ValueFlowNode, row: CardRow | undefined): string {
   return contract === undefined ? name : `${name} · ${contract}`;
 }
 
+const nodeIndexes = new WeakMap<Drawing, ReadonlyMap<string, ValueFlowNode>>();
+const cardRows = new WeakMap<ValueFlowNode['component'], readonly CardRow[]>();
+
+function nodesByMember(drawing: Drawing): ReadonlyMap<string, ValueFlowNode> {
+  const entries = drawing.nodes.flatMap((node) =>
+    node.members.map((member) => [`${node.systemId}\n${member}`, node] as const),
+  );
+  // The first card holding a component wins, as a scan of the drawing in order would find it.
+  return new Map(entries.toReversed());
+}
+
+function nodeHolding(drawing: Drawing, system: string, component: string) {
+  const index = nodeIndexes.get(drawing) ?? nodesByMember(drawing);
+  nodeIndexes.set(drawing, index);
+  return index.get(`${system}\n${component}`);
+}
+
+function openRows(node: ValueFlowNode): readonly CardRow[] {
+  const known = cardRows.get(node.component);
+  if (known !== undefined) return known;
+  const rows = cardLayout(node.component, true).sections.flatMap((section) => section.rows);
+  cardRows.set(node.component, rows);
+  return rows;
+}
+
 function anchor(
   area: AreaMapNode,
   drawing: Drawing | null | undefined,
   target: { readonly system: string; readonly component: string; readonly endpoint?: string },
 ) {
-  const node = drawing?.nodes.find(
-    (item) => item.systemId === target.system && item.members.includes(target.component),
-  );
+  const node = drawing ? nodeHolding(drawing, target.system, target.component) : undefined;
   if (node !== undefined) {
     const port = target.endpoint;
     const row =
       node.open === true && port !== undefined
-        ? cardLayout(node.component, true)
-            .sections.flatMap(({ rows }) => rows)
-            .find((item) => rowMatches(item, port))
+        ? openRows(node).find((item) => rowMatches(item, port))
         : undefined;
     const portHeight = node.open === true ? CARD.header : node.height;
     return {
@@ -200,36 +221,45 @@ interface IntegrationGroup {
   readonly bidirectional?: boolean;
 }
 
+function placedIntegration(
+  areas: ReadonlyMap<string, AreaMapNode>,
+  drawings: Drawings,
+  record: AreaIntegration,
+) {
+  const caller = areas.get(record.callerArea);
+  const provider = areas.get(record.providerArea);
+  if (caller === undefined || provider === undefined) return [];
+  const entry = record.kind === 'receive' ? record.caller : record.callerEndpoint;
+  const from = anchor(caller, drawings.get(caller.id), {
+    system: record.callerSystem,
+    component: record.caller,
+    ...(entry === undefined ? {} : { endpoint: entry }),
+  });
+  const to = anchor(provider, drawings.get(provider.id), {
+    system: record.providerSystem,
+    component: record.provider,
+    ...(record.kind === 'receive'
+      ? {}
+      : { endpoint: record.kind === 'call' ? record.endpoint : record.provider }),
+  });
+  return [{ id: JSON.stringify([from.id, to.id]), from, to, record }];
+}
+
 export function landscapeIntegrationGroups(
   layout: AreaLandscapeView,
   drawings: Drawings,
   records: readonly AreaIntegration[],
 ): readonly IntegrationGroup[] {
   const areas = new Map(layout.nodes.map((area) => [area.id, area]));
-  const groups = new Map<string, IntegrationGroup>();
-  for (const record of records) {
-    const caller = areas.get(record.callerArea);
-    const provider = areas.get(record.providerArea);
-    if (caller === undefined || provider === undefined) continue;
-    const entry = record.kind === 'receive' ? record.caller : record.callerEndpoint;
-    const from = anchor(caller, drawings.get(caller.id), {
-      system: record.callerSystem,
-      component: record.caller,
-      ...(entry === undefined ? {} : { endpoint: entry }),
-    });
-    const to = anchor(provider, drawings.get(provider.id), {
-      system: record.providerSystem,
-      component: record.provider,
-      ...(record.kind === 'receive'
-        ? {}
-        : { endpoint: record.kind === 'call' ? record.endpoint : record.provider }),
-    });
-    const id = JSON.stringify([from.id, to.id]);
-    groups.set(id, { id, from, to, members: [...(groups.get(id)?.members ?? []), record] });
-  }
-  return [...groups.values()].filter(
-    ({ from, to }) => from.cardId === undefined || from.cardId !== to.cardId,
-  );
+  const placed = records.flatMap((record) => placedIntegration(areas, drawings, record));
+  return [...Map.groupBy(placed, ({ id }) => id).values()]
+    .flatMap((members) => {
+      const first = members[0];
+      return first === undefined
+        ? []
+        : [{ id: first.id, from: first.from, to: first.to, members: members.map((m) => m.record) }];
+    })
+    .filter(({ from, to }) => from.cardId === undefined || from.cardId !== to.cardId);
 }
 
 /** One connection for each visible pair, irrespective of which direction was recorded first. */
