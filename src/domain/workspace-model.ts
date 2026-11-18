@@ -2,9 +2,9 @@ import type { EvidenceFamily } from '@/domain/evidence/evidence';
 import { appendChild, failureId, kindOf, nestedId, type IdKind } from '@/domain/ids';
 import type { ContractData, ContractDefinition } from '@/domain/model/contracts.generated';
 
-// The system model: how the systems of a workspace work today. It sits beside the structure
-// (domains/<d>/systems/<s>/system.yaml) as contracts.yaml and handlers.yaml per system, story.yaml, flows/ and journeys/,
-// and is read in plan shape so the plan views can draw it.
+// This module contains both historical format-1 types and the current format-2 facade.
+// WorkspaceModel and ModelData below are the current schema-derived model.
+// The imports from domain/plan/plan.generated support the legacy declarations only.
 import type {
   Concept,
   Flow,
@@ -184,6 +184,7 @@ export interface ScanCheck {
   readonly folders: Readonly<Record<string, number>>;
 }
 
+/** Historical format-1 input retained for migration and fixture verification. */
 export interface LegacyWorkspaceModel {
   readonly story: Story;
   /** One per domain that has a language.yaml, in domain order. */
@@ -263,7 +264,7 @@ export interface ModelGap {
   readonly property?: string;
 }
 
-/** The serialisable workspace, before or after a plan. File placement is independent of ownership. */
+/** Current consolidated format-2 workspace, before or after a plan. Placement is independent of ownership. */
 export type WorkspaceModel = ModelData<'WorkspaceFile'> & {
   readonly domains: readonly ModelDomain[];
   readonly libraries: readonly ModelData<'Library'>[];

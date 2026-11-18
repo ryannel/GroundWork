@@ -1,5 +1,11 @@
 # Legacy map lookup
 
+The CLI commands below apply to current format-2 workspaces. The file-layout, `sources` and
+`scans/` examples describe historical format-1 inputs. For current files use the
+[consolidated layout](../../../docs/rebuild/design.md#4-committed-layout-per-workspace),
+`cites` references and `evidence/<org>/<repo>/repository.json` pins. The current CLI requires
+a consolidated model and reports an error when one is unavailable.
+
 Historical reference for retained proof. For current workspace authoring, use the consolidated
 [Groundwork schema](../groundwork-schema/SKILL.md) and [native scan](../groundwork-scan/SKILL.md).
 

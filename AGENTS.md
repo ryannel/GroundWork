@@ -6,6 +6,21 @@ Groundwork) in Next.js and TypeScript.
 
 - Read `docs/architecture.md` before adding a file. The lint config enforces it; do not disable rules to get past
   it.
+- Build new features and migrate existing app sections on the consolidated **format-2 model**.
+  This is the model Groundwork is moving every section towards. Legacy models, readers and adapters
+  are deprecated migration paths; retire them as their callers move to format 2.
+  The [committed layout](docs/rebuild/design.md#4-committed-layout-per-workspace) and
+  [runtime model](docs/rebuild/design.md#5-in-memory) describe it.
+  The contracts are `schema/workspace.schema.json`, `schema/evidence.schema.json` and
+  `schema/plan.schema.json`; `npm run generate` produces their types under `src/domain/model/`.
+  Load through `src/infrastructure/read-model.ts` and query `indexOf` in
+  `src/application/model-index.ts`. `WorkspaceModel` in `src/domain/workspace-model.ts` is the
+  current serialisable type; `LegacyWorkspaceModel` in that same file is historical.
+  `src/application/workspace-model.ts` is the deprecated plan-shaped adapter.
+  Area → system → component → interface/entry → handler steps is the exploration path.
+  Areas reference systems in `landscape.yaml`; workspace/domain/system/component containment
+  and explicit resource ownership live in the consolidated model. Retained format-1 files,
+  `explorer/` and scan archives provide historical inputs and migration evidence.
 - Before workspace-backed work, run `npm run workspace -- list` (or `npm run --silent workspace -- list --json`) in this checkout. Resolve
   the requested workspace's name, id and folder from that registry; `workspaces/` contains examples, not all
   available workspaces. Never claim a workspace or its model is missing from a folder search alone.

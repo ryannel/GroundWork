@@ -2,9 +2,9 @@ import { legacyPlacements } from '@/application/legacy-placement';
 import { derive, type Model } from '@/application/plan/derive';
 import { homeUrlOf } from '@/domain/code-links';
 import { buildId } from '@/domain/ids';
-// How the systems of a workspace work today, as one plan-shaped document with no changes, so every
-// plan view (map, flows, contracts, screens) can draw it. The structure gives the components; the
-// system model (contracts.yaml, story.yaml, flows/, journeys/) gives what they offer and keep.
+// Legacy format-1 adapter used by historical inputs and retirement proofs.
+// Current workspace queries use indexOf in application/model-index.ts on WorkspaceModel,
+// loaded by infrastructure/read-model.ts. See docs/rebuild/design.md sections 4 and 5.
 import type { Plan, Service, Store } from '@/domain/plan/plan.generated';
 import {
   type Component,

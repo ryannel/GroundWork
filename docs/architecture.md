@@ -17,8 +17,12 @@ The layers below are enforced by `eslint.config.mjs`, and `test/architecture.tes
 fires. If a rule gets in the way, change the architecture on purpose, here and in the config, not with a
 disable comment. Unused disable comments are errors.
 
-During the model rebuild, `schema/workspace.schema.json`, `schema/plan.schema.json` and
-`schema/evidence.schema.json` own the canonical contracts. `npm run generate` produces their TypeScript
+All new features and app-section migrations build on the consolidated format-2 model.
+Legacy fact models, readers and plan-shaped adapters are deprecated and are retired as their
+callers migrate. Historical fixtures and migration evidence retain their recorded formats.
+
+The current consolidated format-2 model uses `schema/workspace.schema.json`, `schema/plan.schema.json` and
+`schema/evidence.schema.json` as its canonical contracts. `npm run generate` produces their TypeScript
 registries and immutable type facade under `src/domain/model/`. `src/infrastructure/model-schema.ts` uses
 Ajv for both direct checks and file loading; its errors retain JSON instance paths. The handwritten model
 fixture under `test/fixtures/model/` exercises these contracts. The format-1 schema under
@@ -104,34 +108,36 @@ workspace level and may cross any domain. These four words are the only levels; 
 deployable microservice, worker or job), a **store** (a database), a **topic** (a queue or event stream), or a
 user-facing app. Say "service" only when you mean that kind; say "component" when you mean any of them.
 
+The current committed layout is defined in [the consolidated model design](rebuild/design.md#4-committed-layout-per-workspace).
+The contracts in `schema/` and the `readModel` implementation govern current fields.
+The serialisable `WorkspaceModel` and the retained `LegacyWorkspaceModel` share
+`src/domain/workspace-model.ts`; use the former for current work.
+
 ```
-<workspace>/workspace.yaml            format, teams (handles, partner, contacts), the people (actors) who use the
-                                      systems, and key journeys
-  landscape.yaml                     authored areas and the major relationships used to enter the system model
-  language.yaml                       the key terms the business has agreed on, anchored to the code
+<workspace>/workspace.yaml                          format: 2, identity, teams and actors
+  aliases.yaml, language.yaml, landscape.yaml        names, business language and exploration areas
+  externals.yaml, libraries.yaml                     external parties and libraries
+  graphs/<graph>.yaml                               graph composition and federation facts
   domains/<domain>/domain.yaml
-    language.yaml                     the domain's words: summary and concepts (system model)
-    target.yaml                       where the domain is heading: its target architecture (people)
-    systems/<system>/system.yaml      purpose, owning team (optional), components and what they talk to
-    systems/<system>/contracts.yaml   what its components offer and keep (system model)
-    systems/<system>/narratives.yaml  optional inferred stories, evidence references and input fingerprint
-    systems/<system>/handlers.yaml    what runs when its endpoints and messages are reached (system model)
-  story.yaml                          summary and stages across domains (system model)
-  flows/<flow>.yaml                   one flow per file (system model)
-  journeys/<journey>.yaml             a user journey and its interactions (system model)
-  assets/                             screen drawings cited by journeys
-  scans/<org>/<repo>.yaml             the commit each repo was last read at, and how far it has moved since
-  programmes/<programme>/programme.yaml  the outcome some plans serve; shared scenarios, decisions, questions, milestones
-  plans/<plan>/plan.yaml              the overlay, its work and its reasons (meta.programme, builds_on)
-    progress.yaml                     what has happened: commitment, work and note events, append-only
-    base.lock.json                    what an open plan was checked against (generated): checked_on, entities
-                                      (target id → fingerprint), bases (plan → hash), programme { id, hash },
-                                      composed (the hash of what its bases make), plan (the hash of the plan
-                                      that was checked)
-    base.yaml                         a landed plan's frozen today (generated)
-    revisions/, assets/, mockups/     approved snapshots, pictures, the walking mockup
-schema/plan.schema.json               the plan format, checked with ajv (in Groundwork, not the workspace)
+    language.yaml, target.yaml                       domain language and intended architecture
+    systems/<system>/system.yaml                    identity, code homes, components and relationships
+      contracts.yaml                                interfaces, entries, messages, operations and schemas
+      screens.yaml                                  screens and regions
+      handlers/<component>.yaml                     execution under each component's entries
+      narratives.yaml                               optional inferred stories
+  flows/*.yaml, journeys/*.yaml, programmes/*.yaml
+  evidence/<org>/<repo>/repository.json              repository pin and scan metadata
+  evidence/<org>/<repo>/                             evidence records cited by authored facts
+  plans/<plan>/plan.yaml                             operations on the same model identities
+    progress.yaml, revisions/, assets/, mockups/
+    base.yaml, base/                                 a landed plan's retained baseline
 ```
+
+`readModel` in `src/infrastructure/read-model.ts` validates and joins these fragments into
+one `WorkspaceModel`. `indexOf` in `src/application/model-index.ts` supplies placement,
+connections, execution and evidence queries for the UI and CLI. A format-2 workspace can still
+contain historical files such as `handlers.yaml`, `scans/` and `explorer/`; their presence
+does not make them current model inputs. Component execution is read from `handlers/<component>.yaml`.
 
 `landscape.yaml` is optional. Its areas are authored, purpose-led entrances into the evidence, not a fifth level
 beside workspace › domain › system › component. An area may reference systems from several domains and a system may
