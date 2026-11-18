@@ -1,5 +1,6 @@
 @layer components {
-  .head {
+  .head,
+  .section {
     display: grid;
     gap: var(--s-2);
   }
@@ -10,88 +11,36 @@
     gap: var(--s-2);
     align-items: baseline;
     margin: 0;
-    font-size: var(--fs-14);
     overflow-wrap: anywhere;
   }
 
-  .method {
-    padding: 0 var(--s-2);
-    border-radius: var(--r-2);
-    background: var(--bg-3);
-    font-family: var(--font-mono);
-    font-size: var(--fs-12);
-    font-weight: 600;
-
-    &[data-method='GET'] {
-      color: var(--st-add-fg);
-    }
-
-    &[data-method='POST'],
-    &[data-method='PUT'],
-    &[data-method='PATCH'] {
-      color: var(--st-mod-fg);
-    }
-
-    &[data-method='DELETE'] {
-      color: var(--st-rem-fg);
-    }
-  }
-
   .meta,
-  .mentions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--s-2);
-    align-items: center;
-  }
-
-  .section,
-  .table {
-    display: grid;
-    gap: var(--s-2);
-  }
-
-  .table {
-    padding-left: var(--s-3);
-    border-left: 2px solid var(--line-1);
-  }
-
-  .heading,
-  .subheading {
+  .heading {
     display: flex;
     flex-wrap: wrap;
     gap: var(--s-2);
     align-items: center;
     margin: 0;
-    font-size: var(--fs-14);
-    font-weight: 600;
   }
 
-  .subheading {
-    font-size: var(--fs-13);
+  .table {
+    display: grid;
+    gap: var(--s-2);
+    padding-left: var(--s-3);
   }
 
-  .field {
+  .field,
+  .step {
     display: grid;
     gap: var(--s-1);
-
-    &[data-touched] code {
-      color: var(--accent);
-      font-weight: 600;
-    }
   }
 
-  .fieldLine {
+  .fieldLine,
+  .stepLine {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--s-1) var(--s-2);
+    gap: 0 var(--s-2);
     align-items: baseline;
-  }
-
-  .type {
-    color: var(--fg-3);
-    font-family: var(--font-mono);
-    font-size: var(--fs-12);
   }
 
   .steps {
@@ -101,35 +50,9 @@
     padding-left: var(--s-4);
   }
 
-  .step {
-    display: grid;
-    gap: var(--s-1);
-    font-size: var(--fs-13);
-  }
-
-  .stepLine {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--s-2);
-    align-items: baseline;
-  }
-
-  .kind {
-    color: var(--fg-3);
-    font-family: var(--font-mono);
-    font-size: var(--fs-12);
-    text-transform: uppercase;
-  }
-
   .branch {
     display: grid;
     gap: var(--s-1);
     padding-left: var(--s-3);
-    border-left: 1px dashed var(--line-2);
-  }
-
-  .branchLabel {
-    color: var(--fg-3);
-    font-size: var(--fs-12);
   }
 }

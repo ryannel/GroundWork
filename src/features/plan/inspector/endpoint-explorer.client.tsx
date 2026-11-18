@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { type ReactNode, useEffect, useState } from 'react';
 
 import type {
   EndpointExplorerView,
@@ -11,7 +11,7 @@ import type {
 import type { Reader } from '@/application/today-reader';
 import { modelRecord } from '@/domain/workspace-model';
 import { open } from '@/features/plan/inspector-history';
-import { Badge } from '@/ui/badge';
+import { Badge, type BadgeTone } from '@/ui/badge';
 import { Callout } from '@/ui/callout';
 import { DataTable } from '@/ui/data-table';
 import { FilterChips } from '@/ui/filter-chips';
@@ -61,14 +61,13 @@ function Fields({
         key: field.name,
         cells: {
           name: (
-            <span
-              className={styles.field}
-              data-touched={touched.includes(field.name) ? '' : undefined}
-            >
+            <span className={styles.field}>
               <span className={styles.fieldLine}>
-                <code>{field.name}</code>
+                <FieldName name={field.name} touched={touched.includes(field.name)} />
                 {field.ref === null ? (
-                  <span className={styles.type}>{field.type}</span>
+                  <Text mono size="sm" tone="muted">
+                    {field.type}
+                  </Text>
                 ) : (
                   <Mention id={field.ref} label={field.type} mono />
                 )}
@@ -92,6 +91,42 @@ function Fields({
   );
 }
 
+const METHOD_TONES: Readonly<Record<string, BadgeTone>> = {
+  GET: 'added',
+  POST: 'modified',
+  PUT: 'modified',
+  PATCH: 'modified',
+  DELETE: 'removed',
+};
+
+function methodTone(method: string): BadgeTone {
+  return METHOD_TONES[method] ?? 'neutral';
+}
+
+function FieldName({ name, touched }: { readonly name: string; readonly touched: boolean }) {
+  return touched ? (
+    <Text mono tone="accent" weight="strong">
+      {name}
+    </Text>
+  ) : (
+    <Text mono>{name}</Text>
+  );
+}
+
+function Heading({
+  children,
+  size = 'lg',
+}: {
+  readonly children: ReactNode;
+  readonly size?: 'md' | 'lg';
+}) {
+  return (
+    <Text as="h3" size={size} tone="strong" weight="strong">
+      <span className={styles.heading}>{children}</span>
+    </Text>
+  );
+}
+
 function Shape({
   title,
   schema,
@@ -101,10 +136,10 @@ function Shape({
 }) {
   return (
     <section className={styles.section}>
-      <h3 className={styles.heading}>
+      <Heading>
         {title}
         {schema === null ? null : <Mention id={schema.id} label={schema.name} mono />}
-      </h3>
+      </Heading>
       {schema === null ? (
         <Text tone="muted">No {title.toLowerCase()} body is recorded.</Text>
       ) : (
@@ -123,7 +158,7 @@ function Contract({ endpoint }: { readonly endpoint: EndpointExplorerView }) {
     <>
       {params.length === 0 ? null : (
         <section className={styles.section}>
-          <h3 className={styles.heading}>Parameters</h3>
+          <Heading>Parameters</Heading>
           <DataTable
             caption="Parameters"
             captionHidden
@@ -142,7 +177,7 @@ function Contract({ endpoint }: { readonly endpoint: EndpointExplorerView }) {
       <Shape schema={endpoint.response} title="Response" />
       {endpoint.errors.length === 0 ? null : (
         <section className={styles.section}>
-          <h3 className={styles.heading}>Errors</h3>
+          <Heading>Errors</Heading>
           <DataTable
             caption="Errors"
             captionHidden
@@ -158,11 +193,11 @@ function Contract({ endpoint }: { readonly endpoint: EndpointExplorerView }) {
         </section>
       )}
       <section className={styles.section}>
-        <h3 className={styles.heading}>Called by</h3>
+        <Heading>Called by</Heading>
         {endpoint.callers.length === 0 ? (
           <Text tone="muted">No caller is recorded.</Text>
         ) : (
-          <div className={styles.mentions}>
+          <div className={styles.meta}>
             {endpoint.callers.map((caller) => (
               <Mention id={caller.id} key={caller.id} label={caller.name} />
             ))}
@@ -177,8 +212,10 @@ function Step({ node }: { readonly node: EndpointStep }) {
   return (
     <li className={styles.step} data-kind={node.kind}>
       <div className={styles.stepLine}>
-        <span className={styles.kind}>{node.kind}</span>
-        {node.title === node.kind ? null : <span>{node.title}</span>}
+        <Text mono caps size="sm" tone="muted">
+          {node.kind}
+        </Text>
+        {node.title === node.kind ? null : <Text size="sm">{node.title}</Text>}
         {node.async ? <Badge>async</Badge> : null}
       </div>
       {node.condition === null ? null : (
@@ -189,9 +226,9 @@ function Step({ node }: { readonly node: EndpointStep }) {
       {node.branches.map((branch, position) => (
         <div className={styles.branch} key={`${branch.label}-${String(position)}`}>
           {branch.label === 'steps' || branch.label === node.kind ? null : (
-            <span className={styles.branchLabel}>
+            <Text size="sm" tone="muted">
               {branch.label === 'Unnamed lane' ? 'alongside' : branch.label}
-            </span>
+            </Text>
           )}
           {branch.nodes.length === 0 ? (
             <Text size="sm" tone="muted">
@@ -220,7 +257,7 @@ function Logic({ endpoint }: { readonly endpoint: EndpointExplorerView }) {
       ) : (
         endpoint.handlers.map((handler) => (
           <section className={styles.section} key={handler.id}>
-            <h3 className={styles.heading}>{handler.summary ?? 'Handler'}</h3>
+            <Heading>{handler.summary ?? 'Handler'}</Heading>
             <ol className={styles.steps}>
               {handler.nodes.map((node) => (
                 <Step key={node.id} node={node} />
@@ -228,7 +265,7 @@ function Logic({ endpoint }: { readonly endpoint: EndpointExplorerView }) {
             </ol>
             {handler.failures.length === 0 ? null : (
               <>
-                <h4 className={styles.subheading}>When it fails</h4>
+                <Heading size="md">When it fails</Heading>
                 <ol className={styles.steps}>
                   {handler.failures.map((node) => (
                     <Step key={node.id} node={node} />
@@ -241,8 +278,8 @@ function Logic({ endpoint }: { readonly endpoint: EndpointExplorerView }) {
       )}
       {endpoint.calls.length + endpoint.messages.length === 0 ? null : (
         <section className={styles.section}>
-          <h3 className={styles.heading}>Reaches</h3>
-          <div className={styles.mentions}>
+          <Heading>Reaches</Heading>
+          <div className={styles.meta}>
             {[...endpoint.calls, ...endpoint.messages].map((target) => (
               <Mention id={target.id} key={target.id} label={target.name} />
             ))}
@@ -257,10 +294,10 @@ function Logic({ endpoint }: { readonly endpoint: EndpointExplorerView }) {
 function Store({ store }: { readonly store: EndpointStore }) {
   return (
     <section className={styles.section}>
-      <h3 className={styles.heading}>
+      <Heading>
         <Mention id={store.id} label={store.name} />
         {store.form === null ? null : <Badge>{store.form}</Badge>}
-      </h3>
+      </Heading>
       {store.technology === null ? null : (
         <Text size="sm" tone="muted">
           {store.technology}
@@ -268,14 +305,14 @@ function Store({ store }: { readonly store: EndpointStore }) {
       )}
       {store.tables.map((table) => (
         <div className={styles.table} key={table.id}>
-          <h4 className={styles.subheading}>
+          <Heading size="md">
             <Mention id={table.id} label={table.name} mono />
             {table.access.map((mode) => (
               <Badge key={mode} tone={mode === 'write' ? 'modified' : 'neutral'}>
                 {mode}
               </Badge>
             ))}
-          </h4>
+          </Heading>
           {table.summary === null ? null : <Text size="sm">{table.summary}</Text>}
           <Fields schema={table} touched={table.touched} />
         </div>
@@ -318,10 +355,10 @@ function Head({ endpoint }: { readonly endpoint: EndpointExplorerView }) {
         Endpoint
       </Text>
       <h2 className={styles.signature}>
-        <span className={styles.method} data-method={method}>
-          {method}
-        </span>
-        <code>{rest.join(' ')}</code>
+        <Badge tone={methodTone(method)}>{method}</Badge>
+        <Text mono weight="strong">
+          {rest.join(' ')}
+        </Text>
       </h2>
       {endpoint.summary === null ? null : <Text as="p">{endpoint.summary}</Text>}
       <div className={styles.meta}>
