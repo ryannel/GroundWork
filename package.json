@@ -1,0 +1,28 @@
+{
+  "name": "groundwork",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "groundwork": "tsx packages/cli/src/index.ts",
+    "dev": "node scripts/dev.mjs",
+    "dev:api": "tsx watch packages/cli/src/index.ts serve",
+    "dev:ui": "npm --workspace @groundwork/ui run dev",
+    "serve": "npm --workspace @groundwork/ui run build && tsx packages/cli/src/index.ts serve"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.2",
+    "vitest": "^3.1.1"
+  }
+}

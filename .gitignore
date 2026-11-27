@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.groundwork/
+*.tsbuildinfo
+.DS_Store
+workspaces/*
+!workspaces/.gitkeep
