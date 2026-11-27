@@ -445,6 +445,7 @@ export function App() {
                 unassignedTopics={space.unassigned_topics}
                 edges={space.edges}
                 evidence={space.evidence}
+                componentCodeInfo={space.component_code_info}
                 selectedId={selectedMapId}
                 onSelect={(id) => navigate({ ...route, select: id }, true)}
                 onOpenFullView={(id) => openEntity(id)}

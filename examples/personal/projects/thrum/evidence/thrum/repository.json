@@ -2,10 +2,10 @@
   "schema_version": 1,
   "repo_name": "thrum",
   "remote": "https://github.com/ryannel/Thrum.git",
-  "commit": "f5591b79c71279df4f7dba6cfafdedc8bf4ce3be",
+  "commit": "7931193d98057d430bde5572092187ebbdddc34c",
   "branch": "main",
   "dirty": false,
-  "scanned_at": "2026-11-27T22:02:41.960Z",
+  "scanned_at": "2026-11-27T22:10:28.192Z",
   "scanner_version": "0.2.0-orientation",
   "package_roots": [
     {

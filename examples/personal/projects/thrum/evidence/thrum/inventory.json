@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "repo_name": "thrum",
-  "commit": "f5591b79c71279df4f7dba6cfafdedc8bf4ce3be",
-  "scanned_at": "2026-11-27T22:02:41.960Z",
+  "commit": "7931193d98057d430bde5572092187ebbdddc34c",
+  "scanned_at": "2026-11-27T22:10:28.192Z",
   "summary": {
     "total_surfaces": 191,
     "by_kind": {

@@ -5,16 +5,19 @@ import { describe, expect, it } from "vitest";
 import {
   applyPlan,
   buildIndex,
+  buildOrientBrief,
   checkPlanDrift,
   computeBaseLock,
   computeCompleteness,
   discoverWorkspaces,
+  evaluateComponentOrientation,
   evaluatePlanGates,
   IncrementalFileCache,
   loadSpace,
   matchesTriagePattern,
   moveId,
   reconcilePlanAgainstSpace,
+  resolveComponentEvidence,
   resolveSpaceDir,
 } from "../src/index.js";
 
@@ -153,5 +156,47 @@ describe("packages/core", () => {
     } finally {
       fs.rmSync(tmp, { recursive: true, force: true });
     }
+  });
+
+  it("resolves evidence, evaluates orientation.yaml, and builds orient briefs for both submodules and monorepo crates", () => {
+    // 1. Nested submodule service (wordloop-core)
+    const wlSpace = loadSpace(path.join(REPO_ROOT, "examples/personal/projects/wordloop-platform"));
+    const wlIndex = buildIndex(wlSpace);
+    const coreSys = wlSpace.systems.find((s) => s.id === "system:core-platform")!;
+    const coreComp = coreSys.components.find((c) => c.id === "service:wordloop-core")!;
+
+    const coreEvidence = resolveComponentEvidence(wlSpace, coreSys, coreComp);
+    expect(coreEvidence.web_url).toBe("https://github.com/ryannel/wordloop-core");
+    expect(coreEvidence.package_structure?.entrypoints.some((e) => e.path === "cmd/api/main.go")).toBe(true);
+    expect(coreEvidence.surfaces.length).toBeGreaterThan(50);
+
+    const coreCheck = evaluateComponentOrientation(wlSpace, coreSys, coreComp);
+    expect(coreCheck.has_orientation).toBe(true);
+    expect(coreCheck.broken_paths).toEqual([]);
+    expect(coreCheck.coverage_pct).toBeGreaterThanOrEqual(80);
+
+    const coreBrief = buildOrientBrief(wlSpace, wlIndex, "service:wordloop-core");
+    expect(coreBrief?.component_id).toBe("service:wordloop-core");
+    expect(coreBrief?.modules.length).toBeGreaterThan(0);
+
+    // 2. Monorepo Rust crate (thrum-render)
+    const thrumSpace = loadSpace(path.join(REPO_ROOT, "examples/personal/projects/thrum"));
+    const thrumIndex = buildIndex(thrumSpace);
+    const renderSys = thrumSpace.systems.find((s) => s.id === "system:thrum-rendering")!;
+    const renderComp = renderSys.components.find((c) => c.id === "module:thrum-render")!;
+
+    const renderEvidence = resolveComponentEvidence(thrumSpace, renderSys, renderComp);
+    expect(renderEvidence.web_url).toBe("https://github.com/ryannel/Thrum");
+    expect(renderEvidence.repo_subpath).toBe("crates/thrum-render");
+    expect(renderEvidence.workspace_harnesses.length).toBeGreaterThan(0);
+
+    const renderCheck = evaluateComponentOrientation(thrumSpace, renderSys, renderComp);
+    expect(renderCheck.has_orientation).toBe(true);
+    expect(renderCheck.broken_paths).toEqual([]);
+    expect(renderCheck.coverage_pct).toBeGreaterThanOrEqual(80);
+    expect(renderCheck.mechanical_does).toBe(false);
+
+    const renderBrief = buildOrientBrief(thrumSpace, thrumIndex, "module:thrum-render");
+    expect(renderBrief?.workspace_harnesses.length).toBeGreaterThan(0);
   });
 });

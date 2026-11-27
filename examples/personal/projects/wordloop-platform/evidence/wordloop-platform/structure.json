@@ -2,7 +2,7 @@
   "schema_version": 1,
   "repo_name": "wordloop-platform",
   "commit": "c4172c3ecb16f42a3562cf95476e9977570fd72a",
-  "scanned_at": "2026-11-27T22:02:43.014Z",
+  "scanned_at": "2026-11-27T22:10:28.841Z",
   "packages": [
     {
       "package_root": ".",
@@ -295,15 +295,6 @@
           "loc": 7
         },
         {
-          "path": "Dockerfile",
-          "name": "Dockerfile",
-          "kind": "file",
-          "visibility": "public",
-          "file_count": 1,
-          "source_files": 0,
-          "loc": 0
-        },
-        {
           "path": "tsconfig.tsbuildinfo",
           "name": "tsconfig",
           "kind": "file",
@@ -355,7 +346,7 @@
       "repo_name": "wordloop-core",
       "web_url": "https://github.com/ryannel/wordloop-core",
       "git_ref": "71fbf8a8c90693431dbedc22f0360ce5c0eb5ab8",
-      "doc_summary": "- Docker and Docker Compose - Go 1.25 or later for local development",
+      "doc_summary": "1. **Clone the repository**",
       "total_files": 256,
       "source_files": 217,
       "total_loc": 42113,
@@ -469,24 +460,6 @@
           "kind": "dir",
           "visibility": "public",
           "file_count": 3,
-          "source_files": 0,
-          "loc": 0
-        },
-        {
-          "path": "Dockerfile",
-          "name": "Dockerfile",
-          "kind": "file",
-          "visibility": "public",
-          "file_count": 1,
-          "source_files": 0,
-          "loc": 0
-        },
-        {
-          "path": "Dockerfile.dev",
-          "name": "Dockerfile",
-          "kind": "file",
-          "visibility": "public",
-          "file_count": 1,
           "source_files": 0,
           "loc": 0
         }
@@ -800,15 +773,6 @@
           "kind": "dir",
           "visibility": "public",
           "file_count": 3,
-          "source_files": 0,
-          "loc": 0
-        },
-        {
-          "path": "Dockerfile",
-          "name": "Dockerfile",
-          "kind": "file",
-          "visibility": "public",
-          "file_count": 1,
           "source_files": 0,
           "loc": 0
         }

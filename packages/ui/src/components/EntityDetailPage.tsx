@@ -63,7 +63,6 @@ export function EntityDetailPage({
   const [selectedTableName, setSelectedTableName] = useState<string | undefined>(initialTable);
   const [dbView, setDbView] = useState<"tables" | "er">(initialDbView ?? "tables");
   const [viewState, setViewState] = useState<"proposed" | "as-is">(stateMode);
-  const [codeTree, setCodeTree] = useState<{ available: boolean; root?: string; tree: CodeTreeNode[] } | null>(null);
 
   useEffect(() => {
     setTab(initialTab ?? "overview");
@@ -198,43 +197,6 @@ export function EntityDetailPage({
     [allEvidence],
   );
 
-  // Determine repo home for code-tree fetching when viewing a component
-  const homeInfo = useMemo(() => {
-    if (!compMatch) return null;
-    const homes = compMatch.sys.system.homes ?? {};
-    const key = compMatch.comp.component.home ?? Object.keys(homes)[0];
-    return key ? homes[key] ?? null : null;
-  }, [compMatch]);
-
-  useEffect(() => {
-    if (!homeInfo?.repo) {
-      setCodeTree(null);
-      return;
-    }
-    const url = `/api/code-tree?workspace=${encodeURIComponent(space.workspace.id)}${space.project_id ? `&project=${encodeURIComponent(space.project_id)}` : ""}&repo=${encodeURIComponent(homeInfo.repo)}${homeInfo.path ? `&subpath=${encodeURIComponent(homeInfo.path)}` : ""}`;
-    fetch(url)
-      .then((r) => r.json())
-      .then((d) => setCodeTree(d))
-      .catch(() => setCodeTree(null));
-  }, [homeInfo, space.workspace.id, space.project_id]);
-
-  // Helper: filter scanned surfaces matching a component (by repo_name or package_root)
-  const compScannedSurfaces = useMemo(() => {
-    if (!compMatch) return [];
-    const slug = compMatch.comp.slug;
-    const repoKey = homeInfo?.repo;
-    const subPath = homeInfo?.path;
-    return allScannedSurfaces.filter((s) => {
-      if (subPath && (s.package_root === subPath || s.package_root.endsWith(subPath))) return true;
-      if (repoKey && s.repo_name === repoKey) return true;
-      if (s.package_root.includes(slug)) return true;
-      // Also match repo-level OpenAPI specs named after the service (e.g. specs/core-openapi.json -> wordloop-core)
-      const shortSlug = slug.replace(/^wordloop-/, "");
-      if (s.package_root === "." && s.file.toLowerCase().includes(shortSlug)) return true;
-      return false;
-    });
-  }, [compMatch, homeInfo, allScannedSurfaces]);
-
   const outgoing = space.edges.filter((e) => e.from === entityId || e.from_system === entityId);
   const incoming = space.edges.filter((e) => e.to === entityId || e.to_system === entityId);
 
@@ -242,6 +204,8 @@ export function EntityDetailPage({
   if (compMatch) {
     const { sys, comp } = compMatch;
     const compComplete = space.completeness.components.find((c) => c.component_id === comp.id);
+    const codeInfo = space.component_code_info?.[comp.id];
+    const compScannedSurfaces = codeInfo?.matched_surfaces ?? [];
     const scannedRoutes = compScannedSurfaces.filter((s) => s.kind === "route" || s.kind === "ws_channel");
     const scannedTopics = compScannedSurfaces.filter((s) => s.kind === "topic" || s.kind === "subscription");
 
@@ -253,16 +217,10 @@ export function EntityDetailPage({
       (t) => t.owner === comp.id || outgoing.some((e) => e.to === t.id) || incoming.some((e) => e.from === t.id),
     );
 
-    // Matching package root + submodule pin from evidence (strict path/name priority before repo fallback!)
-    const allPkgRoots = allEvidence.flatMap((ev) => ev.repository.package_roots);
-    const matchedPkgRoot =
-      (homeInfo?.path ? allPkgRoots.find((p) => p.path === homeInfo.path) : undefined) ??
-      allPkgRoots.find((p) => p.name === comp.slug) ??
-      (homeInfo?.repo && !homeInfo?.path ? allPkgRoots.find((p) => p.repo_name === homeInfo.repo) : undefined);
-
-    const matchedSubmodule = allEvidence
-      .flatMap((ev) => ev.repository.submodules ?? [])
-      .find((sm) => sm.name === homeInfo?.repo || sm.name === comp.slug);
+    const matchedSubmodule = codeInfo?.submodule;
+    const githubUrl = buildGitHubUrl(codeInfo);
+    const totalHandlers = comp.handlers.handlers.length + (comp.handlers.procedures?.length ?? 0);
+    const totalData = relatedStores.length + relatedTopics.length;
 
     const richEndpoints = buildRichEndpoints(
       comp.contracts.interfaces ?? [],
@@ -273,6 +231,14 @@ export function EntityDetailPage({
     );
     const businessRoutes = richEndpoints.filter((r) => !r.triageDisposition);
     const totalApis = businessRoutes.length > 0 ? businessRoutes.length : richEndpoints.length;
+
+    const isModule = comp.component.kind === "module";
+    const showApiTab = !isModule || totalApis > 0;
+    const showLogicTab = !isModule || totalHandlers > 0;
+    const showDataTab = !isModule || totalData > 0;
+    const zones = comp.orientation?.zones ?? [];
+    const traps = comp.orientation?.traps ?? [];
+    const pkgStruct = codeInfo?.package_structure;
 
     return (
       <div className="detail-page">
@@ -300,7 +266,7 @@ export function EntityDetailPage({
                   <span className="badge indigo">{comp.component.kind}</span>
                   {!fromPlan && <span className="badge">As-Is System</span>}
                   {comp.component.tech && <span className="badge">{comp.component.tech}</span>}
-                  {compComplete && <span className="badge">depth: {compComplete.depth}</span>}
+                  {pkgStruct && <span className="badge">{pkgStruct.source_files} files</span>}
                   {compComplete && <span className="badge emerald">accounted: {compComplete.accounted_pct}%</span>}
                   {matchedSubmodule && (
                     <span className="badge mono">
@@ -316,27 +282,53 @@ export function EntityDetailPage({
                   </p>
                 )}
               </div>
-              <button className="secondary-btn" onClick={() => onOpenMap(comp.id)}>
-                <Layers size={14} /> Show on System Map
-              </button>
+              <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                {githubUrl && (
+                  <a
+                    href={githubUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="secondary-btn"
+                    style={{ textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 6 }}
+                  >
+                    <ExternalLink size={14} /> GitHub
+                  </a>
+                )}
+                <button className="secondary-btn" onClick={() => onOpenMap(comp.id)}>
+                  <Layers size={14} /> Show on System Map
+                </button>
+              </div>
             </div>
 
-            <div style={{ display: "flex", gap: 22, marginTop: 18 }}>
+            <div style={{ display: "flex", gap: 22, marginTop: 18, flexWrap: "wrap" }}>
               <button className={`subtab ${tab === "overview" ? "active" : ""}`} onClick={() => changeTab("overview")}>
                 <Server size={14} /> Overview
               </button>
-              <button className={`subtab ${tab === "api" ? "active" : ""}`} onClick={() => changeTab("api")}>
-                <Zap size={14} /> API &amp; Contracts ({totalApis})
-              </button>
-              <button className={`subtab ${tab === "logic" ? "active" : ""}`} onClick={() => changeTab("logic")}>
-                <GitBranch size={14} /> Logic &amp; Procedures ({comp.handlers.handlers.length + (comp.handlers.procedures?.length ?? 0)})
-              </button>
-              <button className={`subtab ${tab === "data" ? "active" : ""}`} onClick={() => changeTab("data")}>
-                <Database size={14} /> Data &amp; Messages ({relatedStores.length + relatedTopics.length})
-              </button>
-              <button className={`subtab ${tab === "code" ? "active" : ""}`} onClick={() => changeTab("code")}>
-                <Folder size={14} /> Code Layout &amp; Scan
-              </button>
+              {isModule && (
+                <button className={`subtab ${tab === "code" ? "active" : ""}`} onClick={() => changeTab("code")}>
+                  <Compass size={14} /> Codebase Guide {zones.length > 0 ? `(${zones.length} zones)` : ""}
+                </button>
+              )}
+              {showApiTab && (
+                <button className={`subtab ${tab === "api" ? "active" : ""}`} onClick={() => changeTab("api")}>
+                  <Zap size={14} /> API &amp; Contracts ({totalApis})
+                </button>
+              )}
+              {showLogicTab && (
+                <button className={`subtab ${tab === "logic" ? "active" : ""}`} onClick={() => changeTab("logic")}>
+                  <GitBranch size={14} /> Logic &amp; Procedures ({totalHandlers})
+                </button>
+              )}
+              {showDataTab && (
+                <button className={`subtab ${tab === "data" ? "active" : ""}`} onClick={() => changeTab("data")}>
+                  <Database size={14} /> Data &amp; Messages ({totalData})
+                </button>
+              )}
+              {!isModule && (
+                <button className={`subtab ${tab === "code" ? "active" : ""}`} onClick={() => changeTab("code")}>
+                  <Compass size={14} /> Codebase Guide {zones.length > 0 ? `(${zones.length} zones)` : ""}
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -346,46 +338,123 @@ export function EntityDetailPage({
             {tab === "overview" && (
               <>
                 <div className="stat-strip">
-                  <button className="stat-card" style={{ textAlign: "left", cursor: "pointer" }} onClick={() => changeTab("api")}>
-                    <div className="stat-label">APIs &amp; Routes</div>
-                    <div className="stat-value" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                      <span>{totalApis}</span>
-                      <ArrowRight size={15} color="var(--text-faint)" />
-                    </div>
-                  </button>
-                  <button className="stat-card" style={{ textAlign: "left", cursor: "pointer" }} onClick={() => changeTab("logic")}>
-                    <div className="stat-label">Handlers &amp; Procedures</div>
-                    <div className="stat-value" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                      <span>{comp.handlers.handlers.length + (comp.handlers.procedures?.length ?? 0)}</span>
-                      <ArrowRight size={15} color="var(--text-faint)" />
-                    </div>
-                  </button>
-                  <button className="stat-card" style={{ textAlign: "left", cursor: "pointer" }} onClick={() => changeTab("data")}>
-                    <div className="stat-label">Databases &amp; Queues</div>
-                    <div className="stat-value" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                      <span>{relatedStores.length + relatedTopics.length}</span>
-                      <ArrowRight size={15} color="var(--text-faint)" />
-                    </div>
-                  </button>
+                  {showApiTab && (
+                    <button className="stat-card" style={{ textAlign: "left", cursor: "pointer" }} onClick={() => changeTab("api")}>
+                      <div className="stat-label">APIs &amp; Routes</div>
+                      <div className="stat-value" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                        <span>{totalApis}</span>
+                        <ArrowRight size={15} color="var(--text-faint)" />
+                      </div>
+                    </button>
+                  )}
+                  {showLogicTab && (
+                    <button className="stat-card" style={{ textAlign: "left", cursor: "pointer" }} onClick={() => changeTab("logic")}>
+                      <div className="stat-label">Handlers &amp; Procedures</div>
+                      <div className="stat-value" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                        <span>{totalHandlers}</span>
+                        <ArrowRight size={15} color="var(--text-faint)" />
+                      </div>
+                    </button>
+                  )}
+                  {showDataTab && (
+                    <button className="stat-card" style={{ textAlign: "left", cursor: "pointer" }} onClick={() => changeTab("data")}>
+                      <div className="stat-label">Databases &amp; Queues</div>
+                      <div className="stat-value" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                        <span>{totalData}</span>
+                        <ArrowRight size={15} color="var(--text-faint)" />
+                      </div>
+                    </button>
+                  )}
                   <button className="stat-card" style={{ textAlign: "left", cursor: "pointer" }} onClick={() => changeTab("code")}>
-                    <div className="stat-label">Dependencies</div>
+                    <div className="stat-label">Codebase Footprint</div>
                     <div className="stat-value" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                      <span>{outgoing.length} out · {incoming.length} in</span>
+                      <span>
+                        {zones.length > 0
+                          ? `${zones.length} zones · ${pkgStruct?.source_files ?? 0} files`
+                          : pkgStruct
+                            ? `${pkgStruct.source_files} files`
+                            : "Guide"}
+                      </span>
                       <ArrowRight size={15} color="var(--text-faint)" />
                     </div>
                   </button>
+                  <div className="stat-card" style={{ textAlign: "left" }}>
+                    <div className="stat-label">Dependencies</div>
+                    <div className="stat-value">
+                      {outgoing.length} out · {incoming.length} in
+                    </div>
+                  </div>
                 </div>
 
-                {comp.component.invariants && comp.component.invariants.length > 0 && (
+                {comp.orientation?.lifecycle && (
+                  <div className="section-card" style={{ borderLeft: "4px solid #0ea5e9" }}>
+                    <div className="section-title">Execution Lifecycle</div>
+                    <div style={{ fontSize: 13.5, color: "var(--text)", fontWeight: 500, lineHeight: 1.5 }}>
+                      {comp.orientation.lifecycle}
+                    </div>
+                  </div>
+                )}
+
+                {((comp.component.invariants && comp.component.invariants.length > 0) || traps.length > 0) && (
                   <div className="section-card" style={{ borderLeft: "4px solid #4f46e5" }}>
-                    <div className="section-title">Architectural Invariants</div>
-                    {comp.component.invariants.map((inv, i) => (
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8, marginBottom: 8 }}>
+                      <div className="section-title" style={{ margin: 0 }}>Architectural Invariants &amp; Traps</div>
+                      {traps.length > 0 && (
+                        <button className="secondary-btn" style={{ padding: "3px 10px", fontSize: 11.5 }} onClick={() => changeTab("code")}>
+                          <AlertTriangle size={12} /> {traps.length} {traps.length === 1 ? "trap" : "traps"} in Codebase Guide
+                        </button>
+                      )}
+                    </div>
+                    {(comp.component.invariants ?? []).map((inv, i) => (
                       <div key={i} style={{ fontSize: 13, color: "var(--text)", marginBottom: 4 }}>• {inv}</div>
+                    ))}
+                    {traps.map((t, i) => (
+                      <div key={`trap-${i}`} style={{ fontSize: 13, color: "#b45309", marginBottom: 4 }}>
+                        ⚠ <strong>{t.title}:</strong> {t.detail}
+                      </div>
                     ))}
                   </div>
                 )}
 
-                {comp.component.public_modules && comp.component.public_modules.length > 0 && (
+                {zones.length > 0 ? (
+                  <div className="section-card">
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+                      <div className="section-title" style={{ margin: 0 }}>Architecture Zones ({zones.length})</div>
+                      <button className="secondary-btn" style={{ padding: "4px 10px", fontSize: 12 }} onClick={() => changeTab("code")}>
+                        Open Codebase Guide <ArrowRight size={12} />
+                      </button>
+                    </div>
+                    <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                      {zones.map((z) => {
+                        const rs = roleStyle(z.role);
+                        return (
+                          <button
+                            key={z.id}
+                            type="button"
+                            onClick={() => changeTab("code")}
+                            style={{
+                              cursor: "pointer",
+                              background: rs.bg,
+                              color: rs.fg,
+                              border: `1px solid ${rs.border}`,
+                              borderRadius: 8,
+                              padding: "6px 10px",
+                              fontSize: 12.5,
+                              fontWeight: 600,
+                              display: "inline-flex",
+                              alignItems: "center",
+                              gap: 6,
+                            }}
+                            title={z.summary}
+                          >
+                            <span>{z.name}</span>
+                            <span style={{ opacity: 0.75, fontWeight: 400, fontSize: 11 }}>{z.paths.length} paths</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ) : comp.component.public_modules && comp.component.public_modules.length > 0 ? (
                   <div className="section-card">
                     <div className="section-title">Public Module Surface ({comp.component.public_modules.length} exports)</div>
                     <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
@@ -394,14 +463,14 @@ export function EntityDetailPage({
                           key={m.name}
                           className="entity-link"
                           onClick={() => changeTab("code")}
-                          title={`Browse ${m.name} in Code Layout & Scan`}
+                          title={`Browse ${m.name} in Codebase Guide`}
                         >
                           pub mod {m.name}
                         </button>
                       ))}
                     </div>
                   </div>
-                )}
+                ) : null}
 
                 <div className="grid-2">
                   <div className="section-card">
@@ -573,96 +642,11 @@ export function EntityDetailPage({
             )}
 
             {tab === "code" && (
-              <div className="grid-2">
-                <div className="section-card">
-                  <div className="section-title">Repository &amp; Directory Structure</div>
-                  {homeInfo && (
-                    <div style={{ marginBottom: 12, display: "flex", gap: 8, flexWrap: "wrap" }}>
-                      <span className="badge indigo mono">repo: {homeInfo.repo}</span>
-                      {homeInfo.path && <span className="badge mono">path: {homeInfo.path}</span>}
-                      {matchedSubmodule && <span className="badge mono">commit: {matchedSubmodule.commit.slice(0, 12)}</span>}
-                    </div>
-                  )}
-                  {codeTree?.available && codeTree.tree.length > 0 ? (
-                    <div style={{ background: "var(--bg)", border: "1px solid var(--border)", borderRadius: 8, padding: 10, maxHeight: 420, overflowY: "auto" }}>
-                      <CodeTreeList nodes={codeTree.tree} />
-                    </div>
-                  ) : (
-                    <div style={{ fontSize: 12.5, color: "var(--text-faint)" }}>
-                      Local repository checkout is not on disk at this path (example workspace). Link a local repo to browse its live directory layout.
-                    </div>
-                  )}
-                </div>
-
-                <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-                  {matchedPkgRoot && (
-                    <div className="section-card">
-                      <div className="section-title">Scanned Package &amp; Key Dependencies</div>
-                      <div className="mono" style={{ fontSize: 12, marginBottom: 10 }}>
-                        {matchedPkgRoot.manifest} ({matchedPkgRoot.language})
-                      </div>
-                      <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 12 }}>
-                        {Object.entries(matchedPkgRoot.capabilities)
-                          .filter(([, v]) => v !== "unsupported")
-                          .map(([facet, level]) => (
-                            <span key={facet} className={`badge ${level === "supported" ? "emerald" : "indigo"}`}>
-                              {facet}: {level}
-                            </span>
-                          ))}
-                      </div>
-                      <div className="section-title">Key Dependencies ({matchedPkgRoot.key_dependencies.length})</div>
-                      <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-                        {matchedPkgRoot.key_dependencies.map((d) => {
-                          // If this dependency is another mapped component/module in the space, link straight to it!
-                          const internalComp = activeSystems
-                            .flatMap((s) => s.components)
-                            .find((c) => c.slug === d || c.id === `module:${d}` || c.id === `service:${d}`);
-                          if (internalComp) {
-                            return <EntityLink key={d} id={internalComp.id} label={d} onOpen={(id) => onOpenEntity(id)} />;
-                          }
-                          // Otherwise link cleanly to its official package registry docs!
-                          const cleanPkg = d.split("@")[0]!.trim();
-                          const registryUrl =
-                            matchedPkgRoot.language === "rust"
-                              ? `https://crates.io/crates/${encodeURIComponent(cleanPkg)}`
-                              : matchedPkgRoot.language === "go"
-                                ? `https://pkg.go.dev/${cleanPkg}`
-                                : matchedPkgRoot.language === "python"
-                                  ? `https://pypi.org/project/${encodeURIComponent(cleanPkg)}/`
-                                  : `https://www.npmjs.com/package/${cleanPkg}`;
-                          return (
-                            <a
-                              key={d}
-                              href={registryUrl}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="entity-link neutral"
-                              title={`Open ${d} package documentation`}
-                            >
-                              {d} <ExternalLink size={10} />
-                            </a>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  )}
-
-                  {(comp.component.triage?.length ?? 0) > 0 && (
-                    <div className="section-card">
-                      <div className="section-title">Triage Rules ({comp.component.triage!.length})</div>
-                      {comp.component.triage!.map((t, i) => (
-                        <div key={i} style={{ padding: "6px 0", borderBottom: "1px solid var(--border)", fontSize: 12 }}>
-                          <div style={{ display: "flex", justifyContent: "space-between", gap: 8 }}>
-                            <span className="mono" style={{ fontWeight: 600 }}>{t.surface}</span>
-                            <span className="badge">{t.disposition}</span>
-                          </div>
-                          <div style={{ color: "var(--text-muted)", marginTop: 2 }}>{t.reason}</div>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
+              <CodebaseGuideView
+                comp={comp}
+                codeInfo={codeInfo}
+                orientationStats={compComplete?.orientation}
+              />
             )}
           </div>
         </div>

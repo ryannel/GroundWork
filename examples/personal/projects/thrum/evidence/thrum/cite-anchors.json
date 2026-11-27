@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "repo_name": "thrum",
-  "commit": "f5591b79c71279df4f7dba6cfafdedc8bf4ce3be",
+  "commit": "7931193d98057d430bde5572092187ebbdddc34c",
   "anchors": {
     "crates/thrum-app/src/lib.rs#L24-24": {
       "file": "crates/thrum-app/src/lib.rs",

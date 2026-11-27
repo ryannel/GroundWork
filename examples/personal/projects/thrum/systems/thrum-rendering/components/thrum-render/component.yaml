@@ -5,9 +5,14 @@ form: library
 tech: Rust 2024
 home: thrum-render
 depth: module-boundary
-does: Rust crate (crates/thrum-render) — 2 engine deps, 18 public sub-modules.
+does: Portable wgpu GPU execution foundation — retained render-graph compiler, bounded frame runtime, pass contribution ABI, and core atmosphere/sprite/lighting passes.
+invariants:
+  - Platform owns the single GPU device and queue; feature crates never create a second device or submit independent work.
+  - Render graphs compile at setup or configuration/generation changes and reuse retained plans per frame.
+  - GPU timestamp resolve/readback runs asynchronously after completion callbacks and never blocks the frame encode/submit path.
 cites:
   - thrum:crates/thrum-render/Cargo.toml
+  - thrum:crates/thrum-render/src/lib.rs#L1-10
 depends_on:
   - module:thrum-asset
   - module:thrum-core

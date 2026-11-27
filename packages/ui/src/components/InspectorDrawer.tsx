@@ -167,7 +167,25 @@ export function InspectorDrawer({ space, selectedId, onClose, onSelect, onOpenFu
               </div>
             )}
 
-            {comp?.component.public_modules && comp.component.public_modules.length > 0 && (
+            {comp?.orientation?.zones && comp.orientation.zones.length > 0 ? (
+              <div className="section-card">
+                <div className="section-title">Architecture Zones ({comp.orientation.zones.length})</div>
+                <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+                  {comp.orientation.zones.map((z) => (
+                    <button
+                      key={z.id}
+                      type="button"
+                      className="badge indigo"
+                      style={{ cursor: "pointer" }}
+                      title={z.summary}
+                      onClick={() => onOpenFullPage(comp.id, "code")}
+                    >
+                      {z.name}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ) : comp?.component.public_modules && comp.component.public_modules.length > 0 ? (
               <div className="section-card">
                 <div className="section-title">Public Module Surface ({comp.component.public_modules.length})</div>
                 <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
@@ -176,7 +194,7 @@ export function InspectorDrawer({ space, selectedId, onClose, onSelect, onOpenFu
                   ))}
                 </div>
               </div>
-            )}
+            ) : null}
 
             {entityGaps.length > 0 && (
               <div className="section-card" style={{ borderColor: "var(--amber-border)", background: "var(--amber-soft)" }}>

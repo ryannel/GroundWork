@@ -1,3 +1,11 @@
+export interface EntityNavOptions {
+  readonly tab?: string;
+  readonly endpoint?: string;
+  readonly table?: string;
+  readonly dbview?: "tables" | "er";
+  readonly plan?: string;
+}
+
 export type AppRoute =
   | { readonly kind: "landing" }
   | {

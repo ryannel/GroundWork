@@ -1,4 +1,4 @@
-import { Check, Copy, ExternalLink, Eye, EyeOff, Lock, Search } from "lucide-react";
+import { ArrowUpRight, Check, Copy, ExternalLink, Eye, EyeOff, Lock, Search } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import type { InterfaceDef, ScannedSurface, SchemaDef } from "../../types";
 import type { TriageRuleRef } from "./ContractCatalog";
@@ -106,6 +106,68 @@ function schemaToApiFields(
   }));
 }
 
+function cleanOpenApiFields(arr?: readonly ApiFieldSpec[]): ApiFieldSpec[] {
+  return (arr ?? []).filter((f) => f.name !== "$schema");
+}
+
+function parseScannedRoute(s: ScannedSurface, triageRules: readonly TriageRuleRef[]) {
+  const method = s.kind === "ws_channel" ? "WS" : String(s.details?.method ?? "ANY").toUpperCase();
+  const routePath = String(s.details?.path ?? s.details?.channel ?? s.surface_id);
+  const d = (s.details ?? {}) as Record<string, unknown>;
+  const disposition = matchTriage(s.surface_id, routePath, triageRules);
+  const tags = Array.isArray(d.tags) ? d.tags.map(String) : undefined;
+  const security = Array.isArray(d.security) ? d.security.map(String) : undefined;
+
+  const rawParams = Array.isArray(d.parameters) ? (d.parameters as ApiParamSpec[]) : [];
+  const params: ApiParamSpec[] = rawParams.length > 0 ? [...rawParams] : extractPathParams(routePath);
+  if (security && security.length > 0 && !params.some((p) => p.name.toLowerCase() === "authorization")) {
+    params.push({
+      name: "Authorization",
+      in: "header",
+      required: true,
+      type: "string",
+      description: `Security scheme: ${security.join(", ")}`,
+    });
+  }
+
+  const rawRb = d.request_body as { content_type?: string; required?: boolean; fields?: ApiFieldSpec[] } | undefined;
+  const requestBody = rawRb
+    ? {
+        contentType: rawRb.content_type ?? "application/json",
+        required: rawRb.required,
+        fields: cleanOpenApiFields(rawRb.fields),
+      }
+    : undefined;
+
+  const rawResponses = Array.isArray(d.responses)
+    ? (d.responses as Array<{ status: string; description: string; content_type?: string; fields?: ApiFieldSpec[] }>)
+    : [];
+
+  const responses: ApiResponseSpec[] =
+    rawResponses.length > 0
+      ? rawResponses.map((r) => ({
+          status: r.status,
+          description: r.description || (r.status === "default" ? "Error" : "Response"),
+          contentType: r.content_type,
+          fields: cleanOpenApiFields(r.fields),
+        }))
+      : [{ status: method === "POST" ? "201" : "200", description: "Success", contentType: "application/json", fields: [] }];
+
+  return {
+    method,
+    routePath,
+    disposition,
+    tags,
+    security,
+    params,
+    requestBody,
+    responses,
+    hasRichResponses: rawResponses.length > 0,
+    summary: typeof d.summary === "string" && d.summary ? d.summary : undefined,
+    description: typeof d.description === "string" ? d.description : typeof d.summary === "string" ? d.summary : undefined,
+  };
+}
+
 export function buildRichEndpoints(
   interfaces: readonly InterfaceDef[],
   schemas: readonly SchemaDef[] = [],
@@ -117,11 +179,32 @@ export function buildRichEndpoints(
   const list: RichEndpointSpec[] = [];
   const seenMethodPath = new Set<string>();
 
+  // Prefer declarative_spec (e.g. OpenAPI) before source_heuristic when deduplicating or enriching authored stubs
+  const orderedScanned = [...scannedRoutes]
+    .filter((s) => s.kind === "route" || s.kind === "ws_channel")
+    .sort((a, b) => {
+      const aSpec = a.denominator === "declarative_spec" ? 0 : 1;
+      const bSpec = b.denominator === "declarative_spec" ? 0 : 1;
+      return aSpec - bSpec;
+    });
+
+  const scannedByMethodPath = new Map<string, ScannedSurface>();
+  for (const s of orderedScanned) {
+    const method = s.kind === "ws_channel" ? "WS" : String(s.details?.method ?? "ANY").toUpperCase();
+    const routePath = String(s.details?.path ?? s.details?.channel ?? s.surface_id);
+    const key = `${method} ${routePath}`;
+    if (!scannedByMethodPath.has(key)) scannedByMethodPath.set(key, s);
+  }
+
   for (const iface of interfaces) {
     for (const ep of iface.entries) {
       const method = (ep.method ?? (iface.kind === "websocket" ? "WS" : "RPC")).toUpperCase();
       const fullPath = `${iface.base_path ?? ""}${ep.path ?? ""}` || ep.id;
-      seenMethodPath.add(`${method} ${fullPath}`);
+      const dedupeKey = `${method} ${fullPath}`;
+      seenMethodPath.add(dedupeKey);
+
+      const scannedMatch = scannedByMethodPath.get(dedupeKey);
+      const scannedParsed = scannedMatch ? parseScannedRoute(scannedMatch, triageRules) : undefined;
 
       let docUrl: string | undefined;
       for (const c of ep.cites ?? []) {
@@ -135,7 +218,7 @@ export function buildRichEndpoints(
       const reqFields = schemaToApiFields(reqSchema, diffByEntity);
       const resFields = schemaToApiFields(resSchema, diffByEntity);
 
-      const authLabel = ep.auth ?? iface.auth;
+      const authLabel = ep.auth ?? iface.auth ?? scannedParsed?.security?.join(", ");
       const params: ApiParamSpec[] = [...extractPathParams(fullPath)];
       if (authLabel && authLabel !== "none") {
         params.push({
@@ -146,9 +229,19 @@ export function buildRichEndpoints(
           description: `Bearer token (${authLabel})`,
         });
       }
+      if (scannedParsed) {
+        const existingParamKeys = new Set(params.map((p) => `${p.in}:${p.name.toLowerCase()}`));
+        for (const sp of scannedParsed.params) {
+          const pk = `${sp.in}:${sp.name.toLowerCase()}`;
+          if (!existingParamKeys.has(pk)) {
+            existingParamKeys.add(pk);
+            params.push(sp);
+          }
+        }
+      }
 
       const successStatus = method === "POST" ? "201" : method === "DELETE" ? "204" : "200";
-      const responses: ApiResponseSpec[] = [
+      const authoredResponses: ApiResponseSpec[] = [
         {
           status: successStatus,
           description: successStatus === "201" ? "Created" : successStatus === "204" ? "No Content" : "OK",
@@ -167,13 +260,41 @@ export function buildRichEndpoints(
         },
       ];
       if (authLabel && authLabel !== "none") {
-        responses.push({
+        authoredResponses.push({
           status: "401",
           description: "Unauthorized",
           contentType: "application/json",
           fields: [{ name: "error", type: "string", required: true, description: "Missing or expired credentials" }],
         });
       }
+
+      // If authored endpoint has no explicit response schema, inherit the rich scanned OpenAPI responses!
+      const responses =
+        resFields.length > 0 || !scannedParsed?.hasRichResponses
+          ? authoredResponses
+          : scannedParsed.responses;
+
+      const requestBody =
+        reqFields.length > 0
+          ? {
+              contentType: "application/json",
+              required: true,
+              schemaId: reqSchema?.id ?? ep.request,
+              fields: reqFields,
+            }
+          : scannedParsed?.requestBody
+            ? {
+                ...scannedParsed.requestBody,
+                schemaId: reqSchema?.id ?? (ep.request && ep.request !== "none" ? ep.request : undefined),
+              }
+            : reqSchema || (ep.request && ep.request !== "none")
+              ? {
+                  contentType: "application/json",
+                  required: true,
+                  schemaId: reqSchema?.id ?? ep.request,
+                  fields: reqFields,
+                }
+              : undefined;
 
       const hasPlanChange =
         Boolean(diffByEntity?.get(ep.id)) ||
@@ -185,103 +306,42 @@ export function buildRichEndpoints(
         id: ep.id,
         method,
         path: fullPath,
-        title: ep.summary ?? `${method} ${fullPath}`,
-        description: ep.summary,
-        group: extractGroup(fullPath),
+        title: ep.summary ?? scannedParsed?.summary ?? `${method} ${fullPath}`,
+        description: ep.summary ?? scannedParsed?.description,
+        group: extractGroup(fullPath, scannedParsed?.tags),
         auth: authLabel,
-        knownFrom: iface.known_from,
+        knownFrom: scannedMatch ? `${iface.known_from} + ${scannedMatch.extractor}` : iface.known_from,
         docUrl,
         source: "authored",
         parameters: params,
-        ...(reqSchema || (ep.request && ep.request !== "none")
-          ? {
-              requestBody: {
-                contentType: "application/json",
-                required: true,
-                schemaId: reqSchema?.id ?? ep.request,
-                fields: reqFields,
-              },
-            }
-          : {}),
+        ...(requestBody ? { requestBody } : {}),
         responses,
         hasPlanChange,
       });
     }
   }
 
-  // Prefer declarative_spec before source_heuristic when deduplicating
-  const orderedScanned = [...scannedRoutes].sort((a, b) => {
-    const aSpec = a.denominator === "declarative_spec" ? 0 : 1;
-    const bSpec = b.denominator === "declarative_spec" ? 0 : 1;
-    return aSpec - bSpec;
-  });
-
   for (const s of orderedScanned) {
-    if (s.kind !== "route" && s.kind !== "ws_channel") continue;
-    const method = s.kind === "ws_channel" ? "WS" : String(s.details?.method ?? "ANY").toUpperCase();
-    const routePath = String(s.details?.path ?? s.details?.channel ?? s.surface_id);
-    const dedupeKey = `${method} ${routePath}`;
+    const parsed = parseScannedRoute(s, triageRules);
+    const dedupeKey = `${parsed.method} ${parsed.routePath}`;
     if (seenMethodPath.has(dedupeKey)) continue;
     seenMethodPath.add(dedupeKey);
-
-    const d = (s.details ?? {}) as Record<string, unknown>;
-    const disposition = matchTriage(s.surface_id, routePath, triageRules);
-    const tags = Array.isArray(d.tags) ? d.tags.map(String) : undefined;
-    const security = Array.isArray(d.security) ? d.security.map(String) : undefined;
-
-    const rawParams = Array.isArray(d.parameters) ? (d.parameters as ApiParamSpec[]) : [];
-    const params: ApiParamSpec[] = rawParams.length > 0 ? [...rawParams] : extractPathParams(routePath);
-    if (security && security.length > 0 && !params.some((p) => p.name.toLowerCase() === "authorization")) {
-      params.push({
-        name: "Authorization",
-        in: "header",
-        required: true,
-        type: "string",
-        description: `Security scheme: ${security.join(", ")}`,
-      });
-    }
-
-    const rawRb = d.request_body as { content_type?: string; required?: boolean; fields?: ApiFieldSpec[] } | undefined;
-    const cleanFields = (arr?: readonly ApiFieldSpec[]): ApiFieldSpec[] =>
-      (arr ?? []).filter((f) => f.name !== "$schema");
-
-    const requestBody = rawRb
-      ? {
-          contentType: rawRb.content_type ?? "application/json",
-          required: rawRb.required,
-          fields: cleanFields(rawRb.fields),
-        }
-      : undefined;
-
-    const rawResponses = Array.isArray(d.responses)
-      ? (d.responses as Array<{ status: string; description: string; content_type?: string; fields?: ApiFieldSpec[] }>)
-      : [];
-
-    const responses: ApiResponseSpec[] =
-      rawResponses.length > 0
-        ? rawResponses.map((r) => ({
-            status: r.status,
-            description: r.description || (r.status === "default" ? "Error" : "Response"),
-            contentType: r.content_type,
-            fields: cleanFields(r.fields),
-          }))
-        : [{ status: method === "POST" ? "201" : "200", description: "Success", contentType: "application/json", fields: [] }];
 
     list.push({
       key: s.surface_id,
       id: s.surface_id,
-      method,
-      path: routePath,
-      title: typeof d.summary === "string" && d.summary ? d.summary : `${method} ${routePath}`,
-      description: typeof d.description === "string" ? d.description : typeof d.summary === "string" ? d.summary : undefined,
-      group: extractGroup(routePath, tags),
-      auth: security?.join(", "),
+      method: parsed.method,
+      path: parsed.routePath,
+      title: parsed.summary ?? `${parsed.method} ${parsed.routePath}`,
+      description: parsed.description,
+      group: extractGroup(parsed.routePath, parsed.tags),
+      auth: parsed.security?.join(", "),
       knownFrom: s.extractor,
       source: "scanned",
-      triageDisposition: disposition,
-      parameters: params,
-      requestBody,
-      responses,
+      triageDisposition: parsed.disposition,
+      parameters: parsed.params,
+      requestBody: parsed.requestBody,
+      responses: parsed.responses,
       hasPlanChange: false,
     });
   }
@@ -293,7 +353,7 @@ export function buildRichEndpoints(
   });
 }
 
-function methodColor(method: string): { bg: string; fg: string; badge: string } {
+export function methodColor(method: string): { bg: string; fg: string; badge: string } {
   switch (method.toUpperCase()) {
     case "GET":
       return { bg: "var(--accent-soft)", fg: "var(--accent)", badge: "indigo" };

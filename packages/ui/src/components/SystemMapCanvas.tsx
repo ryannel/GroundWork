@@ -35,6 +35,7 @@ interface PositionedEdge {
   readonly to: string;
   readonly kind: string;
   readonly label?: string;
+  readonly count?: number;
   readonly points: readonly { x: number; y: number }[];
 }
 
@@ -45,6 +46,7 @@ interface Props {
   unassignedTopics: readonly TopicFile[];
   edges: readonly DerivedEdge[];
   evidence?: SpacePayload["evidence"];
+  componentCodeInfo?: SpacePayload["component_code_info"];
   selectedId: string | null;
   onSelect: (id: string) => void;
   onOpenFullView?: (id: string) => void;
@@ -106,6 +108,7 @@ export function SystemMapCanvas({
   unassignedTopics,
   edges,
   evidence,
+  componentCodeInfo,
   selectedId,
   onSelect,
   onOpenFullView,
@@ -118,6 +121,8 @@ export function SystemMapCanvas({
   const [nodes, setNodes] = useState<PositionedNode[]>([]);
   const [routedEdges, setRoutedEdges] = useState<PositionedEdge[]>([]);
   const [isolateEgo, setIsolateEgo] = useState(false);
+  const [directDepsOnly, setDirectDepsOnly] = useState(false);
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [layoutSeq, setLayoutSeq] = useState(0);
 
   const bounds = useMemo<ContentBounds>(() => {
@@ -149,6 +154,19 @@ export function SystemMapCanvas({
     }
     return set;
   }, [evidence]);
+
+  const incomingCountByComp = useMemo(() => {
+    const counts = new Map<string, Set<string>>();
+    for (const e of edges) {
+      let s = counts.get(e.to);
+      if (!s) {
+        s = new Set();
+        counts.set(e.to, s);
+      }
+      s.add(e.from);
+    }
+    return counts;
+  }, [edges]);
 
   const visibleModel = useMemo(() => {
     const metaById = new Map<string, GraphNodeMeta>();
@@ -186,16 +204,30 @@ export function SystemMapCanvas({
           compToVisible.set(c.id, c.id);
           const cDiff = diffByEntity?.get(c.id);
           const apiCount = c.contracts.interfaces?.reduce((a, i) => a + i.entries.length, 0) ?? 0;
+          const pkgStruct = componentCodeInfo?.[c.id]?.package_structure;
+          const zoneCount = c.orientation?.zones?.length ?? 0;
+          const usedByCount = incomingCountByComp.get(c.id)?.size ?? 0;
+
+          const footprintText =
+            c.component.kind === "module"
+              ? zoneCount > 0 && pkgStruct
+                ? `${plural(zoneCount, "zone")} · ${plural(pkgStruct.source_files, "file")}`
+                : pkgStruct
+                  ? `${plural(pkgStruct.source_files, "file")} · ${plural(c.component.depends_on?.length ?? 0, "dep")}`
+                  : `${plural(c.component.public_modules?.length ?? 0, "export")} · ${plural(c.component.depends_on?.length ?? 0, "dep")}`
+              : apiCount > 0 || c.handlers.handlers.length > 0
+                ? `${plural(apiCount, "API")} · ${plural(c.handlers.handlers.length, "handler")}`
+                : pkgStruct
+                  ? `${plural(pkgStruct.source_files, "file")}`
+                  : c.component.tech ?? "";
+
           metaById.set(c.id, {
             id: c.id,
             kind: c.component.kind,
             title: c.component.name,
             subtitle: c.component.does ?? c.component.tech ?? "",
-            badge: c.component.tech,
-            countText:
-              c.component.kind === "module"
-                ? `${plural(c.component.public_modules?.length ?? 0, "export")} · ${plural(c.component.depends_on?.length ?? 0, "dep")}`
-                : `${plural(apiCount, "API")} · ${plural(c.handlers.handlers.length, "handler")}`,
+            badge: usedByCount >= 3 ? `used by ${usedByCount}` : c.component.tech,
+            countText: footprintText,
             diffKind: cDiff,
           });
           innerChildren.push({ id: c.id, width: 236, height: 112 });
@@ -278,27 +310,72 @@ export function SystemMapCanvas({
       elkChildren.push({ id: top.id, width: 226, height: 112 });
     }
 
-    // Deduplicate visible edges
-    const seenEdges = new Set<string>();
-    const elkEdges: Array<{ id: string; sources: string[]; targets: string[]; kind: string; label?: string }> = [];
+    // Deduplicate visible edges and track rolled-up counts (for collapsed system edges)
+    const edgeByKey = new Map<string, { src: string; dst: string; kind: string; label?: string; count: number }>();
     for (const e of edges) {
       const src = compToVisible.get(e.from) ?? compToVisible.get(e.from_system);
       const dst = compToVisible.get(e.to) ?? (e.to_system ? compToVisible.get(e.to_system) : undefined);
       if (!src || !dst || src === dst) continue;
       const key = `${src}|${dst}|${e.kind}`;
-      if (seenEdges.has(key)) continue;
-      seenEdges.add(key);
-      elkEdges.push({
-        id: `e_${elkEdges.length}`,
-        sources: [src],
-        targets: [dst],
-        kind: e.kind,
-        label: e.label ?? e.kind,
-      });
+      const existing = edgeByKey.get(key);
+      if (existing) {
+        existing.count += 1;
+      } else {
+        edgeByKey.set(key, { src, dst, kind: e.kind, label: e.label ?? e.kind, count: 1 });
+      }
     }
 
+    // Optional transitive reduction for `depends` edges to cut dependency spaghetti
+    let mergedEdges = [...edgeByKey.values()];
+    if (directDepsOnly) {
+      const depAdj = new Map<string, Set<string>>();
+      for (const e of mergedEdges) {
+        if (e.kind !== "depends") continue;
+        let s = depAdj.get(e.src);
+        if (!s) {
+          s = new Set();
+          depAdj.set(e.src, s);
+        }
+        s.add(e.dst);
+      }
+      const isReachableViaOther = (start: string, target: string): boolean => {
+        const direct = depAdj.get(start);
+        if (!direct) return false;
+        const queue: string[] = [];
+        const visited = new Set<string>([start]);
+        for (const next of direct) {
+          if (next === target) continue;
+          visited.add(next);
+          queue.push(next);
+        }
+        while (queue.length > 0) {
+          const cur = queue.shift()!;
+          const nbrs = depAdj.get(cur);
+          if (!nbrs) continue;
+          for (const n of nbrs) {
+            if (n === target) return true;
+            if (!visited.has(n)) {
+              visited.add(n);
+              queue.push(n);
+            }
+          }
+        }
+        return false;
+      };
+      mergedEdges = mergedEdges.filter((e) => e.kind !== "depends" || !isReachableViaOther(e.src, e.dst));
+    }
+
+    const elkEdges = mergedEdges.map((e, i) => ({
+      id: `e_${i}`,
+      sources: [e.src],
+      targets: [e.dst],
+      kind: e.kind,
+      label: e.label,
+      count: e.count,
+    }));
+
     return { metaById, elkChildren, elkEdges };
-  }, [systems, externals, unassignedStores, unassignedTopics, edges, expandedSystems, diffByEntity, scannedTableNames]);
+  }, [systems, externals, unassignedStores, unassignedTopics, edges, expandedSystems, diffByEntity, scannedTableNames, componentCodeInfo, incomingCountByComp, directDepsOnly]);
 
   useEffect(() => {
     let cancelled = false;
@@ -373,6 +450,7 @@ export function SystemMapCanvas({
             to: em.targets[0]!,
             kind: em.kind,
             label: em.label,
+            count: em.count,
             points: pts,
           });
         }
@@ -440,6 +518,18 @@ export function SystemMapCanvas({
               <Eye size={13} /> {isolateEgo ? "1-Hop Isolated" : "Isolate 1-Hop"}
             </button>
           </div>
+
+          {(hasDependsEdges || directDepsOnly) && (
+            <div className="pill-group">
+              <button
+                className={`icon-btn ${directDepsOnly ? "active" : ""}`}
+                onClick={() => setDirectDepsOnly((v) => !v)}
+                title="Hide transitive module dependency shortcuts"
+              >
+                {directDepsOnly ? "Direct Deps Only" : "Hide Transitive"}
+              </button>
+            </div>
+          )}
         </>
       }
       svgDefs={
@@ -538,7 +628,11 @@ export function SystemMapCanvas({
       {/* Edges */}
       {routedEdges.map((edge) => {
         const style = edgeColor(edge.kind);
-        const dimmed = egoSet !== null && !(egoSet.has(edge.from) && egoSet.has(edge.to));
+        const focusId = hoveredId ?? selectedId;
+        const isIncident = Boolean(focusId && (edge.from === focusId || edge.to === focusId));
+        const passiveDimmed = Boolean(focusId && !isIncident);
+        const egoDimmed = egoSet !== null && !(egoSet.has(edge.from) && egoSet.has(edge.to));
+        const dimmed = egoDimmed || passiveDimmed;
         const marker =
           edge.kind === "depends"
             ? "url(#arrow-depends)"
@@ -550,17 +644,38 @@ export function SystemMapCanvas({
                   ? "url(#arrow-warn)"
                   : "url(#arrow-call)";
         const d = edge.points.map((p, idx) => `${idx === 0 ? "M" : "L"} ${p.x} ${p.y}`).join(" ");
+        const showCountBadge = (edge.count ?? 1) > 1 && edge.points.length >= 2;
+        const midIdx = Math.floor(edge.points.length / 2);
+        const pA = edge.points[midIdx - 1] ?? edge.points[0]!;
+        const pB = edge.points[midIdx] ?? edge.points[edge.points.length - 1]!;
+        const midX = (pA.x + pB.x) / 2;
+        const midY = (pA.y + pB.y) / 2;
         return (
-          <path
-            key={edge.id}
-            d={d}
-            fill="none"
-            stroke={style.stroke}
-            strokeWidth={selectedId === edge.from || selectedId === edge.to ? 2.4 : 1.75}
-            strokeDasharray={style.dash}
-            opacity={dimmed ? 0.14 : 0.85}
-            markerEnd={marker}
-          />
+          <g key={edge.id}>
+            <path
+              d={d}
+              fill="none"
+              stroke={style.stroke}
+              strokeWidth={isIncident ? 2.4 : 1.75}
+              strokeDasharray={style.dash}
+              opacity={dimmed ? 0.14 : isIncident ? 0.95 : 0.8}
+              markerEnd={marker}
+            />
+            {showCountBadge && !dimmed && (
+              <g transform={`translate(${midX}, ${midY})`}>
+                <rect x={-16} y={-9} width={32} height={18} rx={9} fill="var(--surface)" stroke={style.stroke} strokeWidth={1} />
+                <text
+                  textAnchor="middle"
+                  dominantBaseline="central"
+                  fontSize={10}
+                  fontWeight={700}
+                  fill={style.stroke}
+                >
+                  {edge.count}
+                </text>
+              </g>
+            )}
+          </g>
         );
       })}
 
@@ -588,6 +703,8 @@ export function SystemMapCanvas({
                 className={classes}
                 onClick={() => onSelect(n.id)}
                 onDoubleClick={() => onOpenFullView?.(n.id)}
+                onMouseEnter={() => setHoveredId(n.id)}
+                onMouseLeave={() => setHoveredId((prev) => (prev === n.id ? null : prev))}
                 title="Click to inspect · Double-click for full view"
               >
                 <div>
