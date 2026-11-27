@@ -1,0 +1,17 @@
+{
+  "name": "@groundwork/cli",
+  "version": "0.1.0",
+  "type": "module",
+  "bin": {
+    "groundwork": "./src/index.ts"
+  },
+  "dependencies": {
+    "@groundwork/schema": "*",
+    "@groundwork/scanner": "*",
+    "@groundwork/core": "*",
+    "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9"
+  }
+}
