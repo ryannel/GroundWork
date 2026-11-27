@@ -1,0 +1,420 @@
+{
+  "schema_version": 1,
+  "repo_name": "wordloop-platform",
+  "remote": "https://github.com/ryannel/wordloop-platform.git",
+  "commit": "c4172c3ecb16f42a3562cf95476e9977570fd72a",
+  "branch": "chore/groundwork-reset",
+  "dirty": true,
+  "scanned_at": "2026-11-27T22:02:43.014Z",
+  "scanner_version": "0.2.0-orientation",
+  "submodules": [
+    {
+      "path": "services/wordloop-app",
+      "name": "wordloop-app",
+      "remote": "https://github.com/ryannel/wordloop-app",
+      "commit": "9a8a64265df0979b418123b6332740c9d380add0",
+      "branch": "main",
+      "dirty": false
+    },
+    {
+      "path": "services/wordloop-core",
+      "name": "wordloop-core",
+      "remote": "https://github.com/ryannel/wordloop-core",
+      "commit": "71fbf8a8c90693431dbedc22f0360ce5c0eb5ab8",
+      "branch": "main",
+      "dirty": false
+    },
+    {
+      "path": "services/wordloop-docs",
+      "name": "wordloop-docs",
+      "remote": "https://github.com/ryannel/wordloop-docs",
+      "commit": "967ee38e5705e023bfee83478c485be8895a442b",
+      "branch": "main",
+      "dirty": false
+    },
+    {
+      "path": "services/wordloop-ml",
+      "name": "wordloop-ml",
+      "remote": "https://github.com/ryannel/wordloop-ml",
+      "commit": "48af5b62cb5d01b47f6f3068bb9583467500ca19",
+      "branch": "main",
+      "dirty": false
+    },
+    {
+      "path": "tools/skill-factory",
+      "name": "skill-factory",
+      "remote": "https://github.com/ryannel/wordloop-skill-factory",
+      "commit": "a03bf22b5fadc63893996e7ae6c4037edd11e246",
+      "branch": "main",
+      "dirty": false
+    }
+  ],
+  "package_roots": [
+    {
+      "path": ".",
+      "name": "wordloop-platform",
+      "language": "javascript",
+      "manifest": "package.json",
+      "repo_name": "wordloop-platform",
+      "frameworks": [],
+      "capabilities": {
+        "interfaces": "unsupported",
+        "stores": "unsupported",
+        "messages_published": "unsupported",
+        "messages_consumed": "unsupported",
+        "jobs": "unsupported",
+        "screens": "unsupported",
+        "outbound_calls": "unsupported"
+      },
+      "key_dependencies": []
+    },
+    {
+      "path": "services/wordloop-app",
+      "name": "my-project",
+      "language": "typescript",
+      "manifest": "services/wordloop-app/package.json",
+      "submodule_path": "services/wordloop-app",
+      "repo_name": "wordloop-app",
+      "frameworks": [
+        {
+          "name": "next",
+          "version": "16.1.6",
+          "facet": "screens",
+          "support": "partial",
+          "source": "services/wordloop-app/package.json"
+        },
+        {
+          "name": "react",
+          "version": "19.2.4",
+          "facet": "screens",
+          "support": "partial",
+          "source": "services/wordloop-app/package.json"
+        },
+        {
+          "name": "vite",
+          "version": "^6.3.5",
+          "facet": "screens",
+          "support": "partial",
+          "source": "services/wordloop-app/package.json"
+        },
+        {
+          "name": "browser-fetch-ws",
+          "facet": "outbound_calls",
+          "support": "partial",
+          "source": "services/wordloop-app/package.json"
+        }
+      ],
+      "capabilities": {
+        "interfaces": "unsupported",
+        "stores": "unsupported",
+        "messages_published": "unsupported",
+        "messages_consumed": "unsupported",
+        "jobs": "unsupported",
+        "screens": "partial",
+        "outbound_calls": "partial"
+      },
+      "key_dependencies": [
+        "next@16.1.6",
+        "react@19.2.4",
+        "vite@^6.3.5"
+      ]
+    },
+    {
+      "path": "services/wordloop-core",
+      "name": "word-loop-core",
+      "language": "go",
+      "manifest": "services/wordloop-core/go.mod",
+      "submodule_path": "services/wordloop-core",
+      "repo_name": "wordloop-core",
+      "frameworks": [
+        {
+          "name": "pubsub",
+          "version": "v1.50.1",
+          "facet": "messages_published",
+          "support": "partial",
+          "source": "services/wordloop-core/go.mod"
+        },
+        {
+          "name": "pubsub",
+          "version": "v1.50.1",
+          "facet": "messages_consumed",
+          "support": "partial",
+          "source": "services/wordloop-core/go.mod"
+        },
+        {
+          "name": "storage",
+          "version": "v1.61.3",
+          "facet": "stores",
+          "support": "partial",
+          "source": "services/wordloop-core/go.mod"
+        },
+        {
+          "name": "go-huma",
+          "version": "v2.34.1",
+          "facet": "interfaces",
+          "support": "supported",
+          "source": "services/wordloop-core/go.mod"
+        },
+        {
+          "name": "go-chi",
+          "version": "v5.2.2",
+          "facet": "interfaces",
+          "support": "supported",
+          "source": "services/wordloop-core/go.mod"
+        },
+        {
+          "name": "go-websocket",
+          "version": "v1.5.3",
+          "facet": "interfaces",
+          "support": "partial",
+          "source": "services/wordloop-core/go.mod"
+        },
+        {
+          "name": "pq",
+          "version": "v1.10.9",
+          "facet": "stores",
+          "support": "supported",
+          "source": "services/wordloop-core/go.mod"
+        },
+        {
+          "name": "v2",
+          "version": "v2.0.0",
+          "facet": "messages_published",
+          "support": "partial",
+          "source": "services/wordloop-core/go.mod"
+        },
+        {
+          "name": "v2",
+          "version": "v2.0.0",
+          "facet": "messages_consumed",
+          "support": "partial",
+          "source": "services/wordloop-core/go.mod"
+        },
+        {
+          "name": "v4",
+          "version": "v4.18.3",
+          "facet": "stores",
+          "support": "supported",
+          "source": "services/wordloop-core/go.mod"
+        },
+        {
+          "name": "net/http",
+          "facet": "interfaces",
+          "support": "partial",
+          "source": "services/wordloop-core/go.mod"
+        },
+        {
+          "name": "net/http-client",
+          "facet": "outbound_calls",
+          "support": "partial",
+          "source": "services/wordloop-core/go.mod"
+        }
+      ],
+      "capabilities": {
+        "interfaces": "supported",
+        "stores": "supported",
+        "messages_published": "partial",
+        "messages_consumed": "partial",
+        "jobs": "unsupported",
+        "screens": "unsupported",
+        "outbound_calls": "partial"
+      },
+      "key_dependencies": [
+        "cloud.google.com/go/pubsub/v2@v2.0.0",
+        "cloud.google.com/go/pubsub@v1.50.1",
+        "cloud.google.com/go/storage@v1.61.3",
+        "github.com/danielgtaylor/huma/v2@v2.34.1",
+        "github.com/go-chi/chi/v5@v5.2.2",
+        "github.com/gorilla/websocket@v1.5.3",
+        "github.com/jackc/pgx/v4@v4.18.3",
+        "github.com/lib/pq@v1.10.9"
+      ]
+    },
+    {
+      "path": "services/wordloop-core/tools",
+      "name": "tools",
+      "language": "go",
+      "manifest": "services/wordloop-core/tools/go.mod",
+      "submodule_path": "services/wordloop-core",
+      "repo_name": "wordloop-core",
+      "frameworks": [
+        {
+          "name": "net/http",
+          "facet": "interfaces",
+          "support": "partial",
+          "source": "services/wordloop-core/tools/go.mod"
+        },
+        {
+          "name": "net/http-client",
+          "facet": "outbound_calls",
+          "support": "partial",
+          "source": "services/wordloop-core/tools/go.mod"
+        }
+      ],
+      "capabilities": {
+        "interfaces": "partial",
+        "stores": "unsupported",
+        "messages_published": "unsupported",
+        "messages_consumed": "unsupported",
+        "jobs": "unsupported",
+        "screens": "unsupported",
+        "outbound_calls": "partial"
+      },
+      "key_dependencies": []
+    },
+    {
+      "path": "services/wordloop-docs",
+      "name": "wordloop-docs",
+      "language": "typescript",
+      "manifest": "services/wordloop-docs/package.json",
+      "submodule_path": "services/wordloop-docs",
+      "repo_name": "wordloop-docs",
+      "frameworks": [
+        {
+          "name": "next",
+          "version": "16.2.4",
+          "facet": "screens",
+          "support": "partial",
+          "source": "services/wordloop-docs/package.json"
+        },
+        {
+          "name": "react",
+          "version": "^19.2.5",
+          "facet": "screens",
+          "support": "partial",
+          "source": "services/wordloop-docs/package.json"
+        },
+        {
+          "name": "browser-fetch-ws",
+          "facet": "outbound_calls",
+          "support": "partial",
+          "source": "services/wordloop-docs/package.json"
+        }
+      ],
+      "capabilities": {
+        "interfaces": "unsupported",
+        "stores": "unsupported",
+        "messages_published": "unsupported",
+        "messages_consumed": "unsupported",
+        "jobs": "unsupported",
+        "screens": "partial",
+        "outbound_calls": "partial"
+      },
+      "key_dependencies": [
+        "next@16.2.4",
+        "react@^19.2.5"
+      ]
+    },
+    {
+      "path": "services/wordloop-ml",
+      "name": "wordloop-ml",
+      "language": "python",
+      "manifest": "services/wordloop-ml/pyproject.toml",
+      "submodule_path": "services/wordloop-ml",
+      "repo_name": "wordloop-ml",
+      "frameworks": [
+        {
+          "name": "fastapi",
+          "version": "0.116.1",
+          "facet": "interfaces",
+          "support": "supported",
+          "source": "services/wordloop-ml/pyproject.toml"
+        },
+        {
+          "name": "httpx",
+          "version": "0.27.0",
+          "facet": "outbound_calls",
+          "support": "partial",
+          "source": "services/wordloop-ml/pyproject.toml"
+        },
+        {
+          "name": "google-cloud-pubsub",
+          "version": "2.29.0",
+          "facet": "messages_published",
+          "support": "partial",
+          "source": "services/wordloop-ml/pyproject.toml"
+        },
+        {
+          "name": "google-cloud-pubsub",
+          "version": "2.29.0",
+          "facet": "messages_consumed",
+          "support": "partial",
+          "source": "services/wordloop-ml/pyproject.toml"
+        },
+        {
+          "name": "google-cloud-storage",
+          "version": "2.16.0",
+          "facet": "stores",
+          "support": "partial",
+          "source": "services/wordloop-ml/pyproject.toml"
+        }
+      ],
+      "capabilities": {
+        "interfaces": "supported",
+        "stores": "partial",
+        "messages_published": "partial",
+        "messages_consumed": "partial",
+        "jobs": "unsupported",
+        "screens": "unsupported",
+        "outbound_calls": "partial"
+      },
+      "key_dependencies": [
+        "fastapi@0.116.1",
+        "google-cloud-pubsub@2.29.0",
+        "google-cloud-storage@2.16.0",
+        "httpx@0.27.0"
+      ]
+    },
+    {
+      "path": "tests",
+      "name": "wordloop-system-tests",
+      "language": "python",
+      "manifest": "tests/pyproject.toml",
+      "repo_name": "wordloop-platform",
+      "frameworks": [
+        {
+          "name": "httpx",
+          "version": "0.27.0",
+          "facet": "outbound_calls",
+          "support": "partial",
+          "source": "tests/pyproject.toml"
+        },
+        {
+          "name": "google-cloud-pubsub",
+          "version": "2.29.0",
+          "facet": "messages_published",
+          "support": "partial",
+          "source": "tests/pyproject.toml"
+        },
+        {
+          "name": "google-cloud-pubsub",
+          "version": "2.29.0",
+          "facet": "messages_consumed",
+          "support": "partial",
+          "source": "tests/pyproject.toml"
+        },
+        {
+          "name": "google-cloud-storage",
+          "version": "2.16.0",
+          "facet": "stores",
+          "support": "partial",
+          "source": "tests/pyproject.toml"
+        }
+      ],
+      "capabilities": {
+        "interfaces": "unsupported",
+        "stores": "partial",
+        "messages_published": "partial",
+        "messages_consumed": "partial",
+        "jobs": "unsupported",
+        "screens": "unsupported",
+        "outbound_calls": "partial"
+      },
+      "key_dependencies": [
+        "google-cloud-pubsub@2.29.0",
+        "google-cloud-storage@2.16.0",
+        "httpx@0.27.0"
+      ]
+    }
+  ]
+}

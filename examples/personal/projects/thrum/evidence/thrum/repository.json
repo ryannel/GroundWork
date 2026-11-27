@@ -1,0 +1,1537 @@
+{
+  "schema_version": 1,
+  "repo_name": "thrum",
+  "remote": "https://github.com/ryannel/Thrum.git",
+  "commit": "f5591b79c71279df4f7dba6cfafdedc8bf4ce3be",
+  "branch": "main",
+  "dirty": false,
+  "scanned_at": "2026-11-27T22:02:41.960Z",
+  "scanner_version": "0.2.0-orientation",
+  "package_roots": [
+    {
+      "path": "crates/thrum-app",
+      "name": "thrum-app",
+      "language": "rust",
+      "manifest": "crates/thrum-app/Cargo.toml",
+      "repo_name": "thrum",
+      "workspace_dependencies": [
+        "thrum-asset",
+        "thrum-asset-gpu",
+        "thrum-controls",
+        "thrum-core",
+        "thrum-render",
+        "thrum-ui"
+      ],
+      "frameworks": [
+        {
+          "name": "cargo-crate",
+          "facet": "interfaces",
+          "support": "supported",
+          "source": "crates/thrum-app/Cargo.toml"
+        },
+        {
+          "name": "cargo-deps",
+          "facet": "outbound_calls",
+          "support": "supported",
+          "source": "crates/thrum-app/Cargo.toml"
+        },
+        {
+          "name": "wgpu",
+          "facet": "screens",
+          "support": "partial",
+          "source": "crates/thrum-app/Cargo.toml"
+        }
+      ],
+      "capabilities": {
+        "interfaces": "supported",
+        "stores": "unsupported",
+        "messages_published": "unsupported",
+        "messages_consumed": "unsupported",
+        "jobs": "unsupported",
+        "screens": "partial",
+        "outbound_calls": "supported"
+      },
+      "key_dependencies": [
+        "cpu-time",
+        "js-sys",
+        "objc2",
+        "objc2-app-kit",
+        "objc2-foundation",
+        "objc2-quartz-core",
+        "pollster",
+        "serde_json",
+        "sha2",
+        "wasm-bindgen",
+        "wasm-bindgen-futures",
+        "web-sys",
+        "wgpu",
+        "winit",
+        "zstd"
+      ]
+    },
+    {
+      "path": "crates/thrum-asset",
+      "name": "thrum-asset",
+      "language": "rust",
+      "manifest": "crates/thrum-asset/Cargo.toml",
+      "repo_name": "thrum",
+      "workspace_dependencies": [],
+      "frameworks": [
+        {
+          "name": "cargo-crate",
+          "facet": "interfaces",
+          "support": "supported",
+          "source": "crates/thrum-asset/Cargo.toml"
+        },
+        {
+          "name": "cargo-deps",
+          "facet": "outbound_calls",
+          "support": "supported",
+          "source": "crates/thrum-asset/Cargo.toml"
+        }
+      ],
+      "capabilities": {
+        "interfaces": "supported",
+        "stores": "unsupported",
+        "messages_published": "unsupported",
+        "messages_consumed": "unsupported",
+        "jobs": "unsupported",
+        "screens": "unsupported",
+        "outbound_calls": "supported"
+      },
+      "key_dependencies": [
+        "blake3",
+        "bytemuck",
+        "js-sys",
+        "memmap2",
+        "wasm-bindgen",
+        "wasm-bindgen-futures"
+      ]
+    },
+    {
+      "path": "crates/thrum-asset-gpu",
+      "name": "thrum-asset-gpu",
+      "language": "rust",
+      "manifest": "crates/thrum-asset-gpu/Cargo.toml",
+      "repo_name": "thrum",
+      "workspace_dependencies": [
+        "thrum-asset",
+        "thrum-render"
+      ],
+      "frameworks": [
+        {
+          "name": "cargo-crate",
+          "facet": "interfaces",
+          "support": "supported",
+          "source": "crates/thrum-asset-gpu/Cargo.toml"
+        },
+        {
+          "name": "cargo-deps",
+          "facet": "outbound_calls",
+          "support": "supported",
+          "source": "crates/thrum-asset-gpu/Cargo.toml"
+        },
+        {
+          "name": "wgpu",
+          "facet": "screens",
+          "support": "partial",
+          "source": "crates/thrum-asset-gpu/Cargo.toml"
+        }
+      ],
+      "capabilities": {
+        "interfaces": "supported",
+        "stores": "unsupported",
+        "messages_published": "unsupported",
+        "messages_consumed": "unsupported",
+        "jobs": "unsupported",
+        "screens": "partial",
+        "outbound_calls": "supported"
+      },
+      "key_dependencies": [
+        "bytemuck",
+        "glam",
+        "web-time",
+        "wgpu"
+      ]
+    },
+    {
+      "path": "crates/thrum-cloud-model",
+      "name": "thrum-cloud-model",
+      "language": "rust",
+      "manifest": "crates/thrum-cloud-model/Cargo.toml",
+      "repo_name": "thrum",
+      "workspace_dependencies": [],
+      "frameworks": [
+        {
+          "name": "cargo-crate",
+          "facet": "interfaces",
+          "support": "supported",
+          "source": "crates/thrum-cloud-model/Cargo.toml"
+        },
+        {
+          "name": "cargo-deps",
+          "facet": "outbound_calls",
+          "support": "supported",
+          "source": "crates/thrum-cloud-model/Cargo.toml"
+        }
+      ],
+      "capabilities": {
+        "interfaces": "supported",
+        "stores": "unsupported",
+        "messages_published": "unsupported",
+        "messages_consumed": "unsupported",
+        "jobs": "unsupported",
+        "screens": "unsupported",
+        "outbound_calls": "supported"
+      },
+      "key_dependencies": []
+    },
+    {
+      "path": "crates/thrum-clouds",
+      "name": "thrum-clouds",
+      "language": "rust",
+      "manifest": "crates/thrum-clouds/Cargo.toml",
+      "repo_name": "thrum",
+      "workspace_dependencies": [
+        "thrum-asset-gpu",
+        "thrum-cloud-model",
+        "thrum-render"
+      ],
+      "frameworks": [
+        {
+          "name": "cargo-crate",
+          "facet": "interfaces",
+          "support": "supported",
+          "source": "crates/thrum-clouds/Cargo.toml"
+        },
+        {
+          "name": "cargo-deps",
+          "facet": "outbound_calls",
+          "support": "supported",
+          "source": "crates/thrum-clouds/Cargo.toml"
+        },
+        {
+          "name": "wgpu",
+          "facet": "screens",
+          "support": "partial",
+          "source": "crates/thrum-clouds/Cargo.toml"
+        }
+      ],
+      "capabilities": {
+        "interfaces": "supported",
+        "stores": "unsupported",
+        "messages_published": "unsupported",
+        "messages_consumed": "unsupported",
+        "jobs": "unsupported",
+        "screens": "partial",
+        "outbound_calls": "supported"
+      },
+      "key_dependencies": [
+        "bytemuck",
+        "glam",
+        "wgpu"
+      ]
+    },
+    {
+      "path": "crates/thrum-controls",
+      "name": "thrum-controls",
+      "language": "rust",
+      "manifest": "crates/thrum-controls/Cargo.toml",
+      "repo_name": "thrum",
+      "workspace_dependencies": [],
+      "frameworks": [
+        {
+          "name": "cargo-crate",
+          "facet": "interfaces",
+          "support": "supported",
+          "source": "crates/thrum-controls/Cargo.toml"
+        },
+        {
+          "name": "cargo-deps",
+          "facet": "outbound_calls",
+          "support": "supported",
+          "source": "crates/thrum-controls/Cargo.toml"
+        }
+      ],
+      "capabilities": {
+        "interfaces": "supported",
+        "stores": "unsupported",
+        "messages_published": "unsupported",
+        "messages_consumed": "unsupported",
+        "jobs": "unsupported",
+        "screens": "unsupported",
+        "outbound_calls": "supported"
+      },
+      "key_dependencies": [
+        "objc2",
+        "objc2-app-kit",
+        "objc2-foundation",
+        "serde_json"
+      ]
+    },
+    {
+      "path": "crates/thrum-cook",
+      "name": "thrum-cook",
+      "language": "rust",
+      "manifest": "crates/thrum-cook/Cargo.toml",
+      "repo_name": "thrum",
+      "workspace_dependencies": [
+        "thrum-asset"
+      ],
+      "frameworks": [
+        {
+          "name": "cargo-crate",
+          "facet": "interfaces",
+          "support": "supported",
+          "source": "crates/thrum-cook/Cargo.toml"
+        },
+        {
+          "name": "cargo-deps",
+          "facet": "outbound_calls",
+          "support": "supported",
+          "source": "crates/thrum-cook/Cargo.toml"
+        }
+      ],
+      "capabilities": {
+        "interfaces": "supported",
+        "stores": "unsupported",
+        "messages_published": "unsupported",
+        "messages_consumed": "unsupported",
+        "jobs": "unsupported",
+        "screens": "unsupported",
+        "outbound_calls": "supported"
+      },
+      "key_dependencies": [
+        "astcenc-rs",
+        "blake3",
+        "bytemuck",
+        "gltf",
+        "harfrust",
+        "image",
+        "intel_tex_2",
+        "meshopt",
+        "notify",
+        "rayon",
+        "serde",
+        "serde_json",
+        "skrifa",
+        "unicode-normalization",
+        "zeno"
+      ]
+    },
+    {
+      "path": "crates/thrum-core",
+      "name": "thrum-core",
+      "language": "rust",
+      "manifest": "crates/thrum-core/Cargo.toml",
+      "repo_name": "thrum",
+      "workspace_dependencies": [],
+      "frameworks": [
+        {
+          "name": "cargo-crate",
+          "facet": "interfaces",
+          "support": "supported",
+          "source": "crates/thrum-core/Cargo.toml"
+        },
+        {
+          "name": "cargo-deps",
+          "facet": "outbound_calls",
+          "support": "supported",
+          "source": "crates/thrum-core/Cargo.toml"
+        }
+      ],
+      "capabilities": {
+        "interfaces": "supported",
+        "stores": "unsupported",
+        "messages_published": "unsupported",
+        "messages_consumed": "unsupported",
+        "jobs": "unsupported",
+        "screens": "unsupported",
+        "outbound_calls": "supported"
+      },
+      "key_dependencies": [
+        "rayon",
+        "smallvec",
+        "web-time"
+      ]
+    },
+    {
+      "path": "crates/thrum-fixtures",
+      "name": "thrum-fixtures",
+      "language": "rust",
+      "manifest": "crates/thrum-fixtures/Cargo.toml",
+      "repo_name": "thrum",
+      "workspace_dependencies": [],
+      "frameworks": [
+        {
+          "name": "cargo-crate",
+          "facet": "interfaces",
+          "support": "supported",
+          "source": "crates/thrum-fixtures/Cargo.toml"
+        },
+        {
+          "name": "cargo-deps",
+          "facet": "outbound_calls",
+          "support": "supported",
+          "source": "crates/thrum-fixtures/Cargo.toml"
+        }
+      ],
+      "capabilities": {
+        "interfaces": "supported",
+        "stores": "unsupported",
+        "messages_published": "unsupported",
+        "messages_consumed": "unsupported",
+        "jobs": "unsupported",
+        "screens": "unsupported",
+        "outbound_calls": "supported"
+      },
+      "key_dependencies": []
+    },
+    {
+      "path": "crates/thrum-network",
+      "name": "thrum-network",
+      "language": "rust",
+      "manifest": "crates/thrum-network/Cargo.toml",
+      "repo_name": "thrum",
+      "workspace_dependencies": [
+        "thrum-core",
+        "thrum-transport"
+      ],
+      "frameworks": [
+        {
+          "name": "cargo-crate",
+          "facet": "interfaces",
+          "support": "supported",
+          "source": "crates/thrum-network/Cargo.toml"
+        },
+        {
+          "name": "cargo-deps",
+          "facet": "outbound_calls",
+          "support": "supported",
+          "source": "crates/thrum-network/Cargo.toml"
+        }
+      ],
+      "capabilities": {
+        "interfaces": "supported",
+        "stores": "unsupported",
+        "messages_published": "unsupported",
+        "messages_consumed": "unsupported",
+        "jobs": "unsupported",
+        "screens": "unsupported",
+        "outbound_calls": "supported"
+      },
+      "key_dependencies": [
+        "getrandom"
+      ]
+    },
+    {
+      "path": "crates/thrum-rain-model",
+      "name": "thrum-rain-model",
+      "language": "rust",
+      "manifest": "crates/thrum-rain-model/Cargo.toml",
+      "repo_name": "thrum",
+      "workspace_dependencies": [
+        "thrum-water-model"
+      ],
+      "frameworks": [
+        {
+          "name": "cargo-crate",
+          "facet": "interfaces",
+          "support": "supported",
+          "source": "crates/thrum-rain-model/Cargo.toml"
+        },
+        {
+          "name": "cargo-deps",
+          "facet": "outbound_calls",
+          "support": "supported",
+          "source": "crates/thrum-rain-model/Cargo.toml"
+        }
+      ],
+      "capabilities": {
+        "interfaces": "supported",
+        "stores": "unsupported",
+        "messages_published": "unsupported",
+        "messages_consumed": "unsupported",
+        "jobs": "unsupported",
+        "screens": "unsupported",
+        "outbound_calls": "supported"
+      },
+      "key_dependencies": []
+    },
+    {
+      "path": "crates/thrum-render",
+      "name": "thrum-render",
+      "language": "rust",
+      "manifest": "crates/thrum-render/Cargo.toml",
+      "repo_name": "thrum",
+      "workspace_dependencies": [
+        "thrum-asset",
+        "thrum-core"
+      ],
+      "frameworks": [
+        {
+          "name": "cargo-crate",
+          "facet": "interfaces",
+          "support": "supported",
+          "source": "crates/thrum-render/Cargo.toml"
+        },
+        {
+          "name": "cargo-deps",
+          "facet": "outbound_calls",
+          "support": "supported",
+          "source": "crates/thrum-render/Cargo.toml"
+        },
+        {
+          "name": "wgpu",
+          "facet": "screens",
+          "support": "partial",
+          "source": "crates/thrum-render/Cargo.toml"
+        }
+      ],
+      "capabilities": {
+        "interfaces": "supported",
+        "stores": "unsupported",
+        "messages_published": "unsupported",
+        "messages_consumed": "unsupported",
+        "jobs": "unsupported",
+        "screens": "partial",
+        "outbound_calls": "supported"
+      },
+      "key_dependencies": [
+        "blake3",
+        "bytemuck",
+        "glam",
+        "half",
+        "objc2",
+        "objc2-foundation",
+        "objc2-metal",
+        "pollster",
+        "profiling",
+        "web-time",
+        "wgpu"
+      ]
+    },
+    {
+      "path": "crates/thrum-river-model",
+      "name": "thrum-river-model",
+      "language": "rust",
+      "manifest": "crates/thrum-river-model/Cargo.toml",
+      "repo_name": "thrum",
+      "workspace_dependencies": [
+        "thrum-water-model"
+      ],
+      "frameworks": [
+        {
+          "name": "cargo-crate",
+          "facet": "interfaces",
+          "support": "supported",
+          "source": "crates/thrum-river-model/Cargo.toml"
+        },
+        {
+          "name": "cargo-deps",
+          "facet": "outbound_calls",
+          "support": "supported",
+          "source": "crates/thrum-river-model/Cargo.toml"
+        }
+      ],
+      "capabilities": {
+        "interfaces": "supported",
+        "stores": "unsupported",
+        "messages_published": "unsupported",
+        "messages_consumed": "unsupported",
+        "jobs": "unsupported",
+        "screens": "unsupported",
+        "outbound_calls": "supported"
+      },
+      "key_dependencies": [
+        "blake3",
+        "rayon"
+      ]
+    },
+    {
+      "path": "crates/thrum-sea",
+      "name": "thrum-sea",
+      "language": "rust",
+      "manifest": "crates/thrum-sea/Cargo.toml",
+      "repo_name": "thrum",
+      "workspace_dependencies": [
+        "thrum-render",
+        "thrum-sea-model",
+        "thrum-water-model"
+      ],
+      "frameworks": [
+        {
+          "name": "cargo-crate",
+          "facet": "interfaces",
+          "support": "supported",
+          "source": "crates/thrum-sea/Cargo.toml"
+        },
+        {
+          "name": "cargo-deps",
+          "facet": "outbound_calls",
+          "support": "supported",
+          "source": "crates/thrum-sea/Cargo.toml"
+        },
+        {
+          "name": "wgpu",
+          "facet": "screens",
+          "support": "partial",
+          "source": "crates/thrum-sea/Cargo.toml"
+        }
+      ],
+      "capabilities": {
+        "interfaces": "supported",
+        "stores": "unsupported",
+        "messages_published": "unsupported",
+        "messages_consumed": "unsupported",
+        "jobs": "unsupported",
+        "screens": "partial",
+        "outbound_calls": "supported"
+      },
+      "key_dependencies": [
+        "bytemuck",
+        "half",
+        "wgpu"
+      ]
+    },
+    {
+      "path": "crates/thrum-sea-model",
+      "name": "thrum-sea-model",
+      "language": "rust",
+      "manifest": "crates/thrum-sea-model/Cargo.toml",
+      "repo_name": "thrum",
+      "workspace_dependencies": [],
+      "frameworks": [
+        {
+          "name": "cargo-crate",
+          "facet": "interfaces",
+          "support": "supported",
+          "source": "crates/thrum-sea-model/Cargo.toml"
+        },
+        {
+          "name": "cargo-deps",
+          "facet": "outbound_calls",
+          "support": "supported",
+          "source": "crates/thrum-sea-model/Cargo.toml"
+        }
+      ],
+      "capabilities": {
+        "interfaces": "supported",
+        "stores": "unsupported",
+        "messages_published": "unsupported",
+        "messages_consumed": "unsupported",
+        "jobs": "unsupported",
+        "screens": "unsupported",
+        "outbound_calls": "supported"
+      },
+      "key_dependencies": []
+    },
+    {
+      "path": "crates/thrum-sim2d",
+      "name": "thrum-sim2d",
+      "language": "rust",
+      "manifest": "crates/thrum-sim2d/Cargo.toml",
+      "repo_name": "thrum",
+      "workspace_dependencies": [
+        "thrum-core"
+      ],
+      "frameworks": [
+        {
+          "name": "cargo-crate",
+          "facet": "interfaces",
+          "support": "supported",
+          "source": "crates/thrum-sim2d/Cargo.toml"
+        },
+        {
+          "name": "cargo-deps",
+          "facet": "outbound_calls",
+          "support": "supported",
+          "source": "crates/thrum-sim2d/Cargo.toml"
+        }
+      ],
+      "capabilities": {
+        "interfaces": "supported",
+        "stores": "unsupported",
+        "messages_published": "unsupported",
+        "messages_consumed": "unsupported",
+        "jobs": "unsupported",
+        "screens": "unsupported",
+        "outbound_calls": "supported"
+      },
+      "key_dependencies": []
+    },
+    {
+      "path": "crates/thrum-test-support",
+      "name": "thrum-test-support",
+      "language": "rust",
+      "manifest": "crates/thrum-test-support/Cargo.toml",
+      "repo_name": "thrum",
+      "workspace_dependencies": [
+        "thrum-render"
+      ],
+      "frameworks": [
+        {
+          "name": "cargo-crate",
+          "facet": "interfaces",
+          "support": "supported",
+          "source": "crates/thrum-test-support/Cargo.toml"
+        },
+        {
+          "name": "cargo-deps",
+          "facet": "outbound_calls",
+          "support": "supported",
+          "source": "crates/thrum-test-support/Cargo.toml"
+        },
+        {
+          "name": "wgpu",
+          "facet": "screens",
+          "support": "partial",
+          "source": "crates/thrum-test-support/Cargo.toml"
+        }
+      ],
+      "capabilities": {
+        "interfaces": "supported",
+        "stores": "unsupported",
+        "messages_published": "unsupported",
+        "messages_consumed": "unsupported",
+        "jobs": "unsupported",
+        "screens": "partial",
+        "outbound_calls": "supported"
+      },
+      "key_dependencies": [
+        "pollster",
+        "tracing",
+        "tracing-subscriber",
+        "wgpu"
+      ]
+    },
+    {
+      "path": "crates/thrum-transport",
+      "name": "thrum-transport",
+      "language": "rust",
+      "manifest": "crates/thrum-transport/Cargo.toml",
+      "repo_name": "thrum",
+      "workspace_dependencies": [],
+      "frameworks": [
+        {
+          "name": "cargo-crate",
+          "facet": "interfaces",
+          "support": "supported",
+          "source": "crates/thrum-transport/Cargo.toml"
+        },
+        {
+          "name": "cargo-deps",
+          "facet": "outbound_calls",
+          "support": "supported",
+          "source": "crates/thrum-transport/Cargo.toml"
+        },
+        {
+          "name": "quinn",
+          "facet": "messages_published",
+          "support": "partial",
+          "source": "crates/thrum-transport/Cargo.toml"
+        },
+        {
+          "name": "web-transport-quinn",
+          "facet": "messages_published",
+          "support": "partial",
+          "source": "crates/thrum-transport/Cargo.toml"
+        }
+      ],
+      "capabilities": {
+        "interfaces": "supported",
+        "stores": "unsupported",
+        "messages_published": "partial",
+        "messages_consumed": "unsupported",
+        "jobs": "unsupported",
+        "screens": "unsupported",
+        "outbound_calls": "supported"
+      },
+      "key_dependencies": [
+        "js-sys",
+        "quinn",
+        "rcgen",
+        "rustls",
+        "sha2",
+        "time",
+        "tokio",
+        "wasm-bindgen",
+        "wasm-bindgen-futures",
+        "web-transport-quinn"
+      ]
+    },
+    {
+      "path": "crates/thrum-ui",
+      "name": "thrum-ui",
+      "language": "rust",
+      "manifest": "crates/thrum-ui/Cargo.toml",
+      "repo_name": "thrum",
+      "workspace_dependencies": [
+        "thrum-asset",
+        "thrum-render"
+      ],
+      "frameworks": [
+        {
+          "name": "cargo-crate",
+          "facet": "interfaces",
+          "support": "supported",
+          "source": "crates/thrum-ui/Cargo.toml"
+        },
+        {
+          "name": "cargo-deps",
+          "facet": "outbound_calls",
+          "support": "supported",
+          "source": "crates/thrum-ui/Cargo.toml"
+        }
+      ],
+      "capabilities": {
+        "interfaces": "supported",
+        "stores": "unsupported",
+        "messages_published": "unsupported",
+        "messages_consumed": "unsupported",
+        "jobs": "unsupported",
+        "screens": "unsupported",
+        "outbound_calls": "supported"
+      },
+      "key_dependencies": []
+    },
+    {
+      "path": "crates/thrum-water",
+      "name": "thrum-water",
+      "language": "rust",
+      "manifest": "crates/thrum-water/Cargo.toml",
+      "repo_name": "thrum",
+      "workspace_dependencies": [
+        "thrum-asset-gpu",
+        "thrum-render",
+        "thrum-sea",
+        "thrum-sea-model",
+        "thrum-water-model"
+      ],
+      "frameworks": [
+        {
+          "name": "cargo-crate",
+          "facet": "interfaces",
+          "support": "supported",
+          "source": "crates/thrum-water/Cargo.toml"
+        },
+        {
+          "name": "cargo-deps",
+          "facet": "outbound_calls",
+          "support": "supported",
+          "source": "crates/thrum-water/Cargo.toml"
+        },
+        {
+          "name": "wgpu",
+          "facet": "screens",
+          "support": "partial",
+          "source": "crates/thrum-water/Cargo.toml"
+        }
+      ],
+      "capabilities": {
+        "interfaces": "supported",
+        "stores": "unsupported",
+        "messages_published": "unsupported",
+        "messages_consumed": "unsupported",
+        "jobs": "unsupported",
+        "screens": "partial",
+        "outbound_calls": "supported"
+      },
+      "key_dependencies": [
+        "bytemuck",
+        "glam",
+        "web-time",
+        "wgpu"
+      ]
+    },
+    {
+      "path": "crates/thrum-water-model",
+      "name": "thrum-water-model",
+      "language": "rust",
+      "manifest": "crates/thrum-water-model/Cargo.toml",
+      "repo_name": "thrum",
+      "workspace_dependencies": [
+        "thrum-sea-model"
+      ],
+      "frameworks": [
+        {
+          "name": "cargo-crate",
+          "facet": "interfaces",
+          "support": "supported",
+          "source": "crates/thrum-water-model/Cargo.toml"
+        },
+        {
+          "name": "cargo-deps",
+          "facet": "outbound_calls",
+          "support": "supported",
+          "source": "crates/thrum-water-model/Cargo.toml"
+        }
+      ],
+      "capabilities": {
+        "interfaces": "supported",
+        "stores": "unsupported",
+        "messages_published": "unsupported",
+        "messages_consumed": "unsupported",
+        "jobs": "unsupported",
+        "screens": "unsupported",
+        "outbound_calls": "supported"
+      },
+      "key_dependencies": []
+    },
+    {
+      "path": "examples/crowd-2d",
+      "name": "crowd-2d",
+      "language": "rust",
+      "manifest": "examples/crowd-2d/Cargo.toml",
+      "repo_name": "thrum",
+      "workspace_dependencies": [
+        "thrum-core",
+        "thrum-sim2d"
+      ],
+      "frameworks": [
+        {
+          "name": "cargo-crate",
+          "facet": "interfaces",
+          "support": "supported",
+          "source": "examples/crowd-2d/Cargo.toml"
+        },
+        {
+          "name": "cargo-deps",
+          "facet": "outbound_calls",
+          "support": "supported",
+          "source": "examples/crowd-2d/Cargo.toml"
+        }
+      ],
+      "capabilities": {
+        "interfaces": "supported",
+        "stores": "unsupported",
+        "messages_published": "unsupported",
+        "messages_consumed": "unsupported",
+        "jobs": "unsupported",
+        "screens": "unsupported",
+        "outbound_calls": "supported"
+      },
+      "key_dependencies": []
+    },
+    {
+      "path": "examples/crowd-2d-run",
+      "name": "crowd-2d-run",
+      "language": "rust",
+      "manifest": "examples/crowd-2d-run/Cargo.toml",
+      "repo_name": "thrum",
+      "workspace_dependencies": [
+        "crowd-2d",
+        "thrum-core",
+        "thrum-network"
+      ],
+      "frameworks": [
+        {
+          "name": "cargo-crate",
+          "facet": "interfaces",
+          "support": "supported",
+          "source": "examples/crowd-2d-run/Cargo.toml"
+        },
+        {
+          "name": "cargo-deps",
+          "facet": "outbound_calls",
+          "support": "supported",
+          "source": "examples/crowd-2d-run/Cargo.toml"
+        }
+      ],
+      "capabilities": {
+        "interfaces": "supported",
+        "stores": "unsupported",
+        "messages_published": "unsupported",
+        "messages_consumed": "unsupported",
+        "jobs": "unsupported",
+        "screens": "unsupported",
+        "outbound_calls": "supported"
+      },
+      "key_dependencies": [
+        "serde_json",
+        "wasm-bindgen",
+        "web-time"
+      ]
+    },
+    {
+      "path": "examples/crowd-2d-status",
+      "name": "crowd-2d-status",
+      "language": "rust",
+      "manifest": "examples/crowd-2d-status/Cargo.toml",
+      "repo_name": "thrum",
+      "workspace_dependencies": [
+        "crowd-2d-view",
+        "thrum-app",
+        "thrum-asset",
+        "thrum-asset-gpu",
+        "thrum-controls",
+        "thrum-core",
+        "thrum-render",
+        "thrum-ui"
+      ],
+      "frameworks": [
+        {
+          "name": "cargo-crate",
+          "facet": "interfaces",
+          "support": "supported",
+          "source": "examples/crowd-2d-status/Cargo.toml"
+        },
+        {
+          "name": "cargo-deps",
+          "facet": "outbound_calls",
+          "support": "supported",
+          "source": "examples/crowd-2d-status/Cargo.toml"
+        }
+      ],
+      "capabilities": {
+        "interfaces": "supported",
+        "stores": "unsupported",
+        "messages_published": "unsupported",
+        "messages_consumed": "unsupported",
+        "jobs": "unsupported",
+        "screens": "unsupported",
+        "outbound_calls": "supported"
+      },
+      "key_dependencies": [
+        "js-sys",
+        "serde_json",
+        "wasm-bindgen",
+        "wasm-bindgen-futures",
+        "web-sys"
+      ]
+    },
+    {
+      "path": "examples/crowd-2d-status-ios",
+      "name": "crowd-2d-status-ios",
+      "language": "rust",
+      "manifest": "examples/crowd-2d-status-ios/Cargo.toml",
+      "repo_name": "thrum",
+      "workspace_dependencies": [
+        "crowd-2d-status",
+        "thrum-app"
+      ],
+      "frameworks": [
+        {
+          "name": "cargo-crate",
+          "facet": "interfaces",
+          "support": "supported",
+          "source": "examples/crowd-2d-status-ios/Cargo.toml"
+        },
+        {
+          "name": "cargo-deps",
+          "facet": "outbound_calls",
+          "support": "supported",
+          "source": "examples/crowd-2d-status-ios/Cargo.toml"
+        }
+      ],
+      "capabilities": {
+        "interfaces": "supported",
+        "stores": "unsupported",
+        "messages_published": "unsupported",
+        "messages_consumed": "unsupported",
+        "jobs": "unsupported",
+        "screens": "unsupported",
+        "outbound_calls": "supported"
+      },
+      "key_dependencies": []
+    },
+    {
+      "path": "examples/crowd-2d-view",
+      "name": "crowd-2d-view",
+      "language": "rust",
+      "manifest": "examples/crowd-2d-view/Cargo.toml",
+      "repo_name": "thrum",
+      "workspace_dependencies": [
+        "crowd-2d",
+        "thrum-app",
+        "thrum-controls",
+        "thrum-core",
+        "thrum-render"
+      ],
+      "frameworks": [
+        {
+          "name": "cargo-crate",
+          "facet": "interfaces",
+          "support": "supported",
+          "source": "examples/crowd-2d-view/Cargo.toml"
+        },
+        {
+          "name": "cargo-deps",
+          "facet": "outbound_calls",
+          "support": "supported",
+          "source": "examples/crowd-2d-view/Cargo.toml"
+        },
+        {
+          "name": "wgpu",
+          "facet": "screens",
+          "support": "partial",
+          "source": "examples/crowd-2d-view/Cargo.toml"
+        }
+      ],
+      "capabilities": {
+        "interfaces": "supported",
+        "stores": "unsupported",
+        "messages_published": "unsupported",
+        "messages_consumed": "unsupported",
+        "jobs": "unsupported",
+        "screens": "partial",
+        "outbound_calls": "supported"
+      },
+      "key_dependencies": [
+        "js-sys",
+        "pollster",
+        "serde_json",
+        "wasm-bindgen",
+        "wasm-bindgen-futures",
+        "web-sys",
+        "web-time",
+        "wgpu"
+      ]
+    },
+    {
+      "path": "examples/lighthouse",
+      "name": "thrum-lighthouse",
+      "language": "rust",
+      "manifest": "examples/lighthouse/Cargo.toml",
+      "repo_name": "thrum",
+      "workspace_dependencies": [
+        "thrum-app"
+      ],
+      "frameworks": [
+        {
+          "name": "cargo-crate",
+          "facet": "interfaces",
+          "support": "supported",
+          "source": "examples/lighthouse/Cargo.toml"
+        },
+        {
+          "name": "cargo-deps",
+          "facet": "outbound_calls",
+          "support": "supported",
+          "source": "examples/lighthouse/Cargo.toml"
+        }
+      ],
+      "capabilities": {
+        "interfaces": "supported",
+        "stores": "unsupported",
+        "messages_published": "unsupported",
+        "messages_consumed": "unsupported",
+        "jobs": "unsupported",
+        "screens": "unsupported",
+        "outbound_calls": "supported"
+      },
+      "key_dependencies": []
+    },
+    {
+      "path": "examples/link-proof",
+      "name": "link-proof",
+      "language": "rust",
+      "manifest": "examples/link-proof/Cargo.toml",
+      "repo_name": "thrum",
+      "workspace_dependencies": [
+        "thrum-transport"
+      ],
+      "frameworks": [
+        {
+          "name": "cargo-crate",
+          "facet": "interfaces",
+          "support": "supported",
+          "source": "examples/link-proof/Cargo.toml"
+        },
+        {
+          "name": "cargo-deps",
+          "facet": "outbound_calls",
+          "support": "supported",
+          "source": "examples/link-proof/Cargo.toml"
+        },
+        {
+          "name": "web-transport-quinn",
+          "facet": "messages_published",
+          "support": "partial",
+          "source": "examples/link-proof/Cargo.toml"
+        }
+      ],
+      "capabilities": {
+        "interfaces": "supported",
+        "stores": "unsupported",
+        "messages_published": "partial",
+        "messages_consumed": "unsupported",
+        "jobs": "unsupported",
+        "screens": "unsupported",
+        "outbound_calls": "supported"
+      },
+      "key_dependencies": [
+        "js-sys",
+        "serde_json",
+        "tokio",
+        "url",
+        "wasm-bindgen",
+        "web-transport-quinn"
+      ]
+    },
+    {
+      "path": "examples/match-proof",
+      "name": "match-proof",
+      "language": "rust",
+      "manifest": "examples/match-proof/Cargo.toml",
+      "repo_name": "thrum",
+      "workspace_dependencies": [
+        "crowd-2d",
+        "crowd-2d-view",
+        "thrum-app",
+        "thrum-controls",
+        "thrum-core",
+        "thrum-network",
+        "thrum-render",
+        "thrum-transport"
+      ],
+      "frameworks": [
+        {
+          "name": "cargo-crate",
+          "facet": "interfaces",
+          "support": "supported",
+          "source": "examples/match-proof/Cargo.toml"
+        },
+        {
+          "name": "cargo-deps",
+          "facet": "outbound_calls",
+          "support": "supported",
+          "source": "examples/match-proof/Cargo.toml"
+        }
+      ],
+      "capabilities": {
+        "interfaces": "supported",
+        "stores": "unsupported",
+        "messages_published": "unsupported",
+        "messages_consumed": "unsupported",
+        "jobs": "unsupported",
+        "screens": "unsupported",
+        "outbound_calls": "supported"
+      },
+      "key_dependencies": [
+        "js-sys",
+        "rayon",
+        "serde_json",
+        "wasm-bindgen",
+        "wasm-bindgen-futures",
+        "web-sys",
+        "web-time"
+      ]
+    },
+    {
+      "path": "examples/mirror",
+      "name": "mirror-scene",
+      "language": "rust",
+      "manifest": "examples/mirror/Cargo.toml",
+      "repo_name": "thrum",
+      "workspace_dependencies": [
+        "thrum-app",
+        "thrum-render"
+      ],
+      "frameworks": [
+        {
+          "name": "cargo-crate",
+          "facet": "interfaces",
+          "support": "supported",
+          "source": "examples/mirror/Cargo.toml"
+        },
+        {
+          "name": "cargo-deps",
+          "facet": "outbound_calls",
+          "support": "supported",
+          "source": "examples/mirror/Cargo.toml"
+        },
+        {
+          "name": "wgpu",
+          "facet": "screens",
+          "support": "partial",
+          "source": "examples/mirror/Cargo.toml"
+        }
+      ],
+      "capabilities": {
+        "interfaces": "supported",
+        "stores": "unsupported",
+        "messages_published": "unsupported",
+        "messages_consumed": "unsupported",
+        "jobs": "unsupported",
+        "screens": "partial",
+        "outbound_calls": "supported"
+      },
+      "key_dependencies": [
+        "bytemuck",
+        "glam",
+        "pollster",
+        "wgpu"
+      ]
+    },
+    {
+      "path": "examples/starter",
+      "name": "thrum-starter",
+      "language": "rust",
+      "manifest": "examples/starter/Cargo.toml",
+      "repo_name": "thrum",
+      "workspace_dependencies": [
+        "thrum-app"
+      ],
+      "frameworks": [
+        {
+          "name": "cargo-crate",
+          "facet": "interfaces",
+          "support": "supported",
+          "source": "examples/starter/Cargo.toml"
+        },
+        {
+          "name": "cargo-deps",
+          "facet": "outbound_calls",
+          "support": "supported",
+          "source": "examples/starter/Cargo.toml"
+        }
+      ],
+      "capabilities": {
+        "interfaces": "supported",
+        "stores": "unsupported",
+        "messages_published": "unsupported",
+        "messages_consumed": "unsupported",
+        "jobs": "unsupported",
+        "screens": "unsupported",
+        "outbound_calls": "supported"
+      },
+      "key_dependencies": []
+    },
+    {
+      "path": "examples/stones",
+      "name": "thrum-stones",
+      "language": "rust",
+      "manifest": "examples/stones/Cargo.toml",
+      "repo_name": "thrum",
+      "workspace_dependencies": [
+        "thrum-app"
+      ],
+      "frameworks": [
+        {
+          "name": "cargo-crate",
+          "facet": "interfaces",
+          "support": "supported",
+          "source": "examples/stones/Cargo.toml"
+        },
+        {
+          "name": "cargo-deps",
+          "facet": "outbound_calls",
+          "support": "supported",
+          "source": "examples/stones/Cargo.toml"
+        }
+      ],
+      "capabilities": {
+        "interfaces": "supported",
+        "stores": "unsupported",
+        "messages_published": "unsupported",
+        "messages_consumed": "unsupported",
+        "jobs": "unsupported",
+        "screens": "unsupported",
+        "outbound_calls": "supported"
+      },
+      "key_dependencies": []
+    },
+    {
+      "path": "examples/v1-game",
+      "name": "v1-game",
+      "language": "rust",
+      "manifest": "examples/v1-game/Cargo.toml",
+      "repo_name": "thrum",
+      "workspace_dependencies": [
+        "thrum-app",
+        "thrum-asset",
+        "thrum-asset-gpu",
+        "thrum-cloud-model",
+        "thrum-clouds",
+        "thrum-controls",
+        "thrum-core",
+        "thrum-fixtures",
+        "thrum-rain-model",
+        "thrum-render",
+        "thrum-sea-model",
+        "thrum-ui",
+        "thrum-water",
+        "thrum-water-model"
+      ],
+      "frameworks": [
+        {
+          "name": "cargo-crate",
+          "facet": "interfaces",
+          "support": "supported",
+          "source": "examples/v1-game/Cargo.toml"
+        },
+        {
+          "name": "cargo-deps",
+          "facet": "outbound_calls",
+          "support": "supported",
+          "source": "examples/v1-game/Cargo.toml"
+        },
+        {
+          "name": "wgpu",
+          "facet": "screens",
+          "support": "partial",
+          "source": "examples/v1-game/Cargo.toml"
+        }
+      ],
+      "capabilities": {
+        "interfaces": "supported",
+        "stores": "unsupported",
+        "messages_published": "unsupported",
+        "messages_consumed": "unsupported",
+        "jobs": "unsupported",
+        "screens": "partial",
+        "outbound_calls": "supported"
+      },
+      "key_dependencies": [
+        "cpu-time",
+        "glam",
+        "half",
+        "js-sys",
+        "pollster",
+        "serde",
+        "serde_json",
+        "wasm-bindgen",
+        "wasm-bindgen-futures",
+        "web-sys",
+        "wgpu"
+      ]
+    },
+    {
+      "path": "examples/v1-game-ios",
+      "name": "v1-game-ios",
+      "language": "rust",
+      "manifest": "examples/v1-game-ios/Cargo.toml",
+      "repo_name": "thrum",
+      "workspace_dependencies": [
+        "thrum-app",
+        "thrum-asset-gpu",
+        "thrum-core",
+        "thrum-render",
+        "thrum-ui",
+        "v1-game"
+      ],
+      "frameworks": [
+        {
+          "name": "cargo-crate",
+          "facet": "interfaces",
+          "support": "supported",
+          "source": "examples/v1-game-ios/Cargo.toml"
+        },
+        {
+          "name": "cargo-deps",
+          "facet": "outbound_calls",
+          "support": "supported",
+          "source": "examples/v1-game-ios/Cargo.toml"
+        },
+        {
+          "name": "wgpu",
+          "facet": "screens",
+          "support": "partial",
+          "source": "examples/v1-game-ios/Cargo.toml"
+        }
+      ],
+      "capabilities": {
+        "interfaces": "supported",
+        "stores": "unsupported",
+        "messages_published": "unsupported",
+        "messages_consumed": "unsupported",
+        "jobs": "unsupported",
+        "screens": "partial",
+        "outbound_calls": "supported"
+      },
+      "key_dependencies": [
+        "pollster",
+        "serde_json",
+        "wgpu"
+      ]
+    },
+    {
+      "path": "examples/water",
+      "name": "water-scene",
+      "language": "rust",
+      "manifest": "examples/water/Cargo.toml",
+      "repo_name": "thrum",
+      "workspace_dependencies": [
+        "thrum-app",
+        "thrum-cloud-model",
+        "thrum-clouds",
+        "thrum-rain-model",
+        "thrum-render",
+        "thrum-river-model",
+        "thrum-sea-model",
+        "thrum-water",
+        "thrum-water-model"
+      ],
+      "frameworks": [
+        {
+          "name": "cargo-crate",
+          "facet": "interfaces",
+          "support": "supported",
+          "source": "examples/water/Cargo.toml"
+        },
+        {
+          "name": "cargo-deps",
+          "facet": "outbound_calls",
+          "support": "supported",
+          "source": "examples/water/Cargo.toml"
+        },
+        {
+          "name": "wgpu",
+          "facet": "screens",
+          "support": "partial",
+          "source": "examples/water/Cargo.toml"
+        }
+      ],
+      "capabilities": {
+        "interfaces": "supported",
+        "stores": "unsupported",
+        "messages_published": "unsupported",
+        "messages_consumed": "unsupported",
+        "jobs": "unsupported",
+        "screens": "partial",
+        "outbound_calls": "supported"
+      },
+      "key_dependencies": [
+        "bytemuck",
+        "glam",
+        "js-sys",
+        "wgpu"
+      ]
+    },
+    {
+      "path": "tools/xtask",
+      "name": "xtask",
+      "language": "rust",
+      "manifest": "tools/xtask/Cargo.toml",
+      "repo_name": "thrum",
+      "workspace_dependencies": [],
+      "frameworks": [
+        {
+          "name": "cargo-crate",
+          "facet": "interfaces",
+          "support": "supported",
+          "source": "tools/xtask/Cargo.toml"
+        },
+        {
+          "name": "cargo-deps",
+          "facet": "outbound_calls",
+          "support": "supported",
+          "source": "tools/xtask/Cargo.toml"
+        }
+      ],
+      "capabilities": {
+        "interfaces": "supported",
+        "stores": "unsupported",
+        "messages_published": "unsupported",
+        "messages_consumed": "unsupported",
+        "jobs": "unsupported",
+        "screens": "unsupported",
+        "outbound_calls": "supported"
+      },
+      "key_dependencies": [
+        "serde_json"
+      ]
+    }
+  ]
+}

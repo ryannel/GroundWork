@@ -1,0 +1,871 @@
+{
+  "schema_version": 1,
+  "repo_name": "thrum",
+  "commit": "f5591b79c71279df4f7dba6cfafdedc8bf4ce3be",
+  "anchors": {
+    "crates/thrum-app/src/lib.rs#L24-24": {
+      "file": "crates/thrum-app/src/lib.rs",
+      "lines": [
+        24,
+        24
+      ],
+      "symbol": "capture_writer",
+      "content_sha256": "6ebc6f028d941f76de34135b42db7eae9208256b002b4acdbc034784e44c6a81"
+    },
+    "crates/thrum-app/src/lib.rs#L38-38": {
+      "file": "crates/thrum-app/src/lib.rs",
+      "lines": [
+        38,
+        38
+      ],
+      "symbol": "frame",
+      "content_sha256": "53d665c514cd8e8cd7922754e20586356dc31edc36d04d8a1219cd3b9ab14d7d"
+    },
+    "crates/thrum-app/src/lib.rs#L46-46": {
+      "file": "crates/thrum-app/src/lib.rs",
+      "lines": [
+        46,
+        46
+      ],
+      "symbol": "ios",
+      "content_sha256": "7f243ac92c50f113b8f53da7c972294ea9fe606216c1057e30cd06acce4d4576"
+    },
+    "crates/thrum-app/src/lib.rs#L49-49": {
+      "file": "crates/thrum-app/src/lib.rs",
+      "lines": [
+        49,
+        49
+      ],
+      "symbol": "offscreen",
+      "content_sha256": "bfe868efc2e5c1a8b4e5c308cd969d58bd5d3089620bf5ac25e70f3cb10f63af"
+    },
+    "crates/thrum-app/src/lib.rs#L50-50": {
+      "file": "crates/thrum-app/src/lib.rs",
+      "lines": [
+        50,
+        50
+      ],
+      "symbol": "profile",
+      "content_sha256": "58c238e09b293c2f54497ef68a219d1a0e37db6288f8383ec58e2f0b4f40b809"
+    },
+    "crates/thrum-app/src/lib.rs#L51-51": {
+      "file": "crates/thrum-app/src/lib.rs",
+      "lines": [
+        51,
+        51
+      ],
+      "symbol": "sky",
+      "content_sha256": "5bb81e6fd72954d47952dc215a38c3afda5c358d55b9e95354d9874bba196872"
+    },
+    "crates/thrum-app/src/lib.rs#L52-52": {
+      "file": "crates/thrum-app/src/lib.rs",
+      "lines": [
+        52,
+        52
+      ],
+      "symbol": "surface",
+      "content_sha256": "348cd933c0abeecf2dcc6b1962f709d3c5ebe5f0072c7384127d3c6a9a2e2d26"
+    },
+    "crates/thrum-app/src/lib.rs#L54-54": {
+      "file": "crates/thrum-app/src/lib.rs",
+      "lines": [
+        54,
+        54
+      ],
+      "symbol": "web",
+      "content_sha256": "85fc39cfa84cfa598b77a46a683a3f1e473a0f52df8a736cc372420e149ee71b"
+    },
+    "crates/thrum-app/web/scene.js#L13-13": {
+      "file": "crates/thrum-app/web/scene.js",
+      "lines": [
+        13,
+        13
+      ],
+      "content_sha256": "0706dc59bdf1db2d53e008e51177e5f7a00051da3f89e9fe68fc739c108bdbb4"
+    },
+    "crates/thrum-asset/src/lib.rs#L26-26": {
+      "file": "crates/thrum-asset/src/lib.rs",
+      "lines": [
+        26,
+        26
+      ],
+      "symbol": "ktx2",
+      "content_sha256": "554867ba285f9a0781ec783ce3fe3925ed08a6f91ca372c670c0be6799dbc40f"
+    },
+    "crates/thrum-asset/src/lib.rs#L27-27": {
+      "file": "crates/thrum-asset/src/lib.rs",
+      "lines": [
+        27,
+        27
+      ],
+      "symbol": "layout",
+      "content_sha256": "a7196501a2b58479d4ff2789b5e508a59534543a186ef2cc02d33bf4acb07cfc"
+    },
+    "crates/thrum-asset-gpu/src/lib.rs#L731-731": {
+      "file": "crates/thrum-asset-gpu/src/lib.rs",
+      "lines": [
+        731,
+        731
+      ],
+      "symbol": "draw_probe",
+      "content_sha256": "f7da54d6072d2c65d7d8fda25d920c118d3cadd74f7393b3786ee327ed7c64bd"
+    },
+    "crates/thrum-asset-gpu/src/lib.rs#L43-43": {
+      "file": "crates/thrum-asset-gpu/src/lib.rs",
+      "lines": [
+        43,
+        43
+      ],
+      "symbol": "mesh_upload",
+      "content_sha256": "2c4861fb3d5ec611ee0ea3899aac595b369b18a312cb23fc2f6947a14288eb77"
+    },
+    "crates/thrum-asset-gpu/src/lib.rs#L46-46": {
+      "file": "crates/thrum-asset-gpu/src/lib.rs",
+      "lines": [
+        46,
+        46
+      ],
+      "symbol": "records",
+      "content_sha256": "04a96bf0180a4414c3e2adc6a05294545834dba16e06df6a258d80900e0652bb"
+    },
+    "crates/thrum-asset-gpu/src/lib.rs#L47-47": {
+      "file": "crates/thrum-asset-gpu/src/lib.rs",
+      "lines": [
+        47,
+        47
+      ],
+      "symbol": "rows",
+      "content_sha256": "047a3c8a9c09a00b3f6f91a2e478550806544c5b1ec2e1337ff0445ac694a596"
+    },
+    "crates/thrum-controls/src/lib.rs#L35-35": {
+      "file": "crates/thrum-controls/src/lib.rs",
+      "lines": [
+        35,
+        35
+      ],
+      "symbol": "macos",
+      "content_sha256": "e31d621699621d442d06e82cd73679301dcb5c0de0b6e5b78c72b536c137f912"
+    },
+    "crates/thrum-cook/src/lib.rs#L14-14": {
+      "file": "crates/thrum-cook/src/lib.rs",
+      "lines": [
+        14,
+        14
+      ],
+      "symbol": "demo",
+      "content_sha256": "f072441b27c8c494bc40105f2816e8f052554baca8dba2affd1638683974c9b7"
+    },
+    "crates/thrum-cook/src/lib.rs#L18-18": {
+      "file": "crates/thrum-cook/src/lib.rs",
+      "lines": [
+        18,
+        18
+      ],
+      "symbol": "metallib",
+      "content_sha256": "2071d1713bcc12c37cf57f5c5f1c0ec3bf88ab915a1ff4d3e1cf847cb15d354a"
+    },
+    "crates/thrum-cook/src/lib.rs#L23-23": {
+      "file": "crates/thrum-cook/src/lib.rs",
+      "lines": [
+        23,
+        23
+      ],
+      "symbol": "tripwire",
+      "content_sha256": "f7a614330191f928c66eb8dc94fff3550f31f4826fadaab7bf7997448c02d408"
+    },
+    "crates/thrum-core/src/lib.rs#L4-4": {
+      "file": "crates/thrum-core/src/lib.rs",
+      "lines": [
+        4,
+        4
+      ],
+      "symbol": "ids",
+      "content_sha256": "f3217d97b931de9356d74b86172e0d151207638c5df6c2c85d3b90634e6e129d"
+    },
+    "crates/thrum-core/src/lib.rs#L5-5": {
+      "file": "crates/thrum-core/src/lib.rs",
+      "lines": [
+        5,
+        5
+      ],
+      "symbol": "profile",
+      "content_sha256": "58c238e09b293c2f54497ef68a219d1a0e37db6288f8383ec58e2f0b4f40b809"
+    },
+    "crates/thrum-core/src/lib.rs#L6-6": {
+      "file": "crates/thrum-core/src/lib.rs",
+      "lines": [
+        6,
+        6
+      ],
+      "symbol": "sim",
+      "content_sha256": "9b1f5bc8885458d26b70c588e883b6327fd666dbcb14c41c170d188d3c305b5b"
+    },
+    "crates/thrum-fixtures/src/lib.rs#L3-3": {
+      "file": "crates/thrum-fixtures/src/lib.rs",
+      "lines": [
+        3,
+        3
+      ],
+      "symbol": "mixed_field",
+      "content_sha256": "2a0a0a3cce3448f3b059283ca8f30ee6b2a30ad912dc70696363936fa6d800e8"
+    },
+    "crates/thrum-fixtures/src/lib.rs#L4-4": {
+      "file": "crates/thrum-fixtures/src/lib.rs",
+      "lines": [
+        4,
+        4
+      ],
+      "symbol": "sprite_edges",
+      "content_sha256": "d3395b20e62711792ac953adb4ae80ec50fa2b58ab3842093e134db20e20f79d"
+    },
+    "crates/thrum-fixtures/src/lib.rs#L5-5": {
+      "file": "crates/thrum-fixtures/src/lib.rs",
+      "lines": [
+        5,
+        5
+      ],
+      "symbol": "surf",
+      "content_sha256": "6ea0dc830315a9264f5cebf255bd6c9d1ac41b228b4132661a1c8e08e3f15e40"
+    },
+    "crates/thrum-network/src/lib.rs#L3-3": {
+      "file": "crates/thrum-network/src/lib.rs",
+      "lines": [
+        3,
+        3
+      ],
+      "symbol": "envelope",
+      "content_sha256": "4917930de116d837ae3745f309347524d27e4667388c819a83fe9da3cb34aae9"
+    },
+    "crates/thrum-network/src/lib.rs#L4-4": {
+      "file": "crates/thrum-network/src/lib.rs",
+      "lines": [
+        4,
+        4
+      ],
+      "symbol": "future_input",
+      "content_sha256": "2d905aca40de88e761c121f10c0afee1e24b1b90d5b21479089465850343aa70"
+    },
+    "crates/thrum-network/src/lib.rs#L5-5": {
+      "file": "crates/thrum-network/src/lib.rs",
+      "lines": [
+        5,
+        5
+      ],
+      "symbol": "input_batch",
+      "content_sha256": "5f06d34e501253904930d369026d0b880b75fa6c9f14e0e62294fde1d62b7975"
+    },
+    "crates/thrum-network/src/lib.rs#L6-6": {
+      "file": "crates/thrum-network/src/lib.rs",
+      "lines": [
+        6,
+        6
+      ],
+      "symbol": "session",
+      "content_sha256": "24d6dd271700aeb53147af7f3003700e9c6271f6e85b6e2d59e15309f2ebfb91"
+    },
+    "crates/thrum-network/src/lib.rs#L7-7": {
+      "file": "crates/thrum-network/src/lib.rs",
+      "lines": [
+        7,
+        7
+      ],
+      "symbol": "state_ack",
+      "content_sha256": "9c938d564f00b8c2e64ffd182e04ed76f70952f6e1be8f6a90c20b7c355d8adc"
+    },
+    "crates/thrum-network/src/lib.rs#L8-8": {
+      "file": "crates/thrum-network/src/lib.rs",
+      "lines": [
+        8,
+        8
+      ],
+      "symbol": "state_delta",
+      "content_sha256": "2a2fa21bcdc84a76f31f3805a33fbd7948ae585c1d154ff765c5411cdc924ead"
+    },
+    "crates/thrum-render/src/lib.rs#L11-11": {
+      "file": "crates/thrum-render/src/lib.rs",
+      "lines": [
+        11,
+        11
+      ],
+      "symbol": "abi",
+      "content_sha256": "5abab34fac142aedd8e0f422c1dafd91a8381fdf397ca65ee2003de742932488"
+    },
+    "crates/thrum-render/src/lib.rs#L13-13": {
+      "file": "crates/thrum-render/src/lib.rs",
+      "lines": [
+        13,
+        13
+      ],
+      "symbol": "atmosphere",
+      "content_sha256": "ae8a217127604fdd160fb3295e3c787072b1f580e39043fb00f702aa2a8d4ed2"
+    },
+    "crates/thrum-render/src/lib.rs#L14-14": {
+      "file": "crates/thrum-render/src/lib.rs",
+      "lines": [
+        14,
+        14
+      ],
+      "symbol": "binding",
+      "content_sha256": "14ab5151394d4debbc43fccc3949cfe79a43ac130b21463eb76fe973fe6433f8"
+    },
+    "crates/thrum-render/src/lib.rs#L15-15": {
+      "file": "crates/thrum-render/src/lib.rs",
+      "lines": [
+        15,
+        15
+      ],
+      "symbol": "capabilities",
+      "content_sha256": "39e5f4b5a5b8cf7d7d5adc85bbc25b1a86056ee7d5c490a526e780abfa958f37"
+    },
+    "crates/thrum-render/src/lib.rs#L16-16": {
+      "file": "crates/thrum-render/src/lib.rs",
+      "lines": [
+        16,
+        16
+      ],
+      "symbol": "contribution",
+      "content_sha256": "6f866ac7ae329de54c8013160a85bab53cf3d09c462bb49d7704350d17201503"
+    },
+    "crates/thrum-render/src/lib.rs#L17-17": {
+      "file": "crates/thrum-render/src/lib.rs",
+      "lines": [
+        17,
+        17
+      ],
+      "symbol": "error",
+      "content_sha256": "7467e54ef35a69347398dcbbe02842832152b34ad8815a77d70dc567ff66035a"
+    },
+    "crates/thrum-render/src/lib.rs#L18-18": {
+      "file": "crates/thrum-render/src/lib.rs",
+      "lines": [
+        18,
+        18
+      ],
+      "symbol": "extract",
+      "content_sha256": "ef009a6d94ebd9d816751b8f7e7b538669df252e0058f77667ce39fded1fe937"
+    },
+    "crates/thrum-render/src/lib.rs#L19-19": {
+      "file": "crates/thrum-render/src/lib.rs",
+      "lines": [
+        19,
+        19
+      ],
+      "symbol": "frame",
+      "content_sha256": "53d665c514cd8e8cd7922754e20586356dc31edc36d04d8a1219cd3b9ab14d7d"
+    },
+    "crates/thrum-render/src/lib.rs#L20-20": {
+      "file": "crates/thrum-render/src/lib.rs",
+      "lines": [
+        20,
+        20
+      ],
+      "symbol": "governor",
+      "content_sha256": "e09b47ac3bc7595a85e23326b3f678f6c128fe7d72cb04a757a0595824ab8fda"
+    },
+    "crates/thrum-render/src/lib.rs#L21-21": {
+      "file": "crates/thrum-render/src/lib.rs",
+      "lines": [
+        21,
+        21
+      ],
+      "symbol": "graph",
+      "content_sha256": "7fca08c8e9e2fad1c942dba41ea47264f0f8bca7d23c047ec39f3d45ac726ca6"
+    },
+    "crates/thrum-render/src/lib.rs#L23-23": {
+      "file": "crates/thrum-render/src/lib.rs",
+      "lines": [
+        23,
+        23
+      ],
+      "symbol": "history",
+      "content_sha256": "ca881a34ab6fd2c5e1c6a95708162f2ce549387434ea03297be64205bdf2dd96"
+    },
+    "crates/thrum-render/src/lib.rs#L26-26": {
+      "file": "crates/thrum-render/src/lib.rs",
+      "lines": [
+        26,
+        26
+      ],
+      "symbol": "present",
+      "content_sha256": "b7630db1dde6779096d7b07af80b4f22359b69fefd4f2e2f173aba9e7418f743"
+    },
+    "crates/thrum-render/src/lib.rs#L29-29": {
+      "file": "crates/thrum-render/src/lib.rs",
+      "lines": [
+        29,
+        29
+      ],
+      "symbol": "registry_audit",
+      "content_sha256": "b91b350da0b506a96ab1ace4a7e70e1d40da275b5b080aee4bbc21ba9c48e948"
+    },
+    "crates/thrum-render/src/lib.rs#L30-30": {
+      "file": "crates/thrum-render/src/lib.rs",
+      "lines": [
+        30,
+        30
+      ],
+      "symbol": "render_config",
+      "content_sha256": "a2be870400da74450fbdfb871c5dd5de93f9afd0891dbd7a996857cd0e392b5a"
+    },
+    "crates/thrum-render/src/lib.rs#L31-31": {
+      "file": "crates/thrum-render/src/lib.rs",
+      "lines": [
+        31,
+        31
+      ],
+      "symbol": "runtime",
+      "content_sha256": "3eb1c41f3a2140157b25a5d19c2c9168cff017810ae495d57de1399287cbf9c0"
+    },
+    "crates/thrum-render/src/lib.rs#L34-34": {
+      "file": "crates/thrum-render/src/lib.rs",
+      "lines": [
+        34,
+        34
+      ],
+      "symbol": "sprite",
+      "content_sha256": "7a5cad44c3267a5212122f9c62b15aacfea18d493421c4166aaf27208aa7b172"
+    },
+    "crates/thrum-render/src/lib.rs#L39-39": {
+      "file": "crates/thrum-render/src/lib.rs",
+      "lines": [
+        39,
+        39
+      ],
+      "symbol": "synthetic",
+      "content_sha256": "92c648093fd88420f3a351f0d7632793c02d4170a4801f474dcf0a36d2a5b547"
+    },
+    "crates/thrum-render/src/lib.rs#L44-44": {
+      "file": "crates/thrum-render/src/lib.rs",
+      "lines": [
+        44,
+        44
+      ],
+      "symbol": "timing",
+      "content_sha256": "b2f5e47ac4da208733c3d3726c7332d2555d53b9b5bc49ab9627cba8a6b661f4"
+    },
+    "crates/thrum-render/src/lib.rs#L46-46": {
+      "file": "crates/thrum-render/src/lib.rs",
+      "lines": [
+        46,
+        46
+      ],
+      "symbol": "wetness",
+      "content_sha256": "7187c4730023a3d052106ef951a879fc07ab3263ce2e1705129495005afd03bf"
+    },
+    "crates/thrum-sea/src/lib.rs#L10-10": {
+      "file": "crates/thrum-sea/src/lib.rs",
+      "lines": [
+        10,
+        10
+      ],
+      "symbol": "rain",
+      "content_sha256": "f19bdceecd6f8a053ed2b052f40e646e2906fce1cacba73c352a3100f425b6df"
+    },
+    "crates/thrum-sea/src/lib.rs#L12-12": {
+      "file": "crates/thrum-sea/src/lib.rs",
+      "lines": [
+        12,
+        12
+      ],
+      "symbol": "records",
+      "content_sha256": "04a96bf0180a4414c3e2adc6a05294545834dba16e06df6a258d80900e0652bb"
+    },
+    "crates/thrum-test-support/src/lib.rs#L6-6": {
+      "file": "crates/thrum-test-support/src/lib.rs",
+      "lines": [
+        6,
+        6
+      ],
+      "symbol": "allocations",
+      "content_sha256": "7789de80aa60390920c8e6dc922c6e501563a5a76b0f294bddf4b748cbe267dc"
+    },
+    "crates/thrum-test-support/src/lib.rs#L8-8": {
+      "file": "crates/thrum-test-support/src/lib.rs",
+      "lines": [
+        8,
+        8
+      ],
+      "symbol": "creation_trace",
+      "content_sha256": "c16e7e7e01a8cfb5a20806a7afc1c87531abd4ee246ac5dd0ad2db279e0bff9d"
+    },
+    "crates/thrum-test-support/src/lib.rs#L9-9": {
+      "file": "crates/thrum-test-support/src/lib.rs",
+      "lines": [
+        9,
+        9
+      ],
+      "symbol": "ppm",
+      "content_sha256": "3eb69e7e990be64eefbdf1d98dd95ace156dc14d28c41582121fab6ea5cd4f91"
+    },
+    "crates/thrum-test-support/src/lib.rs#L10-10": {
+      "file": "crates/thrum-test-support/src/lib.rs",
+      "lines": [
+        10,
+        10
+      ],
+      "symbol": "readback",
+      "content_sha256": "927aa2887494fa5803a91498f33d0bc0f7699ab55debb49de7f62e7683837f6e"
+    },
+    "crates/thrum-test-support/src/lib.rs#L32-32": {
+      "file": "crates/thrum-test-support/src/lib.rs",
+      "lines": [
+        32,
+        32
+      ],
+      "symbol": "records",
+      "content_sha256": "04a96bf0180a4414c3e2adc6a05294545834dba16e06df6a258d80900e0652bb"
+    },
+    "crates/thrum-test-support/src/lib.rs#L12-12": {
+      "file": "crates/thrum-test-support/src/lib.rs",
+      "lines": [
+        12,
+        12
+      ],
+      "symbol": "target",
+      "content_sha256": "20f86a3b79842ce402e0d7040be8ff2b9d8f273ed56caa6862bea36334295792"
+    },
+    "crates/thrum-test-support/src/lib.rs#L13-13": {
+      "file": "crates/thrum-test-support/src/lib.rs",
+      "lines": [
+        13,
+        13
+      ],
+      "symbol": "wait",
+      "content_sha256": "6ee2208b024bfb309a5b8864e32ad2f7ab9edbc8c1e55215d71498573b68de6a"
+    },
+    "crates/thrum-transport/src/lib.rs#L11-11": {
+      "file": "crates/thrum-transport/src/lib.rs",
+      "lines": [
+        11,
+        11
+      ],
+      "symbol": "browser",
+      "content_sha256": "2d9dff992f6c51804911778fc86b00a5bbedb54379d2141803cf9a6bcaeef694"
+    },
+    "crates/thrum-transport/src/lib.rs#L5-5": {
+      "file": "crates/thrum-transport/src/lib.rs",
+      "lines": [
+        5,
+        5
+      ],
+      "symbol": "memory",
+      "content_sha256": "90be23ba6105ce75f50002a5f528d6d7803673c05bba2ca1edbb141239f67075"
+    },
+    "crates/thrum-transport/src/lib.rs#L13-13": {
+      "file": "crates/thrum-transport/src/lib.rs",
+      "lines": [
+        13,
+        13
+      ],
+      "symbol": "native",
+      "content_sha256": "93a72481ea8dcee8518fd207b6049867659de60e120f953c58d57ceb7a8f3553"
+    },
+    "crates/thrum-transport/src/lib.rs#L6-6": {
+      "file": "crates/thrum-transport/src/lib.rs",
+      "lines": [
+        6,
+        6
+      ],
+      "symbol": "proof",
+      "content_sha256": "6abc50ce069b47048dd528dd88f449bc18cff2c04093261ec47e5a1f66836167"
+    },
+    "crates/thrum-transport/src/lib.rs#L7-7": {
+      "file": "crates/thrum-transport/src/lib.rs",
+      "lines": [
+        7,
+        7
+      ],
+      "symbol": "wire",
+      "content_sha256": "ca5a151b3e6428ca1353fd145d519338cf8030053adc119ebf5af02e1b7a55e5"
+    },
+    "crates/thrum-water/src/lib.rs#L6-6": {
+      "file": "crates/thrum-water/src/lib.rs",
+      "lines": [
+        6,
+        6
+      ],
+      "symbol": "foam",
+      "content_sha256": "a7918cc96795bbe60a8ed54c65f3d7cee8495666bdb48a87a3c285593fc3f016"
+    },
+    "crates/thrum-water/src/lib.rs#L9-9": {
+      "file": "crates/thrum-water/src/lib.rs",
+      "lines": [
+        9,
+        9
+      ],
+      "symbol": "interaction",
+      "content_sha256": "f9c5f0309e55c48dfc376fb54d129d8be20bb3229c7c45ab4f4f2e94461c988d"
+    },
+    "crates/thrum-water/src/lib.rs#L10-10": {
+      "file": "crates/thrum-water/src/lib.rs",
+      "lines": [
+        10,
+        10
+      ],
+      "symbol": "map_gpu",
+      "content_sha256": "1eec4cc5e3f5f6ca91f91ec3e5a5342b594bb8fbb784c8eab635863bcc57b027"
+    },
+    "crates/thrum-water/src/lib.rs#L13-13": {
+      "file": "crates/thrum-water/src/lib.rs",
+      "lines": [
+        13,
+        13
+      ],
+      "symbol": "query",
+      "content_sha256": "e836c44e68b157bf561636ecdeeafbcb50eaed075370f3bc687439d10ae82144"
+    },
+    "crates/thrum-water/src/lib.rs#L20-20": {
+      "file": "crates/thrum-water/src/lib.rs",
+      "lines": [
+        20,
+        20
+      ],
+      "symbol": "wet_ground",
+      "content_sha256": "049d433e29a4165f1568d98b7f2141533e5bb904d8f7cf663abc726db0c093c9"
+    },
+    "examples/crowd-2d-view/src/lib.rs#L4-4": {
+      "file": "examples/crowd-2d-view/src/lib.rs",
+      "lines": [
+        4,
+        4
+      ],
+      "symbol": "proof",
+      "content_sha256": "6abc50ce069b47048dd528dd88f449bc18cff2c04093261ec47e5a1f66836167"
+    },
+    "examples/match-proof/src/lib.rs#L5-5": {
+      "file": "examples/match-proof/src/lib.rs",
+      "lines": [
+        5,
+        5
+      ],
+      "symbol": "sockets",
+      "content_sha256": "2ed6defc1036c5a92fed955c4deb6ceb1064ac4c26cfcd1f2af62b51c0642d45"
+    },
+    "examples/match-proof/src/lib.rs#L8-8": {
+      "file": "examples/match-proof/src/lib.rs",
+      "lines": [
+        8,
+        8
+      ],
+      "symbol": "windowed",
+      "content_sha256": "bfcadc3fe0e71d7c140f919f33bc70399b6c2534fb8993b3b35ae6d82c96d39f"
+    },
+    "examples/match-proof/browser.js#L8-8": {
+      "file": "examples/match-proof/browser.js",
+      "lines": [
+        8,
+        8
+      ],
+      "content_sha256": "86f424c5866ff72de1ec4ae9173e56ec43896f440c72b2554d241e669bf1bdb2"
+    },
+    "examples/match-proof/socket_player.js#L5-5": {
+      "file": "examples/match-proof/socket_player.js",
+      "lines": [
+        5,
+        5
+      ],
+      "content_sha256": "c31159f1ff35d36ea556aac513bc99917630c2a73946521461af5ea8304a2d37"
+    },
+    "examples/match-proof/windowed_player.js#L3-3": {
+      "file": "examples/match-proof/windowed_player.js",
+      "lines": [
+        3,
+        3
+      ],
+      "content_sha256": "47eb85b5e4a214dca184674940bf31b34b7b9c4070ca460d6fcc78e8268ff76d"
+    },
+    "examples/match-proof/windowed_player.js#L20-20": {
+      "file": "examples/match-proof/windowed_player.js",
+      "lines": [
+        20,
+        20
+      ],
+      "content_sha256": "19c78eaa3d6ded1b08434dd6a214f844234b5dc5ec3df766a31167bdaa17e537"
+    },
+    "examples/match-proof/socket_player.js#L39-39": {
+      "file": "examples/match-proof/socket_player.js",
+      "lines": [
+        39,
+        39
+      ],
+      "content_sha256": "748c312547eadfae3fbcabc9df57a43aa5bf585bc30bec8829658d1ac911a549"
+    },
+    "examples/match-proof/socket_player.js#L53-53": {
+      "file": "examples/match-proof/socket_player.js",
+      "lines": [
+        53,
+        53
+      ],
+      "content_sha256": "a47d827f77eb5d3e809b62817531318957ae0168b4c90560d50828dfacaa74df"
+    },
+    "examples/match-proof/socket_player.js#L6-6": {
+      "file": "examples/match-proof/socket_player.js",
+      "lines": [
+        6,
+        6
+      ],
+      "content_sha256": "f9f06a4acf626a4b94190629fbb1a92c14fb9fe9b78d6504c25dd64eafc8ab72"
+    },
+    "examples/match-proof/windowed_player.js#L54-54": {
+      "file": "examples/match-proof/windowed_player.js",
+      "lines": [
+        54,
+        54
+      ],
+      "content_sha256": "3c7b57d9aefaea2b1bf54b89a12c315dc96804875920149255cdee3dd3bac94d"
+    },
+    "examples/mirror/src/lib.rs#L8-8": {
+      "file": "examples/mirror/src/lib.rs",
+      "lines": [
+        8,
+        8
+      ],
+      "symbol": "fixture",
+      "content_sha256": "da7a26b68b4d7a7d52346d5b1ce1cb4810c36115bf63235ec2491f0806bde394"
+    },
+    "examples/v1-game/src/lib.rs#L8-8": {
+      "file": "examples/v1-game/src/lib.rs",
+      "lines": [
+        8,
+        8
+      ],
+      "symbol": "clouds",
+      "content_sha256": "95f32ea061bd94f4e11b2d9e83670080e2974f9c2b08254d932afa58622f0a7a"
+    },
+    "examples/v1-game/src/lib.rs#L14-14": {
+      "file": "examples/v1-game/src/lib.rs",
+      "lines": [
+        14,
+        14
+      ],
+      "symbol": "controls",
+      "content_sha256": "fbc4db4f49183a1aaafcd20f96c0262443e95d155fed469caca0dd87eb0d9a87"
+    },
+    "examples/v1-game/src/lib.rs#L16-16": {
+      "file": "examples/v1-game/src/lib.rs",
+      "lines": [
+        16,
+        16
+      ],
+      "symbol": "cooked",
+      "content_sha256": "8ef1d6b2476bbf6587d412ff09722bf9d6682b6703ee26516599bc797aec03e0"
+    },
+    "examples/v1-game/src/lib.rs#L18-18": {
+      "file": "examples/v1-game/src/lib.rs",
+      "lines": [
+        18,
+        18
+      ],
+      "symbol": "effect",
+      "content_sha256": "c695b161fec366a0ec8a1610bfb7534d9765ebe86f8c7bf96b82a440303f0937"
+    },
+    "examples/v1-game/src/lib.rs#L34-34": {
+      "file": "examples/v1-game/src/lib.rs",
+      "lines": [
+        34,
+        34
+      ],
+      "symbol": "interface_status",
+      "content_sha256": "611b143f1fc7bffcff91456988da97a81bc51ec7ff1289df1ae4a97a669392f7"
+    },
+    "examples/v1-game/src/lib.rs#L43-43": {
+      "file": "examples/v1-game/src/lib.rs",
+      "lines": [
+        43,
+        43
+      ],
+      "symbol": "lent",
+      "content_sha256": "88845893f7c958299be75dfad522a1faf24cd7cd89e602987ea48e35dee9f9c0"
+    },
+    "examples/v1-game/src/lib.rs#L39-39": {
+      "file": "examples/v1-game/src/lib.rs",
+      "lines": [
+        39,
+        39
+      ],
+      "symbol": "mobile_interface",
+      "content_sha256": "352c3e236212f27a38291b3f401e0d66607c5651fff0e78148926edfd8068448"
+    },
+    "examples/v1-game/src/lib.rs#L50-50": {
+      "file": "examples/v1-game/src/lib.rs",
+      "lines": [
+        50,
+        50
+      ],
+      "symbol": "simulation",
+      "content_sha256": "10d886a01537bd6be1373fa1359a97e45302e60f0a9b184ddd146126c5631cb0"
+    },
+    "examples/v1-game-ios/src/lib.rs#L3-3": {
+      "file": "examples/v1-game-ios/src/lib.rs",
+      "lines": [
+        3,
+        3
+      ],
+      "symbol": "device",
+      "content_sha256": "82a95cc6eb3e770336ee4f4b57fad6c22c2c7c8158b196872a40b41db9011d92"
+    },
+    "examples/water/src/lib.rs#L2-2": {
+      "file": "examples/water/src/lib.rs",
+      "lines": [
+        2,
+        2
+      ],
+      "symbol": "channel",
+      "content_sha256": "0fece56baed9a7af0a7f7123e84e0b925577e472dbfc982ca389d664894f117c"
+    },
+    "examples/water/src/lib.rs#L3-3": {
+      "file": "examples/water/src/lib.rs",
+      "lines": [
+        3,
+        3
+      ],
+      "symbol": "clouds",
+      "content_sha256": "95f32ea061bd94f4e11b2d9e83670080e2974f9c2b08254d932afa58622f0a7a"
+    },
+    "examples/water/src/lib.rs#L4-4": {
+      "file": "examples/water/src/lib.rs",
+      "lines": [
+        4,
+        4
+      ],
+      "symbol": "floating",
+      "content_sha256": "e7861a64aec5ce3ba203d86a2e49492f28d93bc4470355dd29ab641881de7849"
+    },
+    "examples/water/src/lib.rs#L5-5": {
+      "file": "examples/water/src/lib.rs",
+      "lines": [
+        5,
+        5
+      ],
+      "symbol": "island",
+      "content_sha256": "f1a950dcf7242ef4361511faae7aef0af86ed23d7bc4ed07096b692a7b8f2d44"
+    },
+    "examples/water/src/lib.rs#L7-7": {
+      "file": "examples/water/src/lib.rs",
+      "lines": [
+        7,
+        7
+      ],
+      "symbol": "lens_probe",
+      "content_sha256": "2f4e09ac830a38396df4e1d18f263f8c86c6498f6acdc13b1db9fced555bd798"
+    },
+    "examples/water/src/lib.rs#L8-8": {
+      "file": "examples/water/src/lib.rs",
+      "lines": [
+        8,
+        8
+      ],
+      "symbol": "river",
+      "content_sha256": "e2f5ead86cd1b863cb24e819391dcc9c444b7c854627b98027a964f5fc20438f"
+    },
+    "examples/water/src/lib.rs#L9-9": {
+      "file": "examples/water/src/lib.rs",
+      "lines": [
+        9,
+        9
+      ],
+      "symbol": "settings",
+      "content_sha256": "4f08c164e6873719e0d3006cd2221609ee3467fb8f0d76f3eb5cb91c1ef79034"
+    }
+  }
+}

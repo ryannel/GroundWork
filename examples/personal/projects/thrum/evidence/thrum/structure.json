@@ -1,0 +1,5087 @@
+{
+  "schema_version": 1,
+  "repo_name": "thrum",
+  "commit": "f5591b79c71279df4f7dba6cfafdedc8bf4ce3be",
+  "scanned_at": "2026-11-27T22:02:41.960Z",
+  "workspace_harnesses": [
+    {
+      "path": "examples/crowd-2d",
+      "name": "crowd-2d",
+      "kind": "harness",
+      "command": "cargo run -p crowd-2d",
+      "summary": "Recorded-trace reference crowd, through the registered simulation runtime."
+    },
+    {
+      "path": "examples/crowd-2d-run",
+      "name": "crowd-2d-run",
+      "kind": "harness",
+      "command": "cargo run -p crowd-2d-run",
+      "summary": "Target-independent conformance and input-wire route. Platform launch is tooling-owned."
+    },
+    {
+      "path": "examples/crowd-2d-status",
+      "name": "crowd-2d-status",
+      "kind": "harness",
+      "command": "cargo run -p crowd-2d-status",
+      "summary": "Crowd replay with a status display, shared by the window, page and UIKit app."
+    },
+    {
+      "path": "examples/crowd-2d-status-ios",
+      "name": "crowd-2d-status-ios",
+      "kind": "harness",
+      "command": "cargo run -p crowd-2d-status-ios",
+      "summary": "Application entry point for the Crowd status display."
+    },
+    {
+      "path": "examples/crowd-2d-view",
+      "name": "crowd-2d-view",
+      "kind": "harness",
+      "command": "cargo run -p crowd-2d-view",
+      "summary": "Public sprite scene for the retained Crowd replay."
+    },
+    {
+      "path": "examples/lighthouse",
+      "name": "thrum-lighthouse",
+      "kind": "harness",
+      "command": "cargo run -p thrum-lighthouse",
+      "summary": "Thrum lighthouse: a striped lighthouse with a lit lantern on a sandy shore, a few rocks at its foot, under a physically based sky, with Sun and camera-orbit sliders."
+    },
+    {
+      "path": "examples/link-proof",
+      "name": "link-proof",
+      "kind": "harness",
+      "command": "cargo run -p link-proof",
+      "summary": "Target runners for the engine's one shared link script."
+    },
+    {
+      "path": "examples/match-proof",
+      "name": "match-proof",
+      "kind": "harness",
+      "command": "cargo run -p match-proof",
+      "summary": "Headless reference crowd proof through the registered session world."
+    },
+    {
+      "path": "examples/mirror",
+      "name": "mirror-scene",
+      "kind": "harness",
+      "command": "cargo run -p mirror-scene",
+      "summary": "Authored mirror pool and its scene-local renderer contribution."
+    },
+    {
+      "path": "examples/starter",
+      "name": "thrum-starter",
+      "kind": "harness",
+      "command": "cargo run -p thrum-starter",
+      "summary": "Thrum starter: one cooked rock on lit ground under a physically based sky, a camera, and Sun sliders."
+    },
+    {
+      "path": "examples/stones",
+      "name": "thrum-stones",
+      "kind": "harness",
+      "command": "cargo run -p thrum-stones",
+      "summary": "Stone circle at dawn: seven cooked standing stones and a fallen altar stone on lit ground under the physically based sky. Sliders move the Sun and orbit the camera around the circle."
+    },
+    {
+      "path": "examples/v1-game",
+      "name": "v1-game",
+      "kind": "harness",
+      "command": "cargo run -p v1-game",
+      "summary": "Assembled fixed-clock simulation and offscreen GPU scene used to qualify Thrum's first V1 game workload. Native worker extraction and a macOS surface consume the committed visual page; browser execution retains the serial path."
+    },
+    {
+      "path": "examples/v1-game-ios",
+      "name": "v1-game-ios",
+      "kind": "harness",
+      "command": "cargo run -p v1-game-ios",
+      "summary": "V1's application entry and game-specific setup for the shared UIKit shell."
+    },
+    {
+      "path": "examples/water",
+      "name": "water-scene",
+      "kind": "harness",
+      "command": "cargo run -p water-scene",
+      "summary": "Game content and controls for the water example. The engine contains no sea preset."
+    },
+    {
+      "path": "tools/xtask",
+      "name": "xtask",
+      "kind": "harness",
+      "command": "cargo xtask",
+      "summary": "Small host-only contributor command runner."
+    }
+  ],
+  "packages": [
+    {
+      "package_root": "crates/thrum-app",
+      "name": "thrum-app",
+      "language": "rust",
+      "repo_name": "thrum",
+      "web_url": "https://github.com/ryannel/Thrum",
+      "git_ref": "f5591b79c71279df4f7dba6cfafdedc8bf4ce3be",
+      "repo_subpath": "crates/thrum-app",
+      "doc_summary": "Application shells shared by Thrum games. The native macOS shell: one window and its Metal device recipe, the per-view display link, a render owner thread, world pause and GPU device recovery, the typed demo-control panel with `THRUM_PARAM…",
+      "total_files": 78,
+      "source_files": 75,
+      "total_loc": 22117,
+      "tier": "deep",
+      "entrypoints": [
+        {
+          "path": "src/lib.rs",
+          "name": "thrum-app (lib)",
+          "kind": "library",
+          "command": "cargo test -p thrum-app"
+        }
+      ],
+      "modules": [
+        {
+          "path": "src/app",
+          "name": "app",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 23,
+          "source_files": 23,
+          "loc": 8327,
+          "doc_summary": "The platform owns the surface and event loop; the game's runtime host owns world ticks, GPU scene packets and the prepared presentation pass."
+        },
+        {
+          "path": "src/ios",
+          "name": "ios",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 7,
+          "source_files": 7,
+          "loc": 3820,
+          "doc_summary": "UIKit shell shared by mobile games. The main thread forwards display targets, touches and lifecycle; the world lane owns time and rules; the render owner prepares, encodes, acquires late and presents."
+        },
+        {
+          "path": "src/sky",
+          "name": "sky",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 5,
+          "source_files": 5,
+          "loc": 2983,
+          "doc_summary": "A still scene under a physically based sky: the kit behind the starter."
+        },
+        {
+          "path": "src/web",
+          "name": "web",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 6,
+          "source_files": 6,
+          "loc": 1656,
+          "doc_summary": "Browser shell shared by Thrum games (wasm32 only)."
+        },
+        {
+          "path": "src/offscreen",
+          "name": "offscreen",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 3,
+          "source_files": 3,
+          "loc": 829,
+          "doc_summary": "Headless opportunities through the ordinary game, world lane and presenter."
+        },
+        {
+          "path": "src/capture_writer",
+          "name": "capture_writer",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 4,
+          "source_files": 4,
+          "loc": 758,
+          "doc_summary": "Bounded writer isolated from world/render lanes."
+        },
+        {
+          "path": "src/profile",
+          "name": "profile",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 3,
+          "source_files": 3,
+          "loc": 577,
+          "doc_summary": "Shared profiler control declarations. Live windows are owned by Mac and web shells."
+        },
+        {
+          "path": "src/file_watch",
+          "name": "file_watch",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 2,
+          "source_files": 2,
+          "loc": 470,
+          "doc_summary": "Watch a creator's parameter and game files and wake the event loop when a save settles, so it runs the same reload as `L`. A polling thread reads each file's metadata every tick and its bytes only when that changes, so in-place saves, rena…"
+        },
+        {
+          "path": "src/game.rs",
+          "name": "game",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 365,
+          "doc_summary": "The boundary between the platform adapters and one game."
+        },
+        {
+          "path": "tests",
+          "name": "tests",
+          "kind": "dir",
+          "visibility": "test",
+          "file_count": 4,
+          "source_files": 4,
+          "loc": 342
+        },
+        {
+          "path": "src/ios_gesture.rs",
+          "name": "ios_gesture",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 317,
+          "doc_summary": "One-finger virtual stick feeding the game's held movement axes."
+        },
+        {
+          "path": "src/ios_lease.rs",
+          "name": "ios_lease",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 302,
+          "doc_summary": "One platform surface lease shared by the UIKit shell and the render owner."
+        },
+        {
+          "path": "web",
+          "name": "web",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 4,
+          "source_files": 3,
+          "loc": 293
+        },
+        {
+          "path": "src/key.rs",
+          "name": "key",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 233,
+          "doc_summary": "Physical keys shared by the native and browser adapters."
+        },
+        {
+          "path": "ios",
+          "name": "ios",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 2,
+          "source_files": 1,
+          "loc": 170
+        },
+        {
+          "path": "src/web_clock.rs",
+          "name": "web_clock",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 126,
+          "doc_summary": "The browser shell's page clock policy, free of browser and GPU types so it is tested natively."
+        },
+        {
+          "path": "src/web_cadence.rs",
+          "name": "web_cadence",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 99,
+          "doc_summary": "Estimate the display interval from browser animation callbacks."
+        },
+        {
+          "path": "src/inline_lifecycle.rs",
+          "name": "inline_lifecycle",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 79,
+          "doc_summary": "Reconcile an inline world on the thread that advances it."
+        },
+        {
+          "path": "src/config.rs",
+          "name": "config",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 74
+        },
+        {
+          "path": "examples",
+          "name": "examples",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 64
+        },
+        {
+          "path": "src/interface.rs",
+          "name": "interface",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 46
+        },
+        {
+          "path": "src/surface.rs",
+          "name": "surface",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 46,
+          "doc_summary": "Shared decisions for a host's drawable acquisition."
+        },
+        {
+          "path": "src/frame.rs",
+          "name": "frame",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 45,
+          "doc_summary": "One request and reply for a shell's render owner."
+        },
+        {
+          "path": "build.rs",
+          "name": "build",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 11,
+          "doc_summary": "Compile the macOS qualification signpost bridge with the platform SDK macros."
+        }
+      ],
+      "flags": [
+        "feature:browser-capture",
+        "feature:creation-counters",
+        "feature:interface"
+      ],
+      "tech_stack": [
+        {
+          "category": "GPU & Graphics",
+          "items": [
+            "wgpu",
+            "winit"
+          ]
+        },
+        {
+          "category": "Libraries",
+          "items": [
+            "cpu-time",
+            "js-sys",
+            "objc2",
+            "objc2-app-kit",
+            "objc2-foundation",
+            "objc2-quartz-core",
+            "pollster",
+            "serde_json",
+            "sha2",
+            "wasm-bindgen",
+            "wasm-bindgen-futures",
+            "web-sys",
+            "zstd"
+          ]
+        }
+      ]
+    },
+    {
+      "package_root": "crates/thrum-asset",
+      "name": "thrum-asset",
+      "language": "rust",
+      "repo_name": "thrum",
+      "web_url": "https://github.com/ryannel/Thrum",
+      "git_ref": "f5591b79c71279df4f7dba6cfafdedc8bf4ce3be",
+      "repo_subpath": "crates/thrum-asset",
+      "doc_summary": "Runtime side of Thrum's content-addressed asset loop.",
+      "total_files": 24,
+      "source_files": 23,
+      "total_loc": 3172,
+      "tier": "deep",
+      "entrypoints": [
+        {
+          "path": "src/lib.rs",
+          "name": "thrum-asset (lib)",
+          "kind": "library",
+          "command": "cargo test -p thrum-asset"
+        }
+      ],
+      "modules": [
+        {
+          "path": "src/remote",
+          "name": "remote",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 3,
+          "source_files": 3,
+          "loc": 743,
+          "doc_summary": "Client of the authoring dev server, for targets that cannot map the store (the browser)."
+        },
+        {
+          "path": "src/layout",
+          "name": "layout",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 2,
+          "source_files": 2,
+          "loc": 345,
+          "doc_summary": "Binary layouts shared by the cooker (writer) and this runtime (reader)."
+        },
+        {
+          "path": "src/ktx2.rs",
+          "name": "ktx2",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 312,
+          "doc_summary": "Minimal validated KTX2 reader for the formats Thrum cooks."
+        },
+        {
+          "path": "src/font.rs",
+          "name": "font",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 266,
+          "doc_summary": "A font table and its pixel-kind sheets validated as one immutable product."
+        },
+        {
+          "path": "src/mesh.rs",
+          "name": "mesh",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 206
+        },
+        {
+          "path": "tests",
+          "name": "tests",
+          "kind": "dir",
+          "visibility": "test",
+          "file_count": 4,
+          "source_files": 4,
+          "loc": 173
+        },
+        {
+          "path": "src/sheet.rs",
+          "name": "sheet",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 164,
+          "doc_summary": "Validated, content-addressed sprite-sheet table and pages."
+        },
+        {
+          "path": "src/manifest.rs",
+          "name": "manifest",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 137
+        },
+        {
+          "path": "src/bytes.rs",
+          "name": "bytes",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 134
+        },
+        {
+          "path": "src/store.rs",
+          "name": "store",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 124
+        },
+        {
+          "path": "src/hash.rs",
+          "name": "hash",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 109
+        },
+        {
+          "path": "src/profile.rs",
+          "name": "profile",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 106
+        },
+        {
+          "path": "src/container.rs",
+          "name": "container",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 98,
+          "doc_summary": "Constant-time structural validation of a Thrum container's header and section table."
+        },
+        {
+          "path": "src/head.rs",
+          "name": "head",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 86
+        },
+        {
+          "path": "src/error.rs",
+          "name": "error",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 84
+        },
+        {
+          "path": "examples",
+          "name": "examples",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 34
+        }
+      ],
+      "tech_stack": [
+        {
+          "category": "GPU & Graphics",
+          "items": [
+            "bytemuck"
+          ]
+        },
+        {
+          "category": "Libraries",
+          "items": [
+            "blake3",
+            "js-sys",
+            "memmap2",
+            "wasm-bindgen",
+            "wasm-bindgen-futures"
+          ]
+        }
+      ]
+    },
+    {
+      "package_root": "crates/thrum-asset-gpu",
+      "name": "thrum-asset-gpu",
+      "language": "rust",
+      "repo_name": "thrum",
+      "web_url": "https://github.com/ryannel/Thrum",
+      "git_ref": "f5591b79c71279df4f7dba6cfafdedc8bf4ce3be",
+      "repo_subpath": "crates/thrum-asset-gpu",
+      "doc_summary": "GPU residency for cooked G5 products, drawn inside the prepared scene.",
+      "total_files": 59,
+      "source_files": 33,
+      "total_loc": 11904,
+      "tier": "deep",
+      "entrypoints": [
+        {
+          "path": "src/lib.rs",
+          "name": "thrum-asset-gpu (lib)",
+          "kind": "library",
+          "command": "cargo test -p thrum-asset-gpu"
+        }
+      ],
+      "modules": [
+        {
+          "path": "tests",
+          "name": "tests",
+          "kind": "dir",
+          "visibility": "test",
+          "file_count": 29,
+          "source_files": 13,
+          "loc": 2547
+        },
+        {
+          "path": "src/material",
+          "name": "material",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 2,
+          "source_files": 2,
+          "loc": 1637,
+          "doc_summary": "A game-authored WGSL material hook for cooked meshes, replaced by explicit reloads."
+        },
+        {
+          "path": "src/draw",
+          "name": "draw",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 4,
+          "source_files": 3,
+          "loc": 1539,
+          "asset_counts": {
+            "wgsl": 1
+          },
+          "doc_summary": "Generation-bound pipelines and per-set bind groups for drawing cooked products in the scene."
+        },
+        {
+          "path": "src/load.rs",
+          "name": "load",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 1095,
+          "doc_summary": "Loader thread: watch `HEAD`, map and validate products, create destinations, stage bytes."
+        },
+        {
+          "path": "src/staging.rs",
+          "name": "staging",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 957,
+          "doc_summary": "Staged uploads through a bounded ring of reusable staging chunks, filled off the render thread and copied on the GPU under a per-frame byte budget."
+        },
+        {
+          "path": "src/placement",
+          "name": "placement",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 2,
+          "source_files": 2,
+          "loc": 561,
+          "doc_summary": "Where a cooked mesh stands: the placement, its builder and the rigid-transform check."
+        },
+        {
+          "path": "src/mesh_stages.rs",
+          "name": "mesh_stages",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 448,
+          "doc_summary": "The opted-in forward mesh pipeline and the limits on each mesh's storage and draw."
+        },
+        {
+          "path": "src/drawn.rs",
+          "name": "drawn",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 310,
+          "doc_summary": "Wait for cooked content to be drawn, rendering without reading frames back."
+        },
+        {
+          "path": "src/lease.rs",
+          "name": "lease",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 304,
+          "doc_summary": "Read-only products selected by residency at the preceding submission boundary."
+        },
+        {
+          "path": "src/draw_probe",
+          "name": "draw_probe",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 2,
+          "source_files": 2,
+          "loc": 260,
+          "doc_summary": "Compile-time opt-in draw qualification controls. Ordinary builds omit this module."
+        },
+        {
+          "path": "src/rows.rs",
+          "name": "rows",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 209,
+          "doc_summary": "Cooked products adapted to the renderer's admitted whole-mesh rows."
+        },
+        {
+          "path": "src/ray_mesh.rs",
+          "name": "ray_mesh",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 63,
+          "doc_summary": "The ray structure for one resident cooked mesh, built from its draw streams."
+        },
+        {
+          "path": "src/mesh_upload.rs",
+          "name": "mesh_upload",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 56,
+          "doc_summary": "CPU source arrays retained until a mesh's staged upload completes."
+        },
+        {
+          "path": "src/records.rs",
+          "name": "records",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 56,
+          "doc_summary": "Whole host records written by cooked drawing, with their shader sources for ABI reflection."
+        },
+        {
+          "path": "src/fault.rs",
+          "name": "fault",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 21
+        },
+        {
+          "path": "src",
+          "name": "shaders (root)",
+          "kind": "dir",
+          "visibility": "asset",
+          "file_count": 8,
+          "source_files": 0,
+          "loc": 0,
+          "asset_counts": {
+            "wgsl": 8
+          }
+        }
+      ],
+      "flags": [
+        "feature:draw-probe",
+        "feature:fault-probe"
+      ],
+      "tech_stack": [
+        {
+          "category": "GPU & Graphics",
+          "items": [
+            "bytemuck",
+            "wgpu"
+          ]
+        },
+        {
+          "category": "Math & Geometry",
+          "items": [
+            "glam"
+          ]
+        },
+        {
+          "category": "Libraries",
+          "items": [
+            "web-time"
+          ]
+        }
+      ]
+    },
+    {
+      "package_root": "crates/thrum-cloud-model",
+      "name": "thrum-cloud-model",
+      "language": "rust",
+      "repo_name": "thrum",
+      "web_url": "https://github.com/ryannel/Thrum",
+      "git_ref": "f5591b79c71279df4f7dba6cfafdedc8bf4ce3be",
+      "repo_subpath": "crates/thrum-cloud-model",
+      "doc_summary": "Deterministic, renderer-free cloud weather and optical references.",
+      "total_files": 37,
+      "source_files": 36,
+      "total_loc": 6092,
+      "tier": "deep",
+      "entrypoints": [
+        {
+          "path": "src/lib.rs",
+          "name": "thrum-cloud-model (lib)",
+          "kind": "library",
+          "command": "cargo test -p thrum-cloud-model"
+        }
+      ],
+      "modules": [
+        {
+          "path": "tests",
+          "name": "tests",
+          "kind": "dir",
+          "visibility": "test",
+          "file_count": 26,
+          "source_files": 26,
+          "loc": 3077
+        },
+        {
+          "path": "src/field.rs",
+          "name": "field",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 722
+        },
+        {
+          "path": "src/ground.rs",
+          "name": "ground",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 586
+        },
+        {
+          "path": "src/state.rs",
+          "name": "state",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 413
+        },
+        {
+          "path": "src/visibility.rs",
+          "name": "visibility",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 291
+        },
+        {
+          "path": "src/optics.rs",
+          "name": "optics",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 244
+        },
+        {
+          "path": "src/medium.rs",
+          "name": "medium",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 190
+        },
+        {
+          "path": "src/shape.rs",
+          "name": "shape",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 187
+        },
+        {
+          "path": "src/library.rs",
+          "name": "library",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 170
+        },
+        {
+          "path": "src/noise.rs",
+          "name": "noise",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 150,
+          "doc_summary": "Mip-zero reference for the GPU's two repeat-sampled, unorm8 volumes."
+        }
+      ],
+      "tech_stack": []
+    },
+    {
+      "package_root": "crates/thrum-clouds",
+      "name": "thrum-clouds",
+      "language": "rust",
+      "repo_name": "thrum",
+      "web_url": "https://github.com/ryannel/Thrum",
+      "git_ref": "f5591b79c71279df4f7dba6cfafdedc8bf4ce3be",
+      "repo_subpath": "crates/thrum-clouds",
+      "doc_summary": "GPU weather products. The game supplies the field's type data and committed state.",
+      "total_files": 101,
+      "source_files": 53,
+      "total_loc": 14109,
+      "tier": "deep",
+      "entrypoints": [
+        {
+          "path": "src/lib.rs",
+          "name": "thrum-clouds (lib)",
+          "kind": "library",
+          "command": "cargo test -p thrum-clouds"
+        }
+      ],
+      "modules": [
+        {
+          "path": "tests",
+          "name": "tests",
+          "kind": "dir",
+          "visibility": "test",
+          "file_count": 23,
+          "source_files": 22,
+          "loc": 5032
+        },
+        {
+          "path": "src/layer",
+          "name": "layer",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 33,
+          "source_files": 9,
+          "loc": 2621,
+          "asset_counts": {
+            "wgsl": 24
+          },
+          "doc_summary": "Visible transport, recorded after the scene's opaque and celestial passes."
+        },
+        {
+          "path": "src/shade",
+          "name": "shade",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 7,
+          "source_files": 7,
+          "loc": 2370
+        },
+        {
+          "path": "src/ground",
+          "name": "ground",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 13,
+          "source_files": 4,
+          "loc": 1115,
+          "asset_counts": {
+            "wgsl": 9
+          }
+        },
+        {
+          "path": "src/sun_path",
+          "name": "sun_path",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 7,
+          "source_files": 3,
+          "loc": 1026,
+          "asset_counts": {
+            "wgsl": 4
+          }
+        },
+        {
+          "path": "src/shapes",
+          "name": "shapes",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 4,
+          "source_files": 3,
+          "loc": 914,
+          "asset_counts": {
+            "wgsl": 1
+          }
+        },
+        {
+          "path": "src/weather",
+          "name": "weather",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 2,
+          "source_files": 2,
+          "loc": 734
+        },
+        {
+          "path": "src/noise.rs",
+          "name": "noise",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 171
+        },
+        {
+          "path": "src/field_overlay.rs",
+          "name": "field_overlay",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 72
+        },
+        {
+          "path": "src",
+          "name": "shaders (root)",
+          "kind": "dir",
+          "visibility": "asset",
+          "file_count": 8,
+          "source_files": 0,
+          "loc": 0,
+          "asset_counts": {
+            "wgsl": 8
+          }
+        }
+      ],
+      "tech_stack": [
+        {
+          "category": "GPU & Graphics",
+          "items": [
+            "bytemuck",
+            "wgpu"
+          ]
+        },
+        {
+          "category": "Math & Geometry",
+          "items": [
+            "glam"
+          ]
+        }
+      ]
+    },
+    {
+      "package_root": "crates/thrum-controls",
+      "name": "thrum-controls",
+      "language": "rust",
+      "repo_name": "thrum",
+      "web_url": "https://github.com/ryannel/Thrum",
+      "git_ref": "f5591b79c71279df4f7dba6cfafdedc8bf4ce3be",
+      "repo_subpath": "crates/thrum-controls",
+      "doc_summary": "Typed demo controls: one model of sliders, toggles, text fields, readouts and tables that native and browser views present identically, so a demo can expose its mechanism.",
+      "total_files": 11,
+      "source_files": 10,
+      "total_loc": 2358,
+      "tier": "standard",
+      "entrypoints": [
+        {
+          "path": "src/lib.rs",
+          "name": "thrum-controls (lib)",
+          "kind": "library",
+          "command": "cargo test -p thrum-controls"
+        }
+      ],
+      "modules": [
+        {
+          "path": "src/macos",
+          "name": "macos",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 2,
+          "source_files": 2,
+          "loc": 553,
+          "doc_summary": "Native macOS view of [`Controls`]: a floating AppKit HUD panel of platform sliders, checkboxes, text fields and readouts, built from the same model the browser view uses."
+        },
+        {
+          "path": "src/tests.rs",
+          "name": "tests",
+          "kind": "file",
+          "visibility": "test",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 294
+        },
+        {
+          "path": "web",
+          "name": "web",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 189
+        },
+        {
+          "path": "src/display.rs",
+          "name": "display",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 166,
+          "doc_summary": "How an engine value is shown to a person, shared by every platform view."
+        },
+        {
+          "path": "src/json.rs",
+          "name": "json",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 115,
+          "doc_summary": "JSON shapes that browser views build controls from. Cold: called when a view is built and when it syncs after the model's revision advances, never per entity."
+        },
+        {
+          "path": "src/file.rs",
+          "name": "file",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 103,
+          "doc_summary": "Parameter files: authored values that hot reload into a running demo."
+        },
+        {
+          "path": "examples",
+          "name": "examples",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 99
+        },
+        {
+          "path": "tests",
+          "name": "tests",
+          "kind": "dir",
+          "visibility": "test",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 38
+        }
+      ],
+      "tech_stack": [
+        {
+          "category": "Libraries",
+          "items": [
+            "objc2",
+            "objc2-app-kit",
+            "objc2-foundation",
+            "serde_json"
+          ]
+        }
+      ]
+    },
+    {
+      "package_root": "crates/thrum-cook",
+      "name": "thrum-cook",
+      "language": "rust",
+      "repo_name": "thrum",
+      "web_url": "https://github.com/ryannel/Thrum",
+      "git_ref": "f5591b79c71279df4f7dba6cfafdedc8bf4ce3be",
+      "repo_subpath": "crates/thrum-cook",
+      "doc_summary": "Authoring-only side of Thrum's content-addressed asset loop. Shipping builds never link this package; they read its output through `thrum-asset`.",
+      "total_files": 40,
+      "source_files": 39,
+      "total_loc": 9995,
+      "tier": "deep",
+      "entrypoints": [
+        {
+          "path": "src/main.rs",
+          "name": "thrum-cook",
+          "kind": "binary",
+          "command": "cargo run -p thrum-cook --bin thrum-cook"
+        },
+        {
+          "path": "src/lib.rs",
+          "name": "thrum-cook (lib)",
+          "kind": "library",
+          "command": "cargo test -p thrum-cook"
+        }
+      ],
+      "modules": [
+        {
+          "path": "tests",
+          "name": "tests",
+          "kind": "dir",
+          "visibility": "test",
+          "file_count": 18,
+          "source_files": 18,
+          "loc": 3365
+        },
+        {
+          "path": "src/cooker.rs",
+          "name": "cooker",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 1280,
+          "doc_summary": "The cook cycle: scan sources, plan assets, reuse or cook products, publish one manifest."
+        },
+        {
+          "path": "src/watch",
+          "name": "watch",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 2,
+          "source_files": 2,
+          "loc": 798,
+          "doc_summary": "Filesystem-event driven cook cycles."
+        },
+        {
+          "path": "src/font",
+          "name": "font",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 3,
+          "source_files": 3,
+          "loc": 689,
+          "doc_summary": "Cook font source folders into a validated table and ordinary pixel-kind sheets."
+        },
+        {
+          "path": "src/mesh.rs",
+          "name": "mesh",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 493,
+          "doc_summary": "glTF to meshlet mesh product."
+        },
+        {
+          "path": "src/texture",
+          "name": "texture",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 2,
+          "source_files": 2,
+          "loc": 471,
+          "doc_summary": "Image to KTX2 texture product, and Thrum volume source to KTX2 3D volume product."
+        },
+        {
+          "path": "src/sheet",
+          "name": "sheet",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 2,
+          "source_files": 2,
+          "loc": 461,
+          "doc_summary": "Import a sprite-sheet folder and build deterministic pages, independent of the runtime device."
+        },
+        {
+          "path": "src/server.rs",
+          "name": "server",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 442,
+          "doc_summary": "Development HTTP server for browsers and remote devices that cannot map the store directly."
+        },
+        {
+          "path": "src/tripwire.rs",
+          "name": "tripwire",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 415,
+          "doc_summary": "Asserted tripwires: bench measurements checked against their own stored history, so a regression fails visibly instead of only being logged."
+        },
+        {
+          "path": "src/stat_cache.rs",
+          "name": "stat_cache",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 411,
+          "doc_summary": "Stat cache: re-hash a source file only when its filesystem stamp changes."
+        },
+        {
+          "path": "src/demo.rs",
+          "name": "demo",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 289,
+          "doc_summary": "Deterministic demo sources for tests, benchmarks and the edit-to-visible demonstration: a displaced glTF grid, a checker PNG and a cloud-like density volume."
+        },
+        {
+          "path": "src/write.rs",
+          "name": "write",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 272,
+          "doc_summary": "Writers for the formats `thrum-asset` reads: Thrum containers and KTX2."
+        },
+        {
+          "path": "src/cas.rs",
+          "name": "cas",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 171,
+          "doc_summary": "Single-writer content-addressed product store and atomic `HEAD` publication."
+        },
+        {
+          "path": "src/metallib.rs",
+          "name": "metallib",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 98,
+          "doc_summary": "Offline compilation of the MSL and stage records exported by the Metal backend."
+        },
+        {
+          "path": "src/error.rs",
+          "name": "error",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 82
+        }
+      ],
+      "tech_stack": [
+        {
+          "category": "GPU & Graphics",
+          "items": [
+            "bytemuck"
+          ]
+        },
+        {
+          "category": "Runtime & Async",
+          "items": [
+            "Rayon"
+          ]
+        },
+        {
+          "category": "Serialization & Validation",
+          "items": [
+            "serde"
+          ]
+        },
+        {
+          "category": "Libraries",
+          "items": [
+            "astcenc-rs",
+            "blake3",
+            "gltf",
+            "harfrust",
+            "image",
+            "intel_tex_2",
+            "meshopt",
+            "notify",
+            "serde_json",
+            "skrifa",
+            "unicode-normalization",
+            "zeno"
+          ]
+        }
+      ]
+    },
+    {
+      "package_root": "crates/thrum-core",
+      "name": "thrum-core",
+      "language": "rust",
+      "repo_name": "thrum",
+      "web_url": "https://github.com/ryannel/Thrum",
+      "git_ref": "f5591b79c71279df4f7dba6cfafdedc8bf4ce3be",
+      "repo_subpath": "crates/thrum-core",
+      "doc_summary": "Shared simulation identities, a fixed-step clock and the active V1 simulation.",
+      "total_files": 63,
+      "source_files": 61,
+      "total_loc": 20682,
+      "tier": "deep",
+      "entrypoints": [
+        {
+          "path": "src/lib.rs",
+          "name": "thrum-core (lib)",
+          "kind": "library",
+          "command": "cargo test -p thrum-core"
+        }
+      ],
+      "modules": [
+        {
+          "path": "src/sim",
+          "name": "sim",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 26,
+          "source_files": 26,
+          "loc": 13835,
+          "doc_summary": "Registered game simulation: checked identity, schedule access, one committed tick and immutable endpoint leases. Concrete fields and rules belong to games."
+        },
+        {
+          "path": "tests",
+          "name": "tests",
+          "kind": "dir",
+          "visibility": "test",
+          "file_count": 27,
+          "source_files": 27,
+          "loc": 5582
+        },
+        {
+          "path": "src/profile",
+          "name": "profile",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 4,
+          "source_files": 3,
+          "loc": 627,
+          "doc_summary": "Portable rule arithmetic and canonical authority encoding."
+        },
+        {
+          "path": "src/clock",
+          "name": "clock",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 2,
+          "source_files": 2,
+          "loc": 537,
+          "doc_summary": "Bounded fixed-step clock. The platform supplies monotonic time and a CPU admission count; this module never sleeps or uses a display callback as time."
+        },
+        {
+          "path": "examples",
+          "name": "examples",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 52
+        },
+        {
+          "path": "src/ids.rs",
+          "name": "ids",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 40,
+          "doc_summary": "Shared identities across simulation, publication and network boundaries."
+        }
+      ],
+      "tech_stack": [
+        {
+          "category": "Runtime & Async",
+          "items": [
+            "Rayon"
+          ]
+        },
+        {
+          "category": "Libraries",
+          "items": [
+            "smallvec",
+            "web-time"
+          ]
+        }
+      ]
+    },
+    {
+      "package_root": "crates/thrum-fixtures",
+      "name": "thrum-fixtures",
+      "language": "rust",
+      "repo_name": "thrum",
+      "web_url": "https://github.com/ryannel/Thrum",
+      "git_ref": "f5591b79c71279df4f7dba6cfafdedc8bf4ce3be",
+      "repo_subpath": "crates/thrum-fixtures",
+      "doc_summary": "Shared qualification fixtures as plain data.",
+      "total_files": 8,
+      "source_files": 7,
+      "total_loc": 957,
+      "tier": "standard",
+      "entrypoints": [
+        {
+          "path": "src/lib.rs",
+          "name": "thrum-fixtures (lib)",
+          "kind": "library",
+          "command": "cargo test -p thrum-fixtures"
+        }
+      ],
+      "modules": [
+        {
+          "path": "src/mixed_field",
+          "name": "mixed_field",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 4,
+          "source_files": 4,
+          "loc": 849,
+          "doc_summary": "The dense flythrough field: a ground slab, walls and 100k props over an area far larger than the view, so camera culling has work to save. One layout seeds the simulation and sizes the prepared instances."
+        },
+        {
+          "path": "src/surf.rs",
+          "name": "surf",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 53,
+          "doc_summary": "Shared CPU and Metal fixture for a sheet with many long waves."
+        },
+        {
+          "path": "src/sprite_edges.rs",
+          "name": "sprite_edges",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 49,
+          "doc_summary": "Source art shared by the atlas upload and submitted edge proofs."
+        }
+      ],
+      "tech_stack": []
+    },
+    {
+      "package_root": "crates/thrum-network",
+      "name": "thrum-network",
+      "language": "rust",
+      "repo_name": "thrum",
+      "web_url": "https://github.com/ryannel/Thrum",
+      "git_ref": "f5591b79c71279df4f7dba6cfafdedc8bf4ce3be",
+      "repo_subpath": "crates/thrum-network",
+      "doc_summary": "Bounded first-profile networking and caller-clocked deterministic sessions.",
+      "total_files": 34,
+      "source_files": 33,
+      "total_loc": 9674,
+      "tier": "deep",
+      "entrypoints": [
+        {
+          "path": "src/lib.rs",
+          "name": "thrum-network (lib)",
+          "kind": "library",
+          "command": "cargo test -p thrum-network"
+        }
+      ],
+      "modules": [
+        {
+          "path": "src/session",
+          "name": "session",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 7,
+          "source_files": 7,
+          "loc": 4396,
+          "doc_summary": "Caller-clocked deterministic matches over the message link."
+        },
+        {
+          "path": "tests",
+          "name": "tests",
+          "kind": "dir",
+          "visibility": "test",
+          "file_count": 16,
+          "source_files": 16,
+          "loc": 3134
+        },
+        {
+          "path": "src/state_delta",
+          "name": "state_delta",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 2,
+          "source_files": 2,
+          "loc": 740,
+          "doc_summary": "Allocation-free V1 state-delta bytes over a game-declared field schema. Existing-actor datagrams and full partition images share a game schema. Session, lifecycle, result closure and image retention remain separate owners."
+        },
+        {
+          "path": "src/input_batch.rs",
+          "name": "input_batch",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 387,
+          "doc_summary": "Bounded, game-schema-neutral input records inside an authenticated N1 envelope. Structural decoding borrows checked fields; the session supplies peer/epoch and a game decoder before any frame enters the future timing window."
+        },
+        {
+          "path": "src/future_input.rs",
+          "name": "future_input",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 323,
+          "doc_summary": "Bounded N1 timing owner for future W1 input frames. Staging is not gameplay admission."
+        },
+        {
+          "path": "examples",
+          "name": "examples",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 3,
+          "source_files": 3,
+          "loc": 317
+        },
+        {
+          "path": "src/envelope.rs",
+          "name": "envelope",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 284,
+          "doc_summary": "Fixed N1 application envelope. Connection state, rate limits, role and per-kind payload validation belong to the session owner above this codec."
+        },
+        {
+          "path": "src/state_ack.rs",
+          "name": "state_ack",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 84,
+          "doc_summary": "Exact selective state-image ACK payload. Session identity belongs to the surrounding envelope and the connection owner."
+        }
+      ],
+      "tech_stack": [
+        {
+          "category": "Libraries",
+          "items": [
+            "getrandom"
+          ]
+        }
+      ]
+    },
+    {
+      "package_root": "crates/thrum-rain-model",
+      "name": "thrum-rain-model",
+      "language": "rust",
+      "repo_name": "thrum",
+      "web_url": "https://github.com/ryannel/Thrum",
+      "git_ref": "f5591b79c71279df4f7dba6cfafdedc8bf4ce3be",
+      "repo_subpath": "crates/thrum-rain-model",
+      "doc_summary": "Rain on the CPU, in f64, with no graphics device: the tree of hollows a bed is cut into, the fill step that fills, spills, merges and parts puddles with its water account, exposure under the shelters a game gives, the ground's stores and t…",
+      "total_files": 31,
+      "source_files": 30,
+      "total_loc": 9085,
+      "tier": "deep",
+      "entrypoints": [
+        {
+          "path": "src/lib.rs",
+          "name": "thrum-rain-model (lib)",
+          "kind": "library",
+          "command": "cargo test -p thrum-rain-model"
+        }
+      ],
+      "modules": [
+        {
+          "path": "tests",
+          "name": "tests",
+          "kind": "dir",
+          "visibility": "test",
+          "file_count": 18,
+          "source_files": 18,
+          "loc": 5190
+        },
+        {
+          "path": "src/tree",
+          "name": "tree",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 3,
+          "source_files": 3,
+          "loc": 1001,
+          "doc_summary": "The tree of hollows: one flood of the bed from its pits, lowest ground first, labels each cell with the hollow it was reached from; the passes between labels, taken lowest first, join hollows into a tree (a depression hierarchy). Each node…"
+        },
+        {
+          "path": "src/fill.rs",
+          "name": "fill",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 858,
+          "doc_summary": "The fill step: once a tick, in f64 and a fixed order, rain goes to its first receiver, puddles lose what dries and goes down, and full hollows spill, merge and part."
+        },
+        {
+          "path": "src/rings.rs",
+          "name": "rings",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 627,
+          "doc_summary": "A raindrop's rings, from water's own dispersion: the drop gives the water an impulse, its mass times its fall speed, spread as a Gaussian over its crater, and the water answers each wavenumber `k` as `h'(k, t) = (P k tanh(k d) / (ρ ω)) sin…"
+        },
+        {
+          "path": "src/ground.rs",
+          "name": "ground",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 473,
+          "doc_summary": "Wet ground: the two stores of each ground class, surface water and the pores' fill, stepped with the tick for level uncovered ground under open sky and where a half and a quarter of the rain reaches; and the wetness function, which reads t…"
+        },
+        {
+          "path": "src/canopy.rs",
+          "name": "canopy",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 472,
+          "doc_summary": "Exposure: the share of the rain that reaches a point, from shelters a game gives as content. Rain falls straight down, so a shelter covers the columns its triangles cross."
+        },
+        {
+          "path": "src/state.rs",
+          "name": "state",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 171,
+          "doc_summary": "The rain state as bytes, for saves and the wire: little-endian, versioned, and checked against its tree when read back."
+        },
+        {
+          "path": "examples",
+          "name": "examples",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 109
+        },
+        {
+          "path": "src/error.rs",
+          "name": "error",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 61
+        },
+        {
+          "path": "src/look.rs",
+          "name": "look",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 54,
+          "doc_summary": "The wet look's reference: what a forward surface's base colour and roughness become when its pores are wet. Light the ground scatters is partly returned to it at the film's surface, so more of it is absorbed: each channel's albedo `a` beco…"
+        }
+      ],
+      "tech_stack": []
+    },
+    {
+      "package_root": "crates/thrum-render",
+      "name": "thrum-render",
+      "language": "rust",
+      "repo_name": "thrum",
+      "web_url": "https://github.com/ryannel/Thrum",
+      "git_ref": "f5591b79c71279df4f7dba6cfafdedc8bf4ce3be",
+      "repo_subpath": "crates/thrum-render",
+      "doc_summary": "V1 GPU execution foundations. The platform owns one device and queue; this crate prepares resources and encodes work using that device. Its bounded frame runtime coordinates submission; features never create another device or submit indepe…",
+      "total_files": 542,
+      "source_files": 371,
+      "total_loc": 123888,
+      "tier": "deep",
+      "entrypoints": [
+        {
+          "path": "src/lib.rs",
+          "name": "thrum-render (lib)",
+          "kind": "library",
+          "command": "cargo test -p thrum-render"
+        }
+      ],
+      "modules": [
+        {
+          "path": "src/synthetic",
+          "name": "synthetic",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 141,
+          "source_files": 94,
+          "loc": 34098,
+          "asset_counts": {
+            "wgsl": 45
+          },
+          "doc_summary": "Prepared in-memory instanced diagnostic. It exercises the real material and instance tables, four texture-class bindings, graph declaration and optional timestamps. One directional metallic-roughness closure and opaque depth are real, foll…"
+        },
+        {
+          "path": "tests",
+          "name": "tests",
+          "kind": "dir",
+          "visibility": "test",
+          "file_count": 123,
+          "source_files": 107,
+          "loc": 26258,
+          "asset_counts": {
+            "wgsl": 7
+          }
+        },
+        {
+          "path": "src/runtime",
+          "name": "runtime",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 42,
+          "source_files": 41,
+          "loc": 19655,
+          "asset_counts": {
+            "wgsl": 1
+          },
+          "doc_summary": "Bounded committed-world presentation using the prepared V1 renderer."
+        },
+        {
+          "path": "src/atmosphere",
+          "name": "atmosphere",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 121,
+          "source_files": 50,
+          "loc": 16498,
+          "asset_counts": {
+            "wgsl": 66
+          },
+          "doc_summary": "Earth atmosphere presentation on the renderer's existing device and graph. The game supplies the sole Sun/time sample; no visual clock lives here."
+        },
+        {
+          "path": "src/contribution",
+          "name": "contribution",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 12,
+          "source_files": 11,
+          "loc": 4460,
+          "asset_counts": {
+            "wgsl": 1
+          },
+          "doc_summary": "Seam for engine modules that simulate and draw inside the prepared scene."
+        },
+        {
+          "path": "src/sprite",
+          "name": "sprite",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 13,
+          "source_files": 12,
+          "loc": 4023,
+          "asset_counts": {
+            "wgsl": 1
+          },
+          "doc_summary": "Display-referred 2D scenes. World X points right and world Y points up."
+        },
+        {
+          "path": "src/visibility",
+          "name": "visibility",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 11,
+          "source_files": 7,
+          "loc": 3741,
+          "asset_counts": {
+            "wgsl": 4
+          },
+          "doc_summary": "Private GPU camera visibility. A compute pass tests each active instance's conservative world bounds against the camera frustum and writes an order-preserving visible list plus one `DrawIndexedIndirectArgs` per mesh/pipeline bucket. Output…"
+        },
+        {
+          "path": "src/graph",
+          "name": "graph",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 5,
+          "source_files": 5,
+          "loc": 3135,
+          "doc_summary": "Typed GPU pass declarations and preparation-time lifetime analysis."
+        },
+        {
+          "path": "src/capabilities",
+          "name": "capabilities",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 7,
+          "source_files": 7,
+          "loc": 2543,
+          "doc_summary": "Immutable facts captured once by the platform for one adapter generation. Render preparation consumes this record; pass recording never probes a device."
+        },
+        {
+          "path": "src/timing",
+          "name": "timing",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 4,
+          "source_files": 4,
+          "loc": 1506,
+          "doc_summary": "Optional pass-boundary GPU timestamp batches. Unsupported devices allocate nothing and still encode the same rendering work. Readback is asynchronous; the owning host polls its device/event loop and bounds outstanding batches."
+        },
+        {
+          "path": "src/apple_tile",
+          "name": "apple_tile",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 7,
+          "source_files": 6,
+          "loc": 1226,
+          "doc_summary": "Native provider interface and the whole-encoder segment."
+        },
+        {
+          "path": "src/shaders.rs",
+          "name": "shaders",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 993,
+          "doc_summary": "Production WGSL recipes. The catalog also enumerates the sources reflected by the ABI checks."
+        },
+        {
+          "path": "src/pass_key",
+          "name": "pass_key",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 2,
+          "source_files": 2,
+          "loc": 703,
+          "doc_summary": "The renderer's pass registry: one typed key for each graph pass the renderer declares, carrying its name, its timing bucket and the role of the pipeline it records with. Graph declarations, recorder binding and timing all read these keys,…"
+        },
+        {
+          "path": "src/error.rs",
+          "name": "error",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 632,
+          "doc_summary": "Errors shared across renderer features."
+        },
+        {
+          "path": "src/frame.rs",
+          "name": "frame",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 602,
+          "doc_summary": "Bounded native frame handoff. The shell keeps OS events on its thread while a worker owns the frame operation; neither request nor reply grows a queue."
+        },
+        {
+          "path": "src/present.rs",
+          "name": "present",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 492,
+          "doc_summary": "Prepared texture-to-surface pass. The platform owns the surface and presentation; this module only declares and encodes one view-sized GPU pass."
+        },
+        {
+          "path": "src/extract.rs",
+          "name": "extract",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 483,
+          "doc_summary": "Reused CPU render columns derived from a committed simulation tick. These presentation copies never become a second world authority."
+        },
+        {
+          "path": "src/abi.rs",
+          "name": "abi",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 403,
+          "doc_summary": "CPU/WGSL revision 2: column-major matrices, typed storage-buffer records and D2 arrays."
+        },
+        {
+          "path": "src/graph_record",
+          "name": "graph_record",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 2,
+          "source_files": 2,
+          "loc": 331,
+          "doc_summary": "Prepared pass recorders. Binding pays for lookup and validation once; frame execution walks parallel arrays in the graph's already compiled order."
+        },
+        {
+          "path": "src/governor.rs",
+          "name": "governor",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 305,
+          "doc_summary": "Frame-boundary quality policy. All time and lifecycle observations come from the host."
+        },
+        {
+          "path": "src/wetness.rs",
+          "name": "wetness",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 288,
+          "doc_summary": "Optional scene-owned inputs to the forward wetness function."
+        },
+        {
+          "path": "src/records",
+          "name": "records",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 14,
+          "source_files": 1,
+          "loc": 281,
+          "asset_counts": {
+            "wgsl": 13
+          },
+          "doc_summary": "Host records for the renderer's WGSL buffers."
+        },
+        {
+          "path": "src/binding",
+          "name": "binding",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 2,
+          "source_files": 2,
+          "loc": 264,
+          "doc_summary": "Bind-group layout entries for the standard binding kinds, so a layout is written as a list of calls rather than of `wgpu::BindGroupLayoutEntry` literals."
+        },
+        {
+          "path": "src/registry_audit.rs",
+          "name": "registry_audit",
+          "kind": "file",
+          "visibility": "hidden",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 237,
+          "doc_summary": "Read-only views of the pass registry for integration tests: what each compiled pass declared, and what its key says it should have declared. Not part of the renderer's interface."
+        },
+        {
+          "path": "build.rs",
+          "name": "build",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 202,
+          "doc_summary": "Compile Rust-owned geometry and buffer constants into composable WGSL preludes."
+        },
+        {
+          "path": "src/test_device.rs",
+          "name": "test_device",
+          "kind": "file",
+          "visibility": "test",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 115,
+          "doc_summary": "Open a test device using this build of the renderer's recipe."
+        },
+        {
+          "path": "src/light",
+          "name": "light",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 2,
+          "source_files": 2,
+          "loc": 101,
+          "doc_summary": "Shared ABI for CPU-authored direct light and the atmosphere's diffuse output."
+        },
+        {
+          "path": "src/history.rs",
+          "name": "history",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 94,
+          "doc_summary": "Explicit submitted-sample and accepted-history metadata. No global frame parity, skipped draw or submission completion can manufacture valid history."
+        },
+        {
+          "path": "src/shader_constants.rs",
+          "name": "shader_constants",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 62
+        },
+        {
+          "path": "src/timestamp_permit.rs",
+          "name": "timestamp_permit",
+          "kind": "file",
+          "visibility": "test",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 52,
+          "doc_summary": "Test-only cap on GPU tests that hold timestamp query sets at once."
+        },
+        {
+          "path": "src/shared_gpu.rs",
+          "name": "shared_gpu",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 34,
+          "doc_summary": "Shared mutable GPU state stays on the WebGPU thread in the browser."
+        },
+        {
+          "path": "src/render_config.rs",
+          "name": "render_config",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 11,
+          "doc_summary": "Scene target formats, pipeline revision and exposure scale shared by renderer features."
+        },
+        {
+          "path": "examples",
+          "name": "examples",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 10
+        },
+        {
+          "path": "src",
+          "name": "shaders (root)",
+          "kind": "dir",
+          "visibility": "asset",
+          "file_count": 15,
+          "source_files": 0,
+          "loc": 0,
+          "asset_counts": {
+            "wgsl": 15
+          }
+        }
+      ],
+      "flags": [
+        "feature:creation-counters"
+      ],
+      "tech_stack": [
+        {
+          "category": "GPU & Graphics",
+          "items": [
+            "bytemuck",
+            "wgpu"
+          ]
+        },
+        {
+          "category": "Math & Geometry",
+          "items": [
+            "glam"
+          ]
+        },
+        {
+          "category": "Libraries",
+          "items": [
+            "blake3",
+            "half",
+            "objc2",
+            "objc2-foundation",
+            "objc2-metal",
+            "pollster",
+            "profiling",
+            "web-time"
+          ]
+        }
+      ]
+    },
+    {
+      "package_root": "crates/thrum-river-model",
+      "name": "thrum-river-model",
+      "language": "rust",
+      "repo_name": "thrum",
+      "web_url": "https://github.com/ryannel/Thrum",
+      "git_ref": "f5591b79c71279df4f7dba6cfafdedc8bf4ce3be",
+      "repo_subpath": "crates/thrum-river-model",
+      "doc_summary": "Steady river flow from the ground, worked out ahead of time on the CPU.",
+      "total_files": 38,
+      "source_files": 37,
+      "total_loc": 9681,
+      "tier": "deep",
+      "entrypoints": [
+        {
+          "path": "src/lib.rs",
+          "name": "thrum-river-model (lib)",
+          "kind": "library",
+          "command": "cargo test -p thrum-river-model"
+        }
+      ],
+      "modules": [
+        {
+          "path": "tests",
+          "name": "tests",
+          "kind": "dir",
+          "visibility": "test",
+          "file_count": 27,
+          "source_files": 27,
+          "loc": 5854
+        },
+        {
+          "path": "src/solve.rs",
+          "name": "solve",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 969,
+          "doc_summary": "A steady solve: the declaration checked against the ground, pools filled to their sills, the march to the stopping rule, and what the solve writes: depth, current, the energy account and the narrow stretches."
+        },
+        {
+          "path": "src/scheme.rs",
+          "name": "scheme",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 825,
+          "doc_summary": "The finite-volume march: an HLL flux through each face, Chen and Noelle's hydrostatic reconstruction (so a thin sheet on steep ground keeps the slope's pull and water at rest stays at rest round dry ground), friction linearised about the o…"
+        },
+        {
+          "path": "src/samples.rs",
+          "name": "samples",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 528,
+          "doc_summary": "A river that answers its source: solved once for each flow sample, at levels of its source body across that body's stage range or at the discharges its springs declare, each sample with its gauge level. Its reaches are cut from the cells a…"
+        },
+        {
+          "path": "src/chart.rs",
+          "name": "chart",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 374,
+          "doc_summary": "What a solve writes for the water map: each reach as a chart, with its footprint, its level under the bed wherever the solve left a cell dry, its current, loss and ends."
+        },
+        {
+          "path": "src/fall.rs",
+          "name": "fall",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 300,
+          "doc_summary": "A fall's path: the water's free path from the lip, launched at the lip's speed along the current there, wherever that clears the rock; where the rock stands in its way the path follows the rock's face at the speed energy gives. It ends in…"
+        },
+        {
+          "path": "src/declare.rs",
+          "name": "declare",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 271
+        },
+        {
+          "path": "src/store.rs",
+          "name": "store",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 252,
+          "doc_summary": "The river file's key and writer. The reader is `thrum_water_model::RiverFile::read`, so a game that ships solved rivers does not link the solver."
+        },
+        {
+          "path": "src/brink.rs",
+          "name": "brink",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 156,
+          "doc_summary": "Brinks: the faces of the bed where the ground drops away. A face is a brink where the ground beyond it, followed downhill away from the face, falls at least the profile's least fall at a slope steeper than the profile's steepest chart slop…"
+        },
+        {
+          "path": "src/error.rs",
+          "name": "error",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 122
+        }
+      ],
+      "tech_stack": [
+        {
+          "category": "Runtime & Async",
+          "items": [
+            "Rayon"
+          ]
+        },
+        {
+          "category": "Libraries",
+          "items": [
+            "blake3"
+          ]
+        }
+      ]
+    },
+    {
+      "package_root": "crates/thrum-sea",
+      "name": "thrum-sea",
+      "language": "rust",
+      "repo_name": "thrum",
+      "web_url": "https://github.com/ryannel/Thrum",
+      "git_ref": "f5591b79c71279df4f7dba6cfafdedc8bf4ce3be",
+      "repo_subpath": "crates/thrum-sea",
+      "doc_summary": "Reconstructible, every-frame wind waves. No clock, submission or ambient history is owned here. A water contribution can embed [`Ambient`], append [`Ambient::graph`], stage an upload, then forward each named simulate callback to [`Ambient:…",
+      "total_files": 30,
+      "source_files": 22,
+      "total_loc": 4234,
+      "tier": "deep",
+      "entrypoints": [
+        {
+          "path": "src/lib.rs",
+          "name": "thrum-sea (lib)",
+          "kind": "library",
+          "command": "cargo test -p thrum-sea"
+        }
+      ],
+      "modules": [
+        {
+          "path": "tests",
+          "name": "tests",
+          "kind": "dir",
+          "visibility": "test",
+          "file_count": 13,
+          "source_files": 13,
+          "loc": 1417
+        },
+        {
+          "path": "src/rain.rs",
+          "name": "rain",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 653,
+          "doc_summary": "Filtered rain fields, regenerated from the model's scheduled drops. No pass reads the output of an earlier frame."
+        },
+        {
+          "path": "src/flow.rs",
+          "name": "flow",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 434,
+          "doc_summary": "Immutable flow spectra use the wind transform's pipelines. The skippable passes retain only their own field and layers of the shared array."
+        },
+        {
+          "path": "src/filtered.rs",
+          "name": "filtered",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 338,
+          "doc_summary": "Filterable forward fields. The CPU/query buffers remain independent oracle products."
+        },
+        {
+          "path": "src/spec.rs",
+          "name": "spec",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 300,
+          "doc_summary": "One typed resource/pass description drives allocation, binding, dispatch and graph access."
+        },
+        {
+          "path": "src/prepare.rs",
+          "name": "prepare",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 252
+        },
+        {
+          "path": "src/upload.rs",
+          "name": "upload",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 228
+        },
+        {
+          "path": "src/records.rs",
+          "name": "records",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 89,
+          "doc_summary": "Whole host/shader records. Layouts are held against reflected WGSL in `wgsl_records`."
+        },
+        {
+          "path": "src/error.rs",
+          "name": "error",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 77
+        },
+        {
+          "path": "src",
+          "name": "shaders (root)",
+          "kind": "dir",
+          "visibility": "asset",
+          "file_count": 6,
+          "source_files": 0,
+          "loc": 0,
+          "asset_counts": {
+            "wgsl": 6
+          }
+        }
+      ],
+      "tech_stack": [
+        {
+          "category": "GPU & Graphics",
+          "items": [
+            "bytemuck",
+            "wgpu"
+          ]
+        },
+        {
+          "category": "Libraries",
+          "items": [
+            "half"
+          ]
+        }
+      ]
+    },
+    {
+      "package_root": "crates/thrum-sea-model",
+      "name": "thrum-sea-model",
+      "language": "rust",
+      "repo_name": "thrum",
+      "web_url": "https://github.com/ryannel/Thrum",
+      "git_ref": "f5591b79c71279df4f7dba6cfafdedc8bf4ce3be",
+      "repo_subpath": "crates/thrum-sea-model",
+      "doc_summary": "CPU-only deep-water spectrum, displaced-surface oracle and provider conformance.",
+      "total_files": 19,
+      "source_files": 16,
+      "total_loc": 1935,
+      "tier": "standard",
+      "entrypoints": [
+        {
+          "path": "src/lib.rs",
+          "name": "thrum-sea-model (lib)",
+          "kind": "library",
+          "command": "cargo test -p thrum-sea-model"
+        }
+      ],
+      "modules": [
+        {
+          "path": "tests",
+          "name": "tests",
+          "kind": "dir",
+          "visibility": "test",
+          "file_count": 12,
+          "source_files": 11,
+          "loc": 895
+        },
+        {
+          "path": "src/spectrum.rs",
+          "name": "spectrum",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 411
+        },
+        {
+          "path": "src/cascade.rs",
+          "name": "cascade",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 285
+        },
+        {
+          "path": "src/waves.rs",
+          "name": "waves",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 257
+        },
+        {
+          "path": "src/conformance.rs",
+          "name": "conformance",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 70
+        }
+      ],
+      "tech_stack": []
+    },
+    {
+      "package_root": "crates/thrum-sim2d",
+      "name": "thrum-sim2d",
+      "language": "rust",
+      "repo_name": "thrum",
+      "web_url": "https://github.com/ryannel/Thrum",
+      "git_ref": "f5591b79c71279df4f7dba6cfafdedc8bf4ce3be",
+      "repo_subpath": "crates/thrum-sim2d",
+      "doc_summary": "Reusable derived circle grid. Query order is cell row, column, then slot.",
+      "total_files": 8,
+      "source_files": 7,
+      "total_loc": 1133,
+      "tier": "standard",
+      "entrypoints": [
+        {
+          "path": "src/lib.rs",
+          "name": "thrum-sim2d (lib)",
+          "kind": "library",
+          "command": "cargo test -p thrum-sim2d"
+        }
+      ],
+      "modules": [
+        {
+          "path": "tests",
+          "name": "tests",
+          "kind": "dir",
+          "visibility": "test",
+          "file_count": 5,
+          "source_files": 5,
+          "loc": 660
+        },
+        {
+          "path": "src/shape.rs",
+          "name": "shape",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 153
+        }
+      ],
+      "tech_stack": []
+    },
+    {
+      "package_root": "crates/thrum-test-support",
+      "name": "thrum-test-support",
+      "language": "rust",
+      "repo_name": "thrum",
+      "web_url": "https://github.com/ryannel/Thrum",
+      "git_ref": "f5591b79c71279df4f7dba6cfafdedc8bf4ce3be",
+      "repo_subpath": "crates/thrum-test-support",
+      "doc_summary": "The test kit: GPU admission, the test device, the small render target, readback, waiting, scratch folders, PPM images, allocation counts and the check that holds WGSL records to Rust structs. This package is a dev-dependency only.",
+      "total_files": 13,
+      "source_files": 12,
+      "total_loc": 2073,
+      "tier": "deep",
+      "entrypoints": [
+        {
+          "path": "src/lib.rs",
+          "name": "thrum-test-support (lib)",
+          "kind": "library",
+          "command": "cargo test -p thrum-test-support"
+        }
+      ],
+      "modules": [
+        {
+          "path": "src/readback",
+          "name": "readback",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 2,
+          "source_files": 2,
+          "loc": 587,
+          "doc_summary": "Read GPU buffers and textures back to the CPU in a test, with one bounded wait."
+        },
+        {
+          "path": "src/target.rs",
+          "name": "target",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 255,
+          "doc_summary": "The one small render target a GPU test draws to."
+        },
+        {
+          "path": "src/records.rs",
+          "name": "records",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 232,
+          "doc_summary": "Hold a crate's WGSL records to its Rust structs: member names, offsets, sizes and scalar kinds."
+        },
+        {
+          "path": "src/tests.rs",
+          "name": "tests",
+          "kind": "file",
+          "visibility": "test",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 214
+        },
+        {
+          "path": "src/light_graph.rs",
+          "name": "light_graph",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 139
+        },
+        {
+          "path": "src/allocations.rs",
+          "name": "allocations",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 111,
+          "doc_summary": "Count heap allocations made on one thread."
+        },
+        {
+          "path": "src/scratch.rs",
+          "name": "scratch",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 66,
+          "doc_summary": "A scratch folder that removes itself."
+        },
+        {
+          "path": "src/ppm.rs",
+          "name": "ppm",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 58,
+          "doc_summary": "Write 8-bit pixels as a binary PPM image a person can open."
+        },
+        {
+          "path": "src/creation_trace.rs",
+          "name": "creation_trace",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 55,
+          "doc_summary": "Gross GPU object creations, including short-lived objects."
+        },
+        {
+          "path": "src/wait.rs",
+          "name": "wait",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 26,
+          "doc_summary": "Wait for a condition a test cannot block on, with a deadline."
+        }
+      ],
+      "flags": [
+        "feature:creation-trace",
+        "feature:render",
+        "feature:render-registry"
+      ],
+      "tech_stack": [
+        {
+          "category": "GPU & Graphics",
+          "items": [
+            "wgpu"
+          ]
+        },
+        {
+          "category": "Libraries",
+          "items": [
+            "pollster",
+            "tracing-subscriber"
+          ]
+        }
+      ]
+    },
+    {
+      "package_root": "crates/thrum-transport",
+      "name": "thrum-transport",
+      "language": "rust",
+      "repo_name": "thrum",
+      "web_url": "https://github.com/ryannel/Thrum",
+      "git_ref": "f5591b79c71279df4f7dba6cfafdedc8bf4ce3be",
+      "repo_subpath": "crates/thrum-transport",
+      "doc_summary": "Bounded, nonblocking whole-message links. No sockets are compiled by default. Times in the portable driver are caller-supplied monotonic milliseconds.",
+      "total_files": 17,
+      "source_files": 16,
+      "total_loc": 3497,
+      "tier": "standard",
+      "entrypoints": [
+        {
+          "path": "src/lib.rs",
+          "name": "thrum-transport (lib)",
+          "kind": "library",
+          "command": "cargo test -p thrum-transport"
+        }
+      ],
+      "modules": [
+        {
+          "path": "src/native",
+          "name": "native",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 2,
+          "source_files": 2,
+          "loc": 785,
+          "doc_summary": "Opt-in Quinn carrier. Public calls only touch bounded application queues."
+        },
+        {
+          "path": "tests",
+          "name": "tests",
+          "kind": "dir",
+          "visibility": "test",
+          "file_count": 3,
+          "source_files": 3,
+          "loc": 686
+        },
+        {
+          "path": "src/link.rs",
+          "name": "link",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 516
+        },
+        {
+          "path": "src/memory.rs",
+          "name": "memory",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 415,
+          "doc_summary": "Deterministic virtual-time carrier, including startup, cuts and bounded stack stalls."
+        },
+        {
+          "path": "src/browser.rs",
+          "name": "browser",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 377,
+          "doc_summary": "Browser WebTransport, with mandatory certificate hash pinning and bounded game queues."
+        },
+        {
+          "path": "src/proof.rs",
+          "name": "proof",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 280,
+          "doc_summary": "Shared link-script primitives. Both virtual and target runners drive this same state machine."
+        },
+        {
+          "path": "examples",
+          "name": "examples",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 5,
+          "source_files": 5,
+          "loc": 229
+        },
+        {
+          "path": "src/wire.rs",
+          "name": "wire",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 195,
+          "doc_summary": "The link's own framing on the reliable stream, the only bytes from a peer this crate parses."
+        }
+      ],
+      "tech_stack": [
+        {
+          "category": "Realtime & Networking",
+          "items": [
+            "QUIC (quinn)"
+          ]
+        },
+        {
+          "category": "Runtime & Async",
+          "items": [
+            "Tokio"
+          ]
+        },
+        {
+          "category": "Libraries",
+          "items": [
+            "js-sys",
+            "rcgen",
+            "rustls",
+            "sha2",
+            "time",
+            "wasm-bindgen",
+            "wasm-bindgen-futures"
+          ]
+        }
+      ]
+    },
+    {
+      "package_root": "crates/thrum-ui",
+      "name": "thrum-ui",
+      "language": "rust",
+      "repo_name": "thrum",
+      "web_url": "https://github.com/ryannel/Thrum",
+      "git_ref": "f5591b79c71279df4f7dba6cfafdedc8bf4ce3be",
+      "repo_subpath": "crates/thrum-ui",
+      "doc_summary": "Interface paint lists in output pixels.",
+      "total_files": 25,
+      "source_files": 24,
+      "total_loc": 4909,
+      "tier": "standard",
+      "entrypoints": [
+        {
+          "path": "src/lib.rs",
+          "name": "thrum-ui (lib)",
+          "kind": "library",
+          "command": "cargo test -p thrum-ui"
+        }
+      ],
+      "modules": [
+        {
+          "path": "tests",
+          "name": "tests",
+          "kind": "dir",
+          "visibility": "test",
+          "file_count": 16,
+          "source_files": 16,
+          "loc": 2326
+        },
+        {
+          "path": "src/tree",
+          "name": "tree",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 4,
+          "source_files": 4,
+          "loc": 1177,
+          "doc_summary": "Retained interface nodes, point-space boxes and cached paint."
+        },
+        {
+          "path": "src/input",
+          "name": "input",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 2,
+          "source_files": 2,
+          "loc": 774,
+          "doc_summary": "Interface events, focus scopes and contact ownership."
+        },
+        {
+          "path": "src/text.rs",
+          "name": "text",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 575,
+          "doc_summary": "Whole-pixel text layout using only the cooked font table and sheet frames."
+        }
+      ],
+      "tech_stack": []
+    },
+    {
+      "package_root": "crates/thrum-water",
+      "name": "thrum-water",
+      "language": "rust",
+      "repo_name": "thrum",
+      "web_url": "https://github.com/ryannel/Thrum",
+      "git_ref": "f5591b79c71279df4f7dba6cfafdedc8bf4ce3be",
+      "repo_subpath": "crates/thrum-water",
+      "doc_summary": "Shared water, lit by the scene's lent environment. The host owns all clocks and submission.",
+      "total_files": 194,
+      "source_files": 61,
+      "total_loc": 22044,
+      "tier": "deep",
+      "entrypoints": [
+        {
+          "path": "src/lib.rs",
+          "name": "thrum-water (lib)",
+          "kind": "library",
+          "command": "cargo test -p thrum-water"
+        }
+      ],
+      "modules": [
+        {
+          "path": "tests",
+          "name": "tests",
+          "kind": "dir",
+          "visibility": "test",
+          "file_count": 16,
+          "source_files": 15,
+          "loc": 5746,
+          "asset_counts": {
+            "wgsl": 1
+          }
+        },
+        {
+          "path": "src/query",
+          "name": "query",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 25,
+          "source_files": 6,
+          "loc": 2931,
+          "asset_counts": {
+            "wgsl": 19
+          },
+          "doc_summary": "Game-facing tick pages and asynchronous query answers."
+        },
+        {
+          "path": "src/interaction",
+          "name": "interaction",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 8,
+          "source_files": 6,
+          "loc": 2114,
+          "asset_counts": {
+            "wgsl": 2
+          },
+          "doc_summary": "Body-following interaction waves. The GPU owns height and potential, and the renderer and body query sample the same committed endpoint buffers."
+        },
+        {
+          "path": "src/optics",
+          "name": "optics",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 9,
+          "source_files": 5,
+          "loc": 1880,
+          "asset_counts": {
+            "wgsl": 4
+          },
+          "doc_summary": "Screen-space optics capture and receiver admission."
+        },
+        {
+          "path": "src/prepare",
+          "name": "prepare",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 2,
+          "source_files": 2,
+          "loc": 1792
+        },
+        {
+          "path": "src/map_gpu",
+          "name": "map_gpu",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 37,
+          "source_files": 5,
+          "loc": 1741,
+          "asset_counts": {
+            "wgsl": 32
+          },
+          "doc_summary": "Prepared map products and the shared camera-independent WGSL sampler."
+        },
+        {
+          "path": "src/underwater",
+          "name": "underwater",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 7,
+          "source_files": 4,
+          "loc": 1233,
+          "asset_counts": {
+            "wgsl": 3
+          }
+        },
+        {
+          "path": "src/surf",
+          "name": "surf",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 9,
+          "source_files": 4,
+          "loc": 934,
+          "asset_counts": {
+            "wgsl": 5
+          },
+          "doc_summary": "Immutable surf data, lent to the field cache, column query and whitewater."
+        },
+        {
+          "path": "src/foam",
+          "name": "foam",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 16,
+          "source_files": 3,
+          "loc": 685,
+          "asset_counts": {
+            "wgsl": 13
+          },
+          "doc_summary": "Transported whitewater. The scene supplies the wind and hull work; the water map and wave field supply the other births and the transport support."
+        },
+        {
+          "path": "src/wet_ground",
+          "name": "wet_ground",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 2,
+          "source_files": 2,
+          "loc": 642,
+          "doc_summary": "Ground wetness delivered to the forward surface and water's film. Simulation owns every store and hollow row. The texture is just their render projection."
+        },
+        {
+          "path": "src/rain.rs",
+          "name": "rain",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 267,
+          "doc_summary": "The water surface's gain and filtering inputs for the optional rain bands."
+        },
+        {
+          "path": "src/sampling_tests.rs",
+          "name": "sampling_tests",
+          "kind": "file",
+          "visibility": "test",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 247,
+          "doc_summary": "Affine slopes have a phase-independent cubic reconstruction variance. Compare the actual four-fetch shader with an independent 16-node convolution."
+        },
+        {
+          "path": "src/records",
+          "name": "records",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 2,
+          "source_files": 2,
+          "loc": 209
+        },
+        {
+          "path": "src/flow",
+          "name": "flow",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 10,
+          "source_files": 1,
+          "loc": 181,
+          "asset_counts": {
+            "wgsl": 9
+          },
+          "doc_summary": "Scheduling and shader constants for the optional river wave field."
+        },
+        {
+          "path": "src/fresnel_tests.rs",
+          "name": "fresnel_tests",
+          "kind": "file",
+          "visibility": "test",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 136,
+          "doc_summary": "Independent area integration, rather than a second copy of the shader rule."
+        },
+        {
+          "path": "src/canopy.rs",
+          "name": "canopy",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 97,
+          "doc_summary": "Compact static lookup for canopy columns scattered across a large world."
+        },
+        {
+          "path": "src/column",
+          "name": "column",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 2,
+          "source_files": 1,
+          "loc": 60,
+          "asset_counts": {
+            "wgsl": 1
+          },
+          "doc_summary": "Spectral component records shared by the point query and whitewater."
+        },
+        {
+          "path": "src",
+          "name": "shaders (root)",
+          "kind": "dir",
+          "visibility": "asset",
+          "file_count": 40,
+          "source_files": 0,
+          "loc": 0,
+          "asset_counts": {
+            "wgsl": 40
+          }
+        },
+        {
+          "path": "src/carriage",
+          "name": "carriage",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 2,
+          "source_files": 0,
+          "loc": 0,
+          "asset_counts": {
+            "wgsl": 2
+          }
+        },
+        {
+          "path": "src/surface",
+          "name": "surface",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 0,
+          "loc": 0,
+          "asset_counts": {
+            "wgsl": 1
+          }
+        }
+      ],
+      "tech_stack": [
+        {
+          "category": "GPU & Graphics",
+          "items": [
+            "bytemuck",
+            "wgpu"
+          ]
+        },
+        {
+          "category": "Math & Geometry",
+          "items": [
+            "glam"
+          ]
+        },
+        {
+          "category": "Libraries",
+          "items": [
+            "web-time"
+          ]
+        }
+      ]
+    },
+    {
+      "package_root": "crates/thrum-water-model",
+      "name": "thrum-water-model",
+      "language": "rust",
+      "repo_name": "thrum",
+      "web_url": "https://github.com/ryannel/Thrum",
+      "git_ref": "f5591b79c71279df4f7dba6cfafdedc8bf4ce3be",
+      "repo_subpath": "crates/thrum-water-model",
+      "doc_summary": "CPU water map and f64 surface oracle. Coordinates are metres in x/z order. Preparation owns connectivity; queries share rows with the surface and conformance harness.",
+      "total_files": 45,
+      "source_files": 44,
+      "total_loc": 11042,
+      "tier": "deep",
+      "entrypoints": [
+        {
+          "path": "src/lib.rs",
+          "name": "thrum-water-model (lib)",
+          "kind": "library",
+          "command": "cargo test -p thrum-water-model"
+        }
+      ],
+      "modules": [
+        {
+          "path": "tests",
+          "name": "tests",
+          "kind": "dir",
+          "visibility": "test",
+          "file_count": 26,
+          "source_files": 26,
+          "loc": 3189
+        },
+        {
+          "path": "src/rain",
+          "name": "rain",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 2,
+          "source_files": 2,
+          "loc": 1211,
+          "doc_summary": "Rain in the one water ([ruling 3 for `PUDDLES`]): two rain bands, wave layers beside the wind's that are a function of time and of the rain's committed rate over the last second, and keep nothing of their own between evaluations. Drops fal…"
+        },
+        {
+          "path": "src/map.rs",
+          "name": "map",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 1088
+        },
+        {
+          "path": "src/surf.rs",
+          "name": "surf",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 927
+        },
+        {
+          "path": "src/shore",
+          "name": "shore",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 2,
+          "source_files": 2,
+          "loc": 699
+        },
+        {
+          "path": "src/samples.rs",
+          "name": "samples",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 644,
+          "doc_summary": "A river's flow samples and its gauge (`RIVERS` ruling 2). A river is solved once for each flow sample; each sample records its gauge level. Every chart row of the river (level, current, loss and flow gains) is the mix, linear in the gauge,…"
+        },
+        {
+          "path": "src/river.rs",
+          "name": "river",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 590,
+          "doc_summary": "The river file's reader. A river file holds what one steady flow solve wrote, so a game can prepare solved rivers without linking the solver. `thrum-river-model` writes the same layout."
+        },
+        {
+          "path": "src/cut.rs",
+          "name": "cut",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 547
+        },
+        {
+          "path": "src/fall.rs",
+          "name": "fall",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 465,
+          "doc_summary": "A fall's record, the f64 reference for its sheet, and its plunge."
+        },
+        {
+          "path": "src/hollows.rs",
+          "name": "hollows",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 376,
+          "doc_summary": "A hollows body: a rectangle of ground whose cells each belong to one hollow, with one level for each hollow (PUDDLES ruling 1). A point's water is its cell's hollow's level where that stands above the cell's bed. The game moves the levels…"
+        },
+        {
+          "path": "src/flow.rs",
+          "name": "flow",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 350,
+          "doc_summary": "The flow bands (`RIVERS` ruling 3): two wave layers of the cascades' kind that the wind does not fill. Each is a band of an isotropic spectrum on a periodic 256-square patch, near 3 m and 13 m across, whose modes turn a whole number of tim…"
+        },
+        {
+          "path": "src/bed.rs",
+          "name": "bed",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 257
+        },
+        {
+          "path": "src/section.rs",
+          "name": "section",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 234
+        },
+        {
+          "path": "src/waves.rs",
+          "name": "waves",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 175
+        },
+        {
+          "path": "src/pyramid.rs",
+          "name": "pyramid",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 119
+        },
+        {
+          "path": "src/conformance.rs",
+          "name": "conformance",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 108
+        }
+      ],
+      "tech_stack": []
+    },
+    {
+      "package_root": "examples/crowd-2d",
+      "name": "crowd-2d",
+      "language": "rust",
+      "repo_name": "thrum",
+      "web_url": "https://github.com/ryannel/Thrum",
+      "git_ref": "f5591b79c71279df4f7dba6cfafdedc8bf4ce3be",
+      "repo_subpath": "examples/crowd-2d",
+      "doc_summary": "Recorded-trace reference crowd, through the registered simulation runtime.",
+      "total_files": 10,
+      "source_files": 6,
+      "total_loc": 1039,
+      "tier": "standard",
+      "entrypoints": [
+        {
+          "path": "src/lib.rs",
+          "name": "crowd-2d (lib)",
+          "kind": "library",
+          "command": "cargo test -p crowd-2d"
+        }
+      ],
+      "modules": [
+        {
+          "path": "src/rules.rs",
+          "name": "rules",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 807
+        },
+        {
+          "path": "src/trace.rs",
+          "name": "trace",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 150
+        },
+        {
+          "path": "tests",
+          "name": "tests",
+          "kind": "dir",
+          "visibility": "test",
+          "file_count": 3,
+          "source_files": 3,
+          "loc": 73
+        },
+        {
+          "path": "retained",
+          "name": "retained",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 2,
+          "source_files": 0,
+          "loc": 0
+        }
+      ],
+      "tech_stack": []
+    },
+    {
+      "package_root": "examples/crowd-2d-run",
+      "name": "crowd-2d-run",
+      "language": "rust",
+      "repo_name": "thrum",
+      "web_url": "https://github.com/ryannel/Thrum",
+      "git_ref": "f5591b79c71279df4f7dba6cfafdedc8bf4ce3be",
+      "repo_subpath": "examples/crowd-2d-run",
+      "doc_summary": "Target-independent conformance and input-wire route. Platform launch is tooling-owned.",
+      "total_files": 6,
+      "source_files": 5,
+      "total_loc": 328,
+      "tier": "compact",
+      "entrypoints": [
+        {
+          "path": "src/main.rs",
+          "name": "crowd-2d-run",
+          "kind": "binary",
+          "command": "cargo run -p crowd-2d-run --bin crowd-2d-run"
+        },
+        {
+          "path": "src/lib.rs",
+          "name": "crowd-2d-run (lib)",
+          "kind": "library",
+          "command": "cargo test -p crowd-2d-run"
+        }
+      ],
+      "modules": [
+        {
+          "path": "src/costs.rs",
+          "name": "costs",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 85
+        },
+        {
+          "path": "tests",
+          "name": "tests",
+          "kind": "dir",
+          "visibility": "test",
+          "file_count": 2,
+          "source_files": 2,
+          "loc": 66
+        }
+      ],
+      "tech_stack": [
+        {
+          "category": "Libraries",
+          "items": [
+            "serde_json",
+            "wasm-bindgen",
+            "web-time"
+          ]
+        }
+      ]
+    },
+    {
+      "package_root": "examples/crowd-2d-status",
+      "name": "crowd-2d-status",
+      "language": "rust",
+      "repo_name": "thrum",
+      "web_url": "https://github.com/ryannel/Thrum",
+      "git_ref": "f5591b79c71279df4f7dba6cfafdedc8bf4ce3be",
+      "repo_subpath": "examples/crowd-2d-status",
+      "doc_summary": "Crowd replay with a status display, shared by the window, page and UIKit app.",
+      "total_files": 10,
+      "source_files": 6,
+      "total_loc": 1097,
+      "tier": "standard",
+      "entrypoints": [
+        {
+          "path": "src/main.rs",
+          "name": "crowd-2d-status",
+          "kind": "binary",
+          "command": "cargo run -p crowd-2d-status --bin crowd-2d-status"
+        },
+        {
+          "path": "src/lib.rs",
+          "name": "crowd-2d-status (lib)",
+          "kind": "library",
+          "command": "cargo test -p crowd-2d-status"
+        }
+      ],
+      "modules": [
+        {
+          "path": "src/display.rs",
+          "name": "display",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 252
+        },
+        {
+          "path": "src/browser.rs",
+          "name": "browser",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 172
+        },
+        {
+          "path": "src/mobile.rs",
+          "name": "mobile",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 162
+        },
+        {
+          "path": "src/input.rs",
+          "name": "input",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 114
+        },
+        {
+          "path": "assets",
+          "name": "assets",
+          "kind": "dir",
+          "visibility": "asset",
+          "file_count": 3,
+          "source_files": 0,
+          "loc": 0
+        }
+      ],
+      "tech_stack": [
+        {
+          "category": "Libraries",
+          "items": [
+            "js-sys",
+            "serde_json",
+            "wasm-bindgen",
+            "wasm-bindgen-futures",
+            "web-sys"
+          ]
+        }
+      ]
+    },
+    {
+      "package_root": "examples/crowd-2d-status-ios",
+      "name": "crowd-2d-status-ios",
+      "language": "rust",
+      "repo_name": "thrum",
+      "web_url": "https://github.com/ryannel/Thrum",
+      "git_ref": "f5591b79c71279df4f7dba6cfafdedc8bf4ce3be",
+      "repo_subpath": "examples/crowd-2d-status-ios",
+      "doc_summary": "Application entry point for the Crowd status display.",
+      "total_files": 6,
+      "source_files": 3,
+      "total_loc": 80,
+      "tier": "compact",
+      "entrypoints": [
+        {
+          "path": "src/lib.rs",
+          "name": "crowd-2d-status-ios (lib)",
+          "kind": "library",
+          "command": "cargo test -p crowd-2d-status-ios"
+        }
+      ],
+      "modules": [
+        {
+          "path": "ios",
+          "name": "ios",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 4,
+          "source_files": 2,
+          "loc": 39
+        }
+      ],
+      "tech_stack": []
+    },
+    {
+      "package_root": "examples/crowd-2d-view",
+      "name": "crowd-2d-view",
+      "language": "rust",
+      "repo_name": "thrum",
+      "web_url": "https://github.com/ryannel/Thrum",
+      "git_ref": "f5591b79c71279df4f7dba6cfafdedc8bf4ce3be",
+      "repo_subpath": "examples/crowd-2d-view",
+      "doc_summary": "Public sprite scene for the retained Crowd replay.",
+      "total_files": 10,
+      "source_files": 8,
+      "total_loc": 1491,
+      "tier": "standard",
+      "entrypoints": [
+        {
+          "path": "src/main.rs",
+          "name": "crowd-2d-view",
+          "kind": "binary",
+          "command": "cargo run -p crowd-2d-view --bin crowd-2d-view"
+        },
+        {
+          "path": "src/lib.rs",
+          "name": "crowd-2d-view (lib)",
+          "kind": "library",
+          "command": "cargo test -p crowd-2d-view"
+        }
+      ],
+      "modules": [
+        {
+          "path": "src/native",
+          "name": "native",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 2,
+          "source_files": 2,
+          "loc": 517
+        },
+        {
+          "path": "src/scene.rs",
+          "name": "scene",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 262
+        },
+        {
+          "path": "src/world.rs",
+          "name": "world",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 224
+        },
+        {
+          "path": "src/browser.rs",
+          "name": "browser",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 140
+        },
+        {
+          "path": "src/proof.rs",
+          "name": "proof",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 110,
+          "doc_summary": "Record the identities and costs of the frame samples produced by the shared view."
+        },
+        {
+          "path": "web",
+          "name": "web",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 0,
+          "loc": 0
+        }
+      ],
+      "tech_stack": [
+        {
+          "category": "GPU & Graphics",
+          "items": [
+            "wgpu"
+          ]
+        },
+        {
+          "category": "Libraries",
+          "items": [
+            "js-sys",
+            "pollster",
+            "serde_json",
+            "wasm-bindgen",
+            "wasm-bindgen-futures",
+            "web-sys",
+            "web-time"
+          ]
+        }
+      ]
+    },
+    {
+      "package_root": "examples/lighthouse",
+      "name": "thrum-lighthouse",
+      "language": "rust",
+      "repo_name": "thrum",
+      "web_url": "https://github.com/ryannel/Thrum",
+      "git_ref": "f5591b79c71279df4f7dba6cfafdedc8bf4ce3be",
+      "repo_subpath": "examples/lighthouse",
+      "doc_summary": "Thrum lighthouse: a striped lighthouse with a lit lantern on a sandy shore, a few rocks at its foot, under a physically based sky, with Sun and camera-orbit sliders.",
+      "total_files": 11,
+      "source_files": 2,
+      "total_loc": 182,
+      "tier": "compact",
+      "entrypoints": [
+        {
+          "path": "src/main.rs",
+          "name": "thrum-lighthouse",
+          "kind": "binary",
+          "command": "cargo run -p thrum-lighthouse --bin thrum-lighthouse"
+        }
+      ],
+      "modules": [
+        {
+          "path": "generate.py",
+          "name": "generate",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 89
+        },
+        {
+          "path": "assets",
+          "name": "assets",
+          "kind": "dir",
+          "visibility": "asset",
+          "file_count": 5,
+          "source_files": 0,
+          "loc": 0
+        },
+        {
+          "path": "material.wgsl",
+          "name": "material",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 0,
+          "loc": 0,
+          "asset_counts": {
+            "wgsl": 1
+          }
+        }
+      ],
+      "tech_stack": []
+    },
+    {
+      "package_root": "examples/link-proof",
+      "name": "link-proof",
+      "language": "rust",
+      "repo_name": "thrum",
+      "web_url": "https://github.com/ryannel/Thrum",
+      "git_ref": "f5591b79c71279df4f7dba6cfafdedc8bf4ce3be",
+      "repo_subpath": "examples/link-proof",
+      "doc_summary": "Target runners for the engine's one shared link script.",
+      "total_files": 9,
+      "source_files": 7,
+      "total_loc": 2175,
+      "tier": "standard",
+      "entrypoints": [
+        {
+          "path": "src/main.rs",
+          "name": "link-proof",
+          "kind": "binary",
+          "command": "cargo run -p link-proof --bin link-proof"
+        },
+        {
+          "path": "src/lib.rs",
+          "name": "link-proof (lib)",
+          "kind": "library",
+          "command": "cargo test -p link-proof"
+        }
+      ],
+      "modules": [
+        {
+          "path": "src/hostile.rs",
+          "name": "hostile",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 775,
+          "doc_summary": "M2's hostile and stalled peers, each beside three healthy links on real loopback sockets."
+        },
+        {
+          "path": "src/arena.rs",
+          "name": "arena",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 428,
+          "doc_summary": "A host with healthy links beside it, all driven from this one thread as a session's tick would drive them."
+        },
+        {
+          "path": "src/cost.rs",
+          "name": "cost",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 233,
+          "doc_summary": "Whole-message round trips and chunked transfers, through the public message link."
+        },
+        {
+          "path": "src/host_drop.rs",
+          "name": "host_drop",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 161,
+          "doc_summary": "Host teardown with retained links, over real loopback sockets and the public API only."
+        },
+        {
+          "path": "benches",
+          "name": "benches",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 100
+        }
+      ],
+      "tech_stack": [
+        {
+          "category": "Realtime & Networking",
+          "items": [
+            "QUIC (quinn)"
+          ]
+        },
+        {
+          "category": "Runtime & Async",
+          "items": [
+            "Tokio"
+          ]
+        },
+        {
+          "category": "Libraries",
+          "items": [
+            "js-sys",
+            "serde_json",
+            "url",
+            "wasm-bindgen"
+          ]
+        }
+      ]
+    },
+    {
+      "package_root": "examples/match-proof",
+      "name": "match-proof",
+      "language": "rust",
+      "repo_name": "thrum",
+      "web_url": "https://github.com/ryannel/Thrum",
+      "git_ref": "f5591b79c71279df4f7dba6cfafdedc8bf4ce3be",
+      "repo_subpath": "examples/match-proof",
+      "doc_summary": "Headless reference crowd proof through the registered session world.",
+      "total_files": 31,
+      "source_files": 30,
+      "total_loc": 6582,
+      "tier": "deep",
+      "entrypoints": [
+        {
+          "path": "src/main.rs",
+          "name": "match-proof",
+          "kind": "binary",
+          "command": "cargo run -p match-proof --bin match-proof"
+        },
+        {
+          "path": "src/lib.rs",
+          "name": "match-proof (lib)",
+          "kind": "library",
+          "command": "cargo test -p match-proof"
+        }
+      ],
+      "modules": [
+        {
+          "path": "src/memory",
+          "name": "memory",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 5,
+          "source_files": 5,
+          "loc": 2958
+        },
+        {
+          "path": "src/windowed",
+          "name": "windowed",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 3,
+          "source_files": 3,
+          "loc": 812,
+          "doc_summary": "The reference renderer driven by the same session as the socket proofs."
+        },
+        {
+          "path": "src/sockets",
+          "name": "sockets",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 4,
+          "source_files": 4,
+          "loc": 801,
+          "doc_summary": "One real socket session peer, shared by the native and Wasm proof entry points."
+        },
+        {
+          "path": "tests",
+          "name": "tests",
+          "kind": "dir",
+          "visibility": "test",
+          "file_count": 9,
+          "source_files": 9,
+          "loc": 675
+        },
+        {
+          "path": "src/world.rs",
+          "name": "world",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 621
+        },
+        {
+          "path": "src/image.rs",
+          "name": "image",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 155
+        },
+        {
+          "path": "windowed_player.js",
+          "name": "windowed_player",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 107
+        },
+        {
+          "path": "browser.js",
+          "name": "browser",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 83
+        },
+        {
+          "path": "build.rs",
+          "name": "build",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 82,
+          "doc_summary": "Build the reference game's portable identity from actual rule inputs."
+        },
+        {
+          "path": "socket_player.js",
+          "name": "socket_player",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 57
+        },
+        {
+          "path": "image_worker.js",
+          "name": "image_worker",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 11
+        }
+      ],
+      "flags": [
+        "env:THRUM_SIMULATOR_PROOF_CASE",
+        "feature:sockets",
+        "feature:windowed"
+      ],
+      "tech_stack": [
+        {
+          "category": "Runtime & Async",
+          "items": [
+            "Rayon"
+          ]
+        },
+        {
+          "category": "Libraries",
+          "items": [
+            "js-sys",
+            "serde_json",
+            "wasm-bindgen",
+            "wasm-bindgen-futures",
+            "web-sys",
+            "web-time"
+          ]
+        }
+      ]
+    },
+    {
+      "package_root": "examples/mirror",
+      "name": "mirror-scene",
+      "language": "rust",
+      "repo_name": "thrum",
+      "web_url": "https://github.com/ryannel/Thrum",
+      "git_ref": "f5591b79c71279df4f7dba6cfafdedc8bf4ce3be",
+      "repo_subpath": "examples/mirror",
+      "doc_summary": "Authored mirror pool and its scene-local renderer contribution.",
+      "total_files": 35,
+      "source_files": 16,
+      "total_loc": 3468,
+      "tier": "deep",
+      "entrypoints": [
+        {
+          "path": "src/main.rs",
+          "name": "mirror-scene",
+          "kind": "binary",
+          "command": "cargo run -p mirror-scene --bin mirror-scene"
+        },
+        {
+          "path": "src/lib.rs",
+          "name": "mirror-scene (lib)",
+          "kind": "library",
+          "command": "cargo test -p mirror-scene"
+        }
+      ],
+      "modules": [
+        {
+          "path": "tests",
+          "name": "tests",
+          "kind": "dir",
+          "visibility": "test",
+          "file_count": 7,
+          "source_files": 6,
+          "loc": 1739,
+          "asset_counts": {
+            "wgsl": 1
+          }
+        },
+        {
+          "path": "src/pool.rs",
+          "name": "pool",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 468
+        },
+        {
+          "path": "src/inspection.rs",
+          "name": "inspection",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 241,
+          "doc_summary": "Mac inspection through the normal presenter and T2 submitted-image tap."
+        },
+        {
+          "path": "src/cost.rs",
+          "name": "cost",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 199,
+          "doc_summary": "Capture-off timings for the authored pool and a 100,513-instance field."
+        },
+        {
+          "path": "src/mover.rs",
+          "name": "mover",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 174
+        },
+        {
+          "path": "src/fixture.rs",
+          "name": "fixture",
+          "kind": "file",
+          "visibility": "hidden",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 145,
+          "doc_summary": "Native fixtures for knob isolation and capture-off pass costs."
+        },
+        {
+          "path": "package_inspection.py",
+          "name": "package_inspection",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 106
+        },
+        {
+          "path": "generate_meshes.py",
+          "name": "generate_meshes",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 99
+        },
+        {
+          "path": "package_browser_inspection.py",
+          "name": "package_browser_inspection",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 94
+        },
+        {
+          "path": "assets",
+          "name": "assets",
+          "kind": "dir",
+          "visibility": "asset",
+          "file_count": 13,
+          "source_files": 0,
+          "loc": 0
+        },
+        {
+          "path": "src",
+          "name": "shaders (root)",
+          "kind": "dir",
+          "visibility": "asset",
+          "file_count": 2,
+          "source_files": 0,
+          "loc": 0,
+          "asset_counts": {
+            "wgsl": 2
+          }
+        },
+        {
+          "path": "material.wgsl",
+          "name": "material",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 0,
+          "loc": 0,
+          "asset_counts": {
+            "wgsl": 1
+          }
+        }
+      ],
+      "tech_stack": [
+        {
+          "category": "GPU & Graphics",
+          "items": [
+            "bytemuck",
+            "wgpu"
+          ]
+        },
+        {
+          "category": "Math & Geometry",
+          "items": [
+            "glam"
+          ]
+        },
+        {
+          "category": "Libraries",
+          "items": [
+            "pollster"
+          ]
+        }
+      ]
+    },
+    {
+      "package_root": "examples/starter",
+      "name": "thrum-starter",
+      "language": "rust",
+      "repo_name": "thrum",
+      "web_url": "https://github.com/ryannel/Thrum",
+      "git_ref": "f5591b79c71279df4f7dba6cfafdedc8bf4ce3be",
+      "repo_subpath": "examples/starter",
+      "doc_summary": "Thrum starter: one cooked rock on lit ground under a physically based sky, a camera, and Sun sliders.",
+      "total_files": 8,
+      "source_files": 1,
+      "total_loc": 56,
+      "tier": "compact",
+      "entrypoints": [
+        {
+          "path": "src/main.rs",
+          "name": "thrum-starter",
+          "kind": "binary",
+          "command": "cargo run -p thrum-starter --bin thrum-starter"
+        }
+      ],
+      "modules": [
+        {
+          "path": "assets",
+          "name": "assets",
+          "kind": "dir",
+          "visibility": "asset",
+          "file_count": 3,
+          "source_files": 0,
+          "loc": 0
+        },
+        {
+          "path": "material.wgsl",
+          "name": "material",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 0,
+          "loc": 0,
+          "asset_counts": {
+            "wgsl": 1
+          }
+        }
+      ],
+      "tech_stack": []
+    },
+    {
+      "package_root": "examples/stones",
+      "name": "thrum-stones",
+      "language": "rust",
+      "repo_name": "thrum",
+      "web_url": "https://github.com/ryannel/Thrum",
+      "git_ref": "f5591b79c71279df4f7dba6cfafdedc8bf4ce3be",
+      "repo_subpath": "examples/stones",
+      "doc_summary": "Stone circle at dawn: seven cooked standing stones and a fallen altar stone on lit ground under the physically based sky. Sliders move the Sun and orbit the camera around the circle.",
+      "total_files": 7,
+      "source_files": 1,
+      "total_loc": 79,
+      "tier": "compact",
+      "entrypoints": [
+        {
+          "path": "src/main.rs",
+          "name": "thrum-stones",
+          "kind": "binary",
+          "command": "cargo run -p thrum-stones --bin thrum-stones"
+        }
+      ],
+      "modules": [
+        {
+          "path": "assets",
+          "name": "assets",
+          "kind": "dir",
+          "visibility": "asset",
+          "file_count": 3,
+          "source_files": 0,
+          "loc": 0
+        }
+      ],
+      "tech_stack": []
+    },
+    {
+      "package_root": "examples/v1-game",
+      "name": "v1-game",
+      "language": "rust",
+      "repo_name": "thrum",
+      "web_url": "https://github.com/ryannel/Thrum",
+      "git_ref": "f5591b79c71279df4f7dba6cfafdedc8bf4ce3be",
+      "repo_subpath": "examples/v1-game",
+      "doc_summary": "Assembled fixed-clock simulation and offscreen GPU scene used to qualify Thrum's first V1 game workload. Native worker extraction and a macOS surface consume the committed visual page; browser execution retains the serial path.",
+      "total_files": 383,
+      "source_files": 201,
+      "total_loc": 62557,
+      "tier": "deep",
+      "entrypoints": [
+        {
+          "path": "src/bin/cooked_draw_probe.rs",
+          "name": "cooked_draw_probe",
+          "kind": "binary",
+          "command": "cargo run -p v1-game --bin cooked_draw_probe"
+        },
+        {
+          "path": "src/main.rs",
+          "name": "v1-game",
+          "kind": "binary",
+          "command": "cargo run -p v1-game --bin v1-game"
+        },
+        {
+          "path": "src/bin/apple_tile_residency.rs",
+          "name": "apple_tile_residency",
+          "kind": "binary",
+          "command": "cargo run -p v1-game --bin apple_tile_residency"
+        },
+        {
+          "path": "src/lib.rs",
+          "name": "v1-game (lib)",
+          "kind": "library",
+          "command": "cargo test -p v1-game"
+        }
+      ],
+      "modules": [
+        {
+          "path": "tests",
+          "name": "tests",
+          "kind": "dir",
+          "visibility": "test",
+          "file_count": 148,
+          "source_files": 84,
+          "loc": 24441,
+          "asset_counts": {
+            "wgsl": 1
+          }
+        },
+        {
+          "path": "src/host",
+          "name": "host",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 21,
+          "source_files": 17,
+          "loc": 6999,
+          "asset_counts": {
+            "wgsl": 1
+          },
+          "doc_summary": "V1 scene/rules facade over the engine-owned bounded frame runtime."
+        },
+        {
+          "path": "src/window",
+          "name": "window",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 12,
+          "source_files": 12,
+          "loc": 5126,
+          "doc_summary": "The V1 game hosted by the shared macOS window shell: its runtime preparation, demo controls, movement keys and solar-time readback."
+        },
+        {
+          "path": "src/effect",
+          "name": "effect",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 21,
+          "source_files": 13,
+          "loc": 4023,
+          "asset_counts": {
+            "wgsl": 8
+          },
+          "doc_summary": "Opt-in integer diagnostic for EFFECT-GRAPH. It is never installed by default."
+        },
+        {
+          "path": "src/browser",
+          "name": "browser",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 8,
+          "source_files": 8,
+          "loc": 2810,
+          "doc_summary": "The V1 game's browser page bindings over the engine's web shell (`thrum_app::web`)."
+        },
+        {
+          "path": "src/simulation",
+          "name": "simulation",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 8,
+          "source_files": 8,
+          "loc": 2806,
+          "doc_summary": "V1 game's authority composed from generic engine storage, schedule and page leases. The game owns all schema, rule, input and projection values."
+        },
+        {
+          "path": "examples",
+          "name": "examples",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 12,
+          "source_files": 12,
+          "loc": 1865
+        },
+        {
+          "path": "src/clouds",
+          "name": "clouds",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 5,
+          "source_files": 5,
+          "loc": 1332,
+          "doc_summary": "The V1 game's cloud look and weather defaults; the engine supplies mechanisms."
+        },
+        {
+          "path": "src/interface_menu",
+          "name": "interface_menu",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 3,
+          "source_files": 3,
+          "loc": 1199,
+          "doc_summary": "The V1 choice and join screen, drawn by the ordinary interface stage."
+        },
+        {
+          "path": "assets",
+          "name": "assets",
+          "kind": "dir",
+          "visibility": "asset",
+          "file_count": 77,
+          "source_files": 3,
+          "loc": 1104
+        },
+        {
+          "path": "src/scene.rs",
+          "name": "scene",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 948,
+          "doc_summary": "The concrete 10k-entity V1 workload. Engine crates remain game agnostic."
+        },
+        {
+          "path": "src/camera",
+          "name": "camera",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 4,
+          "source_files": 4,
+          "loc": 870,
+          "doc_summary": "Checked authored camera policy for the V1 game's real-world scene."
+        },
+        {
+          "path": "web",
+          "name": "web",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 7,
+          "source_files": 2,
+          "loc": 861
+        },
+        {
+          "path": "benches",
+          "name": "benches",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 2,
+          "source_files": 2,
+          "loc": 815
+        },
+        {
+          "path": "src/rain",
+          "name": "rain",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 3,
+          "source_files": 3,
+          "loc": 774,
+          "doc_summary": "The opt-in valley shower. The world owns the rain state and each published endpoint lends its projection to the forward material and the water map."
+        },
+        {
+          "path": "src/content.rs",
+          "name": "content",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 758,
+          "doc_summary": "One cold content activation shared by the live window and its capture mode."
+        },
+        {
+          "path": "src/controls",
+          "name": "controls",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 2,
+          "source_files": 2,
+          "loc": 695,
+          "doc_summary": "The V1 demo's typed controls. One declaration serves the macOS panel, the browser page and parameter files, with the same keys, labels and units everywhere."
+        },
+        {
+          "path": "src/interface_text.rs",
+          "name": "interface_text",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 685,
+          "doc_summary": "Cooked type specimens over the V1 sprite field."
+        },
+        {
+          "path": "src/interface_status",
+          "name": "interface_status",
+          "kind": "dir",
+          "visibility": "hidden",
+          "file_count": 2,
+          "source_files": 2,
+          "loc": 571,
+          "doc_summary": "The V1 status display's interface tree, shared by the scene and its proofs."
+        },
+        {
+          "path": "src/lent",
+          "name": "lent",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 2,
+          "source_files": 2,
+          "loc": 535,
+          "doc_summary": "Opt-in CONTENT-LOOP diagnostic. Its only product authority is a public lease."
+        },
+        {
+          "path": "src/exit_scene",
+          "name": "exit_scene",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 2,
+          "source_files": 2,
+          "loc": 355,
+          "doc_summary": "Authored transforms and closed paths shared by the native and browser game."
+        },
+        {
+          "path": "src/sprite_probe.rs",
+          "name": "sprite_probe",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 338,
+          "doc_summary": "Authored scenes used to inspect the ordinary sprite path."
+        },
+        {
+          "path": "src/hosted.rs",
+          "name": "hosted",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 327,
+          "doc_summary": "V1's hosted runtime and control policy shared by its platform entry points."
+        },
+        {
+          "path": "src/sprite_field.rs",
+          "name": "sprite_field",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 298,
+          "doc_summary": "The sprite field's authored art and mapping of ordinary V1 simulation pages."
+        },
+        {
+          "path": "src/content_preview.rs",
+          "name": "content_preview",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 255,
+          "doc_summary": "Opt-in valley reader that displays a lent texture and a slice of a lent volume."
+        },
+        {
+          "path": "src/showcase.rs",
+          "name": "showcase",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 250,
+          "doc_summary": "Authored scene data consumed once by the native game, through G5's existing residency path."
+        },
+        {
+          "path": "src/sprite_card.rs",
+          "name": "sprite_card",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 178,
+          "doc_summary": "Original asymmetric registration card for 2D output."
+        },
+        {
+          "path": "src/governor_load.rs",
+          "name": "governor_load",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 135,
+          "doc_summary": "An opt-in, render-only GPU load. Dispatch area follows the drawn subrectangle."
+        },
+        {
+          "path": "src/interface_card.rs",
+          "name": "interface_card",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 134,
+          "doc_summary": "Original panel card and paint lists for the interface-stage proofs."
+        },
+        {
+          "path": "src/mobile_interface.rs",
+          "name": "mobile_interface",
+          "kind": "file",
+          "visibility": "hidden",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 112,
+          "doc_summary": "V1 game-side interface state for the iOS shell."
+        },
+        {
+          "path": "src/metal_preparation.rs",
+          "name": "metal_preparation",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 108,
+          "doc_summary": "Read the V1 Metal preparation launch inputs before opening the device."
+        },
+        {
+          "path": "src/cooked.rs",
+          "name": "cooked",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 67,
+          "doc_summary": "G5 cooked products in the V1 game: where they stand, and the opt-in from the environment."
+        },
+        {
+          "path": "src/field_meshes.rs",
+          "name": "field_meshes",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 52,
+          "doc_summary": "Convert the shared prop meshes into the proving ground's renderer inputs."
+        },
+        {
+          "path": "params",
+          "name": "params",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 16,
+          "source_files": 0,
+          "loc": 0
+        },
+        {
+          "path": "routes",
+          "name": "routes",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 7,
+          "source_files": 0,
+          "loc": 0
+        },
+        {
+          "path": "src",
+          "name": "shaders (root)",
+          "kind": "dir",
+          "visibility": "asset",
+          "file_count": 2,
+          "source_files": 0,
+          "loc": 0,
+          "asset_counts": {
+            "wgsl": 2
+          }
+        },
+        {
+          "path": "materials",
+          "name": "materials",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 0,
+          "loc": 0,
+          "asset_counts": {
+            "wgsl": 1
+          }
+        }
+      ],
+      "flags": [
+        "feature:dev-material",
+        "feature:draw-probe",
+        "feature:proving"
+      ],
+      "tech_stack": [
+        {
+          "category": "GPU & Graphics",
+          "items": [
+            "wgpu"
+          ]
+        },
+        {
+          "category": "Math & Geometry",
+          "items": [
+            "glam"
+          ]
+        },
+        {
+          "category": "Serialization & Validation",
+          "items": [
+            "serde"
+          ]
+        },
+        {
+          "category": "Libraries",
+          "items": [
+            "cpu-time",
+            "half",
+            "js-sys",
+            "pollster",
+            "serde_json",
+            "wasm-bindgen",
+            "wasm-bindgen-futures",
+            "web-sys"
+          ]
+        }
+      ]
+    },
+    {
+      "package_root": "examples/v1-game-ios",
+      "name": "v1-game-ios",
+      "language": "rust",
+      "repo_name": "thrum",
+      "web_url": "https://github.com/ryannel/Thrum",
+      "git_ref": "f5591b79c71279df4f7dba6cfafdedc8bf4ce3be",
+      "repo_subpath": "examples/v1-game-ios",
+      "doc_summary": "V1's application entry and game-specific setup for the shared UIKit shell.",
+      "total_files": 16,
+      "source_files": 11,
+      "total_loc": 1674,
+      "tier": "standard",
+      "entrypoints": [
+        {
+          "path": "src/lib.rs",
+          "name": "v1-game-ios (lib)",
+          "kind": "library",
+          "command": "cargo test -p v1-game-ios"
+        }
+      ],
+      "modules": [
+        {
+          "path": "ios",
+          "name": "ios",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 7,
+          "source_files": 3,
+          "loc": 1077
+        },
+        {
+          "path": "src/ios",
+          "name": "ios",
+          "kind": "dir",
+          "visibility": "internal",
+          "file_count": 4,
+          "source_files": 4,
+          "loc": 471,
+          "doc_summary": "V1 scene setup, controls and proof observations for the shared mobile shell."
+        },
+        {
+          "path": "src/device.rs",
+          "name": "device",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 53,
+          "doc_summary": "The iPhone device request used by both preparation and recovery."
+        },
+        {
+          "path": "tests",
+          "name": "tests",
+          "kind": "dir",
+          "visibility": "test",
+          "file_count": 2,
+          "source_files": 2,
+          "loc": 37
+        }
+      ],
+      "flags": [
+        "env:THRUM_V1_ROUTE_OUT",
+        "env:THRUM_V1_TOUCH",
+        "env:THRUM_V1_XCTESTRUN",
+        "feature:proving"
+      ],
+      "tech_stack": [
+        {
+          "category": "GPU & Graphics",
+          "items": [
+            "wgpu"
+          ]
+        },
+        {
+          "category": "Libraries",
+          "items": [
+            "pollster",
+            "serde_json"
+          ]
+        }
+      ]
+    },
+    {
+      "package_root": "examples/water",
+      "name": "water-scene",
+      "language": "rust",
+      "repo_name": "thrum",
+      "web_url": "https://github.com/ryannel/Thrum",
+      "git_ref": "f5591b79c71279df4f7dba6cfafdedc8bf4ce3be",
+      "repo_subpath": "examples/water",
+      "doc_summary": "Game content and controls for the water example. The engine contains no sea preset.",
+      "total_files": 129,
+      "source_files": 90,
+      "total_loc": 22982,
+      "tier": "deep",
+      "entrypoints": [
+        {
+          "path": "src/main.rs",
+          "name": "water-scene",
+          "kind": "binary",
+          "command": "cargo run -p water-scene --bin water-scene"
+        },
+        {
+          "path": "src/lib.rs",
+          "name": "water-scene (lib)",
+          "kind": "library",
+          "command": "cargo test -p water-scene"
+        }
+      ],
+      "modules": [
+        {
+          "path": "tests",
+          "name": "tests",
+          "kind": "dir",
+          "visibility": "test",
+          "file_count": 68,
+          "source_files": 62,
+          "loc": 14569
+        },
+        {
+          "path": "src/island",
+          "name": "island",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 3,
+          "source_files": 3,
+          "loc": 2370,
+          "doc_summary": "The island's terrain, water declarations and inspection cameras."
+        },
+        {
+          "path": "src/floating",
+          "name": "floating",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 5,
+          "source_files": 4,
+          "loc": 2025,
+          "asset_counts": {
+            "wgsl": 1
+          },
+          "doc_summary": "Game-owned buoyancy, drag, propulsion and rigid-body integration."
+        },
+        {
+          "path": "src/lens_probe.rs",
+          "name": "lens_probe",
+          "kind": "file",
+          "visibility": "hidden",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 808,
+          "doc_summary": "Shared authored fixtures for native and browser lens conformance."
+        },
+        {
+          "path": "src/river",
+          "name": "river",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 2,
+          "source_files": 2,
+          "loc": 600,
+          "doc_summary": "The island's solved spring stream and lake outlet."
+        },
+        {
+          "path": "src/clouds.rs",
+          "name": "clouds",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 460,
+          "doc_summary": "The water scene's authored weather, surface field and fog table."
+        },
+        {
+          "path": "src/settings.rs",
+          "name": "settings",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 367,
+          "doc_summary": "The one parse of the settings that choose the water scene."
+        },
+        {
+          "path": "src/channel.rs",
+          "name": "channel",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 309,
+          "doc_summary": "The hand-authored lake outlet, a stand-in for the RIVERS solver's chart."
+        },
+        {
+          "path": "examples",
+          "name": "examples",
+          "kind": "dir",
+          "visibility": "public",
+          "file_count": 7,
+          "source_files": 7,
+          "loc": 286
+        },
+        {
+          "path": "make_rain_yard.py",
+          "name": "make_rain_yard",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 234
+        },
+        {
+          "path": "make_island.py",
+          "name": "make_island",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 218
+        },
+        {
+          "path": "make_shore_tree.py",
+          "name": "make_shore_tree",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 65
+        },
+        {
+          "path": "make_float.py",
+          "name": "make_float",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 59
+        },
+        {
+          "path": "make_foam_rank.py",
+          "name": "make_foam_rank",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 46
+        },
+        {
+          "path": "build.rs",
+          "name": "build",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 37,
+          "doc_summary": "Embed the river files selected by the browser packager."
+        },
+        {
+          "path": "assets",
+          "name": "assets",
+          "kind": "dir",
+          "visibility": "asset",
+          "file_count": 28,
+          "source_files": 0,
+          "loc": 0
+        },
+        {
+          "path": "island.wgsl",
+          "name": "island",
+          "kind": "file",
+          "visibility": "public",
+          "file_count": 1,
+          "source_files": 0,
+          "loc": 0,
+          "asset_counts": {
+            "wgsl": 1
+          }
+        }
+      ],
+      "tech_stack": [
+        {
+          "category": "GPU & Graphics",
+          "items": [
+            "bytemuck",
+            "wgpu"
+          ]
+        },
+        {
+          "category": "Math & Geometry",
+          "items": [
+            "glam"
+          ]
+        },
+        {
+          "category": "Libraries",
+          "items": [
+            "js-sys"
+          ]
+        }
+      ]
+    },
+    {
+      "package_root": "tools/xtask",
+      "name": "xtask",
+      "language": "rust",
+      "repo_name": "thrum",
+      "web_url": "https://github.com/ryannel/Thrum",
+      "git_ref": "f5591b79c71279df4f7dba6cfafdedc8bf4ce3be",
+      "repo_subpath": "tools/xtask",
+      "doc_summary": "Small host-only contributor command runner.",
+      "total_files": 4,
+      "source_files": 3,
+      "total_loc": 2310,
+      "tier": "standard",
+      "entrypoints": [
+        {
+          "path": "src/main.rs",
+          "name": "xtask",
+          "kind": "binary",
+          "command": "cargo run -p xtask",
+          "summary": "Small host-only contributor command runner."
+        }
+      ],
+      "modules": [
+        {
+          "path": "src/selection.rs",
+          "name": "selection",
+          "kind": "file",
+          "visibility": "internal",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 779,
+          "doc_summary": "The merge selection of `./dev check` (GATE-TIME mechanism 4): the workspace packages whose test binaries a change can reach, by Cargo's own graph, the path rules and the declared edges."
+        },
+        {
+          "path": "src/nextest.rs",
+          "name": "nextest",
+          "kind": "file",
+          "visibility": "test",
+          "file_count": 1,
+          "source_files": 1,
+          "loc": 262,
+          "doc_summary": "Reading cargo-nextest's JUnit report for `./dev check`, and running once more, alone, each test the limit on one test stopped side by side (GATE-TIME mechanism 13)."
+        }
+      ],
+      "tech_stack": [
+        {
+          "category": "Libraries",
+          "items": [
+            "serde_json"
+          ]
+        }
+      ]
+    }
+  ]
+}

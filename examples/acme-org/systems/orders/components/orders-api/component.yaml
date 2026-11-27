@@ -1,0 +1,16 @@
+id: orders-api
+name: Orders API
+kind: service
+tech: TypeScript / Fastify
+home: orders-svc
+depth: full
+does: Accepts checkout requests, validates stock, authorizes payment, and persists orders.
+cites:
+  - orders-svc:src/server.ts#L1-35
+triage:
+  - surface: "route:GET:/health*"
+    disposition: operational
+    reason: Kubernetes liveness and readiness probes
+  - surface: "route:GET:/docs*"
+    disposition: operational
+    reason: OpenAPI Swagger UI

@@ -1,0 +1,15 @@
+id: orders-db
+name: Orders Database
+form: database
+tech: PostgreSQL 16
+owner: service:orders-api
+owner_cites:
+  - orders-svc:prisma/schema.prisma#L1-20
+records:
+  - id: order-record
+    kind: record
+    table: orders
+    fields:
+      - { id: id, name: id, type: uuid, required: true }
+      - { id: status, name: status, type: string, required: true }
+      - { id: stock-id, name: stock_id, type: string, required: false }

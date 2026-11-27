@@ -1,0 +1,17 @@
+id: live-recording
+name: Live Meeting Recording & Streaming Transcription
+summary: Audio streams from WordLoop Web App over WebSocket to Core, forwards to ML Engine for live transcription, and persists in Postgres + Pub/Sub.
+actor: actor:user
+steps:
+  - id: capture-audio
+    label: Web App streams audio over /ws
+    ref: handler:wordloop-app/record-meeting#open-ws
+  - id: ml-stream
+    label: Core forwards chunks to ML streaming endpoint
+    ref: handler:wordloop-core/ws-recording#stream-audio
+  - id: persist
+    label: Core saves meeting state in Postgres
+    ref: handler:wordloop-core/ws-recording#save-meeting
+  - id: publish
+    label: Core publishes lifecycle event to Pub/Sub
+    ref: handler:wordloop-core/ws-recording#publish-event

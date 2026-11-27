@@ -1,0 +1,6 @@
+id: inventory
+name: Inventory & Stock Engine
+purpose: Manages live vehicle stock availability and reservation holds.
+domain: domain:catalog
+team: team:inventory-partner
+mapped: false

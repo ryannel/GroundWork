@@ -1,0 +1,37 @@
+schema_version: 1
+id: plan:stock-reservation
+title: Keep stock vehicles reserved until financing completes
+status: ready
+date: "2026-11-26"
+problem:
+  summary: Persist a renewable reservation expiry on stock orders and display hold status in checkout.
+  why: Prevents two buyers from competing for the same stock vehicle during financing review.
+  non_goals:
+    - Changing vehicle search ranking.
+pillars:
+  architecture:
+    file: ./architecture/changes.yaml
+  design:
+    applicable: true
+    file: ./design/design.yaml
+  execution:
+    file: ./execution/execution.yaml
+    progress: ./execution/progress.yaml
+  proof:
+    file: ./proof/proof.yaml
+signoffs:
+  architecture: { by: "Ryan N.", at: "2026-11-26" }
+  design: { by: "Ryan N.", at: "2026-11-26" }
+  execution: { by: "Ryan N.", at: "2026-11-26" }
+  proof: { by: "Ryan N.", at: "2026-11-26" }
+questions:
+  - id: question:stock-reservation/hold-window
+    text: How long should a stock reservation hold before renewal?
+    owner: team:checkout
+    status: answered
+    answer: 48 hours, renewable on each financing status update.
+decisions:
+  - id: decision:stock-reservation/hold-duration
+    title: 48-hour renewable hold window
+    status: accepted
+    reversibility: two-way

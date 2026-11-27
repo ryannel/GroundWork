@@ -1,0 +1,10 @@
+id: checkout-web
+name: Checkout Web App
+kind: app
+form: web
+tech: React / Vite
+home: web-app
+depth: contract-only
+does: Customer-facing checkout UI.
+cites:
+  - web-app:src/App.tsx#L1-30

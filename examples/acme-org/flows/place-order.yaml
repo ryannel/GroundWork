@@ -1,0 +1,17 @@
+id: place-order
+name: Place Stock Order
+summary: End-to-end checkout flow from customer submission to stock reservation, payment, and OrderCreated event.
+actor: actor:customer
+steps:
+  - id: submit-ui
+    label: Customer submits checkout summary
+    ref: screen:checkout-web/summary
+  - id: call-orders
+    label: Orders API handles POST /v1/orders
+    ref: handler:orders-api/create-order
+  - id: hold-stock
+    label: Reserve stock vehicle in Inventory
+    ref: handler:orders-api/create-order#reserve-stock
+  - id: emit-event
+    label: Publish OrderCreated event
+    ref: handler:orders-api/create-order#publish-created

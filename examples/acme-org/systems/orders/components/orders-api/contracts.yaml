@@ -1,0 +1,30 @@
+interfaces:
+  - id: rest-v1
+    kind: rest
+    known_from: implementation
+    version: v1
+    base_path: /v1
+    auth: customer JWT
+    entries:
+      - id: create-order
+        method: POST
+        path: /orders
+        summary: Creates an order from a validated cart and initiates payment.
+        idempotent: true
+        request: schema:orders-api/create-order-request
+        response: schema:orders-api/create-order-response
+        errors:
+          - { status: 409, when: Requested stock item is already reserved }
+        cites:
+          - orders-svc:src/routes/orders.ts#L18-42
+schemas:
+  - id: create-order-request
+    kind: dto
+    fields:
+      - { id: cart-id, name: cartId, type: string, required: true }
+      - { id: stock-id, name: stockId, type: string, required: false }
+  - id: create-order-response
+    kind: dto
+    fields:
+      - { id: order-id, name: orderId, type: string, required: true }
+      - { id: status, name: status, type: string, required: true }

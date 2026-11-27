@@ -1,0 +1,21 @@
+schema_version: 1
+milestones:
+  - id: milestone:stock-reservation/m1-hold
+    name: M1 · Persist reservation expiry and show hold banner
+    due: "2027-02-15"
+work_items:
+  - id: work-item:stock-reservation/orders-persist-expiry
+    title: Add reserve_until column and persist expiry in Orders API
+    milestone: milestone:stock-reservation/m1-hold
+    team: team:checkout
+    target: { repo: acme-orders }
+    implements: [change:stock-reservation/persist-hold-expiry]
+    verified_by: [test:stock-reservation/persist-expiry-service]
+  - id: work-item:stock-reservation/web-hold-banner
+    title: Render reservation hold banner on Checkout Summary screen
+    milestone: milestone:stock-reservation/m1-hold
+    team: team:checkout
+    target: { repo: acme-web }
+    depends_on: [work-item:stock-reservation/orders-persist-expiry]
+    implements: [change:stock-reservation/persist-hold-expiry]
+    verified_by: [test:stock-reservation/checkout-banner-e2e]

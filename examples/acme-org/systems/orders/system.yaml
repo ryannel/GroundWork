@@ -1,0 +1,13 @@
+id: orders
+name: Orders
+purpose: Orchestrates customer checkout, payment authorization, and order lifecycle persistence.
+domain: domain:checkout
+team: team:checkout
+mapped: true
+homes:
+  orders-svc: { repo: acme-orders, path: services/orders-api }
+  web-app: { repo: acme-web, path: apps/checkout }
+connections:
+  - to: system:inventory
+    says: Checks and reserves stock items during checkout.
+    backs: [handler:orders-api/create-order#reserve-stock]

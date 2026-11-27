@@ -1,0 +1,6 @@
+id: legacy-analytics-db
+name: Legacy Analytics Warehouse
+form: warehouse
+tech: Snowflake
+owner: unknown
+notes: Populated by legacy nightly ETL; owning service not yet mapped.

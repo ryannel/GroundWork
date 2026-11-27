@@ -1,0 +1,5 @@
+id: clerk
+name: Clerk Auth
+organisation: organisation:clerk
+summary: External authentication provider issuing JWTs and delivering user lifecycle webhooks via Svix.
+doc_root: https://clerk.com/docs

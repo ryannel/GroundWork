@@ -1,0 +1,20 @@
+schema_version: 1
+tests:
+  - id: test:stock-reservation/persist-expiry-service
+    level: service
+    name: POST /v1/orders stores reserve_until and returns reserveUntil when stockId is supplied
+    env: ci
+    proves:
+      - change:stock-reservation/persist-hold-expiry
+      - requirement:stock-reservation/expiry-stored
+    given: A valid cart containing an available stock vehicle
+    when: POST /v1/orders is called
+    then:
+      - Inventory reserve endpoint is called once
+      - Order row stores non-null reserve_until 48h in the future
+  - id: test:stock-reservation/checkout-banner-e2e
+    level: e2e
+    name: Checkout Summary displays reservation countdown banner
+    env: staging
+    proves:
+      - change:stock-reservation/persist-hold-expiry

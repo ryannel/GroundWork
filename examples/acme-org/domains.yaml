@@ -1,0 +1,8 @@
+schema_version: 1
+domains:
+  - id: checkout
+    name: Checkout & Orders
+    purpose: Converts carts into confirmed orders and coordinates stock holds and payment.
+  - id: catalog
+    name: Catalog & Inventory
+    purpose: Tracks available stock and pricing across markets.

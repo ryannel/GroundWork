@@ -1,0 +1,32 @@
+schema_version: 1
+id: project:wordloop-platform
+name: WordLoop Platform
+description: Real-time meeting recording, transcription, speaker diarization, and AI notes platform (nested Git submodule monorepo).
+repos:
+  wordloop-platform:
+    path: /Users/ryannel/Workspace/wordloop-platform
+    remote: https://github.com/ryannel/wordloop-platform.git
+    default_branch: main
+  wordloop-core:
+    path: /Users/ryannel/Workspace/wordloop-platform/services/wordloop-core
+    remote: https://github.com/ryannel/wordloop-core
+  wordloop-ml:
+    path: /Users/ryannel/Workspace/wordloop-platform/services/wordloop-ml
+    remote: https://github.com/ryannel/wordloop-ml
+  wordloop-app:
+    path: /Users/ryannel/Workspace/wordloop-platform/services/wordloop-app
+    remote: https://github.com/ryannel/wordloop-app
+  wordloop-docs:
+    path: /Users/ryannel/Workspace/wordloop-platform/services/wordloop-docs
+    remote: https://github.com/ryannel/wordloop-docs
+actors:
+  - id: actor:user
+    name: WordLoop User
+    summary: Records live meetings, reviews transcripts, manages tasks and AI threads.
+    customer: true
+    uses:
+      - app:wordloop-app
+organisations:
+  - id: organisation:clerk
+    name: Clerk
+    categories: [identity]

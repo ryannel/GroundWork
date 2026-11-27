@@ -1,0 +1,12 @@
+interfaces:
+  - id: stock-v1
+    kind: rest
+    known_from: consumer-observed
+    base_path: /v1/stock
+    entries:
+      - id: reserve-stock
+        method: POST
+        path: /reserve
+        summary: Reserves a stock vehicle for a short checkout window.
+        cites:
+          - orders-svc:src/clients/inventory.ts#L14-30

@@ -1,0 +1,25 @@
+schema_version: 1
+relies_on:
+  - endpoint:inventory/reserve-stock
+changes:
+  - id: change:stock-reservation/persist-hold-expiry
+    title: Persist reservation expiry on orders and store hold confirmation step
+    requires:
+      - id: requirement:stock-reservation/expiry-stored
+        text: Order record stores reserveUntil timestamp after Inventory confirms the hold.
+    ops:
+      - add: field
+        into: schema:orders-db/order-record
+        value: { id: reserve-until, name: reserve_until, type: datetime, required: false }
+      - add: field
+        into: schema:orders-api/create-order-response
+        value: { id: reserve-until, name: reserveUntil, type: datetime, required: false }
+      - insert_step:
+          into: handler:orders-api/create-order#has-stock
+          branch: then
+          after: handler:orders-api/create-order#reserve-stock
+          value:
+            id: save-hold-expiry
+            say: Persist reservation expiry
+            write: schema:orders-db/order-record#reserve-until
+            to: store:orders-db

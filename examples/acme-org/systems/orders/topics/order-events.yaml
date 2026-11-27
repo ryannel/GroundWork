@@ -1,0 +1,12 @@
+id: order-events
+name: Order Lifecycle Events
+form: stream
+tech: Kafka
+owner: service:orders-api
+owner_cites:
+  - orders-svc:src/events/publisher.ts#L1-15
+messages:
+  - id: order-created
+    semantics: event
+    key: orderId
+    summary: Emitted after an order is persisted and payment authorized.

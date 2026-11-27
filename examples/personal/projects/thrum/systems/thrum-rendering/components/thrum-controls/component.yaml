@@ -1,0 +1,16 @@
+id: thrum-controls
+name: thrum-controls
+kind: module
+form: library
+tech: Rust 2024
+home: thrum-controls
+depth: module-boundary
+does: Rust crate (crates/thrum-controls) — 0 engine deps, 1 public sub-modules.
+cites:
+  - thrum:crates/thrum-controls/Cargo.toml
+public_modules:
+  - name: macos
+    cites:
+      - thrum:crates/thrum-controls/src/lib.rs#L35-35
+invariants:
+  - Typed demo controls; no game schema, no I/O.

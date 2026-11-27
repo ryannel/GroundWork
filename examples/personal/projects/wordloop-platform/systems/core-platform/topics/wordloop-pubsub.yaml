@@ -1,0 +1,10 @@
+id: wordloop-pubsub
+name: WordLoop Pub/Sub
+form: stream
+tech: Google Cloud Pub/Sub
+owner: service:wordloop-core
+cites: [wordloop-platform:specs/core-asyncapi-pubsub.yaml]
+messages:
+  - id: recording-event
+    semantics: event
+    summary: Recording and transcription lifecycle events published across AsyncAPI Pub/Sub channels.

@@ -1,0 +1,19 @@
+schema_version: 1
+design_system: extend
+screens:
+  - screen: screen:checkout-web/summary
+    prototype: ./prototypes/checkout-summary.html
+    fidelity: mid
+    viewports: [mobile-390, desktop-1280]
+    states:
+      - { id: default, label: "Vehicle reserved (47h 59m remaining)" }
+      - { id: loading, label: "Reserving stock vehicle..." }
+      - { id: error-409, label: "Vehicle already reserved by another buyer" }
+    a11y:
+      live_regions: ["#hold-banner (polite)"]
+    bindings:
+      - selector: "[data-gw-region='hold-banner']"
+        region: screen:checkout-web/summary#hold-banner
+        reads: [schema:orders-api/create-order-response#reserve-until]
+      - selector: "[data-gw-action='submit-order']"
+        calls: endpoint:orders-api/create-order

@@ -1,0 +1,8 @@
+id: wordloop-ml
+name: WordLoop ML Service
+kind: service
+tech: Python / FastAPI
+home: ml
+depth: contract-only
+does: Streaming transcription sessions, batch transcription jobs, voice embedding matching, and AI chat completions.
+cites: [wordloop-ml:pyproject.toml#L1-20]

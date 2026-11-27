@@ -1,0 +1,51 @@
+procedures:
+  - id: validate-cart
+    summary: Ensures cart exists and all line items are active.
+    cite_base: orders-svc:src/orders/validate.ts
+    cites: ["#L1-28 validateCart"]
+    steps:
+      - id: load-cart
+        say: Load cart record
+        read: schema:orders-db/order-record
+        from: store:orders-db
+        cites: ["#L8-16"]
+
+handlers:
+  - id: create-order
+    on: endpoint:orders-api/create-order
+    summary: Validates cart, authorizes Stripe payment, persists order, and publishes OrderCreated.
+    cite_base: orders-svc:src/orders/create.ts
+    cites: ["#L12-74 createOrder"]
+    steps:
+      - id: validate
+        say: Run shared cart validation
+        run: procedure:orders-api/validate-cart
+        cites: ["#L18-20"]
+      - id: has-stock
+        if: cart contains a stock vehicle
+        then:
+          - id: reserve-stock
+            say: Reserve stock in inventory
+            call: endpoint:inventory/reserve-stock
+            cites: ["#L24-32"]
+      - id: authorize-payment
+        say: Authorize Stripe payment
+        call: endpoint:stripe/create-payment-intent
+        cites: ["#L35-44"]
+      - id: save-order
+        say: Persist order record
+        write: schema:orders-db/order-record
+        to: store:orders-db
+        cites: ["#L48-58"]
+      - id: publish-created
+        say: Emit OrderCreated event
+        publish: message:order-events/order-created
+        cites: ["#L60-68"]
+      - id: respond
+        return: 201
+        cites: ["#L70-74"]
+    failures:
+      - id: stock-conflict
+        when: Inventory returns 409 already reserved
+        return: 409
+        cites: ["#L30-32"]

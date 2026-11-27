@@ -1,0 +1,9 @@
+id: wordloop-app
+name: WordLoop Web App
+kind: app
+form: web
+tech: TypeScript / React / Vite
+home: app
+depth: contract-only
+does: Live meeting recorder with OPFS gap buffering, transcript viewer, task manager, and AI assistant UI.
+cites: [wordloop-app:package.json#L1-25]

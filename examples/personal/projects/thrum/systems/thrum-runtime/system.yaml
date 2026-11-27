@@ -1,0 +1,14 @@
+id: thrum-runtime
+name: Core Runtime & Simulation
+purpose: >-
+  Deterministic simulation tick loop, core math/types, and 2D crowd simulation
+  engine.
+domain: domain:engine-core
+mapped: true
+homes:
+  thrum-core:
+    repo: thrum
+    path: crates/thrum-core
+  thrum-sim2d:
+    repo: thrum
+    path: crates/thrum-sim2d

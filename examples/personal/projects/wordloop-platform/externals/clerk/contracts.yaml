@@ -1,0 +1,13 @@
+interfaces:
+  - id: webhooks
+    kind: rest
+    known_from: vendor-doc
+    entries:
+      - id: user-sync-webhook
+        method: POST
+        path: /webhooks/clerk
+        summary: Delivers signed Svix user lifecycle events into wordloop-core.
+        cites:
+          - doc: https://clerk.com/docs/integrations/webhooks/overview
+            title: Clerk Webhooks Overview
+            retrieved_at: "2026-11-27"

@@ -1,0 +1,37 @@
+schema_version: 1
+id: workspace:acme-org
+name: Acme Commerce
+description: Enterprise e-commerce platform spanning checkout, catalog, and external payment/inventory partners.
+repos:
+  acme-orders:
+    path: ../acme-orders
+    remote: acme/acme-orders
+    default_branch: main
+  acme-web:
+    path: ../acme-web
+    remote: acme/acme-web
+    default_branch: main
+teams:
+  - id: team:checkout
+    name: Checkout
+    channel: "#checkout-eng"
+  - id: team:inventory-partner
+    name: Inventory Partner Team
+    organisation: organisation:cle
+    contacts:
+      - name: Alex Lind
+        role: tech
+actors:
+  - id: actor:customer
+    name: Customer
+    summary: Browses stock items, configures an order, and completes checkout.
+    customer: true
+    uses:
+      - app:checkout-web
+organisations:
+  - id: organisation:stripe
+    name: Stripe
+    categories: [payments]
+  - id: organisation:cle
+    name: Car Locator Engine
+    categories: [inventory]

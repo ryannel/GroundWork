@@ -1,0 +1,11 @@
+schema_version: 1
+domains:
+  - id: core
+    name: Core Platform
+    purpose: Meeting lifecycle, recording sessions, notes, tasks, and real-time WebSocket hub.
+  - id: intelligence
+    name: Speech & AI
+    purpose: Streaming audio transcription, voice matching, and AI chat threads.
+  - id: experience
+    name: Client Applications
+    purpose: Web application and developer API documentation site.

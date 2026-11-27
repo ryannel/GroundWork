@@ -1,0 +1,30 @@
+interfaces:
+  - id: rest-v1
+    kind: rest
+    known_from: declared-spec
+    auth: Clerk JWT / X-Service-Token
+    entries:
+      - id: list-meetings
+        method: GET
+        path: /meetings
+        summary: Lists user meetings with transcripts and status.
+        cites: [wordloop-platform:specs/core-openapi.json]
+      - id: create-meeting
+        method: POST
+        path: /meetings
+        summary: Creates a new meeting record.
+        cites: [wordloop-platform:specs/core-openapi.json]
+      - id: clerk-webhook
+        method: POST
+        path: /webhooks/clerk
+        summary: Handles Svix-verified Clerk user sync events (not in OpenAPI spec).
+        cites: [wordloop-core:internal/entrypoints/api/router.go#L85]
+  - id: ws-hub
+    kind: websocket
+    known_from: implementation
+    entries:
+      - id: ws-recording
+        method: ANY
+        path: /ws
+        summary: Live recording control commands (start/stop/resume) and binary audio frames.
+        cites: [wordloop-core:internal/entrypoints/api/router.go#L112]

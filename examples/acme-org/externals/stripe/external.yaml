@@ -1,0 +1,5 @@
+id: stripe
+name: Stripe
+organisation: organisation:stripe
+summary: External payment processor for card authorizations and captures.
+doc_root: https://docs.stripe.com/api

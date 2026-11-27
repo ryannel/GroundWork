@@ -1,0 +1,12 @@
+screens:
+  - id: summary
+    name: Checkout Summary
+    kind: page
+    device: desktop
+    route: /checkout/summary
+    regions:
+      - { id: vehicle-card, name: Selected Vehicle }
+      - { id: hold-banner, name: Reservation Status Banner }
+      - { id: pay-bar, name: Payment Action Bar }
+    cites:
+      - web-app:src/pages/CheckoutSummary.tsx#L1-80

@@ -1,0 +1,17 @@
+schema_version: 1
+domains:
+  - id: engine-core
+    name: Engine Core
+    purpose: Simulation runtime and foundational types.
+  - id: graphics
+    name: Graphics & Shell
+    purpose: GPU rendering, windowing, and UI.
+  - id: assets
+    name: Assets
+    purpose: Cooked asset pipeline and GPU residency.
+  - id: world
+    name: World & Environment
+    purpose: CPU physical oracles and GPU atmospheric/water rendering.
+  - id: network
+    name: Networking
+    purpose: QUIC/WebTransport carrier and replication.

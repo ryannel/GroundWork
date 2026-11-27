@@ -1,0 +1,12 @@
+id: thrum-sim2d
+name: thrum-sim2d
+kind: module
+form: library
+tech: Rust 2024
+home: thrum-sim2d
+depth: module-boundary
+does: Rust crate (crates/thrum-sim2d) — 1 engine deps, 0 public sub-modules.
+cites:
+  - thrum:crates/thrum-sim2d/Cargo.toml
+depends_on:
+  - module:thrum-core

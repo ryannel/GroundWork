@@ -1,0 +1,26 @@
+id: thrum-transport
+name: thrum-transport
+kind: module
+form: library
+tech: Rust 2024
+home: thrum-transport
+depth: module-boundary
+does: Rust crate (crates/thrum-transport) — 0 engine deps, 5 public sub-modules.
+cites:
+  - thrum:crates/thrum-transport/Cargo.toml
+public_modules:
+  - name: browser
+    cites:
+      - thrum:crates/thrum-transport/src/lib.rs#L11-11
+  - name: memory
+    cites:
+      - thrum:crates/thrum-transport/src/lib.rs#L5-5
+  - name: native
+    cites:
+      - thrum:crates/thrum-transport/src/lib.rs#L13-13
+  - name: proof
+    cites:
+      - thrum:crates/thrum-transport/src/lib.rs#L6-6
+  - name: wire
+    cites:
+      - thrum:crates/thrum-transport/src/lib.rs#L7-7

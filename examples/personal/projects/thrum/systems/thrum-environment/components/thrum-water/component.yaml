@@ -1,0 +1,29 @@
+id: thrum-water
+name: thrum-water
+kind: module
+form: library
+tech: Rust 2024
+home: thrum-water
+depth: module-boundary
+does: Rust crate (crates/thrum-water) — 5 engine deps, 4 public sub-modules.
+cites:
+  - thrum:crates/thrum-water/Cargo.toml
+depends_on:
+  - module:thrum-asset-gpu
+  - module:thrum-render
+  - module:thrum-sea
+  - module:thrum-sea-model
+  - module:thrum-water-model
+public_modules:
+  - name: foam
+    cites:
+      - thrum:crates/thrum-water/src/lib.rs#L3-3
+  - name: interaction
+    cites:
+      - thrum:crates/thrum-water/src/lib.rs#L6-6
+  - name: map_gpu
+    cites:
+      - thrum:crates/thrum-water/src/lib.rs#L7-7
+  - name: query
+    cites:
+      - thrum:crates/thrum-water/src/lib.rs#L10-10

@@ -1,0 +1,14 @@
+id: thrum-rain-model
+name: thrum-rain-model
+kind: module
+form: library
+tech: Rust 2024
+home: thrum-rain-model
+depth: module-boundary
+does: Rust crate (crates/thrum-rain-model) — 1 engine deps, 0 public sub-modules.
+cites:
+  - thrum:crates/thrum-rain-model/Cargo.toml
+depends_on:
+  - module:thrum-water-model
+invariants:
+  - CPU rain/hollow fill solver; no graphics dependencies.

@@ -1,0 +1,20 @@
+id: thrum-core
+name: thrum-core
+kind: module
+form: library
+tech: Rust 2024
+home: thrum-core
+depth: module-boundary
+does: Rust crate (crates/thrum-core) — 0 engine deps, 3 public sub-modules.
+cites:
+  - thrum:crates/thrum-core/Cargo.toml
+public_modules:
+  - name: ids
+    cites:
+      - thrum:crates/thrum-core/src/lib.rs#L4-4
+  - name: profile
+    cites:
+      - thrum:crates/thrum-core/src/lib.rs#L5-5
+  - name: sim
+    cites:
+      - thrum:crates/thrum-core/src/lib.rs#L6-6

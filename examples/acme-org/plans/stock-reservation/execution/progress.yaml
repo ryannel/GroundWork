@@ -1,0 +1,7 @@
+schema_version: 1
+events:
+  - work_item: work-item:stock-reservation/orders-persist-expiry
+    status: todo
+    at: "2026-11-26T20:00:00Z"
+    by: "Ryan N."
+    note: "Ready to pick up in next sprint."

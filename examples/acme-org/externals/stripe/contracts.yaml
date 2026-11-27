@@ -1,0 +1,15 @@
+interfaces:
+  - id: rest-api
+    kind: rest
+    known_from: vendor-doc
+    base_path: /v1
+    entries:
+      - id: create-payment-intent
+        method: POST
+        path: /payment_intents
+        summary: Creates and confirms a Stripe PaymentIntent.
+        cites:
+          - doc: https://docs.stripe.com/api/payment_intents/create
+            title: Create a PaymentIntent
+            version: "2026-09-01"
+            retrieved_at: "2026-11-26"

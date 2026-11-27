@@ -1,0 +1,68 @@
+id: thrum-render
+name: thrum-render
+kind: module
+form: library
+tech: Rust 2024
+home: thrum-render
+depth: module-boundary
+does: Rust crate (crates/thrum-render) — 2 engine deps, 18 public sub-modules.
+cites:
+  - thrum:crates/thrum-render/Cargo.toml
+depends_on:
+  - module:thrum-asset
+  - module:thrum-core
+public_modules:
+  - name: abi
+    cites:
+      - thrum:crates/thrum-render/src/lib.rs#L11-11
+  - name: atmosphere
+    cites:
+      - thrum:crates/thrum-render/src/lib.rs#L13-13
+  - name: binding
+    cites:
+      - thrum:crates/thrum-render/src/lib.rs#L14-14
+  - name: capabilities
+    cites:
+      - thrum:crates/thrum-render/src/lib.rs#L15-15
+  - name: contribution
+    cites:
+      - thrum:crates/thrum-render/src/lib.rs#L16-16
+  - name: error
+    cites:
+      - thrum:crates/thrum-render/src/lib.rs#L17-17
+  - name: extract
+    cites:
+      - thrum:crates/thrum-render/src/lib.rs#L18-18
+  - name: frame
+    cites:
+      - thrum:crates/thrum-render/src/lib.rs#L19-19
+  - name: governor
+    cites:
+      - thrum:crates/thrum-render/src/lib.rs#L20-20
+  - name: graph
+    cites:
+      - thrum:crates/thrum-render/src/lib.rs#L21-21
+  - name: history
+    cites:
+      - thrum:crates/thrum-render/src/lib.rs#L23-23
+  - name: present
+    cites:
+      - thrum:crates/thrum-render/src/lib.rs#L26-26
+  - name: registry_audit
+    cites:
+      - thrum:crates/thrum-render/src/lib.rs#L29-29
+  - name: render_config
+    cites:
+      - thrum:crates/thrum-render/src/lib.rs#L30-30
+  - name: runtime
+    cites:
+      - thrum:crates/thrum-render/src/lib.rs#L31-31
+  - name: sprite
+    cites:
+      - thrum:crates/thrum-render/src/lib.rs#L34-34
+  - name: synthetic
+    cites:
+      - thrum:crates/thrum-render/src/lib.rs#L39-39
+  - name: timing
+    cites:
+      - thrum:crates/thrum-render/src/lib.rs#L44-44
