@@ -1,7 +1,10 @@
 import { ArrowUpRight, ExternalLink, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
+import type { EntityNavOptions } from "../../router";
 import type { LoadedPlanPayload, SpacePayload } from "../../types";
+import { getComponentRichEndpoints, getComponentScannedSurfaces, getStoreTables } from "../../utils/spaceLookup";
 import { buildRichEndpoints, EndpointSpecCard } from "./ApiReferenceView";
+import { DrawerEndpointExplorer, DrawerTableExplorer } from "./DrawerExplorers";
 import { EntityLink } from "./EntityLink";
 import { schemaDefToRows, SchemaTableView } from "./SchemaTableView";
 import { StepTreeView } from "./StepTreeView";
@@ -12,7 +15,7 @@ interface Props {
   targetId: string | null;
   onClose: () => void;
   onPeek: (id: string) => void;
-  onOpenFullView: (entityId: string, tab?: string) => void;
+  onOpenFullView: (entityId: string, opts?: string | EntityNavOptions) => void;
 }
 
 /**
@@ -47,7 +50,8 @@ export function QuickPeekDrawer({ space, plan, targetId, onClose, onPeek, onOpen
 
   useEffect(() => {
     if (!matchedComp) return;
-    const hasApis = (matchedComp.comp.contracts.interfaces?.reduce((a, i) => a + i.entries.length, 0) ?? 0) > 0;
+    const summary = getComponentRichEndpoints(space, matchedComp.sys, matchedComp.comp, diffMap);
+    const hasApis = summary.all.length > 0;
     const hasLogic = matchedComp.comp.handlers.handlers.length + (matchedComp.comp.handlers.procedures?.length ?? 0) > 0;
     setCompTab(hasApis ? "api" : hasLogic ? "logic" : "overview");
   }, [matchedComp?.comp.id]);
@@ -118,7 +122,7 @@ export function QuickPeekDrawer({ space, plan, targetId, onClose, onPeek, onOpen
     for (const st of sys.stores) {
       const rec = (st.records ?? []).find((r) => r.id === baseId);
       if (st.id === baseId || rec) {
-        const records = rec ? [rec] : (st.records ?? []);
+        const allStoreTables = getStoreTables(space, st, diffMap);
         return (
           <aside className="quick-peek">
             {planBanner}
@@ -134,6 +138,7 @@ export function QuickPeekDrawer({ space, plan, targetId, onClose, onPeek, onOpen
               <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
                 {st.tech && <span className="badge">{st.tech}</span>}
                 <span className="badge">form: {st.form}</span>
+                <span className="badge teal">{allStoreTables.length} tables</span>
                 {st.owner !== "unknown" && <EntityLink id={st.owner} variant="neutral" onOpen={(id) => onPeek(id)} />}
               </div>
               {childSlug && (
@@ -141,15 +146,24 @@ export function QuickPeekDrawer({ space, plan, targetId, onClose, onPeek, onOpen
                   Focused column: #{childSlug}
                 </div>
               )}
-              {records.map((r) => (
+              {rec ? (
                 <SchemaTableView
-                  key={r.id}
-                  title={`Table: ${r.table ?? r.id}`}
-                  schemaId={r.id}
-                  columns={schemaDefToRows(r, diffMap)}
+                  title={`Table: ${rec.table ?? rec.id}`}
+                  schemaId={rec.id}
+                  columns={schemaDefToRows(rec, diffMap)}
                 />
-              ))}
-              <button className="primary-btn" style={{ width: "100%", justifyContent: "center" }} onClick={() => onOpenFullView(st.id)}>
+              ) : (
+                <DrawerTableExplorer
+                  tables={allStoreTables}
+                  onOpenTable={(tableName) => onOpenFullView(st.id, { table: tableName })}
+                  onOpenErDiagram={() => onOpenFullView(st.id, { dbview: "er" })}
+                />
+              )}
+              <button
+                className="primary-btn"
+                style={{ width: "100%", justifyContent: "center" }}
+                onClick={() => onOpenFullView(st.id, rec ? { table: rec.table ?? rec.id } : undefined)}
+              >
                 Open Full Database View ({st.name}) <ArrowUpRight size={14} />
               </button>
             </div>
@@ -160,6 +174,9 @@ export function QuickPeekDrawer({ space, plan, targetId, onClose, onPeek, onOpen
     for (const comp of sys.components) {
       const dto = (comp.contracts.schemas ?? []).find((s) => s.id === baseId);
       if (dto) {
+        const refEp = (comp.contracts.interfaces ?? [])
+          .flatMap((i) => i.entries)
+          .find((e) => e.request === dto.id || e.response === dto.id);
         return (
           <aside className="quick-peek">
             {planBanner}
@@ -172,7 +189,11 @@ export function QuickPeekDrawer({ space, plan, targetId, onClose, onPeek, onOpen
             </div>
             <div className="inspector-body">
               <SchemaTableView title={dto.id} columns={schemaDefToRows(dto, diffMap)} />
-              <button className="primary-btn" style={{ width: "100%", justifyContent: "center" }} onClick={() => onOpenFullView(comp.id, "api")}>
+              <button
+                className="primary-btn"
+                style={{ width: "100%", justifyContent: "center" }}
+                onClick={() => onOpenFullView(comp.id, { tab: "api", ...(refEp ? { endpoint: refEp.id } : {}) })}
+              >
                 Open Full API Reference ({comp.component.name}) <ArrowUpRight size={14} />
               </button>
             </div>
@@ -188,7 +209,10 @@ export function QuickPeekDrawer({ space, plan, targetId, onClose, onPeek, onOpen
       for (const iface of comp.contracts.interfaces ?? []) {
         const ep = iface.entries.find((e) => e.id === baseId);
         if (ep) {
-          const rich = buildRichEndpoints([{ ...iface, entries: [ep] }], comp.contracts.schemas ?? [], [], [], diffMap)[0];
+          const scannedRoutes = getComponentScannedSurfaces(space, sys, comp).filter(
+            (s) => s.kind === "route" || s.kind === "ws_channel",
+          );
+          const rich = buildRichEndpoints([{ ...iface, entries: [ep] }], comp.contracts.schemas ?? [], scannedRoutes, [], diffMap)[0];
           return (
             <aside className="quick-peek">
               {planBanner}
@@ -200,9 +224,18 @@ export function QuickPeekDrawer({ space, plan, targetId, onClose, onPeek, onOpen
                 <button className="icon-btn" onClick={onClose}><X size={16} /></button>
               </div>
               <div className="inspector-body">
-                {rich && <EndpointSpecCard endpoint={rich} />}
-                <button className="primary-btn" style={{ width: "100%", justifyContent: "center" }} onClick={() => onOpenFullView(comp.id, "api")}>
-                  Open Full API Reference ({comp.component.name}) <ArrowUpRight size={14} />
+                {rich && (
+                  <EndpointSpecCard
+                    endpoint={rich}
+                    onOpenFullEndpoint={() => onOpenFullView(comp.id, { tab: "api", endpoint: ep.id })}
+                  />
+                )}
+                <button
+                  className="primary-btn"
+                  style={{ width: "100%", justifyContent: "center" }}
+                  onClick={() => onOpenFullView(comp.id, { tab: "api", endpoint: ep.id })}
+                >
+                  Open Endpoint in API Reference ({comp.component.name}) <ArrowUpRight size={14} />
                 </button>
               </div>
             </aside>
@@ -234,7 +267,11 @@ export function QuickPeekDrawer({ space, plan, targetId, onClose, onPeek, onOpen
             <div className="inspector-body">
               <p style={{ margin: 0, fontSize: 12.5, color: "var(--text-muted)" }}>{sys.system.purpose}</p>
               {richList.map((r) => (
-                <EndpointSpecCard key={r.key} endpoint={r} />
+                <EndpointSpecCard
+                  key={r.key}
+                  endpoint={r}
+                  onOpenFullEndpoint={() => onOpenFullView(sys.id, { endpoint: r.key })}
+                />
               ))}
               <button className="primary-btn" style={{ width: "100%", justifyContent: "center" }} onClick={() => onOpenFullView(sys.id)}>
                 Open Full System View <ArrowUpRight size={14} />
@@ -276,7 +313,11 @@ export function QuickPeekDrawer({ space, plan, targetId, onClose, onPeek, onOpen
               </a>
             )}
             {richList.map((r) => (
-              <EndpointSpecCard key={r.key} endpoint={r} />
+              <EndpointSpecCard
+                key={r.key}
+                endpoint={r}
+                onOpenFullEndpoint={() => onOpenFullView(ext.id, { endpoint: r.key })}
+              />
             ))}
             <button className="primary-btn" style={{ width: "100%", justifyContent: "center" }} onClick={() => onOpenFullView(ext.id)}>
               Open External Provider View <ArrowUpRight size={14} />
@@ -327,16 +368,10 @@ export function QuickPeekDrawer({ space, plan, targetId, onClose, onPeek, onOpen
     }
   }
 
-  // 6. Component itself — NOW RICH & TABBED IN PLACE (APIs + Request/Response Schemas, Logic, Data, Overview!)
+  // 6. Component itself — NOW RICH & TABBED IN PLACE (All APIs + Search + Direct Endpoint Jump, Logic, Data, Overview!)
   if (matchedComp) {
     const { sys, comp } = matchedComp;
-    const richEndpoints = buildRichEndpoints(
-      comp.contracts.interfaces ?? [],
-      comp.contracts.schemas ?? [],
-      [],
-      comp.component.triage ?? [],
-      diffMap,
-    );
+    const endpointSummary = getComponentRichEndpoints(space, sys, comp, diffMap);
     const allFlows = [...comp.handlers.handlers, ...(comp.handlers.procedures ?? [])];
     const outgoing = space.edges.filter((e) => e.from === comp.id);
     const relatedStores = sys.stores.filter((s) => s.owner === comp.id || outgoing.some((e) => e.to === s.id));
@@ -356,7 +391,7 @@ export function QuickPeekDrawer({ space, plan, targetId, onClose, onPeek, onOpen
 
         <div className="inspector-tabs">
           <button className={`icon-btn ${compTab === "api" ? "active" : ""}`} onClick={() => setCompTab("api")}>
-            APIs ({richEndpoints.length})
+            APIs ({endpointSummary.displayCount})
           </button>
           <button className={`icon-btn ${compTab === "logic" ? "active" : ""}`} onClick={() => setCompTab("logic")}>
             Logic ({allFlows.length})
@@ -371,15 +406,10 @@ export function QuickPeekDrawer({ space, plan, targetId, onClose, onPeek, onOpen
 
         <div className="inspector-body">
           {compTab === "api" && (
-            <>
-              {richEndpoints.length === 0 ? (
-                <div className="section-card" style={{ fontSize: 12.5, color: "var(--text-faint)" }}>
-                  No authored endpoints on this component yet. Open Full View to inspect scanned routes.
-                </div>
-              ) : (
-                richEndpoints.slice(0, 8).map((ep) => <EndpointSpecCard key={ep.key} endpoint={ep} />)
-              )}
-            </>
+            <DrawerEndpointExplorer
+              summary={endpointSummary}
+              onOpenEndpoint={(endpointKey) => onOpenFullView(comp.id, { tab: "api", endpoint: endpointKey })}
+            />
           )}
 
           {compTab === "logic" && (

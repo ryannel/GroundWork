@@ -18,6 +18,7 @@ import {
   pushRawHref,
   pushRoute,
   type AppRoute,
+  type EntityNavOptions,
 } from "./router";
 import type { SpacePayload, WorkspaceSummary } from "./types";
 
@@ -119,15 +120,17 @@ export function App() {
   }, []);
 
   const resolveNavTarget = useCallback(
-    (rawId: string): { entityId: string; tab?: string; endpoint?: string } => {
+    (rawId: string): { entityId: string; tab?: string; endpoint?: string; table?: string } => {
       const base = rawId.split("#")[0]!;
       if (!space) return { entityId: base };
 
       for (const sys of space.systems) {
         if (sys.id === base) return { entityId: sys.id };
         for (const st of sys.stores) {
-          if (st.id === base || (st.records ?? []).some((r) => r.id === base)) {
-            return { entityId: st.id };
+          if (st.id === base) return { entityId: st.id };
+          const rec = (st.records ?? []).find((r) => r.id === base);
+          if (rec) {
+            return { entityId: st.id, table: rec.table ?? rec.id.replace(/^schema:/, "") };
           }
         }
         for (const top of sys.topics) {
@@ -144,19 +147,27 @@ export function App() {
             if (ep) return { entityId: comp.id, tab: "api", endpoint: ep.id };
           }
           if ((comp.contracts.schemas ?? []).some((s) => s.id === base)) {
-            return { entityId: comp.id, tab: "api" };
+            const refEp = (comp.contracts.interfaces ?? [])
+              .flatMap((i) => i.entries)
+              .find((e) => e.request === base || e.response === base);
+            return { entityId: comp.id, tab: "api", ...(refEp ? { endpoint: refEp.id } : {}) };
           }
           if (comp.handlers.handlers.some((h) => h.id === base) || (comp.handlers.procedures ?? []).some((p) => p.id === base)) {
             return { entityId: comp.id, tab: "logic" };
           }
         }
-        if ((sys.stub_contracts?.interfaces ?? []).some((i) => i.id === base || i.entries.some((e) => e.id === base))) {
-          return { entityId: sys.id };
+        for (const iface of sys.stub_contracts?.interfaces ?? []) {
+          if (iface.id === base) return { entityId: sys.id };
+          const ep = iface.entries.find((e) => e.id === base);
+          if (ep) return { entityId: sys.id, endpoint: ep.id };
         }
       }
       for (const ext of space.externals) {
-        if (ext.id === base || (ext.contracts.interfaces ?? []).some((i) => i.id === base || i.entries.some((e) => e.id === base))) {
-          return { entityId: ext.id };
+        if (ext.id === base) return { entityId: ext.id };
+        for (const iface of ext.contracts.interfaces ?? []) {
+          if (iface.id === base) return { entityId: ext.id };
+          const ep = iface.entries.find((e) => e.id === base);
+          if (ep) return { entityId: ext.id, endpoint: ep.id };
         }
       }
       return { entityId: base };
@@ -165,27 +176,35 @@ export function App() {
   );
 
   const openEntity = useCallback(
-    (rawId: string, preferredTab?: string, originPlanIdOrSlug?: string) => {
+    (rawId: string, preferred?: string | EntityNavOptions, originPlanIdOrSlug?: string) => {
       if (!activeWs) return;
+      const opts: EntityNavOptions = typeof preferred === "string" ? { tab: preferred } : (preferred ?? {});
       const resolved = resolveNavTarget(rawId);
+      const explicitPlan = opts.plan ?? originPlanIdOrSlug;
       const currentPlan =
-        originPlanIdOrSlug?.replace(/^plan:/, "") ??
+        explicitPlan?.replace(/^plan:/, "") ??
         (route.kind === "entity" ? route.plan : undefined);
       const currentReturnTo =
-        originPlanIdOrSlug && route.kind === "plans"
+        explicitPlan && route.kind === "plans"
           ? getCurrentHref()
           : route.kind === "entity"
             ? route.returnTo
             : undefined;
       const currentState = route.kind === "entity" ? route.state : undefined;
 
+      const finalTab = opts.tab ?? resolved.tab;
+      const finalEndpoint = opts.endpoint ?? resolved.endpoint;
+      const finalTable = opts.table ?? resolved.table;
+
       navigate({
         kind: "entity",
         ws: activeWs,
         ...(activeProject ? { project: activeProject } : {}),
         entityId: resolved.entityId,
-        ...(preferredTab ?? resolved.tab ? { tab: preferredTab ?? resolved.tab } : {}),
-        ...(resolved.endpoint ? { endpoint: resolved.endpoint } : {}),
+        ...(finalTab ? { tab: finalTab } : {}),
+        ...(finalEndpoint ? { endpoint: finalEndpoint } : {}),
+        ...(finalTable ? { table: finalTable } : {}),
+        ...(opts.dbview ? { dbview: opts.dbview } : {}),
         ...(currentPlan ? { plan: currentPlan } : {}),
         ...(currentState ? { state: currentState } : {}),
         ...(currentReturnTo ? { returnTo: currentReturnTo } : {}),
@@ -206,6 +225,7 @@ export function App() {
         entityId: resolved.entityId,
         ...(tab ?? resolved.tab ? { tab: tab ?? resolved.tab } : {}),
         ...(resolved.endpoint ? { endpoint: resolved.endpoint } : {}),
+        ...(resolved.table ? { table: resolved.table } : {}),
         ...(planSlug ? { plan: planSlug } : {}),
       });
     },
@@ -222,7 +242,7 @@ export function App() {
     }
   }, [activeWs, activeProject, navigate]);
 
-  const currentWsMeta = workspaces.find((w) => w.id === activeWs);
+  const currentWsMeta = workspaces.find((w) => w.id === activeWs || w.id === `workspace:${activeWs}`);
 
   const activePlan = useMemo(() => {
     if (!space || space.plans.length === 0) return null;
@@ -248,7 +268,7 @@ export function App() {
       });
       return;
     }
-    openEntity(hit.targetNodeId);
+    openEntity(hit.targetNodeId, hit.navOptions);
   };
 
   const navLink = (target: AppRoute, active: boolean, children: React.ReactNode, className = "nav-tab") => {
@@ -309,7 +329,7 @@ export function App() {
 
                 <select
                   className="select"
-                  value={activeWs}
+                  value={currentWsMeta?.id ?? activeWs}
                   onChange={(e) => {
                     const nextWs = workspaces.find((w) => w.id === e.target.value);
                     const nextProj = nextWs?.mode === "multi-project" ? nextWs.projects[0] : undefined;

@@ -1,5 +1,5 @@
 import { ArrowUpRight, Check, Copy, ExternalLink, Eye, EyeOff, Lock, Search } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { InterfaceDef, ScannedSurface, SchemaDef } from "../../types";
 import type { TriageRuleRef } from "./ContractCatalog";
 
@@ -474,8 +474,14 @@ function FieldTable({ fields, emptyText }: { fields: readonly ApiFieldSpec[]; em
   );
 }
 
-/** Compact single-endpoint specification reused inside QuickPeekDrawer! */
-export function EndpointSpecCard({ endpoint }: { endpoint: RichEndpointSpec }) {
+/** Compact single-endpoint specification reused inside InspectorDrawer & QuickPeekDrawer! */
+export function EndpointSpecCard({
+  endpoint,
+  onOpenFullEndpoint,
+}: {
+  endpoint: RichEndpointSpec;
+  onOpenFullEndpoint?: () => void;
+}) {
   const mc = methodColor(endpoint.method);
   const [statusIdx, setStatusIdx] = useState(0);
   const activeResp = endpoint.responses[statusIdx] ?? endpoint.responses[0];
@@ -483,11 +489,24 @@ export function EndpointSpecCard({ endpoint }: { endpoint: RichEndpointSpec }) {
   return (
     <div className="section-card" style={{ padding: 0, overflow: "hidden" }}>
       <div style={{ padding: "10px 12px", background: "var(--bg)", borderBottom: "1px solid var(--border)" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
-          <span className="mono" style={{ fontWeight: 700, fontSize: 11, padding: "2px 7px", borderRadius: 5, background: mc.bg, color: mc.fg }}>
-            {endpoint.method}
-          </span>
-          <span className="mono" style={{ fontWeight: 700, fontSize: 12.5, wordBreak: "break-all" }}>{endpoint.path}</span>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap", minWidth: 0 }}>
+            <span className="mono" style={{ fontWeight: 700, fontSize: 11, padding: "2px 7px", borderRadius: 5, background: mc.bg, color: mc.fg, flexShrink: 0 }}>
+              {endpoint.method}
+            </span>
+            <span className="mono" style={{ fontWeight: 700, fontSize: 12.5, wordBreak: "break-all" }}>{endpoint.path}</span>
+          </div>
+          {onOpenFullEndpoint && (
+            <button
+              type="button"
+              className="entity-link"
+              style={{ flexShrink: 0, padding: "2px 7px", fontSize: 11 }}
+              onClick={onOpenFullEndpoint}
+              title={`Open ${endpoint.method} ${endpoint.path} in full API Reference`}
+            >
+              Spec <ArrowUpRight size={11} />
+            </button>
+          )}
         </div>
         {endpoint.description && (
           <div style={{ fontSize: 12, color: "var(--text-muted)", marginTop: 5 }}>{endpoint.description}</div>
@@ -588,6 +607,8 @@ export function ApiReferenceView({
   const [localSelectedKey, setLocalSelectedKey] = useState<string | undefined>(selectedEndpointKey);
   const [respTab, setRespTab] = useState(0);
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
+  const railRef = useRef<HTMLDivElement | null>(null);
+  const activeItemRef = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
     if (selectedEndpointKey) setLocalSelectedKey(selectedEndpointKey);
@@ -597,6 +618,13 @@ export function ApiReferenceView({
     () => buildRichEndpoints(interfaces, schemas, scannedRoutes, triageRules, diffByEntity),
     [interfaces, schemas, scannedRoutes, triageRules, diffByEntity],
   );
+
+  // If deep-linked straight to a triaged route (e.g. from Cmd+K or Inspector), auto-reveal triaged routes
+  useEffect(() => {
+    if (!localSelectedKey) return;
+    const match = endpoints.find((e) => e.key === localSelectedKey || e.id === localSelectedKey);
+    if (match?.triageDisposition) setShowTriaged(true);
+  }, [localSelectedKey, endpoints]);
 
   const triagedCount = useMemo(() => endpoints.filter((e) => Boolean(e.triageDisposition)).length, [endpoints]);
   const businessCount = endpoints.length - triagedCount;
@@ -633,6 +661,17 @@ export function ApiReferenceView({
 
   useEffect(() => {
     setRespTab(0);
+    // Scroll ONLY the left endpoint rail so we never shift the outer page or clip the top bar!
+    const rail = railRef.current;
+    const item = activeItemRef.current;
+    if (rail && item) {
+      const railRect = rail.getBoundingClientRect();
+      const itemRect = item.getBoundingClientRect();
+      if (itemRect.top < railRect.top + 8 || itemRect.bottom > railRect.bottom - 8) {
+        const delta = itemRect.top - railRect.top - railRect.height / 2 + itemRect.height / 2;
+        rail.scrollTop = Math.max(0, rail.scrollTop + delta);
+      }
+    }
   }, [activeEndpoint?.key]);
 
   if (endpoints.length === 0) {
@@ -709,6 +748,7 @@ export function ApiReferenceView({
         {/* Pane 1: Left Sticky Endpoint Navigation Rail */}
         {endpoints.length > 1 && (
           <div
+            ref={railRef}
             className="section-card"
             style={{
               padding: 10,
@@ -742,12 +782,13 @@ export function ApiReferenceView({
                     return (
                       <button
                         key={ep.key}
+                        ref={isSel ? activeItemRef : undefined}
                         onClick={() => selectEndpoint(ep)}
                         style={{
                           textAlign: "left",
                           padding: "7px 8px",
                           borderRadius: 7,
-                          border: isSel ? "1px solid #c7d2fe" : "1px solid transparent",
+                          border: isSel ? "1px solid var(--accent-border)" : "1px solid transparent",
                           background: isSel ? "var(--accent-soft)" : "transparent",
                           cursor: "pointer",
                           display: "flex",

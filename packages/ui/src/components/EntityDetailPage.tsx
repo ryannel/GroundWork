@@ -8,6 +8,7 @@ import {
   GitBranch,
   GitCommitHorizontal,
   GitCompare,
+  GitFork,
   Globe,
   Layers,
   Server,
@@ -15,10 +16,12 @@ import {
   Zap,
 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
-import type { LoadedPlanPayload, ScannedSurface, SpacePayload } from "../types";
-import { ApiReferenceView, buildRichEndpoints } from "./shared/ApiReferenceView";
+import type { EntityNavOptions } from "../router";
+import type { LoadedPlanPayload, SpacePayload } from "../types";
+import { getComponentRichEndpoints, getComponentScannedSurfaces, getStoreTables, isServedApiSurface } from "../utils/spaceLookup";
+import { ApiReferenceView } from "./shared/ApiReferenceView";
 import { buildGitHubUrl, CodebaseGuideView, roleStyle } from "./shared/CodebaseGuideView";
-import { DatabaseSchemaView, type DbColumnSpec, type DbTableSpec } from "./shared/DatabaseSchemaView";
+import { DatabaseSchemaView } from "./shared/DatabaseSchemaView";
 import { EntityLink } from "./shared/EntityLink";
 import { schemaDefToRows, SchemaTableView } from "./shared/SchemaTableView";
 import { StepTreeView } from "./shared/StepTreeView";
@@ -35,7 +38,7 @@ interface Props {
   onRoutePatch?: (patch: { tab?: string; endpoint?: string; table?: string; dbview?: "tables" | "er"; state?: "proposed" | "as-is" }) => void;
   onBack: () => void;
   onBackToPlan?: () => void;
-  onOpenEntity: (entityId: string, tab?: string) => void;
+  onOpenEntity: (entityId: string, opts?: string | EntityNavOptions) => void;
   onOpenMap: (selectedId?: string) => void;
 }
 
@@ -190,24 +193,36 @@ export function EntityDetailPage({
   const externalMatch = space.externals.find((e) => e.id === entityId) ?? null;
   const systemMatch = activeSystems.find((s) => s.id === entityId) ?? null;
 
-  // Gather all scanned surfaces across space.evidence
-  const allEvidence = useMemo(() => Object.values(space.evidence ?? {}), [space.evidence]);
-  const allScannedSurfaces = useMemo<ScannedSurface[]>(
-    () => allEvidence.flatMap((ev) => ev.inventory?.surfaces ?? []),
-    [allEvidence],
-  );
-
   const outgoing = space.edges.filter((e) => e.from === entityId || e.from_system === entityId);
   const incoming = space.edges.filter((e) => e.to === entityId || e.to_system === entityId);
+
+  const dedupeEdges = (list: typeof outgoing, targetField: "to" | "from") => {
+    const map = new Map<string, { id: string; kind: string; count: number }>();
+    for (const e of list) {
+      const target = e[targetField];
+      if (target === entityId) continue;
+      const k = `${target}|${e.kind}`;
+      const cur = map.get(k);
+      if (cur) cur.count += 1;
+      else map.set(k, { id: target, kind: e.kind, count: 1 });
+    }
+    return [...map.values()];
+  };
 
   // ── 1. FULL SERVICE / APP / MODULE VIEW ───────────────────────────────────
   if (compMatch) {
     const { sys, comp } = compMatch;
     const compComplete = space.completeness.components.find((c) => c.component_id === comp.id);
     const codeInfo = space.component_code_info?.[comp.id];
-    const compScannedSurfaces = codeInfo?.matched_surfaces ?? [];
-    const scannedRoutes = compScannedSurfaces.filter((s) => s.kind === "route" || s.kind === "ws_channel");
-    const scannedTopics = compScannedSurfaces.filter((s) => s.kind === "topic" || s.kind === "subscription");
+    const compScannedSurfaces = getComponentScannedSurfaces(space, sys, comp);
+    const scannedRoutes = compScannedSurfaces.filter(isServedApiSurface);
+    const scannedTopics = [...new Map(
+      compScannedSurfaces
+        .filter((s) => s.kind === "topic" || s.kind === "subscription")
+        .map((s) => [s.surface_id, s]),
+    ).values()];
+    const uniqueOutgoing = dedupeEdges(outgoing, "to");
+    const uniqueIncoming = dedupeEdges(incoming, "from");
 
     // Owned or accessed databases & topics
     const relatedStores = sys.stores.filter(
@@ -222,15 +237,8 @@ export function EntityDetailPage({
     const totalHandlers = comp.handlers.handlers.length + (comp.handlers.procedures?.length ?? 0);
     const totalData = relatedStores.length + relatedTopics.length;
 
-    const richEndpoints = buildRichEndpoints(
-      comp.contracts.interfaces ?? [],
-      comp.contracts.schemas ?? [],
-      scannedRoutes,
-      comp.component.triage ?? [],
-      diffMap,
-    );
-    const businessRoutes = richEndpoints.filter((r) => !r.triageDisposition);
-    const totalApis = businessRoutes.length > 0 ? businessRoutes.length : richEndpoints.length;
+    const endpointSummary = getComponentRichEndpoints(space, sys, comp, diffMap);
+    const totalApis = endpointSummary.displayCount;
 
     const isModule = comp.component.kind === "module";
     const showApiTab = !isModule || totalApis > 0;
@@ -381,7 +389,7 @@ export function EntityDetailPage({
                   <div className="stat-card" style={{ textAlign: "left" }}>
                     <div className="stat-label">Dependencies</div>
                     <div className="stat-value">
-                      {outgoing.length} out · {incoming.length} in
+                      {uniqueOutgoing.length} out · {uniqueIncoming.length} in
                     </div>
                   </div>
                 </div>
@@ -413,6 +421,38 @@ export function EntityDetailPage({
                         ⚠ <strong>{t.title}:</strong> {t.detail}
                       </div>
                     ))}
+                  </div>
+                )}
+
+                {endpointSummary.groups.length > 0 && (
+                  <div className="section-card">
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+                      <div className="section-title" style={{ margin: 0 }}>
+                        API Resource Groups ({endpointSummary.displayCount} endpoints)
+                      </div>
+                      <button className="secondary-btn" style={{ padding: "4px 10px", fontSize: 12 }} onClick={() => changeTab("api")}>
+                        Open API Reference <ArrowRight size={12} />
+                      </button>
+                    </div>
+                    <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                      {endpointSummary.groups.map((g) => (
+                        <button
+                          key={g.name}
+                          type="button"
+                          className="entity-link neutral"
+                          style={{ padding: "5px 10px", fontSize: 12.5 }}
+                          onClick={() => {
+                            const firstKey = g.endpoints[0]?.key;
+                            setSelectedEndpoint(firstKey);
+                            setTab("api");
+                            onRoutePatch?.({ tab: "api", endpoint: firstKey });
+                          }}
+                          title={`Jump to ${g.name} endpoints in API Reference`}
+                        >
+                          {g.name} <span style={{ opacity: 0.65 }}>({g.endpoints.length})</span>
+                        </button>
+                      ))}
+                    </div>
                   </div>
                 )}
 
@@ -474,28 +514,28 @@ export function EntityDetailPage({
 
                 <div className="grid-2">
                   <div className="section-card">
-                    <div className="section-title">Depends On ({outgoing.length})</div>
-                    {outgoing.length === 0 ? (
+                    <div className="section-title">Depends On ({uniqueOutgoing.length})</div>
+                    {uniqueOutgoing.length === 0 ? (
                       <div style={{ fontSize: 12.5, color: "var(--text-faint)" }}>No outgoing dependencies recorded.</div>
                     ) : (
-                      outgoing.map((e, i) => (
-                        <div key={i} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "7px 0", borderBottom: "1px solid var(--border)" }}>
-                          <span className="badge">{e.kind}</span>
-                          <EntityLink id={e.to} onOpen={(id) => onOpenEntity(id)} />
+                      uniqueOutgoing.map((e) => (
+                        <div key={`${e.id}|${e.kind}`} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "7px 0", borderBottom: "1px solid var(--border)" }}>
+                          <span className="badge">{e.kind}{e.count > 1 ? ` ×${e.count}` : ""}</span>
+                          <EntityLink id={e.id} onOpen={(id) => onOpenEntity(id)} />
                         </div>
                       ))
                     )}
                   </div>
 
                   <div className="section-card">
-                    <div className="section-title">Used By ({incoming.length})</div>
-                    {incoming.length === 0 ? (
+                    <div className="section-title">Used By ({uniqueIncoming.length})</div>
+                    {uniqueIncoming.length === 0 ? (
                       <div style={{ fontSize: 12.5, color: "var(--text-faint)" }}>No incoming callers recorded.</div>
                     ) : (
-                      incoming.map((e, i) => (
-                        <div key={i} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "7px 0", borderBottom: "1px solid var(--border)" }}>
-                          <EntityLink id={e.from} onOpen={(id) => onOpenEntity(id)} />
-                          <span className="badge">{e.kind}</span>
+                      uniqueIncoming.map((e) => (
+                        <div key={`${e.id}|${e.kind}`} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "7px 0", borderBottom: "1px solid var(--border)" }}>
+                          <EntityLink id={e.id} onOpen={(id) => onOpenEntity(id)} />
+                          <span className="badge">{e.kind}{e.count > 1 ? ` ×${e.count}` : ""}</span>
                         </div>
                       ))
                     )}
@@ -574,28 +614,57 @@ export function EntityDetailPage({
                   {relatedStores.length === 0 ? (
                     <div className="section-card" style={{ color: "var(--text-faint)", fontSize: 13 }}>No databases owned or accessed by this component.</div>
                   ) : (
-                    relatedStores.map((st) => (
-                      <div key={st.id} className="section-card">
-                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-                          <div>
-                            <div style={{ fontWeight: 700, fontSize: 15 }}>{st.name}</div>
-                            <div className="mono" style={{ color: "var(--text-faint)", fontSize: 11 }}>{st.id} · {st.tech ?? st.form}</div>
+                    relatedStores.map((st) => {
+                      const stTables = getStoreTables(space, st, diffMap);
+                      return (
+                        <div key={st.id} className="section-card">
+                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8, flexWrap: "wrap", marginBottom: 8 }}>
+                            <div>
+                              <div style={{ fontWeight: 700, fontSize: 15 }}>{st.name}</div>
+                              <div className="mono" style={{ color: "var(--text-faint)", fontSize: 11 }}>
+                                {st.id} · {st.tech ?? st.form} · {stTables.length} tables
+                              </div>
+                            </div>
+                            <div style={{ display: "flex", gap: 6 }}>
+                              <button className="secondary-btn" style={{ padding: "6px 10px", fontSize: 12 }} onClick={() => onOpenEntity(st.id, { dbview: "er" })}>
+                                <GitFork size={13} /> ER Diagram
+                              </button>
+                              <button className="primary-btn" onClick={() => onOpenEntity(st.id)}>
+                                Open Database <ArrowRight size={13} />
+                              </button>
+                            </div>
                           </div>
-                          <button className="primary-btn" onClick={() => onOpenEntity(st.id)}>
-                            Open Full Database <ArrowRight size={13} />
-                          </button>
+                          {st.notes && <p style={{ fontSize: 12.5, color: "var(--text-muted)", margin: "0 0 10px 0" }}>{st.notes}</p>}
+                          {(st.records ?? []).map((rec) => (
+                            <SchemaTableView
+                              key={rec.id}
+                              title={`Table: ${rec.table ?? rec.id}`}
+                              schemaId={rec.id}
+                              columns={schemaDefToRows(rec, diffMap)}
+                            />
+                          ))}
+                          {stTables.length > (st.records?.length ?? 0) && (
+                            <div style={{ marginTop: 10 }}>
+                              <div className="section-title">All Tables ({stTables.length}) — click to inspect</div>
+                              <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+                                {stTables.map((t) => (
+                                  <button
+                                    key={t.name}
+                                    type="button"
+                                    className="entity-link neutral mono"
+                                    style={{ fontSize: 11.5, padding: "3px 8px" }}
+                                    onClick={() => onOpenEntity(st.id, { table: t.name })}
+                                    title={`Inspect "${t.name}" (${t.columns.length} columns)`}
+                                  >
+                                    {t.name}
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+                          )}
                         </div>
-                        {st.notes && <p style={{ fontSize: 12.5, color: "var(--text-muted)", margin: "0 0 10px 0" }}>{st.notes}</p>}
-                        {(st.records ?? []).map((rec) => (
-                          <SchemaTableView
-                            key={rec.id}
-                            title={`Table: ${rec.table ?? rec.id}`}
-                            schemaId={rec.id}
-                            columns={schemaDefToRows(rec, diffMap)}
-                          />
-                        ))}
-                      </div>
-                    ))
+                      );
+                    })
                   )}
                 </div>
 
@@ -657,67 +726,7 @@ export function EntityDetailPage({
   // ── 2. FULL DATABASE VIEW (`store:*`) ─────────────────────────────────────
   if (storeMatch) {
     const { sys, store } = storeMatch;
-    const scannedTables = allScannedSurfaces.filter((s) => s.kind === "table");
-
-    const combinedTables: DbTableSpec[] = [];
-    const seenNames = new Set<string>();
-    for (const rec of store.records ?? []) {
-      const name = rec.table ?? rec.id.replace(/^schema:/, "");
-      seenNames.add(name);
-      const cols: DbColumnSpec[] = rec.fields.map((f) => ({
-        id: f.id,
-        name: f.name,
-        type: typeof f.type === "string" ? f.type : JSON.stringify(f.type),
-        required: f.required,
-        primaryKey: f.name === "id",
-        diffKind: diffMap.get(`${rec.id}#${f.id}`),
-      }));
-      combinedTables.push({
-        name,
-        schemaId: rec.id,
-        source: "authored",
-        columns: cols,
-        hasPlanChange: cols.some((c) => Boolean(c.diffKind)),
-      });
-    }
-    for (const s of scannedTables) {
-      const tName = s.symbol ?? String(s.details?.table ?? s.surface_id.replace(/^table:/, ""));
-      if (seenNames.has(tName)) continue;
-      seenNames.add(tName);
-      const rawDefs = Array.isArray(s.details?.column_defs)
-        ? (s.details.column_defs as Array<{
-            name: string;
-            type: string;
-            required?: boolean;
-            primary_key?: boolean;
-            references?: string;
-            notes?: string;
-          }>)
-        : null;
-      const cols: DbColumnSpec[] = rawDefs
-        ? rawDefs.map((c) => ({
-            id: c.name,
-            name: c.name,
-            type: c.type,
-            required: c.required,
-            primaryKey: c.primary_key,
-            references: c.references,
-            notes: c.notes,
-          }))
-        : (Array.isArray(s.details?.columns) ? (s.details.columns as string[]) : []).map((c) => ({
-            id: c,
-            name: c,
-            type: "sql",
-          }));
-      combinedTables.push({
-        name: tName,
-        source: "scanned",
-        file: s.file,
-        columns: cols,
-        hasPlanChange: false,
-      });
-    }
-    combinedTables.sort((a, b) => Number(b.hasPlanChange) - Number(a.hasPlanChange) || a.name.localeCompare(b.name));
+    const combinedTables = getStoreTables(space, store, diffMap);
 
     const writers = space.edges.filter((e) => e.to === store.id && e.kind === "write");
     const readers = space.edges.filter((e) => e.to === store.id && e.kind === "read");
@@ -846,13 +855,21 @@ export function EntityDetailPage({
 
         <div className="detail-hero" style={{ paddingBottom: 20 }}>
           <div className="detail-hero-inner">
-            <div style={{ display: "flex", gap: 8, marginBottom: 6 }}>
-              <span className="badge">Message Queue · {topic.form}</span>
-              {topic.tech && <span className="badge">{topic.tech}</span>}
-              {topic.owner !== "unknown" && <EntityLink id={topic.owner} label={`owner: ${topic.owner}`} variant="neutral" onOpen={(id) => onOpenEntity(id)} />}
+            <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 16, flexWrap: "wrap" }}>
+              <div>
+                <div style={{ display: "flex", gap: 8, marginBottom: 6, flexWrap: "wrap" }}>
+                  <span className="badge violet">Message Queue · {topic.form}</span>
+                  {!fromPlan && <span className="badge">As-Is System</span>}
+                  {topic.tech && <span className="badge">{topic.tech}</span>}
+                  {topic.owner !== "unknown" && <EntityLink id={topic.owner} label={`owner: ${topic.owner}`} variant="neutral" onOpen={(id) => onOpenEntity(id)} />}
+                </div>
+                <h1 style={{ margin: 0, fontSize: 24, fontWeight: 800 }}>{topic.name}</h1>
+                <div className="mono" style={{ color: "var(--text-faint)", marginTop: 3 }}>{topic.id}</div>
+              </div>
+              <button className="secondary-btn" onClick={() => onOpenMap(topic.id)}>
+                <Layers size={14} /> Show on System Map
+              </button>
             </div>
-            <h1 style={{ margin: 0, fontSize: 24, fontWeight: 800 }}>{topic.name}</h1>
-            <div className="mono" style={{ color: "var(--text-faint)", marginTop: 3 }}>{topic.id}</div>
           </div>
         </div>
 
@@ -921,23 +938,31 @@ export function EntityDetailPage({
 
         <div className="detail-hero" style={{ paddingBottom: 20 }}>
           <div className="detail-hero-inner">
-            <div style={{ display: "flex", gap: 8, marginBottom: 6 }}>
-              {externalMatch ? (
-                <span className="badge"><Globe size={12} /> External 3rd-Party</span>
-              ) : (
-                <span className={`badge ${systemMatch!.system.mapped ? "indigo" : "amber"}`}>
-                  {systemMatch!.system.mapped ? "System" : "Unmapped Stub System"}
-                </span>
-              )}
-              {externalMatch?.external.doc_root && (
-                <a href={externalMatch.external.doc_root} target="_blank" rel="noreferrer" className="entity-link neutral">
-                  Documentation <ExternalLink size={11} />
-                </a>
-              )}
+            <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 16, flexWrap: "wrap" }}>
+              <div>
+                <div style={{ display: "flex", gap: 8, marginBottom: 6, flexWrap: "wrap" }}>
+                  {externalMatch ? (
+                    <span className="badge"><Globe size={12} /> External 3rd-Party</span>
+                  ) : (
+                    <span className={`badge ${systemMatch!.system.mapped ? "indigo" : "amber"}`}>
+                      {systemMatch!.system.mapped ? "System" : "Unmapped Stub System"}
+                    </span>
+                  )}
+                  {!fromPlan && <span className="badge">As-Is System</span>}
+                  {externalMatch?.external.doc_root && (
+                    <a href={externalMatch.external.doc_root} target="_blank" rel="noreferrer" className="entity-link neutral">
+                      Documentation <ExternalLink size={11} />
+                    </a>
+                  )}
+                </div>
+                <h1 style={{ margin: 0, fontSize: 24, fontWeight: 800 }}>{title}</h1>
+                <div className="mono" style={{ color: "var(--text-faint)", marginTop: 3 }}>{entityId}</div>
+                <p style={{ margin: "8px 0 0 0", fontSize: 13.5, color: "var(--text-muted)", maxWidth: 740 }}>{summary}</p>
+              </div>
+              <button className="secondary-btn" onClick={() => onOpenMap(entityId)}>
+                <Layers size={14} /> Show on System Map
+              </button>
             </div>
-            <h1 style={{ margin: 0, fontSize: 24, fontWeight: 800 }}>{title}</h1>
-            <div className="mono" style={{ color: "var(--text-faint)", marginTop: 3 }}>{entityId}</div>
-            <p style={{ margin: "8px 0 0 0", fontSize: 13.5, color: "var(--text-muted)", maxWidth: 740 }}>{summary}</p>
           </div>
         </div>
 
@@ -966,6 +991,62 @@ export function EntityDetailPage({
               </div>
             )}
 
+            {systemMatch && (systemMatch.stores.length > 0 || systemMatch.topics.length > 0) && (
+              <div className="grid-2">
+                {systemMatch.stores.length > 0 && (
+                  <div className="section-card">
+                    <div className="section-title">Databases &amp; Stores ({systemMatch.stores.length})</div>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                      {systemMatch.stores.map((st) => {
+                        const tblCount = getStoreTables(space, st, diffMap).length;
+                        return (
+                          <button
+                            key={st.id}
+                            className="section-card"
+                            style={{ textAlign: "left", cursor: "pointer", background: "var(--bg)" }}
+                            onClick={() => onOpenEntity(st.id)}
+                          >
+                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8 }}>
+                              <strong>{st.name}</strong>
+                              <span className="badge teal">{tblCount} tables</span>
+                            </div>
+                            <div className="mono" style={{ color: "var(--text-faint)", fontSize: 11, marginTop: 2 }}>
+                              {st.id}{st.tech ? ` · ${st.tech}` : ""}
+                            </div>
+                            {st.notes && <div style={{ fontSize: 12, color: "var(--text-muted)", marginTop: 5 }}>{st.notes}</div>}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {systemMatch.topics.length > 0 && (
+                  <div className="section-card">
+                    <div className="section-title">Message Queues &amp; Streams ({systemMatch.topics.length})</div>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                      {systemMatch.topics.map((top) => (
+                        <button
+                          key={top.id}
+                          className="section-card"
+                          style={{ textAlign: "left", cursor: "pointer", background: "var(--bg)" }}
+                          onClick={() => onOpenEntity(top.id)}
+                        >
+                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8 }}>
+                            <strong>{top.name}</strong>
+                            <span className="badge violet">{top.messages?.length ?? 0} msgs</span>
+                          </div>
+                          <div className="mono" style={{ color: "var(--text-faint)", fontSize: 11, marginTop: 2 }}>
+                            {top.id}{top.tech ? ` · ${top.tech}` : ""}
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
             {interfaces.length > 0 && (
               <div>
                 <div className="section-title">Known API Contracts</div>
@@ -973,20 +1054,36 @@ export function EntityDetailPage({
                   interfaces={interfaces}
                   schemas={[]}
                   diffByEntity={diffMap}
+                  selectedEndpointKey={selectedEndpoint}
+                  onSelectEndpoint={(key) => {
+                    setSelectedEndpoint(key);
+                    onRoutePatch?.({ endpoint: key });
+                  }}
                 />
               </div>
             )}
 
-            <div className="section-card">
-              <div className="section-title">Called By ({incoming.length})</div>
-              {incoming.length === 0 ? (
-                <div style={{ fontSize: 12.5, color: "var(--text-faint)" }}>No callers recorded.</div>
-              ) : (
-                <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-                  {[...new Set(incoming.map((e) => e.from))].map((id) => <EntityLink key={id} id={id} onOpen={(x) => onOpenEntity(x)} />)}
+            {(() => {
+              const externalCallers = [
+                ...new Set(
+                  incoming
+                    .filter((e) => !systemMatch || e.from_system !== systemMatch.id)
+                    .map((e) => e.from),
+                ),
+              ];
+              return (
+                <div className="section-card">
+                  <div className="section-title">Called By ({externalCallers.length})</div>
+                  {externalCallers.length === 0 ? (
+                    <div style={{ fontSize: 12.5, color: "var(--text-faint)" }}>No external callers recorded.</div>
+                  ) : (
+                    <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+                      {externalCallers.map((id) => <EntityLink key={id} id={id} onOpen={(x) => onOpenEntity(x)} />)}
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
+              );
+            })()}
           </div>
         </div>
       </div>

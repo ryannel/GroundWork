@@ -16,6 +16,7 @@ import {
   XCircle,
 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
+import type { EntityNavOptions } from "../router";
 import type { LoadedPlanPayload, SpacePayload } from "../types";
 import { FlowWalkthrough } from "./FlowWalkthrough";
 import { EntityLink } from "./shared/EntityLink";
@@ -33,7 +34,7 @@ interface Props {
   initialMode?: "architecture" | "sequence";
   onRouteSync?: (patch: { tab?: string; op?: string; step?: number; mode?: "architecture" | "sequence" }, push?: boolean) => void;
   onRefresh: () => void;
-  onOpenEntity: (entityId: string, tab?: string, fromPlanId?: string) => void;
+  onOpenEntity: (entityId: string, opts?: string | EntityNavOptions, fromPlanId?: string) => void;
 }
 
 function ExecutionDag({
@@ -344,6 +345,7 @@ export function PlanStudio({
               unassignedTopics={space.unassigned_topics}
               edges={archMode === "before" ? space.edges : plan.after_edges}
               evidence={space.evidence}
+              componentCodeInfo={space.component_code_info}
               selectedId={selectedNode}
               onSelect={setSelectedNode}
               onOpenFullView={(id) => onOpenEntity(id, undefined, plan.id)}

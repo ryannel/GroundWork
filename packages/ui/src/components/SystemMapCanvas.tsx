@@ -2,6 +2,8 @@ import ELK from "elkjs/lib/elk.bundled.js";
 import { Box, ChevronsDownUp, ChevronsUpDown, Database, Eye, Globe, Layers, MessageSquare, Server, Smartphone } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import type { DerivedEdge, LoadedExternal, LoadedSystem, SpacePayload, StoreFile, TopicFile } from "../types";
+import { isServedApiSurface } from "../utils/spaceLookup";
+import { buildRichEndpoints } from "./shared/ApiReferenceView";
 import { InteractiveViewport, type ContentBounds } from "./shared/InteractiveViewport";
 
 const elk = new ELK();
@@ -203,7 +205,16 @@ export function SystemMapCanvas({
         for (const c of sys.components) {
           compToVisible.set(c.id, c.id);
           const cDiff = diffByEntity?.get(c.id);
-          const apiCount = c.contracts.interfaces?.reduce((a, i) => a + i.entries.length, 0) ?? 0;
+          const matchedSurfaces = componentCodeInfo?.[c.id]?.matched_surfaces ?? [];
+          const scannedRoutes = matchedSurfaces.filter(isServedApiSurface);
+          const richEps = buildRichEndpoints(
+            c.contracts.interfaces ?? [],
+            c.contracts.schemas ?? [],
+            scannedRoutes,
+            c.component.triage ?? [],
+          );
+          const businessEps = richEps.filter((e) => !e.triageDisposition);
+          const apiCount = businessEps.length > 0 ? businessEps.length : richEps.length;
           const pkgStruct = componentCodeInfo?.[c.id]?.package_structure;
           const zoneCount = c.orientation?.zones?.length ?? 0;
           const usedByCount = incomingCountByComp.get(c.id)?.size ?? 0;

@@ -20,7 +20,7 @@ export function getComponentScannedSurfaces(
   space: SpacePayload,
   sys: LoadedSystem,
   comp: LoadedComponent,
-): ScannedSurface[] {
+): readonly ScannedSurface[] {
   const fromCodeInfo = space.component_code_info?.[comp.id]?.matched_surfaces;
   if (fromCodeInfo && fromCodeInfo.length > 0) {
     return fromCodeInfo;
@@ -50,15 +50,27 @@ export interface ComponentEndpointSummary {
   readonly groups: ReadonlyArray<{ readonly name: string; readonly endpoints: readonly RichEndpointSpec[] }>;
 }
 
+/**
+ * True when a scanned route / ws_channel represents an API served by this component
+ * (excludes outbound client codegen OpenAPI specs under provider/providers/clients/sdk
+ * and static site build outputs under out/dist/build).
+ */
+export function isServedApiSurface(s: ScannedSurface): boolean {
+  if (s.kind !== "route" && s.kind !== "ws_channel") return false;
+  if (s.denominator === "declarative_spec") {
+    const f = s.file.toLowerCase();
+    if (/(^|\/)(provider|providers|clients?|sdk|out|dist|build)\//.test(f)) return false;
+  }
+  return true;
+}
+
 export function getComponentRichEndpoints(
   space: SpacePayload,
   sys: LoadedSystem,
   comp: LoadedComponent,
   diffByEntity?: ReadonlyMap<string, "added" | "modified" | "removed">,
 ): ComponentEndpointSummary {
-  const scannedRoutes = getComponentScannedSurfaces(space, sys, comp).filter(
-    (s) => s.kind === "route" || s.kind === "ws_channel",
-  );
+  const scannedRoutes = getComponentScannedSurfaces(space, sys, comp).filter(isServedApiSurface);
   const all = buildRichEndpoints(
     comp.contracts.interfaces ?? [],
     comp.contracts.schemas ?? [],

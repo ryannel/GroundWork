@@ -1,12 +1,13 @@
 import { ArrowRight, ChevronLeft, ChevronRight, GitBranch, User } from "lucide-react";
 import { useEffect, useState } from "react";
+import type { EntityNavOptions } from "../router";
 import type { SpacePayload } from "../types";
 import { EntityLink } from "./shared/EntityLink";
 import { QuickPeekDrawer } from "./shared/QuickPeekDrawer";
 
 interface Props {
   space: SpacePayload;
-  onOpenEntity: (entityId: string, tab?: string) => void;
+  onOpenEntity: (entityId: string, opts?: string | EntityNavOptions) => void;
 }
 
 /**
@@ -147,52 +148,53 @@ export function FlowsView({ space, onOpenEntity }: Props) {
           )}
 
           {/* Connected Step Cards Grid */}
-          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 12 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(230px, 1fr))", gap: 12 }}>
             {flow.steps.map((st, idx) => {
               const isSel = idx === stepIdx;
               return (
-                <div key={st.id} style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                  <div
-                    role="button"
-                    tabIndex={0}
-                    onClick={() => {
-                      setStepIdx(idx);
-                      setPeekId(st.ref);
-                    }}
-                    className="section-card"
-                    style={{
-                      width: 268,
-                      cursor: "pointer",
-                      border: isSel ? "1.5px solid var(--accent)" : "1px solid var(--border)",
-                      background: isSel ? "var(--accent-soft)" : "var(--surface)",
-                      boxShadow: isSel ? "0 0 0 3px rgba(99,102,241,0.18)" : "none",
-                      transition: "border-color 0.12s, box-shadow 0.12s",
-                    }}
-                  >
-                    <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+                <div
+                  key={st.id}
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => {
+                    setStepIdx(idx);
+                    setPeekId(st.ref);
+                  }}
+                  className="section-card"
+                  style={{
+                    cursor: "pointer",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                    gap: 10,
+                    border: isSel ? "1.5px solid var(--accent)" : "1px solid var(--border)",
+                    background: isSel ? "var(--accent-soft)" : "var(--surface)",
+                    boxShadow: isSel ? "0 0 0 3px rgba(99,102,241,0.18)" : "none",
+                    transition: "border-color 0.12s, box-shadow 0.12s",
+                  }}
+                >
+                  <div>
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, marginBottom: 6 }}>
                       <span
                         className="mono"
                         style={{
-                          width: 22,
-                          height: 22,
+                          padding: "2px 7px",
                           borderRadius: 6,
                           background: isSel ? "var(--accent)" : "var(--surface-muted)",
                           color: isSel ? "#fff" : "var(--text)",
-                          display: "inline-grid",
-                          placeItems: "center",
                           fontSize: 11,
                           fontWeight: 700,
                         }}
                       >
-                        {idx + 1}
+                        Step {idx + 1}
                       </span>
-                      <span style={{ fontWeight: 700, fontSize: 13 }}>{st.label}</span>
+                      {idx < flow.steps.length - 1 && <ArrowRight size={14} color="var(--text-faint)" />}
                     </div>
-                    <div onClick={(e) => e.stopPropagation()}>
-                      <EntityLink id={st.ref} onOpen={(id) => onOpenEntity(id)} />
-                    </div>
+                    <div style={{ fontWeight: 700, fontSize: 13.5, lineHeight: 1.35 }}>{st.label}</div>
                   </div>
-                  {idx < flow.steps.length - 1 && <ArrowRight size={16} color="var(--text-faint)" />}
+                  <div onClick={(e) => e.stopPropagation()} style={{ maxWidth: "100%", overflow: "hidden" }}>
+                    <EntityLink id={st.ref} onOpen={(id) => onOpenEntity(id)} />
+                  </div>
                 </div>
               );
             })}

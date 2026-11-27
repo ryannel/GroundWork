@@ -1,9 +1,11 @@
-import { ArrowUpRight, ExternalLink, GitBranch, X } from "lucide-react";
-import { useState } from "react";
+import { ArrowUpRight, ExternalLink, GitBranch, GitFork, X } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import type { EntityNavOptions } from "../router";
 import type { HandlerDef, SpacePayload } from "../types";
-import { buildRichEndpoints, EndpointSpecCard } from "./shared/ApiReferenceView";
+import { getComponentRichEndpoints, getStoreTables } from "../utils/spaceLookup";
+import { buildRichEndpoints } from "./shared/ApiReferenceView";
+import { DrawerEndpointExplorer, DrawerTableExplorer } from "./shared/DrawerExplorers";
 import { EntityLink } from "./shared/EntityLink";
-import { schemaDefToRows, SchemaTableView } from "./shared/SchemaTableView";
 import { StepTreeView } from "./shared/StepTreeView";
 
 interface Props {
@@ -11,20 +13,69 @@ interface Props {
   selectedId: string | null;
   onClose: () => void;
   onSelect: (id: string) => void;
-  onOpenFullView: (entityId: string, tab?: string) => void;
+  onOpenFullView: (entityId: string, opts?: string | EntityNavOptions) => void;
 }
 
 export function InspectorDrawer({ space, selectedId, onClose, onSelect, onOpenFullView }: Props) {
   const [tab, setTab] = useState<"overview" | "contracts" | "flows">("overview");
   const [activeHandlerId, setActiveHandlerId] = useState<string | null>(null);
 
-  if (!selectedId) return null;
+  const sys = useMemo(() => space.systems.find((s) => s.id === selectedId), [space, selectedId]);
+  const compMatch = useMemo(() => {
+    for (const s of space.systems) {
+      const c = s.components.find((x) => x.id === selectedId);
+      if (c) return { sys: s, comp: c };
+    }
+    return null;
+  }, [space, selectedId]);
+  const comp = compMatch?.comp;
+  const store = useMemo(
+    () => [...space.systems.flatMap((s) => s.stores), ...space.unassigned_stores].find((s) => s.id === selectedId),
+    [space, selectedId],
+  );
+  const topic = useMemo(
+    () => [...space.systems.flatMap((s) => s.topics), ...space.unassigned_topics].find((t) => t.id === selectedId),
+    [space, selectedId],
+  );
+  const ext = useMemo(() => space.externals.find((e) => e.id === selectedId), [space, selectedId]);
 
-  const sys = space.systems.find((s) => s.id === selectedId);
-  const comp = space.systems.flatMap((s) => s.components).find((c) => c.id === selectedId);
-  const store = [...space.systems.flatMap((s) => s.stores), ...space.unassigned_stores].find((s) => s.id === selectedId);
-  const topic = [...space.systems.flatMap((s) => s.topics), ...space.unassigned_topics].find((t) => t.id === selectedId);
-  const ext = space.externals.find((e) => e.id === selectedId);
+  const endpointSummary = useMemo(() => {
+    if (compMatch) {
+      return getComponentRichEndpoints(space, compMatch.sys, compMatch.comp);
+    }
+    const stubIfaces = sys?.stub_contracts?.interfaces ?? ext?.contracts.interfaces ?? [];
+    if (stubIfaces.length === 0) return null;
+    const all = buildRichEndpoints(stubIfaces);
+    const map = new Map<string, typeof all>();
+    for (const ep of all) {
+      const arr = map.get(ep.group) ?? [];
+      arr.push(ep);
+      map.set(ep.group, arr);
+    }
+    return {
+      all,
+      business: all,
+      triagedCount: 0,
+      displayCount: all.length,
+      groups: [...map.entries()].map(([name, endpoints]) => ({ name, endpoints })),
+    };
+  }, [space, compMatch, sys, ext]);
+
+  const storeTables = useMemo(() => (store ? getStoreTables(space, store) : []), [space, store]);
+  const allFlows: HandlerDef[] = useMemo(
+    () => (comp ? [...comp.handlers.handlers, ...(comp.handlers.procedures ?? [])] : []),
+    [comp],
+  );
+
+  const hasContractsTab = Boolean((endpointSummary && endpointSummary.all.length > 0) || store || topic);
+
+  useEffect(() => {
+    setActiveHandlerId(null);
+    if (tab === "contracts" && !hasContractsTab) setTab("overview");
+    if (tab === "flows" && allFlows.length === 0) setTab("overview");
+  }, [selectedId, hasContractsTab, allFlows.length, tab]);
+
+  if (!selectedId) return null;
 
   const title =
     sys?.system.name ??
@@ -48,15 +99,32 @@ export function InspectorDrawer({ space, selectedId, onClose, onSelect, onOpenFu
           ? "Open Provider View"
           : "Open Full System View";
 
-  const outgoing = space.edges.filter((e) => e.from === selectedId || e.from_system === selectedId);
-  const incoming = space.edges.filter((e) => e.to === selectedId || e.to_system === selectedId);
+  const dedupeEdges = (list: typeof space.edges, field: "to" | "from") => {
+    const map = new Map<string, { id: string; kind: string; count: number }>();
+    for (const e of list) {
+      const target = e[field];
+      if (target === selectedId) continue;
+      if (sys && field === "from" && e.from_system === sys.id) continue;
+      if (sys && field === "to" && e.to_system === sys.id) continue;
+      const k = `${target}|${e.kind}`;
+      const cur = map.get(k);
+      if (cur) cur.count += 1;
+      else map.set(k, { id: target, kind: e.kind, count: 1 });
+    }
+    return [...map.values()];
+  };
+
+  const outgoing = dedupeEdges(
+    space.edges.filter((e) => e.from === selectedId || e.from_system === selectedId),
+    "to",
+  );
+  const incoming = dedupeEdges(
+    space.edges.filter((e) => e.to === selectedId || e.to_system === selectedId),
+    "from",
+  );
   const entityGaps = space.gaps.filter((g) => g.entity_id === selectedId || g.entity_id.startsWith(`${selectedId}/`));
   const compComplete = space.completeness.components.find((c) => c.component_id === selectedId);
 
-  const interfaces = comp?.contracts.interfaces ?? sys?.stub_contracts?.interfaces ?? ext?.contracts.interfaces ?? [];
-  const allFlows: HandlerDef[] = comp
-    ? [...comp.handlers.handlers, ...(comp.handlers.procedures ?? [])]
-    : [];
   const selectedFlow = allFlows.find((f) => f.id === activeHandlerId) ?? allFlows[0];
 
   return (
@@ -72,23 +140,37 @@ export function InspectorDrawer({ space, selectedId, onClose, onSelect, onOpenFu
       </div>
 
       {/* Prominent one-click jump to Full Service / Database / Queue View */}
-      <div style={{ padding: "10px 16px", borderBottom: "1px solid var(--border)", background: "var(--surface)" }}>
+      <div style={{ padding: "10px 16px", borderBottom: "1px solid var(--border)", background: "var(--surface)", display: "flex", gap: 8 }}>
         <button
           className="primary-btn"
-          style={{ width: "100%", justifyContent: "center" }}
+          style={{ flex: 1, justifyContent: "center" }}
           onClick={() => onOpenFullView(selectedId)}
         >
           {fullViewLabel} <ArrowUpRight size={14} />
         </button>
+        {store && (
+          <button
+            className="secondary-btn"
+            style={{ padding: "7px 10px", fontSize: 12, flexShrink: 0 }}
+            onClick={() => onOpenFullView(store.id, { dbview: "er" })}
+            title="Open Entity Relationship Diagram"
+          >
+            <GitFork size={13} /> ER
+          </button>
+        )}
       </div>
 
       <div className="inspector-tabs">
         <button className={`icon-btn ${tab === "overview" ? "active" : ""}`} onClick={() => setTab("overview")}>
           Overview
         </button>
-        {(interfaces.length > 0 || store || topic) && (
+        {hasContractsTab && (
           <button className={`icon-btn ${tab === "contracts" ? "active" : ""}`} onClick={() => setTab("contracts")}>
-            {store ? "Tables" : topic ? "Messages" : `Contracts (${interfaces.reduce((a, i) => a + i.entries.length, 0)})`}
+            {store
+              ? `Tables (${storeTables.length})`
+              : topic
+                ? `Messages (${topic.messages?.length ?? 0})`
+                : `Contracts (${endpointSummary?.displayCount ?? 0})`}
           </button>
         )}
         {allFlows.length > 0 && (
@@ -112,6 +194,7 @@ export function InspectorDrawer({ space, selectedId, onClose, onSelect, onOpenFu
                 {compComplete && <span className="badge emerald">accounted: {compComplete.accounted_pct}%</span>}
                 {sys?.system.team && <span className="badge">{sys.system.team}</span>}
                 {sys && !sys.system.mapped && <span className="badge amber">mapped: false (stub)</span>}
+                {store && <span className="badge teal">{storeTables.length} tables</span>}
                 {store && store.owner === "unknown" && <span className="badge amber">owner: unknown</span>}
                 {store && store.owner !== "unknown" && (
                   <EntityLink id={store.owner} label={`owner: ${store.owner}`} variant="neutral" onOpen={(id) => onOpenFullView(id)} />
@@ -129,6 +212,85 @@ export function InspectorDrawer({ space, selectedId, onClose, onSelect, onOpenFu
                 </div>
               )}
             </div>
+
+            {endpointSummary && endpointSummary.groups.length > 0 && (
+              <div className="section-card">
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
+                  <div className="section-title" style={{ margin: 0 }}>
+                    API Surfaces ({endpointSummary.displayCount})
+                  </div>
+                  <button
+                    type="button"
+                    className="entity-link"
+                    style={{ fontSize: 11, padding: "2px 7px" }}
+                    onClick={() => setTab("contracts")}
+                  >
+                    Browse all →
+                  </button>
+                </div>
+                <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+                  {endpointSummary.groups.map((g) => (
+                    <button
+                      key={g.name}
+                      type="button"
+                      className="entity-link neutral"
+                      style={{ fontSize: 11.5, padding: "3px 8px" }}
+                      onClick={() =>
+                        onOpenFullView(selectedId, {
+                          tab: comp ? "api" : undefined,
+                          endpoint: g.endpoints[0]?.key,
+                        })
+                      }
+                      title={`Jump directly to ${g.name} endpoints (${g.endpoints.length})`}
+                    >
+                      {g.name} <span style={{ opacity: 0.65 }}>({g.endpoints.length})</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {store && storeTables.length > 0 && (
+              <div className="section-card">
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
+                  <div className="section-title" style={{ margin: 0 }}>
+                    Tables ({storeTables.length})
+                  </div>
+                  <button
+                    type="button"
+                    className="entity-link"
+                    style={{ fontSize: 11, padding: "2px 7px" }}
+                    onClick={() => setTab("contracts")}
+                  >
+                    Filter tables →
+                  </button>
+                </div>
+                <div style={{ display: "flex", gap: 5, flexWrap: "wrap" }}>
+                  {storeTables.slice(0, 14).map((t) => (
+                    <button
+                      key={t.name}
+                      type="button"
+                      className="entity-link neutral mono"
+                      style={{ fontSize: 11, padding: "2px 7px" }}
+                      onClick={() => onOpenFullView(store.id, { table: t.name })}
+                      title={`Open table "${t.name}" (${t.columns.length} columns)`}
+                    >
+                      {t.name}
+                    </button>
+                  ))}
+                  {storeTables.length > 14 && (
+                    <button
+                      type="button"
+                      className="entity-link"
+                      style={{ fontSize: 11, padding: "2px 7px" }}
+                      onClick={() => setTab("contracts")}
+                    >
+                      +{storeTables.length - 14} more
+                    </button>
+                  )}
+                </div>
+              </div>
+            )}
 
             {sys && (sys.components.length > 0 || sys.stores.length > 0 || sys.topics.length > 0) && (
               <div className="section-card">
@@ -178,7 +340,7 @@ export function InspectorDrawer({ space, selectedId, onClose, onSelect, onOpenFu
                       className="badge indigo"
                       style={{ cursor: "pointer" }}
                       title={z.summary}
-                      onClick={() => onOpenFullPage(comp.id, "code")}
+                      onClick={() => onOpenFullView(comp.id, { tab: "code" })}
                     >
                       {z.name}
                     </button>
@@ -190,7 +352,15 @@ export function InspectorDrawer({ space, selectedId, onClose, onSelect, onOpenFu
                 <div className="section-title">Public Module Surface ({comp.component.public_modules.length})</div>
                 <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
                   {comp.component.public_modules.map((m) => (
-                    <span key={m.name} className="badge indigo mono">pub mod {m.name}</span>
+                    <button
+                      key={m.name}
+                      type="button"
+                      className="badge indigo mono"
+                      style={{ cursor: "pointer" }}
+                      onClick={() => onOpenFullView(comp.id, { tab: "code" })}
+                    >
+                      pub mod {m.name}
+                    </button>
                   ))}
                 </div>
               </div>
@@ -200,9 +370,25 @@ export function InspectorDrawer({ space, selectedId, onClose, onSelect, onOpenFu
               <div className="section-card" style={{ borderColor: "var(--amber-border)", background: "var(--amber-soft)" }}>
                 <div className="section-title" style={{ color: "var(--amber)" }}>Explicit Gaps ({entityGaps.length})</div>
                 {entityGaps.map((g, i) => (
-                  <div key={i} style={{ fontSize: 12, color: "var(--amber-ink)", marginBottom: 4 }}>
+                  <button
+                    key={i}
+                    type="button"
+                    onClick={() => onOpenFullView(g.entity_id, g.kind.includes("surface") ? { tab: "code" } : undefined)}
+                    style={{
+                      display: "block",
+                      width: "100%",
+                      textAlign: "left",
+                      background: "transparent",
+                      border: "none",
+                      padding: "4px 0",
+                      cursor: "pointer",
+                      fontSize: 12,
+                      color: "var(--amber-ink)",
+                    }}
+                    title="Inspect this gap"
+                  >
                     <strong>[{g.kind}]</strong> {g.detail}
-                  </div>
+                  </button>
                 ))}
               </div>
             )}
@@ -212,10 +398,10 @@ export function InspectorDrawer({ space, selectedId, onClose, onSelect, onOpenFu
               {outgoing.length === 0 ? (
                 <div style={{ fontSize: 12, color: "var(--text-faint)" }}>No outgoing edges recorded.</div>
               ) : (
-                outgoing.map((e, i) => (
-                  <div key={i} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "6px 0", borderBottom: "1px solid var(--border)", fontSize: 12 }}>
-                    <span className="badge">{e.kind}</span>
-                    <EntityLink id={e.to} variant="neutral" onOpen={onSelect} />
+                outgoing.map((e) => (
+                  <div key={`${e.id}|${e.kind}`} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "6px 0", borderBottom: "1px solid var(--border)", fontSize: 12 }}>
+                    <span className="badge">{e.kind}{e.count > 1 ? ` ×${e.count}` : ""}</span>
+                    <EntityLink id={e.id} variant="neutral" onOpen={onSelect} />
                   </div>
                 ))
               )}
@@ -226,10 +412,10 @@ export function InspectorDrawer({ space, selectedId, onClose, onSelect, onOpenFu
               {incoming.length === 0 ? (
                 <div style={{ fontSize: 12, color: "var(--text-faint)" }}>No incoming callers recorded.</div>
               ) : (
-                incoming.map((e, i) => (
-                  <div key={i} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "6px 0", borderBottom: "1px solid var(--border)", fontSize: 12 }}>
-                    <EntityLink id={e.from} variant="neutral" onOpen={onSelect} />
-                    <span className="badge">{e.kind}</span>
+                incoming.map((e) => (
+                  <div key={`${e.id}|${e.kind}`} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "6px 0", borderBottom: "1px solid var(--border)", fontSize: 12 }}>
+                    <EntityLink id={e.id} variant="neutral" onOpen={onSelect} />
+                    <span className="badge">{e.kind}{e.count > 1 ? ` ×${e.count}` : ""}</span>
                   </div>
                 ))
               )}
@@ -239,43 +425,26 @@ export function InspectorDrawer({ space, selectedId, onClose, onSelect, onOpenFu
 
         {tab === "contracts" && (
           <>
-            {interfaces.length > 0 &&
-              buildRichEndpoints(interfaces, comp?.contracts.schemas ?? []).slice(0, 8).map((ep) => (
-                <EndpointSpecCard key={ep.key} endpoint={ep} />
-              ))}
-
-            {store && (store.records ?? []).map((rec) => (
-              <SchemaTableView
-                key={rec.id}
-                title={`Table: ${rec.table ?? rec.id}`}
-                schemaId={rec.id}
-                columns={schemaDefToRows(rec)}
+            {endpointSummary && endpointSummary.all.length > 0 && (
+              <DrawerEndpointExplorer
+                summary={endpointSummary}
+                onOpenEndpoint={(endpointKey) =>
+                  onOpenFullView(selectedId, {
+                    tab: comp ? "api" : undefined,
+                    endpoint: endpointKey,
+                  })
+                }
+                onOpenAllApis={() => onOpenFullView(selectedId, { tab: comp ? "api" : undefined })}
               />
-            ))}
+            )}
 
-            {store && (() => {
-              const authoredNames = new Set((store.records ?? []).map((r) => r.table ?? r.id));
-              const scanned = Object.values(space.evidence ?? {})
-                .flatMap((ev) => ev.inventory?.surfaces ?? [])
-                .filter((s) => s.kind === "table" && !authoredNames.has(s.symbol ?? s.surface_id));
-              if (scanned.length === 0) return null;
-              return (
-                <div className="section-card">
-                  <div className="section-title">Scanned SQL Tables ({scanned.length})</div>
-                  <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-                    {scanned.slice(0, 18).map((s) => (
-                      <button
-                        key={s.surface_id}
-                        className="entity-link neutral"
-                        onClick={() => onOpenFullView(store.id)}
-                      >
-                        {s.symbol ?? s.surface_id}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              );
-            })()}
+            {store && (
+              <DrawerTableExplorer
+                tables={storeTables}
+                onOpenTable={(tableName) => onOpenFullView(store.id, { table: tableName })}
+                onOpenErDiagram={() => onOpenFullView(store.id, { dbview: "er" })}
+              />
+            )}
 
             {topic && (topic.messages ?? []).map((m) => (
               <div key={m.id} className="section-card">

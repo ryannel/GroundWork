@@ -14,6 +14,7 @@ import {
   Workflow,
 } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
+import type { EntityNavOptions } from "../router";
 import type { HandlerDef, HandlerStep, LoadedPlanPayload, SpacePayload } from "../types";
 import { EntityLink } from "./shared/EntityLink";
 import { InteractiveViewport } from "./shared/InteractiveViewport";
@@ -26,7 +27,7 @@ interface Props {
   initialStep?: number;
   initialMode?: "architecture" | "sequence";
   onStateChange?: (state: { op: string; step: number; mode: "architecture" | "sequence" }) => void;
-  onOpenEntity: (entityId: string, tab?: string, fromPlanId?: string) => void;
+  onOpenEntity: (entityId: string, opts?: string | EntityNavOptions, fromPlanId?: string) => void;
 }
 
 type ParticipantKind = "actor" | "app" | "service" | "store" | "topic" | "external" | "stub";
