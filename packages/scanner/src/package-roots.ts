@@ -130,6 +130,16 @@ function parseGoMod(filePath: string, relManifest: string): {
     } else if (dep.includes("robfig/cron")) {
       frameworks.push({ name: "robfig/cron", version: ver, facet: "jobs", support: "partial", source: relManifest });
       keyDeps.push(`${dep}@${ver}`);
+    } else if (dep.includes("oapi-codegen")) {
+      frameworks.push({ name: "oapi-codegen", version: ver, facet: "outbound_calls", support: "supported", source: relManifest });
+      keyDeps.push(`${dep}@${ver}`);
+    } else if (dep.includes("google.golang.org/grpc")) {
+      frameworks.push({ name: "go-grpc", version: ver, facet: "interfaces", support: "partial", source: relManifest });
+      frameworks.push({ name: "go-grpc-client", version: ver, facet: "outbound_calls", support: "partial", source: relManifest });
+      keyDeps.push(`${dep}@${ver}`);
+    } else if (dep.includes("go-resty/resty") || dep.includes("retryablehttp")) {
+      frameworks.push({ name: path.basename(dep), version: ver, facet: "outbound_calls", support: "supported", source: relManifest });
+      keyDeps.push(`${dep}@${ver}`);
     }
   }
 
@@ -163,10 +173,16 @@ function parsePyproject(filePath: string, relManifest: string): {
 
   if (lower.includes("fastapi")) checkDep("fastapi", "interfaces", "supported");
   if (lower.includes("flask")) checkDep("flask", "interfaces", "supported");
-  if (lower.includes("httpx")) checkDep("httpx", "outbound_calls", "partial");
-  if (lower.includes("requests")) checkDep("requests", "outbound_calls", "partial");
+  if (lower.includes("django")) checkDep("django", "interfaces", "supported");
+  if (lower.includes("httpx")) checkDep("httpx", "outbound_calls", "supported");
+  if (lower.includes("requests")) checkDep("requests", "outbound_calls", "supported");
+  if (lower.includes("aiohttp")) checkDep("aiohttp", "outbound_calls", "supported");
+  if (lower.includes("grpcio")) {
+    checkDep("grpcio", "interfaces", "partial");
+    checkDep("grpcio", "outbound_calls", "partial");
+  }
   if (lower.includes("sqlalchemy") || lower.includes("psycopg")) checkDep("sqlalchemy", "stores", "partial");
-  if (lower.includes("google-cloud-pubsub")) {
+  if (lower.includes("google-cloud-pubsub") || lower.includes("confluent-kafka") || lower.includes("aiokafka")) {
     checkDep("google-cloud-pubsub", "messages_published", "partial");
     checkDep("google-cloud-pubsub", "messages_consumed", "partial");
   }
@@ -207,6 +223,7 @@ function parsePackageJson(filePath: string, relManifest: string): {
   check("express", "interfaces", "supported");
   check("fastify", "interfaces", "supported");
   check("hono", "interfaces", "supported");
+  check("@nestjs/core", "interfaces", "supported");
   check("next", "screens", "partial");
   check("react", "screens", "partial");
   check("react-router-dom", "screens", "partial");
@@ -217,7 +234,14 @@ function parsePackageJson(filePath: string, relManifest: string): {
   check("pg", "stores", "partial");
   check("kafkajs", "messages_published", "partial");
   check("kafkajs", "messages_consumed", "partial");
-  check("axios", "outbound_calls", "partial");
+  check("axios", "outbound_calls", "supported");
+  check("ky", "outbound_calls", "supported");
+  check("got", "outbound_calls", "supported");
+  check("orval", "outbound_calls", "supported");
+  check("openapi-fetch", "outbound_calls", "supported");
+  check("@hey-api/openapi-ts", "outbound_calls", "supported");
+  check("@trpc/client", "outbound_calls", "partial");
+  check("graphql-request", "outbound_calls", "partial");
 
   if ("react" in allDeps || "next" in allDeps || "vite" in allDeps) {
     frameworks.push({ name: "browser-fetch-ws", facet: "outbound_calls", support: "partial", source: relManifest });
@@ -270,6 +294,18 @@ function parseCargoToml(filePath: string, relManifest: string): {
         frameworks.push({ name: "wgpu", facet: "screens", support: "partial", source: relManifest });
       } else if (depName === "quinn" || depName === "web-transport-quinn") {
         frameworks.push({ name: depName, facet: "messages_published", support: "partial", source: relManifest });
+      } else if (depName === "axum" || depName === "actix-web" || depName === "rocket" || depName === "warp") {
+        frameworks.push({ name: depName, facet: "interfaces", support: "supported", source: relManifest });
+      } else if (depName === "reqwest") {
+        frameworks.push({ name: "reqwest", facet: "outbound_calls", support: "supported", source: relManifest });
+      } else if (depName === "tonic") {
+        frameworks.push({ name: "tonic", facet: "interfaces", support: "partial", source: relManifest });
+        frameworks.push({ name: "tonic", facet: "outbound_calls", support: "partial", source: relManifest });
+      } else if (depName === "sqlx" || depName === "diesel" || depName === "sea-orm") {
+        frameworks.push({ name: depName, facet: "stores", support: "partial", source: relManifest });
+      } else if (depName === "rdkafka" || depName === "lapin" || depName === "async-nats") {
+        frameworks.push({ name: depName, facet: "messages_published", support: "partial", source: relManifest });
+        frameworks.push({ name: depName, facet: "messages_consumed", support: "partial", source: relManifest });
       }
     }
   }
@@ -283,6 +319,103 @@ function parseCargoToml(filePath: string, relManifest: string): {
   };
 }
 
+function parseJavaManifest(filePath: string, relManifest: string): {
+  name: string;
+  frameworks: FrameworkDetection[];
+  keyDeps: string[];
+} {
+  const content = fs.readFileSync(filePath, "utf8");
+  const lower = content.toLowerCase();
+  const base = path.basename(filePath);
+  const artifactMatch =
+    base === "pom.xml"
+      ? content.match(/<artifactId>([^<]+)<\/artifactId>/)
+      : content.match(/rootProject\.name\s*=\s*["']([^"']+)["']/);
+  const name = artifactMatch?.[1] ?? path.basename(path.dirname(filePath));
+  const frameworks: FrameworkDetection[] = [];
+  const keyDeps: string[] = [];
+
+  const check = (needle: string, fwName: string, facet: FacetName, support: ExtractorSupport) => {
+    if (lower.includes(needle)) {
+      frameworks.push({ name: fwName, facet, support, source: relManifest });
+      keyDeps.push(fwName);
+    }
+  };
+
+  check("spring-boot-starter-web", "spring-web", "interfaces", "supported");
+  check("spring-boot-starter-webflux", "spring-webflux", "interfaces", "supported");
+  check("quarkus-rest", "quarkus-rest", "interfaces", "supported");
+  check("micronaut-http", "micronaut-http", "interfaces", "supported");
+  check("jakarta.ws.rs", "jax-rs", "interfaces", "supported");
+  check("spring-cloud-starter-openfeign", "openfeign", "outbound_calls", "supported");
+  check("feign-core", "openfeign", "outbound_calls", "supported");
+  check("retrofit", "retrofit", "outbound_calls", "supported");
+  check("okhttp", "okhttp", "outbound_calls", "partial");
+  check("spring-web", "spring-http-client", "outbound_calls", "supported");
+  check("grpc-netty", "grpc-java", "interfaces", "partial");
+  check("grpc-stub", "grpc-java", "outbound_calls", "partial");
+  check("spring-data-jpa", "spring-data-jpa", "stores", "partial");
+  check("flyway", "flyway", "stores", "supported");
+  check("spring-kafka", "spring-kafka", "messages_published", "partial");
+  check("spring-kafka", "spring-kafka", "messages_consumed", "partial");
+
+  return { name, frameworks, keyDeps: [...new Set(keyDeps)].sort() };
+}
+
+function parseCsproj(filePath: string, relManifest: string): {
+  name: string;
+  frameworks: FrameworkDetection[];
+  keyDeps: string[];
+} {
+  const content = fs.readFileSync(filePath, "utf8");
+  const lower = content.toLowerCase();
+  const asmMatch = content.match(/<AssemblyName>([^<]+)<\/AssemblyName>/i);
+  const name = asmMatch?.[1] ?? path.basename(filePath, ".csproj");
+  const frameworks: FrameworkDetection[] = [];
+  const keyDeps: string[] = [];
+
+  if (lower.includes("microsoft.net.sdk.web") || lower.includes("microsoft.aspnetcore")) {
+    frameworks.push({ name: "aspnetcore", facet: "interfaces", support: "supported", source: relManifest });
+    keyDeps.push("aspnetcore");
+  }
+
+  const pkgRx = /<PackageReference\s+[^>]*Include="([^"]+)"(?:[^>]*Version="([^"]+)")?/gi;
+  let m: RegExpExecArray | null;
+  while ((m = pkgRx.exec(content)) !== null) {
+    const pkg = m[1]!;
+    const ver = m[2];
+    const lp = pkg.toLowerCase();
+    if (lp.includes("refit")) {
+      frameworks.push({ name: "refit", version: ver, facet: "outbound_calls", support: "supported", source: relManifest });
+      keyDeps.push(ver ? `${pkg}@${ver}` : pkg);
+    } else if (lp.includes("restsharp") || lp.includes("flurl")) {
+      frameworks.push({ name: pkg.toLowerCase(), version: ver, facet: "outbound_calls", support: "supported", source: relManifest });
+      keyDeps.push(ver ? `${pkg}@${ver}` : pkg);
+    } else if (lp.includes("microsoft.extensions.http") || lp.includes("microsoft.kiota") || lp.includes("nswag")) {
+      frameworks.push({ name: pkg, version: ver, facet: "outbound_calls", support: "supported", source: relManifest });
+      keyDeps.push(ver ? `${pkg}@${ver}` : pkg);
+    } else if (lp.includes("grpc.aspnetcore")) {
+      frameworks.push({ name: "grpc-dotnet", version: ver, facet: "interfaces", support: "partial", source: relManifest });
+      keyDeps.push(ver ? `${pkg}@${ver}` : pkg);
+    } else if (lp.includes("grpc.net.client")) {
+      frameworks.push({ name: "grpc-dotnet", version: ver, facet: "outbound_calls", support: "partial", source: relManifest });
+      keyDeps.push(ver ? `${pkg}@${ver}` : pkg);
+    } else if (lp.includes("entityframeworkcore") || lp.includes("dapper")) {
+      frameworks.push({ name: pkg, version: ver, facet: "stores", support: "partial", source: relManifest });
+      keyDeps.push(ver ? `${pkg}@${ver}` : pkg);
+    } else if (lp.includes("masstransit") || lp.includes("confluent.kafka") || lp.includes("azure.messaging.servicebus")) {
+      frameworks.push({ name: pkg, version: ver, facet: "messages_published", support: "partial", source: relManifest });
+      frameworks.push({ name: pkg, version: ver, facet: "messages_consumed", support: "partial", source: relManifest });
+      keyDeps.push(ver ? `${pkg}@${ver}` : pkg);
+    }
+  }
+
+  // System.Net.Http.HttpClient is built into .NET BCL
+  frameworks.push({ name: "dotnet-httpclient", facet: "outbound_calls", support: "supported", source: relManifest });
+
+  return { name, frameworks, keyDeps: [...new Set(keyDeps)].sort() };
+}
+
 export function detectPackageRoots(
   repoDir: string,
   allFiles: readonly string[],
@@ -294,7 +427,18 @@ export function detectPackageRoots(
 
   for (const absFile of allFiles) {
     const base = path.basename(absFile);
-    if (base !== "go.mod" && base !== "pyproject.toml" && base !== "package.json" && base !== "Cargo.toml") continue;
+    const isCsproj = base.endsWith(".csproj");
+    const isJava = base === "pom.xml" || base === "build.gradle" || base === "build.gradle.kts";
+    if (
+      base !== "go.mod" &&
+      base !== "pyproject.toml" &&
+      base !== "package.json" &&
+      base !== "Cargo.toml" &&
+      !isJava &&
+      !isCsproj
+    ) {
+      continue;
+    }
 
     const dir = path.dirname(absFile);
     const relDir = path.relative(repoDir, dir) || ".";
@@ -354,6 +498,40 @@ export function detectPackageRoots(
         path: relDir,
         name: parsed.name,
         language: "python",
+        manifest: relManifest,
+        ...(sm ? { submodule_path: sm.path } : {}),
+        repo_name: owningRepo,
+        frameworks: parsed.frameworks,
+        capabilities: caps,
+        key_dependencies: parsed.keyDeps,
+      };
+    } else if (isJava) {
+      seenDirs.add(relDir);
+      const parsed = parseJavaManifest(absFile, relManifest);
+      for (const fw of parsed.frameworks) {
+        caps[fw.facet] = upgradeSupport(caps[fw.facet], fw.support);
+      }
+      pkg = {
+        path: relDir,
+        name: parsed.name,
+        language: "java",
+        manifest: relManifest,
+        ...(sm ? { submodule_path: sm.path } : {}),
+        repo_name: owningRepo,
+        frameworks: parsed.frameworks,
+        capabilities: caps,
+        key_dependencies: parsed.keyDeps,
+      };
+    } else if (isCsproj) {
+      seenDirs.add(relDir);
+      const parsed = parseCsproj(absFile, relManifest);
+      for (const fw of parsed.frameworks) {
+        caps[fw.facet] = upgradeSupport(caps[fw.facet], fw.support);
+      }
+      pkg = {
+        path: relDir,
+        name: parsed.name,
+        language: "csharp",
         manifest: relManifest,
         ...(sm ? { submodule_path: sm.path } : {}),
         repo_name: owningRepo,

@@ -155,6 +155,13 @@ export function App() {
           if (comp.handlers.handlers.some((h) => h.id === base) || (comp.handlers.procedures ?? []).some((p) => p.id === base)) {
             return { entityId: comp.id, tab: "logic" };
           }
+          // Match scanned route / ws_channel surface IDs (e.g. from observed edges)
+          if (base.startsWith("route:") || base.startsWith("ws:")) {
+            const matchedSurfaces = space.component_code_info?.[comp.id]?.matched_surfaces ?? [];
+            if (matchedSurfaces.some((s) => s.surface_id === base)) {
+              return { entityId: comp.id, tab: "api", endpoint: base };
+            }
+          }
         }
         for (const iface of sys.stub_contracts?.interfaces ?? []) {
           if (iface.id === base) return { entityId: sys.id };

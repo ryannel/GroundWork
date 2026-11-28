@@ -80,12 +80,17 @@ export function InspectorDrawer({ space, selectedId, onClose, onSelect, onOpenFu
   // Dedicated Edge Inspector when clicking any arrow or `( N )` count pill on the System Map!
   if (selectedId.startsWith("edge:")) {
     const [fromId = "", toId = "", kind = "call"] = selectedId.slice(5).split("|");
+    const isCallLike = kind === "call" || kind === "observed";
     const matchingEdges = space.edges.filter(
       (e) =>
-        e.kind === kind &&
+        (isCallLike ? e.kind === "call" || e.kind === "observed" : e.kind === kind) &&
         (e.from === fromId || e.from_system === fromId) &&
         (e.to === toId || e.to_system === toId),
     );
+    const modeledEdges = matchingEdges.filter((e) => e.kind !== "observed");
+    const observedEdges = matchingEdges.filter((e) => e.kind === "observed");
+    const callerScannerGaps = space.gaps.filter((g) => g.kind === "scanner_gap" && g.entity_id === fromId);
+
     const findTargetComp = () => {
       for (const s of space.systems) {
         const c = s.components.find((x) => x.id === toId);
@@ -102,9 +107,10 @@ export function InspectorDrawer({ space, selectedId, onClose, onSelect, onOpenFu
       <aside className="inspector">
         <div className="inspector-header">
           <div>
-            <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 4 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 4, flexWrap: "wrap" }}>
               <span className="badge indigo">{kind}</span>
-              <span className="badge">{matchingEdges.length} modeled {matchingEdges.length === 1 ? "connection" : "connections"}</span>
+              {modeledEdges.length > 0 && <span className="badge">{modeledEdges.length} modeled</span>}
+              {observedEdges.length > 0 && <span className="badge amber">{observedEdges.length} scanned</span>}
             </div>
             <div style={{ fontWeight: 700, fontSize: 15 }}>Connection Details</div>
           </div>
@@ -128,15 +134,13 @@ export function InspectorDrawer({ space, selectedId, onClose, onSelect, onOpenFu
             </div>
           </div>
 
-          <div className="section-card">
-            <div className="section-title">Modeled {kind}s ({matchingEdges.length})</div>
-            {matchingEdges.length === 0 ? (
-              <div style={{ fontSize: 12.5, color: "var(--text-faint)" }}>No individual edge records found.</div>
-            ) : (
+          {modeledEdges.length > 0 && (
+            <div className="section-card">
+              <div className="section-title">Modeled {kind === "observed" ? "Calls" : `${kind}s`} ({modeledEdges.length})</div>
               <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                {matchingEdges.map((e, idx) => (
+                {modeledEdges.map((e, idx) => (
                   <div
-                    key={`${e.via}:${idx}`}
+                    key={`m:${e.via}:${idx}`}
                     style={{
                       padding: "8px 10px",
                       border: "1px solid var(--border)",
@@ -157,16 +161,66 @@ export function InspectorDrawer({ space, selectedId, onClose, onSelect, onOpenFu
                   </div>
                 ))}
               </div>
-            )}
-          </div>
+            </div>
+          )}
 
-          {targetCompMatch && targetEpSummary && targetEpSummary.displayCount > matchingEdges.length && kind === "call" && (
+          {observedEdges.length > 0 && (
+            <div className="section-card">
+              <div className="section-title">Scanned Outbound Calls ({observedEdges.length})</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 6, maxHeight: 340, overflowY: "auto" }}>
+                {observedEdges.map((e, idx) => (
+                  <button
+                    key={`o:${e.via}:${idx}`}
+                    type="button"
+                    onClick={() =>
+                      targetCompMatch
+                        ? onOpenFullView(targetCompMatch.comp.id, { tab: "api", endpoint: e.via })
+                        : onOpenFullView(e.via)
+                    }
+                    style={{
+                      textAlign: "left",
+                      padding: "7px 10px",
+                      border: "1px solid var(--border)",
+                      borderRadius: 7,
+                      background: "var(--bg)",
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      gap: 8,
+                    }}
+                    title={`Open ${e.label ?? e.via} in API Reference`}
+                  >
+                    <span className="mono" style={{ fontSize: 11.5, fontWeight: 600, color: "var(--text)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                      {e.label ?? e.via}
+                    </span>
+                    <ArrowUpRight size={12} color="var(--accent)" style={{ flexShrink: 0 }} />
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {callerScannerGaps.length > 0 && (
+            <div className="section-card" style={{ borderColor: "var(--amber-border)", background: "var(--amber-soft)" }}>
+              <div className="section-title" style={{ color: "var(--amber)" }}>Scanner Trust Warning ({callerScannerGaps.length})</div>
+              {callerScannerGaps.map((g, i) => (
+                <div key={i} style={{ fontSize: 12, color: "var(--amber-ink)", lineHeight: 1.45, marginBottom: i < callerScannerGaps.length - 1 ? 6 : 0 }}>
+                  {g.detail}
+                </div>
+              ))}
+            </div>
+          )}
+
+          {targetCompMatch && targetEpSummary && targetEpSummary.displayCount > matchingEdges.length && isCallLike && (
             <div className="section-card" style={{ borderLeft: "3px solid var(--accent)" }}>
-              <div className="section-title">Why {matchingEdges.length} {matchingEdges.length === 1 ? "call" : "calls"}?</div>
+              <div className="section-title">API Surface Coverage</div>
               <p style={{ margin: "0 0 10px 0", fontSize: 12.5, color: "var(--text-muted)", lineHeight: 1.5 }}>
-                This arrow counts explicit <code className="mono">call</code> steps modeled in <strong style={{ color: "var(--text)" }}>{fromId}</strong> handlers.{" "}
+                Showing <strong style={{ color: "var(--text)" }}>{modeledEdges.length} modeled</strong> and{" "}
+                <strong style={{ color: "var(--text)" }}>{observedEdges.length} statically scanned</strong> calls from{" "}
+                <code className="mono">{fromId}</code>.{" "}
                 <strong style={{ color: "var(--text)" }}>{targetCompMatch.comp.component.name}</strong> exposes{" "}
-                <strong style={{ color: "var(--text)" }}>{targetEpSummary.displayCount} total API endpoints</strong> across its OpenAPI &amp; route specs.
+                <strong style={{ color: "var(--text)" }}>{targetEpSummary.displayCount} total API endpoints</strong>.
               </p>
               <button
                 type="button"

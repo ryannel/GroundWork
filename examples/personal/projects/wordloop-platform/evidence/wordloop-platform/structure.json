@@ -2,7 +2,7 @@
   "schema_version": 1,
   "repo_name": "wordloop-platform",
   "commit": "c4172c3ecb16f42a3562cf95476e9977570fd72a",
-  "scanned_at": "2026-11-27T22:10:28.841Z",
+  "scanned_at": "2026-11-28T07:19:43.722Z",
   "packages": [
     {
       "package_root": ".",
@@ -336,6 +336,12 @@
             "React",
             "Vite"
           ]
+        },
+        {
+          "category": "Libraries",
+          "items": [
+            "orval"
+          ]
         }
       ]
     },
@@ -507,6 +513,14 @@
           "items": [
             "Google Cloud Pub/Sub",
             "Google Cloud Storage"
+          ]
+        },
+        {
+          "category": "Libraries",
+          "items": [
+            "go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc",
+            "google.golang.org/grpc",
+            "runtime"
           ]
         }
       ]

@@ -3,6 +3,94 @@
   "repo_name": "wordloop-platform",
   "commit": "c4172c3ecb16f42a3562cf95476e9977570fd72a",
   "anchors": {
+    "services/wordloop-app/lib/api/generated.ts#L1769-1769": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        1769,
+        1769
+      ],
+      "symbol": "deleteMeeting",
+      "content_sha256": "8cced402afaa45b1257f51cf0a6dcda4d389cab2be01cc1b9b3a22ee2691a17a"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L2384-2384": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        2384,
+        2384
+      ],
+      "symbol": "clearSpeakerLabel",
+      "content_sha256": "00aa3c79dcb66758b681676a70e4e3857a3f6bf41693e4231b13bd0ccc76c5c4"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L2991-2991": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        2991,
+        2991
+      ],
+      "symbol": "deleteNote",
+      "content_sha256": "e8ee671f70fdfffc09ccbb5a764faad31546448a7ce5cec0e811a47f979b892d"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L3221-3221": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        3221,
+        3221
+      ],
+      "symbol": "deletePerson",
+      "content_sha256": "20054fecda0561d0b6e8b1c53cd066eacf090b2eba52feb9994645264b3a395f"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L3636-3636": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        3636,
+        3636
+      ],
+      "symbol": "deleteTask",
+      "content_sha256": "10d14ddaf225ab1ad6ad104f1ec162526f6a0a2a308caa282e46d4da34aff131"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L3870-3870": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        3870,
+        3870
+      ],
+      "symbol": "deleteSubTask",
+      "content_sha256": "60d4024c923451a1d30d9bc786013fd6fa0e90bec215b25b18c6e107252feb7c"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L4432-4432": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        4432,
+        4432
+      ],
+      "symbol": "deleteUser",
+      "content_sha256": "ce8f2f699e97a2f0c9fe6244612a9dedac9b00ebbf68232f83c3cb771f7f16ba"
+    },
+    "services/wordloop-app/app/api/proxy/[...path]/route.ts#L117-117": {
+      "file": "services/wordloop-app/app/api/proxy/[...path]/route.ts",
+      "lines": [
+        117,
+        117
+      ],
+      "content_sha256": "be17b1bd05685dd805fcdec0b88f56e773ef33f6a7ec217cbe67dd40a198d691"
+    },
+    "services/wordloop-app/public/mockServiceWorker.js#L238-238": {
+      "file": "services/wordloop-app/public/mockServiceWorker.js",
+      "lines": [
+        238,
+        238
+      ],
+      "content_sha256": "960c46a88b460ed53bb5d71b2e80e7e8c4608aa2ca05c673b336caaaab7393ff"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L1451-1451": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        1451,
+        1451
+      ],
+      "symbol": "getThreadMessages",
+      "content_sha256": "05a06c2127529d5534b27afa469876604454b3b76fc769e02d24b2a40fb3e62c"
+    },
     "services/wordloop-app/lib/websocket-provider.tsx#L362-362": {
       "file": "services/wordloop-app/lib/websocket-provider.tsx",
       "lines": [
@@ -10,6 +98,411 @@
         362
       ],
       "content_sha256": "3905dc32e16efaceb379c775a0b833599e6ca5a9c036e5c3c89815eec70f9282"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L1541-1541": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        1541,
+        1541
+      ],
+      "symbol": "checkHealth",
+      "content_sha256": "497569f81d3ce1220e6567b764d3ef3b8f7e61e2f0aaada604295c25abcbf312"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L1585-1585": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        1585,
+        1585
+      ],
+      "symbol": "getDailyBrief",
+      "content_sha256": "0f989ea808b6ad48b41c39861e7361ff9c42f2d2b92e494917c6a725571f615a"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L1629-1629": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        1629,
+        1629
+      ],
+      "symbol": "getCurrentUser",
+      "content_sha256": "3dd97fe758fd0be9a2e657161c4ab1c4a3f6c3379571f8bf4bbb1c086697756d"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L1965-1965": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        1965,
+        1965
+      ],
+      "symbol": "getMeetingAudioUrl",
+      "content_sha256": "81e478a62f8cd56ab7f9d08e42b2cad6bf79282b23df2c2a5b34c07cb45852c4"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L2009-2009": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        2009,
+        2009
+      ],
+      "symbol": "getMeetingRecording",
+      "content_sha256": "d6f5f1174a39731866252332f331be9228b5035862cbcd9e01c33573c2af0b70"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L2053-2053": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        2053,
+        2053
+      ],
+      "symbol": "getMeetingRecordingChunkInventory",
+      "content_sha256": "a7e816bd028d15758c2d3338b70f741ccbc82d935b50a357b0fdec70438a040d"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L2249-2249": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        2249,
+        2249
+      ],
+      "symbol": "getMeetingRecordingMissingChunks",
+      "content_sha256": "0b9bbd848c1319f7ffd72c85f01c99c8fdf320e2b568496e47b737543180b0ae"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L2293-2293": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        2293,
+        2293
+      ],
+      "symbol": "listSpeakerLabels",
+      "content_sha256": "dbaf46b209e27765c93bfc1b3be54b412e3d49417dc610b18afe7f59a66a4de2"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L2429-2429": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        2429,
+        2429
+      ],
+      "symbol": "getMeetingSynthesis",
+      "content_sha256": "9209b70fc107cabe60e12a851029045895e0c416f966bb18737ac5f8a3022ce9"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L2519-2519": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        2519,
+        2519
+      ],
+      "symbol": "listTalkingPoints",
+      "content_sha256": "40b0cb55670c340a8538234d481b51b688bfe71118e03b3c8ba599b749631100"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L2609-2609": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        2609,
+        2609
+      ],
+      "symbol": "listTopics",
+      "content_sha256": "b4e4374d95b818c693ab5526e4a5c390769db2584f2baae2d14fd05b7b9ebe2b"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L2851-2851": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        2851,
+        2851
+      ],
+      "symbol": "listMeetingTranscriptions",
+      "content_sha256": "212cbc4c99d8c32bfdadaf32b5f0a71ac03707288fff7b0d6fc9c454e9701b68"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L3035-3035": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        3035,
+        3035
+      ],
+      "symbol": "getNote",
+      "content_sha256": "21ea47ebd0f1d65c8e26b65cbe95b29982d232af03a7516214cf9233afdebfbe"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L3265-3265": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        3265,
+        3265
+      ],
+      "symbol": "getPerson",
+      "content_sha256": "fba2ac233546f413243f2db9967873d24a80baba12b549b9f7abc67986dcff63"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L3355-3355": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        3355,
+        3355
+      ],
+      "symbol": "getPersonActivity",
+      "content_sha256": "7bd73aa0358fc7467b6abf099955ed13ce69cb32e0261eff25d8910c3685f4de"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L3399-3399": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        3399,
+        3399
+      ],
+      "symbol": "getPersonNotes",
+      "content_sha256": "2660e3df1789ec3462115b6394fb7d86c88cb48ba357bd729dc8c08e74d5f58c"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L3779-3779": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        3779,
+        3779
+      ],
+      "symbol": "listSubTasks",
+      "content_sha256": "03d6da32e1f4c60e1065f3f640e985eec6afe6a280c3d680904810e79d342e03"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L3963-3963": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        3963,
+        3963
+      ],
+      "symbol": "getTranscription",
+      "content_sha256": "310fd4d180e24a7f058eb8ebd8f1ee519ecd549308bef1f4d1c337a6eec08dc8"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L4476-4476": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        4476,
+        4476
+      ],
+      "symbol": "getUser",
+      "content_sha256": "5676509c3f1865bede9878957dd42c1e621bbd72e0fbe2127c9459243a104b46"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L1866-1866": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        1866,
+        1866
+      ],
+      "symbol": "updateMeeting",
+      "content_sha256": "82a8a628cf9ab6f3c6a256363473e82d665143151b49421bf8f5624cef2e2571"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L3079-3079": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        3079,
+        3079
+      ],
+      "symbol": "updateNote",
+      "content_sha256": "7dadb977c6c6cec6adf339a5fa601cb46cf1a0032c7537c89c156380872ebe23"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L3309-3309": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        3309,
+        3309
+      ],
+      "symbol": "updatePerson",
+      "content_sha256": "4864811aff560c1df964a7e6f9511e1c360a8c4c5fc7a499eb94bc44d727c99c"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L3733-3733": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        3733,
+        3733
+      ],
+      "symbol": "updateTask",
+      "content_sha256": "52f51042d1b45e1e5cb44efa55321f74c16b6396608c3e5c933deda9ce666f8b"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L3916-3916": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        3916,
+        3916
+      ],
+      "symbol": "updateSubTask",
+      "content_sha256": "aa9350826000fa21d615c28bcd5032f966424dc7a57daa91178b228d2f1a4148"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L4007-4007": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        4007,
+        4007
+      ],
+      "symbol": "updateTranscriptionDegraded",
+      "content_sha256": "0fe73543abf57a6594cbab2c9ce30fb7ec1627d54f773bb01eb304f2008ae38e"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L4290-4290": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        4290,
+        4290
+      ],
+      "symbol": "updateTranscriptionStatus",
+      "content_sha256": "f53d1c54ac6a06f21bbd1b987465ce395876716fc21897664852a8dee43a5ee7"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L4520-4520": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        4520,
+        4520
+      ],
+      "symbol": "updateUser",
+      "content_sha256": "d4f5fec927e8dd22a18eefea27ac67a8f046c4a5c2190acaa89ecb7f1dc42cb7"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L1406-1406": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        1406,
+        1406
+      ],
+      "symbol": "createAIThread",
+      "content_sha256": "67fb57e86877cdae6dfafd60ac511b80161d63ae55141927fafbd650649c783f"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L1495-1495": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        1495,
+        1495
+      ],
+      "symbol": "sendAIMessage",
+      "content_sha256": "f31d49af13c4df8f2d6e038e14333e9a694a457f119ce38015e0d564ec0a4ed1"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L1724-1724": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        1724,
+        1724
+      ],
+      "symbol": "createMeeting",
+      "content_sha256": "2e29480d78199453550287ec1b9658ecc0e54999e5b2e71e02cd478b07786af0"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L2097-2097": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        2097,
+        2097
+      ],
+      "symbol": "uploadMeetingRecordingChunks",
+      "content_sha256": "309be93e54a82547abd5dbbfcd3ee13d431d82e6e00b9cebf0c0aa71d13d4842"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L2203-2203": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        2203,
+        2203
+      ],
+      "symbol": "reportMeetingRecordingHealth",
+      "content_sha256": "94037a868861a25c4ad3e1af790b8fa35ae5bada01c5fb7ae5fab17aa5337e55"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L2337-2337": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        2337,
+        2337
+      ],
+      "symbol": "assignSpeakerLabel",
+      "content_sha256": "65dc274adb613b83763da3c7b7d8ebf6c61be4b682d38278c741bf525ffa5e90"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L2563-2563": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        2563,
+        2563
+      ],
+      "symbol": "createTalkingPoint",
+      "content_sha256": "a4bde9b939e84c3247971cabada53d280cf4a9147eff71ce93de5df552a07710"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L2653-2653": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        2653,
+        2653
+      ],
+      "symbol": "createTopic",
+      "content_sha256": "c63aa95e4a8f28a43d463aa240b0cd512488baeff67077bb82923abf6e802f23"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L2699-2699": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        2699,
+        2699
+      ],
+      "symbol": "uploadMeetingAudio",
+      "content_sha256": "1d9b6a2060d1e9ee5118c95af1fc93a0d41305039765fb0cdf57b5436ae9d038"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L2946-2946": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        2946,
+        2946
+      ],
+      "symbol": "createNote",
+      "content_sha256": "20d509437f2f45e34f2cf7ce8cb2cd7b2a1f609d80e432db39beb4bd7cab15ce"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L3176-3176": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        3176,
+        3176
+      ],
+      "symbol": "createPerson",
+      "content_sha256": "9c7cd4922dbff508edb125162f65907001c1f59588d2ff1df88f7ef1e8143f6b"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L3443-3443": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        3443,
+        3443
+      ],
+      "symbol": "addPersonNote",
+      "content_sha256": "b14bd4be128370e7e4d9ab7e0aeb378a4a7304bce8a723674ab4f8cfaa8664ba"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L3591-3591": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        3591,
+        3591
+      ],
+      "symbol": "createTask",
+      "content_sha256": "54de3b801a338ad6cc533e8e756c43118d6cecb9c709f60056a1cd99cdfdf893"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L3823-3823": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        3823,
+        3823
+      ],
+      "symbol": "createSubTask",
+      "content_sha256": "0d209757835f304ab515607a0b50bb2dee4f37d65e92f5c6c750b7043a11ac5f"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L4053-4053": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        4053,
+        4053
+      ],
+      "symbol": "identifySpeakers",
+      "content_sha256": "e6873d5e058871a54ecac1a4ea5a971c8558f5c66fd556a6e4075527a8097367"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L4099-4099": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        4099,
+        4099
+      ],
+      "symbol": "remapSpeaker",
+      "content_sha256": "f12e8c7287f438344666d76b16a0fd066b29d41f7555c7919c64a40f1c90f542"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L4198-4198": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        4198,
+        4198
+      ],
+      "symbol": "addTranscriptionSegments",
+      "content_sha256": "82bbc1f11f314a7baff1e3aec7ab07e225be4e2f74c987491764933be2dbe3d4"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L4387-4387": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        4387,
+        4387
+      ],
+      "symbol": "createUser",
+      "content_sha256": "41240fdb5180037d7a1ae8273f1388c8b387205f506ebd82719c901b027c5ae8"
     },
     "services/wordloop-app/app/api/otel/metrics/route.ts#L11-11": {
       "file": "services/wordloop-app/app/api/otel/metrics/route.ts",
@@ -27,6 +520,33 @@
       ],
       "content_sha256": "2b10d74615fea225a6b7fea0e15668941ae913bb2567c0f4410a6d9209b290c1"
     },
+    "services/wordloop-app/lib/api/generated.ts#L2473-2473": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        2473,
+        2473
+      ],
+      "symbol": "replaceMeetingSynthesis",
+      "content_sha256": "305ca0cc7f927208682cdd3e273125f26b12b059d95891adb6938d5b179f4ec1"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L2805-2805": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        2805,
+        2805
+      ],
+      "symbol": "reconcileSystemTasks",
+      "content_sha256": "cff67516c68a2843376bfbd0266d1366544c24cb3a75a9b45fd92396952eecda"
+    },
+    "services/wordloop-app/lib/api/generated.ts#L4244-4244": {
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        4244,
+        4244
+      ],
+      "symbol": "replaceTranscriptionSegments",
+      "content_sha256": "19c1b5c6d0e938b4d28b86113ad66df44fe086b7cbaeba813f462879a4ef9e70"
+    },
     "services/wordloop-app/lib/websocket-provider.tsx#L313-313": {
       "file": "services/wordloop-app/lib/websocket-provider.tsx",
       "lines": [
@@ -35,21 +555,37 @@
       ],
       "content_sha256": "ed6a4aabf9dda015ee6d6cd4dbf61792887542a2a8afbd4084047b476177311e"
     },
-    "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go#L1014-1014": {
-      "file": "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go",
+    "services/wordloop-app/app/api/config/route.ts#L1-1": {
+      "file": "services/wordloop-app/app/api/config/route.ts",
       "lines": [
-        1014,
-        1014
+        1,
+        1
       ],
-      "content_sha256": "6470dc3756b2ddb0e05503e0ca3829ee3d63e460c5dec5ab7dbcb476f05b3663"
+      "content_sha256": "8c367ae1f95c0316a1b2d5f664550f2b79e2997e72b655aacb137675daa35ada"
     },
-    "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go#L1111-1111": {
-      "file": "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go",
+    "services/wordloop-app/app/api/healthz/route.ts#L1-1": {
+      "file": "services/wordloop-app/app/api/healthz/route.ts",
       "lines": [
-        1111,
-        1111
+        1,
+        1
       ],
-      "content_sha256": "f623a04237393298b4dbe23427d91e27b67487d9a72b677b69a3d9c8f80e8c5c"
+      "content_sha256": "9c0c1373f65c17d49fe938c0357d8a6db56cf6062f0ab9d1b718fca6813c7139"
+    },
+    "services/wordloop-app/app/api/otel/metrics/route.ts#L1-1": {
+      "file": "services/wordloop-app/app/api/otel/metrics/route.ts",
+      "lines": [
+        1,
+        1
+      ],
+      "content_sha256": "6f00a6afe6bb6d64cac6fbfe093704a68f316c842f3dba03065690bccf3a0f55"
+    },
+    "services/wordloop-app/app/api/otel/traces/route.ts#L1-1": {
+      "file": "services/wordloop-app/app/api/otel/traces/route.ts",
+      "lines": [
+        1,
+        1
+      ],
+      "content_sha256": "6f00a6afe6bb6d64cac6fbfe093704a68f316c842f3dba03065690bccf3a0f55"
     },
     "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go#L1162-1162": {
       "file": "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go",
@@ -59,6 +595,22 @@
       ],
       "content_sha256": "0a9bf0f75b05d35f29f913efda03fc19bfc73aee6c3e90e203766723215c675c"
     },
+    "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go#L987-987": {
+      "file": "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go",
+      "lines": [
+        987,
+        987
+      ],
+      "content_sha256": "6470dc3756b2ddb0e05503e0ca3829ee3d63e460c5dec5ab7dbcb476f05b3663"
+    },
+    "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go#L1014-1014": {
+      "file": "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go",
+      "lines": [
+        1014,
+        1014
+      ],
+      "content_sha256": "6470dc3756b2ddb0e05503e0ca3829ee3d63e460c5dec5ab7dbcb476f05b3663"
+    },
     "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go#L1211-1211": {
       "file": "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go",
       "lines": [
@@ -67,22 +619,6 @@
       ],
       "content_sha256": "6470dc3756b2ddb0e05503e0ca3829ee3d63e460c5dec5ab7dbcb476f05b3663"
     },
-    "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go#L1287-1287": {
-      "file": "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go",
-      "lines": [
-        1287,
-        1287
-      ],
-      "content_sha256": "f623a04237393298b4dbe23427d91e27b67487d9a72b677b69a3d9c8f80e8c5c"
-    },
-    "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go#L1349-1349": {
-      "file": "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go",
-      "lines": [
-        1349,
-        1349
-      ],
-      "content_sha256": "f623a04237393298b4dbe23427d91e27b67487d9a72b677b69a3d9c8f80e8c5c"
-    },
     "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go#L1400-1400": {
       "file": "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go",
       "lines": [
@@ -90,30 +626,6 @@
         1400
       ],
       "content_sha256": "6470dc3756b2ddb0e05503e0ca3829ee3d63e460c5dec5ab7dbcb476f05b3663"
-    },
-    "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go#L1460-1460": {
-      "file": "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go",
-      "lines": [
-        1460,
-        1460
-      ],
-      "content_sha256": "f623a04237393298b4dbe23427d91e27b67487d9a72b677b69a3d9c8f80e8c5c"
-    },
-    "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go#L1504-1504": {
-      "file": "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go",
-      "lines": [
-        1504,
-        1504
-      ],
-      "content_sha256": "f623a04237393298b4dbe23427d91e27b67487d9a72b677b69a3d9c8f80e8c5c"
-    },
-    "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go#L1540-1540": {
-      "file": "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go",
-      "lines": [
-        1540,
-        1540
-      ],
-      "content_sha256": "f623a04237393298b4dbe23427d91e27b67487d9a72b677b69a3d9c8f80e8c5c"
     },
     "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go#L916-916": {
       "file": "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go",
@@ -131,13 +643,53 @@
       ],
       "content_sha256": "32b104c8600c2b3d5d0ec0500b59e1faa4fa3dbac68917e46333f3acccc125e0"
     },
-    "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go#L987-987": {
+    "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go#L1349-1349": {
       "file": "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go",
       "lines": [
-        987,
-        987
+        1349,
+        1349
       ],
-      "content_sha256": "6470dc3756b2ddb0e05503e0ca3829ee3d63e460c5dec5ab7dbcb476f05b3663"
+      "content_sha256": "f623a04237393298b4dbe23427d91e27b67487d9a72b677b69a3d9c8f80e8c5c"
+    },
+    "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go#L1460-1460": {
+      "file": "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go",
+      "lines": [
+        1460,
+        1460
+      ],
+      "content_sha256": "f623a04237393298b4dbe23427d91e27b67487d9a72b677b69a3d9c8f80e8c5c"
+    },
+    "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go#L1540-1540": {
+      "file": "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go",
+      "lines": [
+        1540,
+        1540
+      ],
+      "content_sha256": "f623a04237393298b4dbe23427d91e27b67487d9a72b677b69a3d9c8f80e8c5c"
+    },
+    "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go#L1504-1504": {
+      "file": "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go",
+      "lines": [
+        1504,
+        1504
+      ],
+      "content_sha256": "f623a04237393298b4dbe23427d91e27b67487d9a72b677b69a3d9c8f80e8c5c"
+    },
+    "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go#L1111-1111": {
+      "file": "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go",
+      "lines": [
+        1111,
+        1111
+      ],
+      "content_sha256": "f623a04237393298b4dbe23427d91e27b67487d9a72b677b69a3d9c8f80e8c5c"
+    },
+    "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go#L1287-1287": {
+      "file": "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go",
+      "lines": [
+        1287,
+        1287
+      ],
+      "content_sha256": "f623a04237393298b4dbe23427d91e27b67487d9a72b677b69a3d9c8f80e8c5c"
     },
     "services/wordloop-core/internal/provider/wordloop-ml/streaming_client.go#L127-127": {
       "file": "services/wordloop-core/internal/provider/wordloop-ml/streaming_client.go",
@@ -1134,21 +1686,45 @@
       "symbol": "users",
       "content_sha256": "e7ecbfb1c3ea4b6d4d64294e63d6d8ebb99f0990c53ad53dddf5a29d7a4a0d5c"
     },
-    "services/wordloop-ml/src/wordloop/providers/wordloop_core/core_segment_callback.py#L67-67": {
-      "file": "services/wordloop-ml/src/wordloop/providers/wordloop_core/core_segment_callback.py",
+    "services/wordloop-docs/out/_next/static/chunks/0~ypc4nium9zx.js#L1-1": {
+      "file": "services/wordloop-docs/out/_next/static/chunks/0~ypc4nium9zx.js",
       "lines": [
-        67,
-        67
+        1,
+        1
       ],
-      "content_sha256": "fd2481fad23a935839c5b30a91e28f57f9de4ecd0f56141ddabbf0b4364d9bc0"
+      "content_sha256": "4250e94a3ef4e1404d251faae04d6d4e80a4896a3378b6623d7f3e42f29a8690"
     },
-    "services/wordloop-ml/src/wordloop/providers/wordloop_core/recording_health_reporter.py#L74-74": {
-      "file": "services/wordloop-ml/src/wordloop/providers/wordloop_core/recording_health_reporter.py",
+    "services/wordloop-docs/out/_next/static/chunks/0adzr3mw~5nj9.js#L10-10": {
+      "file": "services/wordloop-docs/out/_next/static/chunks/0adzr3mw~5nj9.js",
       "lines": [
-        74,
-        74
+        10,
+        10
       ],
-      "content_sha256": "fd2481fad23a935839c5b30a91e28f57f9de4ecd0f56141ddabbf0b4364d9bc0"
+      "content_sha256": "3eb727574c10976b5b6e461f49e9858fb6faa1a9722740a7f7170f7454da25fd"
+    },
+    "services/wordloop-docs/out/_next/static/chunks/0f4-jm_9wgzlw.js#L1-1": {
+      "file": "services/wordloop-docs/out/_next/static/chunks/0f4-jm_9wgzlw.js",
+      "lines": [
+        1,
+        1
+      ],
+      "content_sha256": "1672dc1d50f7453150c34e76726baa21f07dc9a9b08d883d498a46ff066e6230"
+    },
+    "services/wordloop-docs/out/_next/static/chunks/0u_82o.seu2pe.js#L1-1": {
+      "file": "services/wordloop-docs/out/_next/static/chunks/0u_82o.seu2pe.js",
+      "lines": [
+        1,
+        1
+      ],
+      "content_sha256": "76e45411026a1e5351d046783a1430083a379b63e5a33cc6babe4253c1802b41"
+    },
+    "services/wordloop-docs/out/_next/static/chunks/turbopack-0wju.b4buji5e.js#L1-1": {
+      "file": "services/wordloop-docs/out/_next/static/chunks/turbopack-0wju.b4buji5e.js",
+      "lines": [
+        1,
+        1
+      ],
+      "content_sha256": "e65d2c5ba75cdd2cf9e3e2007a4906e81a4833e6bfd96715a641e05126d29a98"
     },
     "services/wordloop-ml/src/wordloop/entrypoints/api/api.py#L105-105": {
       "file": "services/wordloop-ml/src/wordloop/entrypoints/api/api.py",

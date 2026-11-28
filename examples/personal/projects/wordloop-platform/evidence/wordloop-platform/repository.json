@@ -5,7 +5,7 @@
   "commit": "c4172c3ecb16f42a3562cf95476e9977570fd72a",
   "branch": "chore/groundwork-reset",
   "dirty": true,
-  "scanned_at": "2026-11-27T22:10:28.841Z",
+  "scanned_at": "2026-11-28T07:19:43.722Z",
   "scanner_version": "0.2.0-orientation",
   "submodules": [
     {
@@ -98,6 +98,13 @@
           "source": "services/wordloop-app/package.json"
         },
         {
+          "name": "orval",
+          "version": "^8.5.3",
+          "facet": "outbound_calls",
+          "support": "supported",
+          "source": "services/wordloop-app/package.json"
+        },
+        {
           "name": "browser-fetch-ws",
           "facet": "outbound_calls",
           "support": "partial",
@@ -111,10 +118,11 @@
         "messages_consumed": "unsupported",
         "jobs": "unsupported",
         "screens": "partial",
-        "outbound_calls": "partial"
+        "outbound_calls": "supported"
       },
       "key_dependencies": [
         "next@16.1.6",
+        "orval@^8.5.3",
         "react@19.2.4",
         "vite@^6.3.5"
       ]
@@ -177,6 +185,13 @@
           "source": "services/wordloop-core/go.mod"
         },
         {
+          "name": "oapi-codegen",
+          "version": "v1.2.0",
+          "facet": "outbound_calls",
+          "support": "supported",
+          "source": "services/wordloop-core/go.mod"
+        },
+        {
           "name": "v2",
           "version": "v2.0.0",
           "facet": "messages_published",
@@ -195,6 +210,20 @@
           "version": "v4.18.3",
           "facet": "stores",
           "support": "supported",
+          "source": "services/wordloop-core/go.mod"
+        },
+        {
+          "name": "go-grpc",
+          "version": "v0.63.0",
+          "facet": "interfaces",
+          "support": "partial",
+          "source": "services/wordloop-core/go.mod"
+        },
+        {
+          "name": "go-grpc-client",
+          "version": "v0.63.0",
+          "facet": "outbound_calls",
+          "support": "partial",
           "source": "services/wordloop-core/go.mod"
         },
         {
@@ -217,7 +246,7 @@
         "messages_consumed": "partial",
         "jobs": "unsupported",
         "screens": "unsupported",
-        "outbound_calls": "partial"
+        "outbound_calls": "supported"
       },
       "key_dependencies": [
         "cloud.google.com/go/pubsub/v2@v2.0.0",
@@ -227,7 +256,10 @@
         "github.com/go-chi/chi/v5@v5.2.2",
         "github.com/gorilla/websocket@v1.5.3",
         "github.com/jackc/pgx/v4@v4.18.3",
-        "github.com/lib/pq@v1.10.9"
+        "github.com/lib/pq@v1.10.9",
+        "github.com/oapi-codegen/runtime@v1.2.0",
+        "go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc@v0.63.0",
+        "google.golang.org/grpc@v1.79.2"
       ]
     },
     {
@@ -324,7 +356,7 @@
           "name": "httpx",
           "version": "0.27.0",
           "facet": "outbound_calls",
-          "support": "partial",
+          "support": "supported",
           "source": "services/wordloop-ml/pyproject.toml"
         },
         {
@@ -356,7 +388,7 @@
         "messages_consumed": "partial",
         "jobs": "unsupported",
         "screens": "unsupported",
-        "outbound_calls": "partial"
+        "outbound_calls": "supported"
       },
       "key_dependencies": [
         "fastapi@0.116.1",
@@ -376,7 +408,7 @@
           "name": "httpx",
           "version": "0.27.0",
           "facet": "outbound_calls",
-          "support": "partial",
+          "support": "supported",
           "source": "tests/pyproject.toml"
         },
         {
@@ -408,7 +440,7 @@
         "messages_consumed": "partial",
         "jobs": "unsupported",
         "screens": "unsupported",
-        "outbound_calls": "partial"
+        "outbound_calls": "supported"
       },
       "key_dependencies": [
         "google-cloud-pubsub@2.29.0",

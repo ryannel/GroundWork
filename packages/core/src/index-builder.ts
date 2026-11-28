@@ -1,5 +1,6 @@
-import type { HandlerStep } from "@groundwork/schema";
+import type { HandlerStep, SurfaceRecord } from "@groundwork/schema";
 import type { SpaceModel } from "./model.js";
+import { resolveComponentEvidence } from "./orientation.js";
 
 export type EdgeKind = "call" | "unresolved_call" | "publish" | "consume" | "read" | "write" | "causes" | "observed" | "depends";
 
@@ -20,7 +21,8 @@ export interface ModelGap {
     | "unowned_resource"
     | "observed_edge_unpromoted"
     | "missing_handler"
-    | "missing_schema";
+    | "missing_schema"
+    | "scanner_gap";
   readonly entity_id: string;
   readonly detail: string;
 }
@@ -355,6 +357,175 @@ export function buildIndex(model: SpaceModel): SpaceIndex {
       }
       for (const h of comp.handlers.handlers) {
         visitFlow(h.id, h.steps);
+      }
+    }
+  }
+
+  // Pass 3: Match scanned outbound_call surfaces against served component routes -> emit `observed` edges,
+  // and emit explicit `scanner_gap` warnings whenever a scan is incomplete or hits dynamic/unresolvable URLs.
+  const normalizePathForMatch = (p: string): string =>
+    p
+      .replace(/\/+$/, "")
+      .replace(/\{[^}]+\}/g, "{}")
+      .replace(/:[a-zA-Z0-9_]+/g, "{}")
+      .toLowerCase() || "/";
+
+  const isServedRoute = (s: SurfaceRecord): boolean => {
+    if (s.kind !== "route") return false;
+    if (s.denominator === "declarative_spec") {
+      const f = s.file.toLowerCase();
+      if (/(^|\/)(provider|providers|clients?|sdk|out|dist|build)\//.test(f)) return false;
+    }
+    return true;
+  };
+
+  interface TargetRouteEntry {
+    readonly componentId: string;
+    readonly systemId: string;
+    readonly surfaceId: string;
+    readonly method: string;
+    readonly path: string;
+  }
+
+  const routeIndex = new Map<string, TargetRouteEntry>();
+  const resolvedByComp = new Map<string, ReturnType<typeof resolveComponentEvidence>>();
+
+  for (const sys of model.systems) {
+    for (const comp of sys.components) {
+      const resolved = resolveComponentEvidence(model, sys, comp);
+      resolvedByComp.set(comp.id, resolved);
+
+      // Register authored endpoints first
+      for (const iface of comp.contracts.interfaces ?? []) {
+        for (const ep of iface.entries) {
+          if (!ep.method || !ep.path) continue;
+          const fullPath = `${iface.base_path ?? ""}${ep.path}`;
+          const key = `${ep.method.toUpperCase()} ${normalizePathForMatch(fullPath)}`;
+          if (!routeIndex.has(key)) {
+            routeIndex.set(key, {
+              componentId: comp.id,
+              systemId: sys.id,
+              surfaceId: ep.id,
+              method: ep.method.toUpperCase(),
+              path: fullPath,
+            });
+          }
+        }
+      }
+
+      // Register scanned served routes (prefer declarative_spec)
+      const served = resolved.surfaces
+        .filter(isServedRoute)
+        .sort((a, b) => (a.denominator === "declarative_spec" ? 0 : 1) - (b.denominator === "declarative_spec" ? 0 : 1));
+      for (const s of served) {
+        const method = String(s.details?.method ?? "ANY").toUpperCase();
+        const rPath = String(s.details?.path ?? "");
+        if (!rPath) continue;
+        const key = `${method} ${normalizePathForMatch(rPath)}`;
+        if (!routeIndex.has(key)) {
+          routeIndex.set(key, {
+            componentId: comp.id,
+            systemId: sys.id,
+            surfaceId: s.surface_id,
+            method,
+            path: rPath,
+          });
+        }
+      }
+    }
+  }
+
+  // Track already-modeled (from -> via) so we don't duplicate hand-authored call edges
+  const modeledCallKeys = new Set<string>();
+  for (const e of edges) {
+    if (e.kind === "call") {
+      modeledCallKeys.add(`${e.from}|${e.to}|${e.via}`);
+      const ent = byId.get(e.via);
+      if (ent && ent.kind === "endpoint") {
+        const ep = ent.data as { method?: string; path?: string };
+        if (ep.method && ep.path) {
+          modeledCallKeys.add(`${e.from}|${e.to}|${ep.method.toUpperCase()} ${normalizePathForMatch(ep.path)}`);
+        }
+      }
+    }
+  }
+
+  for (const sys of model.systems) {
+    for (const comp of sys.components) {
+      const resolved = resolvedByComp.get(comp.id);
+      if (!resolved) continue;
+
+      // Trust check 1: unsupported language or unsupported frameworks
+      if (resolved.package_root?.language === "unknown") {
+        gaps.push({
+          kind: "scanner_gap",
+          entity_id: comp.id,
+          detail: `Package root ${resolved.package_root.path} has unknown language — scanner cannot verify routes or outbound calls`,
+        });
+      }
+      const unsupportedFws = (resolved.package_root?.frameworks ?? []).filter((fw) => fw.support === "unsupported");
+      for (const fw of unsupportedFws) {
+        gaps.push({
+          kind: "scanner_gap",
+          entity_id: comp.id,
+          detail: `Detected framework "${fw.name}" (${fw.facet}) is unsupported by the scanner — coverage may be incomplete`,
+        });
+      }
+
+      const outbound = resolved.surfaces.filter((s) => s.kind === "outbound_call");
+      const dynamicFiles = new Set<string>();
+      const seenObserved = new Set<string>();
+
+      for (const s of outbound) {
+        const d = (s.details ?? {}) as Record<string, unknown>;
+        if (d.dynamic === true) {
+          dynamicFiles.add(s.file);
+          continue;
+        }
+        // For OpenAPI codegen clients, only emit edges for endpoints actually invoked in app code
+        if (d.client_kind === "openapi-codegen" && typeof d.usage_count === "number" && d.usage_count === 0) {
+          continue;
+        }
+
+        const method = String(d.method ?? "ANY").toUpperCase();
+        const rawPath = typeof d.path === "string" ? d.path : undefined;
+        if (!rawPath) continue;
+
+        const normKey = `${method} ${normalizePathForMatch(rawPath)}`;
+        const target = routeIndex.get(normKey);
+        if (!target || target.componentId === comp.id) continue;
+
+        if (
+          modeledCallKeys.has(`${comp.id}|${target.componentId}|${target.surfaceId}`) ||
+          modeledCallKeys.has(`${comp.id}|${target.componentId}|${normKey}`)
+        ) {
+          continue;
+        }
+
+        const obsKey = `${comp.id}|${target.componentId}|${target.surfaceId}`;
+        if (seenObserved.has(obsKey)) continue;
+        seenObserved.add(obsKey);
+
+        const usageCount = typeof d.usage_count === "number" ? d.usage_count : undefined;
+        const usageSuffix = usageCount && usageCount > 0 ? ` (called in ${usageCount} ${usageCount === 1 ? "file" : "files"})` : "";
+        edges.push({
+          from: comp.id,
+          from_system: sys.id,
+          to: target.componentId,
+          to_system: target.systemId,
+          kind: "observed",
+          via: target.surfaceId,
+          label: `${target.method} ${target.path}${usageSuffix}`,
+        });
+      }
+
+      if (dynamicFiles.size > 0) {
+        const sample = [...dynamicFiles].slice(0, 3).join(", ");
+        gaps.push({
+          kind: "scanner_gap",
+          entity_id: comp.id,
+          detail: `${dynamicFiles.size} ${dynamicFiles.size === 1 ? "file has" : "files have"} dynamic outbound HTTP URLs that static scanning could not resolve (${sample})`,
+        });
       }
     }
   }

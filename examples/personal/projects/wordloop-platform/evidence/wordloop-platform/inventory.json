@@ -2,12 +2,12 @@
   "schema_version": 1,
   "repo_name": "wordloop-platform",
   "commit": "c4172c3ecb16f42a3562cf95476e9977570fd72a",
-  "scanned_at": "2026-11-27T22:10:28.841Z",
+  "scanned_at": "2026-11-28T07:19:43.722Z",
   "summary": {
-    "total_surfaces": 322,
+    "total_surfaces": 387,
     "by_kind": {
-      "route": 261,
-      "outbound_call": 23,
+      "route": 265,
+      "outbound_call": 84,
       "subscription": 2,
       "table": 26,
       "topic": 8,
@@ -15,15 +15,15 @@
     },
     "by_denominator": {
       "declarative_spec": 213,
-      "source_heuristic": 109,
+      "source_heuristic": 174,
       "infra_manifest": 0
     },
     "by_package": {
       ".": 81,
-      "services/wordloop-app": 4,
+      "services/wordloop-app": 66,
       "services/wordloop-core": 150,
-      "services/wordloop-docs": 81,
-      "services/wordloop-ml": 6
+      "services/wordloop-docs": 86,
+      "services/wordloop-ml": 4
     }
   },
   "surfaces": [
@@ -9806,7 +9806,239 @@
       "repo_name": "wordloop-platform"
     },
     {
-      "surface_id": "outbound:fetch:/api/config@services/wordloop-app/lib/websocket-provider.tsx#L362",
+      "surface_id": "outbound:DELETE:/meetings/{id}",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        1769,
+        1769
+      ],
+      "symbol": "deleteMeeting",
+      "details": {
+        "method": "DELETE",
+        "path": "/meetings/{id}",
+        "function": "deleteMeeting",
+        "client_kind": "openapi-codegen",
+        "usage_count": 2,
+        "used_in_files": [
+          "services/wordloop-app/app/(app)/meetings/[id]/client.tsx",
+          "services/wordloop-app/hooks/use-meetings.ts"
+        ]
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:DELETE:/meetings/{id}/speaker-labels/{label}",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        2384,
+        2384
+      ],
+      "symbol": "clearSpeakerLabel",
+      "details": {
+        "method": "DELETE",
+        "path": "/meetings/{id}/speaker-labels/{label}",
+        "function": "clearSpeakerLabel",
+        "client_kind": "openapi-codegen",
+        "usage_count": 0,
+        "used_in_files": []
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:DELETE:/notes/{id}",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        2991,
+        2991
+      ],
+      "symbol": "deleteNote",
+      "details": {
+        "method": "DELETE",
+        "path": "/notes/{id}",
+        "function": "deleteNote",
+        "client_kind": "openapi-codegen",
+        "usage_count": 2,
+        "used_in_files": [
+          "services/wordloop-app/components/notes/note-list.tsx",
+          "services/wordloop-app/hooks/use-notes.ts"
+        ]
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:DELETE:/people/{id}",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        3221,
+        3221
+      ],
+      "symbol": "deletePerson",
+      "details": {
+        "method": "DELETE",
+        "path": "/people/{id}",
+        "function": "deletePerson",
+        "client_kind": "openapi-codegen",
+        "usage_count": 1,
+        "used_in_files": [
+          "services/wordloop-app/hooks/use-people.ts"
+        ]
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:DELETE:/tasks/{id}",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        3636,
+        3636
+      ],
+      "symbol": "deleteTask",
+      "details": {
+        "method": "DELETE",
+        "path": "/tasks/{id}",
+        "function": "deleteTask",
+        "client_kind": "openapi-codegen",
+        "usage_count": 3,
+        "used_in_files": [
+          "services/wordloop-app/components/tasks/task-dashboard.tsx",
+          "services/wordloop-app/components/tasks/task-list.tsx",
+          "services/wordloop-app/hooks/use-tasks.ts"
+        ]
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:DELETE:/tasks/{id}/sub-tasks/{subId}",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        3870,
+        3870
+      ],
+      "symbol": "deleteSubTask",
+      "details": {
+        "method": "DELETE",
+        "path": "/tasks/{id}/sub-tasks/{subId}",
+        "function": "deleteSubTask",
+        "client_kind": "openapi-codegen",
+        "usage_count": 0,
+        "used_in_files": []
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:DELETE:/users/{id}",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        4432,
+        4432
+      ],
+      "symbol": "deleteUser",
+      "details": {
+        "method": "DELETE",
+        "path": "/users/{id}",
+        "function": "deleteUser",
+        "client_kind": "openapi-codegen",
+        "usage_count": 0,
+        "used_in_files": []
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:fetch-dynamic:services/wordloop-app/app/api/proxy/[...path]/route.ts#L117",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-fetch",
+      "file": "services/wordloop-app/app/api/proxy/[...path]/route.ts",
+      "lines": [
+        117,
+        117
+      ],
+      "details": {
+        "dynamic": true
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:fetch-dynamic:services/wordloop-app/public/mockServiceWorker.js#L238",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-fetch",
+      "file": "services/wordloop-app/public/mockServiceWorker.js",
+      "lines": [
+        238,
+        238
+      ],
+      "details": {
+        "dynamic": true
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:GET:/ai/threads/{id}/messages",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        1451,
+        1451
+      ],
+      "symbol": "getThreadMessages",
+      "details": {
+        "method": "GET",
+        "path": "/ai/threads/{id}/messages",
+        "function": "getThreadMessages",
+        "client_kind": "openapi-codegen",
+        "usage_count": 1,
+        "used_in_files": [
+          "services/wordloop-app/hooks/use-ai-threads.ts"
+        ]
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:GET:/api/config@services/wordloop-app/lib/websocket-provider.tsx#L362",
       "kind": "outbound_call",
       "facet": "outbound_calls",
       "package_root": "services/wordloop-app",
@@ -9818,12 +10050,1109 @@
         362
       ],
       "details": {
-        "target": "/api/config"
+        "method": "GET",
+        "target": "/api/config",
+        "path": "/api/config"
       },
       "repo_name": "wordloop-app"
     },
     {
-      "surface_id": "outbound:fetch:${backendUrl}/v1/metrics@services/wordloop-app/app/api/otel/metrics/route.ts#L11",
+      "surface_id": "outbound:GET:/health",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        1541,
+        1541
+      ],
+      "symbol": "checkHealth",
+      "details": {
+        "method": "GET",
+        "path": "/health",
+        "function": "checkHealth",
+        "client_kind": "openapi-codegen",
+        "usage_count": 0,
+        "used_in_files": []
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:GET:/home/brief",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        1585,
+        1585
+      ],
+      "symbol": "getDailyBrief",
+      "details": {
+        "method": "GET",
+        "path": "/home/brief",
+        "function": "getDailyBrief",
+        "client_kind": "openapi-codegen",
+        "usage_count": 1,
+        "used_in_files": [
+          "services/wordloop-app/hooks/use-daily-brief.ts"
+        ]
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:GET:/me",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        1629,
+        1629
+      ],
+      "symbol": "getCurrentUser",
+      "details": {
+        "method": "GET",
+        "path": "/me",
+        "function": "getCurrentUser",
+        "client_kind": "openapi-codegen",
+        "usage_count": 0,
+        "used_in_files": []
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:GET:/meetings/{id}/audio-url",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        1965,
+        1965
+      ],
+      "symbol": "getMeetingAudioUrl",
+      "details": {
+        "method": "GET",
+        "path": "/meetings/{id}/audio-url",
+        "function": "getMeetingAudioUrl",
+        "client_kind": "openapi-codegen",
+        "usage_count": 1,
+        "used_in_files": [
+          "services/wordloop-app/hooks/use-meetings.ts"
+        ]
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:GET:/meetings/{id}/recording",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        2009,
+        2009
+      ],
+      "symbol": "getMeetingRecording",
+      "details": {
+        "method": "GET",
+        "path": "/meetings/{id}/recording",
+        "function": "getMeetingRecording",
+        "client_kind": "openapi-codegen",
+        "usage_count": 0,
+        "used_in_files": []
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:GET:/meetings/{id}/recording/chunk-inventory",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        2053,
+        2053
+      ],
+      "symbol": "getMeetingRecordingChunkInventory",
+      "details": {
+        "method": "GET",
+        "path": "/meetings/{id}/recording/chunk-inventory",
+        "function": "getMeetingRecordingChunkInventory",
+        "client_kind": "openapi-codegen",
+        "usage_count": 0,
+        "used_in_files": []
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:GET:/meetings/{id}/recording/missing-chunks",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        2249,
+        2249
+      ],
+      "symbol": "getMeetingRecordingMissingChunks",
+      "details": {
+        "method": "GET",
+        "path": "/meetings/{id}/recording/missing-chunks",
+        "function": "getMeetingRecordingMissingChunks",
+        "client_kind": "openapi-codegen",
+        "usage_count": 0,
+        "used_in_files": []
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:GET:/meetings/{id}/speaker-labels",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        2293,
+        2293
+      ],
+      "symbol": "listSpeakerLabels",
+      "details": {
+        "method": "GET",
+        "path": "/meetings/{id}/speaker-labels",
+        "function": "listSpeakerLabels",
+        "client_kind": "openapi-codegen",
+        "usage_count": 1,
+        "used_in_files": [
+          "services/wordloop-app/hooks/use-speaker-labels.ts"
+        ]
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:GET:/meetings/{id}/synthesis",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        2429,
+        2429
+      ],
+      "symbol": "getMeetingSynthesis",
+      "details": {
+        "method": "GET",
+        "path": "/meetings/{id}/synthesis",
+        "function": "getMeetingSynthesis",
+        "client_kind": "openapi-codegen",
+        "usage_count": 0,
+        "used_in_files": []
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:GET:/meetings/{id}/talking-points",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        2519,
+        2519
+      ],
+      "symbol": "listTalkingPoints",
+      "details": {
+        "method": "GET",
+        "path": "/meetings/{id}/talking-points",
+        "function": "listTalkingPoints",
+        "client_kind": "openapi-codegen",
+        "usage_count": 1,
+        "used_in_files": [
+          "services/wordloop-app/hooks/use-meetings.ts"
+        ]
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:GET:/meetings/{id}/topics",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        2609,
+        2609
+      ],
+      "symbol": "listTopics",
+      "details": {
+        "method": "GET",
+        "path": "/meetings/{id}/topics",
+        "function": "listTopics",
+        "client_kind": "openapi-codegen",
+        "usage_count": 0,
+        "used_in_files": []
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:GET:/meetings/{meetingId}/transcriptions",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        2851,
+        2851
+      ],
+      "symbol": "listMeetingTranscriptions",
+      "details": {
+        "method": "GET",
+        "path": "/meetings/{meetingId}/transcriptions",
+        "function": "listMeetingTranscriptions",
+        "client_kind": "openapi-codegen",
+        "usage_count": 1,
+        "used_in_files": [
+          "services/wordloop-app/hooks/use-meetings.ts"
+        ]
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:GET:/notes/{id}",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        3035,
+        3035
+      ],
+      "symbol": "getNote",
+      "details": {
+        "method": "GET",
+        "path": "/notes/{id}",
+        "function": "getNote",
+        "client_kind": "openapi-codegen",
+        "usage_count": 1,
+        "used_in_files": [
+          "services/wordloop-app/hooks/use-notes.ts"
+        ]
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:GET:/people/{id}",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        3265,
+        3265
+      ],
+      "symbol": "getPerson",
+      "details": {
+        "method": "GET",
+        "path": "/people/{id}",
+        "function": "getPerson",
+        "client_kind": "openapi-codegen",
+        "usage_count": 2,
+        "used_in_files": [
+          "services/wordloop-app/app/(app)/people/[id]/page.tsx",
+          "services/wordloop-app/hooks/use-people.ts"
+        ]
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:GET:/people/{id}/activity",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        3355,
+        3355
+      ],
+      "symbol": "getPersonActivity",
+      "details": {
+        "method": "GET",
+        "path": "/people/{id}/activity",
+        "function": "getPersonActivity",
+        "client_kind": "openapi-codegen",
+        "usage_count": 2,
+        "used_in_files": [
+          "services/wordloop-app/app/(app)/people/[id]/page.tsx",
+          "services/wordloop-app/hooks/use-people.ts"
+        ]
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:GET:/people/{id}/notes",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        3399,
+        3399
+      ],
+      "symbol": "getPersonNotes",
+      "details": {
+        "method": "GET",
+        "path": "/people/{id}/notes",
+        "function": "getPersonNotes",
+        "client_kind": "openapi-codegen",
+        "usage_count": 2,
+        "used_in_files": [
+          "services/wordloop-app/app/(app)/people/[id]/page.tsx",
+          "services/wordloop-app/hooks/use-people.ts"
+        ]
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:GET:/tasks/{id}/sub-tasks",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        3779,
+        3779
+      ],
+      "symbol": "listSubTasks",
+      "details": {
+        "method": "GET",
+        "path": "/tasks/{id}/sub-tasks",
+        "function": "listSubTasks",
+        "client_kind": "openapi-codegen",
+        "usage_count": 0,
+        "used_in_files": []
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:GET:/transcriptions/{transcriptionId}",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        3963,
+        3963
+      ],
+      "symbol": "getTranscription",
+      "details": {
+        "method": "GET",
+        "path": "/transcriptions/{transcriptionId}",
+        "function": "getTranscription",
+        "client_kind": "openapi-codegen",
+        "usage_count": 0,
+        "used_in_files": []
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:GET:/users/{id}",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        4476,
+        4476
+      ],
+      "symbol": "getUser",
+      "details": {
+        "method": "GET",
+        "path": "/users/{id}",
+        "function": "getUser",
+        "client_kind": "openapi-codegen",
+        "usage_count": 0,
+        "used_in_files": []
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:PATCH:/meetings/{id}",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        1866,
+        1866
+      ],
+      "symbol": "updateMeeting",
+      "details": {
+        "method": "PATCH",
+        "path": "/meetings/{id}",
+        "function": "updateMeeting",
+        "client_kind": "openapi-codegen",
+        "usage_count": 2,
+        "used_in_files": [
+          "services/wordloop-app/app/(app)/meetings/[id]/client.tsx",
+          "services/wordloop-app/hooks/use-meetings.ts"
+        ]
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:PATCH:/notes/{id}",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        3079,
+        3079
+      ],
+      "symbol": "updateNote",
+      "details": {
+        "method": "PATCH",
+        "path": "/notes/{id}",
+        "function": "updateNote",
+        "client_kind": "openapi-codegen",
+        "usage_count": 2,
+        "used_in_files": [
+          "services/wordloop-app/components/notes/note-list.tsx",
+          "services/wordloop-app/hooks/use-notes.ts"
+        ]
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:PATCH:/people/{id}",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        3309,
+        3309
+      ],
+      "symbol": "updatePerson",
+      "details": {
+        "method": "PATCH",
+        "path": "/people/{id}",
+        "function": "updatePerson",
+        "client_kind": "openapi-codegen",
+        "usage_count": 1,
+        "used_in_files": [
+          "services/wordloop-app/hooks/use-people.ts"
+        ]
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:PATCH:/tasks/{id}",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        3733,
+        3733
+      ],
+      "symbol": "updateTask",
+      "details": {
+        "method": "PATCH",
+        "path": "/tasks/{id}",
+        "function": "updateTask",
+        "client_kind": "openapi-codegen",
+        "usage_count": 3,
+        "used_in_files": [
+          "services/wordloop-app/components/tasks/task-dashboard.tsx",
+          "services/wordloop-app/components/tasks/task-list.tsx",
+          "services/wordloop-app/hooks/use-tasks.ts"
+        ]
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:PATCH:/tasks/{id}/sub-tasks/{subId}",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        3916,
+        3916
+      ],
+      "symbol": "updateSubTask",
+      "details": {
+        "method": "PATCH",
+        "path": "/tasks/{id}/sub-tasks/{subId}",
+        "function": "updateSubTask",
+        "client_kind": "openapi-codegen",
+        "usage_count": 0,
+        "used_in_files": []
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:PATCH:/transcriptions/{transcriptionId}/degraded",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        4007,
+        4007
+      ],
+      "symbol": "updateTranscriptionDegraded",
+      "details": {
+        "method": "PATCH",
+        "path": "/transcriptions/{transcriptionId}/degraded",
+        "function": "updateTranscriptionDegraded",
+        "client_kind": "openapi-codegen",
+        "usage_count": 0,
+        "used_in_files": []
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:PATCH:/transcriptions/{transcriptionId}/status",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        4290,
+        4290
+      ],
+      "symbol": "updateTranscriptionStatus",
+      "details": {
+        "method": "PATCH",
+        "path": "/transcriptions/{transcriptionId}/status",
+        "function": "updateTranscriptionStatus",
+        "client_kind": "openapi-codegen",
+        "usage_count": 0,
+        "used_in_files": []
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:PATCH:/users/{id}",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        4520,
+        4520
+      ],
+      "symbol": "updateUser",
+      "details": {
+        "method": "PATCH",
+        "path": "/users/{id}",
+        "function": "updateUser",
+        "client_kind": "openapi-codegen",
+        "usage_count": 0,
+        "used_in_files": []
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:POST:/ai/threads",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        1406,
+        1406
+      ],
+      "symbol": "createAIThread",
+      "details": {
+        "method": "POST",
+        "path": "/ai/threads",
+        "function": "createAIThread",
+        "client_kind": "openapi-codegen",
+        "usage_count": 1,
+        "used_in_files": [
+          "services/wordloop-app/components/layout/ai-copilot-sidebar.tsx"
+        ]
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:POST:/ai/threads/{id}/messages",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        1495,
+        1495
+      ],
+      "symbol": "sendAIMessage",
+      "details": {
+        "method": "POST",
+        "path": "/ai/threads/{id}/messages",
+        "function": "sendAIMessage",
+        "client_kind": "openapi-codegen",
+        "usage_count": 1,
+        "used_in_files": [
+          "services/wordloop-app/components/layout/ai-copilot-sidebar.tsx"
+        ]
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:POST:/meetings",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        1724,
+        1724
+      ],
+      "symbol": "createMeeting",
+      "details": {
+        "method": "POST",
+        "path": "/meetings",
+        "function": "createMeeting",
+        "client_kind": "openapi-codegen",
+        "usage_count": 3,
+        "used_in_files": [
+          "services/wordloop-app/components/mock/db/seed.ts",
+          "services/wordloop-app/hooks/use-meetings.ts",
+          "services/wordloop-app/hooks/use-start-recording.ts"
+        ]
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:POST:/meetings/{id}/recording/chunks",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        2097,
+        2097
+      ],
+      "symbol": "uploadMeetingRecordingChunks",
+      "details": {
+        "method": "POST",
+        "path": "/meetings/{id}/recording/chunks",
+        "function": "uploadMeetingRecordingChunks",
+        "client_kind": "openapi-codegen",
+        "usage_count": 0,
+        "used_in_files": []
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:POST:/meetings/{id}/recording/health",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        2203,
+        2203
+      ],
+      "symbol": "reportMeetingRecordingHealth",
+      "details": {
+        "method": "POST",
+        "path": "/meetings/{id}/recording/health",
+        "function": "reportMeetingRecordingHealth",
+        "client_kind": "openapi-codegen",
+        "usage_count": 0,
+        "used_in_files": []
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:POST:/meetings/{id}/speaker-labels",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        2337,
+        2337
+      ],
+      "symbol": "assignSpeakerLabel",
+      "details": {
+        "method": "POST",
+        "path": "/meetings/{id}/speaker-labels",
+        "function": "assignSpeakerLabel",
+        "client_kind": "openapi-codegen",
+        "usage_count": 1,
+        "used_in_files": [
+          "services/wordloop-app/hooks/use-speaker-labels.ts"
+        ]
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:POST:/meetings/{id}/talking-points",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        2563,
+        2563
+      ],
+      "symbol": "createTalkingPoint",
+      "details": {
+        "method": "POST",
+        "path": "/meetings/{id}/talking-points",
+        "function": "createTalkingPoint",
+        "client_kind": "openapi-codegen",
+        "usage_count": 0,
+        "used_in_files": []
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:POST:/meetings/{id}/topics",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        2653,
+        2653
+      ],
+      "symbol": "createTopic",
+      "details": {
+        "method": "POST",
+        "path": "/meetings/{id}/topics",
+        "function": "createTopic",
+        "client_kind": "openapi-codegen",
+        "usage_count": 0,
+        "used_in_files": []
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:POST:/meetings/{id}/upload",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        2699,
+        2699
+      ],
+      "symbol": "uploadMeetingAudio",
+      "details": {
+        "method": "POST",
+        "path": "/meetings/{id}/upload",
+        "function": "uploadMeetingAudio",
+        "client_kind": "openapi-codegen",
+        "usage_count": 1,
+        "used_in_files": [
+          "services/wordloop-app/hooks/use-meetings.ts"
+        ]
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:POST:/notes",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        2946,
+        2946
+      ],
+      "symbol": "createNote",
+      "details": {
+        "method": "POST",
+        "path": "/notes",
+        "function": "createNote",
+        "client_kind": "openapi-codegen",
+        "usage_count": 3,
+        "used_in_files": [
+          "services/wordloop-app/components/mock/db/seed.ts",
+          "services/wordloop-app/components/notes/note-list.tsx",
+          "services/wordloop-app/hooks/use-notes.ts"
+        ]
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:POST:/people",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        3176,
+        3176
+      ],
+      "symbol": "createPerson",
+      "details": {
+        "method": "POST",
+        "path": "/people",
+        "function": "createPerson",
+        "client_kind": "openapi-codegen",
+        "usage_count": 3,
+        "used_in_files": [
+          "services/wordloop-app/app/(app)/people/client.tsx",
+          "services/wordloop-app/components/mock/db/seed.ts",
+          "services/wordloop-app/hooks/use-people.ts"
+        ]
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:POST:/people/{id}/notes",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        3443,
+        3443
+      ],
+      "symbol": "addPersonNote",
+      "details": {
+        "method": "POST",
+        "path": "/people/{id}/notes",
+        "function": "addPersonNote",
+        "client_kind": "openapi-codegen",
+        "usage_count": 0,
+        "used_in_files": []
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:POST:/tasks",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        3591,
+        3591
+      ],
+      "symbol": "createTask",
+      "details": {
+        "method": "POST",
+        "path": "/tasks",
+        "function": "createTask",
+        "client_kind": "openapi-codegen",
+        "usage_count": 4,
+        "used_in_files": [
+          "services/wordloop-app/components/mock/db/seed.ts",
+          "services/wordloop-app/components/tasks/task-dashboard.tsx",
+          "services/wordloop-app/components/tasks/task-list.tsx",
+          "services/wordloop-app/hooks/use-tasks.ts"
+        ]
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:POST:/tasks/{id}/sub-tasks",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        3823,
+        3823
+      ],
+      "symbol": "createSubTask",
+      "details": {
+        "method": "POST",
+        "path": "/tasks/{id}/sub-tasks",
+        "function": "createSubTask",
+        "client_kind": "openapi-codegen",
+        "usage_count": 0,
+        "used_in_files": []
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:POST:/transcriptions/{transcriptionId}/identify-speakers",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        4053,
+        4053
+      ],
+      "symbol": "identifySpeakers",
+      "details": {
+        "method": "POST",
+        "path": "/transcriptions/{transcriptionId}/identify-speakers",
+        "function": "identifySpeakers",
+        "client_kind": "openapi-codegen",
+        "usage_count": 0,
+        "used_in_files": []
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:POST:/transcriptions/{transcriptionId}/remap-speaker",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        4099,
+        4099
+      ],
+      "symbol": "remapSpeaker",
+      "details": {
+        "method": "POST",
+        "path": "/transcriptions/{transcriptionId}/remap-speaker",
+        "function": "remapSpeaker",
+        "client_kind": "openapi-codegen",
+        "usage_count": 0,
+        "used_in_files": []
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:POST:/transcriptions/{transcriptionId}/segments",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        4198,
+        4198
+      ],
+      "symbol": "addTranscriptionSegments",
+      "details": {
+        "method": "POST",
+        "path": "/transcriptions/{transcriptionId}/segments",
+        "function": "addTranscriptionSegments",
+        "client_kind": "openapi-codegen",
+        "usage_count": 0,
+        "used_in_files": []
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:POST:/users",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        4387,
+        4387
+      ],
+      "symbol": "createUser",
+      "details": {
+        "method": "POST",
+        "path": "/users",
+        "function": "createUser",
+        "client_kind": "openapi-codegen",
+        "usage_count": 1,
+        "used_in_files": [
+          "services/wordloop-app/components/mock/db/seed.ts"
+        ]
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:POST:/v1/metrics@services/wordloop-app/app/api/otel/metrics/route.ts#L11",
       "kind": "outbound_call",
       "facet": "outbound_calls",
       "package_root": "services/wordloop-app",
@@ -9835,12 +11164,14 @@
         11
       ],
       "details": {
-        "target": "${backendUrl}/v1/metrics"
+        "method": "POST",
+        "target": "${backendUrl}/v1/metrics",
+        "path": "/v1/metrics"
       },
       "repo_name": "wordloop-app"
     },
     {
-      "surface_id": "outbound:fetch:${backendUrl}/v1/traces@services/wordloop-app/app/api/otel/traces/route.ts#L11",
+      "surface_id": "outbound:POST:/v1/traces@services/wordloop-app/app/api/otel/traces/route.ts#L11",
       "kind": "outbound_call",
       "facet": "outbound_calls",
       "package_root": "services/wordloop-app",
@@ -9852,7 +11183,78 @@
         11
       ],
       "details": {
-        "target": "${backendUrl}/v1/traces"
+        "method": "POST",
+        "target": "${backendUrl}/v1/traces",
+        "path": "/v1/traces"
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:PUT:/meetings/{id}/synthesis",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        2473,
+        2473
+      ],
+      "symbol": "replaceMeetingSynthesis",
+      "details": {
+        "method": "PUT",
+        "path": "/meetings/{id}/synthesis",
+        "function": "replaceMeetingSynthesis",
+        "client_kind": "openapi-codegen",
+        "usage_count": 0,
+        "used_in_files": []
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:PUT:/meetings/{meetingId}/tasks/system",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        2805,
+        2805
+      ],
+      "symbol": "reconcileSystemTasks",
+      "details": {
+        "method": "PUT",
+        "path": "/meetings/{meetingId}/tasks/system",
+        "function": "reconcileSystemTasks",
+        "client_kind": "openapi-codegen",
+        "usage_count": 0,
+        "used_in_files": []
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:PUT:/transcriptions/{transcriptionId}/segments",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "ts-openapi-client",
+      "file": "services/wordloop-app/lib/api/generated.ts",
+      "lines": [
+        4244,
+        4244
+      ],
+      "symbol": "replaceTranscriptionSegments",
+      "details": {
+        "method": "PUT",
+        "path": "/transcriptions/{transcriptionId}/segments",
+        "function": "replaceTranscriptionSegments",
+        "client_kind": "openapi-codegen",
+        "usage_count": 0,
+        "used_in_files": []
       },
       "repo_name": "wordloop-app"
     },
@@ -9871,7 +11273,115 @@
       "repo_name": "wordloop-app"
     },
     {
-      "surface_id": "outbound:services/wordloop-core/internal/provider/wordloop-ml/client_gen.go#L1014",
+      "surface_id": "route:GET:/api/config",
+      "kind": "route",
+      "facet": "interfaces",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "nextjs-app-router",
+      "file": "services/wordloop-app/app/api/config/route.ts",
+      "lines": [
+        1,
+        1
+      ],
+      "details": {
+        "method": "GET",
+        "path": "/api/config"
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "route:GET:/api/healthz",
+      "kind": "route",
+      "facet": "interfaces",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "nextjs-app-router",
+      "file": "services/wordloop-app/app/api/healthz/route.ts",
+      "lines": [
+        1,
+        1
+      ],
+      "details": {
+        "method": "GET",
+        "path": "/api/healthz"
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "route:POST:/api/otel/metrics",
+      "kind": "route",
+      "facet": "interfaces",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "nextjs-app-router",
+      "file": "services/wordloop-app/app/api/otel/metrics/route.ts",
+      "lines": [
+        1,
+        1
+      ],
+      "details": {
+        "method": "POST",
+        "path": "/api/otel/metrics"
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "route:POST:/api/otel/traces",
+      "kind": "route",
+      "facet": "interfaces",
+      "package_root": "services/wordloop-app",
+      "denominator": "source_heuristic",
+      "extractor": "nextjs-app-router",
+      "file": "services/wordloop-app/app/api/otel/traces/route.ts",
+      "lines": [
+        1,
+        1
+      ],
+      "details": {
+        "method": "POST",
+        "path": "/api/otel/traces"
+      },
+      "repo_name": "wordloop-app"
+    },
+    {
+      "surface_id": "outbound:DELETE:/streaming/{param}@services/wordloop-core/internal/provider/wordloop-ml/client_gen.go#L1162",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-core",
+      "denominator": "source_heuristic",
+      "extractor": "go-http-client",
+      "file": "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go",
+      "lines": [
+        1162,
+        1162
+      ],
+      "details": {
+        "method": "DELETE",
+        "path": "/streaming/{param}"
+      },
+      "repo_name": "wordloop-core"
+    },
+    {
+      "surface_id": "outbound:GET:/debug/state@services/wordloop-core/internal/provider/wordloop-ml/client_gen.go#L987",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-core",
+      "denominator": "source_heuristic",
+      "extractor": "go-http-client",
+      "file": "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go",
+      "lines": [
+        987,
+        987
+      ],
+      "details": {
+        "method": "GET",
+        "path": "/debug/state"
+      },
+      "repo_name": "wordloop-core"
+    },
+    {
+      "surface_id": "outbound:GET:/healthz@services/wordloop-core/internal/provider/wordloop-ml/client_gen.go#L1014",
       "kind": "outbound_call",
       "facet": "outbound_calls",
       "package_root": "services/wordloop-core",
@@ -9882,6 +11392,154 @@
         1014,
         1014
       ],
+      "details": {
+        "method": "GET",
+        "path": "/healthz"
+      },
+      "repo_name": "wordloop-core"
+    },
+    {
+      "surface_id": "outbound:GET:/streaming/{param}@services/wordloop-core/internal/provider/wordloop-ml/client_gen.go#L1211",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-core",
+      "denominator": "source_heuristic",
+      "extractor": "go-http-client",
+      "file": "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go",
+      "lines": [
+        1211,
+        1211
+      ],
+      "details": {
+        "method": "GET",
+        "path": "/streaming/{param}"
+      },
+      "repo_name": "wordloop-core"
+    },
+    {
+      "surface_id": "outbound:GET:/transcription-jobs/{param}@services/wordloop-core/internal/provider/wordloop-ml/client_gen.go#L1400",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-core",
+      "denominator": "source_heuristic",
+      "extractor": "go-http-client",
+      "file": "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go",
+      "lines": [
+        1400,
+        1400
+      ],
+      "details": {
+        "method": "GET",
+        "path": "/transcription-jobs/{param}"
+      },
+      "repo_name": "wordloop-core"
+    },
+    {
+      "surface_id": "outbound:POST:/chat@services/wordloop-core/internal/provider/wordloop-ml/client_gen.go#L916",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-core",
+      "denominator": "source_heuristic",
+      "extractor": "go-http-client",
+      "file": "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go",
+      "lines": [
+        916,
+        916
+      ],
+      "details": {
+        "method": "POST",
+        "path": "/chat"
+      },
+      "repo_name": "wordloop-core"
+    },
+    {
+      "surface_id": "outbound:POST:/debug/reset@services/wordloop-core/internal/provider/wordloop-ml/client_gen.go#L960",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-core",
+      "denominator": "source_heuristic",
+      "extractor": "go-http-client",
+      "file": "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go",
+      "lines": [
+        960,
+        960
+      ],
+      "details": {
+        "method": "POST",
+        "path": "/debug/reset"
+      },
+      "repo_name": "wordloop-core"
+    },
+    {
+      "surface_id": "outbound:POST:/streaming/{param}/speaker-states@services/wordloop-core/internal/provider/wordloop-ml/client_gen.go#L1349",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-core",
+      "denominator": "source_heuristic",
+      "extractor": "go-http-client",
+      "file": "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go",
+      "lines": [
+        1349,
+        1349
+      ],
+      "details": {
+        "method": "POST",
+        "path": "/streaming/{param}/speaker-states"
+      },
+      "repo_name": "wordloop-core"
+    },
+    {
+      "surface_id": "outbound:POST:/transcription-jobs/{param}/run@services/wordloop-core/internal/provider/wordloop-ml/client_gen.go#L1460",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-core",
+      "denominator": "source_heuristic",
+      "extractor": "go-http-client",
+      "file": "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go",
+      "lines": [
+        1460,
+        1460
+      ],
+      "details": {
+        "method": "POST",
+        "path": "/transcription-jobs/{param}/run"
+      },
+      "repo_name": "wordloop-core"
+    },
+    {
+      "surface_id": "outbound:POST:/voice/{param}/add@services/wordloop-core/internal/provider/wordloop-ml/client_gen.go#L1540",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-core",
+      "denominator": "source_heuristic",
+      "extractor": "go-http-client",
+      "file": "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go",
+      "lines": [
+        1540,
+        1540
+      ],
+      "details": {
+        "method": "POST",
+        "path": "/voice/{param}/add"
+      },
+      "repo_name": "wordloop-core"
+    },
+    {
+      "surface_id": "outbound:POST:/voice/match@services/wordloop-core/internal/provider/wordloop-ml/client_gen.go#L1504",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-core",
+      "denominator": "source_heuristic",
+      "extractor": "go-http-client",
+      "file": "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go",
+      "lines": [
+        1504,
+        1504
+      ],
+      "details": {
+        "method": "POST",
+        "path": "/voice/match"
+      },
       "repo_name": "wordloop-core"
     },
     {
@@ -9896,34 +11554,10 @@
         1111,
         1111
       ],
-      "repo_name": "wordloop-core"
-    },
-    {
-      "surface_id": "outbound:services/wordloop-core/internal/provider/wordloop-ml/client_gen.go#L1162",
-      "kind": "outbound_call",
-      "facet": "outbound_calls",
-      "package_root": "services/wordloop-core",
-      "denominator": "source_heuristic",
-      "extractor": "go-http-client",
-      "file": "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go",
-      "lines": [
-        1162,
-        1162
-      ],
-      "repo_name": "wordloop-core"
-    },
-    {
-      "surface_id": "outbound:services/wordloop-core/internal/provider/wordloop-ml/client_gen.go#L1211",
-      "kind": "outbound_call",
-      "facet": "outbound_calls",
-      "package_root": "services/wordloop-core",
-      "denominator": "source_heuristic",
-      "extractor": "go-http-client",
-      "file": "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go",
-      "lines": [
-        1211,
-        1211
-      ],
+      "details": {
+        "method": "POST",
+        "dynamic": true
+      },
       "repo_name": "wordloop-core"
     },
     {
@@ -9938,118 +11572,10 @@
         1287,
         1287
       ],
-      "repo_name": "wordloop-core"
-    },
-    {
-      "surface_id": "outbound:services/wordloop-core/internal/provider/wordloop-ml/client_gen.go#L1349",
-      "kind": "outbound_call",
-      "facet": "outbound_calls",
-      "package_root": "services/wordloop-core",
-      "denominator": "source_heuristic",
-      "extractor": "go-http-client",
-      "file": "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go",
-      "lines": [
-        1349,
-        1349
-      ],
-      "repo_name": "wordloop-core"
-    },
-    {
-      "surface_id": "outbound:services/wordloop-core/internal/provider/wordloop-ml/client_gen.go#L1400",
-      "kind": "outbound_call",
-      "facet": "outbound_calls",
-      "package_root": "services/wordloop-core",
-      "denominator": "source_heuristic",
-      "extractor": "go-http-client",
-      "file": "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go",
-      "lines": [
-        1400,
-        1400
-      ],
-      "repo_name": "wordloop-core"
-    },
-    {
-      "surface_id": "outbound:services/wordloop-core/internal/provider/wordloop-ml/client_gen.go#L1460",
-      "kind": "outbound_call",
-      "facet": "outbound_calls",
-      "package_root": "services/wordloop-core",
-      "denominator": "source_heuristic",
-      "extractor": "go-http-client",
-      "file": "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go",
-      "lines": [
-        1460,
-        1460
-      ],
-      "repo_name": "wordloop-core"
-    },
-    {
-      "surface_id": "outbound:services/wordloop-core/internal/provider/wordloop-ml/client_gen.go#L1504",
-      "kind": "outbound_call",
-      "facet": "outbound_calls",
-      "package_root": "services/wordloop-core",
-      "denominator": "source_heuristic",
-      "extractor": "go-http-client",
-      "file": "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go",
-      "lines": [
-        1504,
-        1504
-      ],
-      "repo_name": "wordloop-core"
-    },
-    {
-      "surface_id": "outbound:services/wordloop-core/internal/provider/wordloop-ml/client_gen.go#L1540",
-      "kind": "outbound_call",
-      "facet": "outbound_calls",
-      "package_root": "services/wordloop-core",
-      "denominator": "source_heuristic",
-      "extractor": "go-http-client",
-      "file": "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go",
-      "lines": [
-        1540,
-        1540
-      ],
-      "repo_name": "wordloop-core"
-    },
-    {
-      "surface_id": "outbound:services/wordloop-core/internal/provider/wordloop-ml/client_gen.go#L916",
-      "kind": "outbound_call",
-      "facet": "outbound_calls",
-      "package_root": "services/wordloop-core",
-      "denominator": "source_heuristic",
-      "extractor": "go-http-client",
-      "file": "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go",
-      "lines": [
-        916,
-        916
-      ],
-      "repo_name": "wordloop-core"
-    },
-    {
-      "surface_id": "outbound:services/wordloop-core/internal/provider/wordloop-ml/client_gen.go#L960",
-      "kind": "outbound_call",
-      "facet": "outbound_calls",
-      "package_root": "services/wordloop-core",
-      "denominator": "source_heuristic",
-      "extractor": "go-http-client",
-      "file": "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go",
-      "lines": [
-        960,
-        960
-      ],
-      "repo_name": "wordloop-core"
-    },
-    {
-      "surface_id": "outbound:services/wordloop-core/internal/provider/wordloop-ml/client_gen.go#L987",
-      "kind": "outbound_call",
-      "facet": "outbound_calls",
-      "package_root": "services/wordloop-core",
-      "denominator": "source_heuristic",
-      "extractor": "go-http-client",
-      "file": "services/wordloop-core/internal/provider/wordloop-ml/client_gen.go",
-      "lines": [
-        987,
-        987
-      ],
+      "details": {
+        "method": "POST",
+        "dynamic": true
+      },
       "repo_name": "wordloop-core"
     },
     {
@@ -10064,6 +11590,10 @@
         127,
         127
       ],
+      "details": {
+        "method": "POST",
+        "dynamic": true
+      },
       "repo_name": "wordloop-core"
     },
     {
@@ -10078,6 +11608,10 @@
         155,
         155
       ],
+      "details": {
+        "method": "DELETE",
+        "dynamic": true
+      },
       "repo_name": "wordloop-core"
     },
     {
@@ -10092,6 +11626,10 @@
         206,
         206
       ],
+      "details": {
+        "method": "POST",
+        "dynamic": true
+      },
       "repo_name": "wordloop-core"
     },
     {
@@ -10106,6 +11644,10 @@
         78,
         78
       ],
+      "details": {
+        "method": "POST",
+        "dynamic": true
+      },
       "repo_name": "wordloop-core"
     },
     {
@@ -14764,6 +16306,91 @@
         "has_subscribe": false
       },
       "repo_name": "wordloop-core"
+    },
+    {
+      "surface_id": "outbound:fetch-dynamic:services/wordloop-docs/out/_next/static/chunks/0~ypc4nium9zx.js#L1",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-docs",
+      "denominator": "source_heuristic",
+      "extractor": "ts-fetch",
+      "file": "services/wordloop-docs/out/_next/static/chunks/0~ypc4nium9zx.js",
+      "lines": [
+        1,
+        1
+      ],
+      "details": {
+        "dynamic": true
+      },
+      "repo_name": "wordloop-docs"
+    },
+    {
+      "surface_id": "outbound:fetch-dynamic:services/wordloop-docs/out/_next/static/chunks/0adzr3mw~5nj9.js#L10",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-docs",
+      "denominator": "source_heuristic",
+      "extractor": "ts-fetch",
+      "file": "services/wordloop-docs/out/_next/static/chunks/0adzr3mw~5nj9.js",
+      "lines": [
+        10,
+        10
+      ],
+      "details": {
+        "dynamic": true
+      },
+      "repo_name": "wordloop-docs"
+    },
+    {
+      "surface_id": "outbound:fetch-dynamic:services/wordloop-docs/out/_next/static/chunks/0f4-jm_9wgzlw.js#L1",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-docs",
+      "denominator": "source_heuristic",
+      "extractor": "ts-fetch",
+      "file": "services/wordloop-docs/out/_next/static/chunks/0f4-jm_9wgzlw.js",
+      "lines": [
+        1,
+        1
+      ],
+      "details": {
+        "dynamic": true
+      },
+      "repo_name": "wordloop-docs"
+    },
+    {
+      "surface_id": "outbound:fetch-dynamic:services/wordloop-docs/out/_next/static/chunks/0u_82o.seu2pe.js#L1",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-docs",
+      "denominator": "source_heuristic",
+      "extractor": "ts-fetch",
+      "file": "services/wordloop-docs/out/_next/static/chunks/0u_82o.seu2pe.js",
+      "lines": [
+        1,
+        1
+      ],
+      "details": {
+        "dynamic": true
+      },
+      "repo_name": "wordloop-docs"
+    },
+    {
+      "surface_id": "outbound:fetch-dynamic:services/wordloop-docs/out/_next/static/chunks/turbopack-0wju.b4buji5e.js#L1",
+      "kind": "outbound_call",
+      "facet": "outbound_calls",
+      "package_root": "services/wordloop-docs",
+      "denominator": "source_heuristic",
+      "extractor": "ts-fetch",
+      "file": "services/wordloop-docs/out/_next/static/chunks/turbopack-0wju.b4buji5e.js",
+      "lines": [
+        1,
+        1
+      ],
+      "details": {
+        "dynamic": true
+      },
+      "repo_name": "wordloop-docs"
     },
     {
       "surface_id": "route:DELETE:/meetings/{id}",
@@ -24544,34 +26171,6 @@
       "repo_name": "wordloop-docs"
     },
     {
-      "surface_id": "outbound:services/wordloop-ml/src/wordloop/providers/wordloop_core/core_segment_callback.py#L67",
-      "kind": "outbound_call",
-      "facet": "outbound_calls",
-      "package_root": "services/wordloop-ml",
-      "denominator": "source_heuristic",
-      "extractor": "python-http-client",
-      "file": "services/wordloop-ml/src/wordloop/providers/wordloop_core/core_segment_callback.py",
-      "lines": [
-        67,
-        67
-      ],
-      "repo_name": "wordloop-ml"
-    },
-    {
-      "surface_id": "outbound:services/wordloop-ml/src/wordloop/providers/wordloop_core/recording_health_reporter.py#L74",
-      "kind": "outbound_call",
-      "facet": "outbound_calls",
-      "package_root": "services/wordloop-ml",
-      "denominator": "source_heuristic",
-      "extractor": "python-http-client",
-      "file": "services/wordloop-ml/src/wordloop/providers/wordloop_core/recording_health_reporter.py",
-      "lines": [
-        74,
-        74
-      ],
-      "repo_name": "wordloop-ml"
-    },
-    {
       "surface_id": "route:GET:/debug/state",
       "kind": "route",
       "facet": "interfaces",
@@ -24653,7 +26252,7 @@
       "facet": "interfaces",
       "scope": "repo",
       "spec_count": 81,
-      "code_count": 83,
+      "code_count": 87,
       "matched": 71,
       "spec_only": [
         {
@@ -24767,6 +26366,22 @@
           ]
         },
         {
+          "normalized_key": "GET /api/config",
+          "status": "code_only",
+          "spec_surfaces": [],
+          "code_surfaces": [
+            "route:GET:/api/config (services/wordloop-app/app/api/config/route.ts#L1)"
+          ]
+        },
+        {
+          "normalized_key": "GET /api/healthz",
+          "status": "code_only",
+          "spec_surfaces": [],
+          "code_surfaces": [
+            "route:GET:/api/healthz (services/wordloop-app/app/api/healthz/route.ts#L1)"
+          ]
+        },
+        {
           "normalized_key": "GET /asyncapi-pubsub-v2.yaml",
           "status": "code_only",
           "spec_surfaces": [],
@@ -24821,6 +26436,22 @@
           "spec_surfaces": [],
           "code_surfaces": [
             "route:GET:/docs/ws (services/wordloop-core/internal/entrypoints/api/router.go#L117)"
+          ]
+        },
+        {
+          "normalized_key": "POST /api/otel/metrics",
+          "status": "code_only",
+          "spec_surfaces": [],
+          "code_surfaces": [
+            "route:POST:/api/otel/metrics (services/wordloop-app/app/api/otel/metrics/route.ts#L1)"
+          ]
+        },
+        {
+          "normalized_key": "POST /api/otel/traces",
+          "status": "code_only",
+          "spec_surfaces": [],
+          "code_surfaces": [
+            "route:POST:/api/otel/traces (services/wordloop-app/app/api/otel/traces/route.ts#L1)"
           ]
         },
         {
