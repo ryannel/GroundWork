@@ -426,7 +426,7 @@ export function App() {
               fromPlan={originPlan}
               stateMode={route.state ?? "proposed"}
               onRoutePatch={(patch) => {
-                navigate({ ...route, ...patch }, true);
+                navigate({ ...route, ...patch }, false);
               }}
               onBack={goBack}
               onBackToPlan={
@@ -467,7 +467,7 @@ export function App() {
                 evidence={space.evidence}
                 componentCodeInfo={space.component_code_info}
                 selectedId={selectedMapId}
-                onSelect={(id) => navigate({ ...route, select: id }, true)}
+                onSelect={(id) => navigate({ ...route, select: id }, false)}
                 onOpenFullView={(id) => openEntity(id)}
                 expandedSystems={expandedSystems}
                 onToggleExpand={(sysId) =>
@@ -494,7 +494,7 @@ export function App() {
                 selectedId={selectedMapId}
                 onClose={() => navigate({ kind: "map", ws: route.ws, ...(route.project ? { project: route.project } : {}) }, true)}
                 onSelect={(id) => {
-                  navigate({ ...route, select: id }, true);
+                  navigate({ ...route, select: id }, false);
                   const parentSys = space.systems.find(
                     (s) =>
                       s.components.some((c) => c.id === id) ||

@@ -640,12 +640,14 @@ export function SystemMapCanvas({
           </g>
         ))}
 
-      {/* Edges */}
+      {/* Edges — clickable to inspect underlying calls, writes, events & provenance! */}
       {routedEdges.map((edge) => {
+        const edgeSelId = `edge:${edge.from}|${edge.to}|${edge.kind}`;
+        const isEdgeSelected = selectedId === edgeSelId;
         const style = edgeColor(edge.kind);
-        const focusId = hoveredId ?? selectedId;
-        const isIncident = Boolean(focusId && (edge.from === focusId || edge.to === focusId));
-        const passiveDimmed = Boolean(focusId && !isIncident);
+        const focusId = hoveredId ?? (selectedId && !selectedId.startsWith("edge:") ? selectedId : null);
+        const isIncident = isEdgeSelected || Boolean(focusId && (edge.from === focusId || edge.to === focusId));
+        const passiveDimmed = Boolean((focusId || selectedId?.startsWith("edge:")) && !isIncident);
         const egoDimmed = egoSet !== null && !(egoSet.has(edge.from) && egoSet.has(edge.to));
         const dimmed = egoDimmed || passiveDimmed;
         const marker =
@@ -666,25 +668,45 @@ export function SystemMapCanvas({
         const midX = (pA.x + pB.x) / 2;
         const midY = (pA.y + pB.y) / 2;
         return (
-          <g key={edge.id}>
+          <g
+            key={edge.id}
+            data-no-pan
+            style={{ cursor: "pointer" }}
+            onClick={(e) => {
+              e.stopPropagation();
+              onSelect(edgeSelId);
+            }}
+          >
+            <title>{`${edge.count ?? 1} ${edge.kind}${(edge.count ?? 1) === 1 ? "" : "s"}: ${edge.from} → ${edge.to} — click to inspect`}</title>
+            {/* Generous invisible hit area so thin edges are effortless to click */}
+            <path d={d} fill="none" stroke="transparent" strokeWidth={14} />
             <path
               d={d}
               fill="none"
               stroke={style.stroke}
-              strokeWidth={isIncident ? 2.4 : 1.75}
+              strokeWidth={isEdgeSelected ? 3.2 : isIncident ? 2.4 : 1.75}
               strokeDasharray={style.dash}
-              opacity={dimmed ? 0.14 : isIncident ? 0.95 : 0.8}
+              opacity={dimmed ? 0.14 : isIncident ? 1 : 0.8}
               markerEnd={marker}
             />
             {showCountBadge && !dimmed && (
               <g transform={`translate(${midX}, ${midY})`}>
-                <rect x={-16} y={-9} width={32} height={18} rx={9} fill="var(--surface)" stroke={style.stroke} strokeWidth={1} />
+                <rect
+                  x={-16}
+                  y={-9}
+                  width={32}
+                  height={18}
+                  rx={9}
+                  fill={isEdgeSelected ? style.stroke : "var(--surface)"}
+                  stroke={style.stroke}
+                  strokeWidth={isEdgeSelected ? 2 : 1.25}
+                />
                 <text
                   textAnchor="middle"
                   dominantBaseline="central"
                   fontSize={10}
                   fontWeight={700}
-                  fill={style.stroke}
+                  fill={isEdgeSelected ? "#ffffff" : style.stroke}
                 >
                   {edge.count}
                 </text>

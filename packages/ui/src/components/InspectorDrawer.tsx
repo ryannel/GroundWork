@@ -77,6 +77,112 @@ export function InspectorDrawer({ space, selectedId, onClose, onSelect, onOpenFu
 
   if (!selectedId) return null;
 
+  // Dedicated Edge Inspector when clicking any arrow or `( N )` count pill on the System Map!
+  if (selectedId.startsWith("edge:")) {
+    const [fromId = "", toId = "", kind = "call"] = selectedId.slice(5).split("|");
+    const matchingEdges = space.edges.filter(
+      (e) =>
+        e.kind === kind &&
+        (e.from === fromId || e.from_system === fromId) &&
+        (e.to === toId || e.to_system === toId),
+    );
+    const findTargetComp = () => {
+      for (const s of space.systems) {
+        const c = s.components.find((x) => x.id === toId);
+        if (c) return { sys: s, comp: c };
+      }
+      return null;
+    };
+    const targetCompMatch = findTargetComp();
+    const targetEpSummary = targetCompMatch
+      ? getComponentRichEndpoints(space, targetCompMatch.sys, targetCompMatch.comp)
+      : null;
+
+    return (
+      <aside className="inspector">
+        <div className="inspector-header">
+          <div>
+            <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 4 }}>
+              <span className="badge indigo">{kind}</span>
+              <span className="badge">{matchingEdges.length} modeled {matchingEdges.length === 1 ? "connection" : "connections"}</span>
+            </div>
+            <div style={{ fontWeight: 700, fontSize: 15 }}>Connection Details</div>
+          </div>
+          <button className="icon-btn" onClick={onClose} title="Close inspector">
+            <X size={16} />
+          </button>
+        </div>
+
+        <div className="inspector-body">
+          <div className="section-card">
+            <div className="section-title">Endpoints</div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
+                <span style={{ fontSize: 11.5, color: "var(--text-faint)" }}>From</span>
+                <EntityLink id={fromId} variant="neutral" onOpen={(id) => onSelect(id)} />
+              </div>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
+                <span style={{ fontSize: 11.5, color: "var(--text-faint)" }}>To</span>
+                <EntityLink id={toId} variant="neutral" onOpen={(id) => onSelect(id)} />
+              </div>
+            </div>
+          </div>
+
+          <div className="section-card">
+            <div className="section-title">Modeled {kind}s ({matchingEdges.length})</div>
+            {matchingEdges.length === 0 ? (
+              <div style={{ fontSize: 12.5, color: "var(--text-faint)" }}>No individual edge records found.</div>
+            ) : (
+              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                {matchingEdges.map((e, idx) => (
+                  <div
+                    key={`${e.via}:${idx}`}
+                    style={{
+                      padding: "8px 10px",
+                      border: "1px solid var(--border)",
+                      borderRadius: 8,
+                      background: "var(--bg)",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: 5,
+                    }}
+                  >
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 6 }}>
+                      <span className="badge">{e.kind}</span>
+                      {e.label && e.label !== e.kind && (
+                        <span style={{ fontSize: 11.5, color: "var(--text-muted)" }}>{e.label}</span>
+                      )}
+                    </div>
+                    <EntityLink id={e.via} onOpen={(id) => onOpenFullView(id)} />
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {targetCompMatch && targetEpSummary && targetEpSummary.displayCount > matchingEdges.length && kind === "call" && (
+            <div className="section-card" style={{ borderLeft: "3px solid var(--accent)" }}>
+              <div className="section-title">Why {matchingEdges.length} {matchingEdges.length === 1 ? "call" : "calls"}?</div>
+              <p style={{ margin: "0 0 10px 0", fontSize: 12.5, color: "var(--text-muted)", lineHeight: 1.5 }}>
+                This arrow counts explicit <code className="mono">call</code> steps modeled in <strong style={{ color: "var(--text)" }}>{fromId}</strong> handlers.{" "}
+                <strong style={{ color: "var(--text)" }}>{targetCompMatch.comp.component.name}</strong> exposes{" "}
+                <strong style={{ color: "var(--text)" }}>{targetEpSummary.displayCount} total API endpoints</strong> across its OpenAPI &amp; route specs.
+              </p>
+              <button
+                type="button"
+                className="secondary-btn"
+                style={{ width: "100%", justifyContent: "center", fontSize: 12 }}
+                onClick={() => onOpenFullView(targetCompMatch.comp.id, { tab: "api" })}
+              >
+                Browse all {targetEpSummary.displayCount} API endpoints <ArrowUpRight size={13} />
+              </button>
+            </div>
+          )}
+        </div>
+      </aside>
+    );
+  }
+
   const title =
     sys?.system.name ??
     comp?.component.name ??

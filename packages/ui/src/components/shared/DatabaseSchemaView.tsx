@@ -1,5 +1,5 @@
 import ELK from "elkjs/lib/elk.bundled.js";
-import { ArrowRight, KeyRound, Link2, Network, Search, Table2 } from "lucide-react";
+import { ArrowRight, KeyRound, Link2, Network, Search, Table2, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { InteractiveViewport, type ContentBounds } from "./InteractiveViewport";
 
@@ -48,6 +48,7 @@ interface Props {
   onChangeViewMode: (mode: "tables" | "er") => void;
   selectedTableName?: string;
   onSelectTable: (tableName: string) => void;
+  onInspectTable?: (tableName: string) => void;
 }
 
 function parseRefTable(ref?: string): string | undefined {
@@ -68,12 +69,26 @@ export function DatabaseSchemaView({
   onChangeViewMode,
   selectedTableName,
   onSelectTable,
+  onInspectTable,
 }: Props) {
   const [query, setQuery] = useState("");
   const [erNodes, setErNodes] = useState<PositionedTable[]>([]);
   const [erEdges, setErEdges] = useState<PositionedFkEdge[]>([]);
   const [erSelected, setErSelected] = useState<string | null>(selectedTableName ?? null);
   const [layoutSeq, setLayoutSeq] = useState(0);
+
+  useEffect(() => {
+    if (selectedTableName) setErSelected(selectedTableName);
+  }, [selectedTableName]);
+
+  const inspectInTablesView = (name: string) => {
+    if (onInspectTable) {
+      onInspectTable(name);
+    } else {
+      onSelectTable(name);
+      onChangeViewMode("tables");
+    }
+  };
 
   const tableSet = useMemo(() => new Set(tables.map((t) => t.name)), [tables]);
 
@@ -315,12 +330,9 @@ export function DatabaseSchemaView({
             <button
               className="secondary-btn"
               style={{ padding: "5px 10px", fontSize: 12 }}
-              onClick={() => {
-                onSelectTable(erSelected);
-                onChangeViewMode("tables");
-              }}
+              onClick={() => inspectInTablesView(erSelected)}
             >
-              Inspect {erSelected} Columns <ArrowRight size={13} />
+              Open in Schema Tables <ArrowRight size={13} />
             </button>
             <button className="icon-btn" onClick={() => setErSelected(null)}>
               Clear Focus
@@ -533,151 +545,278 @@ export function DatabaseSchemaView({
           )}
         </div>
       ) : (
-        /* Mode 2: Interactive ER Diagram using our shared <InteractiveViewport> */
-        <InteractiveViewport
-          bounds={erBounds}
-          fitKey={layoutSeq}
-          minZoom={0.18}
-          maxFitZoom={1.0}
-          style={{ flex: "none", height: 640, borderRadius: 12, border: "1px solid var(--border)" }}
-          hint="Two-finger pan · Pinch to zoom · Click any table to highlight relationships"
-          svgDefs={
-            <defs>
-              <marker id="er-fk-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-                <path d="M 0 1 L 10 5 L 0 9 z" fill="#6366f1" />
-              </marker>
-              <marker id="er-fk-muted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-                <path d="M 0 1 L 10 5 L 0 9 z" fill="#94a3b8" />
-              </marker>
-            </defs>
-          }
-          legend={
-            <>
-              <span className="legend-item"><KeyRound size={11} color="#d97706" /> Primary Key</span>
-              <span className="legend-item"><Link2 size={11} color="#4f46e5" /> Foreign Key</span>
-              <span className="legend-item"><span className="legend-line" style={{ background: "#6366f1" }} /> FK Relationship</span>
-            </>
-          }
-        >
-          {/* Relationship Edges */}
-          {erEdges.map((edge) => {
-            const isHighlighted = !erHighlightSet || (erHighlightSet.has(edge.from) && erHighlightSet.has(edge.to));
-            const isActiveEdge = erSelected === edge.from || erSelected === edge.to;
-            const d = edge.points.map((p, idx) => `${idx === 0 ? "M" : "L"} ${p.x} ${p.y}`).join(" ");
-            return (
-              <path
-                key={edge.id}
-                d={d}
-                fill="none"
-                stroke={isActiveEdge ? "#4f46e5" : "#94a3b8"}
-                strokeWidth={isActiveEdge ? 2.2 : 1.4}
-                opacity={isHighlighted ? 0.9 : 0.14}
-                markerEnd={isActiveEdge ? "url(#er-fk-arrow)" : "url(#er-fk-muted)"}
-              />
-            );
-          })}
-
-          {/* Modern dbdiagram / Supabase Table Cards */}
-          {erNodes.map((node) => {
-            const t = node.table;
-            const isSel = erSelected === t.name;
-            const dimmed = erHighlightSet !== null && !erHighlightSet.has(t.name);
-            const maxRows = tables.length > 10 ? 7 : 10;
-            const shownCols = t.columns.slice(0, maxRows);
-            const overflow = t.columns.length - shownCols.length;
-            return (
-              <foreignObject key={t.name} x={node.x} y={node.y} width={node.width} height={node.height}>
-                <div
-                  data-no-pan
-                  onClick={() => setErSelected((cur) => (cur === t.name ? null : t.name))}
-                  onDoubleClick={() => {
-                    onSelectTable(t.name);
-                    onChangeViewMode("tables");
-                  }}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    background: "var(--surface)",
-                    border: isSel ? "2px solid var(--accent)" : "1.5px solid var(--border-strong)",
-                    borderRadius: 10,
-                    overflow: "hidden",
-                    opacity: dimmed ? 0.22 : 1,
-                    boxShadow: isSel ? "0 0 0 4px rgba(99,102,241,0.2)" : "var(--shadow-sm)",
-                    cursor: "pointer",
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                  title="Click to focus relationships · Double-click to inspect table"
-                >
-                  <div
-                    style={{
-                      padding: "8px 10px",
-                      background: isSel ? "#4f46e5" : "var(--er-header-bg)",
-                      color: "var(--er-header-text)",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      gap: 6,
-                    }}
-                  >
-                    <span className="mono" style={{ fontWeight: 700, fontSize: 12, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                      {t.name}
+        /* Mode 2: Interactive ER Diagram + In-Place Table Columns Drawer */
+        (() => {
+          const erFocusedTable = erSelected ? tables.find((t) => t.name === erSelected) ?? null : null;
+          const erFocusedRefs = erFocusedTable ? (referencedBy.get(erFocusedTable.name) ?? []) : [];
+          const erInspectorPanel = erFocusedTable ? (
+            <aside
+              style={{
+                width: 340,
+                flexShrink: 0,
+                height: 640,
+                background: "var(--surface)",
+                border: "1px solid var(--border)",
+                borderRadius: 12,
+                display: "flex",
+                flexDirection: "column",
+                overflow: "hidden",
+              }}
+            >
+              <div className="inspector-header" style={{ padding: "12px 14px" }}>
+                <div style={{ minWidth: 0 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                    <Table2 size={14} color="var(--accent)" />
+                    <span className="mono" style={{ fontWeight: 800, fontSize: 14, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                      {erFocusedTable.name}
                     </span>
-                    <span style={{ fontSize: 10, opacity: 0.8 }}>{t.columns.length}</span>
                   </div>
-
-                  <div style={{ flex: 1, padding: "4px 0" }}>
-                    {shownCols.map((c) => (
-                      <div
-                        key={c.id}
-                        style={{
-                          height: 24,
-                          padding: "0 10px",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "space-between",
-                          gap: 6,
-                          fontSize: 11,
-                          background: c.diffKind === "added" ? "var(--emerald-soft)" : "transparent",
-                        }}
-                      >
-                        <div style={{ display: "flex", alignItems: "center", gap: 5, minWidth: 0 }}>
-                          {c.primaryKey ? (
-                            <KeyRound size={10} color="var(--amber)" style={{ flexShrink: 0 }} />
-                          ) : c.references ? (
-                            <Link2 size={10} color="var(--accent)" style={{ flexShrink: 0 }} />
-                          ) : (
-                            <span style={{ width: 10, display: "inline-block" }} />
-                          )}
-                          <span
-                            className="mono"
-                            style={{
-                              fontWeight: c.primaryKey || c.diffKind ? 700 : 500,
-                              color: c.diffKind === "added" ? "var(--emerald)" : "var(--text)",
-                              overflow: "hidden",
-                              textOverflow: "ellipsis",
-                              whiteSpace: "nowrap",
-                            }}
-                          >
-                            {c.name}
-                          </span>
-                        </div>
-                        <span className="mono" style={{ fontSize: 10, color: "var(--text-faint)", flexShrink: 0 }}>
-                          {c.type.length > 12 ? c.type.slice(0, 11) + "…" : c.type}
-                        </span>
-                      </div>
-                    ))}
-                    {overflow > 0 && (
-                      <div style={{ padding: "2px 10px", fontSize: 10.5, color: "var(--text-faint)", fontStyle: "italic" }}>
-                        +{overflow} more columns…
-                      </div>
-                    )}
+                  <div style={{ display: "flex", gap: 6, marginTop: 5, flexWrap: "wrap" }}>
+                    <span className="badge">{erFocusedTable.columns.length} columns</span>
+                    <span className="badge">{erFocusedTable.source === "authored" ? "modeled" : "scanned sql-ddl"}</span>
                   </div>
                 </div>
-              </foreignObject>
-            );
-          })}
-        </InteractiveViewport>
+                <button className="icon-btn" onClick={() => setErSelected(null)} title="Close table details">
+                  <X size={15} />
+                </button>
+              </div>
+
+              <div style={{ flex: 1, overflowY: "auto", padding: "10px 12px", display: "flex", flexDirection: "column", gap: 10 }}>
+                <div>
+                  <div className="section-title" style={{ marginBottom: 6 }}>All Columns ({erFocusedTable.columns.length})</div>
+                  <div style={{ border: "1px solid var(--border)", borderRadius: 8, overflow: "hidden" }}>
+                    {erFocusedTable.columns.map((c, idx) => {
+                      const targetTbl = c.refTable ?? parseRefTable(c.references);
+                      const canJump = Boolean(targetTbl && tableSet.has(targetTbl));
+                      return (
+                        <div
+                          key={c.id}
+                          style={{
+                            padding: "6px 10px",
+                            borderBottom: idx < erFocusedTable.columns.length - 1 ? "1px solid var(--border)" : "none",
+                            background: c.diffKind === "added" ? "var(--emerald-soft)" : "transparent",
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: 3,
+                          }}
+                        >
+                          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 6 }}>
+                            <span style={{ display: "flex", alignItems: "center", gap: 5, minWidth: 0 }}>
+                              {c.primaryKey && <KeyRound size={11} color="var(--amber)" style={{ flexShrink: 0 }} />}
+                              {!c.primaryKey && c.references && <Link2 size={11} color="var(--accent)" style={{ flexShrink: 0 }} />}
+                              <span className="mono" style={{ fontWeight: 600, fontSize: 12, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                                {c.name}
+                              </span>
+                            </span>
+                            <span className="mono" style={{ fontSize: 10.5, color: "var(--accent)", background: "var(--accent-soft)", padding: "1px 5px", borderRadius: 4, flexShrink: 0 }}>
+                              {c.type}
+                            </span>
+                          </div>
+                          <div style={{ display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }}>
+                            {c.required && <span style={{ fontSize: 10, fontWeight: 700, color: "var(--text-muted)" }}>NOT NULL</span>}
+                            {c.primaryKey && <span className="badge amber" style={{ fontSize: 9.5, padding: "0 5px" }}>PK</span>}
+                            {c.references && canJump && targetTbl && (
+                              <button
+                                type="button"
+                                className="entity-link"
+                                style={{ fontSize: 10.5, padding: "1px 6px" }}
+                                onClick={() => setErSelected(targetTbl)}
+                                title={`Focus ${targetTbl} in ER Diagram`}
+                              >
+                                <Link2 size={10} /> FK → {c.references}
+                              </button>
+                            )}
+                            {c.diffKind && (
+                              <span className="badge emerald" style={{ fontSize: 9.5, padding: "0 5px" }}>+ Added</span>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {erFocusedRefs.length > 0 && (
+                  <div>
+                    <div className="section-title" style={{ marginBottom: 6 }}>Referenced By ({erFocusedRefs.length})</div>
+                    <div style={{ display: "flex", gap: 5, flexWrap: "wrap" }}>
+                      {erFocusedRefs.map((ref) => (
+                        <button
+                          key={`${ref.table}.${ref.column}`}
+                          type="button"
+                          className="entity-link neutral"
+                          style={{ fontSize: 11, padding: "2px 7px" }}
+                          onClick={() => setErSelected(ref.table)}
+                        >
+                          {ref.table}.{ref.column}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div style={{ padding: "10px 12px", borderTop: "1px solid var(--border)", background: "var(--bg)" }}>
+                <button
+                  type="button"
+                  className="primary-btn"
+                  style={{ width: "100%", justifyContent: "center", fontSize: 12 }}
+                  onClick={() => inspectInTablesView(erFocusedTable.name)}
+                >
+                  Open in Schema Tables <ArrowRight size={13} />
+                </button>
+              </div>
+            </aside>
+          ) : null;
+
+          return (
+            <div style={{ display: "flex", gap: 14, alignItems: "stretch" }}>
+              <InteractiveViewport
+                bounds={erBounds}
+                fitKey={layoutSeq}
+                minZoom={0.18}
+                maxFitZoom={1.0}
+                fullscreenSide={erInspectorPanel}
+                style={{ flex: 1, height: 640, borderRadius: 12, border: "1px solid var(--border)" }}
+                hint="Two-finger pan · Pinch to zoom · Click any table to inspect all columns & relationships"
+                svgDefs={
+                  <defs>
+                    <marker id="er-fk-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                      <path d="M 0 1 L 10 5 L 0 9 z" fill="#6366f1" />
+                    </marker>
+                    <marker id="er-fk-muted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                      <path d="M 0 1 L 10 5 L 0 9 z" fill="#94a3b8" />
+                    </marker>
+                  </defs>
+                }
+                legend={
+                  <>
+                    <span className="legend-item"><KeyRound size={11} color="#d97706" /> Primary Key</span>
+                    <span className="legend-item"><Link2 size={11} color="#4f46e5" /> Foreign Key</span>
+                    <span className="legend-item"><span className="legend-line" style={{ background: "#6366f1" }} /> FK Relationship</span>
+                  </>
+                }
+              >
+                {/* Relationship Edges */}
+                {erEdges.map((edge) => {
+                  const isHighlighted = !erHighlightSet || (erHighlightSet.has(edge.from) && erHighlightSet.has(edge.to));
+                  const isActiveEdge = erSelected === edge.from || erSelected === edge.to;
+                  const d = edge.points.map((p, idx) => `${idx === 0 ? "M" : "L"} ${p.x} ${p.y}`).join(" ");
+                  return (
+                    <path
+                      key={edge.id}
+                      d={d}
+                      fill="none"
+                      stroke={isActiveEdge ? "#4f46e5" : "#94a3b8"}
+                      strokeWidth={isActiveEdge ? 2.2 : 1.4}
+                      opacity={isHighlighted ? 0.9 : 0.14}
+                      markerEnd={isActiveEdge ? "url(#er-fk-arrow)" : "url(#er-fk-muted)"}
+                    />
+                  );
+                })}
+
+                {/* Modern dbdiagram / Supabase Table Cards */}
+                {erNodes.map((node) => {
+                  const t = node.table;
+                  const isSel = erSelected === t.name;
+                  const dimmed = erHighlightSet !== null && !erHighlightSet.has(t.name);
+                  const maxRows = tables.length > 10 ? 7 : 10;
+                  const shownCols = t.columns.slice(0, maxRows);
+                  const overflow = t.columns.length - shownCols.length;
+                  return (
+                    <foreignObject key={t.name} x={node.x} y={node.y} width={node.width} height={node.height}>
+                      <div
+                        data-no-pan
+                        onClick={() => setErSelected((cur) => (cur === t.name ? null : t.name))}
+                        onDoubleClick={() => inspectInTablesView(t.name)}
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          background: "var(--surface)",
+                          border: isSel ? "2px solid var(--accent)" : "1.5px solid var(--border-strong)",
+                          borderRadius: 10,
+                          overflow: "hidden",
+                          opacity: dimmed ? 0.22 : 1,
+                          boxShadow: isSel ? "0 0 0 4px rgba(99,102,241,0.2)" : "var(--shadow-sm)",
+                          cursor: "pointer",
+                          display: "flex",
+                          flexDirection: "column",
+                        }}
+                        title="Click to inspect all columns & relationships · Double-click for full table view"
+                      >
+                        <div
+                          style={{
+                            padding: "8px 10px",
+                            background: isSel ? "#4f46e5" : "var(--er-header-bg)",
+                            color: "var(--er-header-text)",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                            gap: 6,
+                          }}
+                        >
+                          <span className="mono" style={{ fontWeight: 700, fontSize: 12, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                            {t.name}
+                          </span>
+                          <span style={{ fontSize: 10, opacity: 0.8 }}>{t.columns.length}</span>
+                        </div>
+
+                        <div style={{ flex: 1, padding: "4px 0" }}>
+                          {shownCols.map((c) => (
+                            <div
+                              key={c.id}
+                              style={{
+                                height: 24,
+                                padding: "0 10px",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                gap: 6,
+                                fontSize: 11,
+                                background: c.diffKind === "added" ? "var(--emerald-soft)" : "transparent",
+                              }}
+                            >
+                              <div style={{ display: "flex", alignItems: "center", gap: 5, minWidth: 0 }}>
+                                {c.primaryKey ? (
+                                  <KeyRound size={10} color="var(--amber)" style={{ flexShrink: 0 }} />
+                                ) : c.references ? (
+                                  <Link2 size={10} color="var(--accent)" style={{ flexShrink: 0 }} />
+                                ) : (
+                                  <span style={{ width: 10, display: "inline-block" }} />
+                                )}
+                                <span
+                                  className="mono"
+                                  style={{
+                                    fontWeight: c.primaryKey || c.diffKind ? 700 : 500,
+                                    color: c.diffKind === "added" ? "var(--emerald)" : "var(--text)",
+                                    overflow: "hidden",
+                                    textOverflow: "ellipsis",
+                                    whiteSpace: "nowrap",
+                                  }}
+                                >
+                                  {c.name}
+                                </span>
+                              </div>
+                              <span className="mono" style={{ fontSize: 10, color: "var(--text-faint)", flexShrink: 0 }}>
+                                {c.type.length > 12 ? c.type.slice(0, 11) + "…" : c.type}
+                              </span>
+                            </div>
+                          ))}
+                          {overflow > 0 && (
+                            <div style={{ padding: "2px 10px", fontSize: 10.5, color: "var(--accent)", fontWeight: 600 }}>
+                              +{overflow} more columns — click to view all
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </foreignObject>
+                  );
+                })}
+              </InteractiveViewport>
+              {erInspectorPanel}
+            </div>
+          );
+        })()
       )}
     </div>
   );

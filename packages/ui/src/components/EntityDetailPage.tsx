@@ -820,6 +820,11 @@ export function EntityDetailPage({
                 setSelectedTableName(t);
                 onRoutePatch?.({ table: t });
               }}
+              onInspectTable={(t) => {
+                setSelectedTableName(t);
+                setDbView("tables");
+                onRoutePatch?.({ table: t, dbview: "tables" });
+              }}
             />
           </div>
         </div>
