@@ -331,13 +331,6 @@ export function PlanStudio({
       ) : tab === "architecture" ? (
         <div style={{ flex: 1, display: "flex", overflow: "hidden" }}>
           <div style={{ flex: 1, display: "flex", flexDirection: "column", position: "relative" }}>
-            <div style={{ position: "absolute", top: 14, right: 14, zIndex: 12 }} className="pill-group">
-              {(["before", "diff", "after"] as const).map((m) => (
-                <button key={m} className={`icon-btn ${archMode === m ? "active" : ""}`} onClick={() => setArchMode(m)}>
-                  {m.toUpperCase()}
-                </button>
-              ))}
-            </div>
             <SystemMapCanvas
               systems={archMode === "before" ? space.systems : plan.after_systems}
               externals={space.externals}
@@ -359,6 +352,15 @@ export function PlanStudio({
                 })
               }
               diffByEntity={archMode === "diff" ? diffMap : undefined}
+              toolbarExtra={
+                <div className="pill-group">
+                  {(["before", "diff", "after"] as const).map((m) => (
+                    <button key={m} className={`icon-btn ${archMode === m ? "active" : ""}`} onClick={() => setArchMode(m)}>
+                      {m.toUpperCase()}
+                    </button>
+                  ))}
+                </div>
+              }
             />
           </div>
           <aside className="inspector" style={{ width: 400 }}>
@@ -532,7 +534,15 @@ export function PlanStudio({
                         value={reviewBody}
                         onChange={(e) => setReviewBody(e.target.value)}
                         placeholder="Pin a review note for the agent (saved directly to reviews/<note>.yaml)…"
-                        style={{ border: "1px solid var(--border-strong)", borderRadius: 7, padding: 8, fontFamily: "var(--sans)", fontSize: 12.5 }}
+                        style={{
+                          border: "1px solid var(--border-strong)",
+                          borderRadius: 7,
+                          padding: 8,
+                          fontFamily: "var(--sans)",
+                          fontSize: 12.5,
+                          background: "var(--bg)",
+                          color: "var(--text)",
+                        }}
                       />
                       <button
                         type="submit"
@@ -598,11 +608,11 @@ export function PlanStudio({
                         <button
                           key={st.id}
                           className={`icon-btn ${activeState === st.id ? "active" : ""}`}
-                          style={{ width: "100%", justifyContent: "space-between", marginBottom: 4, border: "1px solid var(--border)" }}
+                          style={{ width: "100%", justifyContent: "space-between", gap: 10, marginBottom: 4, border: "1px solid var(--border)", textAlign: "left" }}
                           onClick={() => setActiveState(st.id)}
                         >
-                          <span className="mono">{st.id}</span>
-                          <span style={{ fontSize: 11 }}>{st.label}</span>
+                          <span className="mono" style={{ whiteSpace: "nowrap", flexShrink: 0 }}>{st.id}</span>
+                          <span style={{ fontSize: 11, textAlign: "right" }}>{st.label}</span>
                         </button>
                       ))}
                     </div>
@@ -749,6 +759,7 @@ export function PlanStudio({
                             </div>
                           </td>
                           <td style={{ fontSize: 12.5, color: "var(--text-muted)", lineHeight: 1.5 }}>
+                            {!t.given && !t.when && !t.then && <span style={{ color: "var(--text-faint)" }}>—</span>}
                             {t.given && (
                               <div style={{ marginBottom: 4 }}>
                                 <span className="badge" style={{ marginRight: 6, fontSize: 10 }}>GIVEN</span>

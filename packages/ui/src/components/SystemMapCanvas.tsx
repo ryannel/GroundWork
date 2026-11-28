@@ -57,6 +57,7 @@ interface Props {
   onExpandAll?: () => void;
   onCollapseAll?: () => void;
   diffByEntity?: ReadonlyMap<string, "added" | "modified" | "removed">;
+  toolbarExtra?: React.ReactNode;
 }
 
 function plural(n: number, singular: string, pluralWord = `${singular}s`): string {
@@ -119,6 +120,7 @@ export function SystemMapCanvas({
   onExpandAll,
   onCollapseAll,
   diffByEntity,
+  toolbarExtra,
 }: Props) {
   const [nodes, setNodes] = useState<PositionedNode[]>([]);
   const [routedEdges, setRoutedEdges] = useState<PositionedEdge[]>([]);
@@ -541,6 +543,8 @@ export function SystemMapCanvas({
               </button>
             </div>
           )}
+
+          {toolbarExtra}
         </>
       }
       svgDefs={

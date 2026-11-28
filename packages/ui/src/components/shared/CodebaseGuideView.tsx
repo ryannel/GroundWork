@@ -60,18 +60,26 @@ export function buildGitHubUrl(
 export function roleStyle(role: OrientationZoneRole): { bg: string; fg: string; border: string; label: string } {
   switch (role) {
     case "core":
-      return { bg: "#eef2ff", fg: "#4338ca", border: "#c7d2fe", label: "Core Spine" };
+      return { bg: "var(--accent-soft)", fg: "var(--accent)", border: "var(--accent-border)", label: "Core Spine" };
     case "contract":
-      return { bg: "#ecfeff", fg: "#0e7490", border: "#a5f3fc", label: "Contracts" };
+      return { bg: "var(--teal-soft)", fg: "var(--teal)", border: "var(--teal-border)", label: "Contracts" };
     case "feature":
-      return { bg: "#f0fdf4", fg: "#15803d", border: "#bbf7d0", label: "Feature" };
+      return { bg: "var(--emerald-soft)", fg: "var(--emerald)", border: "var(--emerald-border)", label: "Feature" };
     case "adapter":
-      return { bg: "#fff7ed", fg: "#c2410c", border: "#fed7aa", label: "Adapter" };
+      return { bg: "var(--amber-soft)", fg: "var(--amber)", border: "var(--amber-border)", label: "Adapter" };
     case "infra":
-      return { bg: "#f8fafc", fg: "#475569", border: "#e2e8f0", label: "Infra & Config" };
+      return { bg: "var(--surface-muted)", fg: "var(--text-muted)", border: "var(--border-strong)", label: "Infra & Config" };
     case "diagnostic":
-      return { bg: "#fefce8", fg: "#a16207", border: "#fef08a", label: "Diagnostic / Test" };
+      return { bg: "var(--violet-soft)", fg: "var(--violet)", border: "var(--violet-border)", label: "Diagnostic / Test" };
   }
+}
+
+function cleanDocSummary(raw?: string): string | null {
+  if (!raw) return null;
+  const trimmed = raw.trim();
+  // Skip raw setup checklist lines like "1. **Clone the repository**"
+  if (/^\d+\.\s+/.test(trimmed)) return null;
+  return trimmed.replace(/\*\*([^*]+)\*\*/g, "$1").replace(/`([^`]+)`/g, "$1");
 }
 
 function normalizePath(p: string): string {
@@ -176,9 +184,9 @@ export function CodebaseGuideView({ comp, codeInfo, orientationStats }: Props) {
                 </>
               )}
             </div>
-            {pkgStruct?.doc_summary && (
+            {cleanDocSummary(pkgStruct?.doc_summary) && (
               <p style={{ margin: "10px 0 0 0", fontSize: 13, color: "var(--text-muted)", lineHeight: 1.5, maxWidth: 820 }}>
-                {pkgStruct.doc_summary}
+                {cleanDocSummary(pkgStruct?.doc_summary)}
               </p>
             )}
           </div>

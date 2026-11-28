@@ -14,7 +14,7 @@ export function WorkspaceLanding({ workspaces, onOpen, onOpenPlans }: Props) {
       <div style={{ maxWidth: 1080, margin: "0 auto" }}>
         <div style={{ marginBottom: 32 }}>
           <div style={{ display: "inline-flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
-            <span className="badge indigo">Groundwork v1</span>
+            <span className="badge indigo">Groundwork v3</span>
             <span className="badge">{workspaces.length} registered workspaces</span>
           </div>
           <h1 style={{ margin: "0 0 8px 0", fontSize: 30, fontWeight: 800, letterSpacing: "-0.03em" }}>

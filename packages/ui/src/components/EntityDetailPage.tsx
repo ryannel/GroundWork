@@ -18,7 +18,7 @@ import {
 import { useEffect, useMemo, useState } from "react";
 import type { EntityNavOptions } from "../router";
 import type { LoadedPlanPayload, SpacePayload } from "../types";
-import { getComponentRichEndpoints, getComponentScannedSurfaces, getStoreTables, isServedApiSurface } from "../utils/spaceLookup";
+import { getAllScannedSurfaces, getComponentRichEndpoints, getComponentScannedSurfaces, getStoreTables, isServedApiSurface } from "../utils/spaceLookup";
 import { ApiReferenceView } from "./shared/ApiReferenceView";
 import { buildGitHubUrl, CodebaseGuideView, roleStyle } from "./shared/CodebaseGuideView";
 import { DatabaseSchemaView } from "./shared/DatabaseSchemaView";
@@ -595,7 +595,7 @@ export function EntityDetailPage({
                         <div key={h.id} className="section-card" style={{ marginBottom: 12 }}>
                           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6, flexWrap: "wrap", gap: 8 }}>
                             <span className="mono" style={{ fontWeight: 700 }}>{h.id}</span>
-                            {h.on && <span className="badge indigo mono">on: {h.on}</span>}
+                            {h.on && <EntityLink id={h.on} label={`on: ${h.on}`} onOpen={(id) => onOpenEntity(id)} />}
                           </div>
                           <p style={{ margin: "0 0 12px 0", fontSize: 13, color: "var(--text-muted)" }}>{h.summary}</p>
                           <StepTreeView steps={h.steps} citeBase={h.cite_base} onNavigate={(id) => onOpenEntity(id)} diffByStepId={stepDiffs} />
@@ -832,6 +832,13 @@ export function EntityDetailPage({
     const { sys, topic } = topicMatch;
     const publishers = space.edges.filter((e) => e.to === topic.id && e.kind === "publish");
     const consumers = space.edges.filter((e) => e.from === topic.id && e.kind === "consume");
+    const scannedChannels = [
+      ...new Map(
+        getAllScannedSurfaces(space)
+          .filter((s) => s.kind === "topic" || s.kind === "subscription")
+          .map((s) => [s.surface_id, s]),
+      ).values(),
+    ];
 
     return (
       <div className="detail-page">
@@ -910,6 +917,34 @@ export function EntityDetailPage({
                 </div>
               ))}
             </div>
+
+            {scannedChannels.length > 0 && (
+              <div className="section-card">
+                <div className="section-title">Scanned AsyncAPI Channels ({scannedChannels.length})</div>
+                <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                  {scannedChannels.map((ch) => (
+                    <div
+                      key={ch.surface_id}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        gap: 10,
+                        padding: "7px 0",
+                        borderBottom: "1px solid var(--border)",
+                        fontSize: 12.5,
+                      }}
+                    >
+                      <span className="mono" style={{ fontWeight: 600 }}>{ch.surface_id}</span>
+                      <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                        <span className={`badge ${ch.kind === "subscription" ? "teal" : "violet"}`}>{ch.kind}</span>
+                        <span className="mono" style={{ fontSize: 11, color: "var(--text-faint)" }}>{ch.file}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
