@@ -335,6 +335,7 @@ export function startServer(options: ServeOptions): http.Server {
         const planSlug = reqUrl.searchParams.get("plan") ?? "";
         const relFile = reqUrl.searchParams.get("file") ?? "";
         const xray = reqUrl.searchParams.get("xray") === "1";
+        const state = reqUrl.searchParams.get("state") ?? "default";
 
         const workspaces = discoverWorkspaces(groundworkRoot);
         const ws = workspaces.find((w) => w.id === wsId || w.id === `workspace:${wsId}`);
@@ -353,6 +354,58 @@ export function startServer(options: ServeOptions): http.Server {
         }
 
         let html = fs.readFileSync(targetPath, "utf8");
+        const stateJson = JSON.stringify(state);
+        const stateInjection = `<style>
+          [data-gw-state] { display: none !important; }
+          [data-gw-state-active="true"] { display: block !important; }
+          button[data-gw-state-active="true"], span[data-gw-state-active="true"], a[data-gw-state-active="true"] { display: inline-flex !important; }
+          .gw-state-fallback-pill {
+            position: fixed;
+            top: 10px;
+            right: 12px;
+            background: #1e293b;
+            color: #e2e8f0;
+            font: 600 11px/1.4 ui-monospace, monospace;
+            padding: 3px 8px;
+            border-radius: 999px;
+            border: 1px solid #475569;
+            z-index: 9999;
+          }
+        </style>
+        <script>
+          (function() {
+            var state = ${stateJson};
+            document.documentElement.dataset.gwState = state;
+            function applyState() {
+              var nodes = document.querySelectorAll('[data-gw-state]');
+              var matched = 0;
+              for (var i = 0; i < nodes.length; i++) {
+                var allowed = (nodes[i].getAttribute('data-gw-state') || '').split(/\\s+/);
+                var isMatch = allowed.indexOf(state) !== -1;
+                if (isMatch) {
+                  nodes[i].setAttribute('data-gw-state-active', 'true');
+                  matched++;
+                } else {
+                  nodes[i].removeAttribute('data-gw-state-active');
+                }
+              }
+              if (state !== 'default' && matched === 0 && !document.querySelector('.gw-state-fallback-pill')) {
+                var pill = document.createElement('div');
+                pill.className = 'gw-state-fallback-pill';
+                pill.textContent = 'state: ' + state;
+                document.body.appendChild(pill);
+              }
+              window.dispatchEvent(new CustomEvent('gw:state', { detail: { state: state } }));
+            }
+            if (document.readyState === 'loading') {
+              document.addEventListener('DOMContentLoaded', applyState);
+            } else {
+              applyState();
+            }
+          })();
+        </script>`;
+        html = html.includes("</head>") ? html.replace("</head>", `${stateInjection}</head>`) : html + stateInjection;
+
         if (xray) {
           const xrayInjection = `<style>
             [data-gw-region], [data-gw-endpoint], [data-gw-schema] {

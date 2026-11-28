@@ -277,7 +277,7 @@ export function PlanStudio({
 
   const firstScreen = plan.design?.screens[0];
   const protoUrl = firstScreen
-    ? `/api/prototype?workspace=${encodeURIComponent(space.workspace.id)}${space.project_id ? `&project=${encodeURIComponent(space.project_id)}` : ""}&plan=${encodeURIComponent(plan.slug)}&file=${encodeURIComponent(firstScreen.prototype)}&xray=${xray ? "1" : "0"}`
+    ? `/api/prototype?workspace=${encodeURIComponent(space.workspace.id)}${space.project_id ? `&project=${encodeURIComponent(space.project_id)}` : ""}&plan=${encodeURIComponent(plan.slug)}&file=${encodeURIComponent(firstScreen.prototype)}&xray=${xray ? "1" : "0"}&state=${encodeURIComponent(activeState)}`
     : null;
 
   return (
@@ -376,6 +376,8 @@ export function PlanStudio({
                 return (
                   <div
                     key={i}
+                    role="button"
+                    tabIndex={0}
                     className="section-card"
                     style={{
                       cursor: "pointer",
@@ -383,6 +385,12 @@ export function PlanStudio({
                       boxShadow: isHl ? "0 0 0 3px rgba(79,70,229,0.14)" : undefined,
                     }}
                     onClick={() => onOpenEntity(d.entity_id, undefined, plan.id)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        onOpenEntity(d.entity_id, undefined, plan.id);
+                      }
+                    }}
                     title={`Inspect ${d.entity_id} in Plan Preview`}
                   >
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 4 }}>

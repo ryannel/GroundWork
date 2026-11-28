@@ -10,9 +10,10 @@ Living record of Groundwork's surfaces, the questions each surface raises, expec
 - **Verified:** Light & Dark, 2026-11-28.
 
 ## System Map (`/w/:ws[/p/:project]?select=:id`)
-- **Shows:** Interactive ELK system/component/store/topic/external graph with pan/zoom, Expand/Collapse, Isolate 1-Hop, Hide Transitive, Full Screen, and accurate served-API / table / file counts.
+- **Shows:** Interactive ELK system/component/store/topic/external graph with pan/zoom, Expand/Collapse, Isolate 1-Hop, Hide Transitive, Full Screen, edge count pills, and accurate served-API / table / file counts.
 - **Questions → Destinations:**
   - "Inspect a node in place" → Click node → `InspectorDrawer` (`?select=:id`)
+  - "What are those N calls/dependencies on an arrow?" → Click edge or edge count pill → `Connection Details` drawer (`?select=edge:...`) listing modeled calls, clickable scanned outbound calls, and scanner trust warnings
   - "Go straight to the full page" → Double-click node → `/entity/:id`
   - "Jump to any entity, endpoint or SQL table" → `⌘K` Command Palette → direct deep-link (`?tab=api&endpoint=...` or `?table=...`)
 - **Verified:** Light & Dark (WordLoop, Thrum, Acme Commerce), 2026-11-28.
@@ -36,10 +37,10 @@ Living record of Groundwork's surfaces, the questions each surface raises, expec
 - **Verified:** Light & Dark (WordLoop Core, Thrum Render, Orders API), 2026-11-28.
 
 ## Full Database View (`/entity/:storeId?table=:name&dbview=tables|er`)
-- **Shows:** Writers/Readers, searchable table list, typed columns (`PK`, `NOT NULL`, clickable `FK → target(col)`), `Referenced By`, and 2D pan/zoom ER Diagram.
+- **Shows:** Writers/Readers, searchable table list merging authored records with scanned SQL DDL (`modeled + sql-ddl` so modeled stubs never hide scanned columns or FKs), typed columns (`PK`, `NOT NULL`, clickable `FK → target(col)`), `Referenced By`, and 2D pan/zoom ER Diagram with in-place table inspector.
 - **Questions → Destinations:**
-  - "Follow a foreign key" → Click `FK → users(id)` → switches straight to `users` table (`?table=users`)
-  - "See how all tables connect" → `ER Diagram` tab (`?dbview=er`)
+  - "Follow a foreign key" → Click `FK → users(id)` in Schema Tables or ER Diagram → switches straight to `users` table (`?table=users`) and pushes browser history so Browser Back returns to the previous table
+  - "See how all tables connect" → `ER Diagram` tab (`?dbview=er`); clicking any table card or `+N more column(s)` opens the full column list and relationships in place
 - **Verified:** Light & Dark, 2026-11-28.
 
 ## Full Queue, System & External Views (`/entity/topic:*`, `system:*`, `external:*`)
@@ -55,8 +56,8 @@ Living record of Groundwork's surfaces, the questions each surface raises, expec
   - `Overview`: 4-pillar jump strip, problem/why, clickable Affected Entities, sign-offs, maturity gate, inline Review Notes form.
   - `1. Architecture`: `BEFORE | DIFF | AFTER` map toolbar + clickable Overlay Diff cards jumping straight to exact table/endpoint under `Plan Preview`.
   - `Walkthrough & Flows`: Architecture Flow + Sequence (Mermaid) + Full Screen + `QuickPeekDrawer` with 1-click deep-link and `Return to Plan` / Browser Back restoring exact step.
-  - `2. Design`: Desktop/Mobile/X-Ray prototype iframe, Screen States, clickable X-Ray bindings.
+  - `2. Design`: Desktop/Mobile/X-Ray prototype iframe, live Screen States (`default`, `loading`, `error-409` via `/api/prototype?...&state=`), clickable X-Ray bindings.
   - `3. Execution` & `4. Proof`: Work Item DAG, cross-linked `Implements` ↔ `1. Architecture` and `Verified By` ↔ `4. Proof`.
 - **Open Gaps:**
-  - `2. Design` Screen States (`loading`, `error-409`) currently highlight the button but do not yet pass `&state=` to `/api/prototype` to render alternate prototype states.
+  - None blocking; Plan Studio currently defaults to `Walkthrough & Flows` when opened without `?tab=` (confirm if `Overview` should be the default landing tab for new visitors).
 - **Verified:** Light & Dark, 2026-11-28.

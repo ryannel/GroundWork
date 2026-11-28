@@ -77,13 +77,13 @@ export function WorkspaceLanding({ workspaces, onOpen, onOpenPlans }: Props) {
 
                   <div style={{ display: "flex", gap: 14, flexWrap: "wrap", fontSize: 12, color: "var(--text-muted)", marginBottom: isMulti ? 14 : 0 }}>
                     <span style={{ display: "inline-flex", alignItems: "center", gap: 5 }}>
-                      <Layers size={13} /> <strong>{ws.systems_count ?? 0}</strong> systems
+                      <Layers size={13} /> <strong>{ws.systems_count ?? 0}</strong> {(ws.systems_count ?? 0) === 1 ? "system" : "systems"}
                     </span>
                     <span style={{ display: "inline-flex", alignItems: "center", gap: 5 }}>
-                      <Box size={13} /> <strong>{ws.components_count ?? 0}</strong> components
+                      <Box size={13} /> <strong>{ws.components_count ?? 0}</strong> {(ws.components_count ?? 0) === 1 ? "component" : "components"}
                     </span>
                     <span style={{ display: "inline-flex", alignItems: "center", gap: 5 }}>
-                      <GitFork size={13} /> <strong>{ws.repos_count ?? 0}</strong> repos
+                      <GitFork size={13} /> <strong>{ws.repos_count ?? 0}</strong> {(ws.repos_count ?? 0) === 1 ? "repo" : "repos"}
                     </span>
                     <span style={{ display: "inline-flex", alignItems: "center", gap: 5 }}>
                       <FileCode2 size={13} /> <strong>{ws.plans_count ?? 0}</strong> {(ws.plans_count ?? 0) === 1 ? "plan" : "plans"}
@@ -125,11 +125,11 @@ export function WorkspaceLanding({ workspaces, onOpen, onOpenPlans }: Props) {
                                 <div style={{ fontSize: 12, color: "var(--text-muted)", marginTop: 2 }}>{proj.description}</div>
                               )}
                               <div style={{ display: "flex", gap: 10, marginTop: 6, fontSize: 11, color: "var(--text-faint)" }}>
-                                <span>{proj.systems_count} systems</span>
+                                <span>{proj.systems_count} {proj.systems_count === 1 ? "system" : "systems"}</span>
                                 <span>·</span>
-                                <span>{proj.components_count} components</span>
+                                <span>{proj.components_count} {proj.components_count === 1 ? "component" : "components"}</span>
                                 <span>·</span>
-                                <span>{proj.repos_count} repos</span>
+                                <span>{proj.repos_count} {proj.repos_count === 1 ? "repo" : "repos"}</span>
                               </div>
                             </div>
                             <ArrowRight size={16} color="var(--accent)" />

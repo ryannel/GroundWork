@@ -488,7 +488,7 @@ export function EntityDetailPage({
                             title={z.summary}
                           >
                             <span>{z.name}</span>
-                            <span style={{ opacity: 0.75, fontWeight: 400, fontSize: 11 }}>{z.paths.length} paths</span>
+                            <span style={{ opacity: 0.75, fontWeight: 400, fontSize: 11 }}>{z.paths.length} {z.paths.length === 1 ? "path" : "paths"}</span>
                           </button>
                         );
                       })}
@@ -761,7 +761,7 @@ export function EntityDetailPage({
                   <span className="badge teal">Database · {store.form}</span>
                   {!fromPlan && <span className="badge">As-Is System</span>}
                   {store.tech && <span className="badge">{store.tech}</span>}
-                  <span className="badge">{combinedTables.length} tables</span>
+                  <span className="badge">{combinedTables.length} {combinedTables.length === 1 ? "table" : "tables"}</span>
                   {store.owner === "unknown" ? (
                     <span className="badge amber"><ShieldAlert size={12} /> owner: unknown</span>
                   ) : (
@@ -1048,7 +1048,7 @@ export function EntityDetailPage({
                           >
                             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8 }}>
                               <strong>{st.name}</strong>
-                              <span className="badge teal">{tblCount} tables</span>
+                              <span className="badge teal">{tblCount} {tblCount === 1 ? "table" : "tables"}</span>
                             </div>
                             <div className="mono" style={{ color: "var(--text-faint)", fontSize: 11, marginTop: 2 }}>
                               {st.id}{st.tech ? ` · ${st.tech}` : ""}

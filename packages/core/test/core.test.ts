@@ -159,8 +159,11 @@ describe("packages/core", () => {
   });
 
   it("resolves evidence, evaluates orientation.yaml, and builds orient briefs for both submodules and monorepo crates", () => {
+    const personalWs = discoverWorkspaces(REPO_ROOT).find((w) => w.id === "workspace:personal");
+    if (!personalWs) return; // Private local workspace not mounted in this environment
+
     // 1. Nested submodule service (wordloop-core)
-    const wlSpace = loadSpace(path.join(REPO_ROOT, "examples/personal/projects/wordloop-platform"));
+    const wlSpace = loadSpace(resolveSpaceDir(personalWs, "project:wordloop-platform"));
     const wlIndex = buildIndex(wlSpace);
     const coreSys = wlSpace.systems.find((s) => s.id === "system:core-platform")!;
     const coreComp = coreSys.components.find((c) => c.id === "service:wordloop-core")!;
@@ -180,7 +183,7 @@ describe("packages/core", () => {
     expect(coreBrief?.modules.length).toBeGreaterThan(0);
 
     // 2. Monorepo Rust crate (thrum-render)
-    const thrumSpace = loadSpace(path.join(REPO_ROOT, "examples/personal/projects/thrum"));
+    const thrumSpace = loadSpace(resolveSpaceDir(personalWs, "project:thrum"));
     const thrumIndex = buildIndex(thrumSpace);
     const renderSys = thrumSpace.systems.find((s) => s.id === "system:thrum-rendering")!;
     const renderComp = renderSys.components.find((c) => c.id === "module:thrum-render")!;

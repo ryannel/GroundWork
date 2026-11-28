@@ -12,8 +12,16 @@ function resolveTheme(pref: ThemePreference): "light" | "dark" {
 
 function applyTheme(pref: ThemePreference): "light" | "dark" {
   const resolved = resolveTheme(pref);
-  document.documentElement.dataset.theme = resolved;
-  document.documentElement.style.colorScheme = resolved;
+  if (document.documentElement.dataset.theme && document.documentElement.dataset.theme !== resolved) {
+    document.documentElement.classList.add("theme-switching");
+    document.documentElement.dataset.theme = resolved;
+    document.documentElement.style.colorScheme = resolved;
+    void document.documentElement.offsetHeight;
+    document.documentElement.classList.remove("theme-switching");
+  } else {
+    document.documentElement.dataset.theme = resolved;
+    document.documentElement.style.colorScheme = resolved;
+  }
   return resolved;
 }
 

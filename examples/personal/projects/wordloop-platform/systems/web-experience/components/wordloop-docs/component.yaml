@@ -1,9 +1,0 @@
-id: wordloop-docs
-name: WordLoop Docs Portal
-kind: app
-form: web
-tech: TypeScript / Static Docs
-home: docs
-depth: contract-only
-does: Publishes generated OpenAPI and AsyncAPI developer reference docs.
-cites: [wordloop-docs:package.json#L1-20]

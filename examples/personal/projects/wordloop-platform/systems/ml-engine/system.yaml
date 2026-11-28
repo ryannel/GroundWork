@@ -1,7 +1,0 @@
-id: ml-engine
-name: ML & Speech Engine
-purpose: Python FastAPI service for real-time audio streaming transcription, voice speaker matching, and AI chat.
-domain: domain:intelligence
-mapped: true
-homes:
-  ml: { repo: wordloop-ml }

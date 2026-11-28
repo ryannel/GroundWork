@@ -99,8 +99,40 @@ export function getComponentRichEndpoints(
   };
 }
 
+function parseScannedTableColumns(s: ScannedSurface): DbColumnSpec[] {
+  const rawDefs = Array.isArray(s.details?.column_defs)
+    ? (s.details.column_defs as Array<{
+        name: string;
+        type: string;
+        required?: boolean;
+        primary_key?: boolean;
+        references?: string;
+        notes?: string;
+      }>)
+    : null;
+  if (rawDefs) {
+    return rawDefs.map((c) => ({
+      id: c.name,
+      name: c.name,
+      type: c.type,
+      required: c.required,
+      primaryKey: c.primary_key,
+      references: c.references,
+      notes: c.notes,
+    }));
+  }
+  return (Array.isArray(s.details?.columns) ? (s.details.columns as string[]) : []).map((c) => ({
+    id: c,
+    name: c,
+    type: "sql",
+  }));
+}
+
 /**
  * Single source of truth for merging authored store records + scanned SQL DDL tables.
+ * When a table is both authored and scanned from SQL DDL, merges all scanned columns,
+ * types, nullability, and foreign keys with authored fields and plan diffs so partial
+ * modeled stubs never hide real database columns or relationships.
  */
 export function getStoreTables(
   space: SpacePayload,
@@ -108,13 +140,19 @@ export function getStoreTables(
   diffByEntity?: ReadonlyMap<string, "added" | "modified" | "removed">,
 ): DbTableSpec[] {
   const scannedTables = store.form === "database" ? getAllScannedSurfaces(space).filter((s) => s.kind === "table") : [];
+  const scannedByName = new Map<string, ScannedSurface>();
+  for (const s of scannedTables) {
+    const tName = s.symbol ?? String(s.details?.table ?? s.surface_id.replace(/^table:/, ""));
+    if (!scannedByName.has(tName)) scannedByName.set(tName, s);
+  }
+
   const combined: DbTableSpec[] = [];
   const seen = new Set<string>();
 
   for (const rec of store.records ?? []) {
     const name = rec.table ?? rec.id.replace(/^schema:/, "");
     seen.add(name);
-    const cols: DbColumnSpec[] = rec.fields.map((f) => ({
+    const authoredCols: DbColumnSpec[] = rec.fields.map((f) => ({
       id: f.id,
       name: f.name,
       type: typeof f.type === "string" ? f.type : JSON.stringify(f.type),
@@ -122,49 +160,54 @@ export function getStoreTables(
       primaryKey: f.name === "id",
       diffKind: diffByEntity?.get(`${rec.id}#${f.id}`),
     }));
-    combined.push({
-      name,
-      schemaId: rec.id,
-      source: "authored",
-      columns: cols,
-      hasPlanChange: cols.some((c) => Boolean(c.diffKind)),
-    });
+
+    const scannedMatch = scannedByName.get(name);
+    if (scannedMatch) {
+      const scannedCols = parseScannedTableColumns(scannedMatch);
+      const authoredByName = new Map(authoredCols.map((c) => [c.name.toLowerCase(), c]));
+      const mergedCols: DbColumnSpec[] = scannedCols.map((sc) => {
+        const auth = authoredByName.get(sc.name.toLowerCase());
+        if (!auth) return sc;
+        authoredByName.delete(sc.name.toLowerCase());
+        return {
+          ...sc,
+          id: auth.id,
+          diffKind: auth.diffKind,
+          required: sc.required ?? auth.required,
+          primaryKey: sc.primaryKey ?? auth.primaryKey,
+        };
+      });
+      // Append any authored-only columns (e.g. proposed plan additions not yet in scanned DDL)
+      for (const remaining of authoredByName.values()) {
+        mergedCols.push(remaining);
+      }
+      combined.push({
+        name,
+        schemaId: rec.id,
+        source: "merged",
+        file: scannedMatch.file,
+        columns: mergedCols,
+        hasPlanChange: mergedCols.some((c) => Boolean(c.diffKind)),
+      });
+    } else {
+      combined.push({
+        name,
+        schemaId: rec.id,
+        source: "authored",
+        columns: authoredCols,
+        hasPlanChange: authoredCols.some((c) => Boolean(c.diffKind)),
+      });
+    }
   }
 
-  for (const s of scannedTables) {
-    const tName = s.symbol ?? String(s.details?.table ?? s.surface_id.replace(/^table:/, ""));
+  for (const [tName, s] of scannedByName) {
     if (seen.has(tName)) continue;
     seen.add(tName);
-    const rawDefs = Array.isArray(s.details?.column_defs)
-      ? (s.details.column_defs as Array<{
-          name: string;
-          type: string;
-          required?: boolean;
-          primary_key?: boolean;
-          references?: string;
-          notes?: string;
-        }>)
-      : null;
-    const cols: DbColumnSpec[] = rawDefs
-      ? rawDefs.map((c) => ({
-          id: c.name,
-          name: c.name,
-          type: c.type,
-          required: c.required,
-          primaryKey: c.primary_key,
-          references: c.references,
-          notes: c.notes,
-        }))
-      : (Array.isArray(s.details?.columns) ? (s.details.columns as string[]) : []).map((c) => ({
-          id: c,
-          name: c,
-          type: "sql",
-        }));
     combined.push({
       name: tName,
       source: "scanned",
       file: s.file,
-      columns: cols,
+      columns: parseScannedTableColumns(s),
       hasPlanChange: false,
     });
   }

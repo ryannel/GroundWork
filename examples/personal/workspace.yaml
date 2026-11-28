@@ -1,7 +1,0 @@
-schema_version: 1
-id: workspace:personal
-name: Personal Projects
-description: Real personal projects — WordLoop Platform (nested polyglot monorepo) and Thrum (Rust game engine).
-projects:
-  - project:wordloop-platform
-  - project:thrum

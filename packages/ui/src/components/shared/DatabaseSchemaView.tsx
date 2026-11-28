@@ -20,10 +20,15 @@ export interface DbColumnSpec {
 export interface DbTableSpec {
   readonly name: string;
   readonly schemaId?: string;
-  readonly source: "authored" | "scanned";
+  readonly source: "authored" | "scanned" | "merged";
   readonly file?: string;
   readonly columns: readonly DbColumnSpec[];
   readonly hasPlanChange: boolean;
+}
+
+function formatTableSource(source: DbTableSpec["source"]): string {
+  if (source === "merged") return "modeled + sql-ddl";
+  return source === "authored" ? "modeled" : "scanned sql-ddl";
 }
 
 interface PositionedTable {
@@ -80,6 +85,13 @@ export function DatabaseSchemaView({
   useEffect(() => {
     if (selectedTableName) setErSelected(selectedTableName);
   }, [selectedTableName]);
+
+  const selectErTable = (name: string | null) => {
+    setErSelected(name);
+    if (name && name !== selectedTableName) {
+      onSelectTable(name);
+    }
+  };
 
   const inspectInTablesView = (name: string) => {
     if (onInspectTable) {
@@ -414,12 +426,14 @@ export function DatabaseSchemaView({
                     <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                       <Table2 size={16} color="#4f46e5" />
                       <span className="mono" style={{ fontWeight: 800, fontSize: 16 }}>{activeTable.name}</span>
-                      <span className="badge">{activeTable.source === "authored" ? "modeled" : "scanned sql-ddl"}</span>
-                      <span className="badge">{activeTable.columns.length} columns</span>
+                      <span className="badge">{formatTableSource(activeTable.source)}</span>
+                      <span className="badge">{activeTable.columns.length} {activeTable.columns.length === 1 ? "column" : "columns"}</span>
                     </div>
                     {(activeTable.schemaId || activeTable.file) && (
                       <div className="mono" style={{ fontSize: 11, color: "var(--text-faint)", marginTop: 4 }}>
-                        {activeTable.schemaId ?? `Source: ${activeTable.file}`}
+                        {activeTable.schemaId && activeTable.file
+                          ? `${activeTable.schemaId} · ${activeTable.file}`
+                          : activeTable.schemaId ?? `Source: ${activeTable.file}`}
                       </div>
                     )}
                   </div>
@@ -524,7 +538,7 @@ export function DatabaseSchemaView({
               {(referencedBy.get(activeTable.name)?.length ?? 0) > 0 && (
                 <div className="section-card">
                   <div className="section-title">
-                    Referenced By ({referencedBy.get(activeTable.name)!.length} tables)
+                    Referenced By ({referencedBy.get(activeTable.name)!.length} {referencedBy.get(activeTable.name)!.length === 1 ? "table" : "tables"})
                   </div>
                   <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                     {referencedBy.get(activeTable.name)!.map((ref) => (
@@ -572,8 +586,8 @@ export function DatabaseSchemaView({
                     </span>
                   </div>
                   <div style={{ display: "flex", gap: 6, marginTop: 5, flexWrap: "wrap" }}>
-                    <span className="badge">{erFocusedTable.columns.length} columns</span>
-                    <span className="badge">{erFocusedTable.source === "authored" ? "modeled" : "scanned sql-ddl"}</span>
+                    <span className="badge">{erFocusedTable.columns.length} {erFocusedTable.columns.length === 1 ? "column" : "columns"}</span>
+                    <span className="badge">{formatTableSource(erFocusedTable.source)}</span>
                   </div>
                 </div>
                 <button className="icon-btn" onClick={() => setErSelected(null)} title="Close table details">
@@ -620,7 +634,7 @@ export function DatabaseSchemaView({
                                 type="button"
                                 className="entity-link"
                                 style={{ fontSize: 10.5, padding: "1px 6px" }}
-                                onClick={() => setErSelected(targetTbl)}
+                                onClick={() => selectErTable(targetTbl)}
                                 title={`Focus ${targetTbl} in ER Diagram`}
                               >
                                 <Link2 size={10} /> FK → {c.references}
@@ -646,7 +660,7 @@ export function DatabaseSchemaView({
                           type="button"
                           className="entity-link neutral"
                           style={{ fontSize: 11, padding: "2px 7px" }}
-                          onClick={() => setErSelected(ref.table)}
+                          onClick={() => selectErTable(ref.table)}
                         >
                           {ref.table}.{ref.column}
                         </button>
@@ -727,7 +741,7 @@ export function DatabaseSchemaView({
                     <foreignObject key={t.name} x={node.x} y={node.y} width={node.width} height={node.height}>
                       <div
                         data-no-pan
-                        onClick={() => setErSelected((cur) => (cur === t.name ? null : t.name))}
+                        onClick={() => selectErTable(erSelected === t.name ? null : t.name)}
                         onDoubleClick={() => inspectInTablesView(t.name)}
                         style={{
                           width: "100%",
@@ -804,7 +818,7 @@ export function DatabaseSchemaView({
                           ))}
                           {overflow > 0 && (
                             <div style={{ padding: "2px 10px", fontSize: 10.5, color: "var(--accent)", fontWeight: 600 }}>
-                              +{overflow} more columns — click to view all
+                              +{overflow} more {overflow === 1 ? "column" : "columns"} — click to view all
                             </div>
                           )}
                         </div>

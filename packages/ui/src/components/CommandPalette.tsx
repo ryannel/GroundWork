@@ -111,7 +111,7 @@ export function CommandPalette({ open, space, onClose, onSelect }: Props) {
         <input
           ref={inputRef}
           className="cmd-input"
-          placeholder="Jump to service, API endpoint (/meetings, /people), SQL table (tasks), queue, or plan…"
+          placeholder="Jump to service, endpoint (/meetings), table, queue, or plan…"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={(e) => {

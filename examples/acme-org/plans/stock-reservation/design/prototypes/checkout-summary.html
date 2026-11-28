@@ -6,19 +6,45 @@
   <style>
     body { font-family: system-ui, sans-serif; padding: 24px; background: #f8fafc; color: #0f172a; }
     .card { max-width: 520px; background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; }
-    .banner { padding: 12px 14px; border-radius: 8px; background: #ecfdf5; border: 1px solid #10b981; color: #065f46; margin: 12px 0; }
-    .btn { background: #0f172a; color: #fff; border: none; padding: 10px 18px; border-radius: 8px; cursor: pointer; }
+    .banner { padding: 12px 14px; border-radius: 8px; margin: 12px 0; font-size: 14px; font-weight: 500; }
+    .banner-ok { background: #ecfdf5; border: 1px solid #10b981; color: #065f46; }
+    .banner-loading { background: #eef2ff; border: 1px solid #818cf8; color: #3730a3; }
+    .banner-error { background: #fef2f2; border: 1px solid #ef4444; color: #991b1b; }
+    .btn { background: #0f172a; color: #fff; border: none; padding: 10px 18px; border-radius: 8px; cursor: pointer; font-weight: 600; }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-secondary { background: #fff; color: #0f172a; border: 1px solid #cbd5e1; padding: 10px 18px; border-radius: 8px; cursor: pointer; font-weight: 600; }
   </style>
 </head>
 <body>
   <div class="card">
     <h2>Checkout Summary</h2>
-    <div id="hold-banner" class="banner" data-gw-region="hold-banner" data-gw-schema="schema:orders-api/create-order-response#reserve-until">
-      Reserved for you — 47h 59m remaining
+
+    <div data-gw-state="default">
+      <div id="hold-banner" class="banner banner-ok" data-gw-region="hold-banner" data-gw-schema="schema:orders-api/create-order-response#reserve-until">
+        Reserved for you — 47h 59m remaining
+      </div>
+      <button class="btn" data-gw-action="submit-order" data-gw-endpoint="endpoint:orders-api/create-order">
+        Confirm &amp; Continue
+      </button>
     </div>
-    <button class="btn" data-gw-action="submit-order" data-gw-endpoint="endpoint:orders-api/create-order">
-      Confirm &amp; Continue
-    </button>
+
+    <div data-gw-state="loading">
+      <div class="banner banner-loading" data-gw-region="hold-banner" data-gw-schema="schema:orders-api/create-order-response#reserve-until">
+        Reserving stock vehicle…
+      </div>
+      <button class="btn" disabled data-gw-action="submit-order" data-gw-endpoint="endpoint:orders-api/create-order">
+        Confirming Reservation…
+      </button>
+    </div>
+
+    <div data-gw-state="error-409">
+      <div class="banner banner-error" data-gw-region="hold-banner" data-gw-schema="schema:orders-api/create-order-response#reserve-until">
+        Vehicle already reserved by another buyer (HTTP 409 Conflict)
+      </div>
+      <button class="btn-secondary" data-gw-action="submit-order" data-gw-endpoint="endpoint:orders-api/create-order">
+        Browse Similar Stock Vehicles
+      </button>
+    </div>
   </div>
 </body>
 </html>
